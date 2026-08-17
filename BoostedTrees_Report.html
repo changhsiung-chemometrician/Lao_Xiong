@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUN_BoostedTrees_CmpClsfr — Development Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #fafaf7;
+  --paper-deep:   #f0efea;
+  --paper-edge:   #d8d6cd;
+  --ink:          #0a0a0a;
+  --ink-soft:     #2a2a2a;
+  --ink-faded:    #6a6a6a;
+  --rule:         #0a0a0a;
+  --accent:       #c8412a;      /* signal red */
+  --accent-deep:  #a3331f;
+  --accent-warm:  #c8412a;
+  --highlight:    #ffe066;      /* clean yellow */
+  --code-bg:      #0a0a0a;
+  --code-fg:      #ffe066;
+  --good:         #2d6a3e;
+  --bad:          #c8412a;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  /* Helvetica family with Inter as a heavier modern fallback for non-mac systems */
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 21px;
+  line-height: 1.55;
+  font-weight: 500;
+  font-feature-settings: "kern", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* subtle paper grain — disabled for clean Swiss look */
+body::before { display: none; }
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 70px 60px 100px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==== MASTHEAD ============================================ */
+.masthead {
+  border-top: 8px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 32px 0 30px;
+  margin-bottom: 60px;
+  position: relative;
+}
+.masthead .eyebrow {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+}
+.masthead h1 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 92px;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin: 0 0 12px;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+.masthead h1 em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--ink-faded);
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
+.masthead .subtitle {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--ink-soft);
+  margin: 18px 0 26px;
+  line-height: 1.35;
+  max-width: 720px;
+}
+.masthead .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  display: flex;
+  justify-content: flex-start;
+  gap: 36px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid var(--paper-edge);
+}
+.masthead .meta span strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ==== EXECUTIVE SUMMARY (callout box) ==================== */
+.executive {
+  background: var(--ink);
+  color: var(--paper);
+  border-left: none;
+  padding: 44px 50px 40px;
+  margin: 0 0 60px;
+  position: relative;
+  box-shadow: none;
+}
+.executive h2 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--highlight);
+  margin: 0 0 22px;
+}
+.executive p {
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 500;
+  margin: 0 0 16px;
+  color: var(--paper);
+}
+.executive p:last-child { margin-bottom: 0; }
+.executive p strong {
+  color: var(--highlight);
+  font-weight: 700;
+  background: none;
+  padding: 0;
+}
+
+/* ==== TABLE OF CONTENTS ================================== */
+.toc {
+  border: 2px solid var(--ink);
+  padding: 32px 40px 28px;
+  margin-bottom: 70px;
+  background: var(--paper);
+}
+.toc h2 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+}
+.toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: toc;
+}
+.toc li {
+  counter-increment: toc;
+  display: flex;
+  align-items: baseline;
+  padding: 9px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 22px;
+  letter-spacing: 0.05em;
+  min-width: 30px;
+}
+.toc li .dots {
+  flex: 1;
+  border-bottom: 2px dotted var(--paper-edge);
+  margin: 0 12px 7px;
+}
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.toc a:hover { color: var(--accent); }
+.toc .page {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-faded);
+  letter-spacing: 0.05em;
+}
+
+/* ==== SECTIONS =========================================== */
+section {
+  margin-bottom: 80px;
+  scroll-margin-top: 30px;
+}
+section > h2 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.0;
+  margin: 0 0 16px;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+section > h2::before {
+  content: counter(section, decimal-leading-zero);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  vertical-align: middle;
+  display: block;
+  margin-bottom: 10px;
+}
+body { counter-reset: section; }
+section { counter-increment: section; }
+.section-rule {
+  border: 0;
+  border-top: 3px solid var(--ink);
+  margin: 0 0 32px;
+  position: relative;
+}
+.section-rule::after { display: none; }
+section h3 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin: 42px 0 14px;
+  color: var(--ink);
+  font-style: normal;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+section h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 32px 0 12px;
+}
+section p {
+  margin: 0 0 18px;
+  font-size: 21px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+/* drop cap removed — does not work with sans-serif */
+section > .lede::first-letter {
+  font-size: inherit;
+  float: none;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+}
+section > .lede {
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* ==== INLINE ELEMENTS ==================================== */
+strong { color: var(--ink); font-weight: 800; }
+em { font-style: italic; }
+code, .mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  font-weight: 600;
+  background: var(--paper-deep);
+  padding: 2px 7px;
+  border-radius: 2px;
+  color: var(--ink);
+  border: 1px solid var(--paper-edge);
+}
+section ul, section ol {
+  font-size: 21px;
+  line-height: 1.55;
+  font-weight: 500;
+  padding-left: 28px;
+}
+section li { margin-bottom: 8px; }
+
+/* ==== CODE BLOCKS ======================================== */
+pre {
+  background: var(--code-bg);
+  color: var(--paper);
+  padding: 26px 30px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 26px 0;
+  border-left: 6px solid var(--accent);
+  box-shadow: none;
+  border-radius: 0;
+}
+pre code {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  font-weight: 500;
+}
+pre .kw { color: #ff8c5a; font-weight: 700; }
+pre .cm { color: #888; font-style: italic; }
+pre .str { color: var(--highlight); }
+pre .num { color: var(--highlight); font-weight: 700; }
+
+/* ==== CALLOUTS / ASIDES =================================== */
+.aside {
+  background: var(--paper-deep);
+  border: none;
+  border-left: 6px solid var(--accent);
+  padding: 22px 28px;
+  margin: 26px 0;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.5;
+  position: relative;
+}
+.aside::before {
+  content: 'NOTE';
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+.aside.warn::before { content: 'CAVEAT'; }
+.aside.tip::before { content: 'INSIGHT'; }
+
+/* ==== TABLES ============================================= */
+.table-wrap {
+  margin: 30px 0;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 17px;
+  font-weight: 500;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+table caption {
+  text-align: left;
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+thead th {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 14px 18px;
+  border: none;
+}
+tbody td {
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--paper-edge);
+  vertical-align: top;
+  font-weight: 500;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--paper-deep); }
+tbody td:first-child {
+  font-weight: 700;
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.num-cell { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; }
+.good { color: var(--good); font-weight: 800; }
+.bad { color: var(--bad); font-weight: 800; }
+
+/* ==== RESULT CARDS ======================================= */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 30px 0;
+}
+.result-card {
+  border: 2px solid var(--ink);
+  padding: 26px 22px;
+  background: var(--paper);
+  text-align: left;
+  position: relative;
+}
+.result-card .label {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.result-card .value {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--ink);
+  letter-spacing: -0.035em;
+}
+.result-card .unit {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink-faded);
+  margin-left: 2px;
+}
+.result-card .note {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-faded);
+  margin-top: 10px;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+/* ==== TIMELINE =========================================== */
+.timeline {
+  margin: 30px 0;
+  position: relative;
+  padding-left: 30px;
+  border-left: 3px solid var(--ink);
+}
+.timeline-item {
+  position: relative;
+  padding: 4px 0 28px 26px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -40px;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+}
+.timeline-item.failure::before { background: var(--bad); border-color: var(--bad); }
+.timeline-item.success::before { background: var(--good); border-color: var(--good); }
+.timeline-item h4 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.timeline-item .stamp {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+  display: block;
+}
+.timeline-item p { font-size: 18px; margin: 6px 0; font-weight: 500; }
+
+/* ==== TAKEHOME =========================================== */
+.takehome {
+  background: var(--accent);
+  color: var(--paper);
+  padding: 56px 56px 50px;
+  margin: 60px 0 30px;
+  position: relative;
+}
+.takehome::before { display: none; }
+.takehome h2 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.85;
+  margin: 0 0 26px;
+}
+.takehome h3 {
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 44px;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 32px;
+  color: var(--paper);
+  text-transform: uppercase;
+}
+.takehome ol {
+  padding-left: 0;
+  list-style: none;
+  counter-reset: take;
+  font-size: 19px;
+}
+.takehome ol li {
+  counter-increment: take;
+  padding: 18px 0 18px 70px;
+  position: relative;
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 500;
+  border-top: 1px solid rgba(250,250,247,0.25);
+}
+.takehome ol li:first-child { border-top: none; padding-top: 4px; }
+.takehome ol li::before {
+  content: counter(take, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--paper);
+  font-style: normal;
+  letter-spacing: -0.04em;
+}
+.takehome ol li:first-child::before { top: 0; }
+.takehome strong { color: var(--paper); font-weight: 800; }
+.takehome code {
+  background: rgba(10,10,10,0.25);
+  color: var(--paper);
+  border-color: rgba(250,250,247,0.2);
+  font-weight: 600;
+}
+
+/* ==== COLOPHON =========================================== */
+.colophon {
+  text-align: left;
+  border-top: 3px solid var(--ink);
+  border-bottom: none;
+  padding: 24px 0 0;
+  margin-top: 50px;
+  font-family: 'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--ink-faded);
+  text-transform: uppercase;
+}
+.colophon .ornament { display: none; }
+
+/* ==== PRINT ============================================== */
+/* Browsers/PDF exporters frequently strip background colors and screen
+   large bold text as gray halftones. Rather than fighting them with
+   print-color-adjust: exact (which is ignored by many engines), we
+   redesign for print: every block becomes ink-on-white, every color
+   becomes a real ink, every heavy weight is reinforced. */
+@media print {
+  /* hint to engines that DO honor it -- doesn't hurt where ignored */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  @page {
+    margin: 18mm 16mm 20mm 16mm;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+  }
+  body::before { display: none !important; }
+  main {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* ---------- MASTHEAD: keep rules, force black ink ---------- */
+  .masthead {
+    border-top: 8px solid #000 !important;
+    border-bottom: 2px solid #000 !important;
+    page-break-after: avoid;
+  }
+  .masthead h1 {
+    color: #000 !important;
+    font-size: 60pt;
+    -webkit-text-stroke: 0.4pt #000;   /* counter gray-halftone screening */
+  }
+  .masthead h1 em { color: #555 !important; }
+  .masthead .eyebrow { color: #c8412a !important; }
+  .masthead .subtitle { color: #1a1a1a !important; }
+  .masthead .meta { color: #555 !important; }
+  .masthead .meta span strong { color: #000 !important; }
+
+  /* ---------- EXECUTIVE: invert to white-bg, ink type, red rules ---------- */
+  .executive {
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #000 !important;
+    border-left: 10px solid #c8412a !important;
+    padding: 24pt 28pt !important;
+    page-break-inside: avoid;
+  }
+  .executive h2 { color: #c8412a !important; }
+  .executive p { color: #000 !important; }
+  .executive p strong {
+    color: #c8412a !important;
+    background: none !important;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    border: 2px solid #000 !important;
+    background: #fff !important;
+    page-break-inside: avoid;
+  }
+  .toc h2 { color: #c8412a !important; border-bottom-color: #000 !important; }
+  .toc li::before { color: #c8412a !important; }
+  .toc a { color: #000 !important; }
+  .toc .page { color: #555 !important; }
+
+  /* ---------- SECTIONS: force solid ink on headers ---------- */
+  section { page-break-inside: auto; }
+  section > h2 {
+    color: #000 !important;
+    page-break-after: avoid;
+    -webkit-text-stroke: 0.5pt #000;
+  }
+  section > h2::before { color: #c8412a !important; }
+  .section-rule { border-top: 3px solid #000 !important; }
+  section h3 { color: #000 !important; page-break-after: avoid; }
+  section h4 { color: #c8412a !important; }
+  section p, section li { color: #000 !important; }
+
+  /* ---------- CODE BLOCKS: invert to white-bg with border ---------- */
+  pre {
+    background: #fff !important;
+    color: #000 !important;
+    border: 2px solid #000 !important;
+    border-left: 6px solid #c8412a !important;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+  pre .kw { color: #c8412a !important; }
+  pre .cm { color: #555 !important; }
+  pre .str, pre .num { color: #000 !important; font-weight: 700; }
+  code, .mono {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+  }
+
+  /* ---------- ASIDES ---------- */
+  .aside {
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    border-left: 6px solid #c8412a !important;
+    page-break-inside: avoid;
+  }
+  .aside::before { color: #c8412a !important; }
+
+  /* ---------- TABLES: force ink, header band stays solid ---------- */
+  table {
+    border: 2px solid #000 !important;
+    background: #fff !important;
+    page-break-inside: avoid;
+  }
+  thead th {
+    background: #000 !important;
+    color: #fff !important;
+    -webkit-text-stroke: 0 !important;
+  }
+  tbody td { color: #000 !important; border-bottom-color: #888 !important; }
+  tbody td:first-child { color: #000 !important; }
+  table caption { color: #c8412a !important; }
+  .good { color: #1a6b1a !important; }
+  .bad  { color: #c8412a !important; }
+
+  /* ---------- RESULT CARDS: keep ink on white, big numbers solid ---------- */
+  .result-grid { page-break-inside: avoid; }
+  .result-card {
+    background: #fff !important;
+    border: 2px solid #000 !important;
+  }
+  .result-card .label { color: #c8412a !important; }
+  .result-card .value {
+    color: #000 !important;
+    -webkit-text-stroke: 0.6pt #000;   /* keep big numbers truly black, not gray */
+  }
+  .result-card .value.good { color: #1a6b1a !important; -webkit-text-stroke: 0.6pt #1a6b1a; }
+  .result-card .value.bad  { color: #c8412a !important; -webkit-text-stroke: 0.6pt #c8412a; }
+  .result-card .unit { color: #555 !important; }
+  .result-card .note { color: #555 !important; }
+
+  /* ---------- TAKE-HOME: redesign entirely for white paper ----------
+     The screen version has a red background and white text. In print
+     this becomes either an enormous red ink block (wasteful) or gets
+     stripped to white-on-white. Instead: white background, big black
+     numbers, red accent for the header rule. */
+  .takehome {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0 !important;
+    margin: 30pt 0 20pt !important;
+    border-top: 8px solid #c8412a !important;
+    border-bottom: 2px solid #000 !important;
+    padding: 24pt 0 16pt !important;
+    page-break-inside: auto;
+  }
+  .takehome h2 {
+    color: #c8412a !important;
+    opacity: 1 !important;
+  }
+  .takehome h3 {
+    color: #000 !important;
+    -webkit-text-stroke: 0.5pt #000;
+    font-size: 36pt;
+  }
+  .takehome ol { font-size: 12pt; }
+  .takehome ol li {
+    color: #000 !important;
+    border-top: 1px solid #888 !important;
+    padding-left: 70pt !important;
+    page-break-inside: avoid;
+  }
+  .takehome ol li::before {
+    color: #c8412a !important;
+    -webkit-text-stroke: 0.5pt #c8412a;
+  }
+  .takehome strong { color: #000 !important; }
+  .takehome code {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+  }
+
+  /* ---------- COLOPHON ---------- */
+  .colophon {
+    border-top: 2px solid #000 !important;
+    color: #000 !important;
+  }
+}
+
+/* ==== RESPONSIVE ========================================= */
+@media (max-width: 720px) {
+  main { padding: 40px 24px 60px; }
+  body { font-size: 18px; }
+  .masthead h1 { font-size: 54px; line-height: 0.95; }
+  .masthead .subtitle { font-size: 19px; }
+  section > h2 { font-size: 38px; }
+  section > .lede { font-size: 19px; }
+  section p, section ul, section ol { font-size: 18px; }
+  .executive { padding: 32px 26px; }
+  .executive p { font-size: 19px; }
+  .takehome { padding: 36px 28px; }
+  .takehome h3 { font-size: 30px; }
+  .takehome ol li { font-size: 17px; padding-left: 56px; }
+  .takehome ol li::before { font-size: 28px; }
+  .result-grid { grid-template-columns: 1fr; }
+  .result-card .value { font-size: 56px; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<!-- ============== MASTHEAD ============== -->
+<header class="masthead">
+  <div class="eyebrow">Classifier Engineering · Technical Report</div>
+  <h1>Boosted Trees<br><em>for MATLAB</em></h1>
+  <div class="subtitle">From a failed AdaBoost run to a deterministic, K&hairsp;-aware ensemble classifier</div>
+  <div class="meta">
+    <span><strong>FILE</strong>&nbsp;&nbsp;RUN_BoostedTrees_CmpClsfr.m</span>
+    <span><strong>BUILT</strong>&nbsp;&nbsp;May 12, 2026</span>
+    <span><strong>AUTHOR</strong>&nbsp;&nbsp;CMH · w/ Claude</span>
+  </div>
+</header>
+
+<!-- ============== EXECUTIVE SUMMARY ============== -->
+<section class="executive" aria-label="Executive summary" style="counter-increment: none;">
+  <h2>Executive Summary</h2>
+  <p>This report documents the construction of <strong>RUN_BoostedTrees_CmpClsfr.m</strong>, a MATLAB classifier that mirrors the I/O contract of the user's existing Naive Bayes and Logistic Regression siblings, dispatchable from the <span class="mono">merge6</span> / <span class="mono">ScanThruDropDown</span> framework.</p>
+  <p>The function began as a textbook AdaBoostM2 implementation that collapsed catastrophically on a held-out-subject NIR glucose split (<strong>0.00 % external accuracy</strong>). Five iterative refinements later, it is now a deterministic, class-count-aware ensemble that achieves <strong>87.08 %</strong> on the same data, handles <strong>K = 2 through ~60 classes</strong> without code changes, and produces reproducible results across runs.</p>
+  <p>Key engineering decisions: <strong>bagging over boosting</strong> for multi-class robustness, <strong>K-scaled tree depth and ensemble size</strong>, and <strong>seeded RNG by default</strong> for fair head-to-head comparison against deterministic siblings.</p>
+</section>
+
+<!-- ============== TABLE OF CONTENTS ============== -->
+<nav class="toc" aria-label="Table of contents" style="counter-increment: none;">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#sec-naming">Naming · Why &ldquo;Boosted Trees,&rdquo; not &ldquo;XGBoost&rdquo;</a><span class="dots"></span><span class="page">p.&thinsp;01</span></li>
+    <li><a href="#sec-contract">Architecture &amp; I/O Contract</a><span class="dots"></span><span class="page">p.&thinsp;02</span></li>
+    <li><a href="#sec-firstrun">First Run &mdash; The 0 % Disaster</a><span class="dots"></span><span class="page">p.&thinsp;03</span></li>
+    <li><a href="#sec-diagnosis">Diagnosis · Why AdaBoostM2 Collapsed</a><span class="dots"></span><span class="page">p.&thinsp;04</span></li>
+    <li><a href="#sec-fix">The Fix · Bagging, Method Auto-Routing</a><span class="dots"></span><span class="page">p.&thinsp;05</span></li>
+    <li><a href="#sec-highk">Scaling to High Class Counts (K = 20&ndash;60)</a><span class="dots"></span><span class="page">p.&thinsp;06</span></li>
+    <li><a href="#sec-determinism">Determinism · Seeding the RNG</a><span class="dots"></span><span class="page">p.&thinsp;07</span></li>
+    <li><a href="#sec-comparison">Comparison · NB vs. BT vs. SVM</a><span class="dots"></span><span class="page">p.&thinsp;08</span></li>
+    <li><a href="#sec-discussion">Discussion · Why Trees Trail SVM on NIR</a><span class="dots"></span><span class="page">p.&thinsp;09</span></li>
+    <li><a href="#sec-takehome">Take-Home Messages</a><span class="dots"></span><span class="page">p.&thinsp;10</span></li>
+  </ol>
+</nav>
+
+<!-- ============== § 1 NAMING ============== -->
+<section id="sec-naming">
+  <h2>Naming Conventions</h2>
+  <hr class="section-rule">
+  <p class="lede"><strong>XGBoost</strong> is the popular brand. In the Python and R worlds it has become near-synonymous with the technique of gradient-boosted decision trees. But XGBoost itself is a specific third-party library by Chen &amp; Guestrin (2016), and MATLAB does not ship it natively.</p>
+  <p>The closest built-in equivalent in MATLAB is the family of tree ensembles built via <code>fitcensemble</code>, sometimes called <strong>Gradient-Boosted Decision Trees</strong> (GBDT) or simply <strong>Boosted Trees</strong>. Both fit ensembles of shallow trees and aggregate them; the differences from XGBoost proper lie in regularization details (L1/L2 leaf penalties, column subsampling, sparsity-aware splits) rather than in the underlying recipe.</p>
+  <aside class="aside tip">The function is named <code>RUN_BoostedTrees_CmpClsfr.m</code> to reflect what it <em>actually</em> uses. The header comments note that this is what XGBoost popularized, so any future reader following the XGBoost trail will find their way here without confusion.</aside>
+</section>
+
+<!-- ============== § 2 ARCHITECTURE ============== -->
+<section id="sec-contract">
+  <h2>Architecture &amp; I/O Contract</h2>
+  <hr class="section-rule">
+  <p class="lede">The new file inherits the calling convention of its siblings exactly. Anything that drives <code>RUN_NaiveBayes_CmpClsfr</code> can drive this one with a single line change.</p>
+
+  <h4>Inputs</h4>
+  <ul>
+    <li><code>handles</code> &mdash; either a struct containing a field <code>.L</code> (legacy path) or the loaded data struct directly (merge6 dispatch path).</li>
+    <li><code>inp</code> &mdash; optional second argument carrying <code>asmc_num</code> and provenance metadata.</li>
+  </ul>
+
+  <h4>Outputs (all required by merge6 / ScanThruDropDown)</h4>
+  <div class="table-wrap">
+  <table>
+    <caption>Mandatory output fields, parallel to NB &amp; LR siblings</caption>
+    <thead><tr><th>Field</th><th>Type</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>self_Predict_Accuracy</td><td>scalar</td><td>Training-set re-prediction accuracy (%)</td></tr>
+      <tr><td>extr_Predict_Accuracy</td><td>scalar</td><td>External prediction-set accuracy (%)</td></tr>
+      <tr><td>ET_model_build</td><td>scalar</td><td>CPU time to train the ensemble</td></tr>
+      <tr><td>predcls</td><td>vector</td><td>Predicted class indices on the prediction set</td></tr>
+      <tr><td>NmisP</td><td>scalar</td><td>Number of misclassified prediction samples</td></tr>
+      <tr><td>loc_misP</td><td>vector</td><td>Indices of misclassified prediction samples</td></tr>
+      <tr><td>scale_mu, scale_sigma</td><td>vectors</td><td>asmc preprocessing parameters (or empty)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>BT-specific extras (new)</h4>
+  <p>Beyond the I/O contract, the function emits diagnostics useful at all K: <code>BoostMethod</code>, <code>NumLearningCycles</code>, <code>MaxNumSplits</code>, <code>PredictorSelection</code>, <code>PredictorImportance</code>, <code>ConfusionMatrix_P</code>, <code>PerClassAccuracy_P</code>, <code>PerClassSupport_P</code>, <code>BalancedAccuracy_P</code>, and <code>RandomSeed</code>.</p>
+</section>
+
+<!-- ============== § 3 FIRST RUN ============== -->
+<section id="sec-firstrun">
+  <h2>First Run &mdash; The 0&hairsp;% Disaster</h2>
+  <hr class="section-rule">
+  <p class="lede">The initial implementation followed the classical textbook recipe: <code>fitcensemble</code> with <code>'AdaBoostM2'</code> for multi-class, shallow trees, modest learning rate. On the user's glucose NIR dataset (<strong>n<sub>T</sub>&nbsp;=&nbsp;1401</strong>, <strong>n<sub>P</sub>&nbsp;=&nbsp;356</strong>, 3 subject classes), this is what came back:</p>
+
+  <pre><code><span class="cm">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="kw">Warning:</span> AdaBoostM2 exits because pseudo-loss from the last
+hypothesis is not positive.
+<span class="cm">--- self acc  : 54.82 %  ---</span>
+<span class="cm">--- extr acc  :  0.00 %  ---</span>
+<span class="cm">--- NmisP     : 356 / 356  ---</span></code></pre>
+
+  <div class="result-grid">
+    <div class="result-card">
+      <div class="label">Self accuracy</div>
+      <div class="value bad">54.82<span class="unit">%</span></div>
+      <div class="note">barely above chance</div>
+    </div>
+    <div class="result-card">
+      <div class="label">External accuracy</div>
+      <div class="value bad">0.00<span class="unit">%</span></div>
+      <div class="note">complete failure</div>
+    </div>
+    <div class="result-card">
+      <div class="label">Misclassified</div>
+      <div class="value bad">356<span class="unit">/356</span></div>
+      <div class="note">every single sample</div>
+    </div>
+  </div>
+
+  <p>Zero percent &mdash; not chance level (~33%), <em>zero</em>. That margin is the diagnostic clue.</p>
+</section>
+
+<!-- ============== § 4 DIAGNOSIS ============== -->
+<section id="sec-diagnosis">
+  <h2>Diagnosis</h2>
+  <hr class="section-rule">
+  <p class="lede">Inspecting the <code>.mat</code> file revealed the structural problem behind the symptom. The class distributions in train vs. prediction sets were not balanced &mdash; they were <em>disjoint</em>:</p>
+
+  <div class="table-wrap">
+  <table>
+    <caption>Class distribution: train vs. prediction sets</caption>
+    <thead><tr><th>Class</th><th>Label</th><th>Train (n=1401)</th><th>Pred (n=356)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Subj-A</td><td class="num-cell">768</td><td class="num-cell">0</td></tr>
+      <tr><td>2</td><td>Subj-B</td><td class="num-cell">523</td><td class="num-cell"><strong>356</strong></td></tr>
+      <tr><td>3</td><td>Subj-C</td><td class="num-cell">110</td><td class="num-cell">0</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>This is <strong>leave-one-subject-out validation</strong>: the prediction set is exclusively Subject B, held out from training entirely. The model's job is to generalize across subjects &mdash; the hardest possible split for any classifier, and a particularly cruel one for tree-based methods.</p>
+
+  <h3>The mechanism of failure</h3>
+  <p>The AdaBoostM2 warning &mdash; <em>pseudo-loss from the last hypothesis is not positive</em> &mdash; is the algorithm's polite way of saying: <strong>the first tree was already a near-perfect classifier on the training data, so I refuse to add any more</strong>.</p>
+  <p>What does &ldquo;near-perfect&rdquo; mean here? The first tree found a wavelength feature that cleanly separates the three training subjects &mdash; almost certainly a per-subject baseline offset, not anything related to glucose chemistry. Boosting saw zero training error and quit. The resulting single-tree model then assigned every Subject B sample to classes 1 or 3, never to class 2 (which it had learned to discriminate via the very feature it should have ignored).</p>
+  <aside class="aside warn">The dataset's structure exposed a classic tree-ensemble pathology: trees readily latch onto <em>subject-identity confounds</em> when those happen to be more discriminative on the training set than the actual target signal. SVMs with RBF kernels are partially shielded from this because their smooth global decision surfaces resist axis-aligned shortcuts.</aside>
+</section>
+
+<!-- ============== § 5 THE FIX ============== -->
+<section id="sec-fix">
+  <h2>The Fix</h2>
+  <hr class="section-rule">
+  <p class="lede">Three coordinated changes restored sanity. None of them is exotic; together they turn a 0 % classifier into an 87 % one.</p>
+
+  <h3>1. Bagging instead of AdaBoostM2</h3>
+  <p>Bagged trees (random forest, <code>'Method','Bag'</code>) do not have a pseudo-loss early-exit mode. They train 500+ independent trees on bootstrap samples of the training data, each tree seeing a random subset of features at each split (<code>NumVariablesToSample = sqrt(p)</code> by default for classification). The vote across trees averages out the per-tree tendency to overfit subject identity.</p>
+
+  <h3>2. Method auto-routing</h3>
+  <p>A small subfunction <code>local_resolve_method</code> picks the right method given the problem:</p>
+  <pre><code><span class="kw">function</span> bm = local_resolve_method(req, nC)
+    <span class="kw">if</span> strcmpi(req,<span class="str">'auto'</span>)
+        <span class="kw">if</span> nC == <span class="num">2</span>
+            bm = <span class="str">'LogitBoost'</span>;
+        <span class="kw">else</span>
+            bm = <span class="str">'Bag'</span>;     <span class="cm">% robust default for K&gt;2</span>
+        <span class="kw">end</span>
+    <span class="kw">else</span>
+        bm = req;
+    <span class="kw">end</span>
+    <span class="cm">% high-K AdaBoostM2 still permitted, but with a warning</span>
+<span class="kw">end</span></code></pre>
+
+  <h3>3. Warning capture</h3>
+  <p>The pseudo-loss warning is now captured by <code>lastwarn</code> and surfaced explicitly in the output rather than silently buried in the console &mdash; so failures fail loudly.</p>
+
+  <div class="result-grid">
+    <div class="result-card">
+      <div class="label">Self accuracy</div>
+      <div class="value good">98.57<span class="unit">%</span></div>
+      <div class="note">healthy fit</div>
+    </div>
+    <div class="result-card">
+      <div class="label">External accuracy</div>
+      <div class="value good">87.08<span class="unit">%</span></div>
+      <div class="note">on held-out subject</div>
+    </div>
+    <div class="result-card">
+      <div class="label">Misclassified</div>
+      <div class="value">46<span class="unit">/356</span></div>
+      <div class="note">vs. 356/356 before</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== § 6 HIGH-K ============== -->
+<section id="sec-highk">
+  <h2>Scaling to High Class Counts</h2>
+  <hr class="section-rule">
+  <p class="lede">The same defaults that work at K = 3 break silently at K = 60. Three hyperparameters now scale with the number of classes; one is downgraded for speed.</p>
+
+  <div class="table-wrap">
+  <table>
+    <caption>Class-count-aware defaults</caption>
+    <thead><tr><th>nCls</th><th>NumLearningCycles</th><th>MaxNumSplits</th><th>PredictorSelection</th></tr></thead>
+    <tbody>
+      <tr><td>2&ndash;3</td><td class="num-cell">300</td><td class="num-cell">max(10, 4K)</td><td>interaction&hyphen;curvature</td></tr>
+      <tr><td>4&ndash;10</td><td class="num-cell">500</td><td class="num-cell">max(10, 4K)</td><td>interaction&hyphen;curvature</td></tr>
+      <tr><td>11&ndash;12</td><td class="num-cell">500</td><td class="num-cell">4K</td><td>interaction&hyphen;curvature</td></tr>
+      <tr><td>13&ndash;25</td><td class="num-cell">800</td><td class="num-cell">4K</td><td><strong>allsplits</strong></td></tr>
+      <tr><td>26&ndash;60</td><td class="num-cell">1200</td><td class="num-cell">4K (capped at n<sub>T</sub>/2)</td><td><strong>allsplits</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Why each scaling matters</h3>
+  <p><strong>Tree depth.</strong> A tree with <code>MaxNumSplits</code> splits has at most <code>MaxNumSplits + 1</code> leaves. At K = 60, the previous default of 10 splits meant 11 leaves &mdash; mathematically incapable of reaching 49 of the 60 classes. The new <code>max(10, 4K)</code> rule gives 240 leaves at K = 60, with comfortable margin for purity.</p>
+  <p><strong>Ensemble size.</strong> With more classes the decision surface fragments into more regions. Bagging variance reduction needs more trees to cover that surface adequately. 500 trees is enough at K = 3; you want 1000&ndash;1500 at K = 60 before returns level off.</p>
+  <p><strong>Split criterion.</strong> The <code>'interaction-curvature'</code> predictor selection runs chi-square tests at every candidate split &mdash; cost <em>O(p&middot;K)</em> per node. At K = 60 with 100+ NIR wavelengths, this slows training by 50&ndash;100&times;. The function reverts to standard CART (<code>'allsplits'</code>) once K > 12. Accuracy cost: usually small. Speed gain: dramatic.</p>
+
+  <aside class="aside">Reporting also adapts to K. For K &le; 10, per-class accuracy is printed as a full table. For K > 10, only the worst-five classes are printed; the complete K&times;K confusion matrix is always stored in <code>out.ConfusionMatrix_P</code> for later inspection.</aside>
+</section>
+
+<!-- ============== § 7 DETERMINISM ============== -->
+<section id="sec-determinism">
+  <h2>Determinism</h2>
+  <hr class="section-rule">
+  <p class="lede">A subtle question, surfaced late in the development process: <em>is this code reproducible across runs?</em> The honest answer at first was <strong>no</strong>, even though the code carried a <code>'Reproducible',true</code> flag.</p>
+
+  <p>That flag affects only parallel-worker split-finding determinism. It does <em>not</em> seed the bootstrap resampling or random feature subsampling that bagging performs at every iteration &mdash; both of which draw from MATLAB's global RNG stream. Two consecutive calls with identical inputs would produce slightly different ensembles.</p>
+
+  <h3>The resolution</h3>
+  <p>The function now calls <code>rng(42,'twister')</code> by default before any randomized fit. The seed is configurable, and run-to-run variance can be re-enabled for stability checks:</p>
+
+  <div class="table-wrap">
+  <table>
+    <caption>Determinism mode control via handles.RandomSeed</caption>
+    <thead><tr><th>handles.RandomSeed</th><th>Behavior</th><th>Use case</th></tr></thead>
+    <tbody>
+      <tr><td><em>(unset)</em></td><td>rng(42, 'twister')</td><td>Default &mdash; reproducible</td></tr>
+      <tr><td>integer</td><td>rng(integer, 'twister')</td><td>Custom seed for variance studies</td></tr>
+      <tr><td>'none' / NaN / []</td><td>RNG untouched</td><td>Observe run-to-run variance</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <aside class="aside tip">The decision to default <em>on</em> rather than <em>off</em> was driven by the merge6 / ScanThruDropDown comparison framework. Naive Bayes and Logistic Regression are deterministic by construction; comparing a randomized Boosted Trees head-to-head against them would conflate algorithmic performance with seed luck. Default determinism makes the comparison fair.</aside>
+</section>
+
+<!-- ============== § 8 COMPARISON ============== -->
+<section id="sec-comparison">
+  <h2>Performance Comparison</h2>
+  <hr class="section-rule">
+  <p class="lede">On the glucose NIR dataset, the three classifiers occupy distinctly different positions on the accuracy &harr; complexity plane:</p>
+
+  <div class="table-wrap">
+  <table>
+    <caption>Glucose NIR · n<sub>T</sub>=1401 (3 subjects) &middot; n<sub>P</sub>=356 (Subject B held out)</caption>
+    <thead><tr><th>Method</th><th>External Acc.</th><th>Self Acc.</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Naive Bayes</td><td class="num-cell">78.93 %</td><td class="num-cell">&mdash;</td><td>Baseline; strong independence assumption</td></tr>
+      <tr><td>BT (AdaBoostM2)</td><td class="num-cell bad">0.00 %</td><td class="num-cell bad">54.82 %</td><td>Pseudo-loss collapse on first tree</td></tr>
+      <tr><td>BT (Bag, tuned)</td><td class="num-cell good">87.08 %</td><td class="num-cell">98.57 %</td><td>500 trees, MaxNumSplits=10, seeded</td></tr>
+      <tr><td>SVM (RBF)</td><td class="num-cell good">~95 %</td><td class="num-cell">&mdash;</td><td>User-reported, prior work</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Boosted Trees claws back a substantial fraction of NB's deficit relative to SVM &mdash; closing roughly half the gap &mdash; but does not match SVM. The reasons are structural, addressed in the next section.</p>
+</section>
+
+<!-- ============== § 9 DISCUSSION ============== -->
+<section id="sec-discussion">
+  <h2>Discussion</h2>
+  <hr class="section-rule">
+  <p class="lede">Why does SVM still win, and is there headroom to close the remaining gap?</p>
+
+  <h3>The structural mismatch</h3>
+  <p>NIR spectra are <strong>continuous, highly collinear signals</strong>. Adjacent wavelengths share information; the chemically relevant features live in the joint covariance of many channels, not in any single wavelength. SVM with an RBF kernel works in an implicit infinite-dimensional space where smooth, globally curved decision boundaries are natural. PLS-DA succeeds for analogous reasons &mdash; its latent variables capture exactly the kind of multivariate covariance that chemometricians spend careers extracting.</p>
+  <p>Trees, by contrast, make <strong>axis-aligned splits one wavelength at a time</strong>. They cannot naturally express &ldquo;the second principal component of channels 5&ndash;15&rdquo; the way SVM or PLS-DA can. They can only approximate it with a staircase of single-channel splits, which is wasteful and brittle on noisy data.</p>
+
+  <h3>Where to find the remaining accuracy</h3>
+  <p>If matching SVM matters, the realistic path is <strong>not</strong> to keep tuning Boosted Trees on raw wavelengths. It is to <em>preprocess the feature space</em> so the tree splitter sees latent variables that already encode the relevant covariance:</p>
+  <ol>
+    <li><strong>PLS &rarr; BoostedTrees pipeline.</strong> Run PLS-DA to obtain ~K latent variables, then train BT on those instead of the raw 25 wavelengths. The trees no longer fight subject-identity confounds because PLS already factored them out.</li>
+    <li><strong>PCA &rarr; BoostedTrees.</strong> Cheaper than PLS, captures most of the variance, but does not optimize for class separation.</li>
+    <li><strong>True XGBoost via xgboost-matlab.</strong> Gives L1/L2 regularization and column subsampling that <code>fitcensemble</code> lacks. Worth trying if a wrapper is already installed.</li>
+  </ol>
+
+  <h3>When BT will outperform NB and possibly SVM</h3>
+  <p>The dataset matters. Boosted Trees will outperform NB whenever the conditional independence assumption is violated &mdash; which is essentially always with NIR data. BT will rival or beat SVM when the dataset has <em>mixed feature types</em> (continuous and categorical together), <em>strong feature interactions</em> that are sparse and identifiable, or <em>natural axis-aligned structure</em> (e.g. tabular business data, sensor thresholds, e-commerce features). NIR spectra are none of these. Business or behavioral datasets often are.</p>
+</section>
+
+<!-- ============== § 10 TAKE-HOME ============== -->
+<section class="takehome" id="sec-takehome" style="counter-increment: none;">
+  <h2>Take-Home Messages</h2>
+  <h3>What to remember when reaching for this classifier next time</h3>
+  <ol>
+    <li><strong>Always check class distributions before training.</strong> A 0 % external accuracy is rarely a tuning problem &mdash; it is usually a structural mismatch between train and test splits. Leave-one-subject-out is the harshest such mismatch and demands a method robust to subject-identity confounds.</li>
+    <li><strong>Prefer <code>'Bag'</code> over <code>'AdaBoostM2'</code> for K&nbsp;&gt;&nbsp;2.</strong> Pseudo-loss collapse is silent, devastating, and far more common than the documentation suggests. Bagging averages over independent trees and degrades gracefully where boosting fails catastrophically.</li>
+    <li><strong>Tree depth must scale with K.</strong> A tree with fewer leaves than classes is incapable of reaching every class &mdash; an obvious constraint that no MATLAB default enforces. Use roughly <code>max(10, 4&times;nCls)</code> as a sane lower bound on <code>MaxNumSplits</code>.</li>
+    <li><strong>Determinism is not free.</strong> <code>templateTree('Reproducible',true)</code> sounds like it makes things reproducible. It does not. Call <code>rng(seed)</code> explicitly before <code>fitcensemble</code>, and record the seed in your output struct.</li>
+    <li><strong>Trees are the wrong tool for NIR alone.</strong> They make axis-aligned splits on collinear features &mdash; the opposite of what NIR demands. If maximum accuracy matters, project to a chemometric latent space first (PLS / PCA) and then let the trees work in that space. Or use SVM.</li>
+    <li><strong>Honest reporting beats single-number accuracy.</strong> A K&times;K confusion matrix, per-class accuracy, and balanced accuracy together reveal failure modes that a single percentage hides &mdash; especially when class support is imbalanced or when some classes are absent from the test set entirely.</li>
+  </ol>
+</section>
+
+<div class="colophon">
+  Set in Helvetica Neue &middot; Code in JetBrains Mono &middot; Compiled May 12, 2026
+</div>
+
+</main>
+</body>
+</html>

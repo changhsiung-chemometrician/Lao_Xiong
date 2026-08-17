@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MLE vs MAP in a Multi-Armed Bandit — Session Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #111111;
+    --ink-soft:   #4a4a4a;
+    --ink-mute:   #6b6b6b;
+    --rule:       #e5e5e5;
+    --rule-soft:  #f0f0f0;
+    --accent:     #c0392b;      /* MLE red */
+    --accent-2:   #2c5282;      /* MAP blue */
+    --paper:      #ffffff;
+    --band:       #f7f7f5;
+    --band-blue:  #eef3fa;
+    --band-red:   #fbefed;
+    --code-bg:    #f4f4f2;
+  }
+
+  @page {
+    size: letter;
+    margin: 0.75in 0.85in;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 7.2in;
+    margin: 0 auto;
+    padding: 0.5in 0.25in 0.3in;
+  }
+
+  /* ---------- Masthead ---------- */
+  header.masthead {
+    padding: 0 0 18px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  header.masthead .lede {
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+  }
+
+  header.masthead h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 26pt;
+    line-height: 1.15;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  header.masthead h1 .sub {
+    font-weight: 500;
+    color: var(--ink-soft);
+    display: block;
+    font-size: 17pt;
+    margin-top: 4px;
+    letter-spacing: -0.015em;
+  }
+
+  header.masthead .meta {
+    font-size: 9.5pt;
+    color: var(--ink-mute);
+    margin-top: 6px;
+  }
+
+  header.masthead .meta .italic {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    color: var(--ink-soft);
+    font-style: normal;
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  /* ---------- Lead paragraph ---------- */
+  .lead {
+    font-size: 12pt;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin: 0 0 28px;
+    padding: 0;
+  }
+
+  .lead em {
+    font-style: italic;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ---------- Section headings ---------- */
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16pt;
+    margin: 34px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  h2 .num {
+    color: var(--accent);
+    font-weight: 800;
+    margin-right: 10px;
+    font-size: 14pt;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12pt;
+    margin: 20px 0 8px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 10.5pt;
+    margin: 0 0 10px;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  p { margin: 0 0 11px; }
+
+  strong { font-weight: 700; color: var(--ink); }
+  em { font-style: italic; }
+
+  /* ---------- Symbol key ---------- */
+  .keybox {
+    background: var(--band);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 22px 16px;
+    margin: 0 0 28px;
+  }
+
+  .keybox h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+  }
+
+  dl.symbols {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 18px;
+    margin: 0;
+  }
+  dl.symbols dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+    background: var(--paper);
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--rule);
+    align-self: start;
+  }
+  dl.symbols dd {
+    margin: 0;
+    font-size: 10.5pt;
+    color: var(--ink-soft);
+    align-self: center;
+  }
+
+  /* ---------- Math display ---------- */
+  .math {
+    text-align: center;
+    font-size: 13pt;
+    margin: 16px 0 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    padding: 14px 12px;
+    background: var(--band);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-2);
+  }
+  .math .num, .math .den {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .frac {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 6px;
+  }
+  .frac .num {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 0 10px 3px;
+    display: block;
+    font-weight: 600;
+  }
+  .frac .den {
+    padding: 3px 10px 0;
+    display: block;
+    font-weight: 600;
+  }
+
+  /* ---------- Code / algorithm boxes ---------- */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    background: var(--code-bg);
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .inline-ops {
+    text-align: center;
+    padding: 10px 0;
+    margin: 8px 0 14px;
+  }
+
+  /* ---------- Comparison table ---------- */
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 22px;
+    font-size: 10pt;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  table.compare th,
+  table.compare td {
+    padding: 11px 14px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+  }
+  table.compare tbody tr:last-child td { border-bottom: none; }
+  table.compare thead th {
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--band);
+    border-bottom: 2px solid var(--ink);
+  }
+  table.compare thead th:nth-child(2) { color: var(--accent); }
+  table.compare thead th:nth-child(3) { color: var(--accent-2); }
+  table.compare td.label {
+    font-weight: 600;
+    color: var(--ink-soft);
+    width: 22%;
+  }
+  table.compare td.mle {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    font-weight: 500;
+  }
+  table.compare td.map {
+    color: var(--accent-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    font-weight: 500;
+  }
+
+  /* ---------- Callout ---------- */
+  .callout {
+    background: var(--band-red);
+    border: 1px solid #f0d4cf;
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 10.5pt;
+    line-height: 1.6;
+  }
+  .callout .tag {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .callout.blue {
+    background: var(--band-blue);
+    border-color: #d4e0f0;
+    border-left-color: var(--accent-2);
+  }
+  .callout.blue .tag { color: var(--accent-2); }
+
+  /* ---------- Worked example ---------- */
+  .example {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0 20px;
+    background: var(--paper);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .example h4 {
+    margin: 0 0 10px;
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .example table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin: 8px 0 4px;
+  }
+  .example table th,
+  .example table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--rule-soft);
+    text-align: center;
+  }
+  .example table th {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border-bottom: 1.5px solid var(--ink);
+    background: var(--band);
+  }
+  .example table td strong { color: var(--accent); font-weight: 700; }
+  .example table td:nth-child(5) strong { color: var(--accent-2); }
+
+  /* ---------- Footer ---------- */
+  footer.foot {
+    border-top: 1px solid var(--rule);
+    margin-top: 40px;
+    padding-top: 14px;
+    font-size: 9pt;
+    color: var(--ink-mute);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  footer.foot .italic {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Print tweaks ---------- */
+  @media print {
+    body { font-size: 10.5pt; }
+    .page { padding: 0; }
+    h2 { page-break-after: avoid; }
+    .callout, .example, .keybox { page-break-inside: avoid; }
+  }
+
+  .italic { font-style: italic; }
+  .small  { font-size: 9.5pt; color: var(--ink-mute); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="lede">Session Summary · Multi-Armed Bandit Demo</div>
+    <h1>Point Estimates in the Casino<span class="sub">MLE &amp; MAP, Step by Step</span></h1>
+    <div class="meta">
+      From the MATLAB script <span class="italic">multi_armed_bandit_demo_MLE_MAP_TS.m</span>
+    </div>
+  </header>
+
+  <p class="lead">
+    A gambler faces five slot machines with unknown win rates and a budget of 2,000 pulls.
+    Two of the three strategies in the script — Maximum Likelihood (MLE) and Maximum a Posteriori (MAP) —
+    are <em>point-estimate</em> methods: both reduce each arm to a single number, then greedily pick the largest.
+    This note walks through what those two estimators actually compute, turn by turn, and why MAP is essentially
+    MLE with a layer of "fake data" glued on top.
+  </p>
+
+  <div class="keybox">
+    <h3>Symbol Key</h3>
+    <dl class="symbols">
+      <dt>K = 5</dt>       <dd>Number of slot machines (arms).</dd>
+      <dt>T = 2000</dt>    <dd>Total pulls per run — one gambler's entire budget.</dd>
+      <dt>t</dt>           <dd>Current round, running from 1 to T.</dd>
+      <dt>k</dt>           <dd>Index for a specific arm (1 to K).</dd>
+      <dt>N<sub>k</sub></dt>  <dd>Running count of how many times arm k has been pulled so far.</dd>
+      <dt>S<sub>k</sub></dt>  <dd>Running count of successes observed from arm k (rewards = 1).</dd>
+      <dt>F<sub>k</sub></dt>  <dd>Running count of failures from arm k. By construction, S<sub>k</sub> + F<sub>k</sub> = N<sub>k</sub>.</dd>
+      <dt>θ<sub>k</sub></dt>  <dd>The arm's true (unknown) success probability — what the gambler is trying to estimate.</dd>
+      <dt>α₀, β₀</dt>      <dd>Prior hyperparameters for MAP. The script sets both to 4.</dd>
+    </dl>
+  </div>
+
+  <!-- ================================================== -->
+  <h2><span class="num">I.</span> The Shared Scaffolding</h2>
+
+  <p>
+    Both algorithms share the same bookkeeping. On every pull, regardless of strategy, three counters
+    for the chosen arm are updated:
+  </p>
+
+  <p class="inline-ops">
+    <code>N(arm)++</code> &nbsp;·&nbsp;
+    <code>S(arm) += reward</code> &nbsp;·&nbsp;
+    <code>F(arm) += (1 − reward)</code>
+  </p>
+
+  <p>
+    The script also hard-codes a <em>round-robin kickoff</em> for the first K pulls: at t = 1 arm 1 is pulled,
+    at t = 2 arm 2, and so on through t = 5. This serves two purposes — it guarantees every arm has at least
+    one data point (so <code>S/N</code> is defined for everyone), and it puts all three algorithms on identical
+    footing when real decision-making begins at t = 6.
+  </p>
+
+  <!-- ================================================== -->
+  <h2><span class="num">II.</span> MLE — The Greedy Empiricist</h2>
+
+  <p>
+    From t = 6 onward, MLE picks the arm with the highest observed success rate:
+  </p>
+
+  <div class="math">
+    &theta;&#770;<sub>k</sub><sup>MLE</sup> &nbsp;=&nbsp;
+    <span class="frac"><span class="num">S<sub>k</sub></span><span class="den">N<sub>k</sub></span></span>
+    &nbsp;&nbsp;→&nbsp;&nbsp;
+    arm = argmax<sub>k</sub> &theta;&#770;<sub>k</sub><sup>MLE</sup>
+  </div>
+
+  <p>
+    No prior, no uncertainty, no memory of <em>when</em> successes happened — only the running totals matter.
+    Ties (common early on when every arm has N<sub>k</sub> = 1 and the means are just 0 or 1) are broken by a
+    tiny random jitter of order 10⁻⁹, which amounts to a uniform random pick among tied arms.
+  </p>
+
+  <div class="callout">
+    <span class="tag">Failure Mode</span>
+    After a lucky 2-for-2 start, an arm shows &theta;&#770; = 1.0 and can crowd out every competitor forever.
+    A single failure on a well-established leader barely dents its mean (18/25 → 18/26), so once an arm
+    builds a lead, MLE locks onto it — even if it isn't actually the best. This is the mechanism
+    Figure 7 of the script is designed to expose.
+  </div>
+
+  <!-- ================================================== -->
+  <h2><span class="num">III.</span> MAP — MLE with Pseudo-Counts</h2>
+
+  <p>
+    MAP treats each arm's unknown success rate as a random variable with a Beta(α₀, β₀) prior.
+    After observing S<sub>k</sub> successes and F<sub>k</sub> failures, the posterior is Beta(α₀ + S<sub>k</sub>, β₀ + F<sub>k</sub>),
+    and MAP reports its <em>mode</em>:
+  </p>
+
+  <div class="math">
+    &theta;&#770;<sub>k</sub><sup>MAP</sup> &nbsp;=&nbsp;
+    <span class="frac">
+      <span class="num">α₀ + S<sub>k</sub> − 1</span>
+      <span class="den">α₀ + β₀ + N<sub>k</sub> − 2</span>
+    </span>
+  </div>
+
+  <p>
+    With the script's choice of α₀ = β₀ = 4, this simplifies to a form that makes the mechanism transparent:
+  </p>
+
+  <div class="math">
+    &theta;&#770;<sub>k</sub><sup>MAP</sup> &nbsp;=&nbsp;
+    <span class="frac">
+      <span class="num">3 + S<sub>k</sub></span>
+      <span class="den">6 + N<sub>k</sub></span>
+    </span>
+  </div>
+
+  <p>
+    The <strong>3</strong> comes from α₀ − 1 = 4 − 1. The <strong>6</strong> comes from α₀ + β₀ − 2 = 4 + 4 − 2.
+    Both subtractions are part of the standard Beta-mode formula; neither is arbitrary.
+  </p>
+
+  <h3>Where does the prior come from?</h3>
+
+  <p>
+    In this script: the programmer, on line 34. The Beta(4, 4) prior was chosen for pedagogical reasons — it is
+    symmetric around 0.5, contributes a pseudo-count of 6 "imaginary observations," and is strong enough to
+    visibly differ from MLE in early rounds without overwhelming real data in later rounds. In a real application,
+    the prior would come from domain knowledge, previous experiments, or a deliberately weak default.
+  </p>
+
+  <div class="callout blue">
+    <span class="tag">Intuition</span>
+    MAP behaves as if the gambler had already seen 3 phantom wins and 3 phantom losses on every arm before
+    the game began. When N<sub>k</sub> is small, those phantoms dominate — no arm can look like a guaranteed
+    winner or a guaranteed dud. When N<sub>k</sub> is large, the phantoms are washed out and MAP converges
+    toward MLE.
+  </div>
+
+  <!-- ================================================== -->
+  <h2><span class="num">IV.</span> Side-by-Side Comparison</h2>
+
+  <table class="compare">
+    <thead>
+      <tr><th>Step</th><th>MLE</th><th>MAP</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Rounds 1 – 5</td>
+        <td class="mle">forced round-robin: pull arms 1..5</td>
+        <td class="map">forced round-robin: pull arms 1..5</td>
+      </tr>
+      <tr>
+        <td class="label">Score per arm</td>
+        <td class="mle">S<sub>k</sub> / N<sub>k</sub></td>
+        <td class="map">(3 + S<sub>k</sub>) / (6 + N<sub>k</sub>)</td>
+      </tr>
+      <tr>
+        <td class="label">Selection rule</td>
+        <td class="mle">argmax + ε·rand tie-break</td>
+        <td class="map">argmax + ε·rand tie-break</td>
+      </tr>
+      <tr>
+        <td class="label">Update after pull</td>
+        <td class="mle">N<sub>k</sub>++, S<sub>k</sub> += r</td>
+        <td class="map">N<sub>k</sub>++, S<sub>k</sub> += r</td>
+      </tr>
+      <tr>
+        <td class="label">Uses uncertainty?</td>
+        <td class="mle">no — a point estimate</td>
+        <td class="map">no — also a point estimate (the mode)</td>
+      </tr>
+      <tr>
+        <td class="label">Early-round behavior</td>
+        <td class="mle">extreme scores (0 or 1) after 1 pull</td>
+        <td class="map">shrunk scores (3/7 ≈ 0.43 or 4/7 ≈ 0.57)</td>
+      </tr>
+      <tr>
+        <td class="label">Limit as N<sub>k</sub> → ∞</td>
+        <td class="mle">→ true θ<sub>k</sub></td>
+        <td class="map">→ true θ<sub>k</sub> (same limit)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ================================================== -->
+  <h2><span class="num">V.</span> A Concrete Walk-Through at t = 6</h2>
+
+  <p>
+    Suppose the round-robin produced successes on arms 2 and 5, failures on arms 1, 3, 4.
+    So S = [0, 1, 0, 0, 1] and N = [1, 1, 1, 1, 1]. The two estimators score the arms as follows:
+  </p>
+
+  <div class="example">
+    <h4>Scores at t = 6</h4>
+    <table>
+      <tr>
+        <th>arm</th>
+        <th>S<sub>k</sub></th>
+        <th>N<sub>k</sub></th>
+        <th>MLE = S/N</th>
+        <th>MAP = (3+S) / (6+N)</th>
+      </tr>
+      <tr><td>1</td><td>0</td><td>1</td><td>0.000</td><td>3/7 ≈ 0.429</td></tr>
+      <tr><td>2</td><td>1</td><td>1</td><td><strong>1.000</strong></td><td><strong>4/7 ≈ 0.571</strong></td></tr>
+      <tr><td>3</td><td>0</td><td>1</td><td>0.000</td><td>3/7 ≈ 0.429</td></tr>
+      <tr><td>4</td><td>0</td><td>1</td><td>0.000</td><td>3/7 ≈ 0.429</td></tr>
+      <tr><td>5</td><td>1</td><td>1</td><td><strong>1.000</strong></td><td><strong>4/7 ≈ 0.571</strong></td></tr>
+    </table>
+    <p class="small" style="margin-top: 10px;">
+      Both algorithms see a two-way tie between arms 2 and 5, and both break it at random. They agree on the
+      <em>choice</em>; they disagree on how dramatic the gap is. MLE is ready to declare arms 1, 3, 4 worthless
+      after a single failure — MAP keeps them in contention with a score only 25% below the leaders.
+    </p>
+  </div>
+
+  <!-- ================================================== -->
+  <h2><span class="num">VI.</span> Takeaways</h2>
+
+  <p>
+    <strong>MLE</strong> is a pure empiricist — it trusts ratios of raw counts and nothing else. This makes it
+    fragile under small samples, where a couple of lucky (or unlucky) pulls produce misleading 0.0 and 1.0 scores
+    that the greedy rule then locks in on.
+  </p>
+
+  <p>
+    <strong>MAP</strong> softens that fragility by adding α₀ − 1 phantom successes and β₀ − 1 phantom failures
+    to every count. For this script, that is 3 and 3 — enough to keep every arm's early score in the
+    plausible-middle zone, but too few to matter once real data accumulates. MAP is not a different <em>kind</em>
+    of algorithm than MLE; it is MLE computed on counts that have been nudged toward the prior.
+  </p>
+
+  <p>
+    Both remain <em>point-estimate</em> methods. Neither represents the fact that an arm pulled twice and an
+    arm pulled two hundred times carry wildly different levels of certainty. That is the information Thompson
+    Sampling exploits by drawing from the full Beta posterior instead of collapsing it to a single number —
+    which is why the script's Figure 2 shows TS's cumulative regret growing as O(log T) while MLE's grows linearly,
+    with MAP sitting somewhere between, closer to MLE than to TS.
+  </p>
+
+  <footer class="foot">
+    <span>Summary of Chat Session</span>
+    <span>Based on <span class="italic">multi_armed_bandit_demo_MLE_MAP_TS.m</span></span>
+  </footer>
+
+</div>
+</body>
+</html>
