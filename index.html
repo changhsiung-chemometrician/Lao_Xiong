@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 20 篇。">
+<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 25 篇。">
 <style>
   :root{
     --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -66,6 +66,8 @@
   .navlink:focus-visible{outline:4px solid var(--stone);outline-offset:4px}
   .navlink .n{font-variant-numeric:tabular-nums;color:var(--stone)}
   h2.section{display:flex;align-items:baseline;gap:20px;scroll-margin-top:20px}
+  h2.section .en{font-family:var(--sans);font-size:24px;font-weight:800;letter-spacing:.06em;
+                 color:var(--stone);margin-left:-12px;white-space:nowrap}
   h2.section .count{margin-left:auto;font-family:var(--sans);font-size:20px;
                     font-weight:800;letter-spacing:.16em;color:var(--stone)}
   .meta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 18px}
@@ -107,6 +109,7 @@
     .toolbar,.navlink,.date{font-size:16px}
     .chip{font-size:15px}
     h2.section .count{font-size:15px}
+    h2.section .en{font-size:16px;margin-left:-8px}
 
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
@@ -119,10 +122,10 @@
     <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
     <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
     <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-    <p class="toolbar"><span>全 20 篇</span><span class="dot">·</span><span>七個分區</span><span class="dot">·</span><span>最近更新 2026.08.16</span></p>
+    <p class="toolbar"><span>全 25 篇</span><span class="dot">·</span><span>八個分區</span><span class="dot">·</span><span>最近更新 2026.08.17</span></p>
     <nav class="sitenav" aria-label="分區目錄">
       
-<a class="navlink" href="#waikan">精選外刊<span class="n">7</span></a>      <a class="navlink" href="#qunzu">群組觀察<span class="n">3</span></a>      <a class="navlink" href="#shitu">師徒篇<span class="n">3</span></a>      <a class="navlink" href="#fupan">復盤體回憶錄<span class="n">2</span></a>      <a class="navlink" href="#zhiya">職涯軌跡<span class="n">2</span></a>      <a class="navlink" href="#xianchang">現場誌與生涯<span class="n">2</span></a>      <a class="navlink" href="#ziping">本站自評<span class="n">1</span></a>
+<a class="navlink" href="#waikan">精選外刊<span class="n">7</span></a>      <a class="navlink" href="#qunzu">群組觀察<span class="n">3</span></a>      <a class="navlink" href="#shitu">師徒篇<span class="n">3</span></a>      <a class="navlink" href="#jishu">Technical Reports<span class="n">5</span></a>      <a class="navlink" href="#fupan">復盤體回憶錄<span class="n">2</span></a>      <a class="navlink" href="#zhiya">職涯軌跡<span class="n">2</span></a>      <a class="navlink" href="#xianchang">現場誌與生涯<span class="n">2</span></a>      <a class="navlink" href="#ziping">本站自評<span class="n">1</span></a>
     </nav>
   </header>
 
@@ -255,6 +258,55 @@
   </article>
   <p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
 
+  <h2 class="section" id="jishu">技術檔案<span class="en">（Technical Reports）</span><span class="count">5 篇</span></h2>
+  <p class="section-note">化學計量學與機器學習的實作紀錄 · 英文原件</p>
+  <article class="entry">
+    <h3 class="headline"><a href="Fable_enhances_contrast_of_idws_vs_idcn_algorithms.html">idws 與 idcn 的分野 — 一場現場故障的重演 <span class="tag">EN</span></a></h3>
+    <p class="meta"><time class="date">2026.08</time><span class="chip">化學計量學</span><span class="chip">演算法</span><span class="chip est" title="文中未標日期，依同期篇章推定">推定</span></p>
+    <p class="deck">Fable Enhances Contrast of idws vs idcn Algorithms。現場工程師先聞到味道：夾在同類鄰居中間的樣本，被判成了別的類。類別地圖工具照出病灶，於是有了 idcn。含三階段示範資料集的工程做法與完整復現配方。</p>
+    <div class="tools">
+      <a class="read" href="Fable_enhances_contrast_of_idws_vs_idcn_algorithms.html">閱讀</a>
+      <button class="copy" data-file="Fable_enhances_contrast_of_idws_vs_idcn_algorithms.html">複製連結</button>
+    </div>
+  </article>
+  <article class="entry">
+    <h3 class="headline"><a href="Balanced_Bagging_PLS-DA_Report.html">極端類別不平衡下的 Balanced Bagging <span class="tag">EN</span></a></h3>
+    <p class="meta"><time class="date">2026.08</time><span class="chip">PLS-DA</span><span class="chip">NIR</span><span class="chip est" title="文中未標日期，依同期篇章推定">推定</span></p>
+    <p class="deck">Balanced Bagging for Extreme Class Imbalance — PLS-DA on NIR Spectra。一萬條模擬 NIR 光譜，正常對缺陷 99:1。不重抽樣的 PLS-DA 把每一個樣本都判成正常：準確率 50%、缺陷類 F1 = 0。雙重 bootstrap 一百輪集成之後，模型才活了過來。附 AUC 悖論、預測 Y 分布與變數重要度診斷。</p>
+    <div class="tools">
+      <a class="read" href="Balanced_Bagging_PLS-DA_Report.html">閱讀</a>
+      <button class="copy" data-file="Balanced_Bagging_PLS-DA_Report.html">複製連結</button>
+    </div>
+  </article>
+  <article class="entry">
+    <h3 class="headline"><a href="BoostedTrees_Report.html">Boosted Trees for MATLAB — 從 0% 到 87% <span class="tag">EN</span></a></h3>
+    <p class="meta"><time class="date">2026.05</time><span class="chip">MATLAB</span><span class="chip">集成學習</span></p>
+    <p class="deck">RUN_BoostedTrees_CmpClsfr 開發報告。教科書式的 AdaBoostM2 在留一受試者的 NIR 血糖切分上，外部準確率 0.00%。五輪修正之後——改用 bagging、依類別數調整樹深與集成規模、預設固定隨機種子——同一份資料做到 87.08%，K = 2 到約 60 類不必改一行碼。</p>
+    <div class="tools">
+      <a class="read" href="BoostedTrees_Report.html">閱讀</a>
+      <button class="copy" data-file="BoostedTrees_Report.html">複製連結</button>
+    </div>
+  </article>
+  <article class="entry">
+    <h3 class="headline"><a href="why_nonparametric_postclassical_chemometrics.html">為什麼「非參數」是後古典化學計量學的關鍵詞 <span class="tag">EN</span></a></h3>
+    <p class="meta"><time class="date">2026.08</time><span class="chip">方法論</span><span class="chip">統計</span><span class="chip est" title="文中未標日期，依同期篇章推定">推定</span></p>
+    <p class="deck">Why "Non-Parametric" Is the Keyword in Post-Classical Chemometrics。小紅書上一則「AI 時代統計何去何從」的焦慮貼文，換來我一句沒多想的回覆；事後才發現自己說對了，卻講不出為什麼。直尺與一段軟繩的差別，也正是 AI 何以行得通的同一個理由——順帶交代我為何仍把直尺留在抽屜裡。</p>
+    <div class="tools">
+      <a class="read" href="why_nonparametric_postclassical_chemometrics.html">閱讀</a>
+      <button class="copy" data-file="why_nonparametric_postclassical_chemometrics.html">複製連結</button>
+    </div>
+  </article>
+  <article class="entry">
+    <h3 class="headline"><a href="MLE_vs_MAP_in_a_Multi-Armed_Bandit____Step_by_Step_Session_Summary.html">賭場裡的點估計 — MLE 與 MAP 逐步拆解 <span class="tag">EN</span></a></h3>
+    <p class="meta"><time class="date">2026.08</time><span class="chip">機率</span><span class="chip">課堂</span><span class="chip est" title="文中未標日期，依同期篇章推定">推定</span></p>
+    <p class="deck">MLE vs MAP in a Multi-Armed Bandit — Session Summary。五台吃角子老虎、兩千次拉桿。兩種把每支手臂壓縮成一個數字、再貪心挑最大的估計法，逐回合追蹤它們到底算了什麼，以及 MAP 的偽計數為什麼能在開局擋住 MLE 的莽撞。附 t = 6 那一手的完整走查。</p>
+    <div class="tools">
+      <a class="read" href="MLE_vs_MAP_in_a_Multi-Armed_Bandit____Step_by_Step_Session_Summary.html">閱讀</a>
+      <button class="copy" data-file="MLE_vs_MAP_in_a_Multi-Armed_Bandit____Step_by_Step_Session_Summary.html">複製連結</button>
+    </div>
+  </article>
+  <p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
+
   <h2 class="section" id="fupan">復盤體回憶錄<span class="count">2 篇</span></h2>
   <p class="section-note">《老熊的選擇 1983–1987》</p>
   <article class="entry">
@@ -338,7 +390,7 @@
 
   <footer>
     <p>老熊 · 加州紅木灘 ｜ 作者簡歷見 <a href="README.md">README</a>。</p>
-    <p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.08.16</p>
+    <p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.08.17</p>
   </footer>
 
 </div>
