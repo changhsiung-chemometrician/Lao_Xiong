@@ -1,0 +1,830 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《彈指金剛》人物關係圖（二稿・全 20 章）</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#03102b;color:#eaf2ff;
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Hiragino Sans TC",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow:hidden}
+  #stage{position:fixed;inset:0;
+    background:radial-gradient(1700px 1150px at 46% 48%, #0d3a86 0%, #071f4d 45%, #03102b 100%);
+    touch-action:none;cursor:grab}
+  #stage.grabbing{cursor:grabbing}
+  svg{width:100%;height:100%;display:block}
+
+  #masthead{position:fixed;left:30px;top:24px;pointer-events:none;z-index:5}
+  #masthead h1{font-family:"Songti TC","Noto Serif TC","STSong","SimSun",serif;
+    font-weight:700;font-size:clamp(26px,3.3vw,50px);line-height:1.14;margin:0;
+    letter-spacing:.04em;text-shadow:0 0 26px rgba(90,160,255,.55)}
+  #masthead .sub{margin-top:9px;font-size:16px;font-weight:700;color:#a9c8f0;letter-spacing:.18em}
+  #masthead .sub2{margin-top:5px;font-size:14px;font-weight:700;color:#7fa5d6;letter-spacing:.1em}
+
+  #controls{position:fixed;right:22px;top:22px;z-index:6;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  button.ctl{background:rgba(9,32,74,.85);color:#dceaff;border:1px solid rgba(110,170,255,.45);
+    border-radius:999px;padding:9px 15px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+  button.ctl:hover{background:rgba(24,66,140,.95);border-color:#8fc0ff}
+  button.ctl:focus-visible{outline:2px solid #ffd07a;outline-offset:2px}
+  button.ctl.off{opacity:.45}
+
+  #panel{position:fixed;right:22px;top:84px;width:380px;max-height:calc(100vh - 128px);overflow:auto;
+    background:linear-gradient(180deg,rgba(10,34,80,.96),rgba(5,19,46,.96));
+    border:1px solid rgba(120,175,255,.4);border-radius:16px;padding:22px 22px 24px;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);z-index:7;
+    transform:translateX(24px);opacity:0;pointer-events:none;transition:.22s}
+  #panel.open{transform:none;opacity:1;pointer-events:auto}
+  #panel .close{position:absolute;right:12px;top:10px;background:none;border:0;color:#8fb3e0;
+    font-size:24px;cursor:pointer;line-height:1;padding:4px 8px}
+  #panel .close:hover{color:#fff}
+  #panel h2{margin:0;font-family:"Songti TC","Noto Serif TC",serif;font-size:29px;font-weight:800;letter-spacing:.03em}
+  #panel .role{margin-top:5px;font-size:15px;font-weight:700;color:#ffd07a;letter-spacing:.05em}
+  #panel .era{margin-top:4px;font-size:13px;font-weight:700;color:#7fd8c0;letter-spacing:.12em}
+  #panel ul{margin:15px 0 0;padding-left:19px}
+  #panel li{font-size:15px;line-height:1.72;font-weight:600;color:#d7e6fb;margin-bottom:8px}
+  #panel .relhead{margin-top:18px;font-size:12px;font-weight:800;letter-spacing:.24em;color:#7fa5d6}
+  .rel{display:flex;align-items:center;gap:9px;margin-top:8px;font-size:14px;font-weight:700;
+    cursor:pointer;padding:5px 8px;border-radius:8px;transition:.12s}
+  .rel:hover{background:rgba(90,150,255,.16)}
+  .rel .bar{width:4px;height:20px;border-radius:2px;flex:none}
+  .rel .who{color:#eaf2ff}
+  .rel .what{color:#9fc0e8;font-weight:600}
+
+  #legend{position:fixed;left:30px;bottom:20px;z-index:6;display:flex;flex-wrap:wrap;gap:7px 8px;max-width:56vw}
+  .legitem{font-family:inherit;font-size:12.5px;font-weight:700;color:#9fc0e8;display:flex;align-items:center;gap:7px;
+    background:rgba(9,30,70,.78);border:1px solid rgba(110,170,255,.3);border-radius:999px;
+    padding:6px 13px 6px 10px;cursor:pointer;transition:.14s;line-height:1}
+  .legitem:hover{background:rgba(24,66,140,.95);border-color:rgba(143,192,255,.8);color:#eaf6ff}
+  .legitem:focus-visible{outline:2px solid #ffd07a;outline-offset:2px}
+  .legitem i{width:18px;height:5px;border-radius:3px;display:inline-block;flex:none}
+  .legitem b{font-size:11px;font-weight:800;color:#6f97c8;font-variant-numeric:tabular-nums}
+  .legitem.on{background:rgba(38,96,190,.96);border-color:#a9d0ff;color:#fff}
+  .legitem.on b{color:#dceaff}
+
+  #hint{position:fixed;right:22px;bottom:20px;font-size:12.5px;font-weight:600;color:#7fa5d6;z-index:5;text-align:right;line-height:1.7}
+
+  .node{cursor:pointer}
+  .node:focus-visible .ring{stroke:#ffd07a;stroke-width:4}
+  .node .ring{transition:stroke .15s, stroke-width .15s}
+  .node:hover .ring{stroke:#ffffff;stroke-width:3.5}
+  .nname{font-weight:800;fill:#eaf2ff;text-anchor:middle;paint-order:stroke;
+    stroke:#04122e;stroke-width:5px;stroke-linejoin:round}
+  .nrole{font-size:13.5px;font-weight:700;fill:#9fc0e8;text-anchor:middle;paint-order:stroke;
+    stroke:#04122e;stroke-width:4.5px;stroke-linejoin:round}
+  .glyph{font-family:"Songti TC","Noto Serif TC",serif;text-anchor:middle;dominant-baseline:central;font-weight:700;fill:#dcebff}
+  .elabel{font-size:13.5px;font-weight:800;fill:#0a2148;text-anchor:middle;dominant-baseline:central}
+  .edge{fill:none;stroke-linecap:round}
+  .hide{display:none}
+  g.faded{opacity:.10;transition:opacity .18s}
+  .leader{stroke-width:1.2;stroke-opacity:.75;fill:none}
+
+  @media (max-width:820px){
+    #masthead{left:14px;top:12px}
+    #panel{right:10px;left:10px;width:auto;top:auto;bottom:10px;max-height:52vh}
+    #hint{display:none}
+    #legend{left:8px;right:8px;bottom:8px;max-width:none;gap:5px 5px;justify-content:center}
+    .legitem{font-size:11px;padding:5px 9px 5px 7px;gap:5px}
+    .legitem i{width:13px;height:4px}
+    #controls{right:12px;top:12px;gap:6px}
+    button.ctl{padding:7px 11px;font-size:13px}
+  }
+</style>
+
+<div id="stage">
+  <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="60 40 4100 2900" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <radialGradient id="halo"><stop offset="0" stop-color="#8ec3ff" stop-opacity=".5"/><stop offset="1" stop-color="#8ec3ff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="haloGate"><stop offset="0" stop-color="#ff9ecb" stop-opacity=".38"/><stop offset="1" stop-color="#ff9ecb" stop-opacity="0"/></radialGradient>
+      <radialGradient id="face" cx="35%" cy="28%"><stop offset="0" stop-color="#2a5ea8"/><stop offset="1" stop-color="#0a2352"/></radialGradient>
+      <radialGradient id="faceLead" cx="35%" cy="28%"><stop offset="0" stop-color="#4d86d8"/><stop offset="1" stop-color="#10346f"/></radialGradient>
+      <radialGradient id="faceGate" cx="35%" cy="28%"><stop offset="0" stop-color="#c74b8c"/><stop offset="1" stop-color="#54143f"/></radialGradient>
+      <radialGradient id="haloKey"><stop offset="0" stop-color="#ffc46a" stop-opacity=".34"/><stop offset="1" stop-color="#ffc46a" stop-opacity="0"/></radialGradient>
+      <radialGradient id="faceKey" cx="35%" cy="28%"><stop offset="0" stop-color="#b8862f"/><stop offset="1" stop-color="#4a2f0a"/></radialGradient>
+    </defs>
+    <g id="viewport">
+      <g id="stars"></g><g id="glows"></g><g id="edges"></g><g id="nodes"></g><g id="labels"></g>
+    </g>
+  </svg>
+</div>
+
+<div id="masthead">
+  <h1>《彈指金剛》<br>人物關係圖</h1>
+  <div class="sub">成都　→　北京　→　上海　→　廣西賀州</div>
+  <div class="sub2">粉紅泡泡＝情感對象（五位）　·　四道關口：引路・情感・翻盤・良心</div>
+</div>
+
+<div id="controls">
+  <button class="ctl" id="zin">放大 ＋</button>
+  <button class="ctl" id="zout">縮小 －</button>
+  <button class="ctl" id="reset">重置視圖</button>
+  <button class="ctl" id="togLabel">關係標籤</button>
+</div>
+
+<aside id="panel" aria-live="polite">
+  <button class="close" id="closePanel" aria-label="關閉">×</button>
+  <h2 id="pName"></h2><div class="role" id="pRole"></div><div class="era" id="pEra"></div>
+  <ul id="pFacts"></ul>
+  <div class="relhead">關　係</div><div id="pRels"></div>
+</aside>
+
+<div id="legend"></div>
+<div id="hint">滾輪／雙指縮放・拖曳平移・點人物看細節<br>點左下圖例 → highlight 整類關係線<br>點空白處或按 Esc 取消</div>
+
+<script>
+const CAT = {
+  romance : {c:'#ff86bd', name:'情感線'},
+  family  : {c:'#ffd07a', name:'血緣・親屬'},
+  bond    : {c:'#9ae66e', name:'發小・同窗'},
+  work    : {c:'#b7a0ff', name:'職場・上下屬'},
+  deal    : {c:'#8fc0ff', name:'交易・並購'},
+  intel   : {c:'#6fe6d2', name:'情報・線人'},
+  money   : {c:'#ffffff', name:'金錢・對價'},
+  betray  : {c:'#ff8a6a', name:'背叛・算計'},
+  night   : {c:'#c9a0ff', name:'夜場・風月'},
+  law     : {c:'#ffab5c', name:'訴訟・媒體'},
+  cost    : {c:'#ff5a5a', name:'代價・傷亡'}
+};
+/* 情感線 = 粉紅泡泡（只含真正發生過的男女關係，含搭訕） */
+const PINKBUBBLE = new Set(['romance']);
+
+const NODES = [
+  /* ================= 主角 ================= */
+  {id:'yuan', g:'遠', name:'陳遠（遠子・遠哥）', role:'天一醫藥集團　戰略規劃部並購交易總監', era:'二十八歲　成都 → 北京', x:1900, y:1400, lead:true,
+   facts:['眉山人，家中獨子，父母都是公務員。川大金融系畢業後直接進天一，六年做到並購部總監。',
+          '收購久元藥廠是他升總監後的第一個大案，拿到約一百萬的項目激勵獎金。',
+          '被總經理與王雲彪點將，常駐北京主攻安拓 HBV-201 全球權益，預估獎金超過兩千萬。',
+          '習慣：進門先挑角落背牆、面對門口的位子；出差必游泳健身；思考時抽菸；喜歡在水裡想事情。',
+          '全書以他的第一人稱敘述——而這份文稿，二十多年後被他兒子在一個加密資料夾裡打開。',
+          '〈關於〉一節裡作者的評語：工作上十分優秀，性格卻偏於懦弱，不知取捨，不懂珍惜，對心愛的人沒有包容，最後追悔莫及。']},
+
+  /* ================= 楔子與後記 ================= */
+  {id:'chongfei', g:'飛', name:'陳重飛', role:'深圳建築設計院設計師・陳遠之子', era:'四十年後　成都 → 杭州', x:280, y:260,
+   facts:['父親心梗過世，他從深圳飛回成都辦後事，在錦官園養老院清理遺物。',
+          '木頭盒子裡只剩兩個鑲在鏡框裡的泥人生肖：一隻羊，一隻猴。父親屬羊，母親屬猴。',
+          '羊生肖鏡框背面貼著一張淺黃便條，上面是父親手書的一個 157 開頭的手機號碼——寫 7 字中間加一橫。',
+          '這串號碼正是那個從未取名的加密資料夾的密碼。裡面只有一個文檔。',
+          '後記：他在杭州香格里拉旁的咖啡店見到一位溫婉的中年女士，「我姓陳，請問怎麼稱呼？」——他忽然覺得莫名親切。']},
+  {id:'mystery', g:'謎', name:'那位姓陳的女士', role:'杭州咖啡店的赴約者', era:'後記', x:260, y:660,
+   facts:['157 號碼的主人：「還是原主，我不常用這個手機號。」',
+          '面談地點是她定的：杭州香格里拉酒店右手邊的咖啡店，週六早上十點。',
+          '媚姐曾在電話最後猶豫著留給陳遠另一個號碼，說唐櫻留了一樣東西和他有關——「不過唐櫻不希望我說。」',
+          '陳遠思前想後，決定尊重她的選擇，始終沒有打。這個電話，最後由他的兒子打通。']},
+
+  /* ================= 眉山老家 ================= */
+  {id:'mom', g:'母', name:'陳遠的媽媽', role:'眉山縣公務員・全書最強的催婚火力', era:'全篇', x:660, y:220,
+   facts:['「這姑娘是我參加工作時的老大姐介紹的，你們成不成我不管，別丟了老陳家的面子。」',
+          '上一個安排的相親對象是拿新加坡護照、只能聽懂他半句話的華僑——理由是「新加坡是發達國家，挺好」。',
+          '風聞北京的事後打來一通電話：「你太爺爺是上了紅榜的舉人，你姥爺 19 歲參加革命……」',
+          '「如果這世界上還有一個人能管得住我，那就是我媽。」']},
+  {id:'dad', g:'父', name:'陳遠的爸爸', role:'眉山縣公務員・血壓高', era:'全篇', x:1020, y:300,
+   facts:['戲份極少，卻是媽媽最有力的武器：「你爸血壓高，你要敢幹出點啥出格的事把你爸弄醫院裡了……」',
+          '四十年後，他成了錦官園養老院裡那位滴酒不沾、只留下兩個泥人生肖的老人。']},
+  {id:'mengliang', g:'良', name:'趙孟良（孟良）', role:'高中同班・跟大哥跑成都—上海長途貨運', era:'全篇　最沉的一筆', x:640, y:600,
+   facts:['大個子，比他哥高一個頭，駕駛艙睡不直，只能把兩隻腳伸出車窗外。',
+          '請客時掏出一疊老人頭：「猜猜，我這趟掙了多少？三千！」——大部分都進了女朋友管著的婚禮專項基金。',
+          '在上海松江卸貨時被陳遠找上，答應把那個 U 盤帶回成都交給何萍萍，並提前出發。',
+          '車到成都的紅綠燈路口為閃避違規摩托車翻覆，被對向大貨撞上。右肢截斷。',
+          '後來進父母的廠當門衛，工資不高但穩定；五一和女朋友結了婚。陳遠沒有去，只轉了 88888 塊。',
+          '「孟良的人生軌跡已經被徹底改寫，而我就是那個罪魁禍首。」']},
+  {id:'mengbro', g:'兄', name:'孟良的大哥', role:'長途貨運司機・後改開縣城出租車', era:'車禍前後', x:560, y:940,
+   facts:['知道弟弟受託的事，直接用弟弟的手機聯繫了何萍萍，把 U 盤送到。',
+          '事後轉述車禍經過時語氣古井不波，「像是在講述別人的故事」。',
+          '王東亮打了兩萬塊給他。陳遠塞了一張二十萬的銀行卡給大嫂，說是孟良寄放的私房錢。']},
+  {id:'pangzi', g:'胖', name:'胖子', role:'縣電廠檢線員・高中同班', era:'全篇', x:1000, y:700,
+   facts:['一點也不胖，瘦瘦精精的一個人——小時候身體不好打補針，虛胖過一陣，外號就留下了。',
+          '「咱們班同學中就你和東亮混出來了，這頓你得請。」',
+          '帶著哭腔打來那通電話：「孟良出車禍了，上海回來的路上。」那天北京下了入冬第一場雪。']},
+
+  /* ================= 京城關係網 ================= */
+  {id:'hongmian', g:'洪', name:'洪勉', role:'前發改委洪副主任的小兒子・中齊集團董事長', era:'京城太子', x:1200, y:1020,
+   facts:['Prada 墨鏡、粉紅 Polo 立領、TODS 豆豆鞋。他一進門，有實權的處長司長都要讓出主位。',
+          '服務員打翻湯碗那晚，王東亮多此一舉替人賠罪，被他當場刺回：「王處，眼鏡度數不夠了吧？」',
+          '不打不相識，此後打高爾夫也叫上王東亮——王東亮總覺得「這裡面沒那麼簡單」。',
+          '「川人」計畫真正遞刀的那隻手：他找上王東亮，給了兩百萬。']},
+  {id:'ouyangsi', g:'歐', name:'歐陽司長', role:'衛生部・王東亮的上級', era:'湘鄂情飯局', x:560, y:1300,
+   facts:['名片是典型國家機關統一印發的樣式，連手機號碼都沒有，只有單位座機。',
+          '整晚和洪勉輕聲耳語，時不時點頭，像是拿到了什麼錦囊妙計。',
+          '湯碗打翻那一刻，是他丟給王東亮那個要他出面賠罪的眼色。']},
+  {id:'machu', g:'馬', name:'馬處長', role:'藥監局', era:'湘鄂情飯局', x:600, y:1660,
+   facts:['和宏達那一局：一宴幾局，各談各的行政手續。',
+          '飯後要去 KTV 時，他和歐陽司長都找了藉口推辭——考慮到身份，意料之中。']},
+  {id:'linkui', g:'林', name:'林奎（林總）', role:'北京宏達醫療器械進出口公司副總經理', era:'京城飯局', x:980, y:1360,
+   facts:['機靈，會打圓場：洪勉臉色鐵青那一刻，是他先說了幾句軟話。',
+          '飯後提議「找個地方唱唱歌」，把場子從飯桌轉到皇城。',
+          '美國大使館酒會上也在場——這也是王東亮勸陳遠別帶唐櫻進去的理由之一。']},
+  {id:'dujianguo', g:'杜', name:'杜建國（小杜）', role:'宏達業務經理', era:'京城飯局', x:1000, y:1740,
+   facts:['林總的下屬，負責在酒桌上給馬處長敬酒。',
+          '王東亮被洪勉刺那一刻，笑話他的人裡也有小杜。']},
+
+  /* ================= 天一醫藥集團 ================= */
+  {id:'wangyunbiao', g:'彪', name:'王雲彪（雲彪總）', role:'天一集團戰略規劃部副總經理・陳遠的伯樂', era:'全篇 → 被解聘', x:1700, y:480,
+   facts:['部隊轉業後在清華讀工商管理，十年前加入天一負責企業戰略規劃，趕上天一轉型的關鍵期。',
+          '六年前在數百份履歷裡挑中剛畢業的陳遠。「不知什麼原因」——這句話後來成了整本書的伏筆之一。',
+          '「這個項目的任何情況只向我和李總匯報，集團公司任何其他人都不要說明。」',
+          '陳遠潛伏後海那個月，他破天荒打電話問吳自江「知不知道陳遠在哪裡」——卻從不直接問陳遠。',
+          '天一整體出售啟動後，29 樓的副總們陸續被請走，他是第一個。用一張快遞來的手機卡跟陳遠通了最後一次電話。',
+          '「你是我帶進天一的，也算是我最得意的徒弟吧。」']},
+  {id:'liquanwang', g:'旺', name:'李全旺（李總）', role:'天一集團總經理・董事長的弟弟', era:'關口四　良心', x:2060, y:300, gate:'關口四',
+   facts:['胖乎乎，戴老花鏡，藏青杰尼亞西服、Ferragamo 樂福鞋、吊襪帶，「整個無懈可擊」。',
+          '兩百平米的辦公室：熱帶魚缸養小鯊魚、抄得工工整整的孫子兵法、兩個 PXG 球包。',
+          '點將那天說得漂亮：「出資部分不是你需要考慮的問題。」',
+          '第一輪投標拿掉排他與分手費，第二輪卻加進五千萬違約金——一年半後才看懂這兩筆的用意。',
+          '鼓樓四合院裡的攤牌：「這些文件我感覺是別有用心的人偽造的……誹謗和散布謠言在我們國家今天也是可以定罪的。」',
+          '開出的價碼：獎金 850 萬即刻發放，外加他個人一次性的 3000 萬，換兩份文件和一份保密協議。']},
+  {id:'liquanye', g:'業', name:'李全業', role:'天一集團董事長・創辦人', era:'背景', x:2400, y:200,
+   facts:['白手起家：八十年代初從香港進口非處方藥、和國外藥企建立渠道關係，抓住醫藥制度改革的紅利。',
+          '短短二十年完成從銷售代理到現代化綜合醫藥集團的飛躍，是四川乃至全國醫藥行業的傳奇人物。',
+          '和弟弟一樣文化程度不高，據說高中都沒讀完。',
+          '天一的「第一桶金」——那批 89 到 91 年供給久元的抗生素針劑——正是他那個年代的事。']},
+  {id:'wuzijiang', g:'江', name:'吳自江（自江）', role:'並購組法務專員・川大法律系', era:'全篇', x:1400, y:700,
+   facts:['去年校招被陳遠相中。奧特萊斯買的雙排扣西裝，袖口標籤還沒剪。',
+          '小道消息之王，也是全書第一個示警的人：「我聽說有人打算收購咱公司，有這事嗎？」',
+          '軍訓時全屆唯一五發子彈都上榜的人——眼神好得讓陳遠在會議室那一幕之後很緊張。',
+          '對 Jenny 黃三天兩頭往樓上跑：「我立下軍令狀，一定把這個事情查得水落石出。」',
+          '回成都那天，公司門禁忽然刷不進去了。這是整條線的最後一塊拼圖。']},
+  {id:'wenxue', g:'學', name:'文學', role:'並購組財務分析師', era:'全篇', x:1740, y:840,
+   facts:['爸爸是文學愛好者，所以取了這個名字；他本人明顯對數字更感興趣。',
+          '性格內向，女朋友在集團人事部，這一年半犧牲不小。',
+          '一手搭起 HBV-201 的財務模型與敏感性測試，也替九州建了一個推測報價模型（上限約 110 億）。']},
+  {id:'nanjie', g:'南', name:'李雁南（南姐）', role:'戰略規劃部秘書・集團最早的幾個員工之一', era:'全篇', x:1340, y:300,
+   facts:['資歷老，和集團的頭頭腦腦都熟，部門裡人人心存敬畏，秘書該做的事大家反而自己做了。',
+          '負責安排陳遠去北京的「出差」行程。',
+          '全書最短也最重的一條簡訊，只有六個字：「雲彪總已離職」。']},
+  {id:'hepingping', g:'萍', name:'何萍萍', role:'集團臨床技術部副總監・博士', era:'數據判讀', x:2100, y:660,
+   facts:['雲彪總的嫡系，繞開所有其他人直接對接陳遠。典型的技術型高知女性，說話直截了當。',
+          '判讀鄭炯 U 盤裡的一期二期原始數據：只有使用干擾素的病人出現副作用，樣本數太少。',
+          '判讀王東亮那份黑色文件夾：確認格式出自智因，並「讀出」三分之一使用干擾素的病人無法完成療程、兩人腎臟不可逆損害。',
+          '——那份判讀是準確的；問題出在資料本身就是偽造的。']},
+  {id:'liudekai', g:'凱', name:'劉德凱', role:'集團財務科・吳自江的羽毛球雙打搭子', era:'第一顆火星', x:2540, y:920,
+   facts:['去年拿了公司單打亞軍，今年和吳自江組隊想衝雙打冠軍。',
+          '「他這才神神秘秘告訴我他們在搭建數據室財務數據。」——全書的第一個線索，出現在第三章。',
+          '陳遠當時判斷那是要賣康復醫院。他猜錯了：正在被搭建數據室的，是天一自己。']},
+  {id:'yushan', g:'余', name:'余山（老余）', role:'分管銷售的集團副總', era:'背景', x:2780, y:180,
+   facts:['總經理職位的有力競爭對手。「余總能力強，向心力又大」——雲彪總說這話時，話裡有話。',
+          '天一整體出售後，29 樓的副總們大都被陸續請走。']},
+  {id:'tianquan', g:'盯', name:'廣元天全的「黑衣人」', role:'天一子公司銷售經理・跟了一年半的盯梢者', era:'伏線', x:2440, y:540,
+   facts:['第一次出現在唐櫻小區門口，跳過煤氣管道線；前一天下午還在國貿排隊打車。',
+          '陳遠一度確信是九州派來的，還為此在後海的小旅館「潛伏」了一個月。',
+          '雪後那天，陳遠把剩下的半個燒餅遞給他：「哥們，剛買的，還熱著。」',
+          '最後被陳遠用晾衣棍打倒，翻出名片：廣元天全醫藥經銷公司，銷售經理，四川人。',
+          '廣元天全是天一的子公司。跟了他一年半的，是自己人。']},
+
+  /* ================= 安拓與交易對手 ================= */
+  {id:'sunzhongkai', g:'孫', name:'孫仲凱', role:'北京安拓生物科技總經理・連續創業者', era:'談判桌對面', x:3120, y:300,
+   facts:['52 歲。清華化學系、約翰霍普金斯生化博士，師從諾貝爾獎得主，曾任羅氏免疫藥物研發總監。',
+          '回國創業十二年，十五個新藥進臨床，三家公司兩家被收購、一家在港上市，為投資人創造超過五十億回報。',
+          '第一次見面就丟出合資公司的餌：天一出五億現金換 50-50，附十八個月的「優先考慮權」。',
+          '對三期 CRO 換人的解釋只有四個字：華濟要價太高。「他至少沒有完全講出事情的真相。」',
+          '出局那天親自打電話給陳遠，追問之下才透露實情：天一的價格低於對方。']},
+  {id:'kevin', g:'胡', name:'Kevin 胡', role:'安拓 BD 經理', era:'第一次拜訪', x:3480, y:180,
+   facts:['留分頭的年輕人，負責做那份「相對更加詳細一點的有針對性的介紹」。',
+          '交出兩個關鍵數字：三期九百名病人、二十個月、四億人民幣；D 輪六億、估值四十二億。']},
+  {id:'jixuemin', g:'季', name:'季學民（老季）', role:'北京浩辰風險投資基金總經理・安拓董事', era:'牽線人', x:3120, y:660,
+   facts:['有點禿頂。當年在國外讀研究生刷試管，生物大分子專業出身，所以看得懂安拓的技術。',
+          '「這個項目是我當年跟的，上投委會也是我做的介紹，我現在還在安拓的董事會上。」',
+          '湘鄂情那一晚被陳遠一步步套出 CRO 進度與 D 輪超額認購，也順手丟回一根魚餌。',
+          '那場飯局的座位安排，後來成了「川人」計畫得以成立的第一個條件。']},
+  {id:'dingjie', g:'丁', name:'丁杰', role:'高嶺投資銀行北京 MD・國內醫療健康板塊負責人', era:'招標流程', x:3460, y:560,
+   facts:['安拓聘請的財務顧問。他一上場，陳遠一對一拿下 HBV-201 的算盤就落空了。',
+          '老到的財務顧問會在不同階段放出風聲抬價——他透露另有一家國內大型藥企與一家跨國藥企簽了保密協議。',
+          '通知天一入圍短名單，也通知天一出局。兩封郵件都寫得很客氣。']},
+  {id:'zhengjiong', g:'炯', name:'鄭炯', role:'華濟研究研發總監', era:'上海　衡山路', x:3760, y:320,
+   facts:['國字臉。安拓一期臨床的負責人，兩年來替陳遠做過好幾個小分子並購案的顧問。',
+          '爵士酒吧裡揭開真相：華濟不是報價太高，是智因報價只有一半。',
+          '「我給你個消息吧：九州在看 HBV-201 這個項目。」以及——九州是智因的實際控制人。',
+          '掏出一個 U 盤，裡面是 HBV-201 全部一期二期的原始數據。「你也不用謝我，我們把這些資料給你也是有目的的。」']},
+  {id:'jiuzhou', g:'州', name:'九州醫藥控股', role:'國內最大的綜合性醫藥集團之一・真正的對手', era:'全篇的暗面', x:3400, y:960,
+   facts:['占中國心血管與腫瘤類藥物市場約三分之一。業界聲譽：看上的東西，會用各種手段拿到。',
+          '長線布局：先讓智因以半價搶下 HBV-201 的三期 CRO 合約，取得數據的第一手時間差。',
+          '「川人」計畫——五封橫跨四個月的郵件裡反覆出現的項目代號。',
+          '中標之後，一輛沒有牌照的米黃色麵包車在中國大飯店門口等了三分鐘。',
+          '結局：肇事司機與主謀的分公司副總經理被判死緩，其餘從犯至少十年。']},
+  {id:'zhiyin', g:'因', name:'智因醫藥', role:'安拓三期臨床 CRO・九州持股約 57%', era:'棋子', x:3020, y:1020,
+   facts:['北京公司，綜合能力均勻，生物大分子這幾年做得風生水起。',
+          '以華濟一半的報價搶下三期合約——一筆明顯的虧本買賣。',
+          '一直以「數據仍在整理」為由，不把使用干擾素病人的副作用數據上傳數據室。',
+          '而它伺服器上的真實數據是：所有病人的副反應幾乎可以忽略不計。']},
+
+  /* ================= 翻盤的外援 ================= */
+  {id:'luojiali', g:'嘉', name:'羅嘉理（Gary Rockwell）', role:'美資私募基金亞洲負責人・母親是四川人', era:'關口三　翻盤', x:3180, y:1360, gate:'關口三',
+   facts:['第一次見面在中國大飯店的泳池專屬泳道，第二次在飛往上海的頭等艙鄰座。「都是運氣。」',
+          '去年在亞洲募了一支二十億美元的大中華區基金，因此被調到香港，正打算在北京開辦公室。',
+          '看穿並承接了陳遠的怒火：不是打贏官司，而是拖住交割。',
+          '真正的手筆不是搶 HBV-201，而是連整個安拓一起買下來——聯合體總投入約 280 億人民幣。',
+          '「我做事情有個特點……最重要的是人。這個機會我給的不是天一，而是你陳遠。」',
+          '協議裡專門留了一格：天一的關鍵人物代表，正式生效必須有陳遠簽字。這一格後來空著。']},
+  {id:'vincent', g:'V', name:'Vincent', role:'諾維安（Noviane）製藥集團 BD 副總', era:'同病相憐', x:3660, y:1200,
+   facts:['羅嘉理的校友。瑞士諾維安是全球最大的二十家藥企之一，兩個一線乙肝藥都是他們幾十年前研發的。',
+          '和天一一起在第一輪出局。事後復盤時抓到的最大疑點，就是三期數據的不完整。',
+          '美國大使館酒會上和陳遠交換過名片——陳遠當時看都沒看就塞進了口袋。']},
+  {id:'laochen', g:'陳', name:'「老陳」', role:'外籍調查顧問・前軍方、曾派駐台灣', era:'京城俱樂部', x:3880, y:1500,
+   facts:['國字臉，短發，身高近一米九，握手時「感覺這哥們能輕鬆碾碎我的手掌」。',
+          '中文說得比羅嘉理還好。退休後加入顧問公司，替跨國企業做盡職調查。',
+          '從智因的伺服器上取回三期臨床全部病人的真實副反應數據，並截獲智因總經理與九州之間的五封郵件。',
+          '「這幾份郵件有一個共同特點，就是裡面反覆提到了一個項目代號：川人。」']},
+  {id:'taoming', g:'陶', name:'陶明（陶律）', role:'北京宏正律師事務所合夥人', era:'訴訟', x:3320, y:1740,
+   facts:['五十出頭，有點謝頂和發福，看起來像好好先生——據說在法庭上的火力抵得上一個加強連。',
+          '一針見血：「為什麼在這種情況下，天一還要去打一場贏面不大的官司？」',
+          '主動建議把智因也放進被告名單——「和我們的初衷不謀而合。」',
+          '北京市第一中級人民法院五月下旬受理，HBV-201 的交割因此暫停。']},
+  {id:'sujingyi', g:'蘇', name:'蘇靜怡', role:'新京報記者', era:'兩次採訪', x:3640, y:1780,
+   facts:['清冷的聲音，黑框眼鏡，手勁挺大。做足了功課才來。',
+          '那個當時誰都沒往下想的問題：「為什麼天一派出主管這個項目的不是王雲彪，而是你呢？」',
+          '第一篇關於訴訟案的報導最終沒有發表。「有些勢力她們也抵擋不住。」',
+          '第二次，陳遠帶著一支袖珍錄音機找上她。一週後全國爆發假藥致兒童死亡的群體性事件——頭版終於發了出去。']},
+
+  /* ================= 仲德仕行 ================= */
+  {id:'frank', g:'F', name:'Frank 羅', role:'仲德仕行北京 ED・香港人', era:'國貿二期', x:3020, y:2320,
+   facts:['把國貿二期 25 樓那間日本商社分租的辦公室介紹給天一，兩百平米、可拎包入住。',
+          '替陳遠安排了唐櫻的面試與入職：底薪六千、績效 150%。',
+          '陳遠再加一手：另請仲德仕行做顧問，每月三萬五，指定唐櫻為執行人，兩萬五歸她。',
+          '「陳總，你一直沒說小唐是個大美女啊？看你這手筆，不像是親戚啊？」']},
+  {id:'jenny', g:'J', name:'Jenny 黃', role:'仲德仕行職員・重慶大足人', era:'國貿', x:3380, y:2280,
+   facts:['小巧玲瓏，去年天津畢業。吳自江以為她是香港人，結果是老鄉。',
+          '吳自江三天兩頭往 38 樓跑——這後來成了陳遠掩飾唐櫻身分時順手抓來的擋箭牌。']},
+
+  /* ================= 情感線 ================= */
+  {id:'tangying', g:'櫻', name:'唐櫻（Cindy／Judy／小櫻）', role:'廣西賀州瑤族・皇城 KTV 公主 → 仲德仕行銷售專員', era:'關口二　情感', x:2360, y:1780, gate:'關口二', romance:true,
+   facts:['比陳遠小一歲，屬猴。高中畢業讀了大專紡織專業，不喜歡在廠裡做事，挣得也少。',
+          '父親長年在山裡採菌子為生，弟弟在南寧念大三。媚姐是她的遠房表姊。',
+          '第一次過夜，陳遠爛醉，什麼也沒發生。第二天早上她泡好熱茶、放了幾顆布洛芬才走。',
+          '瑤族長鼓舞：甩掉高跟鞋，銀飾微顫，鼓點戛然而止時側身而立，「像一隻來自未知世界的靈鳥」。',
+          '上海城隍廟捏了三個泥人生肖：一羊兩猴——一個給你，一個給你未來的老婆，剩下那隻猴子留給自己。',
+          '「遠哥，你不要對我這麼好，我還不起的。」「我只要他的一點點。真的，只要一點點。我不貪心。」',
+          '辭掉仲德仕行的真正原因寫在日記裡：看房的客人認出了她，要她再陪一次，否則就告訴公司。她說不出口。',
+          '最後一夜連打了十幾通電話、清晨守在酒店大堂——她在包廂裡聽見有人在計畫傷害他。',
+          '「無論花什麼代價，就算是陪他們上床，我也要搞清楚。他們不可以傷害他。」']},
+  {id:'zhaoxinru', g:'如', name:'趙心如（心如）', role:'成都某中學英語老師・西南政法英語系', era:'相親 → 妻子', x:2100, y:2200, romance:true,
+   facts:['二十七歲，媽媽老同事的姪女。第一次見面陳遠遲到，還認錯了人——她是那個戴大黑框眼鏡在看書的。',
+          '「拿掉那對大黑框眼鏡，包不住還是個美女。」情商極高，第一句話是「沒關係，我也有點晚，其實剛到」。',
+          '「她就像一台 X 光機，瞬間發現了我內心渺小的活動。」',
+          '託他從北京帶回精裝版的三毛文集。他順手把唐櫻買的那隻猴生肖也送了出去，她小心翼翼放到床頭櫃上。',
+          '「我和她很談得來……但不是一見鍾情。」「趙心如似乎是個最優解，如果不考慮唐櫻的出現。」',
+          '三年後兩人結婚，年底預產期。「我有個感覺心如什麼都知道。」——那隻猴，和那隻羊，最後一起收進了木頭盒子。']},
+  {id:'meijie', g:'媚', name:'媚姐', role:'皇城 KTV 媽咪・唐櫻的遠房表姊', era:'全篇 → 杭州', x:2820, y:1980, romance:true,
+   facts:['一張臉極像關詠荷，綠緞旗袍，「成熟女人的暗香若隱若現」。',
+          '早年在深圳的 KTV 打拼，後來跟一個北京老闆到了北京做媽咪。',
+          '第一晚在包廂裡調酒、被陳遠吻了。「你好壞。」——之後她再沒踏進過那條線。',
+          '早就看穿了陳遠和唐櫻的關係，卻選在唐櫻辭職那天說：「工作不順利可以隨時回來。」',
+          '唐櫻出事後替她處理完後事，自己去杭州嫁人。臨掛電話前猶豫著留下了另一個手機號碼。']},
+  {id:'tangfamily', g:'家', name:'唐櫻的父親與弟弟', role:'廣西賀州南嶺山寨', era:'背景 → 結局', x:2660, y:2380,
+   facts:['父親長年在山裡採摘菌子，彎腰久了背一直不好——她在上海正大廣場挑了很久的腰椎按摩儀。',
+          '弟弟在南寧讀大三，「他成績好，不像我」。冬天姊弟倆放了學要背著背簍去山邊撿柴火。',
+          '那年過年她帶回一整個塞滿的新秀麗行李箱。「謝謝你帶給我們全家人的禮物。」',
+          '宣判那天她的家人也去了法院。陳遠站在法院外面抽完整整一包菸，始終沒有勇氣去面對他們。']},
+  {id:'tiffany', g:'夜', name:'Tiffany 與佳佳', role:'長城喜來登舞廳的兩位女伴', era:'最壞的一次巧合', x:3080, y:2660,
+   facts:['羅嘉理與 Vincent 慶功之夜的產物。Tiffany 說自己是北影的學生。',
+          'Vincent 弄丟房卡，陳遠把兩人先帶回自己房間等——房裡的燈全亮著。',
+          '洗手間的門推開，唐櫻走了出來。「突然，房間裡變得異常寂靜，連呼吸聲都被抹去。」',
+          '電梯門合上前，她把門卡扔了回來。']},
+
+  /* ================= 王東亮線 ================= */
+  {id:'wangdongliang', g:'亮', name:'王東亮（東亮）', role:'衛生部國際關係司副處長・陳遠的發小', era:'關口一　引路與背叛', x:1500, y:1780, gate:'關口一',
+   facts:['縣文科狀元，直錄北大語言專業，畢業時作為系裡三個優秀畢業生之一留在北京。',
+          '母親去世早，父親是普通工人，家裡條件非常一般，卻一直很重視他的教育。',
+          '一輛比人年紀還大的淺綠色北京吉普，車窗要用手搖，「你知道有多少姑娘栽在這了嗎？」',
+          '把妹原則是「沒有原則」。改變他的是他姐的婚姻：青梅竹馬六年就發酵成一地雞毛。',
+          '一頓沒招牌的烤鴨，替陳遠打開了安拓的門。三十萬介紹費的協議，他到最後也沒有簽。',
+          '副處級月收入六千八百塊。「我不吃不喝也要五十年才買得起這裡的房子。」',
+          '洪勉給了兩百萬。「他們說你不會發現的，他們保證過你不會發現的。」',
+          '〈關於〉裡的評語：貪圖美色，貪戀財物，為此可以背叛兄弟情誼——卻也是三個人裡在愛情上最有勇氣的那一個。']},
+  {id:'yangziqi', g:'琪', name:'楊子琪', role:'燕莎購物商場收銀出納・三十出頭', era:'新華書店 → 國慶結婚', x:1180, y:2060, romance:true,
+   facts:['王東亮在王府井新華書店搭訕她時，她手裡拿的是《中華人民共和國刑法》。他當場自稱刑事律師。',
+          '她其實一眼就覺得這人不是個正常好人，「不過又覺得挺有意思」。假面舞會可以繼續。',
+          '老公在外面包了二奶還生了男孩。她仍每天化著妝、放好浴缸的水、一早起來買早餐。',
+          '大年三十那通嚎啕大哭：紅燒排骨還在鍋上冒泡，她背靠著牆滑坐到地上，「碎成了千百片」。',
+          '棍棒衝過來時她把王東亮推開，自己迎上去，抓住那人的褲腳不放。手臂輕微骨裂。',
+          '「她的身上有著梔子花的清香，像是夏天的味道。」——這是王東亮失去知覺前最後的記憶。']},
+  {id:'ziqihusband', g:'夫', name:'楊子琪的老公', role:'生意人・經常不在家', era:'離婚案', x:820, y:2200,
+   facts:['一週能回來一兩天都算不錯。她從不問他去哪。',
+          '接到她說在準備離婚文件的電話後，找了幾個社會上的小混混帶著棍棒到燕莎樓下。',
+          '好巧不巧，朝陽區公安系統正在旁邊酒店開學習班，一波警察剛吃完中飯回來。',
+          '在拘留所裡痛快地簽了字。房子歸她，撫養費一次結清一百萬。']},
+  {id:'ziqidaughter', g:'囡', name:'楊子琪的女兒', role:'七歲', era:'大年三十', x:1180, y:2440,
+   facts:['跑到廚房問爸爸什麼時候回來，因為她想提前穿過年的新裙子給他看。',
+          '凱賓斯基的套房裡，三個人圍著電火鍋看春晚。她對王東亮這個陌生人的出現「表現得很大氣」。',
+          '「這個小孩子在這一晚上成熟了很多。」王東亮說結婚要等到國慶，因為他還需要時間和她培養感情。']},
+  {id:'xiaoxiang', g:'香', name:'小香大長腿', role:'BBS 網友', era:'那個沒有赴約的下午', x:1560, y:2200, romance:true,
+   facts:['約在王府井新華書店，說好他拿紅色筆記本、她戴藍色帽子。',
+          '一小時前的私信：今天身體不適，改天再約。',
+          '「小短腿倒是看見好幾個，包括一個羅圈的，但一個大長腿都沒有。」',
+          '後來她又來聯繫，他沒理會——「難道真要為了一棵樹放棄整片森林？」']}
+];
+
+/* [source, target, label, category, curvature, flag] */
+const EDGES = [
+  /* ===== 楔子與後記 ===== */
+  ['chongfei','yuan','父子・遺物裡的一羊一猴','family',.12],
+  ['chongfei','yuan','157 開頭的號碼，就是加密資料夾的密碼','intel',-.26,'dash'],
+  ['chongfei','zhaoxinru','母子','family',.14],
+  ['chongfei','mystery','「我姓陳，請問怎麼稱呼？」','family',.18,'dash'],
+  ['mystery','tangying','唐櫻留下的、那樣「和我有關」的東西','family',-.30,'dash'],
+  ['meijie','mystery','猶豫著留下的另一個手機號碼','intel',.22,'dash'],
+  ['yuan','chongfei','貼在羊生肖鏡框背面的那張便條','family',-.32,'dash'],
+
+  /* ===== 眉山老家 ===== */
+  ['yuan','mom','母子','family',.10],
+  ['mom','yuan','「你爸血壓高，你要敢幹出點啥出格的事……」','family',-.26,'dash'],
+  ['yuan','dad','父子','family',.14],
+  ['mom','dad','眉山的兩位公務員','family',.13],
+  ['mom','zhaoxinru','老同事的姪女・她安排的那場相親','family',.26,'dash'],
+  ['yuan','mengliang','高中同班・穿一條褲子長大的','bond',.12],
+  ['mengliang','yuan','替他把 U 盤從上海帶回成都','intel',-.22,'dash'],
+  ['mengliang','yuan','成都路口翻車・右臂截斷','cost',.28,'dash'],
+  ['yuan','mengliang','病房裡塞給大嫂的那張二十萬銀行卡','money',-.34,'dash'],
+  ['mengbro','mengliang','兄弟・那輛跑成都到上海的東風','family',.14],
+  ['mengbro','hepingping','用弟弟的手機把 U 盤送到','intel',-.20,'dash'],
+  ['pangzi','yuan','帶著哭腔的那通電話','bond',.14],
+  ['pangzi','wangdongliang','同班三人組的第三個','bond',-.16],
+  ['wangdongliang','mengbro','匯過去的兩萬塊','money',.20,'dash'],
+
+  /* ===== 發小主線 ===== */
+  ['yuan','wangdongliang','從穿開襠褲起的難兄難弟','bond',0,'main'],
+  ['wangdongliang','yuan','一頓沒招牌的烤鴨・安拓的第一道門','deal',-.22,'dash'],
+  ['yuan','wangdongliang','三十萬介紹費的協議・他始終沒簽','money',.24,'dash'],
+  ['wangdongliang','yuan','黑色文件夾裡那份「三期副作用報告」','betray',-.34,'dash'],
+  ['hongmian','wangdongliang','兩百萬・遞刀的那隻手','betray',.18,'dash'],
+  ['wangdongliang','yuan','「他們說你不會發現的」','betray',.42,'dash'],
+  ['yuan','wangdongliang','奧林匹克花園門口・鋼筋、雨、和最後一拳','cost',-.46,'dash'],
+  ['wangdongliang','yuan','「我連你的背影都已經看不見了」','betray',.52,'dash'],
+
+  /* ===== 王東亮的情感線 ===== */
+  ['wangdongliang','yangziqi','新華書店的搭訕：「我是律師」','romance',0,'main'],
+  ['yangziqi','wangdongliang','大年三十那通嚎啕大哭','romance',-.22,'dash'],
+  ['ziqihusband','yangziqi','夫妻・在外包了二奶還生了男孩','family',.14],
+  ['ziqihusband','wangdongliang','棒球棍・腦震盪・後來的拘留所','cost',.22,'dash'],
+  ['yangziqi','ziqihusband','一百萬撫養費・那套燕莎的房子','money',-.22,'dash'],
+  ['yangziqi','ziqidaughter','母女・爭到手的撫養權','family',.14],
+  ['wangdongliang','ziqidaughter','凱賓斯基套房裡的那頓電火鍋','family',-.20,'dash'],
+  ['xiaoxiang','wangdongliang','放他鴿子的網友','romance',.16,'dash'],
+  ['wangdongliang','yangziqi','國慶結婚・奧林匹克花園的頭款','money',.34,'dash'],
+
+  /* ===== 陳遠與唐櫻 ===== */
+  ['yuan','tangying','皇城 KTV・「你可真沉」','romance',0,'main'],
+  ['tangying','yuan','只跳給他一個人看的瑤族長鼓舞','romance',-.20,'dash'],
+  ['yuan','tangying','胡同裡的狂奔・那張創可貼','romance',.22,'dash'],
+  ['yuan','tangying','上海：外灘、水晶手鏈、一整個新秀麗','romance',-.30,'dash'],
+  ['tangying','yuan','「遠哥，你不要對我這麼好，我還不起的」','romance',.34,'dash'],
+  ['yuan','tangying','城隍廟的三個泥人生肖：一羊兩猴','romance',-.40,'dash'],
+  ['yuan','tangying','國貿辦公室：「這是唐櫻，也是我的女朋友」','romance',.44,'dash'],
+  ['yuan','tangying','大使館酒會門口・他沒有帶她進去','betray',-.50,'dash'],
+  ['tangying','yuan','當面剪碎的那條 Chloe 長裙','cost',.54,'dash'],
+  ['tangying','yuan','清晨的酒店大堂・替他坐上那輛出租車','cost',-.58,'dash'],
+  ['tangying','yuan','藍色小本上撕掉一頁之後的最後兩則','intel',.62,'dash'],
+
+  /* ===== 唐櫻周邊 ===== */
+  ['meijie','tangying','遠房表姊・皇城的媽咪','family',.14],
+  ['meijie','yuan','紫色長裙・調好的那杯酒','romance',-.18,'dash'],
+  ['meijie','tangying','「她不看好我們」','night',.24,'dash'],
+  ['tangying','tangfamily','山裡採菌子的父親・南寧念大學的弟弟','family',.14],
+  ['yuan','tangfamily','那個被塞滿的行李箱','money',-.22,'dash'],
+  ['tangying','frank','仲德仕行的銷售專員','work',.16],
+  ['frank','yuan','每月三萬五的顧問合約・兩萬五轉給她','money',-.26,'dash'],
+  ['frank','tangying','看房那天認出她的客人','cost',.28,'dash'],
+  ['jenny','wuzijiang','三天兩頭往 38 樓跑','romance',.16,'dash'],
+  ['frank','jenny','仲德仕行北京辦公室','work',-.14],
+  ['tiffany','yuan','Vincent 的兩位女伴・借用的那個房間','night',.16,'dash'],
+  ['tiffany','tangying','洗手間的門推開那一刻','cost',-.26,'dash'],
+
+  /* ===== 陳遠與趙心如 ===== */
+  ['yuan','zhaoxinru','咖啡館相親・遲到又認錯了人','romance',.16,'dash'],
+  ['zhaoxinru','yuan','「像一台 X 光機」','romance',-.24,'dash'],
+  ['yuan','zhaoxinru','三毛文集，和那隻猴生肖','romance',.30,'dash'],
+  ['zhaoxinru','yuan','「我有個感覺心如什麼都知道」','romance',-.38,'dash'],
+  ['tangying','zhaoxinru','「一個是給你的，一個是給你未來老婆的」','romance',.26,'dash'],
+
+  /* ===== 天一集團 ===== */
+  ['wangyunbiao','yuan','數百份履歷裡挑中的那一個','work',0,'main'],
+  ['wangyunbiao','yuan','「志在必得，經費上不封頂」','deal',-.20,'dash'],
+  ['liquanwang','wangyunbiao','總經理與副總經理','work',.14],
+  ['liquanye','liquanwang','兄弟・董事長與總經理','family',.14],
+  ['liquanwang','yuan','總經理辦公室裡的點將','deal',.18,'dash'],
+  ['yuan','wuzijiang','並購組・「別在公司裡叫我老大」','work',.12],
+  ['yuan','wenxue','並購組的財務分析師','work',-.12],
+  ['liudekai','wuzijiang','羽毛球雙打搭子','bond',.14],
+  ['wuzijiang','yuan','「他們在搭建數據室財務數據」','intel',.20,'dash'],
+  ['nanjie','yuan','戰略規劃部秘書・集團元老','work',.14],
+  ['nanjie','yuan','六個字的簡訊：「雲彪總已離職」','intel',-.26,'dash'],
+  ['hepingping','yuan','U 盤與黑色文件夾的判讀','intel',.16],
+  ['yushan','liquanwang','分管銷售的副總・總經理職位的對手','work',.16,'dash'],
+  ['tianquan','yuan','跟了一年半的那個「黑衣人」','intel',.18,'dash'],
+  ['tianquan','liquanwang','廣元天全，是天一的子公司','betray',-.24,'dash'],
+  ['wuzijiang','yuan','回成都那天刷不進去的門禁','intel',-.34,'dash'],
+  ['liquanwang','yuan','第一輪拿掉分手費・第二輪加進五千萬違約金','betray',.30,'dash'],
+  ['yuan','liquanwang','久元文件夾裡的兩張紙','law',-.40,'dash'],
+  ['liquanwang','yuan','八五○萬獎金，外加個人的三千萬','money',.46,'dash'],
+  ['wangyunbiao','yuan','快遞來的一張手機卡','intel',.40,'dash'],
+  ['liquanwang','wangyunbiao','29 樓的副總們陸續被請走','betray',-.20,'dash'],
+  ['liquanye','yuan','89–91 年供給久元的那批抗生素針劑','law',.24,'dash'],
+
+  /* ===== 安拓與交易 ===== */
+  ['yuan','sunzhongkai','談判桌的對面','deal',.12],
+  ['sunzhongkai','yuan','合資公司・十八個月的優先考慮權','deal',-.18,'dash'],
+  ['sunzhongkai','kevin','安拓的 BD 經理','work',.14],
+  ['jixuemin','sunzhongkai','浩辰領投 D 輪・安拓董事','deal',.14],
+  ['wangdongliang','jixuemin','湘鄂情・桔子洲頭包廂','deal',-.20,'dash'],
+  ['jixuemin','yuan','「這個項目是我當年跟的」','intel',.22,'dash'],
+  ['dingjie','sunzhongkai','受聘為財務顧問','deal',.14],
+  ['dingjie','yuan','招標流程・短名單・出局通知','deal',-.18,'dash'],
+  ['zhengjiong','yuan','華濟研究・一期二期原始數據的 U 盤','intel',.16],
+  ['zhengjiong','yuan','「九州在看 HBV-201 這個項目」','intel',-.26,'dash'],
+  ['jiuzhou','zhiyin','持股約 57%・實際控制人','deal',.14],
+  ['zhiyin','sunzhongkai','以華濟一半的價格搶下三期合約','betray',-.22,'dash'],
+  ['zhengjiong','zhiyin','丟掉三期合約的那一方','deal',.22,'dash'],
+  ['jiuzhou','yuan','「川人」計畫','betray',.24,'dash'],
+  ['jiuzhou','tangying','那輛沒有牌照的米黃色麵包車','cost',-.32,'dash'],
+  ['jiuzhou','hongmian','兩百萬買一份偽造的臨床數據','betray',.26,'dash'],
+
+  /* ===== 京城飯局 ===== */
+  ['wangdongliang','hongmian','一杯賠罪酒惹出的樑子','betray',.16,'dash'],
+  ['hongmian','yuan','中齊集團・那張黑色加厚的名片','night',-.18,'dash'],
+  ['ouyangsi','wangdongliang','衛生部國際司的司長','work',.14],
+  ['machu','linkui','藥監與宏達的那一局','deal',.14],
+  ['linkui','dujianguo','宏達的林總與小杜','work',-.14],
+  ['hongmian','ouyangsi','整桌人的話題都繞著他轉','night',.16],
+  ['meijie','hongmian','皇城二樓的大包廂','night',-.22],
+  ['linkui','yuan','大使館酒會上也在場的那些人','night',.20,'dash'],
+
+  /* ===== 翻盤 ===== */
+  ['luojiali','yuan','泳池的隔離泳道・頭等艙的鄰座','bond',0,'main'],
+  ['luojiali','vincent','校友・諾維安的 BD 副總','bond',.14],
+  ['vincent','yuan','酒會上換過、卻沒看的那張名片','deal',-.18,'dash'],
+  ['laochen','luojiali','前軍方・現在做盡職調查','intel',.14],
+  ['laochen','yuan','智因伺服器上的真數據，與五封郵件','intel',-.24,'dash'],
+  ['luojiali','yuan','三方聯合體・整體收購安拓','deal',.26,'dash'],
+  ['luojiali','yuan','「這個機會我給的不是天一，而是你陳遠」','deal',-.34,'dash'],
+  ['yuan','luojiali','那通「我不會簽字」的電話','betray',.42,'dash'],
+  ['luojiali','sunzhongkai','約 280 億・五億違約金','money',.20,'dash'],
+  ['taoming','yuan','宏正律所・向北京一中院提起訴訟','law',.14],
+  ['yuan','taoming','真正的目的不是勝訴，是拖住交割','law',-.24,'dash'],
+  ['taoming','jiuzhou','把智因也放進被告名單','law',.22,'dash'],
+  ['sujingyi','yuan','「為什麼是你，而不是王雲彪？」','law',.16],
+  ['yuan','sujingyi','一支袖珍錄音機','law',-.30,'dash'],
+  ['sujingyi','liquanye','頭版：假冒針劑生產合格證','law',.34,'dash']
+];
+
+/* ---------------- render ---------------- */
+const NS='http://www.w3.org/2000/svg';
+const VBW=4100, VBH=2900;
+const byId=Object.fromEntries(NODES.map(n=>[n.id,n]));
+const el=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const gStars=document.getElementById('stars'),gGlow=document.getElementById('glows'),
+      gEdges=document.getElementById('edges'),gLabels=document.getElementById('labels'),
+      gNodes=document.getElementById('nodes');
+
+let seed=29;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+for(let i=0;i<620;i++)
+  gStars.appendChild(el('circle',{cx:(rnd()*4400-160).toFixed(1),cy:(rnd()*3200-160).toFixed(1),
+    r:(rnd()*1.7+.3).toFixed(2),fill:'#dbeaff','fill-opacity':(rnd()*.7+.15).toFixed(2)}));
+
+/* kind: lead=主角  rom=情感對象（粉紅泡泡）  key=非情感的關口  norm=其他 */
+const KIND=n=>n.lead?'lead':(n.romance?'rom':(n.gate?'key':'norm'));
+NODES.forEach(n=>{
+  const k=KIND(n);
+  if(k==='lead') gGlow.appendChild(el('circle',{cx:n.x,cy:n.y,r:215,fill:'url(#halo)'}));
+  else if(k==='rom') gGlow.appendChild(el('circle',{cx:n.x,cy:n.y,r:168,fill:'url(#haloGate)'}));
+  else if(k==='key') gGlow.appendChild(el('circle',{cx:n.x,cy:n.y,r:158,fill:'url(#haloKey)'}));
+});
+
+const R=n=>n.lead?64:((n.romance||n.gate)?54:42);
+const tw=(s,fs)=>[...s].reduce((a,c)=>a+(/[\x00-\xff]/.test(c)?fs*.56:fs*1.02),0);
+const nameFS=n=>n.lead?25:((n.romance||n.gate)?23:19);
+
+/* obstacles: node discs + their caption boxes */
+const obstacles=[];
+NODES.forEach(n=>{
+  const r=R(n);
+  obstacles.push({x:n.x-r,y:n.y-r,w:2*r,h:2*r});
+  const w1=tw(n.name,nameFS(n))+8, w2=tw(n.role,13.5)+8;
+  obstacles.push({x:n.x-w1/2,y:n.y+r+12,w:w1,h:22});
+  obstacles.push({x:n.x-w2/2,y:n.y+r+34,w:w2,h:19});
+});
+const ov=(a,b)=>Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x))*
+                Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));
+
+const placed=[], edgeEls=[], nodeEls={}, adj={};
+NODES.forEach(n=>adj[n.id]=[]);
+
+const bez=(p0,p1,p2,t)=>({x:(1-t)*(1-t)*p0.x+2*(1-t)*t*p1.x+t*t*p2.x,
+                          y:(1-t)*(1-t)*p0.y+2*(1-t)*t*p1.y+t*t*p2.y});
+
+/* longest edges first — they have the most room to negotiate */
+const order=EDGES.map((e,i)=>{const s=byId[e[0]],t=byId[e[1]];
+  return {i,len:Math.hypot(t.x-s.x,t.y-s.y)};}).sort((a,b)=>b.len-a.len).map(o=>o.i);
+
+const geo=EDGES.map(e=>{
+  const s=byId[e[0]],t=byId[e[1]];
+  const dx=t.x-s.x,dy=t.y-s.y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;
+  const p0={x:s.x+ux*(R(s)+7),y:s.y+uy*(R(s)+7)};
+  const p2={x:t.x-ux*(R(t)+14),y:t.y-uy*(R(t)+14)};
+  const m={x:(p0.x+p2.x)/2,y:(p0.y+p2.y)/2};
+  const c=e[4]||0;
+  return {p0,p1:{x:m.x-uy*L*c*2,y:m.y+ux*L*c*2},p2,ux,uy,L};
+});
+
+order.forEach(i=>{
+  const [sid,tid,label,cat,curve,flag]=EDGES[i];
+  const {p0,p1,p2,ux,uy}=geo[i];
+  const col=CAT[cat].c, main=(flag==='main'||flag==='maindash');
+  const w=tw(label,13.5)+20, h=24;
+
+  /* pick the least-colliding spot along the curve */
+  let best=null;
+  const ts=[.5,.42,.58,.34,.66,.28,.72,.24,.76,.2,.8];
+  for(const t of ts){
+    for(const off of [0,-17,17,-32,32,-48,48]){
+      const q=bez(p0,p1,p2,t);
+      const box={x:q.x-uy*off-w/2,y:q.y+ux*off-h/2,w,h};
+      let sc=0;
+      obstacles.forEach(o=>sc+=ov(box,o)*1.4);
+      placed.forEach(o=>sc+=ov(box,o)*2.2);
+      sc+=Math.abs(t-.5)*260+Math.abs(off)*3;
+      if(!best||sc<best.sc)best={sc,box,q:{x:q.x-uy*off,y:q.y+ux*off},anchor:q};
+    }
+  }
+  placed.push(best.box);
+
+  const g=el('g',{class:'edgegrp'});
+  const bw0=main?5:2.2, bo0=main?.95:.62;
+  const p=el('path',{class:'edge',d:`M${p0.x.toFixed(1)},${p0.y.toFixed(1)} Q${p1.x.toFixed(1)},${p1.y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`,
+    stroke:col,'stroke-width':bw0,'stroke-opacity':bo0});
+  if(flag==='dash')p.setAttribute('stroke-dasharray','9 8');
+  if(flag==='maindash')p.setAttribute('stroke-dasharray','0.1 16');
+  const ax=p2.x-p1.x, ay=p2.y-p1.y, aL=Math.hypot(ax,ay)||1, vx=ax/aL, vy=ay/aL;
+  g.append(p, el('path',{d:`M${p2.x},${p2.y} L${(p2.x-vx*15-vy*6.5).toFixed(1)},${(p2.y-vy*15+vx*6.5).toFixed(1)} L${(p2.x-vx*15+vy*6.5).toFixed(1)},${(p2.y-vy*15-vx*6.5).toFixed(1)} Z`,
+    fill:col,'fill-opacity':.9}));
+  gEdges.appendChild(g);
+
+  const lg=el('g',{class:'edgelab'});
+  const q=best.q, a=best.anchor;
+  if(Math.hypot(q.x-a.x,q.y-a.y)>3)
+    lg.appendChild(el('line',{class:'leader',x1:a.x.toFixed(1),y1:a.y.toFixed(1),x2:q.x.toFixed(1),y2:q.y.toFixed(1),stroke:col}));
+  lg.appendChild(el('rect',{x:(q.x-w/2).toFixed(1),y:(q.y-h/2).toFixed(1),width:w.toFixed(1),height:h,rx:12,
+    fill:(main||PINKBUBBLE.has(cat))?'#ffdcee':'#d3e2f9',stroke:col,'stroke-width':main?1.8:1.1,'stroke-opacity':.85}));
+  const tx=el('text',{class:'elabel',x:q.x.toFixed(1),y:(q.y+.5).toFixed(1)});
+  tx.textContent=label; lg.appendChild(tx);
+  gLabels.appendChild(lg);
+
+  edgeEls[i]={g,lg,sid,tid,cat,label,path:p,bw0,bo0};
+  adj[sid].push({other:tid,label,cat});
+  adj[tid].push({other:sid,label,cat});
+});
+
+NODES.forEach(n=>{
+  const r=R(n);
+  const g=el('g',{class:'node',tabindex:'0',role:'button','aria-label':n.name});
+  const k=KIND(n);
+  const SK={lead:{aur:'#7fb2ff',ao:.18,face:'url(#faceLead)',ring:'#ffd07a',rw:3.5,fs:42},
+            rom :{aur:'#ff86bd',ao:.15,face:'url(#faceGate)',ring:'#ff9ecb',rw:3.2,fs:36},
+            key :{aur:'#ffc46a',ao:.13,face:'url(#faceKey)', ring:'#ffcf7a',rw:3,  fs:36},
+            norm:{aur:'#7fb2ff',ao:.08,face:'url(#face)',    ring:'#5f93d8',rw:2,  fs:30}}[k];
+  g.appendChild(el('circle',{cx:n.x,cy:n.y,r:r+16,fill:SK.aur,'fill-opacity':SK.ao}));
+  g.appendChild(el('circle',{class:'ring',cx:n.x,cy:n.y,r:r,fill:SK.face,stroke:SK.ring,'stroke-width':SK.rw}));
+  const gl=el('text',{class:'glyph',x:n.x,y:n.y,'font-size':SK.fs});
+  gl.textContent=n.g; g.appendChild(gl);
+  const nm=el('text',{class:'nname',x:n.x,y:n.y+r+28,'font-size':nameFS(n)});
+  nm.textContent=n.name; g.appendChild(nm);
+  const rl=el('text',{class:'nrole',x:n.x,y:n.y+r+48});
+  rl.textContent=n.role; g.appendChild(rl);
+  const btxt=n.lead?'主角':(n.gate||(n.romance?'情':''));
+  if(btxt){
+    const bw=btxt.length<=1?34:52;
+    const bg=n.lead?'#f0904a':(n.romance?'#c2427f':'#a86a1c');
+    const bs=n.lead?'#ffd7b0':(n.romance?'#ffbedb':'#ffdca8');
+    g.appendChild(el('rect',{x:n.x+r-bw/2+8,y:n.y+r-22,width:bw,height:30,rx:15,
+      fill:bg,stroke:bs,'stroke-width':1.5}));
+    const b=el('text',{x:n.x+r+8,y:n.y+r-7,'font-size':n.lead?14:13.5,fill:'#fff','font-weight':800,
+      'text-anchor':'middle','dominant-baseline':'central'});
+    b.textContent=btxt; g.appendChild(b);
+  }
+  g.addEventListener('click',ev=>{ev.stopPropagation();focusNode(n.id);});
+  g.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();focusNode(n.id);}});
+  gNodes.appendChild(g); nodeEls[n.id]=g;
+});
+
+/* ---------------- legend ---------------- */
+const lg=document.getElementById('legend');
+const legItems={};
+Object.keys(CAT).forEach(k=>{
+  const b=document.createElement('button');
+  b.className='legitem'; b.type='button';
+  b.innerHTML='<i style="background:'+CAT[k].c+'"></i>'+CAT[k].name+
+              '<b>'+EDGES.filter(e=>e[3]===k).length+'</b>';
+  b.title='點擊：highlight 這一類的全部關係線';
+  b.onclick=ev=>{ev.stopPropagation();highlightCat(k);};
+  lg.appendChild(b); legItems[k]=b;
+});
+
+/* ---------------- focus + panel ---------------- */
+const panel=document.getElementById('panel');
+function focusNode(id){
+  activeCat=null;
+  Object.values(legItems).forEach(b=>b.classList.remove('on'));
+  resetStrokes();
+  const keep=new Set([id,...adj[id].map(a=>a.other)]);
+  NODES.forEach(n=>nodeEls[n.id].classList.toggle('faded',!keep.has(n.id)));
+  edgeEls.forEach(e=>{const on=e.sid===id||e.tid===id;
+    e.g.classList.toggle('faded',!on); e.lg.classList.toggle('faded',!on);});
+  const n=byId[id];
+  document.getElementById('pName').textContent=n.name;
+  document.getElementById('pRole').textContent=n.role;
+  document.getElementById('pEra').textContent=n.era||'';
+  const ul=document.getElementById('pFacts'); ul.innerHTML='';
+  n.facts.forEach(f=>{const li=document.createElement('li');li.textContent=f;ul.appendChild(li);});
+  const rd=document.getElementById('pRels'); rd.innerHTML='';
+  adj[id].forEach(a=>{
+    const d=document.createElement('div'); d.className='rel';
+    d.innerHTML='<span class="bar" style="background:'+CAT[a.cat].c+'"></span>'+
+      '<span class="who">'+byId[a.other].name+'</span><span class="what">・'+a.label+'</span>';
+    d.onclick=()=>focusNode(a.other); rd.appendChild(d);
+  });
+  panel.classList.add('open'); panel.scrollTop=0;
+}
+function clearFocus(){
+  panel.classList.remove('open');
+  activeCat=null;
+  if(typeof legItems!=='undefined')Object.values(legItems).forEach(b=>b.classList.remove('on'));
+  NODES.forEach(n=>nodeEls[n.id].classList.remove('faded'));
+  edgeEls.forEach(e=>{e.g.classList.remove('faded');e.lg.classList.remove('faded');});
+  resetStrokes();
+}
+document.getElementById('closePanel').onclick=clearFocus;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')clearFocus();});
+
+let activeCat=null;
+function resetStrokes(){
+  edgeEls.forEach(e=>{e.path.setAttribute('stroke-width',e.bw0);
+                      e.path.setAttribute('stroke-opacity',e.bo0);});
+}
+function highlightCat(k){
+  if(activeCat===k){clearFocus();return;}
+  activeCat=k;
+  Object.keys(legItems).forEach(j=>legItems[j].classList.toggle('on',j===k));
+  const keep=new Set();
+  edgeEls.forEach(e=>{
+    const on=e.cat===k;
+    e.g.classList.toggle('faded',!on); e.lg.classList.toggle('faded',!on);
+    e.path.setAttribute('stroke-width',on?Math.max(e.bw0*1.9,4.6):e.bw0);
+    e.path.setAttribute('stroke-opacity',on?1:e.bo0);
+    if(on){keep.add(e.sid);keep.add(e.tid);}
+  });
+  NODES.forEach(n=>nodeEls[n.id].classList.toggle('faded',!keep.has(n.id)));
+  const rel=edgeEls.filter(e=>e.cat===k);
+  document.getElementById('pName').textContent=CAT[k].name;
+  document.getElementById('pRole').textContent=rel.length+' 條關係　·　'+keep.size+' 位人物';
+  document.getElementById('pEra').textContent='關係類別　·　再點一次圖例即可取消';
+  document.getElementById('pFacts').innerHTML='';
+  const rd=document.getElementById('pRels'); rd.innerHTML='';
+  rel.forEach(e=>{
+    const d=document.createElement('div'); d.className='rel';
+    d.innerHTML='<span class="bar" style="background:'+CAT[k].c+'"></span>'+
+      '<span class="who">'+byId[e.sid].name+' → '+byId[e.tid].name+'</span>'+
+      '<span class="what">・'+e.label+'</span>';
+    d.onclick=()=>focusNode(e.sid==='afa'?e.tid:e.sid);
+    rd.appendChild(d);
+  });
+  panel.classList.add('open'); panel.scrollTop=0;
+}
+
+/* ---------------- zoom / pan ---------------- */
+const svg=document.getElementById('svg'),vp=document.getElementById('viewport'),stage=document.getElementById('stage');
+let k=1,tx=0,ty=0;
+const apply=()=>vp.setAttribute('transform',`translate(${tx} ${ty}) scale(${k})`);
+const toVB=(cx,cy)=>{const p=svg.createSVGPoint();p.x=cx;p.y=cy;return p.matrixTransform(svg.getScreenCTM().inverse());};
+function zoomAt(px,py,f){const nk=Math.min(6,Math.max(.25,k*f)),r=nk/k;
+  tx=px-(px-tx)*r; ty=py-(py-ty)*r; k=nk; apply();}
+stage.addEventListener('wheel',e=>{e.preventDefault();const p=toVB(e.clientX,e.clientY);
+  zoomAt(p.x,p.y,Math.exp(-e.deltaY*0.0015));},{passive:false});
+
+let drag=null;
+stage.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.node'))return;
+  drag={x:e.clientX,y:e.clientY,tx,ty,moved:false};
+  stage.setPointerCapture(e.pointerId); stage.classList.add('grabbing');});
+stage.addEventListener('pointermove',e=>{
+  if(!drag)return;
+  const r=svg.getBoundingClientRect();
+  const u=Math.max(VBW/r.width,VBH/r.height);
+  tx=drag.tx+(e.clientX-drag.x)*u; ty=drag.ty+(e.clientY-drag.y)*u;
+  if(Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y)>4)drag.moved=true;
+  apply();});
+stage.addEventListener('pointerup',()=>{if(drag&&!drag.moved)clearFocus();drag=null;stage.classList.remove('grabbing');});
+stage.addEventListener('pointercancel',()=>{drag=null;stage.classList.remove('grabbing');});
+
+const pts=new Map(); let pd=0;
+stage.addEventListener('pointerdown',e=>pts.set(e.pointerId,e));
+stage.addEventListener('pointermove',e=>{
+  if(!pts.has(e.pointerId))return; pts.set(e.pointerId,e);
+  if(pts.size===2){drag=null;
+    const [a,b]=[...pts.values()];
+    const d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+    if(pd){const p=toVB((a.clientX+b.clientX)/2,(a.clientY+b.clientY)/2);zoomAt(p.x,p.y,d/pd);}
+    pd=d;}});
+['pointerup','pointercancel','pointerleave'].forEach(t=>
+  stage.addEventListener(t,e=>{pts.delete(e.pointerId);if(pts.size<2)pd=0;}));
+
+document.getElementById('zin').onclick=()=>zoomAt(VBW/2,VBH/2,1.25);
+document.getElementById('zout').onclick=()=>zoomAt(VBW/2,VBH/2,.8);
+document.getElementById('reset').onclick=()=>{k=1;tx=0;ty=0;apply();clearFocus();};
+const tl=document.getElementById('togLabel');
+tl.onclick=()=>{const on=gLabels.style.display!=='none';gLabels.style.display=on?'none':'';tl.classList.toggle('off',on);};
+apply();
+</script>
