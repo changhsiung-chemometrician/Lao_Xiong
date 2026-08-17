@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老熊地理軌跡 ·《老熊隨筆》附錄</title>
+<meta name="description" content="老熊一生落點 · 一九五七 ─ 二〇二六。七段常住地、家人軌跡、居住地與工作地分離對照，以及三處待補的空白。">
+<style>
+  :root{
+    --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
+    --seal:#A8322B;--stone:#2F4F5E;--rule:#D8D3C6;--paper-2:#F3F1EA;
+    --serif:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU","MingLiU",Georgia,serif;
+    --sans:"Noto Sans TC","PingFang TC","Heiti TC","Microsoft JhengHei",-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:var(--sans);font-size:30px;font-weight:700;line-height:1.9;letter-spacing:.01em}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 34px 110px}
+
+  .lx-backbar{margin:0;padding:18px 0 0;line-height:1}
+  .lx-backfoot{margin:0;padding:46px 0 0;text-align:center;line-height:1}
+  a.lx-back{display:inline-block;text-decoration:none;font-family:var(--sans);
+    font-size:21px;font-weight:800;letter-spacing:.14em;line-height:1.5;
+    color:var(--stone);background:var(--paper);border:3px solid var(--rule);border-radius:2px;
+    padding:9px 20px;transition:border-color .2s,color .2s}
+  a.lx-back:hover{border-color:var(--seal);color:var(--seal)}
+  a.lx-back:focus-visible{outline:4px solid var(--stone);outline-offset:5px}
+  a.lx-back .lx-sep{color:var(--rule);margin:0 8px}
+
+  header.mast{border-bottom:6px double var(--ink);padding:34px 0 22px;margin-bottom:48px}
+  .kicker{font-size:22px;font-weight:800;letter-spacing:.4em;color:var(--seal);margin:0 0 22px}
+  h1{font-family:var(--serif);font-size:72px;font-weight:900;line-height:1.3;margin:0 0 22px;letter-spacing:.02em}
+  h1 small{display:block;font-size:34px;font-weight:800;color:var(--ink-soft);margin-top:14px;letter-spacing:.06em}
+  .standfirst{font-size:32px;font-weight:700;color:var(--ink-soft);
+    border-left:10px solid var(--stone);padding-left:24px;margin:0 0 26px;line-height:1.8}
+  .byline{font-size:22px;font-weight:800;letter-spacing:.16em;color:var(--ink-soft);
+    border-top:2px solid var(--rule);padding-top:18px}
+
+  section{margin:0 0 70px;scroll-margin-top:20px}
+  h2{font-family:var(--serif);font-size:48px;font-weight:900;line-height:1.4;
+     margin:0 0 26px;padding-left:32px;position:relative}
+  h2::before{content:"";position:absolute;left:0;top:.18em;bottom:.12em;width:13px;
+     background:repeating-linear-gradient(to bottom,var(--ink) 0 3px,transparent 3px 21px);
+     border-left:4px solid var(--ink)}
+  h2 .no{display:block;font-size:21px;font-weight:800;letter-spacing:.4em;color:var(--stone);margin-bottom:8px}
+  h3{font-size:34px;font-weight:900;margin:46px 0 16px;border-bottom:3px solid var(--rule);padding-bottom:10px}
+  p{margin:0 0 26px}
+  strong{font-weight:800}
+  em{font-style:normal;font-weight:800;border-bottom:4px solid var(--seal)}
+
+  nav.toc{background:var(--paper-2);border-top:8px solid var(--ink);border-bottom:2px solid var(--rule);
+          padding:26px 30px 18px;margin:0 0 54px}
+  nav.toc h4{font-size:24px;font-weight:900;letter-spacing:.26em;color:var(--seal);margin:0 0 16px}
+  nav.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 36px}
+  nav.toc li{border-bottom:2px dotted var(--rule);padding:7px 0}
+  nav.toc a{display:block;text-decoration:none;color:var(--ink);font-size:25px;font-weight:800;line-height:1.6}
+  nav.toc a .no{color:var(--stone);letter-spacing:.2em;margin-right:12px}
+  nav.toc a:hover{color:var(--seal)}
+
+  .chart{background:var(--paper-2);border:2px solid var(--rule);padding:22px 18px;margin:0 0 30px}
+  .chart svg{display:block;width:100%;height:auto}
+  .bar{stroke:#8E877A;stroke-width:1}
+  .b-tw{fill:#E4D5A8}
+  .b-us{fill:#E6C4B4}
+  .b-ca{fill:#BFD6D2}
+  .b-fam{fill:#DCD9CF}
+  .lbl{font-family:var(--sans);font-size:22px;font-weight:800;fill:#16181C}
+  .yr{font-family:var(--sans);font-size:20px;font-weight:800;fill:#4A4F57}
+  .tick{font-family:var(--sans);font-size:19px;font-weight:700;fill:#4A4F57}
+  .ax{stroke:#C6C0B2;stroke-width:1}
+
+  table{width:100%;border-collapse:collapse;margin:0 0 30px;background:var(--paper-2);font-size:25px}
+  caption{text-align:left;font-size:22px;font-weight:800;letter-spacing:.2em;color:var(--ink-soft);padding-bottom:10px}
+  th,td{border-bottom:2px solid var(--rule);padding:14px 16px;text-align:left;vertical-align:top;line-height:1.6}
+  thead th{background:var(--ink);color:var(--paper);font-weight:800;letter-spacing:.1em;border-bottom:none}
+  td.n{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+  .pin{display:inline-block;font-size:18px;font-weight:800;letter-spacing:.1em;
+       border:2px solid var(--rule);border-radius:2px;padding:2px 10px;color:var(--ink-soft);white-space:nowrap}
+  .pin.d{color:var(--stone);border-color:var(--stone)}
+  .pin.e{color:var(--seal);border-color:var(--seal)}
+
+  .gap{border:3px solid var(--seal);background:var(--paper-2);padding:26px 30px 6px;margin:0 0 32px}
+  .gap .tag{display:inline-block;background:var(--seal);color:#fff;font-size:20px;font-weight:800;
+            letter-spacing:.2em;padding:5px 16px;margin-bottom:16px}
+  .gap h3{border:none;padding:0;margin:0 0 14px;font-size:32px}
+
+  ul.plain{padding-left:1.3em;margin:0 0 26px}
+  ul.plain li{margin-bottom:14px}
+
+  footer{border-top:6px double var(--ink);margin-top:60px;padding-top:22px;
+         font-size:22px;font-weight:800;letter-spacing:.16em;color:var(--ink-soft)}
+
+  @media (max-width:900px){
+    body{font-size:21px}
+    .wrap{padding:0 18px 60px}
+    h1{font-size:40px}h1 small{font-size:23px}
+    .standfirst{font-size:23px}h2{font-size:32px}h3{font-size:24px}
+    table{font-size:18px}th,td{padding:10px 9px}
+    nav.toc ol{grid-template-columns:1fr}nav.toc a{font-size:20px}
+    a.lx-back{font-size:16px;padding:8px 15px}
+    .lbl{font-size:26px}.yr{font-size:24px}.tick{font-size:23px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}a.lx-back{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+<p class="lx-backbar"><a class="lx-back" href="index.html#zhiya">← 回老熊隨筆<span class="lx-sep">·</span>職涯軌跡</a></p>
+
+<header class="mast">
+  <div class="kicker">老 熊 隨 筆 ・ 附 錄</div>
+  <h1>老熊地理軌跡
+    <small>一生落點 · 一九五七 ─ 二〇二六</small>
+  </h1>
+  <p class="standfirst">嘉義 ➛ 台北 ➛ 俄亥俄 ➛ 佛羅里達 ➛ 路易斯安那 ➛ 南加州 ➛ 舊金山灣區。七段常住地、一段十三個月的兩地分居、一份工作地與居住地的分離對照，以及三處站上還沒寫到的空白。</p>
+  <div class="byline">依《老熊職涯軌跡・全 24 站》、〈離開 Akron〉、〈佛州的一年〉上下、〈老熊初試啼聲〉整理 ｜ Claude 復盤</div>
+</header>
+
+<nav class="toc" aria-label="目錄">
+  <h4>目 錄</h4>
+  <ol>
+    <li><a href="#tl"><span class="no">壹</span>一生落點時間軸</a></li>
+    <li><a href="#detail"><span class="no">貳</span>逐段細目</a></li>
+    <li><a href="#family"><span class="no">參</span>家人軌跡</a></li>
+    <li><a href="#split"><span class="no">肆</span>居住地／工作地分離</a></li>
+    <li><a href="#gaps"><span class="no">伍</span>三處待補的空白</a></li>
+  </ol>
+</nav>
+
+<section id="tl">
+  <h2><span class="no">壹</span>一生落點時間軸</h2>
+  <div class="chart">
+    <svg viewBox="0 0 1000 540" role="img" aria-label="老熊一生居住地時間軸，一九五七至二〇二六">
+      <title>老熊一生居住地時間軸</title>
+      <rect class="bar b-tw" x="260" y="90"  width="193" height="32" rx="3"/>
+      <text class="lbl" x="40" y="112">嘉義市</text>
+      <text class="yr"  x="462" y="112">1957? – 1976</text>
+
+      <rect class="bar b-tw" x="453" y="140" width="81"  height="32" rx="3"/>
+      <text class="lbl" x="40" y="162">台北（含服役）</text>
+      <text class="yr"  x="543" y="162">1976 – 1984</text>
+
+      <rect class="bar b-us" x="534" y="190" width="71"  height="32" rx="3"/>
+      <text class="lbl" x="40" y="212">Akron, OH</text>
+      <text class="yr"  x="614" y="212">1984 – 1991</text>
+
+      <rect class="bar b-us" x="605" y="240" width="12"  height="32" rx="2"/>
+      <text class="lbl" x="40" y="262">Gainesville, FL</text>
+      <text class="yr"  x="626" y="262">1991 – 92</text>
+
+      <rect class="bar b-us" x="617" y="290" width="59"  height="32" rx="3"/>
+      <text class="lbl" x="40" y="312">Lafayette, LA</text>
+      <text class="yr"  x="685" y="312">1992 – 1998</text>
+
+      <rect class="bar b-ca" x="676" y="340" width="101" height="32" rx="3"/>
+      <text class="lbl" x="40" y="362">Pasadena, CA</text>
+      <text class="yr"  x="786" y="362">1998 – 2008</text>
+
+      <rect class="bar b-ca" x="777" y="390" width="183" height="32" rx="3"/>
+      <text class="lbl" x="40" y="412">灣區／紅木岸</text>
+      <text class="yr"  x="800" y="412">2008 – 至今</text>
+
+      <line class="ax" x1="260" y1="444" x2="960" y2="444"/>
+
+      <rect class="bar b-fam" x="666" y="456" width="294" height="32" rx="3"/>
+      <text class="lbl" x="40" y="478">田總＋二子</text>
+      <text class="yr"  x="690" y="478">1997 – 北加州</text>
+
+      <line class="ax" x1="260" y1="504" x2="960" y2="504"/>
+      <line class="ax" x1="290" y1="504" x2="290" y2="511"/>
+      <line class="ax" x1="392" y1="504" x2="392" y2="511"/>
+      <line class="ax" x1="493" y1="504" x2="493" y2="511"/>
+      <line class="ax" x1="595" y1="504" x2="595" y2="511"/>
+      <line class="ax" x1="696" y1="504" x2="696" y2="511"/>
+      <line class="ax" x1="798" y1="504" x2="798" y2="511"/>
+      <line class="ax" x1="899" y1="504" x2="899" y2="511"/>
+      <text class="tick" x="290" y="532" text-anchor="middle">1960</text>
+      <text class="tick" x="392" y="532" text-anchor="middle">1970</text>
+      <text class="tick" x="493" y="532" text-anchor="middle">1980</text>
+      <text class="tick" x="595" y="532" text-anchor="middle">1990</text>
+      <text class="tick" x="696" y="532" text-anchor="middle">2000</text>
+      <text class="tick" x="798" y="532" text-anchor="middle">2010</text>
+      <text class="tick" x="899" y="532" text-anchor="middle">2020</text>
+    </svg>
+  </div>
+  <p>橫條長度即居留年數。佛州那一條之所以細成一根線，不是畫錯——<strong>整整七個月，是全部落點裡最短的一段常住</strong>。底下灰色那條是田總與兩個兒子，一九九七年四月起就在北加州，比老熊本人早了十一年。</p>
+</section>
+
+<section id="detail">
+  <h2><span class="no">貳</span>逐段細目</h2>
+  <p>精度標記沿用職涯軌跡的規矩：<span class="pin d">日</span> 文獻明載日期，<span class="pin">月</span> 明載月份，<span class="pin e">推定</span> 由前後文推算、待本人校訂。</p>
+  <table>
+    <caption>老 熊 本 人 落 點</caption>
+    <thead><tr><th>時期</th><th>地點</th><th>精度</th><th>依據</th></tr></thead>
+    <tbody>
+      <tr><td class="n">~1957/58 – 1976.06</td><td>嘉義市</td><td><span class="pin e">推定</span></td><td>嘉中三年十二班 1973.09–1976.06 回推；出生年站上未載</td></tr>
+      <tr><td class="n">1976.07.12 – 07.24</td><td>台北 · 師大分部</td><td><span class="pin d">日</span></td><td>第一屆全國中學生暑期物理研習會，兩週</td></tr>
+      <tr><td class="n">1976.09 – 1980.06</td><td>台北</td><td><span class="pin">月</span></td><td>台大化工學士</td></tr>
+      <tr><td class="n">1980.07 – 1982.05</td><td>台灣（海軍）</td><td><span class="pin e">推定</span></td><td>義務役約一年十一個月；<strong>駐地站上未載</strong></td></tr>
+      <tr><td class="n">1982.09 – 1984 夏</td><td>台北</td><td><span class="pin">月</span></td><td>台大化工碩士</td></tr>
+      <tr><td class="n">1984.09 – 1991.08</td><td>俄亥俄州 Akron</td><td><span class="pin">月</span></td><td>七年：博士班、pre-doc、博士後</td></tr>
+      <tr><td class="n">1991.08底 – 1992.03底</td><td>佛州 Gainesville</td><td><span class="pin">月</span></td><td>自租 U-Haul 南遷；佛大物理系 Associate Scientist</td></tr>
+      <tr><td class="n">1992.04.01 – 1998.05</td><td>路州 Lafayette</td><td><span class="pin d">日</span></td><td>愚人節入職 LPC；1994 綠卡到手</td></tr>
+      <tr><td class="n">1998.05.11 – 2008.06</td><td>南加州 Pasadena</td><td><span class="pin d">日</span></td><td>單身報到 Cyrano Sciences；十年</td></tr>
+      <tr><td class="n">2008.07 – 2024</td><td>北加州灣區</td><td><span class="pin">月</span></td><td>「離開南加、北返灣區」</td></tr>
+      <tr><td class="n">2024 –</td><td>Redwood Shores</td><td><span class="pin">月</span></td><td>退休；填出來的一片水鄉，後陽台正對潟湖</td></tr>
+    </tbody>
+  </table>
+  <p>跨州搬遷共 <strong>五次</strong>：台灣 → 俄亥俄（1984）、俄亥俄 → 佛州（1991）、佛州 → 路州（1992）、路州 → 南加（1998）、南加 → 北加（2008）。<em>其中 1991 到 1992 這兩次只隔了七個月。</em></p>
+</section>
+
+<section id="family">
+  <h2><span class="no">參</span>家人軌跡</h2>
+  <table>
+    <caption>田 總</caption>
+    <thead><tr><th>時期</th><th>地點</th><th>事由</th></tr></thead>
+    <tbody>
+      <tr><td class="n">– 1980s</td><td>上海</td><td>上海交通大學畢業，八〇年代出來唸書</td></tr>
+      <tr><td class="n">1986 秋 – 1991</td><td>俄亥俄州 Akron</td><td>五年。與指導教授處得不好，離開後一次也不肯再回</td></tr>
+      <tr><td class="n">1991 – 1992</td><td>佛州 Gainesville</td><td>佛大電機系入學許可</td></tr>
+      <tr><td class="n">1992 – 1997.03</td><td>路州 Lafayette</td><td>全額獎學金唸完電腦系</td></tr>
+      <tr><td class="n">1997.04 –</td><td>北加州</td><td>入職 Intel，帶兩個兒子北上</td></tr>
+      <tr><td class="n">現在</td><td>Redwood Shores</td><td>本地工程顧問公司；家中首席修繕工</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <caption>兩 個 兒 子</caption>
+    <thead><tr><th>時期</th><th>地點</th><th>精度</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1990 春</td><td>俄亥俄出生（老大）</td><td><span class="pin">月</span></td></tr>
+      <tr><td class="n">1991 – 1992?</td><td>可能在深圳／上海（見第伍節）</td><td><span class="pin e">推定</span></td></tr>
+      <tr><td class="n">1992 – 1998 之間</td><td>路州出生（老二）</td><td><span class="pin e">推定</span></td></tr>
+      <tr><td class="n">1997.04 –</td><td>北加州</td><td><span class="pin">月</span></td></tr>
+    </tbody>
+  </table>
+  <p><strong>一九九七年四月到一九九八年五月，這十三個月全家是分居兩地的：</strong>田總母子三人在北加，老熊一人留守 Lafayette。這段兩地分居的正式終點不是團圓，而是老熊搬去了 Pasadena——距離北加還有六百公里。</p>
+</section>
+
+<section id="split">
+  <h2><span class="no">肆</span>居住地／工作地分離</h2>
+  <p>職涯軌跡記的是<strong>工作地</strong>，這一節記的是它跟<strong>居住地</strong>對不上的那幾段。</p>
+  <table>
+    <caption>對 照 表</caption>
+    <thead><tr><th>時期</th><th>工作地</th><th>居住地</th><th>分離狀況</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1992 – 1997.03</td><td>LPC · Lafayette</td><td>Lafayette</td><td>同城</td></tr>
+      <tr><td class="n">1997.04 – 1998.05</td><td>LPC · Lafayette</td><td>本人 Lafayette／家人北加</td><td><strong>跨州分居 13 個月</strong></td></tr>
+      <tr><td class="n">1998 – 2008</td><td>Pasadena</td><td>報到時家人在北加，之後不明</td><td><span class="pin e">待補</span></td></tr>
+      <tr><td class="n">2008 – 2010</td><td>Optiscan · Hayward</td><td>灣區</td><td>同區通勤</td></tr>
+      <tr><td class="n">2010 – 2012</td><td>NASA Ames · Mountain View</td><td>灣區</td><td>同區通勤</td></tr>
+      <tr><td class="n">2012</td><td>Bidgely · Sunnyvale</td><td>灣區</td><td>同區通勤</td></tr>
+      <tr><td class="n">2013</td><td>Apple · Cupertino</td><td>灣區</td><td>同區通勤</td></tr>
+      <tr><td class="n">2013 – 2024</td><td>JDSU／Viavi · Santa Rosa</td><td>灣區（紅木岸？）</td><td><strong>單程逾一小時</strong> <span class="pin e">待補</span></td></tr>
+      <tr><td class="n">2024 –</td><td>家</td><td>Redwood Shores</td><td>合一</td></tr>
+    </tbody>
+  </table>
+  <p>灣區這十六年，工作地換了五個城市（Hayward、Mountain View、Sunnyvale、Cupertino、Santa Rosa），<em>但一次也沒有再搬家</em>。這跟前面二十四年剛好相反：前半生為了工作搬家，後半生為了不搬家而通勤。</p>
+</section>
+
+<section id="gaps">
+  <h2><span class="no">伍</span>三處待補的空白</h2>
+
+  <div class="gap">
+    <span class="tag">其 一</span>
+    <h3>一九九八 ─ 二〇〇八，家在哪一頭</h3>
+    <p>職涯軌跡寫得很清楚：一九九八年五月十一日一個人報到，田總與兩個兒子仍在北加。二〇〇八年那一站又寫成「離開南加、<strong>北返</strong>灣區」。這兩句話之間有兩種完全不同的十年：家人南遷團圓，或者長期兩地。</p>
+    <p>站上完全沒有記載——而這十年剛好是兩個兒子的整段童年。整條軌跡上最大的一塊空白就在這裡。</p>
+  </div>
+
+  <div class="gap">
+    <span class="tag">其 二</span>
+    <h3>Santa Rosa 那十一年怎麼過的</h3>
+    <p>職涯最長的一站（2013.09–2024），工作地是 Santa Rosa，離紅木岸開車一個多小時。搬家、通勤、還是遠距？這是「首席化學計量學家」十一年的日常形狀，職涯表上看不出來。</p>
+  </div>
+
+  <div class="gap">
+    <span class="tag">其 三</span>
+    <h3>老大一歲多那段，人在哪一國</h3>
+    <p>〈第一份「職位」〉裡有一句：為安置一歲多的兒子，先有美領館側門闖關，再有爺爺奶奶在羅湖關口的變通本事。讀起來像是孩子曾被送回中國一段時間。</p>
+    <p>如果是，那一九九一到九二年前後，<strong>老大的所在地不是佛州，而是深圳或上海</strong>——這是整條軌跡上唯一一個「家人與本人不同國」的節點，也是最值得補一筆的地方。</p>
+  </div>
+
+  <ul class="plain">
+    <li>另有兩處小的：<strong>服役兩年的駐地</strong>（1980.07–1982.05），以及<strong>老二的出生地與年份</strong>。</li>
+    <li>以上五處，都不必查資料——只有本人知道。</li>
+  </ul>
+</section>
+
+<footer>
+  老熊隨筆 · 附錄 ｜《老熊地理軌跡：一生落點 1957–2026》 ｜ 資料出自本站現有篇章，凡推定者已標記
+</footer>
+
+<p class="lx-backfoot"><a class="lx-back" href="index.html#zhiya">← 回老熊隨筆<span class="lx-sep">·</span>職涯軌跡</a></p>
+</div>
+</body>
+</html>
