@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Even Wrong — 46 years after we graduated</title>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{
+    --ink:#1c1c1c;
+    --paper:#f4f1ec;
+    --card:#ffffff;
+    --rule:#d8d2c8;
+    --accent:#8c1d18;
+    --accent-2:#1f4e5f;
+    --muted:#6b6157;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"PingFang TC","Heiti TC","微軟正黑體","Noto Sans TC",sans-serif;
+    font-weight:700;
+    font-size:30px;
+    line-height:1.85;
+    color:var(--ink);
+    background:var(--paper);
+    max-width:1100px;
+    margin:0 auto;
+    padding:56px 40px 96px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    font-size:22px;
+    letter-spacing:.42em;
+    color:var(--muted);
+    text-align:center;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:74px;
+    font-weight:800;
+    line-height:1.2;
+    color:var(--accent-2);
+    text-align:center;
+    letter-spacing:.01em;
+    margin:0 0 10px;
+  }
+  .sub-en{
+    text-align:center;
+    font-size:29px;
+    font-weight:700;
+    font-style:italic;
+    color:var(--accent);
+    letter-spacing:.06em;
+    margin:0 0 24px;
+  }
+  .deck{
+    text-align:center;
+    font-size:27px;
+    color:var(--muted);
+    max-width:840px;
+    margin:0 auto 14px;
+    line-height:1.7;
+  }
+  .byline{
+    text-align:center;
+    font-size:23px;
+    color:var(--muted);
+    letter-spacing:.12em;
+    padding-bottom:34px;
+    border-bottom:3px solid var(--accent-2);
+    margin-bottom:44px;
+  }
+  .section-card{
+    background:var(--card);
+    padding:44px 48px;
+    border-radius:10px;
+    box-shadow:0 3px 14px rgba(0,0,0,.07);
+    margin-bottom:40px;
+  }
+  h2{
+    font-size:44px;
+    font-weight:800;
+    color:var(--accent-2);
+    line-height:1.4;
+    margin:0 0 26px;
+    padding-left:20px;
+    border-left:10px solid var(--accent);
+  }
+  h3{
+    font-size:33px;
+    font-weight:800;
+    color:var(--accent);
+    margin:38px 0 14px;
+  }
+  p{margin:0 0 24px;}
+  strong{font-weight:800;}
+  .num{font-weight:800;font-variant-numeric:tabular-nums;}
+  .lead::first-letter{
+    float:left;
+    font-size:112px;
+    line-height:.82;
+    font-weight:800;
+    color:var(--accent);
+    margin:10px 16px 0 0;
+  }
+  .source-box{
+    background:#eef2f3;
+    border:3px solid var(--accent-2);
+    border-radius:10px;
+    padding:34px 38px;
+    font-size:25px;
+    line-height:1.72;
+    color:#2a3b42;
+    margin:0 0 40px;
+  }
+  .source-box .label{
+    display:block;
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:.24em;
+    color:var(--accent-2);
+    margin-bottom:12px;
+  }
+  .source-box .de{font-style:italic;color:#4a5a61;}
+  .prior{
+    background:#fdf6e3;
+    border-left:10px solid var(--accent);
+    padding:28px 34px;
+    font-size:26px;
+    line-height:1.75;
+    color:#4a423a;
+    margin:0 0 34px;
+  }
+  .prior a{color:var(--accent-2);font-weight:800;}
+  .msg{
+    margin:32px 0;
+    padding:30px 34px;
+    background:#eeeeee;
+    border-radius:16px;
+    font-size:28px;
+    line-height:1.8;
+  }
+  .msg .src{
+    display:block;
+    margin-top:16px;
+    font-size:21px;
+    font-weight:700;
+    color:#6b6157;
+    letter-spacing:.08em;
+  }
+  .pullquote{
+    margin:48px 0;
+    padding:34px 44px;
+    border-top:4px solid var(--accent);
+    border-bottom:4px solid var(--accent);
+    font-size:42px;
+    font-weight:800;
+    line-height:1.5;
+    color:var(--accent-2);
+    text-align:center;
+    font-style:italic;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:30px 0 10px;
+    font-size:26px;
+  }
+  th,td{
+    border:2px solid var(--rule);
+    padding:16px 18px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{background:#eae4da;font-weight:800;}
+  footer{
+    text-align:center;
+    font-size:22px;
+    color:var(--muted);
+    letter-spacing:.1em;
+    padding-top:40px;
+    border-top:2px solid var(--rule);
+  }
+  @media (max-width:760px){
+    body{font-size:24px;padding:32px 18px 64px;}
+    h1{font-size:46px;}
+    .sub-en{font-size:22px;}
+    h2{font-size:32px;}
+    h3{font-size:27px;}
+    .pullquote{font-size:29px;padding:24px;}
+    .section-card{padding:28px 22px;}
+    .source-box,.prior{font-size:21px;padding:22px;}
+    .msg{font-size:23px;padding:22px;}
+    .lead::first-letter{font-size:76px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">老 熊 隨 筆 ・ 外 篇</div>
+<h1>Not Even Wrong</h1>
+<p class="sub-en">— 46 years after we graduated —</p>
+<p class="deck">四十六年前從同一個大學班上畢業的人，為什麼思維方式會差這麼多？一段群組回覆，讓我想起了包立的那句話。</p>
+<div class="byline">老熊 ／ 記於加州紅木灣</div>
+
+<div class="source-box">
+  <span class="label">先說這句話的出處</span>
+  「Not even wrong」出自物理學家包立（Wolfgang Pauli，<span class="num">1945</span> 年諾貝爾物理獎）。最早的書面記錄，是派爾斯（Rudolf Peierls）在 <span class="num">1960</span> 年為包立寫的傳記〈Wolfgang Ernst Pauli, 1900–1958〉，刊於英國皇家學會《Biographical Memoirs of Fellows of the Royal Society》第 <span class="num">5</span> 卷。文中記載：有人拿一位年輕物理學家的論文請包立過目，包立看完，語帶惋惜地說——<strong>「這連錯都算不上。」</strong>德文原句相傳為 <span class="de">Das ist nicht nur nicht richtig, es ist nicht einmal falsch.</span>（這不只是不對，它連錯都不是。）派爾斯還特別聲明：關於包立的傳聞多屬杜撰，他只收錄自己能親自作證的那幾則——寫傳記的人，自己先做了一次外部驗證。<br><br>
+  <strong>錯</strong>是有資格的：命題得夠清楚，清楚到可以被指出哪裡不對。<strong>連錯都不是</strong>，是連被檢驗的入口都沒有。
+</div>
+
+<div class="section-card">
+  <h2>一、緣起：一篇文章丟進群組</h2>
+  <div class="prior">
+    這篇外篇的由來：我先寫了一篇〈<a href="kakeya_conjecture_wang_hong.html">對於王虹解決之掛谷猜想的思想誤區</a>〉，講一支爆紅影片如何把一百年前就解決的舊問題，說成了今日費爾茲獎的理由——測度為零是 <span class="num">1928</span> 年貝西科維奇的舊事，維度滿格才是新結果，而陶哲軒那個微小的 \(\varepsilon\) 值錢在哪裡。文章做成 PDF，傳進了大學同學群組。
+  </div>
+  <p class="lead">過了半小時，一位同學回了這樣一段：</p>
+  <div class="msg">
+    文史哲是一流學術人物的基本功。蔡元培、羅家倫、傅斯年治校典範長存。<br>
+    劉邦不讀書，能夠親賢遠佞，善用良相猛將。毛重用林彪，蔣貶孫立人，決定大陸得失。<br>
+    東升西降，三個自信，給人群指引方向要靠不學有術、愛唸書單的主席大人了。
+    <span class="src">—— 群組裡一位同學的回覆</span>
+  </div>
+  <p>我盯著這段話看了很久。四十六年前坐在同一間教室裡的人，為什麼想事情的方式差這麼多？這篇外篇，就是那半小時之後的自問自答。</p>
+</div>
+
+<div class="section-card">
+  <h2>二、它其實沒有在回應那篇文章</h2>
+  <p>我寫的是一篇破除誤解的考證，三個論點都很具體：測度為零是舊事、維度滿格才是新結果、那個 \(\varepsilon\) 的價值在哪裡。他的留言從頭到尾沒有碰這三件事裡的任何一件，而是借「一流學術人物」這個由頭，走了一趟蔡元培、劉邦、林彪、孫立人，最後落在一句政治譏諷上。</p>
+  <p>這不是回應，是<strong>借題發揮</strong>。多半只看了標題和那張合影。</p>
+</div>
+
+<div class="section-card">
+  <h2>三、兩種話語模式</h2>
+  <p>差別不在「理科對文科」——我自己也寫隨筆、也讀台灣文史。真正的分野，是兩種說話的方式：</p>
+  <table>
+    <tr><th>　</th><th>論證</th><th>評點</th></tr>
+    <tr><td>先問什麼</td><td>這句話到底主張什麼？怎樣才算錯？</td><td>這句話怎麼說才漂亮？</td></tr>
+    <tr><td>成敗標準</td><td>對不對</td><td>有沒有人叫好</td></tr>
+    <tr><td>工具</td><td>定義、反例、邊界條件</td><td>對仗、排比、典故、金句收尾</td></tr>
+  </table>
+  <p>四十年做光譜分類、寫專利：claim 寫寬了會被 prior art 打掉，模型吹過頭驗證集會當場翻臉。在這種行業裡，外部世界隨時準備告訴你「你錯了」。</p>
+  <p>而群組這個場域本身就在獎勵另一種：二十幾個人在看，發一段能被轉貼的段子，回報遠高於認真讀完十頁 PDF 再指出第三節有問題。</p>
+</div>
+
+<div class="section-card">
+  <h2>四、關鍵不是「能不能驗證」，是「有沒有把自己交出去被驗證」</h2>
+  <p>先澄清一件事，免得對嚴肅的史學家不公平：<strong>歷史完全可以驗證</strong>。蔡元培怎麼治校、孫立人怎麼被冷凍，都有檔案、日記、年表；真正做這行的人，寫一句要附一條註，寫錯了同行照樣打臉。所以問題不在領域，在三個地方：</p>
+  <h3>錯了，誰付代價</h3>
+  <p>Claim 寫寬了，審查員拿 prior art 打回來；模型調過頭，驗證集當場翻臉。錯誤有人替你標出來，而且要你付錢。群組裡發一段對仗，錯了沒有任何機制會來收帳。</p>
+  <h3>什麼算成功</h3>
+  <p>我的成功是預測對，他的成功是有人回個讚。那段留言在句法上是漂亮的，在那個場域裡它已經完成任務了，跟史實對不對無關。<strong>形式的完成感，很容易被誤認成推理的完成感。</strong></p>
+  <h3>命題的形狀</h3>
+  <p>「蔣貶孫立人，決定大陸得失」不是不可驗證，是 <span class="num">n=1</span>、沒有對照組的單一事件反事實。這種句子連「錯」的資格都沒有——不可證偽。</p>
+  <div class="pullquote">That is not only not right;<br>it is not even wrong.</div>
+</div>
+
+<div class="section-card">
+  <h2>五、為什麼同一個班會差這麼多</h2>
+  <p><span class="num">1980</span> 年那批人，是靠聯考分數被分進化工系的。聯考篩的是解題速度，不是思維品味。真正塑造一個人怎麼想事情的，是後來那四十六年幹了什麼行業、每天要對誰負責——<strong>四年同窗，抵不過四十六年的職業訓練。</strong></p>
+  <p>從這個角度看，差得這麼多才是常態。他還願意打開我的檔案、並且認真回一段話，反而算是稀有的。</p>
+</div>
+
+<footer>《老熊隨筆》・外篇</footer>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>幸福的職涯大致相似，不幸的卻各有不同 ─ 精選外刊・老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2ead8;
+  --paper2:#e7dcc4;
+  --ink:#1b1917;
+  --ink-soft:#4a443b;
+  --rule:#c6b899;
+  --seal:#9e2b25;
+  --seal-deep:#7d1f1b;
+  --fa:#3f5c46;      /* 阿發 · 松綠 */
+  --xy:#2b4a6e;      /* 老熊 · 靛藍 */
+  --body:32px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 6%, rgba(255,255,255,.55), transparent 55%),
+    radial-gradient(circle at 85% 92%, rgba(180,160,120,.20), transparent 60%),
+    var(--paper);
+  color:var(--ink);
+  font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;
+  font-size:var(--body);
+  font-weight:700;
+  line-height:1.95;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:70px 30px 130px}
+
+/* ── 報頭 ───────────────────────── */
+.masthead{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:20px;letter-spacing:.42em;font-weight:700;color:var(--ink-soft);
+  border-bottom:2px solid var(--rule);padding-bottom:16px;margin-bottom:8px;
+}
+.kicker{
+  margin:44px 0 22px;font-size:22px;letter-spacing:.34em;font-weight:900;
+  color:var(--seal);
+}
+h1{
+  font-size:76px;line-height:1.24;font-weight:900;margin:0 0 30px;
+  letter-spacing:.02em;
+}
+h1 .lo{color:var(--seal-deep)}
+.deck{
+  font-size:30px;font-weight:600;color:var(--ink-soft);line-height:1.85;
+  margin:0 0 34px;border-left:8px solid var(--rule);padding-left:26px;
+}
+.rule-orn{
+  text-align:center;color:var(--rule);letter-spacing:1.1em;
+  font-size:22px;margin:38px 0 44px;
+}
+
+/* ── 題引 ───────────────────────── */
+.epigraph{
+  background:linear-gradient(180deg,var(--paper2),rgba(231,220,196,.35));
+  border-top:4px double var(--ink);border-bottom:4px double var(--ink);
+  padding:42px 46px;margin:0 0 56px;
+}
+.epigraph .ru{
+  font-family:"EB Garamond",Georgia,serif;font-style:italic;
+  font-size:30px;font-weight:500;line-height:1.7;color:var(--ink);margin:0 0 20px;
+}
+.epigraph .en{
+  font-family:"EB Garamond",Georgia,serif;
+  font-size:30px;font-weight:700;line-height:1.7;margin:0 0 20px;
+}
+.epigraph .zh{font-size:30px;font-weight:700;margin:0 0 20px}
+.epigraph .src{
+  font-size:22px;font-weight:600;color:var(--ink-soft);letter-spacing:.12em;
+  text-align:right;margin:0;
+}
+
+/* ── 版面 ───────────────────────── */
+.layout{display:flex;gap:48px;align-items:flex-start}
+.main{flex:1;min-width:0}
+.sidebar{width:340px;flex:none}
+
+h2{
+  font-size:46px;font-weight:900;line-height:1.4;margin:64px 0 10px;
+  padding-bottom:12px;border-bottom:3px solid var(--ink);
+}
+h2 .num{
+  display:inline-block;font-size:24px;letter-spacing:.3em;color:var(--seal);
+  vertical-align:middle;margin-right:16px;
+}
+p{margin:0 0 30px;text-align:justify}
+.main>p:first-of-type::first-letter{
+  float:left;font-size:120px;line-height:.82;font-weight:900;
+  margin:12px 16px 0 0;color:var(--seal);
+}
+b,strong{font-weight:900}
+.n{font-weight:800;font-family:"EB Garamond",Georgia,serif;font-size:1.06em}
+.fa{color:var(--fa);font-weight:900}
+.xy{color:var(--xy);font-weight:900}
+
+.pull{
+  font-size:44px;font-weight:900;line-height:1.5;color:var(--seal-deep);
+  margin:52px 0;padding:30px 0;text-align:center;
+  border-top:3px solid var(--seal);border-bottom:3px solid var(--seal);
+}
+
+/* ── 雙軌對照（signature） ────────── */
+.twin{margin:54px 0 60px;border:3px solid var(--ink);background:rgba(255,255,255,.32)}
+.twin .head{
+  display:grid;grid-template-columns:1fr 118px 1fr;
+  border-bottom:3px solid var(--ink);
+}
+.twin .head div{
+  padding:18px 14px;text-align:center;font-size:24px;font-weight:900;letter-spacing:.16em;
+}
+.twin .head .h-fa{background:var(--fa);color:var(--paper)}
+.twin .head .h-xy{background:var(--xy);color:var(--paper)}
+.twin .head .h-mid{background:var(--paper2);font-size:19px;letter-spacing:.1em}
+.twin .row{
+  display:grid;grid-template-columns:1fr 118px 1fr;
+  border-bottom:1px solid var(--rule);
+}
+.twin .row:last-child{border-bottom:none}
+.twin .cell{padding:20px 20px;font-size:23px;font-weight:600;line-height:1.62}
+.twin .cell .t{display:block;font-weight:900;font-size:25px;margin-bottom:4px}
+.twin .c-fa{border-right:1px solid var(--rule);color:var(--fa)}
+.twin .c-xy{border-left:1px solid var(--rule);color:var(--xy)}
+.twin .age{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--paper2);font-size:19px;font-weight:900;letter-spacing:.06em;
+  line-height:1.4;text-align:center;color:var(--ink-soft);
+}
+.twin .age b{display:block;font-size:26px;color:var(--ink);font-family:"EB Garamond",serif}
+.twin .row.cross{background:rgba(158,43,37,.10)}
+.twin .row.cross .age{background:var(--seal);color:#fff}
+.twin .row.cross .age b{color:#fff}
+.twin .caption{
+  padding:16px 20px;font-size:20px;font-weight:600;color:var(--ink-soft);
+  border-top:3px solid var(--ink);background:var(--paper2);line-height:1.6;
+}
+
+/* ── 側欄 ───────────────────────── */
+.sidebar .box{
+  border:3px solid var(--ink);background:rgba(255,255,255,.4);
+  padding:28px 26px;margin-bottom:34px;
+}
+.sidebar h3{
+  margin:0 0 18px;font-size:24px;font-weight:900;letter-spacing:.24em;
+  color:var(--seal);border-bottom:2px solid var(--rule);padding-bottom:12px;
+}
+.sidebar p,.sidebar li{font-size:23px;font-weight:600;line-height:1.72}
+.sidebar p{margin:0 0 16px}
+.sidebar ul{margin:0;padding-left:1.3em}
+.sidebar li{margin-bottom:14px}
+.sidebar .k{font-weight:900;color:var(--ink)}
+
+/* ── 收尾 ───────────────────────── */
+.note{
+  border:3px double var(--ink);padding:32px 34px;margin:60px 0 0;
+  background:rgba(255,255,255,.3);
+}
+.note h4{margin:0 0 16px;font-size:26px;font-weight:900;letter-spacing:.2em;color:var(--seal)}
+.note p{font-size:23px;font-weight:600;line-height:1.72;margin:0 0 14px}
+.note p:last-child{margin-bottom:0}
+.colophon{
+  margin-top:70px;padding-top:26px;border-top:4px double var(--ink);
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+  font-size:21px;font-weight:700;letter-spacing:.2em;color:var(--ink-soft);
+}
+.seal-stamp{
+  background:var(--seal);color:var(--paper);font-weight:900;font-size:22px;
+  padding:12px 16px;line-height:1.28;letter-spacing:.28em;text-indent:.28em;
+  border-radius:5px;box-shadow:0 3px 0 var(--seal-deep);transform:rotate(-3deg);
+  text-align:center;flex:none;
+}
+
+@media (max-width:960px){
+  .wrap{padding:44px 20px 90px}
+  .layout{flex-direction:column;gap:34px}
+  .sidebar{width:100%}
+  h1{font-size:52px}
+  h2{font-size:36px}
+  .deck,.epigraph .ru,.epigraph .en,.epigraph .zh{font-size:26px}
+  body{font-size:27px}
+  .pull{font-size:33px}
+  .main>p:first-of-type::first-letter{font-size:92px}
+  .twin .head,.twin .row{grid-template-columns:1fr 84px 1fr}
+  .twin .cell{padding:14px 12px;font-size:20px}
+  .twin .cell .t{font-size:21px}
+  .twin .age{font-size:16px}
+  .twin .age b{font-size:21px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <span>精 選 外 刊 · 老 熊 隨 筆</span>
+    <span>比 較 職 涯 軌 跡 學</span>
+  </div>
+
+  <div class="kicker">嘉 義 高 中 · 三 年 十 二 班 · 兩 份 軌 跡 的 並 讀</div>
+
+  <h1>幸福的職涯大致相似，<br><span class="lo">不幸的卻各有不同</span></h1>
+
+  <p class="deck">一個在雲林、台中、西螺、板橋之間輾轉了二十年，四十過半才站上正式的講台；一個在俄亥俄、佛州、路州、南加、矽谷之間搬了八次家，四十歲才第一次寫下第一行分類演算法。兩張表攤開來並排一看，才發現這兩條看起來天差地遠的路，形狀居然是同一個。</p>
+
+  <div class="rule-orn">✦ ✦ ✦</div>
+
+  <div class="epigraph">
+    <p class="ru">Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему.</p>
+    <p class="en">Happy families are all alike; every unhappy family is unhappy in its own way.</p>
+    <p class="zh">幸福的家庭都是相似的；不幸的家庭，各有各的不幸。</p>
+    <p class="src">—— 列夫・托爾斯泰（Leo Tolstoy）《安娜・卡列尼娜》（Anna Karenina）開卷第一句・一八七八</p>
+  </div>
+
+  <div class="layout">
+  <div class="main">
+
+  <p>托爾斯泰這句話管用了將近一個半世紀，因為它說中了一個不對稱：幸福是連乘，不幸是加總。家要幸福，健康、經濟、性情、姻緣、子女……每一項都不能是零；只要有一項掛零，整個乘積就歸零，而歸零的方式有無限多種。把「家庭」換成「職涯」，這個結構原封不動地成立——而且，換上兩位一九七六年從嘉義高中三年十二班畢業的同班同學，這句話會被驗證得非常徹底。</p>
+
+  <p>一位是<span class="fa">阿發</span>（林進發），雲林崙背的孩子，<b>東海大學工業工程系</b>畢業，前半生在台灣中部的私人企業做生產管理，後半生在國中講台上度過，前幾年退休。一位是<span class="xy">老熊</span>，台大化工、海軍預官、Akron 高分子博士，前半生做高分子材料，後半生在美國做化學計量學與機器學習，二〇二四年從 Viavi 首席化學計量學家的位置上退下來。兩人同齡、同校、同班，起跑線在同一間禮堂。</p>
+
+  <h2><span class="num">壹</span>兩張表攤開來</h2>
+
+  <p>先把帳擺出來。下面這張表以<b>年齡</b>對齊，不以年份對齊——因為要看的是形狀，不是日期。</p>
+
+  <div class="twin">
+    <div class="head">
+      <div class="h-fa">阿　發</div>
+      <div class="h-mid">年齡</div>
+      <div class="h-xy">老　熊</div>
+    </div>
+
+    <div class="row">
+      <div class="cell c-fa"><span class="t">嘉中 → 東海工業工程</span>崙背出身，一路苦讀進嘉中，再進東海大學工業工程系</div>
+      <div class="age"><b>18–25</b>求學</div>
+      <div class="cell c-xy"><span class="t">台大化工 → 海軍 → 台大碩士</span>1980 學士、1980.07–1982.05 服役、1982 回校讀碩</div>
+    </div>
+
+    <div class="row">
+      <div class="cell c-fa"><span class="t">私人企業・生產管理</span>球拍廠一路做到碳纖維、高爾夫球頭；升到高級專員，有購車補助</div>
+      <div class="age"><b>26–35</b>第一段<br>穩定期</div>
+      <div class="cell c-xy"><span class="t">Akron 博士 → 佛大 → 路州 LPC</span>1984 赴美，1990.01 博士；1992.04.01 入職 LPC，年薪 $41,000，帶 tenure track</div>
+    </div>
+
+    <div class="row cross">
+      <div class="cell c-fa"><span class="t">賠車、離職、五連換</span>公務車失竊須按比例賠償，借錢一次還清後離職；此後櫻花廚具、吊車公司（半年被資遣）、網球拍公司、美商針車（試用未過）、回鍋原廠</div>
+      <div class="age"><b>35–45</b>斷裂期</div>
+      <div class="cell c-xy"><span class="t">全票否決、西遷四試</span>1997 化工系終身職全票否決（無給義務兼課，錢沒少一塊，臉丟盡了）；隨後 Kimberly-Clark、DSM TPE、TRI Austin、Cyrano 四場面試</div>
+    </div>
+
+    <div class="row cross">
+      <div class="cell c-fa"><span class="t">水果攤與家教班</span>公司西進、婉拒隨行；大鵬眷區市場天未亮批貨，做幾個月身體吃不消收攤；改在二姊家四樓開家教班</div>
+      <div class="age"><b>約 40</b>谷底</div>
+      <div class="cell c-xy"><span class="t">1998.05.11 報到</span>加入南加 Caltech 系新創 Cyrano Sciences；年底 idws 鬼影帶破案，自創 idcn，並把 SVM 引進公司</div>
+    </div>
+
+    <div class="row">
+      <div class="cell c-fa"><span class="t">代課 → 代理 → 考取</span>崙背國中代課一年半（「原來我是真的喜歡教書」）；西螺國中代理兩年，週末三地跑淡江修教育學分；同學集資五十餘萬周轉，辭光家教專心備考，考取教育特考</div>
+      <div class="age"><b>45–55</b>重建期</div>
+      <div class="cell c-xy"><span class="t">Cyrano → Smiths → 五連換</span>1998–2008 Smiths Detection 首席科學家；2008–2013 Optiscan → NASA Ames → Bidgely → BD Biosciences（兩星期）→ Apple，五年五站</div>
+    </div>
+
+    <div class="row">
+      <div class="cell c-fa"><span class="t">溪崑國中・任教至退休</span>正式教職身分到手，站在講台上直到屆齡</div>
+      <div class="age"><b>55–66</b>第二段<br>穩定期</div>
+      <div class="cell c-xy"><span class="t">JDSU／Viavi・首席化學計量學家</span>2013–2024，十一年，生涯最高產的專利期</div>
+    </div>
+
+    <div class="row">
+      <div class="cell c-fa"><span class="t">寫《感恩》</span>十五萬字回憶錄，一〇一篇</div>
+      <div class="age"><b>66+</b>退休</div>
+      <div class="cell c-xy"><span class="t">家庭煮夫・寫隨筆</span>60 項美國專利、27 個專利家族；2025 創辦 Chemical Machine Sensing</div>
+    </div>
+
+    <div class="caption">紅底兩列為兩人各自的低谷。年齡為概數，以一九七六年嘉中畢業回推；阿發側的年份取自《感恩》篇序推估，非明載。</div>
+  </div>
+
+  <h2><span class="num">貳</span>意外的同構</h2>
+
+  <p>把上表的細節全部抹掉，只留下節奏，兩邊剩下的是同一串音符：<b>十年穩定 → 五到十年的連續斷裂 → 十年以上的穩定 → 退休</b>。</p>
+
+  <p>阿發三十五歲那年因為一台失竊的公務車離職，此後八到十年換了五家公司，最短的一站半年就被資遣，還有一站試用期沒過。老熊五十歲那年離開待了十年的 Smiths Detection，此後五年也換了<b>五家</b>：Optiscan 兩年、NASA Ames 兩年、Bidgely 七個月、<b>BD Biosciences 兩個星期</b>、Apple 七個月。一個是台中的廚具廠和吊車行，一個是矽谷的醫材新創和 NASA 實驗室；場景毫無相似之處，<b>連站數和頻率都對上了</b>——都是五站，都夾在兩段十年以上的長期任職之間。</p>
+
+<p>那兩個星期值得單獨說一句。二〇一三年二月初到 BD Biosciences 報到，<b>第一個星期 Apple 的 offer 就到了</b>；因為得給主管兩星期預告，他把那兩週做滿才走。太短，所以從沒寫進履歷，三份文獻裡也查不到。<b>它不在任何紙上，卻正好是兩人這段對照裡最傳神的一筆</b>——阿發那五站的短，是被人請出去的短（半年資遣、試用期未過）；老熊這一站的短，是被下一家搶走的短。同樣是十四天到半年的停留，一個是市場在把人往外推，一個是市場在搶人。</p>
+
+<p>而這一站底下還埋著一個更長的迴圈。<b>一九九〇年前後</b>，博士剛畢業、四處碰壁的老熊去過北卡研究三角園區面試一家公司，臨走前對方問他要不要來，他沒點頭，接著是一年多粒米無收。二〇一三年二月他報到的這家 BD Biosciences，<b>與當年那家是同一個母公司</b>。<b>同一塊招牌，隔了二十三年</b>；第一次是他沒點頭，第二次是他點了頭卻只待了十四天。</p>
+
+<p class="pull">在漲潮的一側，<br>連你關過的門都還開著。</p>
+
+<p>這件事拿來對照阿發，是本文最鋒利的地方。阿發也關過門——公司要西進，他為了家庭婉拒隨行。<b>那扇門關上之後就沒有再開過</b>，整條產業航道連同那家公司一起渡海走了，他站在原地，只剩下大鵬眷區市場的水果攤。老熊關的那扇門，二十三年後還在原處等著他，甚至還開得起薪水給他，讓他在裡頭待兩星期再被別人挖走。<b>同樣一個「不去」的決定，在退潮的產業裡是永久的，在漲潮的產業裡只是暫時的。</b></p>
+
+  <p>換句話說，托爾斯泰那句話用在職涯上，得倒過來讀一半：<b>不幸的職涯，形狀其實相當相似</b>；真正各有不同的，是那段不幸過完之後，人靠什麼東西重新站起來。</p>
+
+  <div class="pull">兩條路的節奏是同一個。<br>分岔的是手上帶得走的那樣東西。</div>
+
+  <h2><span class="num">參</span>橫向的手藝，縱向的資產</h2>
+
+  <p>阿發帶得走的是<b>生產管理</b>——而且這是他的本科。東海工業工程系教的正是排程、物料、品管、效率，畢業即對口，從第一份工作起就用得上，沒有半點學非所用的浪費。這是一門橫向的手藝：球拍廠能用、廚具廠能用、吊車行能用、針車公司也能用。正因為到處能用，他在五家公司之間始終有東西可以交代。但橫向手藝有個致命的性質——<b>它可攜帶，卻不累積</b>。第五家公司要的仍然是第一家公司教給他的那套排程、領料、進度控管；十年下來，經驗變厚了，但那個計數器沒有往上跳。所以每一次換場，他都得從「請問你以前做過什麼」重新講一遍。</p>
+
+  <p>老熊帶得走的是<b>演算法</b>。電子鼻的訊號、ICU 病人的血糖光譜、手機上的化學感測、家戶用電的分解、退貨產品的根因分析、近紅外的原料鑑別——六個題目沒有一題重複，但底下用的是同一套東西：多變量分類、迴歸、核方法、漂移校正、模型移轉。<b>每換一次場，那疊東西就厚一層。</b>五年五站看起來像流浪，實際上是同一份履歷在拿不同的資料集做交叉驗證。二〇一三年進 JDSU 的時候，他手上那套工具已經被五種完全不同的物理現象測試過了——這才是後來十一年、二十九個專利家族的本錢。</p>
+
+  <p>這是兩人職涯最本質的分岔，而且它<b>與勤奮無關，也與聰明無關</b>。阿發在崙背到台中的來回奔波裡付出的力氣，不會少於老熊在俄亥俄改論文的夜裡。差別只在於：一個人手上的資產是<b>可攜帶但不累積</b>的，另一個人手上的是<b>可攜帶且複利的</b>。這個差別，在二十五歲選第一份工作的時候，沒有任何人看得出來。</p>
+
+  <h2><span class="num">肆</span>兩股相反的潮水</h2>
+
+  <p>還有一件更不公平的事：他們的斷裂期，各自撞上了一股完全相反的潮水。</p>
+
+  <p>阿發被推出私人企業的那幾年，正是台灣傳統製造業<b>大舉西進</b>的年代。他最後那家網球拍公司要把廠遷到大陸，他為了家庭婉拒隨行——這一拒，等於同時拒絕了整個產業。那個時期被掏空的不是他一個人的飯碗，是他整條職業航道。他在大鵬眷區市場擺水果攤的時候，不是能力出了問題，是他站的那塊地板整片被抽走了。</p>
+
+  <p>同一個十年，老熊被推進去的那個領域，剛好在漲潮。感測、光譜、統計學習——這些東西在一九九八年還沒有名字，二〇一二年之後叫做「資料科學」。他在 Cyrano 引進 SVM 的時候，比業界主流早了大約四年；那不是因為他有預知能力，是因為他被推進了一個當時沒人要接的怪案子。<b>同樣是被推，一個被推下船，一個被推上了正在起航的那艘。</b>最傳神的證據就是那兩個星期：在漲潮的那一側，人還沒坐熱椅子，下一家已經把他叫走了。</p>
+
+  <p>我不覺得這件事可以用「選擇」兩個字打發掉。一九九〇年代初期沒有任何一個台灣的生產管理專員，能預見十年後自己的產業會整批渡海；也沒有任何一個路州的高分子研究員，能預見他被否決的那張終身職票，會把他推向一個叫做機器學習的東西。<b>時代的方向，是職涯裡最大的那一項乘數，而且它不歸個人管。</b></p>
+
+  <h2><span class="num">伍</span>兩種安全感</h2>
+
+  <p>兩人最後都上了岸，但上的是完全不同的岸。</p>
+
+  <p>阿發靠的是<b>制度</b>。四十過半，他繞了一圈回到講台——但他是工學院出身，不是師範體系，<b>手上沒有那張教師資格</b>，於是只能從代課開始：先代課、再代理，週末往返台中、西螺、台北到淡江補修教育學分，最後靠同學集資五十餘萬讓他辭光家教專心備考，考上教育特考，又考進政大夜間教育學程。一個工業工程系的畢業生，用了將近十年把自己重新辦成一位合格教師。那張正式教職的資格證，換來的是一個誰也拿不走的位置：只要不出大事，講台就是他的，一路站到屆齡。他的安全感來自<b>一套會保護他的制度</b>。</p>
+
+  <p>老熊靠的是<b>稀缺</b>。美國企業裡沒有任何制度會保護一個六十歲的研究科學家。他能在 Viavi 待滿十一年，理由只有一個：那家公司的近紅外產品線，找不到第二個看得懂那些光譜的人。他的安全感來自<b>沒有人可以替換他</b>。</p>
+
+  <p>兩種安全感，成本結構完全不同。制度型的安全，代價是必須先付出一段極長的資格取得期——阿發為此付出了將近十年的中年時光。稀缺型的安全，代價是必須永遠跑在領域前面：停止學習的那一天，稀缺性就開始折舊。這也解釋了為什麼一個人退休就真的退了，另一個人退休第二年還去註冊了一家公司、還在寫 MATLAB。<b>制度可以讓你停下來，稀缺不行。</b></p>
+
+  <h2><span class="num">陸</span>托爾斯泰那句話的數學</h2>
+
+  <p>回到開卷第一句。托爾斯泰的不對稱之所以成立，是因為幸福是<b>連乘模型</b>，不幸是<b>單因子主導</b>：所有因子都得非零才叫幸福，任何一個歸零就叫不幸——而歸零的路徑有無限多條。</p>
+
+  <p>用做分類的行話說：<b>幸福的樣本在特徵空間裡擠成很小的一團，不幸的樣本散布在那團之外的整個空間。</b>這正是為什麼單類分類（one-class classification）比兩類分類難那麼多——你可以把「正常」圈出來，但你永遠窮舉不完「異常」。阿發那五家公司的離開理由沒有一個重複：賠車、資遣、試用期未過、隔行如隔山、公司西進。老熊的離開理由也沒有一個重複：綠卡跳票、機器沒到、全票否決、公司被併、專案結束。<b>十個離職理由，十個不同的方向，全部落在那一小團之外。</b></p>
+
+  <p>而他們兩人的終點——一個在講台上站到屆齡，一個在首席科學家的位置上退休——描述起來卻乏味地相似：長期任職、有一個位子、有一份體面、平安落地。幸福的職涯確實大致相似，相似到寫進回憶錄裡都不太好看；<b>好看的全在中間那一段。</b></p>
+
+  <h2><span class="num">柒</span>老熊按</h2>
+
+  <p>最後一件事，我想它比上面所有的結構分析都更值得記下來。</p>
+
+  <p>這兩位同學各自寫了一本回憶錄。走得比較顛簸的那一位，把書名取作<b>《感恩》</b>——一〇一篇，十五萬字，寫父親那句「他想讀，就讓他讀」，寫同學湊出來的五十幾萬，寫每一個在路上拉過他一把的人。走得比較順的那一位，寫下的關鍵字是<b>「被推」</b>、是<b>「傷害性不大，屈辱性極大」</b>——一張二十九年前的否決票，至今記得票是全系一起投的，記得其中還有一位台大化工的老學長。</p>
+
+  <div class="pull">不幸各有不同，<br>記帳的方式，也各有不同。</div>
+
+  <p>這裡沒有誰對誰錯。人記得的東西，多半不是最痛的，而是最不甘的；而甘與不甘，往往取決於當時你以為自己配得上什麼。阿發從沒指望過那五家公司會善待他，所以每一次有人伸手，他都記成一筆恩。老熊拿了全系唯一的科研經費、義務兼課還帶出五六個碩士，所以那張票才會刺了快三十年。<b>期望值不同，同一件事的帳就記成兩個顏色。</b></p>
+
+  <p>若真要從兩張表裡撈出一句對年輕人有用的話，我想不是「要選對行業」——那話太便宜，也太事後諸葛。我會說：<b>去分辨你手上那樣手藝，是可攜帶的，還是可累積的。</b>可攜帶的手藝讓你在下一次被推的時候不至於摔死；可累積的手藝，才讓你每被推一次，就往上一層。兩者都要。但如果只能先要一樣，四十歲以前，先要後面那樣。</p>
+
+  </div><!-- /main -->
+
+  <aside class="sidebar">
+    <div class="box">
+      <h3>三 個 共 同 點</h3>
+      <ul>
+        <li><span class="k">同一間禮堂出發。</span>一九七三年入嘉中，一九七六年畢業，三年十二班。此後一個進東海工業工程，一個進台大化工——同屬工學院，同樣沒學過自己後來吃飯的那門功夫。</li>
+        <li><span class="k">形狀相同。</span>穩定十年 → 連續斷裂 → 再穩定十年以上 → 退休。斷裂期<b>各換五家</b>，連站數都對上了。</li>
+        <li><span class="k">真正的職業都從四十歲開始。</span>阿發在崙背代課時才確認「原來我是真的喜歡教書」；老熊四十歲才寫下第一行分類演算法。</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h3>三 個 分 岔 點</h3>
+      <ul>
+        <li><span class="k">資產性質。</span>生產管理＝可攜帶、不累積；化學計量＝可攜帶、可複利。</li>
+        <li><span class="k">潮水方向。</span>一九九〇年代，台灣傳統製造西進退潮；美國感測與統計學習漲潮。同樣被推，方向相反。</li>
+        <li><span class="k">安全感來源。</span>制度（教職資格）對上稀缺（不可替代）。前者可以停，後者不能停。</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h3>低 谷 對 照</h3>
+      <p><span class="k fa">阿發．約四十歲</span><br>天未亮到果菜市場批貨，大鵬眷區市場擺攤只做上午，晚上跑補習班與家教；幾個月後身體吃不消收攤。</p>
+      <p><span class="k xy">老熊．三十九歲</span><br>USL 化工系終身職申請全票否決。無給義務兼課六年，帶出五六個碩士，教材料科學與高分子概論，拿過 NSF。錢沒少一塊。</p>
+      <p>兩段低谷在時間上大致重疊，都落在一九九七至一九九八年前後。</p>
+    </div>
+
+    <div class="box">
+      <h3>兩 本 回 憶 錄</h3>
+      <p><span class="k fa">《感恩》</span>林進發著，一〇一篇，約十五萬字。</p>
+      <p><span class="k xy">《老熊自傳》《前進加州》</span>老熊隨筆・回憶錄系列。</p>
+      <p>兩本書的書名，本身就是本文第柒節的全部論據。</p>
+    </div>
+  </aside>
+  </div><!-- /layout -->
+
+  <div class="note">
+    <h4>考 據 欄</h4>
+    <p><b>明載者：</b>老熊側的日期取自《老熊自傳》、《前進加州》與履歷（1992.04.01 入職 LPC、1998.05.11 報到 Cyrano、2008–2013 五站（其中 BD Biosciences 一站見下方補記）、2013–2024 Viavi、專利 60 項／27 家族）。阿發側的事件取自《感恩》各篇（賠車離職於篇 086、五連換於篇 087–093、水果攤篇 094、家教班篇 095、崙背代課篇 095–096、西螺代理與淡江修學分篇 096、同學集資與考取特考篇 097、溪崑國中至退休篇 101）。</p>
+    <p><b>補記（二〇二六年八月）：</b>老熊於 Bidgely 與 Apple 之間另有一站 <b>BD Biosciences</b>，約自二〇一三年二月初至同月中旬，前後約兩星期；因任期過短未列入履歷，三份文獻均無記載，起訖日期為本人回憶概數。《老熊_職涯軌跡》已同步補為第 20 站，全篇由 23 站增為 24 站。該公司與一九九〇年前後老熊於北卡研究三角園區面試的那一家<b>同屬一個母公司</b>（經本人二〇二六年八月確認）；兩次接觸相隔約二十三年。</p>
+    <p><b>校訂：</b>阿發學歷經本人於二〇二六年八月確認為<b>東海大學工業工程系</b>（早先誤記為師範大學，已改正）。此一更正加強而非削弱第伍節的論證：正因為他非師範體系出身，才必須在四十歲後補教育學分、考教育特考、再進政大教育學程。</p>
+    <p><b>推定者：</b>兩人年齡以一九七六年嘉中畢業回推，取為同齡；阿發側的西元年份《感恩》多以篇序而非年份紀事，本文的年齡對齊為推估。第伍節「兩段低谷在時間上大致重疊」屬推論，非文獻明載——若阿發擺攤的年份實際落在一九九九至二〇〇一年之間，該段仍成立，但「同時」二字需改成「先後」。</p>
+    <p><b>非事實者：</b>第參節「可累積 vs. 不可累積」與第肆節「潮水方向」是本文的解釋框架，不是兩人自述。兩位當事人都有權不同意。</p>
+  </div>
+
+  <div class="colophon">
+    <span>比 較 職 涯 軌 跡 學 · 並 讀 篇 · 老 熊 撰 · 丙 午 年 夏 · 加 州 紅 木 岸</span>
+    <span class="seal-stamp">同班<br>殊途</span>
+  </div>
+
+</div>
+</body>
+</html>

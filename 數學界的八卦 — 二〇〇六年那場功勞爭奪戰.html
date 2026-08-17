@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數學界的八卦 — 二〇〇六年那場功勞爭奪戰｜老熊隨筆</title>
+<style>
+  :root{
+    --paper:#F1E9D6;
+    --paper-deep:#E7DCC2;
+    --ink:#1E1A14;
+    --ink-soft:#4A4235;
+    --seal:#8C2B1F;
+    --rule:#B5A585;
+    --olive:#5E5A3C;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 10% 6%, rgba(140,43,31,.045) 0 38%, transparent 60%),
+      radial-gradient(circle at 90% 76%, rgba(94,90,60,.06) 0 40%, transparent 62%);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU","MingLiU",serif;
+    font-size:32px;
+    font-weight:700;
+    line-height:1.95;
+    letter-spacing:.02em;
+  }
+
+  .sheet{ max-width:1100px; margin:0 auto; padding:56px 40px 120px; }
+
+  /* 刊頭 */
+  .masthead{
+    border-top:9px double var(--ink);
+    border-bottom:3px solid var(--ink);
+    padding:26px 0 20px;
+    text-align:center;
+  }
+  .masthead .brand{
+    font-size:30px; font-weight:800;
+    letter-spacing:1.1em; text-indent:1.1em;
+    color:var(--seal);
+  }
+  .masthead .issue{
+    margin-top:14px; font-size:21px; font-weight:700;
+    letter-spacing:.22em; color:var(--ink-soft);
+  }
+  .masthead .issue b{ font-weight:800; }
+
+  /* 標題 */
+  .eyebrow{
+    margin:52px 0 18px;
+    font-size:22px; font-weight:800;
+    letter-spacing:.42em; text-indent:.42em;
+    color:var(--seal); text-align:center;
+  }
+  h1{
+    margin:0; font-size:76px; font-weight:800;
+    line-height:1.24; letter-spacing:.14em; text-indent:.14em;
+    text-align:center;
+  }
+  .kicker{
+    margin:20px 0 0; text-align:center;
+    font-size:38px; font-weight:800; letter-spacing:.08em;
+    color:var(--seal);
+  }
+  .deck{
+    max-width:840px; margin:28px auto 0;
+    font-size:32px; font-weight:700; line-height:1.85;
+    color:var(--ink-soft); text-align:center;
+  }
+  .byline{
+    margin:34px auto 0; padding-top:22px;
+    border-top:1px solid var(--rule); max-width:420px;
+    text-align:center; font-size:22px; font-weight:700;
+    letter-spacing:.2em; color:var(--olive);
+  }
+
+  /* 版面 */
+  .columns{ display:flex; gap:56px; align-items:flex-start; margin-top:66px; }
+  .main{ flex:1 1 auto; min-width:0; }
+  .rail{ flex:0 0 340px; width:340px; }
+
+  p{ margin:0 0 1.5em; }
+
+  .lead::first-letter{
+    float:left; font-size:120px; line-height:.86;
+    font-weight:800; color:var(--seal);
+    margin:12px 18px 0 0;
+  }
+
+  h2{
+    margin:74px 0 26px;
+    font-size:44px; font-weight:800; letter-spacing:.08em;
+    padding-bottom:16px; border-bottom:3px solid var(--ink);
+  }
+  h2 .num{ display:inline-block; min-width:1.9em; color:var(--seal); font-weight:800; }
+  h2 .date{
+    display:block; font-size:22px; font-weight:800;
+    letter-spacing:.2em; color:var(--olive); margin-top:10px;
+  }
+
+  .pull{
+    margin:56px 0; padding:34px 0;
+    border-top:5px double var(--ink); border-bottom:5px double var(--ink);
+    font-size:44px; font-weight:800; line-height:1.65; letter-spacing:.05em;
+    color:var(--seal); text-align:center;
+  }
+  .num-hi{ font-weight:800; }
+
+  /* 出場人物表（招牌元素） */
+  .playbill{
+    margin:60px 0;
+    padding:44px 38px;
+    background:var(--paper-deep);
+    border:3px solid var(--ink);
+    box-shadow:11px 11px 0 rgba(30,26,20,.13);
+  }
+  .playbill h3{
+    margin:0 0 8px; text-align:center;
+    font-size:32px; font-weight:800;
+    letter-spacing:.4em; text-indent:.4em; color:var(--seal);
+  }
+  .playbill .sub{
+    margin:0 0 32px; text-align:center;
+    font-size:21px; font-weight:700; letter-spacing:.2em; color:var(--olive);
+  }
+  .cast{ list-style:none; margin:0; padding:0; }
+  .cast li{
+    display:flex; gap:22px; align-items:baseline;
+    padding:18px 0; border-bottom:1px dotted var(--rule);
+  }
+  .cast li:last-child{ border-bottom:none; }
+  .cast .role{
+    flex:0 0 132px;
+    font-size:21px; font-weight:800; letter-spacing:.14em;
+    color:var(--seal); line-height:1.7;
+  }
+  .cast .name{ font-size:29px; font-weight:800; line-height:1.55; }
+  .cast .note{ display:block; font-size:23px; font-weight:700; color:var(--ink-soft); line-height:1.72; }
+
+  /* 時間軸 */
+  .timeline{ list-style:none; margin:56px 0; padding:0; }
+  .timeline li{
+    position:relative; padding:0 0 34px 46px;
+    border-left:3px solid var(--rule);
+  }
+  .timeline li:last-child{ padding-bottom:0; border-left-color:transparent; }
+  .timeline li::before{
+    content:""; position:absolute; left:-12px; top:16px;
+    width:21px; height:21px; background:var(--seal); border-radius:50%;
+  }
+  .timeline .d{
+    display:block; font-size:23px; font-weight:800;
+    letter-spacing:.14em; color:var(--olive);
+  }
+  .timeline .e{ display:block; font-size:27px; font-weight:700; line-height:1.75; }
+
+  /* 側欄 */
+  .box{
+    background:var(--paper-deep); border:3px solid var(--ink);
+    padding:32px 28px; margin-bottom:42px;
+  }
+  .box h4{
+    margin:0 0 22px; font-size:24px; font-weight:800;
+    letter-spacing:.28em; text-indent:.28em; text-align:center;
+    color:var(--seal); padding-bottom:14px; border-bottom:1px solid var(--rule);
+  }
+  .rail p{ font-size:23px; font-weight:700; line-height:1.85; }
+  .rail p:last-child{ margin-bottom:0; }
+  .rail ul{ margin:0; padding-left:1.2em; font-size:23px; font-weight:700; line-height:1.8; }
+  .rail li{ margin-bottom:.9em; }
+  .rail li:last-child{ margin-bottom:0; }
+  .rail b{ font-weight:800; }
+
+  .colophon{
+    margin-top:96px; padding-top:30px;
+    border-top:9px double var(--ink);
+    font-size:22px; font-weight:700; line-height:1.9;
+    color:var(--ink-soft); text-align:center;
+  }
+
+  @media (max-width:900px){
+    body{ font-size:22px; line-height:1.85; }
+    .sheet{ padding:32px 20px 72px; }
+    h1{ font-size:44px; }
+    .kicker{ font-size:26px; }
+    .deck{ font-size:23px; }
+    .lead::first-letter{ font-size:76px; margin:8px 12px 0 0; }
+    h2{ font-size:30px; }
+    .pull{ font-size:28px; }
+    .columns{ flex-direction:column; gap:0; margin-top:44px; }
+    .rail{ flex-basis:auto; width:100%; margin-top:56px; }
+    .playbill{ padding:28px 22px; }
+    .cast li{ flex-direction:column; gap:4px; }
+    .cast .role{ flex-basis:auto; }
+    .cast .name{ font-size:24px; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="brand">老熊隨筆</div>
+    <div class="issue">數 學 人 物 誌　·　第 <b>五</b> 輯　·　二〇二六年七月</div>
+  </header>
+
+  <div class="eyebrow">龐 加 萊 猜 想 · 功 勞 爭 奪 戰</div>
+  <h1>數學界的八卦</h1>
+  <p class="kicker">總比娛樂圈的有含金量</p>
+  <p class="deck">一道躺了一百年的世紀難題、三組驗證人馬、一對反目的師徒，<br>和一個躲在聖彼得堡母親公寓裡不肯出門的俄國人。</p>
+  <div class="byline">老熊　記於紅木灣</div>
+
+  <div class="columns">
+  <main class="main">
+
+    <p class="lead">先說結論：龐加萊猜想是佩雷爾曼證明的。這一點國際數學界從頭到尾沒有動搖過一秒鐘。</p>
+
+    <p>那還有什麼好吵的？吵的是另外兩件事。</p>
+
+    <p>第一，佩雷爾曼那三篇預印本跳步跳得厲害，全世界讀得動的人兩隻手數得完。把細節補齊的人算不算有功勞、算多少？換句話說，那些縫隙到底是待填的細節，還是真正的漏洞。</p>
+
+    <p>第二，這一整套東西該冠誰的名字。里奇流是哈密頓一九八二年發明的，綱領跑了二十年；佩雷爾曼是完成臨門一腳的那個人。那麼它該叫「佩雷爾曼的證明」，還是叫「哈密頓—佩雷爾曼理論」？</p>
+
+    <p>二〇〇二到二〇〇六這四年，一群全世界最聰明的人為了這兩個問題，把事情鬧成了什麼樣子——這才是這個故事有意思的地方。</p>
+
+    <p>這齣戲裡，兩條原本各走各的線，最後被同一篇雜誌報導綁成了一條。</p>
+
+    <div class="playbill">
+      <h3>出 場 人 物</h3>
+      <p class="sub">按登場順序</p>
+      <ul class="cast">
+        <li>
+          <span class="role">隱　士</span>
+          <span><span class="name">格里戈里 · 佩雷爾曼</span>
+          <span class="note">聖彼得堡。把證明貼在網上就走人，此後不接電話、不回信、不領獎。</span></span>
+        </li>
+        <li>
+          <span class="role">開路者</span>
+          <span><span class="name">理查 · 哈密頓</span>
+          <span class="note">里奇流的發明人。佩雷爾曼是踩在他二十年的綱領上完成臨門一腳的。</span></span>
+        </li>
+        <li>
+          <span class="role">師　父</span>
+          <span><span class="name">丘成桐</span>
+          <span class="note">一九八二年菲爾茲獎，哈佛。哈密頓的老友，《亞洲數學期刊》主編。</span></span>
+        </li>
+        <li>
+          <span class="role">徒　弟</span>
+          <span><span class="name">田　剛</span>
+          <span class="note">一九八八年哈佛博士，導師正是丘成桐。二〇〇五年起與師父公開翻臉。</span></span>
+        </li>
+        <li>
+          <span class="role">自家人</span>
+          <span><span class="name">曹懷東 · 朱熹平</span>
+          <span class="note">丘成桐親自召集的驗證組。前者是他的學生，後者中山大學。</span></span>
+        </li>
+        <li>
+          <span class="role">記　者</span>
+          <span><span class="name">Sylvia Nasar · David Gruber</span>
+          <span class="note">《紐約客》。前者寫過《美麗境界》，很懂怎麼把數學家寫成人物。</span></span>
+        </li>
+      </ul>
+    </div>
+
+    <h2><span class="num">一</span>網上貼了三篇東西<span class="date">二〇〇二年十一月 — 二〇〇三年七月</span></h2>
+
+    <p>佩雷爾曼陸續在 arXiv 貼出三篇預印本，沒投任何期刊。篇幅極簡、跳步極多，一句「細節留給讀者」後面往往藏著半年的工作量。全世界讀得動的人，兩隻手數得完。</p>
+
+    <p>這就埋下了整件事的引信：一個證明如果沒人看得懂，那「看懂它並把細節補齊」的人，該算多少功勞？</p>
+
+    <h2><span class="num">二</span>三組人馬<span class="date">二〇〇三年起</span></h2>
+
+    <p>驗證的工作分頭開展。密西根的 Bruce Kleiner 與 John Lott 邊讀邊寫公開筆記，貼在網上。哥倫比亞的 John Morgan 與<b>田剛</b>合作，由克雷數學研究所出錢，成果要出成專書——這本書後來也是佩雷爾曼能拿那一百萬美元的依據。</p>
+
+    <p>第三組是丘成桐在二〇〇三年春天召集的：中山大學的朱熹平，加上他自己的學生、里海大學的曹懷東。丘還安排朱熹平在二〇〇五至〇六學年訪問哈佛，在討論班上逐段講解佩雷爾曼的證明。</p>
+
+    <p>請記住這個分組。田剛在一邊，丘成桐在另一邊。</p>
+
+    <p>二〇〇四年九月十日，田剛寫了一封很長的電郵給佩雷爾曼，大意是：我們認為已經理解你的文章，它完全正確。佩雷爾曼沒有回信。他後來對記者解釋，人們需要時間去適應「這個著名問題已經不是猜想」這件事，而他覺得重要的是不去干擾這個過程。</p>
+
+    <h2><span class="num">三</span>師徒翻臉<span class="date">二〇〇五年八月十九日</span></h2>
+
+    <p>《北京科技報》刊出一篇專訪，標題是〈丘成桐：中國目前教育不可能出一流人才〉。丘在文中抨擊中國學界腐敗，並不點名地影射田剛涉嫌剽竊——說哈佛一位名教授告訴他這個學生抄襲論文，他當初為了保護年輕人沒有深究，結果愈演愈烈。</p>
+
+    <p>戰火最初在高校 BBS 上燒，然後上了媒體。爭議還牽扯出海歸學者的兼職與服務時間、經費、以及誰該主導中國數學的建制——直接對立的另一方，其實是北京大學數學學院。</p>
+
+    <p>到這裡為止，龐加萊猜想跟師徒反目還是兩件事。</p>
+
+    <h2><span class="num">四</span>三天的審查期<span class="date">二〇〇六年四月 — 六月</span></h2>
+
+    <p>四月十三日，《亞洲數學期刊》的三十一位編委收到一封電郵，來自丘成桐與另一位共同主編：請在<span class="num-hi">三天</span>內對一篇即將刊出的論文表示意見。作者是曹懷東與朱熹平。</p>
+
+    <p>六月三日論文發表，題目掛的是「里奇流的哈密頓—佩雷爾曼理論」，內文宣稱補全了佩雷爾曼證明中的漏洞，給出了完整證明。</p>
+
+    <p>六月二十二日，丘成桐在北京受訪，說中國人的貢獻「不少於整個工作的 <span class="num-hi">30%</span>」，並稱這件事比陳景潤的哥德巴赫猜想重要得多。國內媒體反應熱烈，國外主流媒體幾乎沒有報導。</p>
+
+    <div class="pull">主編審自家團隊的稿，<br>審查期三天。</div>
+
+    <h2><span class="num">五</span>馬德里的空椅子<span class="date">二〇〇六年八月二十二日</span></h2>
+
+    <p>國際數學家大會把菲爾茲獎頒給佩雷爾曼。他沒有出現。他在前一年十二月已經從斯捷克洛夫研究所辭職，退出了數學界。</p>
+
+    <h2><span class="num">六</span>《紐約客》的那一刀<span class="date">二〇〇六年八月二十八日</span></h2>
+
+    <p>六天後，Nasar 與 Gruber 的長文〈流形的命運——傳奇問題以及誰是破解者之爭〉見刊。兩位記者做了一件別人沒做到的事：他們找到了隱居在聖彼得堡母親公寓裡的佩雷爾曼，並且讓他開了口。</p>
+
+    <p>文章描繪出一個令人厭惡的丘成桐形象，暗示他為自己陣營爭取了過多功勞；同時也把丘攻擊田剛那條線寫了進去。<b>兩條線就此合流。</b>隨文的插畫更狠——畫的是丘成桐伸手去摘佩雷爾曼脖子上的菲爾茲獎章。</p>
+
+    <p>丘成桐揚言採取法律行動，委請律師發函要求雜誌更正，並架設了專門網站逐條回應。事情最後不了了之。</p>
+
+    <p>佩雷爾曼在文中說了那句最傷人的話：讓他反感的不是那些破壞規則的人，而是容忍破壞規則的整個環境；在這個環境裡，被當成異類的反而是他這種人。</p>
+
+    <h2><span class="num">七</span>勘誤<span class="date">二〇〇六年九月 — 十二月</span></h2>
+
+    <p>九月二十五日，哈密頓發表聲明，敘述丘成桐團隊多年來對他里奇流研究的支持，並讚揚丘的人品。這是這齣戲裡少數幾個對丘有利的時刻。</p>
+
+    <p>十二月，加州理工一名研究者指出，曹朱論文中有一段內容取自 Kleiner 與 Lott 二〇〇三年的公開筆記，未加註明。兩人提出勘誤，說是無意間抄進了自己的筆記。修訂後的版本改了題目，也不再宣稱自己做出了最終證明。</p>
+
+    <p>佩雷爾曼對曹朱那篇文章只給了四個字的評語：看不出新意。</p>
+
+    <h2><span class="num">八</span>平心而論</h2>
+
+    <p>把丘成桐簡化成一個搶功勞的人，其實不公平。他有一個站得住腳的立場：里奇流是哈密頓發明的，整套綱領跑了二十年，佩雷爾曼是完成臨門一腳的那個人。丘堅持用「哈密頓—佩雷爾曼理論」這個講法，不完全是策略。</p>
+
+    <p>更妙的是，這一點連佩雷爾曼自己都同意。二〇一〇年三月十八日，克雷數學研究所把一百萬美元的千禧年大獎頒給他，他拒領，理由是克雷的決定「不公平」——他認為哈密頓的貢獻不亞於自己。</p>
+
+    <p>問題從來不在立場，而在手段：主編審自家的稿、三天的審查期、對外宣傳的那個「30%」，以及把功勞之爭當成另一個戰場的時機選擇。冠名這一仗，丘成桐其實打贏了——今天沒有人會否認里奇流是哈密頓的。輸掉的是補證那一仗，而那一仗本來可以不必打。</p>
+
+    <div class="pull">兩次拒領，<br>一次是為了自己，一次是為了哈密頓。</div>
+
+    <h2><span class="num">九</span>含金量</h2>
+
+    <p>娛樂圈的八卦看完就沒了。這一樁看完，你手上會多幾樣東西：知道里奇流是什麼、知道三維流形為什麼難、知道同行評審這套制度在什麼情況下會失靈、知道一個人可以同時是了不起的數學家和不太好看的當事人。</p>
+
+    <p>最後，真正的輸家很清楚。田剛還在北大，丘成桐後來回了清華，兩位都是大人物。曹懷東、朱熹平的論文留在期刊裡，附著一則勘誤。</p>
+
+    <p>只有佩雷爾曼——那個唯一把題目證出來的人——從此不再做數學了。</p>
+
+  </main>
+
+  <aside class="rail">
+
+    <div class="box">
+      <h4>時 間 軸</h4>
+      <ul class="timeline">
+        <li><span class="d">2002.11–2003.7</span><span class="e">佩雷爾曼在 arXiv 貼出三篇預印本</span></li>
+        <li><span class="d">2003 春</span><span class="e">丘成桐召集曹懷東、朱熹平；另有 Kleiner–Lott、Morgan–田剛兩組</span></li>
+        <li><span class="d">2004.9.10</span><span class="e">田剛去信佩雷爾曼確認證明正確，未獲回覆</span></li>
+        <li><span class="d">2005.8.19</span><span class="e">《北京科技報》專訪，師徒公開決裂</span></li>
+        <li><span class="d">2005.12</span><span class="e">佩雷爾曼辭去斯捷克洛夫研究所職務</span></li>
+        <li><span class="d">2006.4.13</span><span class="e">《亞洲數學期刊》編委收到三天審查通知</span></li>
+        <li><span class="d">2006.6.3</span><span class="e">曹朱論文發表，宣稱完整證明</span></li>
+        <li><span class="d">2006.8.22</span><span class="e">馬德里 ICM，佩雷爾曼獲菲爾茲獎未出席</span></li>
+        <li><span class="d">2006.8.28</span><span class="e">《紐約客》〈流形的命運〉</span></li>
+        <li><span class="d">2006.9.25</span><span class="e">哈密頓發表聲明支持丘成桐</span></li>
+        <li><span class="d">2006.12</span><span class="e">曹朱提出勘誤，撤回「最終證明」的說法</span></li>
+        <li><span class="d">2010.3.18</span><span class="e">克雷千禧年大獎，佩雷爾曼再度拒領</span></li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h4>名 詞 小 注</h4>
+      <p><b>龐加萊猜想</b>：任何單連通的封閉三維流形，都同胚於三維球面。一九〇四年提出，懸了近一百年。</p>
+      <p><b>里奇流</b>：哈密頓一九八二年引進的方程，讓流形的度量隨時間演化、自動「撫平」。難處在於過程中會冒出奇異點。</p>
+      <p><b>佩雷爾曼做了什麼</b>：發展出手術與熵單調性的工具，把奇異點一個個處理掉，順帶證明了瑟斯頓的幾何化猜想——龐加萊猜想只是它的一個特例。</p>
+    </div>
+
+    <div class="box">
+      <h4>冠 名 之 爭</h4>
+      <p>三組人馬的標題，就是三種立場。</p>
+      <p><b>曹懷東・朱熹平（2006.6）</b><br>《龐加萊與幾何化猜想的完整證明——里奇流的哈密頓—佩雷爾曼理論之應用》</p>
+      <p><b>Morgan・田剛（克雷專書）</b><br>《里奇流與龐加萊猜想》——不冠任何人名</p>
+      <p><b>Kleiner・Lott</b><br>《佩雷爾曼論文筆記》——我們只是註解者</p>
+      <p>勘誤後，曹朱把標題改成《哈密頓—佩雷爾曼對龐加萊猜想與幾何化猜想的證明》。<b>「完整證明」拿掉了，「哈密頓—佩雷爾曼」留著。</b></p>
+    </div>
+
+    <div class="box">
+      <h4>後 話</h4>
+      <p>丘田之爭並未隨二〇〇六年結束。二〇一三年前後，凱勒—愛因斯坦度量存在性（丘—田—Donaldson 猜想）的優先權問題，又讓田剛與 Chen–Donaldson–Sun 一方公開往返數回合。</p>
+      <p>丘成桐二〇二二年全職回到清華，主持求真書院；田剛長期主持北京國際數學研究中心。兩人各自帶出了一整代中國數學家。</p>
+      <p>而二〇二六年費城 ICM 上，兩位在中國受教育的得主鄧煜與王虹站上講台——距離丘成桐一九八二年那枚獎章，四十四年。</p>
+    </div>
+
+  </aside>
+  </div>
+
+  <div class="colophon">
+    老熊隨筆　·　數學人物誌<br>
+    本文所述爭議各方說法互有出入，指控性內容均註明出處與時間，讀者宜自行判斷
+  </div>
+
+</div>
+</body>
+</html>

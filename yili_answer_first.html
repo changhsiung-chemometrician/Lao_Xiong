@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>答案先到，問題後到——杞人憂天・續篇</title>
+<style>
+  :root{
+    --ink:#1a1a17;
+    --paper:#f4efe4;
+    --paper2:#efe8da;
+    --rule:#2b2b26;
+    --accent:#8c2f18;
+    --muted:#6b6459;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 2px, transparent 2px 4px),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Songti TC","Noto Serif TC","PMingLiU","Source Han Serif TC",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.95;
+    letter-spacing:.02em;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 40px 96px;}
+
+  .masthead{
+    border-top:10px double var(--rule);
+    border-bottom:4px solid var(--rule);
+    padding:22px 0 16px;text-align:center;
+  }
+  .brand{font-size:34px;letter-spacing:.55em;font-weight:800;text-indent:.55em;}
+  .brand small{display:block;font-size:19px;letter-spacing:.3em;color:var(--muted);margin-top:10px;font-weight:700;}
+  .dateline{
+    display:flex;justify-content:space-between;
+    font-size:19px;color:var(--muted);font-weight:700;
+    border-bottom:1px solid var(--rule);padding:12px 4px;letter-spacing:.08em;
+  }
+
+  h1{font-size:76px;line-height:1.25;font-weight:800;margin:56px 0 18px;text-align:center;letter-spacing:.04em;}
+  .sub{text-align:center;font-size:34px;color:var(--accent);font-weight:800;margin-bottom:10px;letter-spacing:.06em;}
+  .kicker{text-align:center;font-size:22px;color:var(--muted);font-weight:700;letter-spacing:.28em;margin-bottom:38px;}
+  .hr-orn{text-align:center;font-size:26px;color:var(--muted);margin:34px 0;letter-spacing:1em;}
+
+  .cols{display:flex;gap:52px;align-items:flex-start;}
+  main{flex:1;min-width:0;}
+  aside{width:340px;flex:none;}
+
+  p{margin:0 0 1.15em;text-align:justify;}
+  .lead::first-letter{
+    float:left;font-size:120px;line-height:.82;font-weight:800;
+    margin:10px 16px 0 0;color:var(--accent);
+  }
+
+  h2{font-size:44px;font-weight:800;margin:64px 0 20px;padding-bottom:12px;border-bottom:3px solid var(--rule);letter-spacing:.05em;}
+  h2 .num{color:var(--accent);margin-right:.4em;font-weight:800;}
+
+  blockquote{
+    margin:44px 0;padding:30px 34px;
+    border-left:12px solid var(--accent);
+    background:var(--paper2);
+    font-size:44px;line-height:1.6;font-weight:800;letter-spacing:.04em;
+  }
+
+  .classic{
+    border:5px double var(--rule);background:#efe6d2;
+    padding:38px 42px 32px;margin:40px 0;
+    font-size:34px;line-height:2.15;font-weight:700;
+    letter-spacing:.08em;text-align:justify;
+  }
+  .classic .label{
+    display:block;text-align:center;font-size:24px;letter-spacing:.4em;
+    color:var(--accent);font-weight:800;margin-bottom:24px;
+    border-bottom:2px solid var(--rule);padding-bottom:14px;
+  }
+  .classic .foot{
+    display:block;text-align:right;font-size:21px;color:var(--muted);
+    font-weight:700;margin-top:20px;letter-spacing:.06em;
+  }
+  .classic em{font-style:normal;color:var(--accent);font-weight:800;}
+
+  .chatbox{
+    background:#d9f7b0;border:2px solid #b9d98c;border-radius:18px;
+    padding:22px 26px;margin:30px 0;font-size:28px;line-height:1.75;font-weight:700;
+  }
+  .chatbox .who{font-size:20px;color:#4a5c33;letter-spacing:.15em;margin-bottom:8px;font-weight:800;}
+  .chatbox.grey{background:#ececec;border-color:#cfcfcf;}
+  .chatbox.grey .who{color:#5a5a5a;}
+
+  .chain{counter-reset:step;list-style:none;padding:0;margin:34px 0;}
+  .chain li{
+    counter-increment:step;position:relative;padding:16px 20px 16px 82px;
+    border-bottom:1px dashed var(--muted);font-size:30px;font-weight:700;
+  }
+  .chain li::before{
+    content:counter(step);position:absolute;left:18px;top:14px;
+    width:48px;height:48px;line-height:48px;text-align:center;
+    background:var(--accent);color:var(--paper);border-radius:50%;
+    font-size:26px;font-weight:800;
+  }
+  .chain li b{font-weight:800;color:var(--accent);}
+  .chain li.pre::before{background:#2f5d3a;}
+
+  table{width:100%;border-collapse:collapse;margin:34px 0;font-size:26px;font-weight:700;}
+  th,td{border:2px solid var(--rule);padding:14px 16px;text-align:center;}
+  th{background:var(--rule);color:var(--paper);font-weight:800;letter-spacing:.1em;}
+  td.num{font-weight:800;font-variant-numeric:tabular-nums;}
+  tr.total td{background:#e9dcc6;font-weight:800;}
+
+  .sidebox{
+    border:4px double var(--rule);background:var(--paper2);
+    padding:24px 24px 20px;margin-bottom:36px;
+    font-size:24px;line-height:1.8;font-weight:700;
+  }
+  .sidebox h3{
+    font-size:28px;font-weight:800;margin:0 0 14px;text-align:center;
+    letter-spacing:.15em;border-bottom:2px solid var(--rule);padding-bottom:10px;
+  }
+  .sidebox p{margin:0 0 .8em;}
+  .sidebox .src{font-size:19px;color:var(--muted);text-align:right;font-weight:700;}
+  .sidebox .quote{font-size:26px;text-align:center;line-height:1.7;color:var(--accent);}
+
+  .stamp{
+    display:inline-block;border:5px double var(--accent);color:var(--accent);
+    padding:14px 22px;font-size:30px;font-weight:800;letter-spacing:.2em;
+    transform:rotate(-6deg);margin:20px 0;
+  }
+
+  footer{
+    margin-top:76px;border-top:4px solid var(--rule);padding-top:24px;
+    font-size:22px;color:var(--muted);font-weight:700;text-align:center;letter-spacing:.12em;
+  }
+
+  @media (max-width:980px){
+    .cols{flex-direction:column;}
+    aside{width:100%;}
+    body{font-size:26px;}
+    h1{font-size:52px;}
+    blockquote{font-size:34px;}
+    .classic{font-size:28px;padding:26px 24px;}
+    .lead::first-letter{font-size:88px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="brand">精選外刊<small>老 熊 隨 筆 ・ 群 組 觀 察 系 列</small></div>
+  </div>
+  <div class="dateline">
+    <span>第 貳 拾 玖 期</span>
+    <span>機 率 暨 掌 故 版</span>
+    <span>公元 2026 年 8 月</span>
+  </div>
+
+  <div class="sub">杞 人 憂 天 ・ 續 篇</div>
+  <h1>答案先到，問題後到</h1>
+  <div class="kicker">從 一 九 〇 二 年 的 伊 犁 ， 到 二 〇 二 六 年 的 防 空 洞</div>
+
+  <div class="cols">
+  <main>
+
+    <p class="lead">事情不是從我們群裡開始的。是隔壁某個群在憂天——萬一北京挨了彈道飛彈，甚至是核彈，該怎麼辦？該不該預作準備？要不要考慮遷都？遷去哪裡？這種問題本身沒什麼稀奇，網上每天都有人在推演。稀奇的是，我們群裡有位同學看見了，眼睛一亮，把整串搬了回來。</p>
+
+    <p>眼睛一亮，是因為他手上早就有答案了。<strong>他主張遷都伊犁，已經主張很多年。</strong></p>
+
+    <p>這才是整件事真正好笑的地方。一般的杞人是先有煩惱、再找出路；這一位是先有出路、然後等到了一個配得上它的煩惱。<strong>他不是被那個問題困住的人，他是那個問題的承包商。</strong></p>
+
+    <div class="classic">
+      <span class="label">列 子 · 天 瑞 · 逸 篇 （ 戲 擬 ）</span>
+      杞國有人憂天崩，聚國人議之曰：「萬一崩焉，何以處之？」<br><br>
+      南鄰有客，過而聞焉，忽大喜曰：「<em>善哉問也！吾有策，藏之百二十有四年矣，今始得其問。</em>」<br><br>
+      遂挾其議東歸，遍告鄉之故人曰：「杞人憂天，吾能對。」<br>
+      故人問：「何對？」<br>
+      曰：「<em>遷都伊犁。</em>」<br>
+      故人曰：「子何以知伊犁可？」<br>
+      曰：「先賢有言，謀大洲則伊犁。」<br>
+      故人曰：「<em>先賢所謀者，進取也，非避禍也。</em>」<br>
+      客曰：「地則一也。」<br><br>
+      或又詰之曰：「且子非杞人。子之居去杞千八百里而在其南，天若崩，先及子矣。」<br>
+      客默然，久之曰：「<em>然吾策甚善。</em>」<br><br>
+      是歲，杞未遷都，天未崩，而客之策益精：城當在河之南乎北乎，糧道幾何，冬寒可耐否，皆有定論矣。
+      <span class="foot">— 姑妄錄之</span>
+    </div>
+
+    <h2><span class="num">一</span>答案的年齡</h2>
+
+    <p>「藏之百二十有四年」不是我瞎編的。伊犁定都論真有出處，而且出處很硬：一九〇二年，孫中山在日本與章太炎談建都，說過「謀本部則武昌，謀藩服則西安，<strong>謀大洲則伊犁</strong>」，並補了一句「視其規模遠近而已」。</p>
+
+    <p>請注意那個「謀」字。<strong>謀大洲——是要經略整個亞洲大陸，是往外打的前進基地，是進攻型的天子守國門。</strong>孫中山選伊犁，選的是它離歐亞內陸近，不是離飛彈遠。那年頭也沒有飛彈。</p>
+
+    <p>一百二十四年後，同一個地名被拿來當防空洞。</p>
+
+    <blockquote>地點沒變，<br>動機整個翻了個面：<br>從前進基地，變成後撤縱深。</blockquote>
+
+    <p>這就是逸文裡那句「地則一也」的份量。<strong>結論長得一模一樣，支撐它的理由卻已經換過人了。</strong>一個為了「打出去」而選的位置，被無縫接管來論證「躲起來」——中間那道理由的接縫，沒有人去看。</p>
+
+    <h2><span class="num">二</span>不是推論鏈，是招募</h2>
+
+    <p>把搬過來的那串攤開，形狀是這樣的：</p>
+
+    <ul class="chain">
+      <li>北京遭飛彈攻擊（<b>百萬分之一以下</b>）</li>
+      <li>→ 因此需要預作準備</li>
+      <li>→ 因此遷都是可行對策</li>
+      <li>→ 因此該遷去伊犁</li>
+    </ul>
+
+    <p>看起來是一條由前提推向結論的鏈子。但在這位同學身上，時序是反的：</p>
+
+    <ul class="chain">
+      <li class="pre">先有結論：<b>遷都伊犁</b>（持有年資：多年）</li>
+      <li class="pre">後遇問題：北京可能挨彈</li>
+      <li class="pre">於是：把問題接到結論上，中間補三個「因此」</li>
+    </ul>
+
+    <p><strong>這比合取謬誤還前面一階。</strong>合取謬誤至少是誠實地算錯了；這是結論先站好，然後去外面招募一條看起來像推論的東西回來當支架。工程上叫作<strong>先畫靶再射箭</strong>，心理學上叫作動機推理。</p>
+
+    <p>判斷的方法很簡單，一句話就夠：<strong>如果隔壁群憂的不是飛彈，而是水患、地震、糧食、能源，你的答案會不會變？</strong>如果四種災難都導向伊犁，那伊犁就不是那條鏈子推出來的結果——它是常數。常數不需要鏈子，鏈子是後來穿上去的衣服。</p>
+
+    <h2><span class="num">三</span>順便還是要算一下乘法</h2>
+
+    <p>就算把時序倒錯的問題先放一邊，純粹當推論來看，那四步也是禁不起乘的。每一步都是條件機率：第二步要在第一步成立的前提下成立，第三步又要架在第二步上。</p>
+
+    <p>先講第一步的量級。<strong>2026 年，一個核子大國的首都遭飛彈攻擊——這件事在未來十年內發生的機率，遠低於百萬分之一。</strong>這不是保守，這是慷慨：我給的已經是寬鬆上限，因為對北京動手意味著核門檻在同一天被跨過去，那不是一次攻擊，那是文明層級的賭注。真要認真下注的人，開出來的價會比這更低。</p>
+
+    <table>
+      <tr><th>步驟</th><th>條件機率（示意）</th><th>累積</th></tr>
+      <tr><td>北京遭飛彈攻擊<br><span style="font-size:20px;color:#6b6459;">（十年內・寬鬆上限）</span></td><td class="num">1×10⁻⁶</td><td class="num">1×10⁻⁶</td></tr>
+      <tr><td>嚴重到必須動用遷都</td><td class="num">0.30</td><td class="num">3×10⁻⁷</td></tr>
+      <tr><td>遷都確為最優對策</td><td class="num">0.20</td><td class="num">6×10⁻⁸</td></tr>
+      <tr><td>最優落點正好是伊犁</td><td class="num">0.10</td><td class="num">6×10⁻⁹</td></tr>
+      <tr class="total"><td>四步合取</td><td class="num">—</td><td class="num">≈ 0.0000006 %</td></tr>
+    </table>
+
+    <p>六十億分之六，也就是<strong>約一億六千七百萬分之一</strong>。給你一個手感：這比買一張大樂透中頭獎還要小上十幾倍。<strong>那位同學為之辯論多年的方案，其成立的機率，低於他這輩子中一次頭獎。</strong></p>
+
+    <p>而且這個結論非常穩健。<strong>就算你認為我四格全部低估了十倍——四個數字統統乘十——總機率也不過萬分之六。</strong>乘法不管你的段落分得多整齊，也不管你的地圖畫得多細。</p>
+
+    <p>但人腦不是這樣估的。Tversky 與 Kahneman 一九八三年講的 <em>conjunction fallacy</em>——合取謬誤——說的正是：細節越多，故事越圓，人的信心越高；而每多一個細節，實際機率就再乘一次小數。<strong>具體性冒充了可能性。</strong>「該遷去伊犁」聽起來比「北京有安全風險」更像研究過的結論，因為它有地名、有方位、有距離感。其實它是同一句話再乘上三個小數之後的版本。</p>
+
+    <h2><span class="num">四</span>而天是一整片的</h2>
+
+    <p>還有一層更基本的問題，古文版本裡看得比較清楚。</p>
+
+    <p>杞人怕的是天地崩墜——那是<strong>全域事件</strong>。你往西北搬一萬里，你還是在同一片天底下。所以逸文裡那句「彼處之天想必厚」是笑話：天不能挑厚薄，因為它是連著的。</p>
+
+    <p>現代版本裡，這條界線就模糊多了。飛彈確實是<strong>局部</strong>的——有射程、有落點，躲得掉。但核子層級的衝突不是；它會把賽局本身掀掉。<strong>把一個會滑向全域的風險，用局部的辦法去處理，本身就是那條鏈子第二步和第三步之間最脆弱的接縫。</strong>而那個接縫，恰恰是最沒被討論的。</p>
+
+    <h2><span class="num">五</span>最後那一層</h2>
+
+    <p>然後是這整件事我最喜歡的部分。</p>
+
+    <p>這位替北京操心疏散路線的同學，本人是台灣人，現在也住在台灣。<strong>他憂的不是自己頭上那片天，是隔了一千八百公里以外別人家的那一片。</strong></p>
+
+    <p>我想了想，覺得這裡頭其實有一種很難不欣賞的東西：<strong>純粹的智識熱情。</strong>那片天塌不塌，他一塊錢的利害關係都沒有；他純粹是覺得那個方案好，覺得一九〇二年那句「謀大洲則伊犁」講得漂亮，一有機會就想拿出來用。</p>
+
+    <p>這種人是討論的資產。真的。<strong>群裡若沒有幾個把百年前的方案隨身帶著、逮到機會就掏出來的人，聊天就只剩天氣和健檢報告了。</strong></p>
+
+    <p>問題只在於掏出來的時候，要不要順手把接縫也秀一下：<strong>那三個「因此」，是算出來的，還是順下來的？</strong>如果是算出來的，攤開來推，我樂意奉陪。如果只是順下來的，那它跟「彼處之天想必厚」是同一個等級的東西——語法上完全成立，物理上一片空白。</p>
+
+    <h2><span class="num">六</span>結案</h2>
+
+    <p>那場討論後來怎麼收的？有人打了兩個英文字：</p>
+
+    <div class="stamp">m o v e &nbsp; o n</div>
+
+    <p>這比逐條反駁高明。因為假設鏈這種東西你駁不完——駁倒第四步，他退回第三步；駁倒第三步，他說「我只是討論可能性」。<strong>更何況這一條鏈子的第四步是常數，你根本駁不動它，那不是推論的一環，那是他的隨身行李。</strong></p>
+
+    <p>《列子》原作在「兩人大喜」的地方就收筆了，寫得極聰明。他知道再寫下去就不是寓言，是紀錄片：杞人不會被說服，也不會等到天塌，他只會把餘生用在河南河北、糧道幾何、冬寒可耐否。</p>
+
+    <div class="hr-orn">✦ ✦ ✦</div>
+
+    <p style="text-align:center;font-size:36px;font-weight:800;letter-spacing:.06em;">
+      一九〇二年的伊犁，是拿來打出去的。<br>
+      二〇二六年的伊犁，是拿來躲進去的。<br>
+      同一個地名，反向的箭頭。
+    </p>
+
+  </main>
+
+  <aside>
+
+    <div class="sidebox">
+      <h3>一 九 〇 二 ・ 出 處</h3>
+      <p>孫中山在日本與章太炎論建都，語曰：</p>
+      <p class="quote">謀本部則武昌<br>謀藩服則西安<br>謀大洲則伊犁<br>視其規模遠近而已</p>
+      <p>三個選項對應三種國家企圖心：守成、經略邊疆、爭霸大陸。<strong>伊犁是野心最大的那一個，不是最安全的那一個。</strong></p>
+      <p class="src">— 章太炎記孫中山語</p>
+    </div>
+
+    <div class="sidebox">
+      <h3>原 典</h3>
+      <p>《列子·天瑞》：杞國有人憂天地崩墜、身亡所寄，廢寢食者。有曉之者往解之，其人舍然大喜，曉之者亦舍然大喜。</p>
+      <p>杞，周初封夏禹之後，故城在今河南杞縣。</p>
+      <p><strong>本刊「逸篇」係戲擬，非古籍原文，讀者幸勿引用。</strong></p>
+      <p class="src">— 資料室</p>
+    </div>
+
+    <div class="sidebox">
+      <h3>合 取 謬 誤</h3>
+      <p><strong>Conjunction Fallacy</strong><br>Tversky &amp; Kahneman，1983。</p>
+      <p>琳達問題：三十一歲，單身，哲學系出身，關心社會正義。問她比較可能是（甲）銀行行員，還是（乙）銀行行員<strong>且</strong>女權運動者？</p>
+      <p>多數人選乙。但乙是甲的子集。</p>
+      <p class="quote">P(A且B) ≤ P(A)</p>
+      <p>細節讓故事變可信，同時讓機率變更小。這兩件事在人腦裡方向相反。</p>
+      <p class="src">— 判斷與決策叢談</p>
+    </div>
+
+    <div class="sidebox">
+      <h3>數 量 級 對 照</h3>
+      <p>本案四步合取後：<br><strong>約 6×10⁻⁹</strong>（一億六千七百萬分之一）</p>
+      <p>參考座標：</p>
+      <p>・樂透頭獎 ── 約 10⁻⁷<br>
+         ・一生遭雷擊 ── 約 10⁻⁴<br>
+         ・本案 ── 約 10⁻⁹</p>
+      <p><strong>低於頭獎一個數量級以上。</strong>而中頭獎至少每週開一次；這條鏈子連開獎日都還沒定。</p>
+    </div>
+
+    <div class="sidebox">
+      <h3>常 數 測 試</h3>
+      <p>怎麼分辨一個結論是推出來的，還是隨身帶著的？</p>
+      <p><strong>換掉前提，看結論動不動。</strong></p>
+      <p>把「飛彈」換成水患、地震、糧食、能源、氣候——答案還是伊犁嗎？</p>
+      <p>如果都是，那它是常數。<br>常數不需要推論鏈；<br>鏈子是後來穿上去的衣服。</p>
+    </div>
+
+    <div class="sidebox">
+      <h3>本 期 詞 條</h3>
+      <p><strong>假設鏈</strong>／若干條件機率用「因此」串起，讀起來像因果，算起來是乘法。</p>
+      <p><strong>結論招募</strong>／本刊新造。結論先站定，再向外徵求推論充當支架。</p>
+      <p><strong>地則一也</strong>／同一個答案換了理由仍照用，接縫不查。</p>
+      <p><strong>move on</strong>／不辯輸贏，直接更新議程。面對常數的唯一解。</p>
+    </div>
+
+  </aside>
+  </div>
+
+  <footer>
+    精選外刊 ・ 老熊隨筆 ｜ 逸篇係戲擬 ・ 數字係示意 ・ 乘法係認真的
+  </footer>
+
+</div>
+</body>
+</html>
