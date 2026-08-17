@@ -1,6 +1,5 @@
-<Lao Xiong>
-++++++++++++
- 
+Lao Xiong
++++++++++
 SUMMARY
 •	60 patents (27 families) issued in algorithm development for chemometrics, PAT process monitoring, chemical sensors, biometric health sensing , health monitoring, IIoT（Industrial Internet of Things), vital sign monitoring, physiological algorithms, NIR spectra sensing, signal processing, pattern recognition, machine learning, and multivariate statistical/regression analysis of data from array based chemical/biological sensors and vibrational spectroscopy, manufacturing of chemical/biological sensors, and new chemical/biological sensors based on IR thermogram image analysis.
 
