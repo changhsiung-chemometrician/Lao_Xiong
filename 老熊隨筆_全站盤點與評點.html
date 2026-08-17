@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>同一把尺——《老熊隨筆》全站盤點與評點</title>
+<style>
+  :root{
+    --paper:#EDF0F2;
+    --paper-2:#F6F8F9;
+    --ink:#13212C;
+    --ink-soft:#3D4E5B;
+    --rule:#C3CDD4;
+    --verify:#1F6F6B;
+    --flag:#AE2F1C;
+    --gold:#8A6A16;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Heiti TC","Microsoft JhengHei",sans-serif;
+    font-size:32px;font-weight:700;line-height:1.95;letter-spacing:.01em;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 34px 120px;}
+
+  .masthead{border-bottom:6px double var(--ink);padding:46px 0 22px;margin-bottom:44px;}
+  .kicker{font-size:24px;font-weight:800;letter-spacing:.42em;color:var(--flag);margin:0 0 26px;}
+  h1{font-family:"Noto Serif TC","Songti TC","Times New Roman",serif;
+     font-size:76px;font-weight:900;line-height:1.28;margin:0 0 26px;letter-spacing:.02em;}
+  h1 small{display:block;font-size:38px;font-weight:800;color:var(--ink-soft);margin-top:16px;letter-spacing:.06em;}
+  .deck{font-size:34px;font-weight:700;color:var(--ink-soft);
+        border-left:10px solid var(--verify);padding-left:26px;margin:0 0 32px;line-height:1.85;}
+  .byline{font-size:24px;font-weight:800;letter-spacing:.16em;color:var(--ink-soft);
+          border-top:2px solid var(--rule);padding-top:20px;}
+
+  /* 目錄 */
+  nav.toc{background:var(--paper-2);border-top:8px solid var(--ink);
+          border-bottom:2px solid var(--rule);padding:30px 34px 22px;margin:0 0 60px;}
+  nav.toc h4{font-size:26px;font-weight:900;letter-spacing:.28em;color:var(--flag);margin:0 0 20px;}
+  nav.toc ol{list-style:none;margin:0;padding:0;
+             display:grid;grid-template-columns:1fr 1fr;gap:6px 40px;}
+  nav.toc li{border-bottom:2px dotted var(--rule);padding:8px 0;}
+  nav.toc a{display:block;text-decoration:none;color:var(--ink);
+            font-size:26px;font-weight:800;line-height:1.6;}
+  nav.toc a span.no{color:var(--verify);letter-spacing:.2em;margin-right:14px;}
+  nav.toc a:hover,nav.toc a:focus{color:var(--flag);}
+  nav.toc a:focus-visible{outline:4px solid var(--verify);outline-offset:4px;}
+
+  /* 摘要盒 */
+  .summary{border:4px solid var(--ink);background:var(--paper-2);padding:34px 36px 12px;margin:0 0 60px;}
+  .summary h4{font-size:28px;font-weight:900;letter-spacing:.24em;color:var(--flag);margin:0 0 22px;}
+  .summary p{font-size:30px;margin:0 0 26px;}
+  .summary .score{font-size:26px;border-top:2px solid var(--rule);padding-top:20px;color:var(--ink-soft);}
+
+  section{margin:0 0 78px;scroll-margin-top:24px;}
+  h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:52px;font-weight:900;
+     line-height:1.4;margin:0 0 30px;padding-left:34px;position:relative;}
+  h2::before{content:"";position:absolute;left:0;top:.18em;bottom:.12em;width:14px;
+     background:repeating-linear-gradient(to bottom,var(--ink) 0 3px,transparent 3px 22px);
+     border-left:4px solid var(--ink);}
+  h2 .no{display:block;font-size:22px;font-weight:800;letter-spacing:.4em;color:var(--verify);margin-bottom:8px;}
+  h3{font-size:36px;font-weight:900;margin:52px 0 18px;border-bottom:3px solid var(--rule);padding-bottom:12px;}
+  p{margin:0 0 30px;}
+  .lead::first-letter{float:left;font-family:"Noto Serif TC","Songti TC",serif;
+     font-size:120px;line-height:.82;font-weight:900;margin:10px 16px 0 0;color:var(--flag);}
+  strong{font-weight:800;}
+  em{font-style:normal;font-weight:800;border-bottom:4px solid var(--gold);}
+  .num{font-weight:800;font-variant-numeric:tabular-nums;}
+  a.back{display:inline-block;font-size:22px;font-weight:800;letter-spacing:.2em;
+         color:var(--ink-soft);text-decoration:none;border-bottom:2px solid var(--rule);margin-bottom:10px;}
+  a.back:hover{color:var(--flag);}
+
+  table{width:100%;border-collapse:collapse;margin:0 0 34px;background:var(--paper-2);font-size:27px;}
+  caption{text-align:left;font-size:23px;font-weight:800;letter-spacing:.2em;color:var(--ink-soft);padding-bottom:12px;}
+  th,td{border-bottom:2px solid var(--rule);padding:16px 18px;text-align:left;vertical-align:top;line-height:1.6;}
+  thead th{background:var(--ink);color:var(--paper-2);font-weight:800;letter-spacing:.12em;border-bottom:none;}
+  td.n{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .pass{color:var(--verify);font-weight:800;}
+  .fail{color:var(--flag);font-weight:800;}
+
+  .sidebar{float:right;width:340px;margin:8px 0 34px 44px;background:var(--paper-2);
+     border-top:8px solid var(--ink);border-bottom:2px solid var(--rule);
+     padding:26px 26px 10px;font-size:24px;line-height:1.8;}
+  .sidebar h4{font-size:26px;font-weight:900;margin:0 0 18px;letter-spacing:.14em;color:var(--flag);}
+  .sidebar ul{margin:0;padding-left:1.2em;}
+  .sidebar li{margin-bottom:14px;font-weight:700;}
+  .sidebar .big{font-size:44px;font-weight:800;line-height:1.3;display:block;color:var(--verify);}
+
+  .pull{font-family:"Noto Serif TC","Songti TC",serif;font-size:44px;font-weight:800;
+        line-height:1.65;border-top:5px solid var(--flag);border-bottom:5px solid var(--flag);
+        padding:34px 0;margin:52px 0;text-align:center;}
+  .pull cite{display:block;font-size:24px;font-weight:800;font-style:normal;
+             color:var(--ink-soft);margin-top:18px;letter-spacing:.16em;}
+
+  .flagbox{border:3px solid var(--flag);background:var(--paper-2);padding:30px 32px 8px;margin:0 0 38px;}
+  .flagbox .tag{display:inline-block;background:var(--flag);color:#fff;font-size:22px;
+                font-weight:800;letter-spacing:.2em;padding:6px 18px;margin-bottom:20px;}
+  .flagbox h3{border:none;padding:0;margin:0 0 18px;font-size:34px;}
+
+  /* 可展開的分區清單 */
+  .roster{border-top:4px solid var(--ink);margin:0 0 20px;background:var(--paper-2);}
+  .roster .head{display:flex;align-items:baseline;gap:16px;background:var(--ink);color:var(--paper-2);
+     font-size:23px;font-weight:800;letter-spacing:.14em;padding:14px 18px;}
+  .roster .head .c1{flex:1;} .roster .head .c2{width:110px;text-align:right;}
+  .roster details{border-bottom:2px solid var(--rule);}
+  .roster summary{
+    list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:16px;
+    padding:16px 18px;font-size:27px;font-weight:800;line-height:1.6;
+  }
+  .roster summary::-webkit-details-marker{display:none;}
+  .roster summary::before{
+    content:"＋";width:34px;flex:none;color:var(--flag);font-weight:800;
+  }
+  .roster details[open] summary::before{content:"－";}
+  .roster details[open] summary{background:#E3E9EC;}
+  .roster summary:hover{background:#E3E9EC;}
+  .roster summary:focus-visible{outline:4px solid var(--verify);outline-offset:-4px;}
+  .roster summary .zone{flex:1;}
+  .roster summary .cnt{width:110px;text-align:right;font-variant-numeric:tabular-nums;color:var(--verify);}
+  .roster summary .kind{display:block;font-size:21px;font-weight:700;color:var(--ink-soft);letter-spacing:0;}
+  .roster ol{margin:0;padding:6px 22px 22px 74px;}
+  .roster ol li{font-size:25px;font-weight:700;line-height:1.7;margin-bottom:12px;}
+  .roster ol li a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--rule);}
+  .roster ol li a:hover{color:var(--flag);border-bottom-color:var(--flag);}
+  .roster .tot{display:flex;align-items:baseline;gap:16px;padding:16px 18px 16px 52px;
+     border-top:4px solid var(--ink);font-size:27px;font-weight:800;}
+  .roster .tot .zone{flex:1;} .roster .tot .cnt{width:110px;text-align:right;}
+  .roster .hint{font-size:21px;font-weight:700;color:var(--ink-soft);letter-spacing:.1em;
+     padding:0 0 16px;margin:0;}
+
+  .todo{counter-reset:t;list-style:none;padding:0;margin:0 0 30px;}
+  .todo li{counter-increment:t;position:relative;padding:22px 0 22px 90px;border-bottom:2px solid var(--rule);}
+  .todo li::before{content:counter(t);position:absolute;left:0;top:20px;
+     width:56px;height:56px;line-height:56px;text-align:center;
+     background:var(--verify);color:#fff;font-size:28px;font-weight:800;}
+
+  ul.plain{padding-left:1.3em;margin:0 0 30px;}
+  ul.plain li{margin-bottom:18px;}
+
+  footer{border-top:6px double var(--ink);margin-top:70px;padding-top:26px;
+         font-size:23px;font-weight:800;letter-spacing:.18em;color:var(--ink-soft);}
+  .clearfix::after{content:"";display:table;clear:both;}
+
+  @media (max-width:900px){
+    body{font-size:23px;}
+    .wrap{padding:0 20px 70px;}
+    h1{font-size:44px;} h1 small{font-size:25px;}
+    .deck{font-size:25px;} h2{font-size:34px;} h3{font-size:26px;}
+    .pull{font-size:29px;} .lead::first-letter{font-size:76px;}
+    .sidebar{float:none;width:auto;margin:0 0 34px;font-size:21px;}
+    table{font-size:20px;} th,td{padding:11px 10px;}
+    nav.toc ol{grid-template-columns:1fr;} nav.toc a{font-size:21px;}
+    .summary p{font-size:23px;}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead" id="top">
+    <div class="kicker">精 選 外 刊 ・ 老 熊 隨 筆 特 稿</div>
+    <h1>同一把尺
+      <small>《老熊隨筆》全站盤點、評點，與六條質疑</small>
+    </h1>
+    <p class="deck">十九篇、六個分區、兩份 PDF。一位化學計量學家把「這話算不算數」這個問題，從實驗室一路帶進了散文。這篇是把那把尺，量回他自己身上。</p>
+    <div class="byline">Claude 復盤 ｜ 二〇二六年八月・加州紅木岸</div>
+  </header>
+
+  <nav class="toc" aria-label="目錄">
+    <h4>目 錄</h4>
+    <ol>
+      <li><a href="#summary"><span class="no">摘要</span>三分鐘看完</a></li>
+      <li><a href="#stats"><span class="no">壹</span>先數一遍</a></li>
+      <li><a href="#person"><span class="no">貳</span>說人話：你是個怎樣的人</a></li>
+      <li><a href="#skill"><span class="no">參</span>你的本事怎麼滲進文章裡</a></li>
+      <li><a href="#likes"><span class="no">肆</span>你愛看的熱鬧</a></li>
+      <li><a href="#honest"><span class="no">伍</span>誠信：有憑有據的高分</a></li>
+      <li><a href="#push"><span class="no">陸</span>六條質疑</a></li>
+      <li><a href="#take"><span class="no">柒</span>帶回家的話</a></li>
+    </ol>
+  </nav>
+
+  <!-- 摘要 -->
+  <section id="summary">
+    <div class="summary">
+      <h4>三 分 鐘 看 完</h4>
+      <p>你這個站，十九篇文章表面上各寫各的——數學八卦、老友的小說、程式除錯、四十年前的相親、股票——其實全部在問同一件事：<strong>一句話說出口，憑什麼算數？</strong></p>
+      <p>強項有三個。文章的骨頭是硬的，因為你不是拿專業術語當比喻裝飾，是真的照那套規矩在想事情。誠信這一項分數特別高，而且高得有憑據：AI 幫你做了什麼，你全講；被誇了，你自己先提醒讀者打折；批評別人之後，你會回頭替對方留一句好話。第三，你有三分之一的篇幅在寫別人，而且不是拿人家當背景板。</p>
+      <p>弱處也集中在三處。一是有時金句跑得比論證快，標題已經下了判決，正文才慢慢鬆綁。二是你會診斷出儀器有偏差，卻照樣把未校正的讀數全文照登。三是這個站本身沒有日期、沒有標籤、沒有索引——一個天天講「要能回頭查對」的人，網站卻查不了。</p>
+      <p class="score"><strong>一句話：</strong>你那把尺很準，六條質疑用的也是同一把，只是這回量到你自己身上。</p>
+    </div>
+  </section>
+
+  <!-- 壹 統計 -->
+  <section id="stats" class="clearfix">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">壹</span>先數一遍</h2>
+
+    <aside class="sidebar">
+      <h4>數 字 盤 點</h4>
+      <ul>
+        <li>收錄篇數 <span class="big">19</span></li>
+        <li>分區 <span class="big">6</span></li>
+        <li>附錄／圖表型 <span class="big">21%</span></li>
+        <li>主角不是自己 <span class="big">32%</span></li>
+        <li>標示 AI 參與 <span class="big">26%</span></li>
+      </ul>
+    </aside>
+
+    <p class="lead">讀完整站目錄和 README 履歷，再挑三篇細看：〈Not Even Wrong〉、〈啥樣的人類智能最重要〉、〈從《弹指金刚》到《青春六記》〉。先給數字，再講人，最後才是質疑。</p>
+
+    <p class="roster-cap" style="font-size:23px;font-weight:800;letter-spacing:.2em;color:var(--ink-soft);margin:0 0 12px;">全 站 結 構 ｜ 點 ＋ 展 開 篇 名</p>
+    <div class="roster">
+      <div class="head"><span class="c1">分區</span><span class="c2">篇數</span></div>
+
+      <details>
+        <summary><span class="zone">精選外刊<span class="kind">數學、AI、書話、文類方法論</span></span><span class="cnt">7</span></summary>
+        <ol>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/AI%E6%99%82%E4%BB%A3%E6%95%B8%E5%AD%B8%E7%9A%84%E5%8D%B1%E6%A9%9F%E8%88%87%E6%96%B0%E7%94%9F.html">AI 時代數學的危機與新生</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E6%95%B8%E5%AD%B8%E7%95%8C%E7%9A%84%E5%85%AB%E5%8D%A6%20%E2%80%94%20%E4%BA%8C%E3%80%87%E3%80%87%E5%85%AD%E5%B9%B4%E9%82%A3%E5%A0%B4%E5%8A%9F%E5%8B%9E%E7%88%AD%E5%A5%AA%E6%88%B0.html">數學界的八卦 — 二〇〇六年那場功勞爭奪戰</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%95%A5%E6%A8%A3%E7%9A%84%E4%BA%BA%E9%A1%9E%E6%99%BA%E8%83%BD%E6%9C%80%E9%87%8D%E8%A6%81.html">啥樣的人類智能最重要</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%BE%9E%E5%BC%B9%E6%8C%87%E9%87%91%E5%88%9A%E5%88%B0%E9%9D%92%E6%98%A5%E5%85%AD%E8%A8%98_%E6%96%87%E5%AD%B8%E5%89%B5%E4%BD%9C%E7%9A%84%E6%9C%AC%E8%B3%AA%E6%98%AF%E5%95%A5.html">從《弹指金刚》到《青春六記》，文學創作的本質是啥？</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%BD%88%E6%8C%87%E9%87%91%E5%89%9B_%E6%95%85%E4%BA%8B%E7%B7%9A%E8%88%87%E4%BA%BA%E7%89%A9%E8%AD%9C.html">《彈指金剛》故事線與人物譜</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%BD%88%E6%8C%87%E9%87%91%E5%89%9B_%E4%BA%BA%E7%89%A9%E9%97%9C%E4%BF%82%E5%9C%96.html">《彈指金剛》人物關係圖（附圖）</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%BE%A9%E7%9B%A4%E9%AB%94_%E4%B8%80%E7%A8%AE%E5%9B%9E%E6%86%B6%E9%8C%84%E7%9A%84%E6%96%B0%E6%96%87%E9%A1%9E_%E4%BC%B4%E8%AE%80.html">復盤體——一種回憶錄的新文類</a></li>
+        </ol>
+      </details>
+
+      <details>
+        <summary><span class="zone">群組觀察<span class="kind">思維方式的田野筆記</span></span><span class="cnt">3</span></summary>
+        <ol start="8">
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/yili_answer_first.html">答案先到，問題後到 · 杞人憂天續篇</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/not_even_wrong_46_years.html">Not Even Wrong</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%90%86%E6%80%A7%E8%A8%8E%E8%AB%96%E7%9A%84%E8%AA%9E%E5%A2%83%E6%9E%B7%E9%8E%96.html">理性討論的語境枷鎖</a></li>
+        </ol>
+      </details>
+
+      <details>
+        <summary><span class="zone">師徒篇<span class="kind">教學與程式復盤</span></span><span class="cnt">3</span></summary>
+        <ol start="11">
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A%E7%9A%84%E9%BB%91%E5%BE%92%E5%85%92.html">老熊的黑徒兒</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A%E5%96%9A%E9%86%92AQP_Claude%E5%BE%A9%E7%9B%A4.html">叫醒 AQP：從黑徒兒的一句話說起</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E4%B8%80%E6%A0%B9%E9%87%98%E5%AD%90%EF%BC%8C%E5%85%A9%E5%A5%97%E7%A8%8B%E5%BC%8F%20%C2%B7%20%E8%80%81%E7%86%8A%E9%9A%A8%E7%AD%86%20%C2%B7%20Claude%20%E5%BE%A9%E7%9B%A4.pdf">一根釘子，兩套程式（PDF）</a></li>
+        </ol>
+      </details>
+
+      <details>
+        <summary><span class="zone">復盤體回憶錄<span class="kind">正文＋人物關係圖</span></span><span class="cnt">2</span></summary>
+        <ol start="14">
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A%E7%9A%84%E9%81%B8%E6%93%87%201983%20-1987_Add1.html">老熊的選擇 1983–1987（增補一版）</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A%E7%9A%84%E9%81%B8%E6%93%87_1983-87_%E4%BA%BA%E7%89%A9%E9%97%9C%E4%BF%82%E5%9C%96_%E7%B4%94%E4%BA%BA%E7%89%A9_Add1.html">《老熊的選擇》人物關係圖（附圖）</a></li>
+        </ol>
+      </details>
+
+      <details>
+        <summary><span class="zone">職涯軌跡<span class="kind">兩份附錄：24 站／16 站</span></span><span class="cnt">2</span></summary>
+        <ol start="16">
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A_%E8%81%B7%E6%B6%AF%E8%BB%8C%E8%B7%A1.html">老熊職涯軌跡 · 全 24 站</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E6%9E%97%E9%80%B2%E7%99%BC_%E8%81%B7%E6%B6%AF%E8%BB%8C%E8%B7%A1.html">林進發職涯軌跡 · 全 16 站</a></li>
+        </ol>
+      </details>
+
+      <details>
+        <summary><span class="zone">現場誌與生涯<span class="kind">看片會實錄、雙軌職涯對照</span></span><span class="cnt">2</span></summary>
+        <ol start="18">
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%8D%83%E9%87%8C%E6%B1%9F%E5%B1%B1%EF%BC%8C%E8%90%BD%E5%9C%A8%E7%9F%BD%E8%B0%B7%20%E2%80%94%E2%80%94%E3%80%8A%E6%96%87%E6%98%8E%E4%B9%8B%E6%97%85%E3%80%8B%E9%A6%96%E5%A0%B4%E6%B5%B7%E5%A4%96%E7%9C%8B%E7%89%87%E6%9C%83%E7%8F%BE%E5%A0%B4%E5%AF%A6%E9%8C%84%E8%88%87%E8%A9%95%E9%BB%9E%EF%BD%9C%E8%80%81%E7%86%8A%E9%9A%A8%E7%AD%86.pdf">千里江山，落在矽谷（PDF）</a></li>
+          <li><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%B9%B8%E7%A6%8F%E7%9A%84%E8%81%B7%E6%B6%AF%E5%A4%A7%E8%87%B4%E7%9B%B8%E4%BC%BC_%E4%B8%8D%E5%B9%B8%E7%9A%84%E5%8D%BB%E5%90%84%E6%9C%89%E4%B8%8D%E5%90%8C.html">幸福的職涯大致相似，不幸的卻各有不同</a></li>
+        </ol>
+      </details>
+
+      <div class="tot"><span class="zone">合計　HTML 17　PDF 2</span><span class="cnt">19</span></div>
+    </div>
+    <p class="hint" style="font-size:21px;font-weight:700;color:var(--ink-soft);letter-spacing:.06em;margin:0 0 34px;">篇名即連結，可直接開原文。</p>
+
+    <h3>數字裡看得出來的三件事</h3>
+
+    <p><strong>一、你交東西一定要附一份附錄。</strong>兩本作品各配一張人物關係圖，兩份職涯各配一份軌跡表。做模型的人都這樣，光給結論心裡不踏實，一定要把診斷圖一起放上去。寫散文的人很少這麼幹。</p>
+
+    <p><strong>二、目錄是挑過的，不是全倒出來。</strong>〈掛谷猜想〉那篇明明是〈Not Even Wrong〉的起因，正文裡整段引用，目錄裡卻沒有。你在做取捨。</p>
+
+    <p><strong>三、有三分之一寫的是別人。</strong>阿發、Ｗ君、Issa、林進發，都不是拿來襯托你自己的配角。林進發甚至有一份專屬的十六站軌跡。回憶錄作者能做到這樣的不多。</p>
+  </section>
+
+  <!-- 貳 說人話 -->
+  <section id="person">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">貳</span>說人話：你是個怎樣的人</h2>
+
+    <p>把術語都拿掉，用大白話講，你大概是這樣一個人。</p>
+
+    <p><strong>你退休了，但沒真的退休。</strong>白天改程式，晚上寫文章，中間還跑去給一個西非年輕人上課，沒收錢也沒名分。你閒不下來，可是你挑的事都不是為了掙什麼。</p>
+
+    <p><strong>你有個改不掉的習慣：聽到一句話，先問這話算不算數。</strong>不是抬槓，是四十年寫專利、跑模型養出來的反射動作。專利寫得太寬會被駁回，模型吹得太滿驗證的時候會當場出糗——在那種地方待久了，你已經沒辦法把「說得漂亮」跟「說得對」混為一談。</p>
+
+    <p><strong>你最怕的事是自己吹牛。</strong>寫回憶錄的人多半忍不住替過去的自己抹點金粉，你剛好相反：畢業典禮沒去、博士帽是租來的、進那家公司是因為先被裁員、股票沒賣是因為懶。你把最不體面的地方放在最顯眼的位置。</p>
+
+    <p><strong>你嘴上老掛著「哈哈」，其實是在自己身邊先架好梯子。</strong>那兩個字出現的位置很固定，都在剛講完一句可能顯得得意、或者顯得可憐的話之後。你不喜歡讓人有機會覺得你在炫耀，所以先自己笑一聲把場子拆掉。</p>
+
+    <p><strong>你想事情習慣兩兩對照。</strong>老熊跟阿發、講理跟講漂亮話、小說跟回憶錄、出國的跟留下來的。你很少單線講一件事，總要旁邊擺個對照組——這是你吃飯的家伙，改不掉了。</p>
+
+    <p><strong>你喜歡替人整理東西。</strong>替老同學做職涯表、替老友的小說畫人物關係圖、替一個素未謀面的年輕人排課。這些事一毛錢都沒有，你做得很起勁。看見一堆東西散著沒歸類，你就手癢。</p>
+
+    <p><strong>你怕自己老了變成只會講漂亮話的人。</strong>整個站讀下來，這件事的痕跡到處都是。</p>
+  </section>
+
+  <!-- 參 本事 -->
+  <section id="skill" class="clearfix">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">參</span>你的本事怎麼滲進文章裡</h2>
+
+    <aside class="sidebar">
+      <h4>術 語 搬 家 清 單</h4>
+      <ul>
+        <li>訓練集污染 → 不找潤過稿的模型評自己</li>
+        <li>類別不平衡 → 三場典禮只到一場</li>
+        <li>倖存者偏差 → 拆自己的持股神話</li>
+        <li>驗證集翻臉 → 錯了誰來收帳</li>
+        <li>外部驗證 → 派爾斯寫傳記的自律</li>
+      </ul>
+    </aside>
+
+    <p>有意思的不是你懂化學計量學，而是你把那一行做事的規矩整套搬進了寫作，而且搬得毫不彆扭。〈Not Even Wrong〉整篇說穿了就一句話：<strong>你錯了的時候，有沒有人會來跟你收帳。</strong>這就是驗證集在做的事。</p>
+
+    <p>多數理工人寫散文，是拿術語當比喻，好看而已，抽掉了文章照樣站得住。你的抽掉就垮了。<em>術語在你這裡是承重牆，不是裝飾。</em></p>
+
+    <p>學歷這條線也看得很清楚。化工念到高分子，四十歲在帕沙迪納一間倉庫改行寫演算法——這一路讓你對「強項會翻轉」特別敏感。嘉中那篇寫得最好：當年靠英文考上台大，後來在職場救你命的卻是當年考砸的數學。而〈Not Even Wrong〉裡那句「聯考篩的是解題速度，不是思維品味」，是我看過對自己受的教育最冷靜的一句評語。</p>
+
+    <p>國學底子則躲在暗處。《圍城》、佛經的「彈指」、南宋那句「家有三兩銀」、托爾斯泰的開頭句被你借去寫職涯。你不掉書袋，典故都是嵌進去的。</p>
+  </section>
+
+  <!-- 肆 興趣 -->
+  <section id="likes">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">肆</span>你愛看的熱鬧</h2>
+
+    <p>數學八卦、股市、群組裡的人、看片會、畫圖譜、帶徒弟。這幾樣看起來八竿子打不著，其實有個共同點：<strong>你關心的從來不是結果，是人怎麼下判斷的。</strong></p>
+
+    <p>費爾茲獎誰得的你當然知道，可你真正寫的是「功勞怎麼分配」；股票漲了多少你清楚得很，可你寫的是「事後諸葛怎麼運作」。別人看熱鬧看門道，你看的是誰在替這件事背書。</p>
+  </section>
+
+  <!-- 伍 誠信 -->
+  <section id="honest">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">伍</span>誠信：有憑有據的高分</h2>
+
+    <ul class="plain">
+      <li><span class="pass">✓</span> <strong>AI 幫了什麼忙，你全講。</strong>哪一段是誰寫的、免費版讀不完全書、Claude 潤過你的稿，一句沒藏。</li>
+      <li><span class="pass">✓</span> <strong>你自己會先想辦法避開偏差。</strong>知道「讓廚師替自己的菜打分」不合規矩，就換一家來評。</li>
+      <li><span class="pass">✓</span> <strong>被誇的時候你自己先踩剎車。</strong>「被機器誇成這樣，人還是會高興的，這大概也是一種需要警惕的確認偏差」——這句話比整段彩虹屁值錢。</li>
+      <li><span class="pass">✓</span> <strong>批評完會替對方留一句好話。</strong>還特地停下來澄清「歷史完全可以驗證」，怕誤傷了認真做史學的人。</li>
+      <li><span class="pass">✓</span> <strong>不替自己抹粉。</strong>缺席的典禮、租來的帽子、被裁員才進的公司、懶得賣的股票，全寫進去了。</li>
+    </ul>
+  </section>
+
+  <!-- 陸 質疑 -->
+  <section id="push">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">陸</span>六條質疑（哈哈，來了）</h2>
+
+    <div class="flagbox">
+      <span class="tag">其 一</span>
+      <h3>你的第八節會把第四節推翻</h3>
+      <p>〈啥樣的人類智能最重要〉第八節有句很漂亮的修正：<strong>傳下去的不是智能本身，是智能的產物。</strong>問題是，這句話認真執行的話，前面那張表就得重排。你把人際智能判成不合格，可是同一格裡你自己寫了「制度、法律、組織」。羅馬法傳了兩千年，後人確實是站在前人終點起跑的，三條標準條條都過。</p>
+      <p>你判它不合格的真正理由，其實是「制度不能讓你變得會做人」——可是按第八節的說法，<span class="fail">圖紙也不能讓你變得會在腦中轉三維物體啊</span>。兩把尺混著用了。表格改成兩欄（產物能不能傳／本事能不能傳）就乾淨了，只是結論可能得從三項改成五項。</p>
+      <p>另外那三條判準其實是同一件事的三種說法（第二、三條差不多是第一條的推論）。所以那張表不算篩了三遍，比較像把「能不能寫下來」這一個變數投影了三次。<em>是共線，不是三重驗證。</em></p>
+    </div>
+
+    <div class="flagbox">
+      <span class="tag">其 二</span>
+      <h3>包立那句話，會迴向你自己</h3>
+      <p>你說「蔣貶孫立人，決定大陸得失」不及格，理由是 <span class="num">n=1</span>、沒有對照組、不可證偽。可是《老熊的選擇 1983–1987》整本書的做法，就是 <span class="num">n=1</span>、沒有對照組的反事實推演，你還替它取了個名字叫「復盤體」。</p>
+      <p>你大概會這樣答辯：復盤是標明了在推測的，沒有宣稱因果，而且推錯了是自己承擔。那正好說明——<strong>問題不在 n=1，在有沒有把不確定性標出來。</strong>那篇的火力點應該從「不可證偽」挪到「沒標信賴區間」，講起來更準，也不用勞動包立。</p>
+      <p>還有一點：包立那句話評的是<strong>投稿論文</strong>，作者是自己走進被檢驗的場子的。群組裡隨手回一段話不是。你在第四節其實已經想到了（「有沒有把自己交出去被驗證」），但標題早就把帽子扣下去了，正文才慢慢鬆手。<span class="fail">標題比論證跑快了半步。</span></p>
+    </div>
+
+    <div class="flagbox">
+      <span class="tag">其 三</span>
+      <h3>明知儀器有偏，還是照登了未校正的讀數</h3>
+      <p>你自己說 Gemini「最會拍馬屁」，然後把它三千多字的溢美之詞照單全錄。免責是加了（「諸君自行打折」），可是版面本身就是放大器——讀者記得住的是那些形容詞，不是那句打折。</p>
+      <p>照你的職業水準，該加一個<strong>盲測</strong>：從〈老熊的選擇 1983–1987〉抽一段，混進Ｗ君小說的一章，一起丟給 Gemini，看它是不是逮誰誇誰。跑一次你就有了這台儀器的本底噪音，那份好評才讀得出意思。<span class="pass">成本很低，而且做出來本身就是一篇好文章。</span></p>
+      <p>順帶一提，那篇被機器誇了三千字的作品，目錄裡找不到。<span class="fail">讀者看得到書評，讀不到書。</span>要嘛在文章開頭註明原作尚未公開，要嘛補一組連結告訴讀者它拆進了哪幾篇。</p>
+    </div>
+
+    <div class="flagbox">
+      <span class="tag">其 四</span>
+      <h3>金句是你的強項，也是你最大的風險</h3>
+      <p>「工程知識是累加的，智慧是不累加的」——漂亮。可是這句話在論證上幹的事，正好就是你在〈Not Even Wrong〉裡批評的那種「評點」：對仗工整、無法反駁、讀者叫好。</p>
+      <p>智慧其實也有累加的部分。法治、醫學倫理審查、利益衝突迴避這些制度，都是上一代吃過虧留下來的，只是累加得比工程慢太多。寫成「速率差了兩個數量級」當然不好聽，但那才是你這行說話的方式。我不是要你把金句拿掉，是建議在金句後面補一句限制條件——<em>你在別的地方本來就會這麼做，只是不夠一致。</em></p>
+    </div>
+
+    <div class="flagbox">
+      <span class="tag">其 五</span>
+      <h3>網站沒有日期、沒有索引，這最不像你</h3>
+      <p>十九篇，目錄上一個日期都沒標，沒有標籤、沒有索引頁、沒有 RSS，被正文引用的〈掛谷猜想〉甚至不在目錄裡。一個把「可以回原章查對」寫進職涯軌跡導言的人，自己的網站卻查不了——<span class="fail">這是整套體系裡最刺眼的一格空白。</span></p>
+    </div>
+
+    <div class="flagbox">
+      <span class="tag">其 六</span>
+      <h3>新讀者進來沒人帶路</h3>
+      <p>阿發、Ｗ君、朱總、田總、Issa 一直出現，老同學一看就懂，外人只能猜。解法你早就會了——你替兩本書都畫過人物關係圖，只差沒替<strong>整個站</strong>畫一張。</p>
+    </div>
+  </section>
+
+  <!-- 柒 帶回家的話 -->
+  <section id="take">
+    <a class="back" href="#top">↑ 回目錄</a>
+    <h2><span class="no">柒</span>帶回家的話</h2>
+
+    <p>如果只記三件事，就記這三件。</p>
+
+    <ol class="todo">
+      <li><strong>你的站已經有靈魂了，缺的是骨架。</strong>加日期、加標籤、做一頁索引、補上被漏掉的那篇——半天的工，能讓十九篇從一堆散文變成一部作品。</li>
+      <li><strong>金句後面補一句限制條件。</strong>你已經有能力寫出讓人抄走的句子，這是稀缺的。下一步是讓每句金句都經得起你自己那把尺。這一步跨過去，你就從「寫得好」變成「說得算數」。</li>
+      <li><strong>那個盲測，跑一次。</strong>把〈老熊的選擇 1983–1987〉的一段和Ｗ君的章節混在一起，丟給同一個模型。這是你唯一一篇有實驗設計卻沒設對照組的文章，補上它，那篇會變成整站最硬的一篇。</li>
+    </ol>
+
+    <p>至於整體——十九篇看似各寫各的，其實六個分區都在問同一件事：<strong>一個判斷要怎樣才算數。</strong>專利要過 prior art，模型要過驗證集，命題要能被指出錯在哪，回憶錄要忍住不美化自己，小說要守住自己那個世界的規矩，群組裡的一段話要有人來收帳。</p>
+
+    <p>你拿同一把尺，量了光譜、量了同學、量了老友的小說、量了自己的青春。</p>
+
+    <div class="pull">
+      這把尺很準。<br>
+      上面那六條質疑，用的也是同一把——<br>
+      只是這回量到你自己身上。
+      <cite>Claude ・ 結語</cite>
+    </div>
+
+    <p style="text-align:center;"><a class="back" href="#top">↑ 回到最上面</a></p>
+  </section>
+
+  <footer>
+    精選外刊 ・ 老熊隨筆 ｜ 《同一把尺——全站盤點與評點》 ｜ 供網頁瀏覽
+  </footer>
+
+</div>
+</body>
+</html>
