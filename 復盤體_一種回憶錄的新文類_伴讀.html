@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>復盤體——一種回憶錄的新文類｜精選外刊・伴讀專號</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ece0;
+  --paper-2:#ece3d4;
+  --ink:#221d18;
+  --ink-soft:#4a4038;
+  --rule:#b9a98f;
+  --rule-soft:#d3c6ae;
+  --accent:#8c2318;
+  --accent-2:#1f4a44;
+  --gold:#9a7b3f;
+  --serif:"Noto Serif TC","EB Garamond","Songti TC","STSong","PMingLiU",serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  margin:0;padding:0;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 2px, transparent 2px 4px),
+    radial-gradient(ellipse at 20% 0%, #f7f1e6 0%, var(--paper) 55%, #e9dfcd 100%);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:32px;font-weight:700;line-height:1.95;letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{
+  max-width:1100px;margin:0 auto;padding:64px 56px 120px;
+  background:linear-gradient(180deg, rgba(255,253,248,.55), rgba(255,253,248,0) 400px);
+  border-left:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);
+}
+
+/* masthead */
+.masthead{text-align:center;border-bottom:6px double var(--ink);padding-bottom:26px;margin-bottom:14px;}
+.masthead .brand{font-size:30px;font-weight:900;letter-spacing:1.1em;text-indent:1.1em;color:var(--accent);margin:0 0 14px;}
+.masthead .issue{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:21px;font-weight:700;color:var(--ink-soft);letter-spacing:.16em;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:10px 4px;
+}
+.masthead .issue span{white-space:nowrap;}
+.masthead .issue .num{font-weight:800;}
+
+.kicker{text-align:center;margin:44px 0 10px;font-size:24px;font-weight:800;letter-spacing:.42em;text-indent:.42em;color:var(--accent-2);}
+h1.headline{font-size:76px;font-weight:900;line-height:1.28;text-align:center;margin:6px 0 8px;letter-spacing:.06em;}
+h1.headline .yrs{display:block;font-size:36px;letter-spacing:.24em;text-indent:.24em;color:var(--accent);margin-top:18px;font-weight:800;font-family:"EB Garamond",var(--serif);font-style:italic;}
+.subhead{text-align:center;font-size:34px;font-weight:700;color:var(--ink-soft);letter-spacing:.14em;margin:0 0 26px;}
+.deck{
+  font-size:32px;font-weight:700;line-height:1.9;color:var(--ink-soft);
+  max-width:900px;margin:0 auto 34px;text-align:justify;padding:26px 34px;
+  border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);background:rgba(255,255,255,.34);
+}
+.byline{text-align:center;font-size:24px;font-weight:800;letter-spacing:.3em;text-indent:.3em;color:var(--accent);margin-bottom:56px;}
+
+/* toc */
+.toc{background:var(--paper-2);border:2px solid var(--ink);box-shadow:10px 10px 0 rgba(34,29,24,.10);padding:38px 44px 34px;margin:0 0 66px;}
+.toc h2{margin:0 0 8px;font-size:30px;font-weight:900;letter-spacing:.5em;text-indent:.5em;text-align:center;color:var(--accent);}
+.toc .tochint{text-align:center;font-size:21px;font-weight:700;color:var(--ink-soft);letter-spacing:.1em;margin:0 0 18px;}
+.toc .toc-rule{border:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);height:4px;margin:0 0 24px;}
+.toc ol{list-style:none;margin:0;padding:0;}
+.toc li{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px dotted var(--rule);font-size:28px;}
+.toc li:last-child{border-bottom:0;}
+.toc li .no{font-weight:800;color:var(--accent);font-size:23px;letter-spacing:.14em;min-width:3.4em;white-space:nowrap;}
+.toc a{color:var(--ink);text-decoration:none;font-weight:700;border-bottom:1px solid transparent;}
+.toc a:hover,.toc a:focus{color:var(--accent);border-bottom-color:var(--accent);}
+.toc .yr{margin-left:auto;font-weight:800;font-size:23px;color:var(--ink-soft);letter-spacing:.06em;white-space:nowrap;}
+
+/* sections */
+section{margin-bottom:72px;}
+h2.sec{font-size:46px;font-weight:900;letter-spacing:.06em;margin:0 0 6px;padding-top:18px;border-top:4px solid var(--ink);scroll-margin-top:20px;}
+.sec-no{display:block;font-size:22px;font-weight:800;letter-spacing:.34em;color:var(--accent);margin-bottom:2px;}
+.sec-sub{font-size:25px;font-weight:700;color:var(--ink-soft);letter-spacing:.1em;margin:0 0 30px;padding-bottom:14px;border-bottom:1px solid var(--rule-soft);}
+p{margin:0 0 30px;text-align:justify;text-justify:inter-ideograph;}
+.dropcap::first-letter{float:left;font-size:120px;line-height:.86;font-weight:900;color:var(--accent);margin:8px 16px 0 0;padding:6px 10px 0 0;}
+em,.em{font-style:normal;font-weight:800;background:linear-gradient(transparent 62%, rgba(140,35,24,.20) 62%);padding:0 2px;}
+strong{font-weight:800;}
+.num{font-weight:800;letter-spacing:.02em;}
+.en{font-family:"EB Garamond",var(--serif);font-weight:600;font-style:italic;}
+h3.label{display:inline-block;font-weight:900;font-size:36px;color:var(--accent);letter-spacing:.12em;margin:52px 0 24px;position:relative;}
+h3.label::after{content:"";position:absolute;left:0;bottom:-10px;width:100%;height:5px;background:linear-gradient(90deg,var(--accent),rgba(140,35,24,0));}
+
+/* margin note */
+.note{
+  float:right;width:340px;margin:8px -180px 26px 40px;padding:22px 24px;
+  background:rgba(255,255,255,.5);border-left:5px solid var(--gold);
+  font-size:24px;font-weight:700;line-height:1.8;color:var(--ink-soft);text-align:justify;
+}
+.note b{display:block;font-size:21px;font-weight:800;letter-spacing:.24em;color:var(--gold);margin-bottom:8px;}
+@media (max-width:1500px){.note{margin-right:0;width:340px;}}
+
+/* pull quote */
+.pull{margin:46px 0;padding:34px 40px;font-size:44px;font-weight:800;line-height:1.62;color:var(--accent);text-align:center;border-top:3px solid var(--accent);border-bottom:3px solid var(--accent);letter-spacing:.04em;}
+.pull small{display:block;margin-top:14px;font-size:23px;font-weight:700;letter-spacing:.24em;color:var(--ink-soft);}
+
+/* ledger */
+.ledger{background:rgba(31,74,68,.07);border:2px dashed var(--accent-2);padding:26px 32px;margin:40px 0;font-size:27px;font-weight:700;line-height:1.8;}
+.ledger b{font-weight:800;letter-spacing:.2em;color:var(--accent-2);}
+.ledger a{color:var(--accent);font-weight:800;}
+.addbox{border:2px solid var(--accent-2);border-left:14px solid var(--accent-2);background:rgba(31,74,68,.06);padding:26px 34px;margin:44px 0;font-size:28px;font-weight:700;line-height:1.85;}
+.addbox h4{margin:0 0 16px;font-size:27px;font-weight:900;letter-spacing:.14em;color:var(--accent-2);line-height:1.5;}
+.addbox p{margin:0 0 20px;font-size:28px;}
+.addbox p:last-child{margin-bottom:0;}
+.add-tag{display:inline-block;font-size:19px;font-weight:800;letter-spacing:.24em;text-indent:.24em;color:#fff;background:var(--accent-2);border-radius:4px;padding:3px 13px;vertical-align:.2em;margin-right:12px;}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:34px 0 40px;}
+table.ledger-t{width:100%;border-collapse:collapse;font-size:25px;font-weight:700;}
+table.ledger-t caption{caption-side:top;text-align:left;font-size:24px;font-weight:800;letter-spacing:.22em;color:var(--accent);padding-bottom:12px;}
+table.ledger-t th{background:var(--accent-2);color:#f6f0e4;font-weight:800;font-size:23px;padding:14px 16px;text-align:left;letter-spacing:.08em;border:1px solid var(--accent-2);}
+table.ledger-t td{padding:14px 16px;border:1px solid var(--rule);vertical-align:top;background:rgba(255,255,255,.42);}
+table.ledger-t tbody tr:nth-child(even) td{background:rgba(255,255,255,.2);}
+table.ledger-t td.n{font-weight:800;color:var(--accent);white-space:nowrap;}
+table.ledger-t td.pick{background:rgba(140,35,24,.12);}
+
+/* signature element: 版本軌跡 */
+.vtrack{
+  border:3px double var(--ink);background:rgba(255,255,255,.44);
+  padding:34px 38px 30px;margin:48px 0;
+}
+.vtrack .vt-h{
+  text-align:center;font-size:24px;font-weight:900;letter-spacing:.34em;text-indent:.34em;
+  color:var(--accent-2);margin:0 0 8px;
+}
+.vtrack .vt-s{text-align:center;font-size:21px;font-weight:700;color:var(--ink-soft);letter-spacing:.1em;margin:0 0 26px;padding-bottom:16px;border-bottom:1px solid var(--rule);}
+.vtrack .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 22px;}
+.vtrack .row:last-of-type{margin-bottom:0;}
+.vtrack .axis{min-width:8.6em;font-size:23px;font-weight:800;letter-spacing:.12em;color:var(--ink-soft);}
+.vtrack .stage{
+  flex:1 1 120px;text-align:center;border:2px solid var(--rule);background:rgba(255,255,255,.6);
+  padding:8px 6px;font-size:34px;font-weight:900;color:var(--accent);line-height:1.25;
+}
+.vtrack .stage em{display:block;font-size:18px;font-weight:800;letter-spacing:.14em;color:var(--ink-soft);background:none;padding:0;margin-top:2px;}
+.vtrack .arw{color:var(--rule);font-size:26px;font-weight:800;}
+.vtrack .frozen .stage{border-style:dashed;color:var(--accent-2);}
+.vtrack .cap{margin:24px 0 0;font-size:23px;font-weight:700;color:var(--ink-soft);line-height:1.75;text-align:justify;}
+
+.divider{text-align:center;margin:56px 0;color:var(--rule);font-size:30px;letter-spacing:1.2em;text-indent:1.2em;}
+.companion{border:3px double var(--accent-2);background:rgba(31,74,68,.06);padding:32px 38px 34px;margin:60px 0 0;}
+.companion h3{margin:0 0 14px;font-size:28px;font-weight:900;letter-spacing:.34em;text-indent:.34em;color:var(--accent-2);text-align:center;}
+.companion p{font-size:26px;margin:0 0 20px;color:var(--ink-soft);}
+.companion a{display:block;text-align:center;font-size:29px;font-weight:800;color:var(--accent);text-decoration:none;border-top:1px solid var(--rule);padding-top:20px;}
+.companion a:hover,.companion a:focus{color:var(--accent-2);}
+.coda-open{text-align:center;border-top:6px double var(--ink);border-bottom:6px double var(--ink);padding:30px 0;margin:90px 0 56px;}
+.coda-open .t{font-size:56px;font-weight:900;letter-spacing:.5em;text-indent:.5em;}
+.coda-open .s{font-size:25px;font-weight:700;letter-spacing:.22em;color:var(--ink-soft);margin-top:8px;}
+.finale{text-align:center;font-family:"EB Garamond",var(--serif);font-style:italic;font-size:40px;font-weight:600;color:var(--accent);margin:56px 0 12px;letter-spacing:.02em;}
+.finale-zh{text-align:center;font-size:28px;font-weight:700;color:var(--ink-soft);letter-spacing:.2em;}
+.endmark{text-align:center;font-size:34px;color:var(--accent);margin:40px 0 0;}
+.seal{display:block;width:150px;margin:34px auto 0;text-align:center;color:#fff;background:var(--accent);font-weight:900;font-size:26px;letter-spacing:.1em;padding:14px 0;border-radius:6px;box-shadow:0 4px 0 #6a1a12;transform:rotate(-4deg);}
+.backtop{text-align:right;margin:34px 0 0;font-size:22px;font-weight:700;letter-spacing:.1em;}
+.backtop a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted rgba(74,64,56,.5);}
+.backtop a:hover,.backtop a:focus{color:var(--accent);border-bottom-color:var(--accent);}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
+footer.colophon{margin-top:80px;border-top:1px solid var(--rule);padding-top:26px;font-size:22px;font-weight:700;color:var(--ink-soft);letter-spacing:.1em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+
+@media (max-width:820px){
+  body{font-size:26px;}
+  .sheet{padding:36px 22px 80px;}
+  h1.headline{font-size:52px;}
+  .pull{font-size:34px;padding:26px 22px;}
+  .note{float:none;width:auto;margin:26px 0;}
+  .dropcap::first-letter{font-size:86px;}
+  h2.sec{font-size:36px;}
+  .vtrack .axis{min-width:100%;}
+}
+</style>
+</head>
+<body>
+<div class="sheet" id="top">
+
+<header class="masthead">
+  <p class="brand">精選外刊</p>
+  <div class="issue">
+    <span>文類論・伴讀專號</span>
+    <span class="num">第 <span class="num">Ⅳ</span> 輯</span>
+    <span>二〇二六年八月</span>
+  </div>
+</header>
+
+<p class="kicker">《老熊的選擇 1983–1987・增補一版》伴讀</p>
+
+<h1 class="headline">復盤體
+  <span class="yrs">The Audited Memoir</span>
+</h1>
+<p class="subhead">一種回憶錄的新文類</p>
+
+<p class="deck">
+作者問了一個好問題：這算不算 <span class="en">cliometrics</span>？答案是不算——但問錯的方式，往往比答對更有價值。本刊認為，《老熊的選擇》與那張人物關係圖合起來，正落在 <span class="en">prosopography</span>、<span class="en">microhistory</span> 與 <span class="en">analytic autoethnography</span> 三者的交會處；而它真正新的地方，既不在故事，也不在人物，而在<em>把自己判決的修訂軌跡當成正文發表出來</em>。這件事回憶錄史上少見，卻是任何一個做過實驗的人都熟悉的動作。
+</p>
+
+<p class="byline">本刊編輯部　文類欄</p>
+
+<nav class="toc" aria-label="目錄">
+  <h2>目　錄</h2>
+  <p class="tochint">全六卷・附編按一則</p>
+  <hr class="toc-rule">
+  <ol>
+    <li><span class="no">卷 一</span><a href="#s1">一個問得很準的錯問題</a><span class="yr">起</span></li>
+    <li><span class="no">卷 二</span><a href="#s2">Cliometrics 的三道門檻，與唯一的那個接點</a><span class="yr">辨</span></li>
+    <li><span class="no">卷 三</span><a href="#s3">三個既有文類，各認領一塊</a><span class="yr">考</span></li>
+    <li><span class="no">卷 四</span><a href="#s4">真正新的東西：判決是有版本的</a><span class="yr">立</span></li>
+    <li><span class="no">卷 五</span><a href="#s5">命名——四個候選，一個推薦</a><span class="yr">名</span></li>
+    <li><span class="no">卷 六</span><a href="#s6">最後說破：這其實是一份 chemometric memoir</a><span class="yr">歸</span></li>
+    <li><span class="no">編 按</span><a href="#s7">評分表是全篇最弱的接縫</a><span class="yr">砭</span></li>
+  </ol>
+</nav>
+
+<!-- ===================== 卷一 ===================== -->
+<section id="s1">
+  <h2 class="sec"><span class="sec-no">卷 一</span>一個問得很準的錯問題</h2>
+  <p class="sec-sub">作者把兩份檔案遞過來，問：這能不能算 cliometrics？</p>
+
+  <p class="dropcap">先把答案放在前頭：不算。但這個問題問錯的方向非常精準——它錯在資料的量級上，沒有錯在方法的性質上。而一個人會拿 <span class="en">cliometrics</span> 這個詞來比對自己寫的回憶錄，本身就洩漏了一件事：他知道自己寫的東西，跟一般的回憶錄不是同一種。</p>
+
+  <p>一般的回憶錄做兩件事——把往事說得好聽，把自己說得可以理解。《老熊的選擇》確實也做了這兩件，那三場搭訕、四個關口、龍記與羽球場，都是紮實的敘事。但它在卷末多做了三件一般回憶錄不做的事：它替每個決定<strong>打了分數</strong>；它把沒走的路<strong>一條條列出來，各寫好處與壞處</strong>；它把同一個判決在三次校讀之間的<strong>改判軌跡公開了</strong>。</p>
+
+  <div class="note">
+    <b>本刊說明</b>
+    本文所論的兩份檔案，指《老熊的選擇 1983–1987・增補一版》正文合刊，以及《人物關係圖・純人物版・增補一版》互動圖。文中凡稱「本篇」，均指此二者合觀。
+  </div>
+
+  <p>這三件事，沒有一件屬於文學的傳統工具箱。它們屬於實驗室、法庭與交易室。所以作者感覺到「這東西應該有個學名」，是對的；只是他伸手抓到的第一個學名，抓錯了架子。</p>
+</section>
+
+<!-- ===================== 卷二 ===================== -->
+<section id="s2">
+  <h2 class="sec"><span class="sec-no">卷 二</span>Cliometrics 的三道門檻，與唯一的那個接點</h2>
+  <p class="sec-sub">Fogel 與 North，一九九三年諾貝爾經濟學獎</p>
+
+  <p><span class="en">Cliometrics</span>（計量史學）的定義很窄：把 <span class="en">econometrics</span> 用在 <span class="en">economic history</span> 上。它有三道門檻——總體資料、形式化的經濟模型、統計推論。三道都得跨過去，才叫 cliometrics；跨過去兩道的，叫做讀了幾本書的歷史學家。</p>
+
+  <div class="tablewrap">
+  <table class="ledger-t">
+    <caption>三道門檻・逐項比對</caption>
+    <thead>
+      <tr><th style="width:26%">門檻</th><th style="width:34%">Cliometrics 的要求</th><th>《老熊的選擇》的實況</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="n">資料</td><td>總體、可重複觀測的歷史序列</td><td><span class="en">n = 1</span>。全篇只有一個 subject，而且他同時是敘事者、當事人與評分者。</td></tr>
+      <tr><td class="n">模型</td><td>形式化的經濟理論，參數可估</td><td>沒有 model，只有一組自訂的三軸評分準則。</td></tr>
+      <tr><td class="n">推論</td><td><span class="en">estimator</span>、標準誤、顯著性</td><td>沒有 estimator，也沒有任何一件事情算得出信賴區間。</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>三道全不過。到這裡，這個詞就可以放回架上了。</p>
+
+  <h3 class="label">但有一個接點，而且是關鍵那一個</h3>
+
+  <p>Fogel 一生最有名的招牌動作，是<strong>明示的 <span class="en">counterfactual</span> 加上成本核算</strong>：假如美國從來沒有鐵路，一八九〇年的 GNP 會少掉多少？他把這個數字算了出來，叫做 <span class="en">social savings</span>。整個 cliometrics 傳統最具爭議、也最具生命力的部分，就在這一招——<em>把一件沒有發生的事，當成一個可以核算的對象</em>。</p>
+
+  <p>而〈分岔路口〉那一節做的，正是同一件事。岔路一「如果沒有蹬掉陳，而是拖著」；岔路二「如果朱在一九八六年初給了明確答案」；岔路三「如果悱力普沒有下最後通牒」；岔路四之甲、之乙、之丙。每一條都同時寫好處與壞處，每一條末尾都下一句「判定」。最狠的是四之丙那一行小字：<strong>「這一條不是假設。」</strong>——把實際走過的那條路，也放回反事實的行列裡一併打分。</p>
+
+  <div class="pull">Fogel 算的是沒有鐵路的美國。<br>《老熊的選擇》算的是沒有那道沉默的一九八六。
+    <small>同一種算法・不同量級的資料</small>
+  </div>
+
+  <p>所以結論可以下得精確一點：<em>本篇在論證方法上是 cliometric 的，在資料性質上完全不是。</em>它借了計量史學最有名的那把刀，卻沒有那間廚房。這不是缺點——是文類歸屬的事實。</p>
+</section>
+
+<!-- ===================== 卷三 ===================== -->
+<section id="s3">
+  <h2 class="sec"><span class="sec-no">卷 三</span>三個既有文類，各認領一塊</h2>
+  <p class="sec-sub">而且，其中兩個在中文學術裡都有祖宗</p>
+
+  <h3 class="label">其一　Prosopography（群體傳記學）</h3>
+
+  <p>Prosopography 是用結構化的屬性與關係，替一個界定清楚的群體立傳的方法——不寫某一個人的一生，而是把一群人的出身、職位、姻親、師承、往來，全部拆成欄位，然後看那些欄位彼此怎麼扣起來。</p>
+
+  <p>本篇的〈人物簡介〉三十三人、依登場先後排列，每人一則定位加一則關鍵事實；那張互動圖再把他們接成一張網，還把邊分了九類：<strong>情感線、聯誼牽線、家族血緣、生活寄居、學業師生、龍記僱傭、摩擦攤牌、日後伏筆、綠卡身份</strong>。<em>這叫 typed edges</em>——關係不只有強弱，還有種類，而且種類是事先定義好的。這已經不是「人物表」了，這是一份 prosopographic dataset。</p>
+
+  <div class="note">
+    <b>中文的祖宗</b>
+    「交遊考」——《蘇軾交遊考》那一路，把一個人一生往來的師友門生逐一考訂、繫年、辨誤，正是中文學術裡的 prosopography。再配上「年譜」的編年骨架，本篇的體例其實在傳統目錄學裡早有座位。
+  </div>
+
+  <p>值得一提的是那張圖最誠實的一筆：「綠卡・身份」被單獨列為一種關係類別，顏色還給了白色。把制度身份跟情感、血緣並列成同一層級的連結——這在傳統回憶錄裡幾乎不會出現，因為它承認了一件不好聽的事：<strong>在那個年代那個圈子，身份確實是一種人際關係的邊。</strong></p>
+
+  <h3 class="label">其二　Microhistory（微觀史）</h3>
+
+  <p>Ginzburg 的《乳酪與蛆蟲》立下了規矩：挑一個不起眼的小人物，把他挖到骨頭裡，用來照出整個時代的結構。微觀史的判準不是題材大小，是<em>細節密度能不能反推出制度</em>。</p>
+
+  <p>本篇合格。龍記——「Akron 最大（也是唯一）亞裔食品超市」；依親移民入境十二歲、到一九八五年已住滿十年；電機系主任從大陸挖來的「五朵金花」；芝加哥領館寄來的台灣老電影；娶公民走直系親屬、不占配額不必勞工證；隨行配偶共用同一優先日期。<strong>這些不是背景板，這些是八〇年代華人留學生世界的制度骨架</strong>，而且是從一個人的生活半徑裡長出來的，不是從文獻抄來的。</p>
+
+  <h3 class="label">其三　Analytic autoethnography（分析式自我民族誌）</h3>
+
+  <p>Leon Anderson 提出這個名目，正是為了跟抒情告白式的自我書寫劃清界線。它的要求有兩條：以自身為資料，但必須放在一個<strong>外顯的分析框架</strong>底下處理；而且研究者要對自己的位置保持可檢驗的自覺。</p>
+
+  <p>本篇的框架不只外顯，而且外顯到近乎張揚——它同時借了三套語言。<span class="en">法典</span>：三讀、判詞、改判、關鍵證物、判決沒有送達。<span class="en">帳房</span>：留倉、平倉、止損、持有成本、溢價、免費的選擇權。<span class="en">評分</span>：三個軸、滿分十分。三套語言互相校驗，誰也不許獨佔解釋權。</p>
+
+  <div class="ledger">
+    <b>小結</b>三個文類各認領一塊：人物與關係歸 prosopography，時代與制度歸 microhistory，方法與自省歸 analytic autoethnography。三塊拼完，本篇還剩下一塊沒人認領——而那一塊，才是它真正的新東西。
+  </div>
+</section>
+
+<!-- ===================== 卷四 ===================== -->
+<section id="s4">
+  <h2 class="sec"><span class="sec-no">卷 四</span>真正新的東西：判決是有版本的</h2>
+  <p class="sec-sub">一讀 2 分 → 二讀 5 分 → 定稿 4 分</p>
+
+  <p class="dropcap">回憶錄的慣例是：作者想通了，才動筆。想的過程留在腦子裡，發表出來的是結論。就算誠實如盧梭，讀者拿到的也只有定稿的那個自己——他前後改過幾次口，我們無從查考。</p>
+
+  <p>本篇破了這條慣例。它把「留倉不平」這一項在三次校讀之間的分數變化，連同每一次改判的理由，一起印在正文裡。</p>
+
+  <div class="vtrack">
+    <p class="vt-h">版 本 軌 跡</p>
+    <p class="vt-s">同一項決定・三讀改判・逐軸追蹤</p>
+
+    <div class="row">
+      <span class="axis">總　評</span>
+      <span class="stage">2<em>一讀・怯懦</em></span>
+      <span class="arw">→</span>
+      <span class="stage">5<em>二讀・自保</em></span>
+      <span class="arw">→</span>
+      <span class="stage">4<em>定稿・留倉</em></span>
+    </div>
+
+    <div class="row">
+      <span class="axis">動機誠實度</span>
+      <span class="stage">3<em>一讀</em></span>
+      <span class="arw">→</span>
+      <span class="stage">6<em>二讀</em></span>
+      <span class="arw">→</span>
+      <span class="stage">4<em>定稿</em></span>
+    </div>
+
+    <div class="row frozen">
+      <span class="axis">執行乾淨度</span>
+      <span class="stage">2<em>一讀</em></span>
+      <span class="arw">＝</span>
+      <span class="stage">2<em>二讀</em></span>
+      <span class="arw">＝</span>
+      <span class="stage">2<em>定稿</em></span>
+    </div>
+
+    <p class="cap"><strong>虛線那一行是全篇的重心。</strong>三讀之間，動機的解釋改了兩次、總評上下震盪，唯獨「執行乾淨度」壓在 2 分不動——理由作者自己寫了：<em>不論動機怎麼解釋，判決始終沒有送達。</em>一個會隨新事證改變的量，跟一個不隨新事證改變的量，被清楚地分開了。這是本篇最像實驗記錄簿的一頁。</p>
+  </div>
+
+  <p>要體會這件事有多不尋常，可以反過來問：哪一種寫作會把自己的修訂軌跡當成成果的一部分？答案是<strong>實驗記錄簿</strong>、<strong>版本控制的 commit log</strong>、以及<strong>法院的審級制度</strong>。這三樣東西共同的前提是：<em>結論可能會錯，所以得到結論的路徑必須可查。</em></p>
+
+  <p class="pull">別人交出的是判決。<br>本篇交出的是判決，外加審判紀錄。
+    <small>這一項，三個既有文類都沒有</small>
+  </p>
+
+  <p>而且這條軌跡不是裝飾。它讓卷末那句最尖銳的自評站得住腳——「我批評她把成本外包，自己的分數只比她高一分。」如果只有定稿的 4 分，這句話是修辭；有了 2→5→4 的軌跡，讀者看得見這 4 分是從 2 分升上來、又從 5 分降下來的，中間換過兩次辯護理由。<strong>能替自己辯護的人很多，能把自己歷次辯護的草稿一併附上的人很少。</strong></p>
+
+  <div class="addbox">
+    <h4><span class="add-tag">附記</span>還有一個更難的動作</h4>
+    <p>本篇連題詞都翻了面。「<span class="en">He doesn't want to be fed. He wants to hunt.</span>」用了幾十年，一向拿來形容自己不甘被抽籤配對的那頭羊；三校定稿時作者自己補了一句：一九八六年夏天我做的事情是——<em>把一隻羊拴在那裡，自己到別處去打獵。</em></p>
+    <p>把自己的核心隱喻拿去證明自己的過失，這在方法論上叫做 <span class="en">falsification attempt on one's own hypothesis</span>。在文學上，它沒有名字。</p>
+  </div>
+</section>
+
+<!-- ===================== 卷五 ===================== -->
+<section id="s5">
+  <h2 class="sec"><span class="sec-no">卷 五</span>命名——四個候選，一個推薦</h2>
+  <p class="sec-sub">名字要能承擔的，是它宣稱的嚴謹程度</p>
+
+  <p>既然三個舊名目都只認領一塊，剩下那一塊就得自己取名。本刊提四個候選，並說明各自的代價。</p>
+
+  <div class="tablewrap">
+  <table class="ledger-t">
+    <caption>命 名 候 選 表</caption>
+    <thead>
+      <tr><th style="width:19%">用途</th><th style="width:27%">English</th><th style="width:20%">中文</th><th>取捨</th></tr>
+    </thead>
+    <tbody>
+      <tr class="rec">
+        <td class="n pick">推薦</td>
+        <td class="pick"><strong>audited memoir</strong></td>
+        <td class="pick"><strong>復盤體回憶錄</strong></td>
+        <td class="pick">「復盤」本身就帶對了意思：一手一手重擺，為的是給每一手打分，不是為了改變結果。而且它不像「計量」那樣，替你誇下一個資料上撐不起來的口。</td>
+      </tr>
+      <tr>
+        <td class="n">學科式造名</td>
+        <td><span class="en">mnemometrics</span><br>（mnēmē + -metrics）</td>
+        <td>憶量學</td>
+        <td>與 chemometrics 對仗工整，作者本行讀來會心。缺點是字尾 -metrics 承諾了統計推論，而本篇沒有——這個名字得先欠著。</td>
+      </tr>
+      <tr>
+        <td class="n">文類標籤</td>
+        <td>counterfactual prosopography</td>
+        <td>交遊考・判牘體</td>
+        <td>最學術、最準確，也最不會有人念第二次。適合寫在論文腳註裡，不適合印在封面上。</td>
+      </tr>
+      <tr>
+        <td class="n">取自本篇用語</td>
+        <td>the ledger memoir</td>
+        <td>《平倉錄》</td>
+        <td>最有味道，也最像書名而非文類名。留給下一本用。</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>本刊的推薦是：<em>中文用「復盤體回憶錄」，英文用 audited memoir</em>。理由不在好聽，在於這兩個名字都只宣稱了本篇真正做到的那件事——<strong>可稽核</strong>（<span class="en">auditability</span>），而不是<strong>可量化</strong>。這一字之差，正是卷二辨了半天的東西。</p>
+</section>
+
+<!-- ===================== 卷六 ===================== -->
+<section id="s6">
+  <h2 class="sec"><span class="sec-no">卷 六</span>最後說破：這其實是一份 chemometric memoir</h2>
+  <p class="sec-sub">同一套 epistemology，只是換了台光譜儀</p>
+
+  <p class="dropcap">以上都是「貼切」的說法。底下這一個，本刊認為是<em>確實為真</em>的說法。</p>
+
+  <p>作者一生的專業是 chemometrics——從光譜裡把看不見的結構抽出來，而且抽出來以後要能驗證。四十年職業訓練塑造的思考方式，不會因為改寫回憶錄就換掉。把本篇的卷末附錄跟一次標準的 chemometric 分析並排看，對得嚴絲合縫。</p>
+
+  <div class="tablewrap">
+  <table class="ledger-t">
+    <caption>對 照 表・同一套動作，兩個領域</caption>
+    <thead>
+      <tr><th style="width:32%">Chemometrics</th><th>《老熊的選擇》卷末</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="n">建 score matrix</td><td>四個 objects（四項決定）× 三個變數（動機誠實度／執行乾淨度／對他人的成本），外加一欄總評。</td></tr>
+      <tr><td class="n">新樣本進來就 refit</td><td>二〇一三年越南餐館那一頓、繼母那條線索、朱父外遇的內情——每一筆新事證進來，模型就重跑一次，於是有了三讀改判。</td></tr>
+      <tr><td class="n">perturbation analysis</td><td>岔路一到岔路四之丙。逐一擾動單一決定，觀察全域結果如何改變。</td></tr>
+      <tr><td class="n">辨識不隨擾動改變的量</td><td>「執行乾淨度」三讀恆為 2——這是本篇的不變量。</td></tr>
+      <tr><td class="n">報告 residual</td><td>那張一九八六年就該還回來的照片。方向對、執行髒，殘差留了二十七年才平掉。</td></tr>
+      <tr><td class="n">latent variable</td><td>朱的繼母。全篇從未露面，卻解釋了兩段感情各拖七八年的變異——一個不可觀測、卻能解釋大部分 variance 的隱變數。</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>最後那一行值得多說一句。作者自己寫的：「她在整個故事裡從未露面，卻是朱『對確定關係本身就過敏』的源頭……同一種遲疑用了兩次，帳都得記在這條線上。」<em>兩段關係、同一個係數、一個看不見的因子</em>——這在光譜學裡有現成的說法，只是作者這回沒有把那個詞寫出來。</p>
+
+  <p class="pull">寫了一輩子從光譜裡抽結構的人，<br>老了拿自己的四年當光譜。
+    <small>chemometric memoir</small>
+  </p>
+</section>
+
+<!-- ===================== 編按 ===================== -->
+<section id="s7">
+  <h2 class="sec"><span class="sec-no">編 按</span>評分表是全篇最弱的接縫</h2>
+  <p class="sec-sub">既然是伴讀，就得把砭語也寫進來</p>
+
+  <p>本刊對本篇的一項保留，落在那張評分表上。</p>
+
+  <p>那些數字看起來是量化的，實際上是作者自己給的 <span class="en">ordinal judgment</span>，而且沒有公布 <span class="en">anchor</span>。「執行乾淨度」6 分與 7 分差在哪裡？「對他人的成本」的低、中、高，界線畫在什麼位置？目前全篇的嚴謹性，完全靠 auditability——那條三讀軌跡——撐著，不是靠尺度本身撐著。<strong>可稽核與可量化，是兩件事；本篇做到了前者，卻用了後者的排版。</strong></p>
+
+  <div class="addbox">
+    <h4><span class="add-tag">建議</span>補一套 rubric，並指定 reference standard</h4>
+    <p>不必寫長。每個軸三句話就夠：<em>什麼樣的行為算 9 分，什麼樣算 5 分，什麼樣算 2 分。</em>然後指定兩個 <span class="en">reference standard</span>——朱那一項的 3 分，與作者自己那一項的 4 分——當作全表的定標點。</p>
+    <p>這在本行叫做 <span class="en">calibration set</span>。少了它，讀者大可以把「我批評她把成本外包，自己的分數只比她高一分」當成一句漂亮的修辭打發掉；可那明明是整份附錄裡最誠實的一行，不該讓它站在沒有刻度的秤上。</p>
+  </div>
+
+  <p>順帶一提，補了 rubric 之後還有一個副作用是好的：其他人可以拿同一把尺，去量自己那四年。<em>文類要成立，工具就得可以借給別人用。</em>到那一步，「復盤體」才不只是一篇作品的形容詞，而真的是一個文類。</p>
+</section>
+
+<div class="divider">❖　❖　❖</div>
+
+<div class="coda-open">
+  <p class="t">結　語</p>
+  <p class="s">不是回憶錄變嚴謹了，是嚴謹的人開始寫回憶錄</p>
+</div>
+
+<p>本刊最後想指出的，是一個容易被誤讀的地方。復盤體並不比抒情體高明——它們解決的不是同一個問題。抒情體要的是讓讀者感覺到當年；復盤體要的是讓讀者能夠<strong>檢查</strong>當年。前者失手會變成濫情，後者失手會變成自我辯護的長篇答辯狀。本篇之所以沒有掉進後面那個坑，靠的正是那條 2→5→4 的軌跡，和那句被壓在 2 分不動的執行乾淨度。</p>
+
+<p>四十年後回頭改判，方向一個也沒改；改的是<em>對自己動機的說法</em>。而把三種說法一併留在紙上、讓讀者自己挑——這是本刊願意為它另立一個文類的唯一理由。</p>
+
+<p class="finale">He doesn't want to be fed. He wants to hunt.</p>
+<p class="finale-zh">——而四十年後，他把獵場的帳也一併結了</p>
+
+<p class="endmark">❖</p>
+<span class="seal">伴讀・畢</span>
+
+<div class="companion">
+  <h3>合 觀 二 篇</h3>
+  <p>本文為伴讀，不宜單獨閱讀。正文合刊備人物、時序與判詞；互動圖備關係網絡與九類 typed edges。三者同看，方見全形。</p>
+  <a href="./老熊的選擇_1983_-1987_Add1.html">《老熊的選擇 1983–1987・增補一版》正文合刊 →</a>
+  <a href="./老熊的選擇_1983-87_人物關係圖_純人物_Add1.html" style="margin-top:14px;">《人物關係圖・純人物版・增補一版》互動圖 →</a>
+</div>
+
+<p class="backtop"><a href="#top">↑ 回目錄</a></p>
+
+<footer class="colophon">
+  <span>精選外刊・文類欄</span>
+  <span>《老熊隨筆》伴讀專號</span>
+  <span>二〇二六年八月</span>
+</footer>
+
+</div>
+</body>
+</html>
