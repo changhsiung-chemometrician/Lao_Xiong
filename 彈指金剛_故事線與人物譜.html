@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《彈指金剛》故事線與人物譜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1613; --ink2:#3b332c; --paper:#fbf7f0; --paper2:#f4ede1;
+  --rule:#c9bda9; --accent:#8c2b1f; --accent2:#a8763a; --muted:#6f6558;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif TC","Source Han Serif TC","PMingLiU","Songti TC",Georgia,serif;
+  font-weight:700; font-size:32px; line-height:2.05; letter-spacing:.02em;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px 120px}
+header.masthead{border-bottom:6px double var(--rule);margin-bottom:56px;padding:72px 0 40px;text-align:center}
+.kicker{font-size:26px;font-weight:800;letter-spacing:.5em;color:var(--accent);margin:0 0 26px;text-indent:.5em}
+h1.big{font-size:76px;line-height:1.2;margin:0 0 22px;font-weight:900;letter-spacing:.08em}
+.range{font-size:30px;font-weight:800;color:var(--muted);margin:0 0 14px;font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.byline{font-size:26px;font-weight:700;color:var(--ink2);margin:18px 0 0}
+.standfirst{max-width:880px;margin:40px auto 0;font-size:29px;line-height:1.95;color:var(--ink2);
+  border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);padding:28px 0;text-align:justify}
+
+nav.toc{background:var(--paper2);border:3px solid var(--rule);padding:44px 52px;margin:0 0 40px}
+nav.toc h3{font-size:40px;font-weight:900;margin:0 0 20px;letter-spacing:.2em;color:var(--accent)}
+nav.toc .grp{font-size:26px;font-weight:800;color:var(--muted);letter-spacing:.18em;margin:26px 0 14px;
+  border-left:8px solid var(--accent2);padding-left:16px}
+nav.toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:56px}
+nav.toc li{break-inside:avoid;margin:0 0 8px}
+nav.toc a{display:flex;gap:14px;align-items:baseline;text-decoration:none;color:var(--ink);font-size:24px;line-height:1.6}
+nav.toc a:hover{color:var(--accent)}
+.tn{color:var(--accent2);font-weight:800;font-variant-numeric:tabular-nums;min-width:2.6em}
+.tt{flex:1}
+
+.parthead{margin:96px 0 8px;text-align:center}
+.parthead .pl{font-size:24px;font-weight:800;letter-spacing:.5em;color:var(--accent2);text-indent:.5em}
+.parthead h2{font-size:58px;font-weight:900;margin:12px 0 10px;letter-spacing:.12em}
+.parthead .pd{font-size:25px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.stars{text-align:center;color:var(--rule);font-size:26px;font-weight:800;letter-spacing:.22em;
+  margin:64px 0 44px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+
+.meta{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;margin:0 0 12px}
+.num{font-size:23px;font-weight:900;color:#fff;background:var(--accent);padding:3px 16px;letter-spacing:.08em}
+.series{font-size:23px;font-weight:800;color:var(--accent2);letter-spacing:.22em}
+.date{font-size:24px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+h2.subtitle{font-size:52px;font-weight:900;margin:6px 0 30px;letter-spacing:.08em;line-height:1.35}
+h2.subtitle::after{content:"";display:block;width:132px;height:6px;background:var(--accent);margin-top:20px}
+article.entry p{margin:0 0 24px;text-align:justify;text-indent:2em}
+article.entry p.lead{text-indent:0}
+article.entry p.lead::first-letter{float:left;font-size:120px;line-height:.86;font-weight:900;color:var(--accent);margin:10px 16px 0 0}
+
+blockquote.pull{margin:44px 0;padding:32px 40px;background:var(--paper2);border-left:12px solid var(--accent);
+  font-size:44px;line-height:1.6;font-weight:800;color:var(--ink);text-align:justify}
+blockquote.pull cite{display:block;margin-top:16px;font-size:25px;font-weight:700;color:var(--muted);font-style:normal;letter-spacing:.06em}
+
+/* ---- 人物譜 ---- */
+section.cast{margin:0 0 64px}
+h3.grouphead{font-size:44px;font-weight:900;margin:72px 0 8px;letter-spacing:.1em;
+  border-bottom:5px solid var(--accent2);padding-bottom:14px;display:flex;align-items:center;gap:20px}
+h3.grouphead .swatch{width:34px;height:34px;border-radius:8px;flex:none;border:2px solid rgba(0,0,0,.25)}
+p.groupnote{font-size:25px;font-weight:700;color:var(--muted);margin:14px 0 34px;text-align:justify;line-height:1.85}
+dl.people{margin:0}
+dl.people dt{font-size:34px;font-weight:900;margin:34px 0 0;letter-spacing:.04em;color:var(--accent)}
+dl.people dt .role{display:block;font-size:24px;font-weight:800;color:var(--accent2);letter-spacing:.08em;margin-top:6px}
+dl.people dd{margin:12px 0 0;font-size:29px;line-height:1.9;font-weight:700;text-align:justify;color:var(--ink2)}
+dl.people dd .q{color:var(--ink);font-weight:800}
+
+table.ledger{width:100%;border-collapse:collapse;margin:40px 0;font-size:26px;font-weight:700}
+table.ledger th{background:var(--paper2);border:2px solid var(--rule);padding:16px 18px;text-align:left;
+  font-weight:900;font-size:25px;letter-spacing:.08em;color:var(--accent)}
+table.ledger td{border:2px solid var(--rule);padding:16px 18px;vertical-align:top;line-height:1.75}
+table.ledger td.n{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+
+footer.end{margin-top:110px;border-top:6px double var(--rule);padding-top:40px;text-align:center;
+  color:var(--muted);font-size:25px;font-weight:700;line-height:1.9}
+
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  html,body{background:#fff}
+  body{font-size:13pt;line-height:1.8}
+  .wrap{max-width:none;padding:0}
+  header.masthead{padding:0 0 18pt;margin-bottom:24pt;border-bottom-width:4px}
+  h1.big{font-size:34pt}
+  .kicker{font-size:11pt}.range{font-size:13pt}.byline{font-size:11.5pt}
+  .standfirst{font-size:11.5pt;padding:12pt 0;margin-top:16pt}
+  nav.toc{break-after:page;border-width:2px;padding:16pt 20pt;background:#f7f3ec}
+  nav.toc h3{font-size:20pt;margin-bottom:10pt}
+  nav.toc .grp{font-size:11.5pt;margin:12pt 0 8pt}
+  nav.toc a{font-size:10.5pt;line-height:1.45}
+  .parthead{break-before:page;margin:0 0 10pt}
+  .parthead .pl{font-size:10pt}.parthead h2{font-size:24pt}.parthead .pd{font-size:11pt}
+  h2.subtitle{font-size:19pt;margin:2pt 0 10pt;break-after:avoid}
+  h2.subtitle::after{height:3px;width:60pt;margin-top:6pt}
+  .meta{break-after:avoid;margin-bottom:4pt}
+  .num,.series,.date{font-size:9.5pt}
+  .stars{font-size:10pt;margin:16pt 0 10pt}
+  article.entry p{margin:0 0 7pt;orphans:2;widows:2}
+  article.entry p.lead::first-letter{font-size:40pt;margin:2pt 6pt 0 0}
+  blockquote.pull{font-size:14pt;padding:10pt 14pt;margin:14pt 0;border-left-width:6px}
+  blockquote.pull cite{font-size:10pt}
+  h3.grouphead{font-size:17pt;break-after:avoid;margin:18pt 0 4pt;padding-bottom:5pt;border-bottom-width:3px}
+  h3.grouphead .swatch{width:12pt;height:12pt}
+  p.groupnote{font-size:10.5pt;margin:6pt 0 10pt}
+  dl.people dt{font-size:12.5pt;margin:10pt 0 0;break-after:avoid}
+  dl.people dt .role{font-size:10pt}
+  dl.people dd{font-size:11pt;line-height:1.6;margin-top:3pt}
+  table.ledger{font-size:10pt;margin:10pt 0}
+  table.ledger th,table.ledger td{padding:5pt 6pt;border-width:1px}
+  footer.end{margin-top:24pt;padding-top:14pt;font-size:11pt}
+  a{color:inherit;text-decoration:none}
+}
+@media (max-width:820px){
+  body{font-size:22px;line-height:1.95}
+  .wrap{padding:0 20px 60px}
+  h1.big{font-size:42px}
+  .standfirst{font-size:20px}
+  h2.subtitle{font-size:32px}
+  .parthead h2{font-size:36px}
+  nav.toc ol{columns:1}
+  nav.toc{padding:24px}
+  .stars{font-size:15px}
+  article.entry p.lead::first-letter{font-size:70px}
+  blockquote.pull{font-size:26px;padding:20px 22px}
+  h3.grouphead{font-size:30px}
+  dl.people dt{font-size:25px}
+  dl.people dd{font-size:21px}
+  table.ledger{font-size:19px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">精選外刊　·　人物與故事線別冊</p>
+  <h1 class="big">《彈指金剛》<br>故事線與人物譜</h1>
+  <p class="range">二稿　·　全二十章＋後記　·　約十四萬字</p>
+  <p class="byline">原著　FKF　·　故事線整理與人物分類　別冊編者</p>
+  <div class="standfirst">
+    這是一部披著醫藥並購外衣的道德小說。表層是一樁一百億人民幣的乙肝疫苗權益爭奪戰：成都的天一集團派並購總監陳遠常駐北京，去搶北京安拓生物手上進入三期臨床的 HBV-201。
+    底層卻是三個不完美的人如何在弹指一瞬間各自顯出「金剛」的一面——作者在〈關於〉裡把他們對應到佛門三毒：王東亮貪、陳遠痴而懦、唐櫻痴戀難捨。
+    上篇為故事線，把二十章收攏成八幕，並拆解貫穿全書的三條暗線；下篇為人物譜，四十七位有名有姓的人物依關係類別分組，各附身分與簡介。
+    關係圖中以粉紅泡泡標出的五位情感對象——唐櫻、趙心如、媚姐、楊子琪、小香大長腿——分散在第二、四兩組之中。
+    另附〈解題：三毒與金剛〉，以及那兩隻泥人生肖的來歷。
+  </div>
+</header>
+
+<nav class="toc">
+  <h3>目　次</h3>
+  <div class="grp">上篇　故事線・八幕</div>
+  <ol>
+    <li><a href="#a0"><span class="tn">楔子</span><span class="tt">養老院書桌裡的木頭盒子</span></a></li>
+    <li><a href="#a1"><span class="tn">第一幕</span><span class="tt">點將——一個一百億的標的</span></a></li>
+    <li><a href="#a2"><span class="tn">第二幕</span><span class="tt">引路——一頓沒有招牌的烤鴨</span></a></li>
+    <li><a href="#a3"><span class="tn">第三幕</span><span class="tt">皇城——Cindy、Judy、唐櫻</span></a></li>
+    <li><a href="#a4"><span class="tn">第四幕</span><span class="tt">對局——華濟、智因、九州</span></a></li>
+    <li><a href="#a5"><span class="tn">第五幕</span><span class="tt">出局——黑色文件夾與那場春雨</span></a></li>
+    <li><a href="#a6"><span class="tn">第六幕</span><span class="tt">翻盤——三方聯合體</span></a></li>
+    <li><a href="#a7"><span class="tn">第七幕</span><span class="tt">代價——清晨的中國大飯店</span></a></li>
+    <li><a href="#a8"><span class="tn">第八幕</span><span class="tt">抉擇——三千八百五十萬</span></a></li>
+    <li><a href="#a9"><span class="tn">尾聲</span><span class="tt">賀州的山歌・杭州的咖啡店</span></a></li>
+    <li><a href="#thread"><span class="tn">暗線</span><span class="tt">三條伏線與那兩隻泥人生肖</span></a></li>
+  </ol>
+  <div class="grp">下篇　人物譜・依關係類別</div>
+  <ol>
+    <li><a href="#c0"><span class="tn">一</span><span class="tt">三位主角</span></a></li>
+    <li><a href="#c1"><span class="tn">二</span><span class="tt">情感線（粉紅泡泡）</span></a></li>
+    <li><a href="#c2"><span class="tn">三</span><span class="tt">血緣・親屬</span></a></li>
+    <li><a href="#c3"><span class="tn">四</span><span class="tt">發小・同窗</span></a></li>
+    <li><a href="#c4"><span class="tn">五</span><span class="tt">天一醫藥集團</span></a></li>
+    <li><a href="#c5"><span class="tn">六</span><span class="tt">安拓與交易對手</span></a></li>
+    <li><a href="#c6"><span class="tn">七</span><span class="tt">翻盤的外援</span></a></li>
+    <li><a href="#c7"><span class="tn">八</span><span class="tt">京城關係網・夜場</span></a></li>
+    <li><a href="#c8"><span class="tn">九</span><span class="tt">楔子與後記</span></a></li>
+  </ol>
+</nav>
+
+<!-- ==================== 上篇 ==================== -->
+<div class="parthead">
+  <div class="pl">上　篇</div>
+  <h2>故事線</h2>
+  <div class="pd">八幕・自成都的一間養老院到廣西賀州的一座涼亭</div>
+</div>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a0">
+  <div class="meta"><span class="num">楔　子</span><span class="series">四十年後</span><span class="date">第一章</span></div>
+  <h2 class="subtitle">養老院書桌裡的木頭盒子</h2>
+  <p class="lead">成都的冬雨。陳重飛從深圳趕回來處理父親的後事——父親前天心梗過世，他是家中獨子。二十四小時像超負荷運轉的流水線：醫院、殯儀館、民政局，填表、簽字、交錢、蓋章。清理錦官園養老院那間四十平米的公寓時，他在書桌側櫃裡翻出一個鞋盒大小的木頭盒子，裡面只有兩個鑲在白色鏡框裡的泥人生肖：一隻羊，一隻猴。父親屬羊，母親屬猴。</p>
+  <p>把猴子塞進背包後，他拿起羊生肖，手指在鏡框背面碰到一樣東西——一張淺黃色便條，上面用圓珠筆寫著一個 157 開頭的手機號碼。是父親的手書，因為父親寫 7 字喜歡中間加一橫。這個號碼不在父親的通訊錄裡，遺囑上也從未提過。</p>
+  <p>父親的筆記型電腦桌面右下角有一個沒有取名的加密資料夾，最近一次修改是二十多年前。試了幾個常用密碼都不對。他眼角餘光瞟到背包裡露出一截的生肖鏡框，突然有所領悟，把那串 157 的號碼輸了進去。</p>
+  <blockquote class="pull">文件夾就此打開，裡面只有一個文檔。
+    <cite>——接下來十八章的第一人稱敘述，就是那個文檔。</cite></blockquote>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a1">
+  <div class="meta"><span class="num">第一幕</span><span class="series">點　將</span><span class="date">第二至三章</span></div>
+  <h2 class="subtitle">一個一百億的標的</h2>
+  <p class="lead">陳遠二十八歲，川大金融系畢業，在四川天一醫藥集團做了六年並購，去年剛升上戰略規劃部並購交易總監。故事從一個惡夢開始：墨汁般的黑水淹沒他，結冰，再從內部把他刺穿。這個夢此後反覆出現，成為全書的節拍器。醒來那天是週六，他要去相親——對象叫趙心如，二十七歲，成都某中學英語老師。他遲到了，還認錯了人。</p>
+  <p>週一在停車場，下屬吳自江湊到他耳邊：「我聽說有人打算收購咱公司，有這事嗎？」消息來自財務科的羽毛球搭子劉德凱——他們在加班搭建數據室的財務資料。陳遠判斷集團大概是要賣掉那家雞肋的康復醫院，沒有多想。</p>
+  <p>當天他被叫上 29 樓。副總經理王雲彪——六年前在數百份履歷裡挑中他的伯樂——帶他去見總經理李全旺。任務只有一句話：拿下北京安拓生物科技手上、已經進入三期臨床的乙肝治療疫苗 HBV-201 的全球權益。</p>
+  <p>全球乙肝患者超過兩億五千萬，中國超過七千萬。現有療法只能壓制病毒複製，無法根除肝細胞核內的 cccDNA。HBV-201 走的是疫苗路線，調動人體自身免疫系統。二期臨床十八個注射病人中有七個出現 cccDNA 具統計意義的實質減少——消息一出，全球乙肝藥物界震動。唯一的疑點是三期臨床批件足足等了一年多才批復，市場開始傳言副作用可能不像文獻披露的那麼簡單。</p>
+  <p>李總把底交給他：天一主營老藥，利潤率下滑，集中採購在即，必須進新藥領域；集團現金流充裕，「出資部分不是你需要考慮的問題」。項目直接對總經理辦公室匯報，差旅不走財務報銷，嚴格保密。陳遠回到辦公室算了一筆帳：交易規模不會低於一百億，激勵機制約千分之三，總監拿三分之二——他個人能到手的獎金超過兩千萬。</p>
+  <blockquote class="pull">我，有一張王牌。
+    <cite>——掐掉菸屁股，他想到了一個人。</cite></blockquote>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a2">
+  <div class="meta"><span class="num">第二幕</span><span class="series">引　路</span><span class="date">第四章</span></div>
+  <h2 class="subtitle">一頓沒有招牌的烤鴨</h2>
+  <p class="lead">那張王牌叫王東亮，衛生部國際關係司副處長，陳遠從穿開襠褲起的難兄難弟。縣文科狀元，直錄北大，畢業時憑優秀畢業生資格留在北京。因為職權範圍，國內尤其北京的醫藥企業和國外的交流大多經他手安排，這幾年在首都醫藥界積累了相當深厚的人脈。</p>
+  <p>同一個下午，王東亮在王府井新華書店等一個叫「小香大長腿」的 BBS 網友。對方臨時放了鴿子。就在他準備離開時，看見一位少婦正入神地翻著一本書——走近才看清封面是《中華人民共和國刑法》。他脫口而出：「女士，您需要什麼法律上的幫助嗎？」並當場自稱刑事律師。她叫楊子琪，燕莎購物商場的收銀出納，有個七歲女兒。</p>
+  <p>幾小時後，兩個老同學在東四胡同一家沒有招牌的小平房吃烤鴨。酒過三巡，陳遠把事情說了一半：他在北京找項目，也想和安拓接觸一下。王東亮沒有推辭，說安拓去年贊助過一個會展，他和他們的人有不少聯繫。</p>
+  <p>三天後，湘鄂情桔子洲頭包廂。一桌六個人：衛生部歐陽司長、藥監局馬處長、北京宏達的林總與小杜、浩辰投資的季學民，主位留給前發改委副主任的小兒子洪勉。陳遠被安排在季學民和王東亮中間——浩辰是安拓公開的兩個投資方之一，季學民本人就在安拓董事會上。這個座位安排，日後成了整條「川人」計畫得以成立的第一個條件。</p>
+  <p>飯局中途，服務員打翻湯碗潑到洪勉身上。歐陽司長給王東亮丟了個眼色，他喝多了反應慢，站起來替服務員賠罪，反被洪勉當眾刺回。飯後轉場皇城 KTV，陳遠買單。他沒挑公主，只招手叫媚姐坐下——那一晚他喝斷了片。</p>
+  <blockquote class="pull">這是我第一次見到唐櫻。
+    <cite>——第二天早上，他醒來時她躺在他旁邊。什麼也沒發生。她泡好一壺熱茶，在旁邊放了幾顆布洛芬才走。</cite></blockquote>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a3">
+  <div class="meta"><span class="num">第三幕</span><span class="series">皇　城</span><span class="date">第五至十二章</span></div>
+  <h2 class="subtitle">Cindy、Judy、唐櫻</h2>
+  <p class="lead">她在 KTV 裡叫 Cindy，陳遠醉裡叫錯成 Judy，她就順著說「我是哥的 Judy」。真名唐櫻，廣西賀州瑤族人，比他小一歲，屬猴。高中畢業讀了大專紡織專業，不喜歡在廠裡做事，挣得也少；媚姐是她的遠房表姊。父親長年在山裡採摘菌子，弟弟在南寧念大三。</p>
+  <p>兩人的關係從三次巧合疊起來：醫院走廊的偶遇；深夜路過皇城門口，他看見她被外地來的客人拖向商務車，衝上去一拳把人打倒，拉著她在沒有路燈的胡同裡狂奔；以及一趟上海。他帶她去外灘吃法餐、上東方明珠、逛正大廣場，買了粉色水晶手鏈與腳鏈——「我戴上它們，只給你一個人跳。」在城隍庙一個捏泥人的攤位前，她要匠人做三個生肖：一隻羊，兩隻猴。</p>
+  <blockquote class="pull">遠哥，這裡一個是給你的，一個是給你未來老婆的，祝你們幸福美滿。這個是我的，就給我留個紀念吧。
+    <cite>——那隻猴子，二十多年後和那隻羊一起躺在錦官園的木頭盒子裡。</cite></blockquote>
+  <p>與此同時，成都那邊，趙心如正一封一封發著簡訊：託他帶精裝版的三毛文集，問他過年檔期，提醒他北京冷。他回成都時把三毛文集送了過去，順手把唐櫻買的那隻猴生肖也一起給了她——她小心翼翼地放到床頭櫃上。</p>
+  <p>陳遠替唐櫻在仲德仕行安排了一份朝九晚五的工作，還私下加簽了一份每月三萬五的顧問合約，把兩萬五轉給她。有幾個月他們過得像一對真正的情侶：她每天換著花樣做飯，做他最愛的炸醬麵；他在國貿上班，晚上回她那間一室一廳。</p>
+  <p>裂縫也在同時擴大。他從她帶回的箱子裡翻出那條側面開叉的裙子和一枚草莓味的保險套，當著她的面丟進垃圾桶。美國大使館的招待酒會上，王東亮把他拉到一旁：「遠子，這姑娘是皇城的吧？」——他當場改口說公司有急事，把盛裝打扮的她送回了家。她回去脫下那條 Chloe 長裙，拿剪刀當著他的面剪成幾段。</p>
+  <p>「謝謝你，遠哥，讓我穿上這麼美麗的衣服。只是我想我不會再有穿它的機會了。」</p>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a4">
+  <div class="meta"><span class="num">第四幕</span><span class="series">對　局</span><span class="date">第六至十章</span></div>
+  <h2 class="subtitle">華濟、智因、九州</h2>
+  <p class="lead">安拓總經理孫仲凱先拋出合資公司的餌：天一出五億現金換 50-50，把兩個一期產品裝進來，附帶 HBV-201 十八個月的「優先考慮權」。陳遠不接，直接插刀：天一要買 HBV-201 的全球市場推廣和銷售權益。孫仲凱不慌，反手要求分手費。</p>
+  <p>幾天後安拓聘了投資銀行高嶺做財務顧問，招標流程正式啟動——一對一的簡單交易泡湯了。高嶺的丁杰透露，另有一家國內大型藥企和一家跨國藥企簽了保密協議。</p>
+  <p>吳自江在數據室發現一個異常：一期二期的 CRO 都是華濟研究，三期卻突然換成智因醫藥。以華濟的資質和連續性，這幾乎不可想像。孫仲凱的解釋只有四個字：華濟要價太高。陳遠不信，飛了一趟上海。</p>
+  <p>衡山路的爵士酒吧裡，華濟研發總監鄭炯給出真相：不是華濟報高，是智因報了一半的價，明顯的虧本買賣。原因是——九州醫藥控股是智因的實際控制人，而九州也在看 HBV-201。先用智因拿下三期合約，就等於在數據上永遠領先所有競標者一步。鄭炯掏出一個 U 盤，裡面是全部一期二期的原始數據；華濟這樣做違反客戶保密協議，但他們寧可讓天一贏，也不願九州吃下這個藥。</p>
+  <p>U 盤必須送回成都給臨床技術部的何萍萍，商業快遞不放心。陳遠想到跑長途貨運的高中同學趙孟良，那天他正好在松江卸貨。陳遠請他提前出發。</p>
+  <blockquote class="pull">遠子，遠子，聽得見嗎？孟良出車禍了，上海回來的路上。
+    <cite>——雪下大了，外面白茫茫一片。孟良的右臂沒了。</cite></blockquote>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a5">
+  <div class="meta"><span class="num">第五幕</span><span class="series">出　局</span><span class="date">第十一至十三章</span></div>
+  <h2 class="subtitle">黑色文件夾與那場春雨</h2>
+  <p class="lead">王東亮被打進醫院大半個月——楊子琪的老公帶人堵在燕莎樓下。棍棒衝過來時，是她先把王東亮推開、自己迎上去抓住對方的褲腳。他轉身回頭護住她，直到失去知覺。經此一劫，兩人關係反而定了下來，準備國慶結婚。</p>
+  <p>出院後王東亮遞給陳遠一個黑色文件夾：說是在部裡研討會上，趁同房的藥監局幹部去吃晚飯，從他公文包裡翻出並複印的 HBV-201 三期臨床副作用報告。何萍萍判讀後給出結論：使用干擾素類藥物的病人有明顯副作用，三分之一無法完成療程，兩人腎臟不可逆損害。天一據此把最終報價從一二五億壓到一一五億。</p>
+  <p>四月底，高嶺的郵件到了：天一出局。孫仲凱在追問下透露實情——天一的價格低於對方。同一天晚上，唐櫻回來說她把工作辭了，不肯說原因。陳遠正在灌酒，暴怒之下摔了杯子：「你明天回去接著上班，沒得商量。」她背對著他坐在地上哭，他收拾東西走了。</p>
+  <p>轉機來自羅嘉理——那個在中國大飯店泳池的隔離泳道遇見、又在飛往上海的頭等艙鄰座重逢的美籍私募基金亞洲負責人。京城俱樂部的雪茄吧裡，他找來諾維安的 Vincent 和一位叫「老陳」的調查顧問。老陳從智因的伺服器上取回真實數據：所有病人的副反應幾乎可以忽略不計，HBV-201 的實際效果好於二期公布的結果。另外截獲智因總經理與九州之間五封橫跨四個月的郵件，反覆提到一個項目代號——「川人」。</p>
+  <p>有人做了一個局。王東亮那份數據是偽造的，目的就是誘導天一壓低報價。陳遠推演出這個計畫需要五個缺一不可的條件，每一條都指向同一個人。</p>
+  <blockquote class="pull">他們說你不會發現的，他們保證過你不會發現的。
+    <cite>——奧林匹克花園門口，春雨落下。洪勉給了兩百萬。兩個人在雨裡打成一團。</cite></blockquote>
+  <p>臨走前陳遠笑得喘不過氣：「孟良結婚了你知道吧？你想不想知道他的手是怎麼沒的？是我讓他送這個項目的文件回成都的路上出的事。」</p>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a6">
+  <div class="meta"><span class="num">第六幕</span><span class="series">翻　盤</span><span class="date">第十三至十四章</span></div>
+  <h2 class="subtitle">三方聯合體</h2>
+  <p class="lead">陳遠自己想通了羅嘉理的算盤，也自己開了口：天一以「投標過程不正當」起訴安拓、九州、智因。目的從來不是勝訴——只要法院受理，判決前雙方就無法完成交割。羅嘉理和 Vincent 一個是外資、一個不是當事人，都不可能在中國的法律體系裡和九州硬掰；他們需要天一這個苦主出面遞這紙訴狀。</p>
+  <p>羅嘉理的手筆比他想的更大：聯合體要買的不是 HBV-201，是整個安拓。基金和諾維安出全部資金，天一一分錢不出，只當中國市場的戰略合作夥伴——「這個機會我給的不是天一，而是你陳遠。」協議裡專門留了一格：天一的關鍵人物代表，正式生效必須有陳遠簽字。</p>
+  <p>北京市第一中級人民法院五月下旬受理，交割暫停。安拓下一輪融資因此卡殼，資金鏈開始出問題，股東們沒有太多選擇。聯合體估算總投入約兩百八十億人民幣。</p>
+  <p>詭異的是，這麼大的官司在業內幾乎沒有波瀾。天一內部下了封口令，四川廣電本來要做的專訪也沒了動靜。新京報記者蘇靜怡找上門，問了一個當時誰都沒往下想的問題：「對於如此重要的一個投標項目，為什麼天一派出主管這個項目的不是王雲彪，而是你呢？」她那篇報導最終沒有發表。</p>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a7">
+  <div class="meta"><span class="num">第七幕</span><span class="series">代　價</span><span class="date">第十五至十六章</span></div>
+  <h2 class="subtitle">清晨的中國大飯店</h2>
+  <p class="lead">在此之前還有一次撞擊。慶功之夜，羅嘉理和 Vincent 帶了兩位女伴回中國大飯店；Vincent 弄丟房卡，陳遠先把兩人帶回自己房間等。他推開門，房裡的燈全亮著——唐櫻從洗手間走了出來。她把門卡扔回給他，走進電梯，背靠著牆，像望著一個陌生人。</p>
+  <p>又過了半年多。臘月的一個深夜，唐櫻連打了十幾通電話，最後一通在凌晨兩點半。陳遠正在酒吧抱著龍舌蘭瓶子喝，一通也沒接。清晨他要去羅嘉理辦公室簽收購條款書，穿過咖啡廳時看見她坐在能看見走廊的座位上等他——他咬咬牙快步溜了過去。她攔在出租車前面。他把她推上車、給了司機一百塊要他直接送回她家，自己從另一邊溜下車，拍了拍車窗示意開走。</p>
+  <blockquote class="pull">看到唐櫻的車離開中國大飯店的門廊，我轉身走向下一部出租車，手剛搭在車門把手上，就聽見一聲巨響。
+    <cite>——一輛沒有牌照的米黃色麵包車在路口等了三分鐘。要撞的是他。</cite></blockquote>
+  <p>他抱著她衝進急診室，在牆角坐下，把被血浸透的大衣蓋在她身上，用圍巾替她擦臉。警方後來抓到嫌犯，順藤摸瓜控制住九州一家分公司的副總經理；肇事司機與主謀判處死緩，其餘從犯至少十年。</p>
+  <p>他從醫院出來，像夢遊一樣去了羅嘉理的辦公室。「來都來了，字總是要簽的。」</p>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a8">
+  <div class="meta"><span class="num">第八幕</span><span class="series">抉　擇</span><span class="date">第十七至十九章</span></div>
+  <h2 class="subtitle">三千八百五十萬</h2>
+  <p class="lead">兩件小事把真相拼了起來。其一，他打倒了那個跟蹤他一年半的「黑衣人」，從錢包裡翻出名片：廣元天全醫藥經銷公司，銷售經理，四川人——而廣元天全是天一的子公司。其二，吳自江回成都那天，公司門禁忽然刷不進去了。</p>
+  <p>最後一塊拼圖來自酒店大堂一場原配捉奸的吵架：「你把我指使到廊坊去進貨，自己爭分奪秒和這個賤人開房。」</p>
+  <p>調虎離山。天一從頭到尾就沒有收購 HBV-201 的想法。真正在做的交易是天一集團整體出售給一家上海的國企——這解釋了第一輪投標為什麼拿掉排他與分手費（不能被綁住），也解釋了第二輪為什麼主動加進五千萬違約金（中標了也要有辦法脫身）。派系人馬、表外專項小組、盯梢、門禁、IT——目的只有一個：讓收購方的盡職調查碰不到陳遠這支團隊。</p>
+  <p>那他們知道什麼？答案在一個貼著「久元」標籤的文件夾裡，去年從成都帶到北京後就一直躺在書桌抽屜。裡面兩份東西：天一向久元供應抗生素的供貨清單，和天一出具的藥品生產企業合格證。供貨發生在 89 到 91 年，五個批次約八百萬元；而衛生部的歷史記錄顯示，天一取得針劑生產資質是 1992 年。</p>
+  <blockquote class="pull">這也就是說，天一的第一桶金是通過偽造生產資質，生產並供應假冒偽劣抗生素針劑獲得的。
+    <cite>——鼓樓的四合院裡，李總掏出老花鏡，仔仔細細看了很久。</cite></blockquote>
+  <p>價碼開出來了：聯合體的激勵獎金 850 萬本週簽字後一次性發放，外加李總個人的 3000 萬，換那兩份文件和一份保密協議。3850 萬。在他這個年紀就可以財務自由。不接受的後果同樣清楚：開除、行業封殺、可能的訴訟，父母引以為傲的獨生子從雲巔跌到谷底。</p>
+  <p>「無論從任何一個角度來看，我其實都別無選擇。可是我心底有根刺。」為了這個項目，孟良沒了右手；為了這個項目，他和幾十年的兄弟斷絕關係；為了這個項目，唐櫻永遠地離開了他。而這一切都是為了一個子虛烏有的項目，為了一個謊言。</p>
+  <p>他打電話給羅嘉理，告訴他自己不會代表天一簽字——這對羅嘉理是個巨大的背刺，兩人的交情到此為止。「OK，祝你一切順利。」他沒有再多說一個字。然後陳遠把全部材料寄給上海市國資委，掏出一支袖珍錄音機，撥通了蘇靜怡的電話。</p>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="a9">
+  <div class="meta"><span class="num">尾　聲</span><span class="series">三年後</span><span class="date">第二十章・後記</span></div>
+  <h2 class="subtitle">賀州的山歌・杭州的咖啡店</h2>
+  <p class="lead">離開北京前，他用還留著的鑰匙最後一次進了唐櫻的家。床頭櫃裡有那個藍色小本。日記寫得極簡：「昨天遇到一個有意思的人。」「他坐在我旁邊，驕傲的樣子，像老家山裡的孔雀。」「他說他喜歡我。喜歡我。喜歡我。」「我只要他的一點點。真的，只要一點點。我不貪心。」</p>
+  <p>四月二十六日那則解開了辭職之謎：看房的那個客人以前見過她，摸她，要她再陪一次，不然就要告訴公司她的背景。她說不出口。往後撕掉了一頁。而最後兩則是——</p>
+  <blockquote class="pull">這群人又來了。他們好像在計劃什麼。我告訴媚姐他們下次再來一定要把我安排過來。無論花什麼代價，就算是陪他們上床，我也要搞清楚。他們不可以傷害他。
+    <cite>——一月二十五日。這就是她那晚十幾通電話要說的事。</cite></blockquote>
+  <p>結局逐一落地。上海國資委起初毫無回應；一週後全國爆發幾起假冒偽劣藥品致兒童死亡的群體性事件，衛生部啟動全國緊急糾察，新京報終於把蘇靜怡那篇假冒針劑合格證的報導放上頭版。天一的出售交易戛然而止，六個月後被藥監局罰款五億。羅嘉理與諾維安對安拓的收購在正月完成交割，天一的空位換成一家廣州的藥企；HBV-201 一年後完成三期，今年拿到藥證。吳自江跟著王雲彪去了外企，文學被安排進一家基金公司——兩人都沒能拿到獎金。陳遠轉行去了四川一家民營銀行做信貸主任，去年底和趙心如結婚，她已懷孕三個月。</p>
+  <p>三年後他第一次鼓足勇氣去了廣西賀州。本來銀行的幫扶對象是百色，在他力推下改成賀州。站在南嶺山脈半山的涼亭裡，遠處傳來一陣山歌：「長鼓敲碎月兒圓，唱到三更淚不干，若是人心都像水，為何流水不回山。」</p>
+  <p>後記回到杭州。陳重飛給那個 157 的號碼發了簡訊：「你好，已經四十年了，請問這個號還是原主嗎？」兩週後有人回覆。約在香格里拉旁的咖啡店，走進來一位溫婉絕約、極有風韻的中年女士。他端詳著她的眉眼，突然感到一種莫名的親切。</p>
+  <p>「我姓陳，請問怎麼稱呼？」</p>
+</article>
+
+<div class="stars">********************</div>
+
+<article class="entry" id="thread">
+  <div class="meta"><span class="num">暗　線</span><span class="series">伏筆與解題</span><span class="date">貫穿全書</span></div>
+  <h2 class="subtitle">三條伏線與那兩隻泥人生肖</h2>
+  <p class="lead">全書真正的結構不是並購流程，而是三條看起來無關、最後同時收口的伏線。每一條都在極早的地方埋下，讀第一遍時幾乎都會滑過去。</p>
+  <table class="ledger">
+    <tr><th style="width:11em">伏　線</th><th style="width:9em">埋下的地方</th><th>收口</th></tr>
+    <tr><td class="n">數據室的第一顆火星</td><td class="n">第三章・停車場</td><td>劉德凱告訴吳自江「他們在搭建數據室財務資料」。陳遠判斷是要賣康復醫院——正在被搭建數據室的，其實是天一自己。這句話出現在全書第三章，答案在第十七章。</td></tr>
+    <tr><td class="n">跟了一年半的黑衣人</td><td class="n">第十章・唐櫻的小區門口</td><td>陳遠確信是九州，為此在後海的小旅館「潛伏」了一個月，還把半個燒餅遞給對方。名片上寫著廣元天全醫藥經銷公司——天一的子公司。</td></tr>
+    <tr><td class="n">貼著「久元」標籤的文件夾</td><td class="n">第七章・整理公文包</td><td>「早知如此應該來北京之前清理一下」，隨手收進抽屜。十章之後，它是唯一能扳倒天一的東西——而且正因為集團多此一舉，它才沒有像平常那樣被立刻移交給運營。</td></tr>
+    <tr><td class="n">一羊兩猴</td><td class="n">第七章・上海城隍廟</td><td>唐櫻捏的三個泥人生肖。羊給陳遠，一隻猴給他未來的老婆（趙心如屬猴），一隻猴留給自己。四十年後，一羊一猴一起躺在養老院的木頭盒子裡；羊的鏡框背面貼著媚姐留下的那個號碼。</td></tr>
+    <tr><td class="n">墨汁的惡夢</td><td class="n">第二章・開篇</td><td>黑水淹沒、結冰、從內部刺穿。第十四章它變成唐櫻眼裡流出的黑色的淚。結尾他不再掙扎，滿懷期待地擁抱那襲來的黑色黏液——「因為那是我和她的二人世界。」</td></tr>
+  </table>
+  <p><strong>解題。</strong>作者在〈關於〉裡交代了書名：弹指是佛經裡的時間單位，二十念為一瞬，二十瞬為一彈指，約七點二秒，極言短暫；金剛意為「堅固不壞」。三位主角各自對應佛門三毒——王東亮貪圖美色財物，可以背叛兄弟情誼；陳遠工作上優秀，性格卻懦弱，不知取捨，不懂珍惜；唐櫻痴戀不顧一切，又擺脫不了過去的糾纏。</p>
+  <p>但就是這樣三個人，在那彈指一瞬間，各自顯出了金剛不可動搖的一面：王東亮不顧自身安危護住楊子琪，在愛情上的勇氣遠超陳遠；陳遠抵抗住三千八百五十萬的誘惑，為了良心和天一決裂；唐櫻為了愛情可以犧牲自己的身體，並為此獻出生命。</p>
+  <blockquote class="pull">在那一瞬間，我們都可擁有金剛不壞之軀。
+    <cite>——作者另註：書名還有一層隱含的意義，特此紀念那短暫而熱烈的青春歲月。</cite></blockquote>
+</article>
+
+<!-- ==================== 下篇 ==================== -->
+<div class="parthead">
+  <div class="pl">下　篇</div>
+  <h2>人物譜</h2>
+  <div class="pd">四十七位・依九類關係分組・關係圖同版</div>
+</div>
+
+<section class="cast" id="c0">
+  <h3 class="grouphead"><span class="swatch" style="background:#f0904a"></span>一　三位主角</h3>
+  <p class="groupnote">作者在〈關於〉裡明確指認的三個人。他們各自對應貪、痴、懦，也各自在某一個瞬間顯出金剛。</p>
+  <dl class="people">
+    <dt>陳遠（遠子・遠哥・小遠）<span class="role">天一醫藥集團戰略規劃部並購交易總監・全書敘事者</span></dt>
+    <dd>二十八歲，眉山人，家中獨子，父母都是公務員。川大金融系畢業後直接進天一，六年做到總監，收購久元藥廠是他升任後的第一個大案。習慣進門先挑背牆面對門口的角落座位——王東亮說他有黑幫老大的特徵，整天擔心被人從後面爆頭。出差必游泳，因為在水下能思考。<span class="q">「我一直相信個體的利益最大化才是人類社會繁衍的根基。」</span>最後他親手推翻了這句話：拒收三千八百五十萬，向國資委和新京報舉報自己的公司，轉行去了銀行業。</dd>
+
+    <dt>唐櫻（Cindy／Judy／小櫻）<span class="role">廣西賀州瑤族・皇城 KTV 公主 → 仲德仕行銷售專員</span></dt>
+    <dd>比陳遠小一歲，屬猴。長鼓舞跳起來「像一隻來自未知世界的靈鳥」。她會做一手極好的炸醬麵，會把 Hello Kitty 抱枕擺在床頭，會用濕紙巾把小旅館的犄角旮旯都擦一遍。也是全書唯一一個從不索取的人：<span class="q">「遠哥，你不要對我這麼好，我還不起的。」</span>她的日記只有短短幾行——「我只要他的一點點。真的，只要一點點。我不貪心。」她辭掉工作的真正原因說不出口，最後一夜打了十幾通電話也沒人接。清晨她攔在出租車前面，替他坐上了那個位子。</dd>
+
+    <dt>王東亮（東亮）<span class="role">衛生部國際關係司副處長・陳遠的發小</span></dt>
+    <dd>縣文科狀元，直錄北大語言專業。母親去世早，父親是普通工人。開一輛車窗要用手搖的淺綠色北京吉普，把妹原則是「沒有原則」。他替陳遠打開了安拓的門，也替九州遞了那把刀——洪勉給了兩百萬。<span class="q">「你以為我副處級的一個月收入多少？六千八百塊。我不吃不喝也要五十年才買得起這裡的房子。」</span>可就是這個人，在棍棒落下時轉身回頭護住了楊子琪，直到失去知覺——作者說，他在愛情上的表現遠超陳遠。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c1">
+  <h3 class="grouphead"><span class="swatch" style="background:#ff86bd"></span>二　情感線（粉紅泡泡）</h3>
+  <p class="groupnote">五位。關係圖中的粉紅泡泡只給真正發生過的男女關係，含搭訕：唐櫻與趙心如、媚姐屬於陳遠這一線，楊子琪與小香大長腿屬於王東亮那一線。唐櫻已列於上一組，此處不重複。</p>
+  <dl class="people">
+    <dt>趙心如（心如）<span class="role">成都某中學英語老師・西南政法英語系</span></dt>
+    <dd>二十七歲，母親老同事的姪女。第一次見面陳遠遲到又認錯了人——她是那個戴大黑框眼鏡在看書的。情商極高，第一句話是「沒關係，我也有點晚，其實剛到」。<span class="q">「她就像一台 X 光機，瞬間發現了我內心渺小的活動。」</span>兩人一見如故，卻不是一見鍾情。她託他從北京帶精裝版的三毛文集，他順手把唐櫻買的那隻猴生肖也送了出去。三年後兩人結婚。<span class="q">「唐櫻這件事我一直深藏心底，但我有個感覺心如什麼都知道。」</span></dd>
+
+    <dt>媚姐<span class="role">皇城 KTV 媽咪・唐櫻的遠房表姊</span></dt>
+    <dd>一張臉極像關詠荷，綠緞旗袍，成熟女人的暗香若隱若現。早年在深圳的 KTV 打拼，後來跟一個北京老闆到了北京做媽咪。第一晚在包廂裡替陳遠調酒，被他吻了——「你好壞。」此後她再沒踏進那條線，反而成了唐櫻最務實的保護者：勸她、收留她、替她處理後事。掛電話前她猶豫著留下另一個手機號碼，說唐櫻留了一樣東西和他有關，「不過唐櫻不希望我說，這是我自己自作主張」。</dd>
+
+    <dt>楊子琪<span class="role">燕莎購物商場收銀出納・三十出頭</span></dt>
+    <dd>王東亮在新華書店搭訕她時，她手裡拿的是《中華人民共和國刑法》。她其實一眼就覺得這人不是個正常好人，「不過又覺得挺有意思」。老公在外面包了二奶還生了男孩，她卻仍每天化著妝、放好浴缸的水、一早起來買早餐。大年三十那頓年夜飯，紅燒排骨還在鍋上冒泡，她背靠著牆滑坐到地上——<span class="q">「像一個在慢鏡頭下做自由落體的花瓶……她碎成了千百片。」</span>棍棒衝過來時她把王東亮推開，自己迎上去。</dd>
+
+    <dt>小香大長腿<span class="role">BBS 網友</span></dt>
+    <dd>約在王府井新華書店，說好他拿紅色筆記本、她戴藍色帽子，臨時放了鴿子。<span class="q">「小短腿倒是看見好幾個，包括一個羅圈的，但一個大長腿都沒有。」</span>正因為她沒來，王東亮才轉身看見了楊子琪。後來她又來聯繫，他沒理會。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c2">
+  <h3 class="grouphead"><span class="swatch" style="background:#ffd07a"></span>三　血緣・親屬</h3>
+  <p class="groupnote">七位。這一組人幾乎不參與交易，卻決定了每個人的退路：眉山的兩位公務員、廣西山裡的一戶人家、燕莎那個七歲的女孩。</p>
+  <dl class="people">
+    <dt>陳遠的媽媽<span class="role">眉山縣公務員・全書最強的催婚火力</span></dt>
+    <dd>安排相親的功力遠勝她看人的功力——上一個對象是拿新加坡護照、只能聽懂他半句話的華僑，理由是「新加坡是發達國家，挺好」。風聞北京的事後打來一通電話，從太爺爺的紅榜舉人講到姥爺十九歲參加革命，最後落在<span class="q">「你爸血壓高」</span>上。「如果這世界上還有一個人能管得住我，那就是我媽。」</dd>
+
+    <dt>陳遠的爸爸<span class="role">眉山縣公務員</span></dt>
+    <dd>正文裡幾乎沒有台詞，卻是媽媽最有力的武器。四十年後，他成了錦官園養老院裡那位滴酒不沾、書桌上只放一包沒開封的中華牌香菸、把兩隻泥人生肖收進木頭盒子的老人。</dd>
+
+    <dt>唐櫻的父親與弟弟<span class="role">廣西賀州南嶺山寨</span></dt>
+    <dd>父親長年在山裡採摘菌子，彎腰久了背一直不好——她在上海正大廣場挑了很久的腰椎按摩儀。弟弟在南寧讀大三，「他成績好，不像我」。冬天姊弟倆放了學要背著背簍去山邊撿柴火。那年過年她帶回一整個塞滿的行李箱。宣判那天他們也去了法院，陳遠站在外面抽完整整一包菸，始終沒有勇氣面對。</dd>
+
+    <dt>孟良的大哥與大嫂<span class="role">長途貨運司機・後改開縣城出租車</span></dt>
+    <dd>知道弟弟受託的事，直接用弟弟的手機聯繫了何萍萍，把 U 盤送到。轉述車禍經過時語氣古井不波，「像是在講述別人的故事」。陳遠塞了一張二十萬的銀行卡給大嫂，說是孟良寄放的私房錢，她才將信將疑地收下。</dd>
+
+    <dt>楊子琪的老公<span class="role">生意人・經常不在家</span></dt>
+    <dd>在外面包了二奶還生了男孩，一週能回來一兩天都算不錯。接到她說在準備離婚文件的電話後，找了幾個小混混帶著棍棒到燕莎樓下——好巧不巧，朝陽區公安系統正在旁邊酒店開學習班。他在拘留所裡痛快地簽了字。</dd>
+
+    <dt>楊子琪的女兒<span class="role">七歲</span></dt>
+    <dd>跑到廚房問爸爸什麼時候回來，因為她想提前穿過年的新裙子給他看。母親平靜地說爸爸忙，還有一會才能到家。那晚凱賓斯基的套房裡，三個人圍著電火鍋看春晚，她對王東亮這個陌生人的出現表現得很大氣。<span class="q">「這個小孩子在這一晚上成熟了很多。」</span></dd>
+
+    <dt>李全業與李全旺<span class="role">天一集團的董事長與總經理・兄弟</span></dt>
+    <dd>天一雖然引入了不少職業經理人，本質上仍然是個家族企業。哥哥李全業白手起家，八十年代初從香港進口非處方藥起步，二十年完成從銷售代理到綜合醫藥集團的飛躍；弟弟李全旺任總經理，已宣布五年後退休。兩人文化程度都不高，據說高中都沒讀完。天一的第一桶金——和那兩份文件——正是哥哥那個年代的事。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c3">
+  <h3 class="grouphead"><span class="swatch" style="background:#9ae66e"></span>四　發小・同窗</h3>
+  <p class="groupnote">三位（王東亮已列於主角組）。這一組承載了全書最重的兩筆代價：一條手臂，和一段從穿開襠褲起的交情。</p>
+  <dl class="people">
+    <dt>趙孟良（孟良）<span class="role">高中同班・跟大哥跑成都—上海長途貨運</span></dt>
+    <dd>大個子，比他哥高一個頭，駕駛艙睡不直，只能把兩隻腳伸出車窗外。請客時掏出一疊老人頭：「猜猜，我這趟掙了多少？三千！」——大部分都進了女朋友管著的婚禮專項基金。陳遠請他把 U 盤帶回成都並提前出發，車到成都的紅綠燈路口翻覆，右肢截斷。後來進父母的廠當門衛，五一結了婚。<span class="q">「孟良的人生軌跡已經被徹底改寫，而我就是那個罪魁禍首。」</span></dd>
+
+    <dt>胖子<span class="role">縣電廠檢線員・高中同班</span></dt>
+    <dd>一點也不胖，瘦瘦精精的一個人——小時候身體不好打補針，虛胖過一陣，外號就留下了。「咱們班同學中就你和東亮混出來了，這頓你得請。」全書最重的那通電話是他打的，帶著哭腔，信號不太好。那天北京下了入冬第一場雪。</dd>
+
+    <dt>羅嘉理（Gary Rockwell）<span class="role">美資私募基金亞洲負責人・母親是四川人</span></dt>
+    <dd>嚴格說不算發小，但陳遠與他的關係是全書唯一一段從偶遇長成的平等友誼——泳池的隔離泳道，飛往上海的頭等艙鄰座。詳見「翻盤的外援」一組。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c4">
+  <h3 class="grouphead"><span class="swatch" style="background:#b7a0ff"></span>五　天一醫藥集團</h3>
+  <p class="groupnote">九位。一個從頭到尾都在演戲的組織。讀第二遍時，這一組每個人的每一句話都要重新掂量。</p>
+  <dl class="people">
+    <dt>王雲彪（雲彪總）<span class="role">戰略規劃部副總經理・陳遠的伯樂</span></dt>
+    <dd>部隊轉業後在清華讀工商管理，十年前加入天一，趕上轉型的關鍵期。六年前在數百份履歷裡挑中剛畢業的陳遠——「不知什麼原因」。他是本書最曖昧的人物：既是提攜者，也是把陳遠支到北京的那隻手；既反常地打聽陳遠的行蹤，又在最後用一張快遞來的手機卡示警。<span class="q">「你是我帶進天一的，也算是我最得意的徒弟吧。」</span>天一整體出售啟動後，29 樓的副總們陸續被請走，他是第一個。</dd>
+
+    <dt>李全旺（李總）<span class="role">天一集團總經理・關口四</span></dt>
+    <dd>胖乎乎，戴老花鏡，藏青杰尼亞西服、Ferragamo 樂福鞋、吊襪帶。兩百平米的辦公室裡養著小鯊魚，掛著抄得工工整整的孫子兵法。點將那天說得漂亮：「出資部分不是你需要考慮的問題。」鼓樓的四合院裡則換成另一副面孔：<span class="q">「誹謗和散布謠言在我們國家今天也是可以定罪的。」</span>然後開出 850 萬加 3000 萬。</dd>
+
+    <dt>吳自江（自江）<span class="role">並購組法務專員・川大法律系</span></dt>
+    <dd>奧特萊斯買的雙排扣西裝，袖口標籤還沒剪。小道消息之王，全書第一個示警的人。軍訓時全屆唯一五發子彈都上榜——這讓陳遠在會議室那一幕之後很緊張。追仲德仕行的 Jenny 黃追得三天兩頭往樓上跑。回成都那天門禁刷不進去，是整條線的最後一塊拼圖。結局他跟著王雲彪去了外企，沒拿到獎金。</dd>
+
+    <dt>文學<span class="role">並購組財務分析師</span></dt>
+    <dd>爸爸是文學愛好者，所以取了這個名字；他本人明顯對數字更感興趣。性格內向，女朋友在集團人事部，這一年半犧牲不小。一手搭起 HBV-201 的財務模型與敏感性測試，也替九州建了一個推測報價模型。結局由陳遠找關係安排進一家基金公司。</dd>
+
+    <dt>李雁南（南姐）<span class="role">戰略規劃部秘書・集團最早的幾個員工之一</span></dt>
+    <dd>資歷老，和集團的頭頭腦腦都熟，部門裡人人心存敬畏。全書最短也最重的一條簡訊出自她手，只有六個字：<span class="q">「雲彪總已離職」</span>。</dd>
+
+    <dt>何萍萍<span class="role">臨床技術部副總監・博士</span></dt>
+    <dd>雲彪總的嫡系，繞開所有其他人直接對接陳遠。典型的技術型高知女性，說話直截了當。她對兩批數據的判讀都是準確的——問題出在第二批資料本身就是偽造的。</dd>
+
+    <dt>劉德凱<span class="role">財務科・吳自江的羽毛球雙打搭子</span></dt>
+    <dd>去年拿了公司單打亞軍，今年和吳自江組隊想衝雙打冠軍。因為要加班搭建數據室而取消練球——全書的第一個線索，出現在第三章。陳遠當時猜是要賣康復醫院，猜錯了。</dd>
+
+    <dt>余山（老余）<span class="role">分管銷售的集團副總</span></dt>
+    <dd>總經理職位的有力競爭對手。「余總能力強，向心力又大」——雲彪總說這話時，陳遠就覺得話裡有話。</dd>
+
+    <dt>廣元天全的「黑衣人」<span class="role">天一子公司銷售經理・四川人</span></dt>
+    <dd>跟了陳遠一年半。第一次出現在唐櫻小區門口，跳過煤氣管道線。陳遠一度確信是九州派來的，為此在後海的小旅館潛伏了一個月，還在雪後把半個燒餅遞給他。最後被打倒在胡同裡，名片上寫著：廣元天全醫藥經銷公司，銷售經理。<span class="q">「跟了他一年半的，是自己人。」</span></dd>
+  </dl>
+</section>
+
+<section class="cast" id="c5">
+  <h3 class="grouphead"><span class="swatch" style="background:#8fc0ff"></span>六　安拓與交易對手</h3>
+  <p class="groupnote">七位（含兩個機構）。談判桌對面的人未必是敵人，真正的對手從頭到尾沒有露過臉。</p>
+  <dl class="people">
+    <dt>孫仲凱<span class="role">北京安拓生物科技總經理・連續創業者</span></dt>
+    <dd>五十二歲。清華化學系、約翰霍普金斯生化博士，師從諾貝爾獎得主，曾任羅氏免疫藥物研發總監。回國創業十二年，十五個新藥進臨床，三家公司兩家被收購、一家在港上市。第一次見面就拋出合資公司的餌，被陳遠一刀插進去後不慌不忙地反手要分手費。對三期換 CRO 的解釋只有四個字：華濟要價太高。<span class="q">「老狐狸就是老狐狸。」</span></dd>
+
+    <dt>季學民（老季）<span class="role">北京浩辰風險投資基金總經理・安拓董事</span></dt>
+    <dd>有點禿頂。當年在國外讀研究生刷試管，生物大分子專業出身，所以看得懂安拓的技術。湘鄂情那一晚被陳遠一步步套出三期進度與 D 輪超額認購，也順手丟回一根魚餌。那場飯局的座位安排，後來成了「川人」計畫得以成立的第一個條件。</dd>
+
+    <dt>Kevin 胡<span class="role">安拓 BD 經理</span></dt>
+    <dd>留分頭的年輕人，負責做那份有針對性的簡報。交出兩組關鍵數字：三期九百名病人、二十個月、四億人民幣；D 輪六億、估值四十二億。</dd>
+
+    <dt>丁杰<span class="role">高嶺投資銀行北京 MD・國內醫療健康板塊負責人</span></dt>
+    <dd>安拓聘請的財務顧問。他一上場，陳遠一對一拿下 HBV-201 的算盤就落空了。老到的顧問會在不同階段放出風聲抬價——短名單、競爭者、出局通知，三封信都寫得很客氣。</dd>
+
+    <dt>鄭炯<span class="role">華濟研究研發總監</span></dt>
+    <dd>國字臉。安拓一期臨床的負責人，兩年來替陳遠做過好幾個並購案的顧問。衡山路的爵士酒吧裡揭開真相，並掏出裝著全部一期二期原始數據的 U 盤。<span class="q">「你也不用謝我，我們把這些資料給你也是有目的的。」</span>華濟寧可讓天一贏，也不願九州吃下這個藥。</dd>
+
+    <dt>九州醫藥控股<span class="role">國內最大的綜合性醫藥集團之一・真正的對手</span></dt>
+    <dd>占中國心血管與腫瘤類藥物市場約三分之一。業界聲譽：看上的東西，會用各種手段拿到，久而久之只要和他們有關的項目，別人都繞著走。長線布局：先讓智因以半價搶下三期 CRO 合約取得數據時間差，再用兩百萬買通王東亮遞出偽造數據誘導壓價。中標後那輛沒有牌照的米黃色麵包車，讓這家公司從商業對手變成刑事被告。</dd>
+
+    <dt>智因醫藥<span class="role">安拓三期臨床 CRO・九州持股約 57%</span></dt>
+    <dd>北京公司，綜合能力均勻，生物大分子這幾年做得風生水起。以華濟一半的報價搶下三期合約，一直以「數據仍在整理」為由不上傳干擾素病人的副作用數據——而它伺服器上的真實數據是：所有病人的副反應幾乎可以忽略不計。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c6">
+  <h3 class="grouphead"><span class="swatch" style="background:#6fe6d2"></span>七　翻盤的外援</h3>
+  <p class="groupnote">六位。全書後半場的節奏由這一組接手。他們沒有一個人是為了幫陳遠而來，卻是唯一真正幫到他的人。</p>
+  <dl class="people">
+    <dt>羅嘉理（Gary Rockwell）<span class="role">美資私募基金亞洲負責人</span></dt>
+    <dd>母親是四川人，小時候在成都讀過幾年書，中文比許多本地人還漂亮。去年在亞洲募了一支二十億美元的大中華區基金。他的手筆不是搶 HBV-201，是連整個安拓一起買下來——聯合體總投入約兩百八十億人民幣。<span class="q">「我從來不和我認為不恰當不合適的人一起做交易……所以陳遠你過了我的第一關，也是最重要的一關。」</span>協議裡專門留了一格給陳遠簽字。那一格最後空著；他只回了一句「OK，祝你一切順利」。</dd>
+
+    <dt>Vincent<span class="role">諾維安（Noviane）製藥集團 BD 副總</span></dt>
+    <dd>羅嘉理的校友。諾維安是全球最大的二十家藥企之一，兩個一線乙肝藥都是他們幾十年前研發的。和天一一起在第一輪出局；事後復盤抓到的最大疑點，就是三期數據的不完整。美國大使館酒會上和陳遠交換過名片——陳遠當時看都沒看就塞進了口袋。</dd>
+
+    <dt>「老陳」<span class="role">外籍調查顧問・前軍方、曾派駐台灣</span></dt>
+    <dd>國字臉，短發，身高近一米九，「感覺這哥們能輕鬆碾碎我的手掌」。中文說得比羅嘉理還好。從智因的伺服器上取回三期臨床全部病人的真實副反應數據，並截獲智因總經理與九州之間的五封郵件。<span class="q">「這幾份郵件有一個共同特點，就是裡面反覆提到了一個項目代號：川人。」</span></dd>
+
+    <dt>陶明（陶律）<span class="role">北京宏正律師事務所合夥人</span></dt>
+    <dd>五十出頭，有點謝頂和發福，看起來像好好先生——據說在法庭上的火力抵得上一個加強連。一針見血：「為什麼在這種情況下，天一還要去打一場贏面不大的官司？」主動建議把智因也放進被告名單，「和我們的初衷不謀而合」。</dd>
+
+    <dt>蘇靜怡<span class="role">新京報記者</span></dt>
+    <dd>清冷的聲音，黑框眼鏡，手勁挺大。她問了那個當時誰都沒往下想的問題：<span class="q">「為什麼天一派出主管這個項目的不是王雲彪，而是你呢？」</span>第一篇報導最終沒有發表——「有些勢力她們也抵擋不住。」第二次陳遠帶著一支袖珍錄音機找上她，一週後全國爆發假藥致兒童死亡的群體性事件，頭版終於發了出去。</dd>
+
+    <dt>Frank 羅與 Jenny 黃<span class="role">仲德仕行北京 ED 與職員</span></dt>
+    <dd>Frank 是香港人，把國貿二期 25 樓那間分租辦公室介紹給天一，又替陳遠安排了唐櫻的面試與入職，還配合加簽了一份「每月三萬五、兩萬五轉給她」的顧問合約。Jenny 是重慶大足人，吳自江以為她是香港人結果是老鄉——她後來成了陳遠掩飾唐櫻身分時順手抓來的擋箭牌。而唐櫻辭職那天，正是在金融街一棟辦公樓裡接待客戶。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c7">
+  <h3 class="grouphead"><span class="swatch" style="background:#c9a0ff"></span>八　京城關係網・夜場</h3>
+  <p class="groupnote">六位。一頓飯、一場酒、一個包廂。全書最關鍵的兩件事——安拓的門和「川人」計畫——都是在這幾張桌子上定下來的。</p>
+  <dl class="people">
+    <dt>洪勉<span class="role">前發改委洪副主任的小兒子・中齊集團董事長</span></dt>
+    <dd>Prada 墨鏡、粉紅 Polo 立領、TODS 豆豆鞋。他一進門，有實權的處長司長都要讓出主位；整桌人的話題都繞著他轉。服務員打翻湯碗那晚，王東亮多此一舉替人賠罪，被他當場刺回：<span class="q">「王處，眼鏡度數不夠了吧？你哪只眼睛看到我被得罪了？」</span>不打不相識，此後打高爾夫也叫上王東亮——王東亮總覺得「這裡面沒那麼簡單」。他就是遞刀的那隻手。</dd>
+
+    <dt>歐陽司長<span class="role">衛生部・王東亮的上級</span></dt>
+    <dd>名片是典型國家機關統一印發的樣式，連手機號碼都沒有，只有單位座機。整晚和洪勉輕聲耳語。湯碗打翻那一刻，是他丟給王東亮那個要他出面賠罪的眼色。飯後要去 KTV 時找了藉口推辭——考慮到身份，意料之中。</dd>
+
+    <dt>馬處長<span class="role">藥監局</span></dt>
+    <dd>一宴幾局：他出現在這桌，是為了宏達那邊的行政手續。全書的「一桌幾局」文化，這一位是最典型的註腳。</dd>
+
+    <dt>林奎（林總）與杜建國（小杜）<span class="role">北京宏達醫療器械進出口公司副總經理與業務經理</span></dt>
+    <dd>林總機靈，會打圓場：洪勉臉色鐵青那一刻，是他先說了幾句軟話，又提議「找個地方唱唱歌」，把場子從飯桌轉到皇城。美國大使館酒會上他也在場——這也是王東亮勸陳遠別帶唐櫻進去的理由之一。</dd>
+
+    <dt>Tiffany 與佳佳<span class="role">長城喜來登舞廳的兩位女伴</span></dt>
+    <dd>羅嘉理與 Vincent 慶功之夜的產物。Vincent 弄丟房卡，陳遠把兩人先帶回自己房間等——房裡的燈全亮著，洗手間的門推開，唐櫻走了出來。<span class="q">「突然，房間裡變得異常寂靜，連呼吸聲都被抹去。」</span>這是壓垮兩人關係的最後一次巧合。</dd>
+  </dl>
+</section>
+
+<section class="cast" id="c8">
+  <h3 class="grouphead"><span class="swatch" style="background:#ffab5c"></span>九　楔子與後記</h3>
+  <p class="groupnote">兩位。全書的第一章和最後一節由他們撐起——四十年後的一個兒子，和一位不肯自報全名的女士。</p>
+  <dl class="people">
+    <dt>陳重飛<span class="role">深圳建築設計院設計師・陳遠與趙心如之子</span></dt>
+    <dd>父親心梗過世，他從深圳趕回成都辦後事。在錦官園養老院的書桌側櫃裡翻出木頭盒子，裡面只剩兩個泥人生肖；羊生肖鏡框背面貼著一張淺黃便條，上面是父親手書的 157 開頭的號碼——寫 7 字中間加一橫。這串號碼正是那個加密資料夾的密碼。<span class="q">「就在這時，他才第一次意識到父母已經永遠離開了自己。」</span></dd>
+
+    <dt>那位姓陳的女士<span class="role">杭州咖啡店的赴約者</span></dt>
+    <dd>157 號碼的主人：「還是原主，我不常用這個手機號。」面談地點是她定的：杭州香格里拉酒店右手邊的咖啡店，週六早上十點。走進來時「溫婉綽約，極有風韻」，陳重飛端詳著她的眉眼，突然感到一種莫名的親切。她開口說的第一句話是<span class="q">「我姓陳，請問怎麼稱呼？」</span>——小說在這裡收住，把媚姐那句「唐櫻留了一樣東西，和我有關」留給讀者自己接上。</dd>
+  </dl>
+</section>
+
+<footer class="end">
+  《彈指金剛》故事線與人物譜　·　別冊<br>
+  依據二稿 PDF（全二十章＋後記＋〈關於〉・172 頁）整理<br>
+  人物四十七位　·　關係十一類　·　關口四道
+</footer>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老熊職涯軌跡 ·《老熊自傳》附錄</title>
+<style>
+  :root{
+    --ink:#1c1a17;
+    --ink-soft:#4a453e;
+    --paper:#f3ece0;
+    --paper-2:#e9e0d0;
+    --rule:#c9bda6;
+    --seal:#9e2b25;
+
+    --p1:#3f5c46;  /* 求學．台灣 */
+    --p2:#6b5544;  /* 高分子．美國學界 */
+    --p3:#b3542f;  /* 西遷四試 */
+    --p4:#2c4a6e;  /* 演算法人 */
+    --p5:#5b3a63;  /* 化學計量首席 */
+
+    --body:30px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 18% 8%, rgba(255,255,255,.55), transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU","MS Mincho",serif;
+    font-size:var(--body);
+    font-weight:700;
+    line-height:1.85;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:64px 28px 120px}
+
+  /* ── 報頭 ───────────────────────── */
+  header{border-bottom:5px double var(--ink);padding-bottom:34px;margin-bottom:14px}
+  .eyebrow{
+    font-size:21px;letter-spacing:.9em;font-weight:800;color:var(--seal);
+    text-indent:.9em;margin:0 0 18px
+  }
+  h1{
+    font-size:80px;line-height:1.12;margin:0 0 20px;font-weight:800;
+    letter-spacing:.06em;
+  }
+  h1 small{display:block;font-size:32px;letter-spacing:.24em;color:var(--ink-soft);font-weight:700;margin-top:16px}
+  .deck{font-size:29px;font-weight:700;color:var(--ink-soft);margin:0;max-width:44em}
+
+  /* ── 圖例／篩選 ─────────────────── */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:14px;margin:38px 0 10px;padding:0;list-style:none
+  }
+  .chip{
+    appearance:none;cursor:pointer;font:inherit;font-size:23px;font-weight:700;
+    border-radius:3px;padding:12px 22px;display:flex;align-items:center;gap:12px;
+    position:relative;
+    background:#fffdf8;color:var(--ink);
+    border:2px solid var(--c);
+    box-shadow:0 5px 0 0 var(--c), 0 7px 10px rgba(28,26,23,.18);
+    transform:translateY(-3px);
+    transition:transform .1s ease,box-shadow .1s ease,background .14s,color .14s;
+  }
+  .chip .dot{
+    width:16px;height:16px;border-radius:50%;background:var(--c);
+    box-shadow:inset 0 0 0 3px rgba(255,255,255,.55);
+  }
+  .chip[aria-pressed="true"]{
+    background:var(--c);color:#fff;
+    transform:translateY(2px);
+    box-shadow:0 0 0 0 var(--c), inset 0 3px 7px rgba(0,0,0,.42);
+  }
+  .chip[aria-pressed="true"] .dot{background:#fff;box-shadow:inset 0 0 0 3px rgba(0,0,0,.22)}
+  .chip[aria-pressed="true"] .n{color:rgba(255,255,255,.82)}
+  .chip[aria-pressed="false"]{opacity:.72}
+  .chip:active{transform:translateY(2px);box-shadow:0 0 0 0 var(--c), inset 0 3px 7px rgba(0,0,0,.35)}
+  .chip:focus-visible{outline:3px solid var(--seal);outline-offset:4px}
+  .chip .n{font-size:20px;color:var(--ink-soft);font-variant-numeric:tabular-nums;font-weight:800}
+  .legend{align-items:flex-end}
+  .legend-2{margin-top:6px}
+  .track.empty .spine{display:none}
+  .track.empty{padding-left:0;min-height:0}
+  .hint{display:none;font-size:26px;font-weight:700;color:var(--ink-soft);
+    border:2px dashed var(--rule);padding:34px;text-align:center;margin:0}
+  .track.empty .hint{display:block}
+
+  .note{font-size:22px;color:var(--ink-soft);font-weight:700;margin:6px 0 0;line-height:1.7}
+
+  /* ── 時間軸 ─────────────────────── */
+  .track{position:relative;margin-top:56px;padding-left:104px}
+  .spine{
+    position:absolute;left:37px;top:8px;bottom:8px;width:8px;border-radius:4px;
+    background:linear-gradient(to bottom,
+      var(--p1) 0%,   var(--p1) 21%,
+      var(--p2) 21%,  var(--p2) 46%,
+      var(--p3) 46%,  var(--p3) 48%,
+      var(--p4) 48%,  var(--p4) 76%,
+      var(--p5) 76%,  var(--p5) 100%);
+    opacity:.85;
+  }
+  .stop{position:relative;margin-bottom:26px}
+  .stop[hidden]{display:none}
+
+  .seal{
+    position:absolute;left:-104px;top:6px;width:66px;height:66px;
+    background:var(--c);color:#fff;border-radius:3px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;
+    box-shadow:0 0 0 6px var(--paper);
+    letter-spacing:0;
+  }
+
+  .card{
+    width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;
+    background:#fbf7ef;border:2px solid var(--rule);border-left:10px solid var(--c);
+    padding:24px 28px;display:block;transition:transform .16s,box-shadow .16s;
+  }
+  .card:hover{transform:translateX(4px);box-shadow:6px 6px 0 rgba(28,26,23,.09)}
+  .card:focus-visible{outline:3px solid var(--seal);outline-offset:3px}
+  .role{font-size:22px;font-weight:800;letter-spacing:.2em;color:var(--c);margin:0 0 6px}
+  .place{font-size:39px;font-weight:800;margin:0;line-height:1.35;letter-spacing:.03em}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:12px;
+    font-size:22px;font-weight:700;color:var(--ink-soft)
+  }
+  .meta b{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+  .card::after{
+    content:"＋ 展開";float:right;font-size:20px;font-weight:800;color:var(--ink-soft);
+    margin-top:-30px
+  }
+  .stop.open .card::after{content:"－ 收合"}
+
+  /* 精度標籤 */
+  .prec{
+    display:inline-block;font-size:18px;font-weight:800;letter-spacing:.08em;
+    border:2px solid var(--ink-soft);color:var(--ink-soft);background:#fff;
+    padding:1px 9px;border-radius:2px;vertical-align:2px;margin-left:2px
+  }
+  .prec.d{border-color:var(--seal);color:var(--seal)}
+  .prec.e{border-style:dashed}
+
+  .detail{
+    display:none;background:#fff;border:2px solid var(--rule);border-top:0;
+    border-left:10px solid var(--c);padding:26px 30px 30px
+  }
+  .stop.open .detail{display:block}
+  .detail p{margin:0 0 16px;font-size:28px;font-weight:700}
+  .detail p:last-child{margin-bottom:0}
+  .detail b{font-weight:800}
+  .pull{
+    border-left:5px solid var(--c);padding:4px 0 4px 20px;margin:0 0 18px;
+    font-size:29px;font-weight:800;color:var(--ink)
+  }
+  .skills{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;padding:0;list-style:none}
+  .skills li{
+    font-size:20px;font-weight:800;border:2px solid var(--c);color:var(--c);
+    padding:4px 14px;border-radius:2px;background:#fff
+  }
+  .src{
+    font-size:21px;font-weight:700;color:var(--ink-soft);margin-top:18px;
+    border-top:1px solid var(--rule);padding-top:14px
+  }
+
+  /* ── 回選單 ─────────────────────── */
+  .back{
+    appearance:none;cursor:pointer;font:inherit;font-size:21px;font-weight:800;
+    margin-top:20px;padding:9px 20px;border-radius:3px;
+    background:#fffdf8;color:var(--c);border:2px solid var(--c);
+    box-shadow:0 4px 0 0 var(--c);transform:translateY(-2px);
+    transition:transform .1s ease,box-shadow .1s ease;
+  }
+  .back:active{transform:translateY(2px);box-shadow:0 0 0 0 var(--c)}
+  .back:focus-visible{outline:3px solid var(--seal);outline-offset:4px}
+
+  .totop{
+    position:fixed;right:26px;bottom:26px;z-index:20;
+    appearance:none;cursor:pointer;font:inherit;font-size:20px;font-weight:800;
+    line-height:1.25;text-align:center;
+    width:96px;height:96px;border-radius:50%;
+    background:var(--seal);color:#fff;border:3px solid #fffdf8;
+    box-shadow:0 6px 16px rgba(28,26,23,.35);
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .totop:hover{transform:translateY(-3px);box-shadow:0 9px 20px rgba(28,26,23,.4)}
+  .totop:active{transform:translateY(2px);box-shadow:0 3px 8px rgba(28,26,23,.35)}
+  .totop:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+
+  /* ── 收束 ───────────────────────── */
+  .coda{margin-top:78px;border-top:5px double var(--ink);padding-top:40px}
+  .coda h2{font-size:46px;font-weight:800;margin:0 0 24px;letter-spacing:.06em}
+  .coda ol{margin:0;padding-left:1.4em}
+  .coda li{margin-bottom:20px;font-size:28px;font-weight:700}
+  .coda li b{font-weight:800}
+
+  .ledger{width:100%;border-collapse:collapse;margin-top:12px;font-size:23px}
+  .ledger th,.ledger td{border:1px solid var(--rule);padding:10px 14px;text-align:left;font-weight:700}
+  .ledger th{background:var(--paper-2);font-weight:800;letter-spacing:.1em}
+  .ledger td b{font-weight:800;font-variant-numeric:tabular-nums}
+
+  footer{margin-top:60px;font-size:21px;font-weight:700;color:var(--ink-soft);text-align:center;line-height:2}
+
+  @media (max-width:760px){
+    :root{--body:22px}
+    .wrap{padding:40px 18px 80px}
+    h1{font-size:46px}
+    h1 small{font-size:22px}
+    .deck{font-size:22px}
+    .track{padding-left:0}
+    .spine{display:none}
+    .seal{position:static;width:52px;height:52px;font-size:24px;margin-bottom:-2px;box-shadow:none}
+    .place{font-size:28px}
+    .detail p,.coda li{font-size:22px}
+    .pull{font-size:23px}
+    .card::after{float:none;display:block;margin:12px 0 0}
+    .totop{width:74px;height:74px;font-size:17px;right:14px;bottom:14px}
+    .chip{font-size:19px;padding:10px 16px}
+    .ledger{font-size:18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">老熊隨筆 · 附錄</p>
+  <h1>從嘉義到紅木岸
+    <small>老熊職涯軌跡　全 24 站 · 一九七三 ─ 二〇二六</small>
+  </h1>
+  <p class="deck">一個嘉義中學的孩子，讀的是化工，做了十四年高分子，四十歲那年在帕沙迪納一間倉庫裡改行寫演算法，最後拿了六十項美國專利。每一站都可回到《老熊自傳》原章、《前進加州》或履歷查對；凡月份出自推定者，皆已標記。</p>
+</header>
+
+<div id="menu" style="scroll-margin-top:20px"></div>
+<ul class="legend" id="legend">
+  <li><button class="chip" data-phase="p1" aria-pressed="false" style="--c:var(--p1)"><span class="dot"></span>求學 · 台灣<span class="n">5 站</span></button></li>
+  <li><button class="chip" data-phase="p2" aria-pressed="false" style="--c:var(--p2)"><span class="dot"></span>高分子 · 美國學界<span class="n">6 站</span></button></li>
+  <li><button class="chip" data-phase="p3" aria-pressed="false" style="--c:var(--p3)"><span class="dot"></span>西遷四試<span class="n">4 站</span></button></li>
+  <li><button class="chip" data-phase="p4" aria-pressed="false" style="--c:var(--p4)"><span class="dot"></span>演算法人<span class="n">6 站</span></button></li>
+  <li><button class="chip" data-phase="p5" aria-pressed="false" style="--c:var(--p5)"><span class="dot"></span>化學計量首席<span class="n">3 站</span></button></li>
+</ul>
+<ul class="legend legend-2">
+  <li><button class="chip" data-phase="all" aria-pressed="false" style="--c:var(--seal)"><span class="dot"></span>全部顯示<span class="n">24 站</span></button></li>
+  <li><button class="chip" data-phase="none" aria-pressed="true" style="--c:var(--ink-soft)"><span class="dot"></span>全部隱藏<span class="n">0 站</span></button></li>
+</ul>
+<p class="note">七個按鍵連動：按下一鍵，其餘自動彈起（凹陷＝目前顯示）。開檔時停在「全部隱藏」。點任一站展開細節，每站底部與右下角紅鈕都可回到選單。<br>
+時間精度標記：<span class="prec d">日</span> 文獻明載日期　<span class="prec">月</span> 文獻明載月份　<span class="prec e">推定</span> 由前後文與當年制度推算，尚待本人校訂。</p>
+
+<div class="track empty" id="track">
+  <div class="spine" aria-hidden="true"></div>
+  <p class="hint">按上方任一階段鍵，或按「全部顯示」，即可展開該段職涯。</p>
+
+  <!-- 01 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">01</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">求 學</p>
+      <p class="place">嘉義高中 · 三年十二班</p>
+      <p class="meta"><span>嘉義市</span><span><b>1973.09 – 1976.06</b> <span class="prec e">推定</span></span><span>省立高中</span></p>
+    </button>
+    <div class="detail">
+      <p class="pull">「讀書應該以計件來代替計時。」——週會上教務主任的一句話</p>
+      <p>三年十二班，同班的還有雲林崙背來的<b>阿發</b>（林進發），五十年後兩人的回憶錄互為對照。校外補習的<b>賴正雄老師</b>（台大畢業）教英文——那一年聯考英文特別難，老熊考了 <b>83 分</b>，可能是嘉中考生前五名；數學則連高標都沒過。所幸台大工學院對數學無高標要求，遂以英文成績進了化工系，離電機系錄取分數不到一分。</p>
+      <p>「少年時的強項，到了中年竟成短處；少年時的弱項，反而成了一輩子吃飯的本事。」——後半生靠數學解題，英語卻始終拖後腿，也因此一輩子沒當過官、沒管過人。</p>
+      <ul class="skills"><li>聯考英文 83</li><li>台大化工錄取</li></ul>
+      <p class="src">《老熊自傳》第一章〈嘉中舊事〉。入學年份依「嘉中三年、1976 應屆畢業」回推。</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">02</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">被抓的公差</p>
+      <p class="place">第一屆全國中學生暑期物理研習會</p>
+      <p class="meta"><span>國立台灣師範大學分部 · 台北</span><span><b>1976.07.12 – 07.24</b> <span class="prec d">日</span></span><span>兩週 · 全台 80 人</span></p>
+    </button>
+    <div class="detail">
+      <p>聯考結束、放榜之前，老熊回嘉中辦事，在校園裡撞見教學組長與甲組第一名<b>吳志成</b>。組長一句「就你們兩個吧」，公差就派下來了——而老熊不過是甲組第四名。</p>
+      <p>研習會由<b>吳大猷</b>先生（時年六十九，甫卸任中研院物理所所長）親自主持授課。真正的目的不只是教物理，而是讓大學教師親眼看看當時高中物理教育的實況，回頭推動改革。此後連辦三年，成為日後資優保送制度之藍本；一九八三年起師大科教中心承辦的資優輔導升學計畫，至二〇〇〇年共 <b>1,316</b> 名高中生由此進入大學數理科系。</p>
+      <p class="pull">「一個臨時起意，一張公文，兩張車票。命運有時候，是用最隨意的形式發出來的。」</p>
+      <p>兩週下來，老熊與吳志成從點頭之交變成無話不談，後來同校同系四年，交情延續半世紀。這是全書「被推」母題的第一筆。</p>
+      <ul class="skills"><li>物理啟發式教學</li><li>吳大猷</li></ul>
+      <p class="src">《老熊自傳》第二章〈一九七六年的夏天〉；日期據師大科教中心「吳大猷科學教育紀念室」紀錄。</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">03</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">學 士</p>
+      <p class="place">國立台灣大學 化學工程學系</p>
+      <p class="meta"><span>台北</span><span><b>1976.09 – 1980.06</b> <span class="prec">月</span></span><span>B.S. · 一九八〇級</span><span>1980.01 考取本系碩士班</span></p>
+    </button>
+    <div class="detail">
+      <p>台大化工一九八〇級。四年與吳志成幾乎天天混在一起——那條線一路牽回嘉中校園裡那場兩分鐘的偶遇。</p>
+      <p>四十六年後，這一班的 LINE 群組人數正好顯示 <b>46</b>。老熊寫《向四十六年沒有聯繫的大學同學介紹老熊》，把大半輩子交了一份作業。他也在那篇裡提到：本班娶陸配者共三位，他是其中之一。</p>
+      <p>單元操作、程序設計、輸送現象——後半生一天也沒直接用上；但「用數學描述一個看不見的系統」這件事，正是四十年後機器學習的地基。</p>
+      <p>畢業前的<b>一九八〇年一月</b>前後考取本系碩士班，隨即保留學籍，先去當兵——研究所要等兩年後才真正開始（見第 04、05 站）。</p>
+      <ul class="skills"><li>化學工程</li><li>輸送現象</li><li>程序控制</li></ul>
+      <p class="src">《老熊自傳》第十章；履歷 EDUCATION 欄（B.S. in Chemical Engineering, NTU）。</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">04</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">服 役</p>
+      <p class="place">中華民國海軍</p>
+      <p class="meta"><span>台灣</span><span><b>1980.07 – 1982.05</b> <span class="prec d">月</span></span><span>義務役 · 約 1 年 11 個月</span></p>
+    </button>
+    <div class="detail">
+      <p>次序上這一站在碩士班<b>之前</b>：一九八〇年一月前後考取台大化工研究所，隨即<b>保留學籍</b>，先入伍服役。六月台大化工畢業，<b>七月入海軍</b>，至<b>一九八二年五月</b>役畢，九月才回學校報到唸碩士。</p>
+      <p class="pull">先考上，再當兵，役畢入學——學籍保留兩年，等於把研究所的門先鎖起來，鑰匙揣在身上進了軍中。</p>
+      <p>這也解釋了為什麼台大化工一九八〇級的他，出國時間會落在一九八四年：學士（1976–1980）＋海軍（1980–1982）＋碩士（1982–1984），一格不差。</p>
+      <ul class="skills"><li>海軍</li><li>研究所學籍保留</li></ul>
+      <p class="src">二〇二六年八月本人校訂補正。三份文獻原均未著墨此段。</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">05</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">碩 士</p>
+      <p class="place">國立台灣大學 化學工程研究所</p>
+      <p class="meta"><span>台北</span><span>入學考 <b>1980.01</b>／在學 <b>1982.09 – 1984</b> <span class="prec d">月</span></span><span>M.S. · 保留學籍二年後入學</span></p>
+    </button>
+    <div class="detail">
+      <p>一九八〇年一月前後考取，保留學籍去當海軍；<b>一九八二年九月</b>正式入學，一九八四年出國赴 Akron，兩年學制銜接得剛剛好。</p>
+      <p>這兩年留下的不是論文，而是<b>協力車相親烏龍事件</b>：同班蔡同學的妹妹在輔大服裝設計系揪了七八位女同學辦協力車郊遊聯誼。蔡同學本想作弊把老熊配給北一女出身的許小姐，忙中有錯配成了阿寶；老熊轉而與談吐大方的陳小姐發展，成了他在台灣唯一一位正式交往的女友。<b>值得一提的是，同組的鄭學長也是台塑做了四年事才回鍋考研的人</b>——那一屆的研究生，泰半都是繞過一圈才坐回教室裡的。</p>
+      <p class="pull">「十八歲那年我以為人生是自己考來的，後來才慢慢明白，很多事情其實是別人替我抽的。」</p>
+      <ul class="skills"><li>化工碩士</li></ul>
+      <p class="src">《老熊自傳》第三章〈協力車相親烏龍事件〉（標「讀碩期間」）；履歷 EDUCATION 欄；年月經二〇二六年八月本人校訂。</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">06</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">博 士 班</p>
+      <p class="place">The University of Akron · 高分子工程</p>
+      <p class="meta"><span>俄亥俄州 Akron</span><span><b>1984.09 – 1988.10</b> <span class="prec d">月</span></span><span>助教／助研 · 月俸約 <b>$600</b></span></p>
+    </button>
+    <div class="detail">
+      <p><b>一九八四年九月</b>入學，全美高分子專業前三名的學校，導師 <b>Prof. Çakmak</b>。論文題目是<b>射出成型</b>（injection molding）。</p>
+      <p><b>資格考</b>分兩次過關：<b>一九八五年五月</b>四科中先過三科，<b>同年十二月</b>補過最後一科。</p>
+      <p><b>一九八八年十月</b>前後完成博士論文口試（oral defense）——但這一天並不是畢業日，而是下一站的起點。</p>
+      <p class="pull">這四年的行情：月俸約 <b>$600</b>。口試通過後，年薪一口氣跳到約 <b>$18,000</b>——這條薪資階梯，是理解接下來三站的最好一把尺。</p>
+      <p>Akron 前後共待七年（1984–1991），田總待了五年。兩人對這座城市的記憶完全相反：老熊與導師相處愉快，離開後還時常回去探望；田總則一次也不願意再回去——她和她的指導教授處得並不好。</p>
+      <ul class="skills"><li>射出成型</li><li>高分子加工</li><li>DSC／X 光繞射／SEM</li><li>Raman 影像分析</li></ul>
+      <p class="src">履歷 EDUCATION 欄；《老熊自傳》第六章。資格考日期、口試月份與待遇經二〇二六年八月本人校訂補正。</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">07</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">自 創 名 目</p>
+      <p class="place">Pre-doc · 口試之後，畢業之前</p>
+      <p class="meta"><span>俄亥俄州 Akron</span><span><b>1988.10 – 1990.01</b> <span class="prec d">月</span></span><span>年薪約 <b>$18,000</b></span></p>
+    </button>
+    <div class="detail">
+      <p class="pull">「Pre-doc」——口試已過、學位未頒的那一年三個月。作者自稱此詞頗具原創性，且 <b>patent pending</b>。</p>
+      <p>口試一過，待遇便從月俸 <b>$600</b> 跳到年薪約 <b>$18,000</b>；身分卻仍是學生。工作內容也跟著岔開兩條：一邊接手<b>與論文不直接相關的其他計畫</b>，一邊還得抽時間把那本「stupid」論文寫完。</p>
+      <p>學術界少有正式名稱的一段真空期——不是博士生了（研究做完了），也還不是博士（字還沒寫完）。老熊給它取了個名字，這大概是他這輩子第一次把一個沒人命名的東西命名下來；十年後在帕沙迪納，他會用同樣的手法去命名一條沒人看見的<b>綠色鬼影帶</b>。</p>
+      <p><b>一九八八年十一月</b>，與田總在市政廳公證處結婚——時序上緊接著那次加薪。箇中因果，作者自己在敘述時留了一個 haha。婚宴是漢堡王的一頓特價早餐，因為公證處只訂到一大早的時段；辦完手續回宿舍睡了個回籠覺，下午照常進實驗室。老闆知道後很驚詫，說他該請幾天婚假，後來送了個很漂亮的桌式鐘當結婚禮物。</p>
+      <ul class="skills"><li>論文寫作</li><li>跨計畫支援</li><li>命名學（自創）</li></ul>
+      <p class="src">二〇二六年八月本人校訂補正；婚禮細節見《老熊自傳》第四章〈兩場「世紀婚禮」〉。</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">08</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">千 佬 · 兩 年 · 求 職</p>
+      <p class="place">留任 Akron 博士後 · 三場面談皆空</p>
+      <p class="meta"><span>俄亥俄州 Akron</span><span><b>1990.01 – 1991.08</b> <span class="prec d">月</span></span><span>年薪 <b>$19,000</b>（1990.01–12）→ <b>$20,000</b>（1991.01–08）</span></p>
+    </button>
+    <div class="detail">
+      <p><b>一九九〇年一月</b>正式獲頒博士學位（<b>畢業典禮沒去</b>），年薪再加一千，成為 <b>$19,000</b>——這才是 Akron 博士後的正式第一年，此數維持整整十二個月至<b>一九九〇年十二月</b>。找不到正式工作，只好留在指導教授手下續聘，自嘲為<b>「千佬」</b>（千年博士後）。</p>
+      <p><b>第二年的那場議價。</b>一九九一年一月，Çakmak 教授起初建議薪水就維持 $19,000；老熊<b>生平第一次為薪水討價還價</b>，堅持要再加一千。理由不是行情、不是物價，是：<b>如果連 $20,000 這個整數都構不到，實在有點難為情。</b>僵持了大約二十分鐘，教授同意了。<b>$20,000</b> 這個數字，從<b>一九九一年一月</b>領到<b>同年八月</b>離開 Akron 為止。</p>
+      <p class="pull">「兩萬」不是一個薪資數字，是一個心理門檻。人生第一次議價，爭的是一個整數。</p>
+      <p>同一時期，三場面談一場比一場接近，也一場比一場失落：</p>
+      <p><b>其一・隔壁州首府的塑膠廠</b>（1990 年初，飛行約半小時）。中小型塑膠加工廠，老闆是位臉上有大塊胎記的中年白人女性。只在辦公室單獨聊了約一小時，沒有演講、沒有午餐，當天飛回。仍然興奮——那是找事幾個月來第一次有公司出機票。</p>
+      <p><b>其二・BD Biosciences</b>（約 1990 年年中，北卡研究三角園區）。很正式的一整天面談。老闆是剛下台的前研發總經理，只能給工業界博士後、辦不了綠卡。臨走前對方問願不願意來，老熊說要回去與太太商量——回去後正式回絕。<b>這是唯一一場他自己推掉的。</b></p>
+      <p><b>其三・Ethicon</b>（1990 年底 – 1991 年初，紐澤西 Somerville，嬌生旗下）。完全符合條件：熱門的生醫材料＋能辦綠卡的全職正職。去了兩次，見了三層老闆（A／B／C），最後仍未錄取。</p>
+      <p>一九九〇年春末，老大在俄亥俄出生。</p>
+      <ul class="skills"><li>生醫材料</li><li>面談實戰</li><li>議價（初體驗）</li></ul>
+      <p class="src">《老熊自傳》第五章〈求職記〉；薪資階梯與議價過程經二〇二六年八月本人校訂補正。</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">09</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第 一 份 「 職 位 」</p>
+      <p class="place">University of Florida · 物理系</p>
+      <p class="meta"><span>佛州 Gainesville</span><span>抵達 <b>1991.08底</b>／入職 <b>1991.09 – 1992.03底</b> <span class="prec d">月</span></span><span>Associate Scientist · 年薪 <b>$28,000</b> → <b>$27,000</b></span></p>
+    </button>
+    <div class="detail">
+      <p>一九九一年初夏接到佛大物理系 <b>Prof. James Walker</b>（自傳中代稱「JW」）的電話。對方在電話裡開的價是 <b>$28,000</b>，並口頭承諾「這個工作能辦綠卡」，於是全家自租一台 <b>U-Haul</b> 從俄州千里迢迢南遷，八月底抵達，九月上工。</p>
+      <p>到了之後兩件事同時落空：從 HR 得知<b>根本辦不了綠卡</b>；實領薪水也從 $28,000 縮成 <b>$27,000</b>。從 Akron 那個爭來的 $20,000 看，帳面上仍是漲了三成五——只是漲幅裡有一千塊是憑空蒸發的。</p>
+      <p class="pull">頭銜叫 Associate Scientist，當時覺得總算不是博士後了。「但它其實還是個博士後。」</p>
+      <p>工作內容是替 <b>SSC</b>（超導超級對撞機）計畫做<b>閃爍體</b>：訂一台最便宜的射出成型機，調試後製作聚苯乙烯樣品塊。機器一直到他快離職前才到，所以整段時間幾乎閒著。</p>
+      <p class="pull">「這大概是我這輩子離宇宙大爆炸最近的一次了。」</p>
+      <p>同一實驗室的<b>哈大媽</b>（白人中年女子、名校化學博士、柯達待過三年）在這裡登場——下一站全靠她。同期田總順利拿到佛大電機系入學許可；為安置一歲多的兒子，先有美領館側門闖關，再有爺爺奶奶在羅湖關口的變通本事。</p>
+      <ul class="skills"><li>閃爍體</li><li>射出成型機調試</li><li>天體粒子物理見習</li></ul>
+      <p class="src">《老熊自傳》第六章、第七章（明載「一九九一年八月底 ─ 一九九二年三月底」）；上司姓名、入職月份與薪資經二〇二六年八月本人校訂補正。</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">10</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">六 年 主 業</p>
+      <p class="place">Louisiana Productivity Center（LPC）</p>
+      <p class="meta"><span>路易斯安那州 Lafayette · USL</span><span><b>1992.04.01 – 1998.05</b> <span class="prec d">日</span></span><span>Tenure track · 年薪 <b>$41,000</b> ＋暑期薪</span><span>人稱「Doc」</span></p>
+    </button>
+    <div class="detail">
+      <p><b>一九九二年愚人節</b>入職，職位<b>帶終身職軌（tenure track）</b>，LPC 給的年薪是 <b>$41,000</b>——比佛州那個 $27,000 幾乎翻了一倍半，這是他真正意義上的第一份正式工作。此外，暑假期間若手上有 <b>LEQSF</b> 或 <b>NSF</b> 的計畫經費，還可以再領 <b>一到兩個月</b>的 summer pay。</p>
+      <p>LPC 是個「怪胎」單位：西南路大（USL）科研室＋機械系＋當地石化原料廠＋州政府經濟發展局共同搞出來的機構，直屬科研副校長，成員多來自機械系；老熊應徵的位置，是他們與化工系合作搞高分子加工的一次嘗試——並且已從產業界化緣到一台巨大且幾乎全新的射出成型機。</p>
+      <p>機會來自<b>哈大媽</b>：她先去面試、當場錄取，卻嫌 package 的 terms 不夠好（她要副教授，不要苦熬五年的助理教授），拉扯數回後把老熊推薦上去。她還花了一個週末下午，把他的履歷脫胎換骨改了一遍，並傳授了一大堆面試技巧。</p>
+      <p class="pull">「可以說沒有她，我後半生的軌跡將大不相同。」——記恩人哈大媽</p>
+      <p>入職後不知為何（似乎由 LPC 的 director 起頭）也被稱作 <b>Doc</b>，大概因為他是 LPC 第一位博士；以至於後來開會提到 Doc，還得註明是哪一個 Doc（校長本人也叫 Doc）。<b>兩年後（1994）綠卡到手</b>，花了六到八千美金、整整兩年，外加一堆狗血破事。</p>
+      <p>路州六年，老熊自評是「炒博士論文冷飯」的六年：學校僱博士的主要目的是寫計畫書、向政府單位申請經費養研究生，與當地中小企業的互動很少。<b>一九九七年四月</b>田總帶兩個兒子北上加州入職 Intel，老熊獨自留守到<b>一九九八年五月</b>。</p>
+      <ul class="skills"><li>高分子射出成型</li><li>政府研究計畫</li><li>產學合作</li></ul>
+      <p class="src">《老熊自傳》第七章「本章帳房」（明載「一九九二年愚人節入職」）、第八章、第十章；《前進加州・終局》。</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">11</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">並 行 · 無 給 義 工</p>
+      <p class="place">USL 化學工程系 · 義務兼課</p>
+      <p class="meta"><span>路易斯安那州 Lafayette</span><span><b>1992 – 1998</b>（與第 10 站並行） <span class="prec e">推定</span></span><span>不支薪 · 終身職申請被全票否決</span></p>
+    </button>
+    <div class="detail">
+      <p class="pull">先把帳算清楚：<b>化工系這邊一毛錢也沒領。</b>薪水、職位、飯碗，全在 LPC；化工系純屬義工，圖的不過是一個助理教授的頭銜——萬一終身職過了，還能升個副教授。如此而已。</p>
+      <p>六年間做的事一樣也沒少：帶出<b>五、六個碩士</b>；教大學部<b>材料科學</b>與碩士班<b>高分子概論</b>；拿過一次 <b>NSF</b>（美國版國科會）與三四次 <b>LEQSF</b>（路州版 NSF）科研獎金，是<b>全化工系唯一拿到科研獎金的人</b>。（這些經費同時替他在 LPC 換來暑假的 summer pay——見第 10 站。）</p>
+      <p>第五年快結束時申請終身教職，遭全系教授——包括一位台大化工老學長——<b>全票否決</b>。他原本老神在在，也沒去找任何現任正教授拜票，事後才從一位外系台灣教授口中得知「原來還有這個門道」。</p>
+      <p class="pull">系主任的安慰是一段法國大革命式的比喻：我是系上唯一「有」的人，投票的多數是「沒有」的人。不是輸在能力，是被多數「無產者」送上了斷頭台。</p>
+      <p><b>那一票投的只是化工系的 tenure，與 LPC 的職位和薪水完全無關。</b>否決之後，LPC 那邊馬照跑、舞照跳，$41,000 照領。科研副校長讓他重新再試一次，他似乎含糊地答應了，接下來一年啥事都沒幹。</p>
+      <p class="pull">傷害性不大，屈辱性極大。</p>
+      <p>經濟上這一票確實不痛不癢——沒有少一塊錢，只是一個沒拿到的虛銜。<b>但精神上是另一回事。</b>系上唯一拿到科研經費的人、唯一在義務兼課還帶出五六個碩士的人，被全票否決；票是全系一起投的，其中還包括一位台大化工老學長。錢沒少，臉丟盡了。</p>
+      <p>不過帳要算得更遠一點才公道：<b>就算他們給了，他也不可能在那個地方長期待下去。</b>去意早已存在，那一票只是把時程往前推——真正的作用不是把他趕走，而是<b>加速</b>了離開。</p>
+      <ul class="skills"><li>材料科學</li><li>高分子概論</li><li>NSF／LEQSF 計畫主持</li><li>指導碩士 5–6 名</li></ul>
+      <p class="src">《老熊自傳》第八章〈前進加州〉「註・關於那次全票否決」；第十章。義工性質與 tenure 歸屬經二〇二六年八月本人校訂補正。</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="stop" data-phase="p3" style="--c:var(--p3)">
+    <div class="seal">12</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第 一 場 · 完 敗</p>
+      <p class="place">Kimberly-Clark · 消費品研發中心</p>
+      <p class="meta"><span>喬治亞州 Roswell（亞特蘭大近郊）</span><span><b>1997 年下半</b> <span class="prec e">推定</span></span><span>大型消費品公司 · 研發職</span></p>
+    </button>
+    <div class="detail">
+      <p>對，就是那家做紙尿褲的公司。KC 研發部門的負責人——一位中年精壯的韓國大叔——看到老熊在 LPC「協助中小企業解決問題」的宣傳，要他面試時給一場演講，談實務經驗。</p>
+      <p>老熊卻花了將近一週，把 <b>HBR 一九九七年五─六月號</b>那篇〈Technology Integration: Turning Great Research into Great Products〉的重點鋪在演講前半段，後半段才是博士論文的冷飯。</p>
+      <p>災難發生在開講約十五分鐘後：韓國大叔第二次要他直接跳過 HBR 那些「垃圾」，老熊仍說要快速講過去；大叔鐵青著臉喊停。<b>而前一晚他已在飯後閒聊時明確表示過，他們有興趣的只是實務經驗。</b>回到酒店後老熊曾考慮改稿，一則時間已晚，二則覺得一週的工夫可惜，遂什麼都沒做。</p>
+      <p>那位大叔原本期望甚高——前一晚特地到酒店迎接、請了頓大餐，餐後還在餐廳外聊了一陣，說自己在公司幹了很久，希望能培養一個接班人。</p>
+      <p class="pull">「現在回想起來，這是一次『謝謝他們沒有要我』的成功故事。」——若被錄取，就不會有後來的電子鼻公司，也就沒有從高分子轉行演算法的後半場。</p>
+      <ul class="skills"><li>Success Story（自此學會）</li><li>教訓：客戶要什麼就講什麼</li></ul>
+      <p class="src">《前進加州・終局》第一場。年份據該文「一九九七年……那一年我經歷了四場面試」；月份由 HBR 該期出刊時間（1997 年 5–6 月）後推。</p>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="stop" data-phase="p3" style="--c:var(--p3)">
+    <div class="seal">13</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第 二 場 · 懸 而 不 決</p>
+      <p class="place">DSM Thermoplastic Elastomers</p>
+      <p class="meta"><span>麻州 Leominster（波士頓西北約 70 km）</span><span><b>1997 年下半 – 1998</b> <span class="prec e">推定</span></span><span>荷蘭商 · 研發（實近 FAE）</span></p>
+    </button>
+    <div class="detail">
+      <p>機會好像是博導 <b>Prof. Çakmak</b> 介紹的，原因之一是這家公司的研發部門（整個部門頂多五、六人）裡有<b>整整三個</b>是 Akron 母系出去的人，包括研發副總。</p>
+      <p>副總 <b>Richard</b>，波蘭人，曾在系上當過博後；小王是老熊最熟的（一九八六年秋首次見到田總的那個迎新會上，坐他旁邊的訪問學者就是他），後來以傑出人才拿綠卡；還有一位在系上只讀了碩士的伊朗人。</p>
+      <p>得失心太大，前一晚幾乎沒睡；那小小的研發辦公室又熱又悶，到了下午幾乎張不開眼。因為都是熟人，沒太拿技術問題刁難，倒是描述了日常工作——大都是拜訪客戶、幫他們解決問題，<b>從後來的工業界經驗看，這更像是個 FAE（Field Application Engineer）的職位</b>。</p>
+      <p class="pull">「等這份工作的結果是我遇過最奇葩的一次……拖了感覺有沒有近一年？等到最後我得到被拒的消息時，似乎已經不重要了。」</p>
+      <p>公司背景：Leominster 廠原是加拿大 Polysar 的 Sarlink 生產線，一九九〇年遷來、一九九二年由 DSM 接手，做熱塑性硫化膠（TPV）供汽車門封條與玻璃導槽。九〇年代中期大舉擴產、力推 Sarlink 4000 系列進軍汽車市場——一九九七至九八年間找一位高分子博士來面試，時間點正好對得上。</p>
+      <ul class="skills"><li>熱塑性彈性體 TPV</li><li>汽車密封件</li></ul>
+      <p class="src">《前進加州・終局》第二場及註 5。月份未載，依「1997 年四場面試之第二場、結果拖了近一年」推定。</p>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="stop" data-phase="p3" style="--c:var(--p3)">
+    <div class="seal">14</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第 三 場 · 成 功</p>
+      <p class="place">Cyrano Sciences · 面試與 Offer</p>
+      <p class="meta"><span>加州 Pasadena · 73 North Vinedo Ave</span><span>面試 <b>1998.04下旬</b>／Offer <b>1998.05初</b> <span class="prec e">推定</span></span><span>Caltech 衍生新創 · 成立僅 13 個月</span></p>
+    </button>
+    <div class="detail">
+      <p>四場之中唯一成功的一場，也是全書轉折點。Cyrano Sciences <b>一九九七年三月</b>成立於帕沙迪納一間不起眼的倉庫，為<b>加州理工學院衍生公司</b>；同年四月取得電子鼻平台全球獨家授權，技術源自化學系教授 <b>Nathan Lewis</b> 的導電高分子複合感測器陣列。出任臨時執行長的，是一位棄醫從商的創投家。</p>
+      <p class="pull">「一家成立十三個月的 Caltech 衍生公司，為什麼會要一個做高分子的路州博士？他們當時心裡缺的是什麼位置？」——《終局》作者自問，至截稿仍為 placeholder</p>
+      <p>Offer letter 由 <b>FedEx</b> 送抵路州家中，發現的時機極其戲劇：那是個典型的濕悶美南初夏上午，老熊已開了車庫門要出發去 TRI 面試，臨行前突然想回頭看看大門有沒有鎖，走近時才在門左側擋雨的屋簷地上看見那個信封。距離他從洛杉磯回來，不過一個星期。</p>
+      <p>對照組：「一邊是大公司花錢請人來講創業精神，講的人自己還在炒冷飯；一邊是幾個人在倉庫裡，真的把公司開起來了。」</p>
+      <ul class="skills"><li>導電高分子感測陣列</li><li>電子鼻</li><li>Caltech spin-off</li></ul>
+      <p class="src">《前進加州・終局》第三場、第四場、尾聲及註 4。日期由「1998.05.11 報到」「上個星期才從洛杉磯（回來）」回推。</p>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="stop" data-phase="p3" style="--c:var(--p3)">
+    <div class="seal">15</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第 四 場 · 已 不 重 要</p>
+      <p class="place">Texas Research Institute Austin（TRI）</p>
+      <p class="meta"><span>德州 Austin</span><span><b>1998.05 初</b> <span class="prec e">推定</span></span><span>國防／政府合約研究機構</span></p>
+    </button>
+    <div class="detail">
+      <p>「第四場不算失敗，只是已經不重要了。」——因為出發去面試的那個早上，他在自家門前撿到了 Cyrano 的 offer。</p>
+      <p>TRI Austin 一九七五年由 <b>J. Scott Thornton</b> 創立，做高分子、複合材料與非破壞檢測；主要客戶是美國海軍、國防部與 NASA，經費大宗來自 <b>SBIR</b> 這類政府研究合約。</p>
+      <p>若以路徑論，這其實是最「順理成章」的一站——高分子＋複合材料＋政府合約，幾乎是路州六年的直接延長線。它沒有被選中，正是老熊職涯真正拐彎的證據。</p>
+      <ul class="skills"><li>複合材料</li><li>非破壞檢測</li><li>SBIR</li></ul>
+      <p class="src">《前進加州・終局》第四場及註 6。</p>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">16</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">首 席 科 學 家 · 十 年</p>
+      <p class="place">Cyrano Sciences → Smiths Detection</p>
+      <p class="meta"><span>加州 Pasadena</span><span><b>1998.05.11 – 2008.06</b> <span class="prec d">日</span></span><span>Caltech 新創 → 英商併購 · Principal Scientist</span></p>
+    </button>
+    <div class="detail">
+      <p><b>一九九八年五月十一日</b>一個人報到（田總與兩個兒子仍在北加）。滿走廊都是頂尖名校博士，而他的履歷攤開只有兩行：路易斯安那西南大學，以及聽起來像替農機具打蠟上油的「路易斯安那生產力中心」。</p>
+      <p><b>那年年底的初試啼聲</b>：前線工程師回報怪案——同一類真樣品，離類心近的判對、更遠的也判對，偏偏中間一排判錯（96.8%，錯判 6/188）。老熊拿自己私下手癢磨的「類域著色視覺化工具」（參考 SigmaPlot 路數）一照，導師 <b>AJ</b> 開發的公司預設引擎 <b>idws</b> 的紅色領土正中央，硬生生裂開一條綠色<b>鬼影帶</b>，六個錯判樣品一個不多一個不少全住在裡面。病理是 idws 讓「單一最近對手」獨裁決定消退速度。他於是自寫新引擎 <b>idcn</b>——所有對手以反距離權重平滑摻和，決策面處處連續——<b>錯判歸零（100%，0/188）</b>。</p>
+      <p class="pull">「推力只給方向，鏡子才給本事：少了那面私下磨的鏡子，被推的人不會走得更遠，只會被推倒。」</p>
+      <p>任內把<b>支援向量機（Support Vector Machine／SVM）</b>引進公司，此後它一路坐上預設演算法引擎的寶座——比業界主流採用約早了四年。他領導 informatics 團隊，做即時（動態）圖形分類、正交感測技術的資料融合、感測器網路、漂移校正、儀器間校正轉移，應用從軍方反恐（<b>CBRN</b>）到工業與醫療；感測基礎涵蓋導電高分子複合材料與<b>離子遷移譜（IMS）</b>，並以 Matlab 與 C++ 自動化整條資料分析流水線。另有一項以紅外熱像影像分析為基礎的新型化學／生物感測系統專利。</p>
+      <p>公司大事：首件產品 <b>Cyranose 320</b> 於二〇〇〇年第二季問世；<b>二〇〇四年三月</b>為英國 Smiths Group 旗下 <b>Smiths Detection</b> 併購。此期間累計 <b>19 項</b>美國專利。</p>
+      <ul class="skills"><li>SVM／結構化 SVM</li><li>IMS 離子遷移譜</li><li>感測陣列陣列化</li><li>漂移校正・校正轉移</li><li>資料融合</li><li>Matlab／C++</li><li>19 patents</li></ul>
+      <p class="src">履歷 EXPERIENCE（May, 1998 – Jun, 2008）；《老熊自傳》第九章〈老熊初試啼聲〉、第十章年表；《前進加州・終局》註 4。</p>
+    </div>
+  </section>
+
+  <!-- 17 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">17</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">醫 材 · 帶 隊</p>
+      <p class="place">Optiscan Biomedical Corp.</p>
+      <p class="meta"><span>加州 Hayward</span><span><b>2008.07 – 2010.07</b> <span class="prec">月</span></span><span>醫療器材公司 · Sr. Algorithm Scientist</span></p>
+    </button>
+    <div class="detail">
+      <p>離開南加、北返灣區的第一站。帶領演算法團隊開發<b>加護病房（ICU）</b>用的連續多成分監測儀——葡萄糖、乳酸與各種干擾物，在醫院最緊繃的環境裡，於床邊提供自動、頻繁且高精度的血糖／乳酸量測。</p>
+      <p>方法上是近紅外光譜＋<b>局部偏最小二乘迴歸（Local PLS）</b>＋<b>SVM</b>／結構化 SVM（multi-label、multiclass）＋貝氏／最大概似估計。履歷裡把這一段的貢獻歸納為一句：<b>解決了健康監測儀器演算法開發的關鍵問題——校正轉移（calibration transfer）</b>。</p>
+      <p>這是老熊第一次把「化學世界的訊號」直接架在人身上；十五年後在 Viavi 做生理感測與生物特徵健康監測，源頭就在這裡。</p>
+      <ul class="skills"><li>Local PLS 迴歸</li><li>structured SVM</li><li>校正轉移</li><li>NIR 生醫光譜</li><li>ICU 連續監測</li></ul>
+      <p class="src">履歷 EXPERIENCE（July, 2008 – July, 2010）；《老熊自傳》第十章年表。</p>
+    </div>
+  </section>
+
+  <!-- 18 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">18</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">政 府 研 究</p>
+      <p class="place">NASA Ames Research Center · 奈米科技組</p>
+      <p class="meta"><span>加州 Mountain View</span><span><b>2010.11 – 2012.01</b> <span class="prec">月</span></span><span>聯邦研究中心 · Ames Associate／Sr. Research Scientist</span></p>
+    </button>
+    <div class="detail">
+      <p>參與由<b>國土安全部（DHS）</b>資助的 <b>Cell-All</b> 專案——把化學感測能力塞進手機。老熊負責開發並實作<b>連續監測（surveillance mode）</b>，以及化學感測器的訊號處理與演算法。</p>
+      <p>同時替奈米科技組建立 nanochem 感測器訊號處理的新能力，讓微型化學感測模組具備更完整的功能，兼顧 NASA 任務與民用場景。</p>
+      <p>這是他職涯中唯一一段在政府研究機構的經歷，也是二十六年演算法主線上與「國防／公共安全」最接近的一次回望——上一次是 Cyrano／Smiths 的 CBRN。</p>
+      <ul class="skills"><li>奈米化學感測器</li><li>連續監測模式</li><li>訊號處理</li><li>DHS Cell-All</li></ul>
+      <p class="src">履歷 EXPERIENCE（Nov, 2010 – Jan, 2012）；《老熊自傳》第十章年表。</p>
+    </div>
+  </section>
+
+  <!-- 19 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">19</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">新 創 · 大 數 據</p>
+      <p class="place">Bidgely Inc.</p>
+      <p class="meta"><span>加州 Sunnyvale</span><span><b>2012.02 – 2012.09</b> <span class="prec">月</span></span><span>能源分析新創 · Energy Analytic Data Scientist</span></p>
+    </button>
+    <div class="detail">
+      <p>不加任何硬體，光憑總電表訊號，把一戶人家的用電<b>拆解到每一件家電</b>（disaggregation／NILM），讓用戶拿到逐項計費資訊與個人化節能建議。</p>
+      <p>技術路線：Python 物件導向、非監督＋半監督＋監督式學習串接，搭配 <b>LIBLINEAR SVM</b>，處理真實世界的 Big Data。這是老熊第一次離開「化學訊號」，把同一套時序圖形辨識的手藝搬到完全不同的領域——結果證明手藝是可攜的。</p>
+      <ul class="skills"><li>NILM 用電拆解</li><li>LIBLINEAR SVM</li><li>半監督學習</li><li>Python OOP</li></ul>
+      <p class="src">履歷 EXPERIENCE（Feb-Sept, 2012）；《老熊自傳》第十章年表。</p>
+    </div>
+  </section>
+
+  <!-- 20 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">20</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">兩 週 · 未 列 入 履 歷</p>
+      <p class="place">BD Biosciences</p>
+      <p class="meta"><span>未列入履歷</span><span><b>2013.02 初 – 2013.02 中</b> <span class="prec e">推定</span></span><span>約兩星期</span></p>
+    </button>
+    <div class="detail">
+      <p class="pull">全份軌跡裡唯一一站不在履歷上的——因為它只有<b>兩個星期</b>。</p>
+      <p>二〇一三年二月初報到。<b>到職第一個星期，Apple 的 offer 就來了。</b>依規矩必須給主管兩星期預告，於是他把那兩星期做滿，然後走人。前後大約十四天。</p>
+      <p>因為太短，這一站從來沒有寫進履歷，也沒有出現在《老熊自傳》第十章的年表裡。若不特別問起，它在所有文件上都不存在——但它確實發生過，而且正好卡在 Bidgely 與 Apple 之間，把原本看起來連續的那一段補上了一個真實的接縫。</p>
+      <p class="pull">同一塊招牌，隔了二十三年。</p>
+      <p>還有一層巧合，得把時間軸拉回頭才看得見。<b>一九九〇年前後</b>博士畢業四處碰壁的那一輪，他去過<b>北卡研究三角園區</b>面試——那家公司，與二〇一三年二月報到的這一家，<b>是同一個母公司</b>（Becton Dickinson）。當年臨走前人家問他要不要來，他沒點頭，接著是一年多粒米無收。二十三年後他總算走進了同一塊招牌底下，<b>待了十四天</b>。</p>
+      <p class="src">二〇二六年八月本人補述。三份文獻（履歷、《老熊自傳》、《前進加州》）均無記載；起訖日期為本人回憶的概數，職稱與工作地點待補。</p>
+    </div>
+  </section>
+
+  <!-- 21 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">21</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">七 個 月 · 唯 一 一 家 巨 頭</p>
+      <p class="place">Apple Inc. · 應用機器學習研究</p>
+      <p class="meta"><span>加州 Cupertino</span><span><b>2013.02 – 2013.08</b> <span class="prec">月</span></span><span>Senior Data Scientist</span></p>
+    </button>
+    <div class="detail">
+      <p>正式受僱單位中<b>次短的一站</b>（最短的是前一站那兩個星期），也是唯一一次進入超大型科技公司。兩條任務線：</p>
+      <p><b>其一・退貨根因分析。</b>以預測模型做技術支援問題的診斷與根因分析，用 NLP 加上半監督／非監督／監督式學習，找出蘋果退回產品的根本原因。</p>
+      <p><b>其二・意圖式搜尋比對。</b>用主題模型（<b>Latent Dirichlet Allocation</b>）從文件與關聯查詢中萃取使用者意圖，以 Python 建立意圖式查詢分類模型，再用推薦系統式的多變量迴歸（如 <b>SVR</b>，支援向量迴歸）把查詢與文件依相關性遞減比對。</p>
+      <p>從電子鼻到退貨單，處理的仍是同一件事：從雜訊裡把結構讀出來。</p>
+      <ul class="skills"><li>NLP</li><li>LDA 主題模型</li><li>SVR 支援向量迴歸</li><li>推薦系統</li></ul>
+      <p class="src">履歷 EXPERIENCE（Feb - Aug, 2013）；《老熊自傳》第十章年表。</p>
+    </div>
+  </section>
+
+  <!-- 22 -->
+  <section class="stop" data-phase="p5" style="--c:var(--p5)">
+    <div class="seal">22</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">首 席 化 學 計 量 學 家 · 十 一 年</p>
+      <p class="place">JDSU → Viavi Solutions</p>
+      <p class="meta"><span>加州 Santa Rosa</span><span><b>2013.09 – 2024</b> <span class="prec">月</span></span><span>光電量測上市公司 · Principal Research Scientist／Chief Chemometrician</span></p>
+    </button>
+    <div class="detail">
+      <p>職涯最長的一站，也是頭銜最貼身的一站——<b>首席化學計量學家</b>。任務是替手持式／行動式<b>近紅外光譜儀</b>開發辨識與定量演算法及預測模型，涵蓋 <b>PAT 製程監控</b>（如混合均勻度研究）、生理感測、生物特徵生命徵象健康監測，以及製藥、食品、國防安全、工業與消費應用。</p>
+      <p>三條主軸：<br>
+      一、<b>建立預測模型的整個生態系</b>——資料整備、建模、以自動化資料分析流水線做模型最佳化、以 link-graph 方法做模型診斷、模型更新與維護，以及跨儀器、跨光譜母體的<b>模型轉移</b>。<br>
+      二、<b>建立質性與量化 NIR 光譜庫</b>——生理感測、生物特徵健康監測、藥廠原料鑑定、食品完整性與新鮮度檢測、動物飼料分析、PAT 製程監控。<br>
+      三、把 Matlab 的圖形分類、機器學習與化學計量程式碼<b>落地到 C# 與 C++</b>，並開發 GUI 資料分析工具（前處理、建模、診斷、連結圖分析、根因分析、情境分析）。</p>
+      <p>期間 JDSU 於二〇一五年分拆為 Viavi Solutions 與 Lumentum，老熊留在 Viavi。此期間累計 <b>29 項</b>美國專利，是六十項專利中最大的一批。<b>二〇二四年退休。</b></p>
+      <ul class="skills"><li>手持 NIR 光譜</li><li>PAT 製程監控</li><li>模型轉移</li><li>link-graph 模型診斷</li><li>光譜庫建置</li><li>C#／.NET／C++</li><li>29 patents</li></ul>
+      <p class="src">履歷 EXPERIENCE（Sept, 2013 – 2024）與 SUMMARY；《老熊自傳》第十章年表與「老熊小檔案」。</p>
+    </div>
+  </section>
+
+  <!-- 23 -->
+  <section class="stop" data-phase="p5" style="--c:var(--p5)">
+    <div class="seal">23</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">退 休</p>
+      <p class="place">家庭煮夫 · 加州紅木岸</p>
+      <p class="meta"><span>Redwood Shores, CA</span><span><b>2024 –</b> <span class="prec">月</span></span><span>正式職稱：家庭煮夫</span></p>
+    </button>
+    <div class="detail">
+      <p>從舊金山往南沿 101 走約四十分鐘，過了 San Mateo、還沒到 Redwood City，有一片伸進舊金山灣的低窪地——那就是紅木岸。填出來的一片水鄉，社區之間全是人工潟湖，後陽台正對湖面。</p>
+      <p>分工非常清楚：<b>田總負責賺錢和修東西，老熊負責做飯，順便寫程式和寫回憶錄。</b>（田總，上海人，上海交通大學畢業，八〇年代出來唸書，Akron 五年、佛大電機、路州以全額獎學金唸完電腦系，現任職本地一家工程顧問公司，兼家中首席修繕工。）</p>
+      <p>退休生活三件事：<b>一、繼續寫程式</b>——維護自己的一套 MATLAB 化學計量工具箱，沒有客戶、沒有老闆、沒有期限，純粹為了好玩；前陣子還修了一個藏了二十五年沒被發現的老臭蟲。<b>二、寫回憶錄</b>——《老熊隨筆》系列，繁體中文，一篇一篇把四十六年拆開來寫。<b>三、當個雜食的讀者</b>——看兩岸新聞、看 AI 產業的荒謬與奇蹟、看世界盃、看國際數學家大會的獎項名單。</p>
+      <p class="pull">「台大化工一九八〇級，一個從射出成型走到機器學習的人，六十項專利，兩個兒子，一位上海交大出身、如今還在上班的太太，現居加州紅木岸，退休在家當煮夫，但沒閒著。」</p>
+      <ul class="skills"><li>MATLAB CMS 工具箱</li><li>老熊隨筆</li><li>買菜做飯跑 Costco</li></ul>
+      <p class="src">《老熊自傳》第十章〈現在的我〉、「老熊小檔案」。</p>
+    </div>
+  </section>
+
+  <!-- 24 -->
+  <section class="stop" data-phase="p5" style="--c:var(--p5)">
+    <div class="seal">24</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">創 辦 人</p>
+      <p class="place">Chemical Machine Sensing Inc.（CMS）</p>
+      <p class="meta"><span>加州</span><span><b>2025 –</b> <span class="prec">月</span></span><span>自行創辦 · Founder</span></p>
+    </button>
+    <div class="detail">
+      <p>退休後一年自行創辦，開發<b>非參數核方法的非線性化學計量分析平台</b>（Nonparametric Kernel-Based Nonlinear Chemometrics），用來解決真實世界的化學／生物 AI 應用。</p>
+      <p>技術上這是一條清楚的收束線：一九九八年那間倉庫裡，他為了看懂儀器訊號自己磨了一面鏡子（類域視覺化）、自己開了一帖藥（idcn 反距離權重平滑）；二十七年後，CMS 做的仍是同一件事的成熟版——把核方法與非參數統計正式端上檯面。CDA 星圖、PCA-SVM 凸包視覺化、多種分類器（SVM 線性／RBF、QDA、Naive Bayes、Boosted Trees、Logistic Regression）與標準化資料集格式，都在這套 MATLAB 套件裡。</p>
+      <p class="pull">「我不是『轉行』，而是『在同一棟樓裡從地下室搬到了頂樓』——樓還是那棟化學的樓，只是視野換了、工具換了，而我也從摸材料的人，變成了讀訊號的人。」</p>
+      <ul class="skills"><li>核方法</li><li>非參數化學計量</li><li>CDA／PCA-SVM 視覺化</li><li>MATLAB 分類器套件</li></ul>
+      <p class="src">履歷 EXPERIENCE（Chemical Machine Sensing Inc. 2025, Founder）；《老熊自傳》第十章年表。</p>
+    </div>
+  </section>
+</div>
+
+<section class="coda">
+  <h2>四條貫穿全程的線</h2>
+  <ol>
+    <li><b>被推的人走得遠。</b>綠卡辦不成，所以去了佛州；路州化工系那一票把離開的時程提前，所以搬去加州；南加那家新創需要有人解讀感測器陣列的訊號，剛好沒別人願意接，所以他開始寫演算法。從一九七六年嘉中校園裡那句「就你們兩個吧」開始，每一次換跑道的起因幾乎都不是雄心壯志，而是被推——「因為他從來不知道哪裡是邊界，也就不會提前停下來。」</li>
+    <li><b>但推力只給方向，鏡子才給本事。</b>一九九八年那樁怪案落到他頭上是被推的；破得了案，是因為那一刻他手上剛好有一面自己磨了很久的鏡子——那套類域著色工具沒有專案編號、沒有交期、沒有人交代他寫，純粹手癢。這條線一路延續到退休後還在修二十五年前的老臭蟲，以及二〇二五年的 CMS。</li>
+    <li><b>不知道有規矩，是走得遠的代價。</b>申請終身教職不曉得要一間一間拜票；憑一句口頭承諾就租了 U-Haul 舉家南遷，到了才知道綠卡辦不成、薪水還縮了一千；北卡那個位置人家臨走前問他要不要來，他沒點頭，接著就是一年多粒米無收（二十三年後他終究進了同一個母公司，見第 20 站，待了兩星期）；Kimberly-Clark 那場，客戶已經講了兩次不要聽 HBR，他還是要講完。這幾張帳單分別記在第五、六、八章與《終局》第一場，沒有一張是漂亮的。</li>
+    <li><b>四十年只處理同一樣東西：一段來自化學世界的訊號。</b>射出成型 → 高分子加工 → 導電高分子感測器 → 讀不懂訊號只好自己寫演算法 → 演算法愈寫愈多，就成了寫演算法的人。工具全換了（從 DSC、X 光繞射、電子顯微鏡，到 MATLAB、Python、C++、SVM、PLS），身分也全換了（從穿白袍動手做實驗，到盯著螢幕看數字），但那條主線一天也沒斷。</li>
+  </ol>
+
+  <h2 style="margin-top:56px">一 頁 帳 房</h2>
+  <table class="ledger">
+    <tr><th style="width:26%">項目</th><th>數字</th></tr>
+    <tr><td>正式受僱單位</td><td><b>9</b> 家（含自創 1 家）：UF · LPC/USL · Cyrano/Smiths · Optiscan · NASA Ames · Bidgely · <b>BD Biosciences</b> · Apple · JDSU/Viavi ＋ CMS</td></tr>
+    <tr><td>最長一站</td><td>JDSU／Viavi <b>11</b> 年（2013–2024）；次為 Cyrano／Smiths <b>10</b> 年</td></tr>
+    <tr><td>最短一站</td><td>BD Biosciences 約 <b>2</b> 星期（2013.02，未列入履歷）；正式列名者為 Apple <b>7</b> 個月（2013.02–08）</td></tr>
+    <tr><td>高分子生涯</td><td><b>1984 – 1998</b>，約 14 年</td></tr>
+    <tr><td>演算法生涯</td><td><b>1998 – 2024</b>，約 26 年（退休後續行）</td></tr>
+    <tr><td>美國專利</td><td><b>60</b> 項 · <b>27</b> 個專利家族（Viavi／JDSU <b>29</b>，Smiths Detection／Cyrano <b>19</b>，其餘散在各處）</td></tr>
+    <tr><td>落腳過的州</td><td>Ohio · Florida · Louisiana · California（南加 → 北加）</td></tr>
+    <tr><td>綠卡</td><td>承諾 <b>1991</b> 落空 → LPC 代辦，<b>1994</b> 到手（花 6–8 千美金、整整兩年）</td></tr>
+    <tr><td>薪資階梯（前十年）</td><td>Akron 博士班 月 <b>$600</b> → pre-doc <b>$18K</b>（1988.10）→ 博後一年 <b>$19K</b>（1990.01–12）→ 博後二年 <b>$20K</b>（1991.01–08，議價而得）→ 佛大 <b>$27K</b>（1991.09，開價 $28K）→ LPC <b>$41K</b>＋暑期薪（1992.04）</td></tr>
+    <tr><td>1997 那一票</td><td>投的僅是 <b>USL 化工系</b>的 tenure；化工系職務<b>無給</b>，與 LPC 職位、$41K 年薪<b>完全無涉</b>。<b>傷害性不大，屈辱性極大</b>；去意本已存在，此票只是加速了離開</td></tr>
+    <tr><td>轉折日</td><td><b>1998 年 5 月 11 日</b>，帕沙迪納 73 North Vinedo Avenue</td></tr>
+  </table>
+</section>
+
+<footer>
+  《老熊自傳》精簡本 · 全十篇　／　《前進加州 — 終局》　／　Résumé: Chang Hsiung, Chemometrician（60 patents）<br>
+  職涯軌跡整理 · 二〇二六年八月 · 加州紅木岸<br>
+  凡標 <span class="prec e">推定</span> 者皆為據前後文推算，尚待本人校訂<br>
+  第 03–10 站（海軍役期・碩士保留學籍・資格考・pre-doc・薪資階梯・James Walker・LPC 待遇）<br>
+  已於二〇二六年八月經本人校訂補正
+</footer>
+
+</div>
+
+<button class="totop" id="totop" type="button">▲<br>回選單</button>
+
+<script>
+(function(){
+  var menu = document.getElementById('menu');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function toMenu(){
+    menu.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  }
+  document.getElementById('totop').addEventListener('click', toMenu);
+
+  // 每一站底部插入「回選單」
+  document.querySelectorAll('.stop .detail').forEach(function(detail){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'back';
+    b.textContent = '▲ 回選單';
+    b.addEventListener('click', toMenu);
+    detail.appendChild(b);
+  });
+
+  // 展開／收合
+  document.querySelectorAll('.stop').forEach(function(stop){
+    var btn = stop.querySelector('.card');
+    btn.addEventListener('click', function(){
+      var open = stop.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // 階段選鍵：整排連動，按下一鍵，其餘全部彈起
+  var chips = document.querySelectorAll('.chip');
+  var stops = document.querySelectorAll('.stop');
+
+  function apply(phase){
+    chips.forEach(function(c){
+      c.setAttribute('aria-pressed', c.dataset.phase === phase ? 'true' : 'false');
+    });
+    stops.forEach(function(stop){
+      var show = (phase === 'all') || (phase === stop.dataset.phase);
+      stop.hidden = !show;
+      if(!show){
+        stop.classList.remove('open');
+        stop.querySelector('.card').setAttribute('aria-expanded','false');
+      }
+    });
+    document.getElementById('track').classList.toggle('empty', phase === 'none');
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){ apply(chip.dataset.phase); });
+  });
+
+  apply('none');   // 開檔時全部隱藏
+})();
+</script>
+</body>
+</html>

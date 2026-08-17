@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>林進發職涯軌跡 ·《感恩》附錄</title>
+<style>
+  :root{
+    --ink:#1c1a17;
+    --ink-soft:#4a453e;
+    --paper:#f3ece0;
+    --paper-2:#e9e0d0;
+    --rule:#c9bda6;
+    --seal:#9e2b25;
+
+    --p1:#3f5c46;  /* 求學 */
+    --p2:#6b5544;  /* 私人企業 */
+    --p3:#b3542f;  /* 自營過渡 */
+    --p4:#2c4a6e;  /* 教職 */
+
+    --body:26px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 18% 8%, rgba(255,255,255,.55), transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU","MS Mincho",serif;
+    font-size:var(--body);
+    font-weight:600;
+    line-height:1.85;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:64px 28px 120px}
+
+  /* ── 報頭 ───────────────────────── */
+  header{border-bottom:5px double var(--ink);padding-bottom:34px;margin-bottom:14px}
+  .eyebrow{
+    font-size:20px;letter-spacing:.9em;font-weight:700;color:var(--seal);
+    text-indent:.9em;margin:0 0 18px
+  }
+  h1{
+    font-size:78px;line-height:1.12;margin:0 0 20px;font-weight:800;
+    letter-spacing:.06em;
+  }
+  h1 small{display:block;font-size:30px;letter-spacing:.24em;color:var(--ink-soft);font-weight:700;margin-top:16px}
+  .deck{font-size:27px;font-weight:700;color:var(--ink-soft);margin:0;max-width:44em}
+
+  /* ── 圖例／篩選 ─────────────────── */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:14px;margin:38px 0 10px;padding:0;list-style:none
+  }
+  .chip{
+    appearance:none;cursor:pointer;font:inherit;font-size:22px;font-weight:700;
+    border-radius:3px;padding:12px 22px;display:flex;align-items:center;gap:12px;
+    position:relative;
+    /* 彈起狀態：實體按鍵 */
+    background:#fffdf8;color:var(--ink);
+    border:2px solid var(--c);
+    box-shadow:0 5px 0 0 var(--c), 0 7px 10px rgba(28,26,23,.18);
+    transform:translateY(-3px);
+    transition:transform .1s ease,box-shadow .1s ease,background .14s,color .14s;
+  }
+  .chip .dot{
+    width:16px;height:16px;border-radius:50%;background:var(--c);
+    box-shadow:inset 0 0 0 3px rgba(255,255,255,.55);
+  }
+  /* 按下狀態：陷入面板 */
+  .chip[aria-pressed="true"]{
+    background:var(--c);color:#fff;
+    transform:translateY(2px);
+    box-shadow:0 0 0 0 var(--c), inset 0 3px 7px rgba(0,0,0,.42);
+  }
+  .chip[aria-pressed="true"] .dot{background:#fff;box-shadow:inset 0 0 0 3px rgba(0,0,0,.22)}
+  .chip[aria-pressed="true"] .n{color:rgba(255,255,255,.82)}
+  .chip[aria-pressed="false"]{opacity:.72}
+  .chip:active{transform:translateY(2px);box-shadow:0 0 0 0 var(--c), inset 0 3px 7px rgba(0,0,0,.35)}
+  .chip:focus-visible{outline:3px solid var(--seal);outline-offset:4px}
+  .chip .n{font-size:19px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .legend{align-items:flex-end}
+  .legend-2{margin-top:6px}
+  .track.empty .spine{display:none}
+  .track.empty{padding-left:0;min-height:0}
+  .hint{display:none;font-size:24px;font-weight:700;color:var(--ink-soft);
+    border:2px dashed var(--rule);padding:34px;text-align:center;margin:0}
+  .track.empty .hint{display:block}
+
+  .note{font-size:20px;color:var(--ink-soft);font-weight:600;margin:6px 0 0;line-height:1.7}
+
+  /* ── 時間軸 ─────────────────────── */
+  .track{position:relative;margin-top:56px;padding-left:104px}
+  .spine{
+    position:absolute;left:37px;top:8px;bottom:8px;width:8px;border-radius:4px;
+    background:linear-gradient(to bottom,
+      var(--p1) 0%, var(--p1) 11%,
+      var(--p2) 11%, var(--p2) 56%,
+      var(--p3) 56%, var(--p3) 70%,
+      var(--p4) 70%, var(--p4) 100%);
+    opacity:.85;
+  }
+  .stop{position:relative;margin-bottom:26px}
+  .stop[hidden]{display:none}
+
+  .seal{
+    position:absolute;left:-104px;top:6px;width:66px;height:66px;
+    background:var(--c);color:#fff;border-radius:3px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;
+    box-shadow:0 0 0 6px var(--paper);
+    letter-spacing:0;
+  }
+
+  .card{
+    width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;
+    background:#fbf7ef;border:2px solid var(--rule);border-left:10px solid var(--c);
+    padding:24px 28px;display:block;transition:transform .16s,box-shadow .16s;
+  }
+  .card:hover{transform:translateX(4px);box-shadow:6px 6px 0 rgba(28,26,23,.09)}
+  .card:focus-visible{outline:3px solid var(--seal);outline-offset:3px}
+  .role{font-size:21px;font-weight:700;letter-spacing:.2em;color:var(--c);margin:0 0 6px}
+  .place{font-size:37px;font-weight:800;margin:0;line-height:1.35;letter-spacing:.03em}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:12px;
+    font-size:21px;font-weight:700;color:var(--ink-soft)
+  }
+  .meta b{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+  .card::after{
+    content:"＋ 展開";float:right;font-size:19px;font-weight:700;color:var(--ink-soft);
+    margin-top:-30px
+  }
+  .stop.open .card::after{content:"－ 收合"}
+
+  .detail{
+    display:none;background:#fff;border:2px solid var(--rule);border-top:0;
+    border-left:10px solid var(--c);padding:26px 30px 30px
+  }
+  .stop.open .detail{display:block}
+  .detail p{margin:0 0 16px;font-size:25px;font-weight:600}
+  .detail p:last-child{margin-bottom:0}
+  .pull{
+    border-left:5px solid var(--c);padding:4px 0 4px 20px;margin:0 0 18px;
+    font-size:26px;font-weight:700;color:var(--ink)
+  }
+  .skills{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;padding:0;list-style:none}
+  .skills li{
+    font-size:19px;font-weight:700;border:2px solid var(--c);color:var(--c);
+    padding:4px 14px;border-radius:2px;background:#fff
+  }
+  .src{
+    font-size:20px;font-weight:700;color:var(--ink-soft);margin-top:18px;
+    border-top:1px solid var(--rule);padding-top:14px
+  }
+
+  /* ── 回選單 ─────────────────────── */
+  .back{
+    appearance:none;cursor:pointer;font:inherit;font-size:20px;font-weight:700;
+    margin-top:20px;padding:9px 20px;border-radius:3px;
+    background:#fffdf8;color:var(--c);border:2px solid var(--c);
+    box-shadow:0 4px 0 0 var(--c);transform:translateY(-2px);
+    transition:transform .1s ease,box-shadow .1s ease;
+  }
+  .back:active{transform:translateY(2px);box-shadow:0 0 0 0 var(--c)}
+  .back:focus-visible{outline:3px solid var(--seal);outline-offset:4px}
+
+  .totop{
+    position:fixed;right:26px;bottom:26px;z-index:20;
+    appearance:none;cursor:pointer;font:inherit;font-size:20px;font-weight:800;
+    line-height:1.25;text-align:center;
+    width:96px;height:96px;border-radius:50%;
+    background:var(--seal);color:#fff;border:3px solid #fffdf8;
+    box-shadow:0 6px 16px rgba(28,26,23,.35);
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .totop:hover{transform:translateY(-3px);box-shadow:0 9px 20px rgba(28,26,23,.4)}
+  .totop:active{transform:translateY(2px);box-shadow:0 3px 8px rgba(28,26,23,.35)}
+  .totop:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+
+  /* ── 收束 ───────────────────────── */
+  .coda{margin-top:78px;border-top:5px double var(--ink);padding-top:40px}
+  .coda h2{font-size:44px;font-weight:800;margin:0 0 24px;letter-spacing:.06em}
+  .coda ol{margin:0;padding-left:1.4em}
+  .coda li{margin-bottom:20px;font-size:26px;font-weight:600}
+  .coda li b{font-weight:800}
+  footer{margin-top:60px;font-size:20px;font-weight:700;color:var(--ink-soft);text-align:center;line-height:2}
+
+  @media (max-width:760px){
+    :root{--body:21px}
+    .wrap{padding:40px 18px 80px}
+    h1{font-size:46px}
+    h1 small{font-size:22px}
+    .deck{font-size:22px}
+    .track{padding-left:0}
+    .spine{display:none}
+    .seal{position:static;width:52px;height:52px;font-size:24px;margin-bottom:-2px;box-shadow:none}
+    .place{font-size:28px}
+    .detail p,.coda li{font-size:21px}
+    .card::after{float:none;display:block;margin:12px 0 0}
+    .totop{width:74px;height:74px;font-size:17px;right:14px;bottom:14px}
+    .chip{font-size:19px;padding:10px 16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">感恩 · 附錄</p>
+  <h1>從橡膠廠到講台
+    <small>林進發職涯軌跡　全 16 站</small>
+  </h1>
+  <p class="deck">一個雲林崙背的孩子，讀的是工業工程，做了十幾年生產管理，三十五歲翻車，四十多歲才繞回自己真正想站的地方。每一站都可回到《感恩》原篇查對。</p>
+</header>
+
+<div id="menu" style="scroll-margin-top:20px"></div>
+<ul class="legend" id="legend">
+  <li><button class="chip" data-phase="p1" aria-pressed="false" style="--c:var(--p1)"><span class="dot"></span>求學與起步<span class="n">2 站</span></button></li>
+  <li><button class="chip" data-phase="p2" aria-pressed="false" style="--c:var(--p2)"><span class="dot"></span>私人企業<span class="n">7 站</span></button></li>
+  <li><button class="chip" data-phase="p3" aria-pressed="false" style="--c:var(--p3)"><span class="dot"></span>自營與過渡<span class="n">2 站</span></button></li>
+  <li><button class="chip" data-phase="p4" aria-pressed="false" style="--c:var(--p4)"><span class="dot"></span>教職<span class="n">5 站</span></button></li>
+</ul>
+<ul class="legend legend-2">
+  <li><button class="chip" data-phase="all" aria-pressed="false" style="--c:var(--seal)"><span class="dot"></span>全部顯示<span class="n">16 站</span></button></li>
+  <li><button class="chip" data-phase="none" aria-pressed="true" style="--c:var(--ink-soft)"><span class="dot"></span>全部隱藏<span class="n">0 站</span></button></li>
+</ul>
+<p class="note">六個按鍵連動：按下一鍵，其餘自動彈起（凹陷＝目前顯示）。開檔時停在「全部隱藏」。點任一站展開細節，每站底部與右下角紅鈕都可回到選單。全書未繫年份，故本表以篇序為軸，年齡僅在書中自述處標出（三十五歲離職、四十多歲重上講台）。</p>
+
+<div class="track empty" id="track">
+  <div class="spine" aria-hidden="true"></div>
+  <p class="hint">按上方任一階段鍵，或按「全部顯示」，即可展開該段職涯。</p>
+
+  <!-- 01 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">01</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">求 學</p>
+      <p class="place">東海大學 工業工程學系</p>
+      <p class="meta"><span>助學貸款 ＋ 二姊墊付 <b>一萬餘元</b></span><span>大三暑假：台中精機實習</span></p>
+    </button>
+    <div class="detail">
+      <p class="pull">「我知道，真正的考驗不是考上，而是讀得起。」</p>
+      <p>放榜那天他沒去看榜，是振安從嘉義高中把成績單帶回崙背的。總分比估計多了二十幾分，錄取東海——一所私立大學。學費靠助學貸款，第一學期註冊還差一萬多元，由二姊默默週轉。</p>
+      <p>大三暑假到台中精機實習，清晨七點多起床趕進工廠，車床聲、鐵屑、機油味，是他第一次真正接觸工廠。那雙走壞的皮鞋也是那年的事。</p>
+      <ul class="skills"><li>工業工程</li><li>工廠現場</li></ul>
+      <p class="src">篇 018 等待放榜的日子 · 篇 021 借來的人生 · 篇 047 一雙破皮鞋</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="stop" data-phase="p1" style="--c:var(--p1)">
+    <div class="seal">02</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">待 業</p>
+      <p class="place">畢業後求職期</p>
+      <p class="meta"><span>台中電機公司：無回音</span><span>南下高雄：三天兩夜</span></p>
+    </button>
+    <div class="detail">
+      <p>畢業前應徵台中一家電機公司，對方說「回去等通知」——後來才懂，沒有消息就是消息。之後和樹盛一同南下高雄，由大鳥騎機車載著跑楠梓加工出口區，一家一家遞履歷，下午再到前鎮看公布欄。工作沒找到，倒把高雄的街道認熟了。</p>
+      <p>錄取通知最後來自溪湖的橡膠公司。麻煩還沒完：公司要兩位保證人。二姊夫做人保，母親四處拜託街上的藥局做店保，才順利報到。</p>
+      <p class="pull">「文憑只是敲門磚，不是保證書。」</p>
+      <ul class="skills"><li>求職</li></ul>
+      <p class="src">篇 053 求職記 · 篇 054 等待，也是人生的一門課</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">03</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第一份工作</p>
+      <p class="place">彰化溪湖 橡膠公司 · 工業工程師</p>
+      <p class="meta"><span>約 <b>一年半</b></span><span>月租 <b>500</b> 元雅房</span><span>晚上兼家教</span></p>
+    </button>
+    <div class="detail">
+      <p>公司預支兩千元，他在溪湖租下一間五百元的雅房。白天上班，晚上兼家教，原想報考研究所，終究敵不過現實。職稱聽來體面，小公司卻沒有完整制度，主管沒交辦事情時他反而最閒，於是常到生產線和作業員一起做。</p>
+      <p>父親在這段期間去世。三月二十三日上午公司通知家裡來電，趕回崙背時只剩微弱的呼吸，過了中午便走了。</p>
+      <p class="pull">「課堂上的工業工程，到了工廠，終究還是要回到人的身上。」</p>
+      <ul class="skills"><li>工業工程</li><li>現場管理</li></ul>
+      <p class="src">篇 055 初入江湖 · 篇 058 父親的背影 · 篇 059 工作一年的心得 · 篇 060</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">04</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">九年 · 職涯高點</p>
+      <p class="place">台中大雅 網球拍廠 · 生管組長 → 高級專員</p>
+      <p class="meta"><span>年資 <b>9 年</b></span><span>離職時 <b>35 歲</b></span><span>公司補助購車：福特雷射</span></p>
+    </button>
+    <div class="detail">
+      <p>公司的產品線一路往上走：木製球拍做到碳纖維球拍，再做到高爾夫球頭，生意愈做愈旺。他從生管組長做到高級專員，負責生產管理與外包協力廠，開著公司配的車四處跑。有一次趕出貨到深夜，妻子在家守了一夜，凌晨才披衣走到街角公共電話亭問，那頭只回一句「他還在趕貨」。</p>
+      <p>轉折出在那部車。公務期間座車失竊，而公司制度寫得清楚：購車未滿五年無法交還，須按比例賠償。他的車才買三年。公司同意由薪資分兩年扣還，他算來算去——家庭開銷沒有「延後付款」這一欄。最後向親友借錢一次還清，然後離開。</p>
+      <p class="pull">「人生有時候並不是在對與錯之間做選擇，而是在兩個都可以理解的答案之間，選一個自己必須承擔的結果。」</p>
+      <ul class="skills"><li>生產管理</li><li>外包協力</li><li>交期控管</li></ul>
+      <p class="src">篇 074 把日子住成家 · 篇 080 界線之外 · 篇 086 人生的十字路口</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">05</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">隔行如隔山</p>
+      <p class="place">台灣櫻花廚具（大雅）· 生產管理</p>
+      <p class="meta"><span>瓦斯爐、熱水器</span><span>半年仍覺得站在門外</span></p>
+    </button>
+    <div class="detail">
+      <p>他原以為做了多年生管，換個地方不過是換一張辦公桌、換幾張報表，總有老本可吃。進去才知道「生產管理」四個字雖然相同，裡面的學問各有各的脾氣。材料、製程、設備，一樣一樣重新學起，半夜醒來腦中還會冒出白天沒弄明白的問題。</p>
+      <p class="pull">「人生不是每一扇門，都可以靠力氣推開。有些門，需要一把恰好合用的鑰匙。」</p>
+      <ul class="skills"><li>生產管理</li><li>製程</li></ul>
+      <p class="src">篇 087 有些門，不是用力就能推開</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">06</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第一次被資遣</p>
+      <p class="place">吊車公司 · 總經理室專員</p>
+      <p class="meta"><span>五兄弟合營</span><span>到職 <b>半年</b></span><span>企劃兼廠務</span></p>
+    </button>
+    <div class="detail">
+      <p>老同事介紹的機會。收到履歷後，總經理與副總經理竟親自到家裡拜訪——他形容那像雨中趕路時忽然有人替你撐了一把傘，心想這一次大概可以安定下來了。</p>
+      <p>半年後的一個下午，總經理請他下班前到會計室一趟。會計小姐遞來一個信封，裡頭是薪資、資遣費，和一張詳細的計算明細。他接過信封，向大家道謝，沒有爭辯就走了。</p>
+      <p class="pull">「人生有些答案，其實不必等人說出口。」</p>
+      <ul class="skills"><li>企劃</li><li>廠務</li></ul>
+      <p class="src">篇 088 方向盤還在手上 · 篇 089 · 篇 090</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">07</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">重新有工作</p>
+      <p class="place">太平 網球拍公司 · 總經理秘書</p>
+      <p class="meta"><span>總務 · 人事 · 股東事務</span><span>西屯↔太平 單程近 <b>1 小時</b></span></p>
+    </button>
+    <div class="detail">
+      <p>資遣後那段日子，他白天拿著履歷四處奔波，晚上躺在床上翻來覆去，想的是：三十五歲的人了，還能不能重新開始。後來進了太平這家公司做幕僚。七十四號快速道路還沒開通，清晨摸黑出門，傍晚拖著疲憊的身子回家——那段路不算短，可是開在路上心裡反而踏實，因為他又有工作了。</p>
+      <ul class="skills"><li>總務</li><li>人事</li><li>股東事務</li></ul>
+      <p class="src">篇 091 有人陪你坐在黑暗裡</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">08</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">試用期未過</p>
+      <p class="place">美商縫紉針車公司 · 物料需求計畫</p>
+      <p class="meta"><span>大學同學陳弘毅引薦</span><span>數千種英文料號</span></p>
+    </button>
+    <div class="detail">
+      <p>同學要離職，問他願不願意接這個位子。美商的制度和他熟悉的環境很不一樣：講效率、要求資料精準、也更看語文能力，而縫紉機裡數千種零件的名稱大多是英文。一段時間後公司評估他無法在試用期內達到要求，他又離開了。</p>
+      <p>他自己的說法是：前一次被資遣還有些不甘，這一次反而平靜得多——大概是雨多淋了幾場，就不會把每一場都當成世界末日。</p>
+      <p class="pull">「那段經歷雖然短，卻像一面鏡子，讓我看見自己並不是什麼工作都能做。」</p>
+      <ul class="skills"><li>物料需求計畫</li><li>英文料號</li></ul>
+      <p class="src">篇 092 轉彎以後，才知道路在哪裡</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="stop" data-phase="p2" style="--c:var(--p2)">
+    <div class="seal">09</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">回鍋 · 私企終站</p>
+      <p class="place">網球拍公司（再任）· 業務拓展與兩岸協調</p>
+      <p class="meta"><span>總經理 曾益昇</span><span>待遇維持原水準</span><span>婉拒赴陸</span></p>
+    </button>
+    <div class="detail">
+      <p>老東家願意重新聘用，待遇也維持原來的水準，讓他協助拓展業務並負責與大陸工廠聯繫。那正是台灣企業西進的年代：台灣接單，訂單轉往大陸製造。他過去面對的是機器、材料、生產進度，現在多了業務協調與跨地區溝通。</p>
+      <p>後來股東改組，生產線陸續西移，台灣業務縮減。總經理希望他一起到大陸發展。三個孩子還在求學，妻子對長期赴陸也有顧慮。他想了很久，婉拒了——十幾年的私人企業生涯到此結束。</p>
+      <p class="pull">「孩子需要父親陪伴的那幾年，一旦過去，便再也回不來。」</p>
+      <ul class="skills"><li>業務協調</li><li>兩岸聯繫</li></ul>
+      <p class="src">篇 093 留在家裡的那盞燈</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="stop" data-phase="p3" style="--c:var(--p3)">
+    <div class="seal">10</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">自己當老闆</p>
+      <p class="place">大鵬眷區市場 · 水果攤</p>
+      <p class="meta"><span>做了 <b>幾個月</b></span><span>只做上午</span><span>晚上補習班＋家教</span></p>
+    </button>
+    <div class="detail">
+      <p>天還沒亮就到果菜市場批水果，中午收攤，下午回家休息，晚上再到補習班上課、接家教；過年就賣春聯和糖果，什麼能做就做什麼。四十多歲，肩膀說不要，腰說不要，手臂也說不要，只有嘴巴還很勇敢。做了幾個月，他承認這個老闆自己不太適合，把攤子收了。</p>
+      <p class="pull">「當老闆最大的好處，就是可以自己決定幾點起床；最大的壞處，也是自己決定幾點起床。」</p>
+      <ul class="skills"><li>批貨</li><li>零售</li><li>補教</li></ul>
+      <p class="src">篇 094 水果攤上的幾個月</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="stop" data-phase="p3" style="--c:var(--p3)">
+    <div class="seal">11</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">踏腳石</p>
+      <p class="place">崙背二姊家四樓 · 家教班</p>
+      <p class="meta"><span>學生 <b>十幾位</b>國小生</span><span>二哥挨家挨戶招生</span><span>台中↔崙背兩地跑</span></p>
+    </button>
+    <div class="detail">
+      <p>二姊家有空屋，二哥就從五魁村的熟人開始，一家一家去問誰家的孩子需要課輔。那個年代沒有網路也沒有招生平台，靠的是人情、口碑，和兩條腿。買幾張桌椅，把四樓整理一番，家教班就成立了。他家在台中，班在雲林，於是又過起兩地奔波的日子。</p>
+      <p class="pull">「那幾張擺在二姊家四樓的桌椅，像幾塊小小的踏腳石。」</p>
+      <ul class="skills"><li>國小課輔</li><li>班務</li></ul>
+      <p class="src">篇 095 從樓上的家教班走進崙背國中</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">12</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">第一次站上講台</p>
+      <p class="place">崙背國中 · 代課教師</p>
+      <p class="meta"><span>數學半學期 ＋ 兵缺理化 <b>1 年</b></span><span>合計約 <b>1 年半</b></span><span>四十多歲</span></p>
+    </button>
+    <div class="detail">
+      <p>同學林萬車帶來消息：溫玉美老師班上的數學老師臨時離職，學生只剩半學期就要畢業，學校一時找不到人。他答應了。粉筆寫著公式，學生在下面抄筆記，做了幾天，心裡竟生出一種熟悉感——原來他是真的喜歡教書。半學期結束後，經溫老師推薦，續代一年的兵缺理化。</p>
+      <p>其實伏筆早就埋下：大一、大二暑假他曾回母校崙中，義務輔導學弟妹。若當年填志願時師大的志願不受限制，這條路也許早就走上了。</p>
+      <p class="pull">「走了一大圈，四十多歲時，竟又繞回原來那扇門前。」</p>
+      <ul class="skills"><li>國中數學</li><li>國中理化</li></ul>
+      <p class="src">篇 095 從樓上的家教班走進崙背國中</p>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">13</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">補資格</p>
+      <p class="place">西螺國中 · 代理教師（兩年職缺）</p>
+      <p class="meta"><span>雷素環老師介紹</span><span>雲林縣代理代課甄選</span><span>週末赴淡江大學修教育學分</span></p>
+    </button>
+    <div class="detail">
+      <p>西螺國中有位數學老師考上研究所要進修兩年，留下職缺。雷老師介紹他去，但雲林縣的代理代課教師須先經縣府公開甄選，通過後才能報到。校內導師余旭展的班級經營讓他學到許多課本沒教的事，也是余老師勸他：「如果真的想教書，就要把資格補起來。」</p>
+      <p>於是人生版圖變成三段：<b>家在台中，學校在西螺，課堂在台北。</b>星期六一早搭車北上到金華街的淡江大學，晚上借住新莊四姊家，星期日下午下課再趕回台中。回到家時孩子多半已經睡了，只有妻子還坐在客廳等他。</p>
+      <ul class="skills"><li>教育學分</li><li>班級經營</li></ul>
+      <p class="src">篇 096 在講台上，看見另一條路</p>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">14</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">破釜沉舟</p>
+      <p class="place">辭光家教 · 專心備考</p>
+      <p class="meta"><span>同學集資 <b>50 餘萬元</b></span><span>白天代課、晚上家教、假日進修的日子告終</span></p>
+    </button>
+    <div class="detail">
+      <p>北上找廖振安敘舊，他把自己的處境說了。振安沒有安慰他，只說：「你如果真的想考公職，就不能再這樣下去了。」——代課一年一聘，晚上全被家教佔滿，哪來的時間準備考試？隨後振安去找了雷輝、輝正、子益、順家、永男、樹盛、再程等同學，東湊西湊集資五十多萬元借他周轉。</p>
+      <p>他把所有家教辭掉，坐下來讀書。家裡有房貸、有孩子，這個決定當時需要一點勇氣。</p>
+      <p class="pull">「同學可以救急，不能救貧。朋友可以扶你一程，卻不能替你走完全程。」</p>
+      <ul class="skills"><li>應考</li></ul>
+      <p class="src">篇 097 破釜沉舟</p>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">15</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">一年雙榜</p>
+      <p class="place">台北市南港完全中學 · 教務處幹事（註冊組）</p>
+      <p class="meta"><span>教育特考 教育行政科</span><span>政治大學夜間 教育學程</span><span>週末返台中</span></p>
+    </button>
+    <div class="detail">
+      <p>就在代課聘約期滿那一年，他同時考上兩個機會：教育特考教育行政科，分發到台北市南港完全中學教務處擔任幹事、負責註冊組；以及政治大學夜間部的教育學程進修班。一份比較穩定的工作，加上一條繼續往教育發展的路，都有了。</p>
+      <p>那段日子他一個人住台北，白天上班、晚上到政大上課，週末再搭車回台中。〈別後可好〉那封寫給妻子的信，就是在南港的校園裡寫的。</p>
+      <p class="pull">「那一次考試考的其實不只是書本，是一個中年人還有沒有勇氣重新開始。」</p>
+      <ul class="skills"><li>教育行政</li><li>註冊業務</li></ul>
+      <p class="src">篇 097 破釜沉舟 · 篇 098 別後可好</p>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="stop" data-phase="p4" style="--c:var(--p4)">
+    <div class="seal">16</div>
+    <button class="card" aria-expanded="false">
+      <p class="role">終站</p>
+      <p class="place">溪崑國中 · 教師 → 退休</p>
+      <p class="meta"><span>校刊《溪崑學園》〈難忘的背影〉</span><span>已退休</span></p>
+    </button>
+    <div class="detail">
+      <p>剛教書時他脾氣並不好，有一次語氣尖銳地責罵學生，被路過的資深老師聽見。回辦公室後，那位老師沒有當眾說他，只委婉提醒：管教學生千萬不要用不雅的語句傷害學生，這不只是為了學生，也是為了保護老師自己。這幾句話他記了一輩子，後來常用「見人不是，反觀自省」提醒學生，也提醒自己。</p>
+      <p>多年後，一位九年級學生投稿校刊，寫校園裡那位提著黑色手提包、衣冠整齊、一跛一跛走在走廊上的老師，說那是他三年裡最難忘的背影。</p>
+      <p class="pull">「原來一個人的背影，也可以被另一個人記上一輩子。」</p>
+      <ul class="skills"><li>國中教學</li><li>班級經營</li></ul>
+      <p class="src">篇 101 難忘的背影</p>
+    </div>
+  </section>
+</div>
+
+<section class="coda">
+  <h2>三條貫穿全程的線</h2>
+  <ol>
+    <li><b>一隻腳的不便。</b>從父親那句「他走路不方便，不能做粗重工作，他想讀，就讓他讀」，到四十多歲站上講台才發現——學生真正在意的，是老師有沒有把課教好。中間隔了三十年。</li>
+    <li><b>生管這門橫向手藝。</b>工業工程、生管、品管、物管、採購、總務、人事、業務協調，換過六家公司，帶得走的從來不是名片上的頭銜。他自己的結論：職稱可以由公司給你，能力只能靠自己累積。</li>
+    <li><b>每一次大選擇都往家庭那邊倒。</b>賠掉失竊公務車也要一次還清後離職、婉拒隨總經理西進、為孩子的學區在虎尾與台中之間來回搬遷十幾次——同一個決定的不同版本。</li>
+  </ol>
+</section>
+
+<footer>
+  《感恩》· 林進發 著　全 101 篇 · 約 151,580 字<br>
+  職涯軌跡整理 · 二〇二六年八月
+</footer>
+
+</div>
+
+<button class="totop" id="totop" type="button">▲<br>回選單</button>
+
+<script>
+(function(){
+  var menu = document.getElementById('menu');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function toMenu(){
+    menu.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  }
+  document.getElementById('totop').addEventListener('click', toMenu);
+
+  // 每一站底部插入「回選單」
+  document.querySelectorAll('.stop .detail').forEach(function(detail){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'back';
+    b.textContent = '▲ 回選單';
+    b.addEventListener('click', toMenu);
+    detail.appendChild(b);
+  });
+
+  // 展開／收合
+  document.querySelectorAll('.stop').forEach(function(stop){
+    var btn = stop.querySelector('.card');
+    btn.addEventListener('click', function(){
+      var open = stop.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // 階段選鍵：整排連動，按下一鍵，其餘全部彈起
+  var chips = document.querySelectorAll('.chip');
+  var stops = document.querySelectorAll('.stop');
+
+  function apply(phase){
+    chips.forEach(function(c){
+      c.setAttribute('aria-pressed', c.dataset.phase === phase ? 'true' : 'false');
+    });
+    stops.forEach(function(stop){
+      var show = (phase === 'all') || (phase === stop.dataset.phase);
+      stop.hidden = !show;
+      if(!show){                                   // 收起被隱藏那幾站
+        stop.classList.remove('open');
+        stop.querySelector('.card').setAttribute('aria-expanded','false');
+      }
+    });
+    document.getElementById('track').classList.toggle('empty', phase === 'none');
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){ apply(chip.dataset.phase); });
+  });
+
+  apply('none');   // 開檔時全部隱藏
+})();
+</script>
+</body>
+</html>
