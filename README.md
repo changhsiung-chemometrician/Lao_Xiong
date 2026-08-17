@@ -1,4 +1,5 @@
-
+<Lao Xiong>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 SUMMARY
 •	60 patents (27 families) issued in algorithm development for chemometrics, PAT process monitoring, chemical sensors, biometric health sensing , health monitoring, IIoT（Industrial Internet of Things), vital sign monitoring, physiological algorithms, NIR spectra sensing, signal processing, pattern recognition, machine learning, and multivariate statistical/regression analysis of data from array based chemical/biological sensors and vibrational spectroscopy, manufacturing of chemical/biological sensors, and new chemical/biological sensors based on IR thermogram image analysis.
 
@@ -74,9 +75,6 @@ Principal Scientist
 •	Extensive experience of using and developing chemical/biological sensors based on conductive polymer composite and GC-MS.  
 
 •	Worked on development of an analytical device for chemical/biological detection in anti-terrorist, fire detection, remote sensing, and industrial/medical applications.  I lead the projects of design, characterization, and surface analysis of thin film polymer composites and substrates used to make the sensor array and chemometric algorithm and software/firmware development for the hand-held and badge type sensing device. I was also involved in fabrication of sensor array.
-
-
-
 
 EDUCATION   
             THE UNIVERSITY OF AKRON, Akron, Ohio 									
