@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>佛州的一年（上）｜精選外刊 · 老熊隨筆</title>
+<style>
+  :root {
+    --paper: #f6f1e4;
+    --ink: #1e1a14;
+    --rule: #2a251c;
+    --accent: #8b2e1f;
+    --sepia: #6b5d45;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Serif TC", "Songti TC", "PMingLiU", "MingLiU", serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.85;
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+  /* ── Masthead ───────────────────────── */
+  .masthead {
+    text-align: center;
+    border-bottom: 6px double var(--rule);
+    padding-bottom: 22px;
+    margin-bottom: 10px;
+  }
+  .masthead .brand {
+    font-size: 58px;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+    text-indent: 0.35em;
+  }
+  .masthead .series {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5em;
+    text-indent: 0.5em;
+    color: var(--sepia);
+    margin-top: 6px;
+  }
+  .dateline {
+    display: flex;
+    justify-content: space-between;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--sepia);
+    border-bottom: 2px solid var(--rule);
+    padding: 10px 4px 12px;
+    margin-bottom: 54px;
+    letter-spacing: 0.12em;
+  }
+  /* ── Headline block ─────────────────── */
+  .headline {
+    font-size: 76px;
+    font-weight: 800;
+    line-height: 1.28;
+    text-align: center;
+    letter-spacing: 0.06em;
+    margin-bottom: 26px;
+  }
+  .deck {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--sepia);
+    max-width: 860px;
+    margin: 0 auto 30px;
+    line-height: 1.8;
+  }
+  .byline {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    margin-bottom: 56px;
+  }
+  .byline .name { color: var(--accent); }
+  /* ── Layout ─────────────────────────── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 56px;
+    align-items: start;
+  }
+  .article p {
+    margin-bottom: 34px;
+    text-align: justify;
+  }
+  .article .num, .sidebar .num, .value { font-weight: 800; }
+  .dropcap::first-letter {
+    float: left;
+    font-size: 120px;
+    line-height: 0.95;
+    font-weight: 800;
+    padding: 6px 18px 0 0;
+    color: var(--accent);
+  }
+  .section-rule {
+    border: none;
+    border-top: 2px solid var(--rule);
+    width: 38%;
+    margin: 48px auto;
+  }
+  .pullquote {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.6;
+    text-align: center;
+    color: var(--accent);
+    border-top: 4px solid var(--rule);
+    border-bottom: 4px solid var(--rule);
+    padding: 36px 12px;
+    margin: 52px 0;
+    letter-spacing: 0.04em;
+  }
+  .two-items {
+    border-left: 8px solid var(--accent);
+    background: rgba(139,46,31,0.06);
+    padding: 26px 30px;
+    margin-bottom: 34px;
+  }
+  .two-items p { margin-bottom: 14px; }
+  .two-items p:last-child { margin-bottom: 0; }
+  /* ── Sidebar ────────────────────────── */
+  .sidebar {
+    border: 3px solid var(--rule);
+    padding: 30px 26px;
+    background: rgba(107,93,69,0.07);
+    position: sticky;
+    top: 24px;
+  }
+  .sidebar h3 {
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+  }
+  .ledger { list-style: none; }
+  .ledger li {
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.7;
+    padding: 13px 0;
+    border-bottom: 1px dashed var(--sepia);
+  }
+  .ledger li:last-child { border-bottom: none; }
+  .ledger .when {
+    display: block;
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+  }
+  /* ── End mark & footer ──────────────── */
+  .endmark {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 0.6em;
+    text-indent: 0.6em;
+    color: var(--sepia);
+    margin: 64px 0 0;
+  }
+  .footer {
+    border-top: 6px double var(--rule);
+    margin-top: 60px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--sepia);
+    letter-spacing: 0.15em;
+  }
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .headline { font-size: 56px; }
+    body { font-size: 27px; }
+    .pullquote { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="masthead">
+    <div class="brand">精選外刊</div>
+    <div class="series">老熊隨筆 · 憶往專欄</div>
+  </header>
+  <div class="dateline">
+    <span>回憶錄系列</span>
+    <span>離開學校的第一年</span>
+    <span>二〇二六年七月</span>
+  </div>
+
+  <h1 class="headline">佛州的一年（上）</h1>
+  <p class="deck">一九九一年八月底到一九九二年三月底——說是離開了學校，卻又鑽進另一所學校。這一年，我們家完成了兩件過渡性卻很重要的事。</p>
+  <div class="byline">文／<span class="name">老熊</span></div>
+
+  <div class="main-grid">
+    <article class="article">
+
+      <p class="dropcap">我在佛州的這一年（<span class="num">1991</span> 年八月底－<span class="num">1992</span> 年三月底）也算是離開學校的第一年，但是也不算，因為我只是離開了原來的學校（Akron），卻又鑽進了另一所學校（University of Florida）。即便 <span class="num">1992</span> 年愚人節開始在路易斯安納生產力中心上班（在這裡倒是的確讓我在兩年後拿到了綠卡），那個職位本質上還是在大學裡工作。我真正完全離開學校，要等到 <span class="num">1998</span> 年 <span class="num">5</span> 月 <span class="num">11</span> 號（？）加入了那家由三位加州理工學院教授創辦的初創公司 Cyrano Sciences Inc.，才正式進入工業界。</p>
+
+      <div class="two-items">
+        <p>這一年，我們家完成了兩件過渡性但卻很重要的事情：</p>
+        <p>一、我總算找到了一個願意幫我辦綠卡、也的確辦成了的單位；</p>
+        <p>二、老婆繼續了她的研究所生涯。</p>
+      </div>
+
+      <p>當然，這兩件事都不是一帆風順的，甚至帶有些運氣的成分。</p>
+
+      <hr class="section-rule">
+
+      <p>先說「二」吧，因為那是先發生的。我們是八月底到了這個出門太陽曬得人發疼的佛州中北部的大學城，老婆倒是「乖乖」地在家「相夫教子」了一學期，便開始想回學校了。第一個必須解決的問題就是一歲多的兒子（事實上那也是唯一要處理的事，因為對她來說，拿到佛羅里達大學電機工程系（UF EE）的入學許可易如反掌，哈哈）。</p>
+
+      <p>原來的計畫是利用寒假她把兒子帶回上海由外婆帶一陣子。當時她還是留學生的身份，回國要先辦回美證，她也辦了。佛羅里達大學的 I-20 在假期快結束時終於寄到，沒想到臨到她去辦美簽時，美領館外頭排起了看不到盡頭的隊伍，依著正常流程她肯定趕不上開學了。於是她直接給美領館打了電話，用她非常流利的英文說明自身的情況，裡面的人便讓她在說好的時間到領館的一個側門等著，屆時果然來了一個內部的工作人員將她直接帶到簽證窗口去了，哈哈。</p>
+
+      <div class="pullquote">「屆時果然來了一個內部的工作人員，<br>將她直接帶到簽證窗口去了。」</div>
+
+      <p>原本以為從此天下太平了，開學後不久，上海方面「後院起火」，外婆帶了一陣子後說她因為還沒退休，帶不了了。這個時候幸好我還有台灣的救兵，於是爺爺奶奶出馬去了上海（當時幸好已三通），打算把「金孫」接回台灣。屆時沒直通，他們經羅湖關時，因為少蓋了一個章，原本要被打回票去再蓋那莫名其妙的章。這時奶奶拿出她變通的本事，塞了些錢給管控人員，於是放行，哈哈。</p>
+
+      <p>我老婆與我母親，雖然成長背景、教育程度天差地別，但是兩人一直相處得很好，可能因為兩人都是很靈活的人吧？哈哈。</p>
+
+      <div class="endmark">（上篇完・下篇待續）</div>
+    </article>
+
+    <aside class="sidebar">
+      <h3>大事記</h3>
+      <ul class="ledger">
+        <li><span class="when">1991・8 月底</span>舉家抵達佛州中北部大學城 Gainesville</li>
+        <li><span class="when">1991 年秋</span>老婆在家「相夫教子」一學期，動念重返校園</li>
+        <li><span class="when">1992・寒假</span>兒子回上海託外婆；I-20 遲到、美領館側門闖關成功</li>
+        <li><span class="when">開學後不久</span>上海「後院起火」；爺爺奶奶出馬，羅湖關塞錢放行</li>
+        <li><span class="when">1992・4・1</span>老熊赴路易斯安納生產力中心上班</li>
+        <li><span class="when">兩年後</span>綠卡到手</li>
+        <li><span class="when">1998・5・11</span>加入 Cyrano Sciences，正式進入工業界</li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="footer">精選外刊（老熊隨筆）・回憶錄系列・佛州的一年（上）</div>
+</div>
+</body>
+</html>
