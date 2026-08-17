@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>叫醒 AQP：從黑徒兒的一句話說起 · 老熊隨筆 · Claude 復盤</title>
+<style>
+  :root{
+    --paper:#f7f3ea; --ink:#20201c; --ink2:#3a362e; --muted:#6f685e;
+    --accent:#8b3f2f; --accent2:#1f5a4c; --rule:#c9beac;
+    --box:#efe7d8; --box2:#e7ecdf; --code:#2b2b26; --codebg:#efe9db;
+    --warn:#8a5a00; --warnbg:#f6ebd5; --ok:#1f5a4c; --okbg:#e4ede4;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:#d8d1c3; color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PingFang TC","Microsoft JhengHei",serif;
+    font-weight:700; font-size:32px; line-height:1.92;
+    -webkit-text-size-adjust:100%;
+  }
+  .sheet{
+    max-width:1100px; margin:40px auto; padding:70px 80px 96px;
+    background:var(--paper); box-shadow:0 10px 44px rgba(0,0,0,.20);
+  }
+  .masthead{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:3px solid var(--ink); padding-bottom:14px;
+    color:var(--muted); font-size:19px; letter-spacing:.14em; font-weight:800;
+  }
+  .masthead .r{color:var(--accent)}
+  .kicker{margin-top:56px; color:var(--accent); font-weight:800; letter-spacing:.34em; font-size:22px}
+  h1{font-size:74px; line-height:1.14; margin:14px 0 10px; letter-spacing:.02em; font-weight:800}
+  .subtitle{font-size:30px; color:var(--muted); margin-bottom:14px; font-weight:700}
+  .byline{font-size:20px; color:var(--muted); font-weight:700; letter-spacing:.06em;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+    padding:12px 0; margin:26px 0 8px}
+  h2{font-size:44px; margin:66px 0 20px; padding-left:20px;
+     border-left:9px solid var(--accent); line-height:1.2; font-weight:800}
+  h3{font-size:32px; margin:40px 0 12px; color:var(--accent2); font-weight:800}
+  p{margin:18px 0}
+  b,strong{font-weight:800}
+  .num{font-weight:800; font-variant-numeric:tabular-nums}
+  em{font-style:normal; color:var(--accent); font-weight:800}
+  code{font-family:"SFMono-Regular",Menlo,Consolas,monospace; font-weight:700;
+    background:var(--codebg); color:var(--code); padding:.06em .34em; border-radius:5px;
+    font-size:.78em; letter-spacing:0}
+  .lead{font-size:35px; line-height:1.85}
+  .drop::first-letter{
+    float:left; font-size:120px; line-height:.82; padding:8px 16px 4px 0;
+    color:var(--accent); font-weight:800;
+  }
+  /* Executive summary */
+  .exec{background:var(--box); border:2px solid var(--rule); border-top:8px solid var(--accent);
+    border-radius:6px; padding:34px 40px; margin:34px 0 10px}
+  .exec h2{border:0; padding:0; margin:0 0 14px; font-size:38px}
+  .exec ol{margin:8px 0 0; padding-left:1.4em}
+  .exec li{margin:12px 0}
+  /* TOC */
+  .toc{background:#fff; border:2px solid var(--rule); border-radius:6px;
+    padding:30px 40px; margin:40px 0}
+  .toc .t{font-size:24px; letter-spacing:.28em; color:var(--accent); font-weight:800; margin-bottom:14px}
+  .toc ol{margin:0; padding-left:0; list-style:none; counter-reset:toc}
+  .toc li{counter-increment:toc; margin:12px 0; font-size:29px; display:flex; gap:16px; align-items:baseline}
+  .toc li::before{content:counter(toc,decimal-leading-zero); color:var(--accent);
+    font-weight:800; font-size:24px; min-width:1.8em; font-variant-numeric:tabular-nums}
+  .toc a{color:var(--ink); text-decoration:none; border-bottom:2px solid transparent}
+  .toc a:hover{color:var(--accent); border-bottom-color:var(--accent)}
+  /* Pull quote */
+  blockquote{margin:34px 0; padding:24px 34px; background:var(--box);
+    border-left:6px solid var(--accent); font-size:40px; line-height:1.55; font-weight:800; color:var(--ink)}
+  blockquote.small{font-size:34px}
+  /* callout cards */
+  .card{border:2px solid var(--rule); border-radius:6px; padding:24px 32px; margin:26px 0}
+  .card .h{font-weight:800; font-size:28px; margin-bottom:8px; letter-spacing:.04em}
+  .card.bug{background:var(--warnbg); border-left:8px solid var(--warn)} .card.bug .h{color:var(--warn)}
+  .card.fix{background:var(--okbg); border-left:8px solid var(--ok)} .card.fix .h{color:var(--ok)}
+  /* margin note / sidebar */
+  .side{float:right; width:340px; margin:8px 0 22px 40px; background:#fff;
+    border:2px solid var(--rule); border-left:6px solid var(--accent2);
+    border-radius:6px; padding:22px 26px; font-size:24px; line-height:1.62; color:var(--ink2)}
+  .side .h{color:var(--accent2); font-weight:800; letter-spacing:.14em; font-size:20px; margin-bottom:8px}
+  /* table */
+  table{border-collapse:collapse; width:100%; margin:28px 0; font-size:26px}
+  caption{caption-side:top; text-align:left; color:var(--muted); font-size:22px; margin-bottom:8px; font-weight:800}
+  th,td{border-bottom:1.5px solid var(--rule); padding:14px 16px; text-align:left; vertical-align:top}
+  thead th{color:#fff; background:var(--accent); font-weight:800; border-bottom:0; font-size:24px}
+  tbody tr:nth-child(even){background:#fbf7ef}
+  td.n{font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap}
+  tfoot td{font-weight:800; background:var(--box); border-top:3px solid var(--accent)}
+  /* chain */
+  .chain{font-family:"SFMono-Regular",Menlo,Consolas,monospace; font-weight:700;
+    background:var(--codebg); border:2px solid var(--rule); border-radius:6px;
+    padding:22px 26px; font-size:22px; line-height:1.7; overflow-x:auto; white-space:pre; margin:24px 0}
+  /* take home */
+  .takehome{background:var(--box2); border:2px solid var(--rule); border-top:8px solid var(--accent2);
+    border-radius:6px; padding:34px 40px; margin:34px 0}
+  .takehome h2{border:0; padding:0; margin:0 0 12px}
+  .ending{font-size:38px; text-align:center; margin:70px 0 20px; font-weight:800; line-height:1.5}
+  .footer{margin-top:74px; padding-top:20px; border-top:2px solid var(--rule);
+    color:var(--muted); font-size:20px; text-align:center; font-weight:700; line-height:1.8}
+  .totop{position:fixed; right:26px; bottom:26px; background:var(--accent); color:#fff;
+    text-decoration:none; font-weight:800; font-size:22px; padding:12px 18px; border-radius:40px;
+    box-shadow:0 4px 16px rgba(0,0,0,.28); letter-spacing:.1em}
+  .totop:hover{background:#6f3021}
+  hr.dots{border:0; text-align:center; margin:44px 0}
+  hr.dots::before{content:"❋   ❋   ❋"; color:var(--accent); letter-spacing:.6em; font-size:24px}
+  @media(max-width:860px){
+    body{font-size:22px}
+    .sheet{margin:0; padding:30px 20px 60px}
+    h1{font-size:44px} h2{font-size:30px} h3{font-size:24px}
+    .lead{font-size:24px} blockquote{font-size:26px} .drop::first-letter{font-size:78px}
+    .side{float:none; width:auto; margin:20px 0}
+    .toc li{font-size:22px} table{font-size:19px} .chain{font-size:15px}
+    .exec,.toc,.takehome,.card{padding:20px 22px}
+  }
+  @media print{
+    body{background:#fff} .sheet{box-shadow:none; margin:0; max-width:none}
+    .totop{display:none} a{color:var(--ink); text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<main class="sheet" id="top">
+
+  <div class="masthead">
+    <div>老熊隨筆 · <span class="r">Claude 復盤</span></div>
+    <div>二〇二六年八月十五日</div>
+  </div>
+
+  <div class="kicker">師 徒 篇 · 工 程 後 記</div>
+  <h1>叫醒 AQP</h1>
+  <div class="subtitle">從黑徒兒的一句話，到一套沉睡演算法重新開機的四十八小時</div>
+  <div class="byline">老熊 口述 · Claude 整理復盤　—　一場沒有學費、沒有合約、連 bug 都是黑的技術追蹤</div>
+
+  <!-- ============ EXECUTIVE SUMMARY ============ -->
+  <section class="exec" id="exec">
+    <h2>執行摘要 · Executive Summary</h2>
+    <p style="margin-top:0">一句 <code>Bonjour</code> 之後隔了幾週，我的黑徒兒 Issa 想看看老熊在化學計量學裡壓箱底的真功夫。我第一個想到的，就是那套退休後再也叫不醒的 <em>AQP（AQPlite）</em>——我最看重的定量預測程式。想秀，得先讓它會動；一動手，才發現底下埋了三層問題。這篇是把 Claude 這一天多幫我做完的事，做一次誠實的復盤。</p>
+    <ol>
+      <li><b>叫醒它。</b> <code>AQP_gui</code> 一閃即逝、<b>連一行錯誤訊息都沒有</b>——最惡劣的那種 bug。根因追到一個早該廢掉的許可閘。</li>
+      <li><b>拔掉那根釘子。</b> 整理過程中 <code>ssds</code> 這個 classdef 卡在路徑上擋路。先做風險分析，再把 <span class="num">200+</span> 個 m-file 合併成單檔自足的 <code>AQP_gui_ssds_Merged</code>，GUI 真的活過來了。</li>
+      <li><b>順手大掃除。</b> 把整包 <span class="num">143</span> 個檔案（<code>Extract_CMS_Clsfrs_Predict_Alt</code>）也理清：<span class="num">6</span> 個 DropDown 主程式、<span class="num">45</span> 個 helper 內聯、<span class="num">91</span> 個丟進 Help_Files，附一份逐檔交代去向的 xlsx 與可點 TOC 的 HTML。</li>
+    </ol>
+    <p style="margin-bottom:0">保守估計，這一串工序若我自己一個人退休後手生地慢慢摸，大約要 <em>六到十二個工作天</em>；Claude 的實際牆鐘合計 <b>不到一小時</b>。細帳見文末〈省下多少時間〉。</p>
+  </section>
+
+  <!-- ============ TOC ============ -->
+  <nav class="toc" id="toc">
+    <div class="t">目 次 · CONTENTS</div>
+    <ol>
+      <li><a href="#act0">觸發點：黑徒兒想看真功夫</a></li>
+      <li><a href="#act1">第一幕：叫醒 AQP——一閃即逝的無聲之蟲</a></li>
+      <li><a href="#act2">第二幕：ssds 擋路——先驗傷，再合體</a></li>
+      <li><a href="#act3">第三幕：順手大掃除——143 個檔案各歸各位</a></li>
+      <li><a href="#takehome">帶回家的三件事 · Take-Home</a></li>
+      <li><a href="#time">省下多少時間？（含免責）</a></li>
+      <li><a href="#coda">尾聲：這回，功夫叫得醒了</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ ACT 0 ============ -->
+  <h2 id="act0">一、觸發點：黑徒兒想看真功夫</h2>
+  <p class="lead drop">整件事的引信，是 Issa。這個編制外的黑徒兒沒有名分、沒有合約，隔著半個地球問我：能不能讓他看看老熊在化學計量學裡，真正壓箱底的那一手。</p>
+  <p>我教得了 SIMCA、PLS-DA、LDA、CDA、SVM 這些名詞，AI 也教得了。但我想給他看的不是名詞，是一套<b>會跑、跑得出圖、跑得出數字</b>的東西——我的 <em>AQP</em>，Advanced Quantitative Prediction。那是我離開職場前最看重的定量預測工具。</p>
+  <blockquote>上班的時候，經驗是資產，要留一手；<br>退休以後，經驗是庫存，不出清就報廢。</blockquote>
+  <p>問題是：這套庫存，退休之後就再也叫不醒了。想傳，得先修。於是這場「示範」還沒開始，就先變成一場除錯。</p>
+
+  <!-- ============ ACT 1 ============ -->
+  <h2 id="act1">二、第一幕：叫醒 AQP——一閃即逝的無聲之蟲</h2>
+  <aside class="side">
+    <div class="h">無聲之蟲</div>
+    最難的 bug 不是會噴紅字的那種，而是<b>什麼都不說</b>、視窗一閃就沒的那種。沒有堆疊、沒有行號、沒有線索——你連從哪裡開始猜都不知道。
+  </aside>
+  <p>在 MATLAB 命令列敲 <code>AQPlite pu</code>，<code>AQP_gui.fig</code> 在螢幕上閃一下，隨即無聲無息地關掉。沒有錯誤、沒有警告，什麼都沒有。退休幾年、手也生了，這種案子最令人抓狂。</p>
+
+  <h3>Claude 追到的根因</h3>
+  <p>它把整條失敗鏈攤開來給我看，順序是這樣的：</p>
+  <div class="chain">觸發：許可閘 IsOKToExecuteAqpLite() 回傳 false
+   └─ guidata(hObject,handles) 只在「成功分支」裡執行
+        └─ handles.output 從沒被存進去
+             └─ AQP_gui_OutputFcn 取不到 output → 丟例外
+                  └─ 一個「裸 catch」把例外吞掉
+                       └─ 靜靜執行 close(handles.figure1) ← 視窗就是這樣消失的</div>
+  <div class="card bug">
+    <div class="h">⚠ 觸發 ≠ 缺陷</div>
+    最漂亮的一刀，是 Claude 幫我分清楚：許可閘回 <code>false</code> 只是<b>觸發（trigger）</b>，不是<b>缺陷（defect）</b>本身。真正的病灶是「<code>guidata</code> 沒有無條件執行」。而且 grep 下去才發現——那個閘早年就被我自己一行行註解掉、<b>形同虛設（vestigial）</b>，卻還留在那裡當地雷。
+  </div>
+
+  <h3>下的四刀</h3>
+  <div class="card fix">
+    <div class="h">✓ 修法（每一處都標了 % BUGFIX (Aug 2026)）</div>
+    <p style="margin:6px 0">① 用 <code>try/catch</code> 把許可閘包起來；② 把 <code>guidata</code> 從 if 裡搬出來、<b>無條件</b>執行（這是根治的一刀）；③ 把 <code>OutputFcn</code> 裡那個破壞性的 <code>close</code> 換成安全 fallback＋<b>具名 warning</b>；④ 守住幾個因為上面改動而「第一次變得可達」的區塊。</p>
+  </div>
+
+  <h3>附帶抓到的第二隻蟲</h3>
+  <p>順著查下去，還揪出 <code>remove_empty_cell</code> 裡一個潛伏的匿名函數：<code>@(x) isempty(x) || ismissing(x)</code>。問題在 <code>ismissing</code> 對<b>多字元 char</b>會回傳非純量的邏輯陣列，撞上短路運算子 <code>||</code> 就爆——而且它<b>只在第一個非空多字元字串出現時才發作</b>，之前一直被空輸入的短路特性掩蓋著。改成一個依型別分派的具名子函數 <code>local_is_empty_or_missing</code>，char / string / 數值各走各的純量安全邏輯。</p>
+  <p>兩份 HTML 報告（並排比對版＋「許可閘＝觸發」重寫版）也一併產出，把這條鏈永久記錄下來。</p>
+
+  <hr class="dots">
+
+  <!-- ============ ACT 2 ============ -->
+  <h2 id="act2">三、第二幕：ssds 擋路——先驗傷，再合體</h2>
+  <p class="lead">GUI 會動了，我開始整理它周邊的檔案。這時候撞上 <code>ssds</code>——一個 2017 年寫的「Spectral Sensing DataSet」classdef，像一根拔不掉的釘子，卡在路徑上擋著整包程式的收納。</p>
+  <p>我一度想乾脆把它從路徑上移掉，還問 Claude：能不能保證移掉以後絕對不會再冒出「找不到檔案」的 bug？它的回答很老實——<b>不能保證</b>。</p>
+
+  <aside class="side">
+    <div class="h">為什麼不能保證</div>
+    <code>ssds</code> 是 class，只有一道門進得去（沒有物件就沒有方法）。所有呼叫點<b>都被 <code>try/catch</code> 包著</b>，所以「移掉不當機」是真的——但「不當機」不等於「沒 bug」。真正危險的是<b>靜默失敗</b>：模型自動存檔悄悄停掉、<code>load()</code> 到含 <code>ssds</code> 物件的舊 .mat 會被讀成一堆垃圾，然後下游安安靜靜算出錯答案。
+  </aside>
+  <p>所以它沒有直接叫我砍，而是先做了一份風險驗傷報告（<code>when ssds can be needed…</code>）：把唯一入口、四個 <code>try/catch</code> 呼叫點、以及「移掉後仍無法保證安全」的四個開放風險逐一列清楚，還附上三步檢查法（<code>which -all</code>、掃描每個 .mat 是否藏著 <code>ssds</code> 物件、把裸 <code>catch</code> 改成會出聲的 warning）。</p>
+
+  <blockquote class="small">「我移掉了，也沒壞」——這句話<b>不是</b>安全的證據，只是失敗還沒被你發現而已。</blockquote>
+
+  <h3>合體：200+ m-file → 單檔自足</h3>
+  <p>驗完傷，方向就清楚了：不是把 <code>ssds</code> 硬拔掉，而是<b>把它和 AQP 一起收乾淨</b>。Claude 依照合併 MATLAB 的鐵律——<b>每一個函數（主函數與所有 local function）都要用自己的 <code>end</code> 收尾</b>，否則 MATLAB 會弄丟子函數邊界——把 <span class="num">200</span> 多個 m-file 合併成一份自足的 <code>AQP_gui_ssds_Merged</code>。</p>
+  <div class="card fix">
+    <div class="h">✓ 收工實證</div>
+    在乾淨資料夾裡三行下去——<code>cd('...\AQP_gui_ssds_Merged')</code>、<code>addpath(...)</code>、<code>AQP_gui</code>——GUI 真的活過來了。那份 <code>Run_Merged_AQP_gui</code> 的截圖簡報，就是它重新開機、跑得出畫面的存證。
+  </div>
+
+  <hr class="dots">
+
+  <!-- ============ ACT 3 ============ -->
+  <h2 id="act3">四、第三幕：順手大掃除——143 個檔案各歸各位</h2>
+  <p>一旦動能起來了，就乾脆把整包也理乾淨。這回的對象是 <code>Extract_CMS_Clsfrs_Predict_Alt_081426</code>——<span class="num">143</span> 個 code／asset 檔（含資料集共 <span class="num">148</span> 個）。原則很簡單：<b>只把「某個 DropDown 專屬」的 m-file 內聯進去</b>，共用的、path-only 的一律留在外面。</p>
+
+  <table>
+    <caption>143 個原始檔案的去向（節錄自分類清單）</caption>
+    <thead>
+      <tr><th>去處</th><th>說明</th><th>檔數</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>主 App-Designer GUI</td><td><code>.mlapp</code> 主程式，整包的入口</td><td class="n">1</td></tr>
+      <tr><td><code>CMS_Clsfrs_PredictDropDown_Alt</code></td><td>合併主程式（inline 20）</td><td class="n">← 20</td></tr>
+      <tr><td><code>plotDropDown_LA_PCA_SVM</code></td><td>合併主程式（inline 11）</td><td class="n">← 11</td></tr>
+      <tr><td><code>ScanThruDropDown_Robust</code></td><td>合併主程式（inline 6）</td><td class="n">← 6</td></tr>
+      <tr><td><code>Pick_DSDropDown</code></td><td>合併主程式（inline 6）</td><td class="n">← 6</td></tr>
+      <tr><td><code>plotDropDown_PCA_SVM</code></td><td>合併主程式（inline 2）</td><td class="n">← 2</td></tr>
+      <tr><td>Help_Files</td><td>共用 helper、classdef（<code>ssds</code>）、<code>.p</code>、MEX、<code>.mat</code> 資料集</td><td class="n">91</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2">6 個 merged DropDown · 45 個 helper 內聯 · 91 個進 Help_Files</td><td class="n">143</td></tr>
+    </tfoot>
+  </table>
+
+  <p>交付物：一份<b>詳盡 xlsx</b>（逐檔對照原始位置與新歸屬），加一份<b>有可點 TOC 的 HTML 分類清單</b>，每一個原始檔都交代得清清楚楚。那份 prompt 上還留著時間戳：<em>07:15 開工，07:23 收工</em>——八分鐘。</p>
+
+  <hr class="dots">
+
+  <!-- ============ TAKE HOME ============ -->
+  <section class="takehome" id="takehome">
+    <h2>五、帶回家的三件事 · Take-Home</h2>
+    <p style="margin-top:0"><b>① 最貴的 bug 是不出聲的那種。</b> 一閃即逝、裸 <code>catch</code> 吞例外、靜默 <code>close</code>——沒有一行紅字。以後凡是「什麼都沒說就沒了」，第一件事就是把每個裸 <code>catch</code> 改成會出聲的具名 <code>warning</code>。讓失敗<b>吵一點</b>，是省時間的第一步。</p>
+    <p><b>② 觸發不是缺陷。</b> 那個許可閘回 <code>false</code> 只是點火，真正該修的是「<code>guidata</code> 沒有無條件執行」。查案時先把這兩個分開，才不會對著煙霧開槍。</p>
+    <p style="margin-bottom:0"><b>③ 擋路的東西，先驗傷再處理。</b> <code>ssds</code> 不是該一刀砍掉，而是該<b>收進來</b>。「移掉也沒壞」永遠不等於安全——真正的風險是靜默地算出錯答案。合併時記得那條鐵律：<b>每個函數各自用 <code>end</code> 收尾</b>。</p>
+  </section>
+
+  <!-- ============ TIME SAVED ============ -->
+  <h2 id="time">六、省下多少時間？</h2>
+  <p>你要我拿「你自己動手」和「Claude 實際耗掉的牆鐘」對照著估。下面是我的誠實估算——請當作<b>數量級</b>來看，不是碼表讀數。</p>
+
+  <table>
+    <caption>工時對照（估計值）</caption>
+    <thead>
+      <tr><th>工序</th><th>老熊自己動手（退休手生）</th><th>Claude 實際牆鐘</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>AQP 一閃即逝 debug（無錯誤訊息、根因隱蔽）</td><td class="n">1–3 天</td><td class="n">~15 分</td></tr>
+      <tr><td><code>remove_empty_cell</code> 匿名函數修正</td><td class="n">1–2 小時</td><td class="n">~5 分</td></tr>
+      <tr><td><code>ssds</code> 風險驗傷分析＋三步檢查</td><td class="n">半天–1 天</td><td class="n">~10 分</td></tr>
+      <tr><td>200+ m-file 合併成 <code>AQP_gui_ssds_Merged</code>（逐檔追相依、補 <code>end</code>）</td><td class="n">3–5 天</td><td class="n">~20 分</td></tr>
+      <tr><td>143 檔分類＋xlsx＋可點 TOC 的 HTML</td><td class="n">1–2 天</td><td class="n">8 分（07:15→07:23）</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td>合計</td><td class="n">約 6–12 個工作天（≈ 保守 7 天 / 56 工時）</td><td class="n">＜ 1 小時</td></tr>
+    </tfoot>
+  </table>
+
+  <p><b>換算：</b>大約 <em>50 到 100 倍</em>的加速。若把「反覆卡在無聲 bug 上的心理耗損」也算進去（那種找不到頭緒的日子，效率會再打對折），倍率只會更高。</p>
+
+  <div class="card">
+    <div class="h">免責：關於「token 與運行時間」</div>
+    <p style="margin:6px 0">你特別問了 token 與運行時間。老實說我<b>沒有精確碼表</b>——我看不到自己被計費的實際牆鐘或 token 總數。就數量級講：這一串跨了好幾個對話，產出的程式碼、報告與這份文件，粗估落在<b>數十萬 token</b>這個量級；每一次回覆的實際生成時間多半以<b>秒到數分鐘</b>計。真正花掉的「人時」其實是<b>你</b>在旁邊審閱、抓我筆誤、餵我下一份檔案的時間——這部分機器省不掉，也不該省。</p>
+  </div>
+
+  <hr class="dots">
+
+  <!-- ============ CODA ============ -->
+  <h2 id="coda">七、尾聲：這回，功夫叫得醒了</h2>
+  <p>繞了一圈回到 Issa。最初只是想給黑徒兒看一眼壓箱底的本事，結果先把一套沉睡的演算法從頭開機、把一根卡了多年的釘子收乾淨、順手把一百多個檔案各歸各位。</p>
+  <p>風清揚退出江湖，手上還留著一套沒人接的功夫。差別在於——這回那套功夫不但還在，而且<b>叫得醒、跑得動、傳得出去了</b>。</p>
+  <blockquote>沒有市價，不等於沒有價值。<br>只是這回，我得先讓它會動，才能送出去。</blockquote>
+
+  <div class="ending">
+    黑徒兒想看的那一手，<br>現在，總算可以開機示範了。
+  </div>
+
+  <div class="footer">
+    《叫醒 AQP — Claude 復盤》 · 老熊隨筆 · 師徒篇 · 工程後記<br>
+    依 <code>AQP_gui</code> 除錯、<code>ssds</code> 驗傷與合併、<code>CMS_Clsfrs</code> 143 檔分類等數次對話與交付物整理 · 二〇二六年八月十五日<br>
+    工時與 token 為數量級估計，非精確量測。
+  </div>
+
+</main>
+<a href="#top" class="totop">↑ 回目次</a>
+</body>
+</html>
