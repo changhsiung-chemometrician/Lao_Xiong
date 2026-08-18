@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>想被理解的人，與想理解的人</title>
+<meta name="description" content="同一個網域裡的兩本書，各自等著完全不同的讀者。一本是一群人的，一個是很多小群人的。">
+<style>
+:root{
+  --paper:#efe7d5;--paper-deep:#e4d9c2;--ink:#241d16;--ink-soft:#4a3e31;
+  --rule:#b9a888;--vermilion:#9c2b1c;--indigo:#2f4a63;--seal:#8f2118;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:repeating-linear-gradient(0deg,rgba(150,130,100,.035) 0 2px,transparent 2px 5px),var(--paper);
+  color:var(--ink);
+  font-family:"Songti TC","Noto Serif TC","Source Han Serif TC","PingFang TC","Microsoft JhengHei",serif;
+  font-size:32px;font-weight:700;line-height:1.9;letter-spacing:.02em;
+}
+.sheet{max-width:1100px;margin:0 auto;padding:64px 40px 120px}
+
+.masthead{border-top:9px solid var(--ink);border-bottom:3px solid var(--ink);padding:22px 0 18px;margin-bottom:52px}
+.masthead .row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.brand{font-size:30px;font-weight:800;letter-spacing:.55em}
+.issue{font-size:22px;font-weight:800;letter-spacing:.18em;color:var(--ink-soft)}
+.eyebrow{display:inline-block;margin:44px 0 22px;padding:7px 20px;background:var(--vermilion);color:#f7f1e2;font-size:21px;font-weight:800;letter-spacing:.34em}
+h1{font-size:76px;font-weight:800;line-height:1.18;margin:0 0 10px;letter-spacing:.03em}
+h1 .sub{display:block;font-size:33px;font-weight:800;color:var(--vermilion);letter-spacing:.12em;margin-top:22px;line-height:1.5}
+.deck{font-size:34px;font-weight:700;color:var(--ink-soft);line-height:1.7;margin:26px 0 0;padding-left:26px;border-left:8px solid var(--rule)}
+.byline{margin:44px 0 0;padding:18px 0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);font-size:23px;font-weight:800;letter-spacing:.2em;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+
+h2{font-size:46px;font-weight:800;margin:82px 0 26px;letter-spacing:.05em;padding-bottom:14px;border-bottom:4px solid var(--ink)}
+h2 .num{color:var(--vermilion);margin-right:.5em;font-size:36px;letter-spacing:.1em}
+h3{font-size:33px;font-weight:800;margin:48px 0 14px;color:var(--indigo);letter-spacing:.05em}
+p{margin:0 0 30px;font-weight:700;text-align:justify}
+.lead::first-letter{float:left;font-size:120px;line-height:.86;font-weight:800;margin:10px 18px 0 0;color:var(--vermilion)}
+strong{font-weight:800;color:var(--seal)}
+
+.pull{margin:60px 0;padding:38px 40px;border-top:7px solid var(--ink);border-bottom:7px solid var(--ink);font-size:44px;font-weight:800;line-height:1.6;letter-spacing:.04em;text-align:center}
+
+.reader{margin:34px 0;padding:26px 32px;border-left:12px solid var(--rule);background:rgba(228,217,194,.55)}
+.reader b.tag{display:block;font-size:26px;font-weight:800;letter-spacing:.12em;color:var(--vermilion);margin-bottom:8px}
+.reader p{margin:0;font-size:29px;line-height:1.78}
+.reader.b{border-left-color:var(--indigo)}
+.reader.b b.tag{color:var(--indigo)}
+
+.ledger{width:100%;border-collapse:collapse;margin:48px 0 44px;font-size:26px}
+.ledger caption{caption-side:top;text-align:left;font-size:24px;font-weight:800;letter-spacing:.16em;color:var(--vermilion);padding-bottom:16px}
+.ledger th{text-align:left;font-weight:800;font-size:24px;letter-spacing:.08em;border-bottom:4px solid var(--ink);padding:14px 16px;color:var(--ink-soft)}
+.ledger th.a{color:var(--seal)}
+.ledger th.b{color:var(--indigo)}
+.ledger td{padding:14px 16px;border-bottom:1px solid var(--rule);font-weight:700}
+.ledger td:first-child{font-weight:800;color:var(--ink-soft);font-size:23px;letter-spacing:.06em}
+
+.close{margin:80px 0 0;border:6px double var(--ink);background:var(--paper-deep);padding:40px 44px 34px}
+.close h2{margin:0 0 22px;border:none;padding:0;font-size:40px}
+.close p{font-size:29px}
+.close .punch{margin:0;padding-top:26px;border-top:4px solid var(--vermilion);font-size:34px;font-weight:800;line-height:1.62;color:var(--seal);text-align:center}
+
+.colophon{margin-top:90px;padding-top:26px;border-top:9px solid var(--ink);font-size:22px;font-weight:700;color:var(--ink-soft);line-height:1.8}
+.seal{display:inline-block;border:4px solid var(--seal);color:var(--seal);padding:10px 14px;font-size:24px;font-weight:800;letter-spacing:.2em;writing-mode:vertical-rl;margin-left:16px}
+.endmark{text-align:right;font-size:30px;font-weight:800;color:var(--vermilion);letter-spacing:.3em;margin-top:40px}
+
+
+/* ── 目次 ───────────────────────── */
+.toc{margin:48px 0 0;border:3px solid var(--ink);padding:30px 36px 24px}
+.toc h3{margin:0 0 18px;font-size:26px;font-weight:800;letter-spacing:.22em;color:var(--vermilion);border:none}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t}
+.toc li{counter-increment:t;border-bottom:1px dotted var(--rule);padding:12px 0}
+.toc li:last-child{border-bottom:none}
+.toc li::before{content:counter(t,cjk-ideographic) "、";font-weight:800;color:var(--vermilion);margin-right:.3em}
+.toc a{font-size:26px;font-weight:800;text-decoration:none;border-bottom:2px solid transparent;color:var(--indigo)}
+.toc a:hover{border-bottom-color:var(--vermilion);color:var(--vermilion)}
+.toc .note{font-size:21px;font-weight:700;color:var(--ink-soft);display:block;margin-left:1.6em;line-height:1.55}
+.backtop{display:block;text-align:right;font-size:20px;font-weight:800;letter-spacing:.16em;margin:-10px 0 0;text-decoration:none;color:var(--indigo)}
+.backtop:hover{color:var(--vermilion)}
+h2{scroll-margin-top:24px}
+/* 回首頁 */
+.homelink{font-size:22px;font-weight:800;letter-spacing:.14em;text-decoration:none;color:var(--vermilion);border-bottom:3px solid var(--rule);padding-bottom:3px}
+.homelink:hover{border-bottom-color:var(--vermilion)}
+#lx-home{
+  position:fixed;right:22px;bottom:22px;z-index:50;
+  background:var(--ink);color:#f7f1e2;text-decoration:none;
+  font-size:20px;font-weight:800;letter-spacing:.14em;
+  padding:14px 18px;border:3px solid var(--paper-deep);
+  box-shadow:0 4px 14px rgba(0,0,0,.28);line-height:1.4;text-align:center;
+}
+#lx-home:hover{background:var(--vermilion);color:#fff}
+a{color:var(--indigo)}
+a:focus-visible{outline:4px solid var(--vermilion);outline-offset:3px}
+
+@media (max-width:820px){
+  body{font-size:24px}
+  .sheet{padding:40px 20px 80px}
+  h1{font-size:46px}h1 .sub{font-size:23px}
+  .deck{font-size:26px}h2{font-size:33px}h3{font-size:26px}
+  .pull{font-size:29px;padding:26px 20px}
+  .lead::first-letter{font-size:84px}
+  .reader{padding:20px 20px}.reader p{font-size:24px}.reader b.tag{font-size:22px}
+  .ledger{font-size:20px}.ledger th{font-size:19px}.ledger td,.ledger th{padding:10px 8px}
+  .ledger td:first-child{font-size:18px}
+  .toc{padding:22px 20px}
+  .toc a{font-size:22px}
+  #lx-home{right:12px;bottom:12px;font-size:17px;padding:11px 13px}
+  .close{padding:26px 22px}.close p{font-size:24px}.close .punch{font-size:27px}
+}
+</style>
+</head>
+<body>
+<div class="sheet" id="top">
+
+<header class="masthead">
+  <div class="row">
+    <div class="brand">老熊隨筆</div>
+    <div class="issue"><a class="homelink" href="index.html">← 老熊隨筆總目錄</a>　｜　本站自評 · 附篇 ｜ 二〇二六年八月</div>
+  </div>
+</header>
+
+<span class="eyebrow">兩份語料，兩種讀者</span>
+
+<h1>想被理解的人，<br>與想理解的人
+  <span class="sub">同一個網域裡的兩本書，各自在等完全不同的人</span>
+</h1>
+
+<p class="deck">《感恩》十三萬七千字，老熊隨筆十二萬六千字，體量幾乎對半。但它們不是同一種東西的兩份，而是兩種東西——連讀者的形狀都不一樣。</p>
+
+<div class="byline">
+  <span>老熊 · 加州紅木岸</span>
+  <span>承〈復盤的復盤〉之附論</span>
+</div>
+
+<nav class="toc" id="toc">
+  <h3>目 次</h3>
+  <ol>
+    <li><a href="#s1">一群人，與很多小群人</a><span class="note">一本書等一群人，一個站等很多小群人</span></li>
+    <li><a href="#s2">會偏愛《感恩》的人</a><span class="note">想在書裡找到自己的人，與他們的子女輩</span></li>
+    <li><a href="#s3">會偏愛老熊的人</a><span class="note">想知道事情怎麼運作的人，與那幾十個同行</span></li>
+    <li><a href="#s4">一張表講完</a><span class="note">為什麼來、讀完做什麼、讀者的形狀</span></li>
+    <li><a href="#s5">一句不太中聽的話</a><span class="note">想被理解的人，永遠比想理解的人多</span></li>
+    <li><a href="#s6">第三種讀者</a><span class="note">兩本並排看的人，十個裡不到一個</span></li>
+  </ol>
+</nav>
+
+
+<h2 id="s1"><span class="num">一</span>一群人，與很多小群人</h2>
+
+<p class="lead">先講一個結構上的差別，比什麼都要緊。</p>
+
+<p>《感恩》一百零一篇，一個讀者可以從頭讀到尾，而且會想讀完。這一本書服務的，是<b>同一批人</b>。</p>
+
+<p>老熊隨筆不是。黑徒兒讀技術檔案，會跳過阿克倫的戀愛；三年十二班的同學讀回憶錄，五篇英文報告一個字也不會碰；喜歡看陶哲軒那篇的人，未必想看人物關係圖。<strong>沒有一個人會把這三十篇都讀得一樣有興致。</strong></p>
+
+<p>所以這個網站不是一個讀者群，是七八個彼此不重疊的小讀者群，共用一個網域。</p>
+
+<p>這件事沒有好壞，但它決定了兩邊的命運：<b>他的書會被一整群人傳來傳去，這邊的文章會被不同的人各挑一兩篇珍藏。</b></p>
+
+<div class="pull">一本書等一群人。<br>一個站等很多小群人。</div>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s2"><span class="num">二</span>會偏愛《感恩》的人</h2>
+
+<div class="reader">
+  <b class="tag">想在書裡找到自己的人</b>
+  <p>同代人、農村或小鎮出身的、家裡供不起讀書卻硬是讀了的。他們讀到土角厝、讀到那一千元、讀到放榜前坐立難安，不是在學新東西，是在確認一件事：<b>原來不只我一個。</b></p>
+</div>
+
+<div class="reader">
+  <b class="tag">他們的子女輩</b>
+  <p>很多人想知道父母那一代到底過的是什麼日子，可是問不出來——長輩不習慣講，一問就三句帶過。這本書等於替一整代不開口的人開了口。</p>
+</div>
+
+<div class="reader">
+  <b class="tag">平常不太讀書的人</b>
+  <p>門檻幾乎是零。不需要任何背景知識，一篇兩千字，隨手一翻就進得去。這一點常被低估——<b>能讓不讀書的人讀完十三萬字，是很難的本事。</b></p>
+</div>
+
+<div class="reader">
+  <b class="tag">正在難處裡的人</b>
+  <p>他寫的都是熬過來的事，語氣不誇張、不說教、不擺姿態。這種書在人不好過的時候特別管用。</p>
+</div>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s3"><span class="num">三</span>會偏愛老熊的人</h2>
+
+<div class="reader b">
+  <b class="tag">想知道事情怎麼運作的人</b>
+  <p>他們來，不是為了感動，是為了看你怎麼想——降維怎麼變成「一張考卷代表一個人」、一樁現場故障怎麼逼出一套新演算法、兩張職涯表並排怎麼會長成同一個形狀。他們要的是<b>角度</b>，不是滋味。</p>
+</div>
+
+<div class="reader b">
+  <b class="tag">同行</b>
+  <p>那五篇英文技術檔案，全世界大概只有幾十個人真的用得上。但對那幾十個人來說，那是別處買不到的東西——<b>發明人親口講 idcn 是怎麼來的，只有這一份。</b></p>
+</div>
+
+<div class="reader b">
+  <b class="tag">跨領域的雜食讀者</b>
+  <p>喜歡看數學八卦接矽谷招聘接近紅外光譜的人。這種讀者少，但一旦遇上，會把整個站翻一遍。</p>
+</div>
+
+<div class="reader b">
+  <b class="tag">沒耐心、愛跳著看的人</b>
+  <p>這裡的東西一篇一篇獨立，隨便從哪篇進去都行。他那本書你從第七十章開始讀，會茫然。</p>
+</div>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s4"><span class="num">四</span>一張表講完</h2>
+
+<table class="ledger">
+  <caption>兩種讀者的對照</caption>
+  <thead>
+    <tr><th></th><th class="a">《感恩》</th><th class="b">老熊隨筆</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>為什麼來</td><td>想被理解</td><td>想理解</td></tr>
+    <tr><td>讀完的反應</td><td>「我也是這樣過來的」</td><td>「原來還可以這樣看」</td></tr>
+    <tr><td>需要什麼門檻</td><td>不需要</td><td>看篇章，有的很高</td></tr>
+    <tr><td>怎麼讀</td><td>從頭讀到尾</td><td>挑著讀</td></tr>
+    <tr><td>讀完會做什麼</td><td>打電話給老同學</td><td>去查一個名詞</td></tr>
+    <tr><td>讀者的形狀</td><td>一大群，同一種人</td><td>好幾小群，彼此不認識</td></tr>
+  </tbody>
+</table>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s5"><span class="num">五</span>一句不太中聽的話</h2>
+
+<p>真要論「誰的讀者多」，是他。</p>
+
+<p><strong>想被理解的人，永遠比想理解的人多得多。</strong>這不是文學問題，是人的問題。一本讓人照見自己的書，天生就比一篇讓人多懂一件事的文章走得遠。</p>
+
+<p>這也解釋了一件本來有點怪的事：為什麼這個網站一半的體量，拿去放了別人的書。從讀者的角度看，那根本不是「讓出去」——那是這個站唯一有可能被一整群人從頭讀到尾的東西。</p>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<section class="close" id="s6">
+  <h2>第三種讀者</h2>
+  <p>但還有一種人，兩邊都要，而且只有在這個站上找得到。</p>
+  <p><b>會把兩本並排看的人。</b>〈幸福的職涯大致相似，不幸的卻各有不同〉就是寫給這種人的。一個在雲林、台中、西螺、板橋之間輾轉了二十年；一個在俄亥俄、佛州、路州、南加、矽谷之間搬了八次家。兩張表一擺，形狀居然是同一個。</p>
+  <p>這種讀者最少，十個裡不到一個。可是那一篇東西，全世界只有這裡有——<b>因為只有這裡同時收著兩份材料。</b></p>
+  <p class="punch">一本書等想被理解的人。<br>一個站等想理解的人。<br>而那第三種人，是這兩件事湊在一起才長出來的。</p>
+</section>
+
+<p class="endmark">— 完 —</p>
+
+<div class="colophon">
+  <p>本篇為〈復盤的復盤——全站二次盤點〉之附論。前篇量的是字數與資訊量，此篇問的是：這兩批文字，各自在等什麼人。<span class="seal">老熊</span></p>
+  <p style="margin-top:20px"><a href="index.html"><b>← 回老熊隨筆總目錄</b></a>　·　<a href="#top">↑ 回頂端</a>　·　<a href="#toc">目次</a></p>
+</div>
+
+</div>
+</body>
+</html>
