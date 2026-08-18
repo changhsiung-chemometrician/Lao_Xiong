@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>復盤的復盤 —— 老熊隨筆全站二次盤點</title>
+<meta name="description" content="把復盤體用回發明它的那個站上。羅振宇談全景數據，逼出一次全站重量：三十一篇、二十六萬字，一半不是我的。">
+<style>
+:root{
+  --paper:#efe7d5;
+  --paper-deep:#e4d9c2;
+  --ink:#241d16;
+  --ink-soft:#4a3e31;
+  --rule:#b9a888;
+  --vermilion:#9c2b1c;
+  --indigo:#2f4a63;
+  --seal:#8f2118;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:
+    repeating-linear-gradient(0deg, rgba(150,130,100,.035) 0 2px, transparent 2px 5px),
+    var(--paper);
+  color:var(--ink);
+  font-family:"Songti TC","Noto Serif TC","Source Han Serif TC","PingFang TC","Microsoft JhengHei",serif;
+  font-size:32px;
+  font-weight:700;
+  line-height:1.85;
+  letter-spacing:.02em;
+}
+.sheet{max-width:1100px;margin:0 auto;padding:64px 40px 120px}
+a{color:var(--indigo);text-decoration-thickness:2px;text-underline-offset:5px}
+a:hover{color:var(--vermilion)}
+a:focus-visible{outline:4px solid var(--vermilion);outline-offset:3px}
+code{font-family:"SFMono-Regular",Consolas,monospace;font-size:.86em;background:var(--paper-deep);padding:2px 8px;border:1px solid var(--rule)}
+
+/* ── 刊頭 ───────────────────────── */
+.masthead{border-top:9px solid var(--ink);border-bottom:3px solid var(--ink);padding:22px 0 18px;margin-bottom:52px}
+.masthead .row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.brand{font-size:30px;font-weight:800;letter-spacing:.55em;color:var(--ink)}
+.issue{font-size:22px;font-weight:800;letter-spacing:.18em;color:var(--ink-soft)}
+.eyebrow{
+  display:inline-block;margin:44px 0 22px;padding:7px 20px;
+  background:var(--vermilion);color:#f7f1e2;
+  font-size:21px;font-weight:800;letter-spacing:.34em;
+}
+h1{font-size:76px;font-weight:800;line-height:1.16;margin:0 0 10px;letter-spacing:.03em}
+h1 .sub{display:block;font-size:34px;font-weight:800;color:var(--vermilion);letter-spacing:.12em;margin-top:22px;line-height:1.5}
+.deck{
+  font-size:34px;font-weight:700;color:var(--ink-soft);line-height:1.7;
+  margin:26px 0 0;padding-left:26px;border-left:8px solid var(--rule);
+}
+.byline{
+  margin:44px 0 0;padding:18px 0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);
+  font-size:23px;font-weight:800;letter-spacing:.2em;color:var(--ink-soft);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+}
+
+/* ── 摘要的摘要 ─────────────────── */
+.abstract{
+  margin:56px 0 0;padding:38px 42px 30px;
+  background:var(--paper-deep);
+  border-top:7px solid var(--vermilion);border-bottom:7px solid var(--vermilion);
+}
+.abstract h2{
+  font-size:38px;margin:0 0 8px;border:none;padding:0;letter-spacing:.1em;
+}
+.abstract .abnote{font-size:22px;font-weight:700;color:var(--ink-soft);margin:0 0 24px;line-height:1.65}
+.abstract p{font-size:28px;line-height:1.78;margin:0 0 20px}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── 目次 ───────────────────────── */
+.toc{margin:48px 0 0;border:3px solid var(--ink);padding:30px 36px 24px}
+.toc h3{margin:0 0 18px;font-size:26px;font-weight:800;letter-spacing:.22em;color:var(--vermilion);border:none}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t}
+.toc li{counter-increment:t;border-bottom:1px dotted var(--rule);padding:12px 0}
+.toc li:last-child{border-bottom:none}
+.toc li::before{content:counter(t,cjk-ideographic) "、";font-weight:800;color:var(--vermilion);margin-right:.3em}
+.toc a{font-size:26px;font-weight:800;text-decoration:none;border-bottom:2px solid transparent}
+.toc a:hover{border-bottom-color:var(--vermilion)}
+.toc .note{font-size:21px;font-weight:700;color:var(--ink-soft);display:block;margin-left:1.6em;line-height:1.55}
+
+/* ── 內文 ───────────────────────── */
+h2{
+  font-size:46px;font-weight:800;margin:86px 0 26px;letter-spacing:.05em;
+  padding-bottom:14px;border-bottom:4px solid var(--ink);scroll-margin-top:24px;
+}
+h2 .num{color:var(--vermilion);margin-right:.5em;font-size:36px;letter-spacing:.1em}
+h3{font-size:34px;font-weight:800;margin:52px 0 16px;color:var(--indigo);letter-spacing:.05em}
+p{margin:0 0 30px;font-weight:700;text-align:justify}
+.lead::first-letter{
+  float:left;font-size:120px;line-height:.86;font-weight:800;
+  margin:10px 18px 0 0;color:var(--vermilion);
+}
+strong{font-weight:800;color:var(--seal)}
+.num-hl{font-weight:800;font-variant-numeric:tabular-nums}
+.backtop{display:block;text-align:right;font-size:20px;font-weight:800;letter-spacing:.16em;margin:-8px 0 0;text-decoration:none}
+
+.pull{
+  margin:58px 0;padding:36px 40px;
+  border-top:7px solid var(--ink);border-bottom:7px solid var(--ink);
+  font-size:44px;font-weight:800;line-height:1.6;letter-spacing:.04em;
+  text-align:center;color:var(--ink);
+}
+
+.aside{
+  float:right;width:340px;margin:14px 0 34px 44px;
+  background:var(--paper-deep);border:3px solid var(--ink);
+  padding:26px 26px 22px;
+}
+.aside h4{margin:0 0 14px;font-size:25px;font-weight:800;letter-spacing:.16em;color:var(--vermilion);border-bottom:2px solid var(--rule);padding-bottom:10px}
+.aside p,.aside li{font-size:22px;line-height:1.72;font-weight:700;margin:0 0 12px}
+.aside ul{margin:0;padding-left:1.2em}
+
+/* ── 表格 ───────────────────────── */
+.ledger{width:100%;border-collapse:collapse;margin:40px 0 44px;font-size:25px}
+.ledger caption{
+  caption-side:top;text-align:left;font-size:24px;font-weight:800;letter-spacing:.16em;
+  color:var(--vermilion);padding-bottom:14px;line-height:1.5;
+}
+.ledger th{
+  text-align:left;font-weight:800;font-size:23px;letter-spacing:.08em;
+  border-bottom:4px solid var(--ink);padding:12px 14px;color:var(--ink-soft);
+}
+.ledger td{padding:12px 14px;border-bottom:1px solid var(--rule);font-weight:700}
+.ledger td.n,.ledger th.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:800}
+.ledger th.hi,.ledger td.hi{background:rgba(47,74,99,.10)}
+.ledger tr.total td{border-top:4px solid var(--ink);border-bottom:none;font-weight:800;background:var(--paper-deep)}
+.ledger tr.guest td{color:var(--seal)}
+
+/* ── 簽名圖：全景資料帶 ─────────── */
+.panorama{margin:52px 0 46px;border:3px solid var(--ink);background:var(--paper-deep);padding:30px 28px 24px}
+.panorama h4{margin:0 0 6px;font-size:26px;font-weight:800;letter-spacing:.14em;color:var(--vermilion)}
+.panorama .cap{font-size:21px;font-weight:700;color:var(--ink-soft);margin:0 0 24px;line-height:1.65}
+.bars{display:flex;align-items:flex-end;gap:5px;height:240px;border-bottom:4px solid var(--ink);padding-bottom:2px}
+.bar{flex:1 1 0;background:var(--indigo);min-height:3px}
+.bar.guest{background:var(--vermilion)}
+.bar.self-longest{background:#5c7d99}
+.scale{display:flex;justify-content:space-between;font-size:19px;font-weight:800;color:var(--ink-soft);margin-top:12px;letter-spacing:.06em}
+.legend{margin-top:16px;font-size:20px;font-weight:700;line-height:1.7;color:var(--ink-soft)}
+.swatch{display:inline-block;width:22px;height:14px;margin-right:8px;vertical-align:middle}
+
+.doubt{margin:36px 0 0;padding:0;list-style:none;counter-reset:d}
+.doubt li{
+  counter-increment:d;position:relative;padding:26px 0 26px 92px;
+  border-bottom:2px dashed var(--rule);font-weight:700;
+}
+.doubt li::before{
+  content:"其" counter(d,cjk-ideographic);
+  position:absolute;left:0;top:26px;
+  font-size:26px;font-weight:800;color:#f7f1e2;background:var(--ink);
+  padding:6px 12px;letter-spacing:.08em;
+}
+.doubt li b{color:var(--seal);font-weight:800}
+
+/* ── 帶走的一句話 ───────────────── */
+.takehome{
+  margin:80px 0 0;border:6px double var(--ink);background:var(--paper-deep);
+  padding:40px 44px 34px;
+}
+.takehome h2{margin:0 0 22px;border:none;padding:0;font-size:40px}
+.takehome ul{margin:0 0 26px;padding-left:1.3em}
+.takehome li{font-size:27px;font-weight:700;line-height:1.75;margin-bottom:16px}
+.takehome .punch{
+  margin:0;padding-top:24px;border-top:4px solid var(--vermilion);
+  font-size:34px;font-weight:800;line-height:1.62;color:var(--seal);text-align:center;
+}
+
+.colophon{
+  margin-top:96px;padding-top:26px;border-top:9px solid var(--ink);
+  font-size:22px;font-weight:700;color:var(--ink-soft);line-height:1.8;
+}
+.colophon p{font-size:22px}
+.seal{
+  display:inline-block;border:4px solid var(--seal);color:var(--seal);
+  padding:10px 14px;font-size:24px;font-weight:800;letter-spacing:.2em;
+  writing-mode:vertical-rl;margin-left:16px;
+}
+.endmark{text-align:right;font-size:30px;font-weight:800;color:var(--vermilion);letter-spacing:.3em;margin-top:40px}
+
+@media (max-width:820px){
+  body{font-size:24px}
+  .sheet{padding:40px 20px 80px}
+  h1{font-size:50px}
+  h1 .sub{font-size:24px}
+  .deck{font-size:26px}
+  h2{font-size:34px}
+  h3{font-size:27px}
+  .abstract{padding:26px 22px}
+  .abstract h2{font-size:30px}
+  .abstract p{font-size:23px}
+  .toc{padding:22px 20px}
+  .toc a{font-size:22px}
+  .pull{font-size:30px;padding:26px 20px}
+  .aside{float:none;width:auto;margin:30px 0}
+  .lead::first-letter{font-size:84px}
+  .ledger{font-size:19px}
+  .ledger th{font-size:18px}
+  .ledger td,.ledger th{padding:9px 7px}
+  .bars{height:170px;gap:3px}
+  .takehome{padding:26px 22px}
+  .takehome li{font-size:23px}
+  .takehome .punch{font-size:27px}
+}
+</style>
+</head>
+<body>
+<div class="sheet" id="top">
+
+<header class="masthead">
+  <div class="row">
+    <div class="brand">老熊隨筆</div>
+    <div class="issue">本站自評 · 第二號 ｜ 二〇二六年八月</div>
+  </div>
+</header>
+
+<span class="eyebrow">全站二次盤點</span>
+
+<h1>復盤的復盤
+  <span class="sub">不必再降維了 ｜ 三十一篇、二十六萬字，一半不是我的</span>
+</h1>
+
+<p class="deck">羅振宇說，未來評估一個人，不必再壓縮數據了。這句話對一個做了三十年降維的人來說，像是有人走進實驗室，把你吃飯的傢伙從桌上拿走，還說了聲恭喜。<br>既然如此，那就把復盤體用回發明它的那個站上——這一次，被復盤的是這個網站本身。</p>
+
+<div class="byline">
+  <span>老熊 · 加州紅木岸</span>
+  <span>統計：Claude ｜ 資料截至 2026.08.17</span>
+</div>
+
+<!-- ── 摘要的摘要 ─────────────── -->
+<section class="abstract" id="abstract">
+  <h2>摘要的摘要</h2>
+  <p class="abnote">這篇文章的起點，是一支影片的摘要；以下是這篇文章的摘要。摘要的摘要——正如復盤的復盤。</p>
+
+  <p><b>起因。</b>羅振宇一支談「全景數據」的影片：未來評估一個人不必再壓縮數據，該去創造記錄自己的場景——寫日記、經營個人網站。對一個以降維為業三十年的人，這句話既是恭維也是訃聞。於是把全站重量一次。</p>
+
+  <p><b>數字。</b>三十一篇、<span class="num-hl">261,676</span> 字詞（漢字 246,613＋英文詞 12,912），依中文慣例 <span class="num-hl">280,300</span> 字。但其中 <span class="num-hl">136,863</span> 字是同學林進發的《感恩》——<b>這個網站有一半不是我寫的。</b>扣掉客稿，自作三十篇 <span class="num-hl">124,813</span> 字詞，中位數 2,957 字，九十天寫成，且在加速。</p>
+
+  <p><b>讀得到的。</b>收尾的癖好（五篇附錄、標記缺失值）、方法論自覺（自造「復盤體」）、以及一個履歷壓縮不掉的事實——半個硬碟拿去成全別人。</p>
+
+  <p><b>讀不到的。</b>六條質疑：降維的人反被自己的二值編碼降維；金句比論證跑得快；中文散文與英文技術報告之間那堵五十三個漢字的硬牆；最劇烈的七年寫得最省；田總那一格空白；以及——有目次，但目次不是索引。</p>
+
+  <p><b>結論。</b>羅振宇說競爭力是記錄的副產品。我退休了，沒有競爭力可言——副產品直接就是正產品。而「不必再降維」這句話我只信一半：<b>維還是要降的，只是換了人動手。</b></p>
+</section>
+
+<!-- ── 目次 ───────────────────── -->
+<nav class="toc" id="toc">
+  <h3>目 次</h3>
+  <ol>
+    <li><a href="#xiezi">楔子：那支影片</a><span class="note">羅振宇的全景數據論，與矽谷那場不看履歷的招聘實驗</span></li>
+    <li><a href="#s1">降維是我的飯碗</a><span class="note">PCA、PLS、ncomp = 5——他說的壓縮，就是我三十年做的事</span></li>
+    <li><a href="#s2">重新量一遍</a><span class="note">總量、分區、速度，與那張全景資料帶</span></li>
+    <li><a href="#s3">另一種算法：把《感恩》拿掉</a><span class="note">同一批檔案，兩種尺度；紅柱一移走，形狀全變了</span></li>
+    <li><a href="#s4">如果 AI 真來讀這批東西</a><span class="note">它讀得到的四件事，與它讀不到的那一邊</span></li>
+    <li><a href="#s5">六條質疑</a><span class="note">包括半年前提過、至今未改的一條，與一條需要更正的舊帳</span></li>
+    <li><a href="#s6">副產品的副產品</a><span class="note">推論鏈的最後一環，在一個退休的人這裡斷了</span></li>
+    <li><a href="#takehome">帶走的一句話</a><span class="note">Take-home message</span></li>
+  </ol>
+</nav>
+
+<h2 id="xiezi"><span class="num">楔子</span>那支影片</h2>
+
+<p class="lead">羅振宇最近講了一段話，大意是這樣的：過去社會評估一個人，受限於技術，只能用「壓縮」的辦法。一張考卷代表能力，一紙文憑代表智商，一次面試決定前程。把一個活生生的複雜的人，壓成幾個抽象的標籤與數字——這件事準確率不高，玄學成分不低，看走眼是常態。</p>
+
+<aside class="aside">
+  <h4>觸發源</h4>
+  <p>本篇的起點是羅振宇談「全景數據」的一段影片。</p>
+  <p><a href="https://www.youtube.com/watch?v=JMW5mjKNiVc" rel="noopener noreferrer" target="_blank">youtube.com/watch?v=JMW5mjKNiVc</a></p>
+  <p>本文對其論點的轉述，出自筆者所整理的要點，非逐字引錄。</p>
+</aside>
+
+<p>他接著說了一個在矽谷看到的招聘實驗：那家公司不看履歷、不做背景調查，直接發給求職者一台電腦與一段虛擬專案，讓他跟 AI 同事一起工作一週。AI 觀察的不是結果，是過程——他怎麼溝通、怎麼讀材料、遇到不懂的東西往哪裡查——一週之後給出錄不錄用的建議。</p>
+
+<p>於是他推出了那個結論：<strong>數據沒必要再被壓縮了。</strong>對 AI 來說，讀一個人一千萬字毫無困難。未來社會會傾向於用你的「全景數據」——你長期的思想、行為、互動、創造留下的完整軌跡——來認識你。所以他勸人別只在關鍵指標上卷，該去創造記錄自己的場景：寫日記、經營社群、辦個人網站。他自己每天拍影片日記，不知不覺就在積累全景數據。他說得很漂亮的一句是：全景數據是記錄生活的副產品，而未來的競爭力，是全景數據的副產品。他甚至打算這個暑假讓十歲的雙胞胎女兒開帳號，不必刻意做什麼，每天錄一段語音就好；從十歲開始連續累積，十幾年後那份記錄本身就值錢。</p>
+
+<div class="pull">他說不必再壓縮了。<br>可我這輩子的手藝，就是壓縮。</div>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s1"><span class="num">一</span>降維是我的飯碗</h2>
+
+<aside class="aside">
+  <h4>術語對照</h4>
+  <p><b>壓縮 = 降維。</b>化學計量學裡的主成分分析（PCA）、偏最小平方法（PLS），做的都是同一件事：把上千個波長壓成三五個潛變量（latent variables），再拿這三五個數字去判斷、去定量。</p>
+  <p>羅振宇口中「一張考卷代表能力」的社會學版本，和我程式裡的 <code>ncomp = 5</code>，是同一個動作。</p>
+</aside>
+
+<p>近紅外光譜一條有一千多個波長。我這三十年做的事，說穿了就是把那一千多維壓成三到五維，再用那三五個數字判斷樣本屬於哪一類、含量是多少。壓縮不是偷懶，是被逼的——樣本數永遠不夠，共線性永遠嚴重，不降維連矩陣都反不了。整個古典化學計量學，是一門在資料匱乏年代裡發展出來的節儉的學問。</p>
+
+<p>所以羅振宇那句話落到我耳朵裡，聽見的不是勵志，是<strong>一則行業訃聞的溫柔版本</strong>。我在〈為什麼「非參數」是後古典化學計量學的關鍵詞〉裡已經寫過一次類似的意思：直尺換成軟繩，是因為資料多到不必再假設形狀。現在羅振宇把同一件事講到了人身上——資料多到不必再假設一個人是什麼形狀。</p>
+
+<p>但他還說了另外半句，那半句才是真正讓我坐不住的：<b>全景數據不會自己長出來，得有人天天記。</b>而我，六十九歲，退休，剛好在過去九十天裡不聲不響地記了二十六萬字。</p>
+
+<p>那我這批東西，到底算不算一份合格的全景數據？半年前我請 Claude 通讀全站，寫了〈同一把尺〉。那時是十九篇、六個分區。現在是三十一篇、九個分區。尺不夠長了，得重量一次。這回不只量長短，還要用羅振宇那個標準問一句：<strong>如果真有一個 AI 來讀，它會讀到什麼？又讀不到什麼？</strong></p>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s2"><span class="num">二</span>重新量一遍</h2>
+
+<p>資料是直接從 GitHub 倉庫抓原始檔算的，不是憑印象。HTML 剝掉標籤與樣式，兩份 PDF 用 <code>pdftotext</code> 抽文字，兩張人物關係圖的節點標籤是在 <code>&lt;script&gt;</code> 裡由程式在瀏覽器端畫出來的，所以另外從 JSON 裡撈出來計入——這一步不做，那兩篇會被算成幾乎空白。</p>
+
+<table class="ledger">
+  <caption>表一 ｜ 全站總量：兩種算法並列</caption>
+  <thead>
+    <tr><th>項目</th><th class="n">全站（含客稿）</th><th class="n hi">扣除《感恩》</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>篇數</td><td class="n">31</td><td class="n hi">30</td></tr>
+    <tr><td>字詞總量（漢字＋英文詞＋數字）</td><td class="n">261,676</td><td class="n hi">124,813</td></tr>
+    <tr><td>漢字</td><td class="n">246,613</td><td class="n hi">109,964</td></tr>
+    <tr><td>英文詞</td><td class="n">12,912</td><td class="n hi">12,906</td></tr>
+    <tr><td>中文慣例字數（漢字＋標點）</td><td class="n">280,300</td><td class="n hi">125,150</td></tr>
+    <tr><td>單篇中位數</td><td class="n">3,013</td><td class="n hi">2,957</td></tr>
+    <tr><td>單篇平均</td><td class="n">8,441</td><td class="n hi">4,160</td></tr>
+    <tr><td>嵌入圖片</td><td class="n">41</td><td class="n hi">41</td></tr>
+    <tr class="total"><td>老熊自作（含《感恩》序 1,384 字）</td><td class="n" colspan="2">126,200</td></tr>
+  </tbody>
+</table>
+
+<p>先講最刺眼的那一行。<strong>這個網站有一半不是我寫的。</strong>《感恩》全書一百零一篇、十三萬六千餘字，是林進發的回憶錄，我只出了一篇一千三百八十四字的序。也就是說，老熊隨筆這個站，體量上是「我的十二萬六千字」加「同學的十三萬七千字」，幾乎對半。</p>
+
+<p>順帶一個校驗：《感恩》書名頁自稱「約 151,580 字」，我算出的漢字加標點是 155,150，兩者差 2.4%，差在英文與數字的處理。抽取沒有漏字，這個數可以信。</p>
+
+<table class="ledger">
+  <caption>表二 ｜ 分區重量：九個分區，兩種算法</caption>
+  <thead>
+    <tr><th>分區</th><th class="n">篇</th><th class="n">字詞</th><th class="n hi">扣客稿後·篇</th><th class="n hi">扣客稿後·字詞</th></tr>
+  </thead>
+  <tbody>
+    <tr class="guest"><td>群組觀察</td><td class="n">4</td><td class="n">143,352</td><td class="n hi">3</td><td class="n hi">6,489</td></tr>
+    <tr><td>精選外刊</td><td class="n">7</td><td class="n">40,055</td><td class="n hi">7</td><td class="n hi">40,055</td></tr>
+    <tr><td>職涯軌跡</td><td class="n">4</td><td class="n">21,011</td><td class="n hi">4</td><td class="n hi">21,011</td></tr>
+    <tr><td>復盤體回憶錄</td><td class="n">2</td><td class="n">17,780</td><td class="n hi">2</td><td class="n hi">17,780</td></tr>
+    <tr><td>師徒篇</td><td class="n">3</td><td class="n">12,127</td><td class="n hi">3</td><td class="n hi">12,127</td></tr>
+    <tr><td>技術檔案</td><td class="n">5</td><td class="n">9,543</td><td class="n hi">5</td><td class="n hi">9,543</td></tr>
+    <tr><td>現場誌</td><td class="n">1</td><td class="n">7,897</td><td class="n hi">1</td><td class="n hi">7,897</td></tr>
+    <tr><td>搬家＋新職場</td><td class="n">4</td><td class="n">5,943</td><td class="n hi">4</td><td class="n hi">5,943</td></tr>
+    <tr><td>本站自評</td><td class="n">1</td><td class="n">3,968</td><td class="n hi">1</td><td class="n hi">3,968</td></tr>
+    <tr class="total"><td>合計</td><td class="n">31</td><td class="n">261,676</td><td class="n">30</td><td class="n">124,813</td></tr>
+  </tbody>
+</table>
+
+<p>兩件事值得說。第一，<strong>技術檔案五篇裡只有五十三個漢字</strong>，而且全是零星散落的。中文散文與英文技術報告之間不是漸層，是一堵硬牆——牆這邊寫嘉義的土角厝，牆那邊寫 <code>Balanced Bagging</code> 的 F1 分數，中間沒有過渡帶。第二，最薄的自作分區是〈搬家＋新職場〉，四篇合計不到六千字，平均一千五百字一篇；〈佛州的一年（上）〉一千零五十七字，是全站最短的原創。一九九一到一九九八那七年——換三個州、辦下綠卡、四十歲改行——是老熊一生變動最劇烈的一段，卻寫得最省。</p>
+
+<div class="panorama">
+  <h4>全景資料帶（一）｜ 三十一篇，含客稿</h4>
+  <p class="cap">每一根是一篇，依長度排序。最左邊那根鶴立雞群的紅柱，是別人的書。它一個人壓平了其餘三十篇——這正是所有「總量」統計的通病：一個離群值就能決定整張圖的形狀。</p>
+  <div class="bars">
+    <div class="bar guest" style="height:100%" title="阿發回憶錄《感恩》136,863"></div>
+    <div class="bar self-longest" style="height:9.6%" title="彈指金剛 故事線與人物譜 13,206"></div>
+    <div class="bar" style="height:9.3%" title="老熊的選擇 1983-1987 12,749"></div>
+    <div class="bar" style="height:7.5%" title="老熊職涯軌跡 10,262"></div>
+    <div class="bar" style="height:7.2%" title="彈指金剛 人物關係圖 9,823"></div>
+    <div class="bar" style="height:5.8%" title="千里江山，落在矽谷 7,897"></div>
+    <div class="bar" style="height:4.4%" title="老熊的黑徒兒 6,024"></div>
+    <div class="bar" style="height:3.8%" title="幸福的職涯大致相似 5,193"></div>
+    <div class="bar" style="height:3.7%" title="老熊的選擇 人物關係圖 5,031"></div>
+    <div class="bar" style="height:3.4%" title="從彈指金剛到青春六記 4,644"></div>
+    <div class="bar" style="height:3.3%" title="復盤體 一種回憶錄的新文類 4,505"></div>
+    <div class="bar" style="height:2.9%" title="林進發職涯軌跡 4,006"></div>
+    <div class="bar" style="height:2.9%" title="同一把尺 3,968"></div>
+    <div class="bar" style="height:2.3%" title="一根釘子，兩套程式 3,215"></div>
+    <div class="bar" style="height:2.2%" title="數學界的八卦 3,069"></div>
+    <div class="bar" style="height:2.2%" title="AI時代數學的危機與新生 3,013"></div>
+    <div class="bar" style="height:2.1%" title="答案先到，問題後到 2,901"></div>
+    <div class="bar" style="height:2.1%" title="叫醒AQP 2,888"></div>
+    <div class="bar" style="height:1.8%" title="idws vs idcn 2,420"></div>
+    <div class="bar" style="height:1.7%" title="老熊初試啼聲 2,342"></div>
+    <div class="bar" style="height:1.7%" title="Balanced Bagging PLS-DA 2,292"></div>
+    <div class="bar" style="height:1.6%" title="Boosted Trees 2,205"></div>
+    <div class="bar" style="height:1.6%" title="理性討論的語境枷鎖 2,164"></div>
+    <div class="bar" style="height:1.3%" title="啥樣的人類智能最重要 1,795"></div>
+    <div class="bar" style="height:1.1%" title="老熊地理軌跡 1,550"></div>
+    <div class="bar" style="height:1.1%" title="非參數 1,473"></div>
+    <div class="bar" style="height:1.0%" title="Not Even Wrong 1,424"></div>
+    <div class="bar" style="height:1.0%" title="佛州的一年（下） 1,420"></div>
+    <div class="bar" style="height:0.8%" title="MLE vs MAP 1,153"></div>
+    <div class="bar" style="height:0.8%" title="離開Akron 1,124"></div>
+    <div class="bar" style="height:0.8%" title="佛州的一年（上） 1,057"></div>
+  </div>
+  <div class="scale"><span>136,863</span><span>← 長　　　　　短 →</span><span>1,057</span></div>
+  <p class="legend">
+    <span class="swatch" style="background:#9c2b1c"></span>客稿《感恩》　
+    <span class="swatch" style="background:#5c7d99"></span>自作最長篇　
+    <span class="swatch" style="background:#2f4a63"></span>其餘二十九篇
+  </p>
+</div>
+
+<h3>速度</h3>
+
+<p>依各篇自署的年月：二〇二六年五月一篇、七月十一篇、八月十九篇。<strong>從零到三十一篇，大約九十天</strong>，而且是加速，不是遞減。這一項在全景數據裡其實比總字數更有意思——它不是「他寫了多少」，是「他停不下來」。</p>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s3"><span class="num">三</span>另一種算法：把《感恩》拿掉</h2>
+
+<p>統計上有一條老規矩：報一個被離群值主宰的總量，等於什麼都沒報。《感恩》是客稿，把它留在表裡，「老熊隨筆有二十六萬字」這句話就是誤導；把它拿掉，才看得見這個站真正的骨架。所以第二張資料帶，是同一批檔案的另一種尺度。</p>
+
+<div class="panorama">
+  <h4>全景資料帶（二）｜ 三十篇，扣除客稿</h4>
+  <p class="cap">紅柱一移走，圖就從「一根旗桿加一片草皮」變成一道平順的斜坡。最高的 13,206 字，最低的 1,057 字，中位數 <span class="num-hl">2,957</span>——這才是這個站的家常規格：<b>一篇三千字的社論</b>。也可以看出前段那七篇長稿（一萬三千字到四千字之間）多半是附錄、人物譜與合刊，真正的單篇散文幾乎都落在三千字這一格。</p>
+  <div class="bars">
+    <div class="bar self-longest" style="height:100%" title="彈指金剛 故事線與人物譜 13,206"></div>
+    <div class="bar" style="height:96.5%" title="老熊的選擇 1983-1987 12,749"></div>
+    <div class="bar" style="height:77.7%" title="老熊職涯軌跡 10,262"></div>
+    <div class="bar" style="height:74.4%" title="彈指金剛 人物關係圖 9,823"></div>
+    <div class="bar" style="height:59.8%" title="千里江山，落在矽谷 7,897"></div>
+    <div class="bar" style="height:45.6%" title="老熊的黑徒兒 6,024"></div>
+    <div class="bar" style="height:39.3%" title="幸福的職涯大致相似 5,193"></div>
+    <div class="bar" style="height:38.1%" title="老熊的選擇 人物關係圖 5,031"></div>
+    <div class="bar" style="height:35.2%" title="從彈指金剛到青春六記 4,644"></div>
+    <div class="bar" style="height:34.1%" title="復盤體 一種回憶錄的新文類 4,505"></div>
+    <div class="bar" style="height:30.3%" title="林進發職涯軌跡 4,006"></div>
+    <div class="bar" style="height:30.0%" title="同一把尺 3,968"></div>
+    <div class="bar" style="height:24.3%" title="一根釘子，兩套程式 3,215"></div>
+    <div class="bar" style="height:23.2%" title="數學界的八卦 3,069"></div>
+    <div class="bar" style="height:22.8%" title="AI時代數學的危機與新生 3,013"></div>
+    <div class="bar" style="height:22.0%" title="答案先到，問題後到 2,901"></div>
+    <div class="bar" style="height:21.9%" title="叫醒AQP 2,888"></div>
+    <div class="bar" style="height:18.3%" title="idws vs idcn 2,420"></div>
+    <div class="bar" style="height:17.7%" title="老熊初試啼聲 2,342"></div>
+    <div class="bar" style="height:17.4%" title="Balanced Bagging PLS-DA 2,292"></div>
+    <div class="bar" style="height:16.7%" title="Boosted Trees 2,205"></div>
+    <div class="bar" style="height:16.4%" title="理性討論的語境枷鎖 2,164"></div>
+    <div class="bar" style="height:13.6%" title="啥樣的人類智能最重要 1,795"></div>
+    <div class="bar" style="height:11.7%" title="老熊地理軌跡 1,550"></div>
+    <div class="bar" style="height:11.2%" title="非參數 1,473"></div>
+    <div class="bar" style="height:10.8%" title="Not Even Wrong 1,424"></div>
+    <div class="bar" style="height:10.8%" title="佛州的一年（下） 1,420"></div>
+    <div class="bar" style="height:8.7%" title="MLE vs MAP 1,153"></div>
+    <div class="bar" style="height:8.5%" title="離開Akron 1,124"></div>
+    <div class="bar" style="height:8.0%" title="佛州的一年（上） 1,057"></div>
+  </div>
+  <div class="scale"><span>13,206</span><span>← 長　　　　　短 →</span><span>1,057</span></div>
+  <p class="legend">
+    <span class="swatch" style="background:#5c7d99"></span>自作最長篇　
+    <span class="swatch" style="background:#2f4a63"></span>其餘二十九篇
+  </p>
+</div>
+
+<p>兩張圖並排看，是這篇文章最誠實的一頁。同一批檔案、同一個計數程式，只因為要不要把客稿算進來，得出的「這個網站是什麼」完全不同。<strong>一張圖說「這裡有一部十三萬字的巨著」，另一張圖說「這裡有三十篇三千字的社論」。</strong>兩句都是真的。這就是為什麼羅振宇說「不必再壓縮」時我會遲疑——不壓縮，你得到的是三十一個檔案；要說出一句話，你還是得選一把尺。</p>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s4"><span class="num">四</span>如果 AI 真來讀這批東西</h2>
+
+<p>照羅振宇的說法，AI 讀全景數據讀的不是成果，是過程。那我試著站到那一邊，看看這三十一篇會被讀出什麼。</p>
+
+<h3>它讀得到的</h3>
+
+<p><b>第一，收尾的癖好。</b>三十一篇裡有五篇是附錄性質的：兩份職涯軌跡、一份地理軌跡、兩張人物關係圖。寫回憶錄的人滿地都是，會替自己的回憶錄做一張二十四站的核對表、還在表上標出「三處只有本人知道的空白」的，是實驗室養出來的習慣——資料要有 metadata，缺失值要標記，不能靜靜地當作沒有。〈老熊地理軌跡〉那句「附三處只有本人知道的空白」，是全站最誠實的一行字：它承認資料不全，又拒絕填補。一個 AI 讀到這一行，會知道這人受過訓練。</p>
+
+<p><b>第二，方法論的自覺。</b>「復盤體」是自己造的文類，還專門寫了一篇〈復盤體——一種回憶錄的新文類〉來立規矩。把回憶當棋局復盤，好處是可以談難堪的事而不必動情：〈四個人的錯位〉那一桌人、那通「一次一次少打」的週五電話，用抒情筆法寫會很難看，用復盤筆法寫就變成因果分析。</p>
+
+<p><b>第三，也是最清楚的一條——這個人真正的成就感來源，是讓別人的東西成立。</b>從 idcn 改良師父 AJ 的 idws，到替西非來的黑徒兒開一門沒有學分沒有薪水沒有名分的課，到替林進發排一整本十三萬字的書並做全篇索引：同一個動作，重複了三十年。這件事不必自述，光看檔案分布就看得出來——網站一半的體量拿去成全別人，這是任何履歷都壓縮不掉的資訊。</p>
+
+<div class="pull">履歷會說「樂於助人」。<br>全景數據會說「一半的硬碟不是他自己的」。</div>
+
+<p><b>第四，最鬆的一段反而不是自己的故事。</b>〈跟發哥一起珍藏那段酸甜苦澀的記憶〉一千三百多字，是全站語氣最不設防的一篇。沒有考據，沒有復盤，沒有附錄，只寫我們這一代人能留下的東西不多，房子會老、存摺會空、連照片都會褪色。全站最好的文字，出現在替別人作序的時候——這也是壓縮不掉的。</p>
+
+<h3>它讀不到的</h3>
+
+<p>羅振宇的模型有個前提：記錄下來的才算數。那沒記的呢？在他那套邏輯裡，未記錄等於不存在。而這個網站最要緊的幾件事，剛好都在沒記錄的那一邊。</p>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s5"><span class="num">五</span>六條質疑</h2>
+
+<ol class="doubt">
+  <li><b>降維的人反被降維。</b>復盤體最漂亮的一句是〈人物關係圖〉的凡例：實線代表慾望，虛線代表未落實或非慾望。漂亮，但慾望本來就不服從二值編碼。一個做了一輩子分類器的人，應該最清楚 hard label 的代價——把連續的東西切成兩類，切線放哪裡，決定了整張圖說什麼話。這張圖是自己給自己做的降維，而且沒有交叉驗證。</li>
+  <li><b>金句比論證跑得快。</b>這是〈同一把尺〉裡就提過的一條，半年後沒有改善，甚至更嚴重了——分區從六個長到九個，每一區都配了一句對仗工整的引言。復盤體的風險正在這裡：<b>它讓人以為理解了，其實只是整理了。</b></li>
+  <li><b>那堵牆。</b>技術檔案五篇、九千五百字、五十三個漢字。這五篇是老熊真正的專業，也是黑徒兒最需要的東西，卻對這個站的中文讀者——三年十二班那群同學——完全關閉。一份好的全景數據不該有這種斷層；現在的樣子比較像兩個人共用一個網域。</li>
+  <li><b>最劇烈的七年寫得最省。</b>一九九一到一九九八：三個州、八次搬家、綠卡、四十歲改行。四篇，五千九百字，最短的一千零五十七字。相較之下一九八三到八七那四年寫了一萬二千七百字，還配了人物關係圖。<b>年輕時的心事寫得比中年時的顛沛詳細</b>——這件事本身是條資訊。</li>
+  <li><b>田總的空格。</b>四十年、八次搬家、兩個人。地理軌跡裡有「一段十三個月的兩地分居」，〈離開 Akron〉裡有「老婆一次也不肯再回」，〈老熊的選擇〉裡田是三個關口之一——全部是側寫，全部是別人的功能位。復盤體既然敢具名寫一九八五年阿克倫那一桌留學生，這個空格就不太像技術問題。這也許就是第三處「只有本人知道的空白」。</li>
+  <li><b>有目次，但目次不是索引。</b>先把話說公道：首頁確有一份人工維護的目次，三十一篇全部列名、附導讀、九個分區各有錨點與「回分區目錄」，還給每篇配了複製連結鈕。以一個人手工維護的站來說，這已經比多數個人網站講究。<br>問題在後面一層。<b>目次是按分區排的，而分區是一種硬分群。</b>想找「所有提到 idcn 的段落」，或「一九九八年以前的全部回憶」，這兩個查詢都橫切過九個分區，於是就掉出去了——全站沒有全文檢索、沒有標籤索引、沒有 <code>sitemap.xml</code>、沒有 RSS，連 <code>robots.txt</code> 都沒有。這正是第其一條的同一個毛病，只是升了一層：<b>九個分區，是對三十一篇做的一次沒有交叉驗證的降維。</b>若真按羅振宇的劇本，將來有個 AI 要來讀這批全景數據，它得先能把三十一份檔案抓齊、還要能按自己的問題重新分群——而目前它只能照我畫好的格子走。<b>全景數據不只要記，還要可查。</b></li>
+</ol>
+
+<a class="backtop" href="#toc">↑ 回目次</a>
+
+<h2 id="s6"><span class="num">六</span>副產品的副產品</h2>
+
+<p>羅振宇的推論鏈很清楚：記錄生活 → 全景數據（副產品）→ 未來競爭力（副產品的副產品）。他勸十歲的女兒現在就開始，因為十幾年後那份連續記錄本身就值錢。</p>
+
+<p>這條鏈的最後一環在我這裡斷了。<strong>我六十九歲，退休了，不需要競爭力。</strong>沒有人會來面試我，沒有客戶要找我，沒有社群等著把我匹配給最合適的合作者。按他的模型，我這二十六萬字是一批沒有下游的數據——採了，沒有人要用。</p>
+
+<p>可是有意思的地方也在這裡。羅振宇要他女兒每天錄一段語音，是為了十幾年後；我每天寫，是因為<b>再不寫就沒有十幾年後了</b>。一頭是為了讓資料未來變現，一頭是為了讓資料在人還在的時候先存在。兩件事動作一樣，方向相反。</p>
+
+<p>而且，真要按他那個標準論成敗，我這批數據反而是有下游的，只是下游不是就業市場。西非那個黑徒兒讀技術檔案；三年十二班那群同學讀《感恩》；某一天某個人會讀到〈老熊地理軌跡〉，發現一九五七年到二〇二六年之間有一個人這樣走過。<strong>羅振宇說競爭力是記錄的副產品；我這裡沒有競爭力，副產品直接就是正產品。</strong></p>
+
+<p>所以那句「不必再降維了」，我到現在還是半信半疑。做為一個做了三十年降維的人，我知道壓縮不只是技術限制的產物——壓縮也是理解。把一千個波長壓成三個潛變量，那三個變量往往比原來一千個更有物理意義。人也一樣：全景數據讀完了，最後總還是要有人說一句「這是個什麼樣的人」。那句話，就是降維。</p>
+
+<p>差別只在於，以前這個降維由考卷、文憑、面試官來做，現在可能由 AI 來做。<b>維還是要降的，只是換了人動手。</b>而我能做的，是把原始資料留得完整一點、標記清楚一點、缺失值誠實一點——這樣不管將來是誰來壓縮，壓出來的那三個數字，起碼是從真東西上算出來的。</p>
+
+<!-- ── 帶走的一句話 ───────────── -->
+<section class="takehome" id="takehome">
+  <h2>帶走的一句話 ｜ Take-home</h2>
+  <ul>
+    <li><b>總量會騙人，兩把尺才不騙。</b>二十六萬字與十二萬五千字都是真的，差別只在算不算客稿。任何只報一個數字的統計，都已經替你做了一次你沒同意的降維。</li>
+    <li><b>目次不等於索引。</b>有目次是整理過，有索引才是查得動。按分區排的目次，答不了橫切分區的問題——記了、也整理了，還得讓別人能照自己的問題重新切。</li>
+    <li><b>檔案分布比自述誠實。</b>不必說自己樂於助人——把一半的硬碟讓給同學的書，這件事任何讀者都看得出來。</li>
+    <li><b>缺失值要標記，不要填補。</b>「三處只有本人知道的空白」是全站最好的一行字。承認不全，比補齊更可信。</li>
+  </ul>
+  <p class="punch">羅振宇說：不必再降維了。<br>我說：維還是要降的，只是換了人動手。<br>那就把原始資料留乾淨一點，等那個人來。</p>
+</section>
+
+<p class="endmark">— 完 —</p>
+
+<div class="colophon">
+  <p><b>觸發源。</b>羅振宇談「全景數據」影片：<a href="https://www.youtube.com/watch?v=JMW5mjKNiVc" rel="noopener noreferrer" target="_blank">https://www.youtube.com/watch?v=JMW5mjKNiVc</a>。本文對其論點的轉述，出自筆者整理的要點，非逐字引錄；欲知原貌請看影片。羅振宇上一次出現在本站，是〈千里江山，落在矽谷〉——《文明之旅》首場海外看片會。半年之內第二次把我推下水。</p>
+  <p><b>統計說明。</b>資料取自 GitHub 倉庫 <code>ChangHsiung-Chemometrician/Lao_Xiong</code>（<code>main</code> 分支）三十一份原始檔，剝除標籤、樣式與內嵌資料後計數；兩份 PDF 以 <code>pdftotext</code> 抽取；兩張人物關係圖的節點與註解文字自 <code>&lt;script&gt;</code> 內的資料結構取出計入（節點數 47 與 34，與文中所述「四十七位人物」「三十四人」相符）。「字詞」＝漢字＋英文詞＋數字串；「字數」＝漢字＋中文標點，為中文出版慣例。所有表格並列「全站」與「扣除《感恩》」兩種算法。資料截至 2026.08.17。</p>
+  <p>本篇為〈同一把尺——全站盤點與評點〉之續。前篇量的是十九篇、六個分區；此篇量的是三十一篇、九個分區。復盤體本是用來復盤一個人的；這一回，被推上棋盤的是那個發明它的網站。<span class="seal">老熊</span></p>
+  <p style="margin-top:20px"><a href="#top">↑ 回頂端</a>　·　<a href="#abstract">摘要的摘要</a>　·　<a href="#toc">目次</a>　·　<a href="#takehome">帶走的一句話</a></p>
+</div>
+
+</div>
+</body>
+</html>
