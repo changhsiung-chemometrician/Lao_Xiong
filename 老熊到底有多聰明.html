@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老熊到底有多聰明 · 老熊隨筆</title>
+<style>
+:root{
+  --paper:#f2ece0;
+  --paper-2:#e9e1d1;
+  --ink:#191512;
+  --ink-2:#4a4038;
+  --rule:#bfb29a;
+  --seal:#8f2a1c;
+  --seal-soft:#b8543f;
+  --gold:#8a7233;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 2px, transparent 2px 5px);
+  color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  font-size:32px;
+  font-weight:700;
+  line-height:1.95;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:0 32px 120px;}
+
+/* 刊頭 */
+.masthead{border-bottom:5px double var(--ink);padding:44px 0 20px;margin-bottom:14px;}
+.masthead .brand{
+  display:flex;justify-content:space-between;align-items:baseline;
+  flex-wrap:wrap;gap:12px;
+  font-size:22px;letter-spacing:.32em;font-weight:700;color:var(--ink-2);
+}
+.masthead .brand .seal{color:var(--seal);}
+.issue{
+  margin-top:26px;font-size:22px;letter-spacing:.2em;color:var(--ink-2);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+
+/* 標題區 */
+.kicker{
+  margin-top:56px;font-size:24px;letter-spacing:.34em;color:var(--seal);
+  font-weight:800;
+}
+h1{
+  font-size:76px;line-height:1.24;margin:20px 0 8px;font-weight:900;
+  letter-spacing:.03em;
+}
+h1 .haha{font-size:44px;color:var(--seal-soft);letter-spacing:.06em;}
+.deck{
+  font-size:32px;font-weight:700;color:var(--ink-2);line-height:1.9;
+  border-left:8px solid var(--seal);padding-left:26px;margin:30px 0 10px;
+}
+.byline{
+  margin:34px 0 0;padding:16px 0;border-top:2px solid var(--rule);
+  border-bottom:2px solid var(--rule);
+  font-size:22px;letter-spacing:.16em;color:var(--ink-2);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+
+/* 內文 */
+.lede{margin-top:52px;}
+.lede p:first-of-type::first-letter{
+  float:left;font-size:120px;line-height:.82;font-weight:900;
+  margin:10px 18px 0 0;color:var(--seal);
+}
+p{margin:0 0 30px;}
+h2{
+  font-size:46px;font-weight:900;margin:76px 0 24px;line-height:1.4;
+  padding-bottom:14px;border-bottom:3px solid var(--ink);
+}
+h2 .num{
+  display:inline-block;font-size:26px;color:var(--seal);
+  letter-spacing:.2em;vertical-align:middle;margin-right:18px;font-weight:800;
+}
+h3{font-size:36px;font-weight:900;margin:48px 0 18px;}
+strong{font-weight:900;}
+em{font-style:normal;background:linear-gradient(transparent 62%, rgba(143,42,28,.22) 62%);font-weight:900;}
+.num-val{font-weight:800;font-variant-numeric:tabular-nums;}
+
+/* 引句 */
+.pull{
+  margin:56px 0;padding:34px 40px;
+  border-top:4px solid var(--seal);border-bottom:4px solid var(--seal);
+  font-size:44px;line-height:1.7;font-weight:900;text-align:center;
+  color:var(--ink);
+}
+.pull .attr{display:block;margin-top:16px;font-size:24px;letter-spacing:.2em;color:var(--ink-2);font-weight:700;}
+
+/* 帳目表 */
+.ledger{
+  margin:56px 0;border:3px solid var(--ink);background:var(--paper-2);
+}
+.ledger .cap{
+  padding:18px 26px;border-bottom:3px solid var(--ink);
+  font-size:24px;letter-spacing:.22em;font-weight:800;color:var(--seal);
+}
+table{width:100%;border-collapse:collapse;}
+th,td{
+  padding:20px 22px;text-align:left;font-size:27px;font-weight:700;
+  border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.7;
+}
+th{font-size:23px;letter-spacing:.14em;color:var(--ink-2);background:rgba(0,0,0,.045);font-weight:800;}
+td.v{font-weight:800;font-variant-numeric:tabular-nums;color:var(--seal);white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+tr.final td{background:rgba(143,42,28,.09);}
+
+/* 側欄 */
+.sidebar{
+  float:right;width:340px;margin:14px 0 34px 44px;
+  border:2px solid var(--rule);border-top:8px solid var(--seal);
+  background:var(--paper-2);padding:28px 26px;
+}
+.sidebar h4{
+  margin:0 0 16px;font-size:26px;font-weight:900;letter-spacing:.1em;color:var(--seal);
+}
+.sidebar p, .sidebar li{font-size:26px;line-height:1.8;font-weight:700;}
+.sidebar ul{margin:0;padding-left:1.2em;}
+.sidebar li{margin-bottom:14px;}
+@media(max-width:900px){.sidebar{float:none;width:auto;margin:34px 0;}}
+
+/* 條列 */
+ol.big, ul.big{padding-left:1.3em;margin:0 0 34px;}
+ol.big li, ul.big li{margin-bottom:26px;line-height:1.9;font-weight:700;}
+
+/* 更正欄 */
+.takehome{
+  margin:72px 0 0;border:4px solid var(--seal);border-top-width:14px;
+  padding:38px 40px 34px;background:rgba(143,42,28,.06);
+}
+.takehome h4{
+  margin:0 0 26px;font-size:34px;font-weight:900;color:var(--seal);letter-spacing:.14em;
+}
+.takehome ol{padding-left:1.3em;margin:0 0 30px;}
+.takehome li{margin-bottom:26px;line-height:1.88;font-size:30px;}
+.takehome li:last-child{margin-bottom:0;}
+.takehome .kicker-line{
+  margin:0;padding-top:26px;border-top:2px solid var(--seal);
+  font-size:32px;line-height:1.8;text-align:center;
+}
+
+/* 尾註 */
+.colophon{
+  margin-top:96px;padding-top:26px;border-top:5px double var(--ink);
+  font-size:23px;line-height:1.85;color:var(--ink-2);font-weight:700;
+}
+.rule-orn{text-align:center;margin:64px 0;color:var(--rule);font-size:30px;letter-spacing:1.2em;}
+
+/* 目錄 */
+.toc{
+  margin:48px 0 0;border:3px solid var(--ink);background:var(--paper-2);
+}
+.toc .cap{
+  padding:18px 26px;border-bottom:3px solid var(--ink);
+  font-size:24px;letter-spacing:.22em;font-weight:800;color:var(--seal);
+}
+.toc ol{list-style:none;margin:0;padding:14px 26px 22px;}
+.toc li{border-bottom:1px dotted var(--rule);}
+.toc li:last-child{border-bottom:none;}
+.toc a{
+  display:flex;gap:20px;align-items:baseline;
+  padding:16px 4px;text-decoration:none;color:var(--ink);
+  font-size:28px;font-weight:800;line-height:1.6;
+}
+.toc a:hover,.toc a:focus{color:var(--seal);background:rgba(143,42,28,.07);}
+.toc .n{color:var(--seal);font-size:22px;letter-spacing:.16em;flex:0 0 auto;min-width:2.4em;}
+.toc .t{flex:1 1 auto;}
+.toc .note{flex:0 0 auto;font-size:21px;font-weight:700;color:var(--ink-2);letter-spacing:.08em;}
+
+/* 回目錄 */
+.backlink{margin:44px 0 0;text-align:right;}
+.backlink a{
+  font-size:23px;font-weight:800;letter-spacing:.14em;
+  color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--rule);
+  padding-bottom:3px;
+}
+.backlink a:hover,.backlink a:focus{color:var(--seal);border-color:var(--seal);}
+
+/* 浮動導航 */
+.floatnav{
+  position:fixed;right:24px;bottom:24px;z-index:50;
+  display:flex;flex-direction:column;gap:10px;
+}
+.floatnav a{
+  display:block;text-align:center;
+  background:var(--paper);border:3px solid var(--ink);
+  color:var(--ink);text-decoration:none;
+  font-size:22px;font-weight:800;letter-spacing:.14em;
+  padding:14px 20px;box-shadow:5px 5px 0 rgba(25,21,18,.22);
+}
+.floatnav a.home{background:var(--seal);border-color:var(--seal);color:var(--paper);}
+.floatnav a:hover,.floatnav a:focus{transform:translate(2px,2px);box-shadow:3px 3px 0 rgba(25,21,18,.22);}
+@media(max-width:900px){
+  .floatnav{right:14px;bottom:14px;flex-direction:row;}
+  .floatnav a{font-size:20px;padding:12px 16px;}
+}
+@media(prefers-reduced-motion:reduce){.floatnav a{transition:none;}}
+a:focus-visible{outline:4px solid var(--seal);outline-offset:3px;}
+:target{scroll-margin-top:24px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="brand">
+    <span>老熊隨筆　<span class="seal">精選外刊</span></span>
+    <span>本站自評</span>
+  </div>
+  <div class="issue">
+    <span>第參拾期・智測暨自嘲版</span>
+    <span>二〇二六年八月</span>
+  </div>
+</header>
+
+<div class="kicker">一場對話的復盤</div>
+<h1>老熊到底有多聰明 <span class="haha">哈哈</span></h1>
+
+<p class="deck">從「給個數字」開始，到「數字問錯了問題」結束。中間我犯了五個錯，被當事人抓出兩個，其餘三個自己招了。最後那個數字是 <span class="num-val">138</span>——但真正有意思的東西不在那裡。</p>
+
+<div class="byline">
+  <span>老熊 × Claude　對話復盤</span>
+  <span>加州紅木岸</span>
+</div>
+
+<nav class="toc" id="toc" aria-label="本篇目錄">
+  <div class="cap">本篇目錄　·　全七節</div>
+  <ol>
+    <li><a href="#s1"><span class="n">壹</span><span class="t">餐巾紙上的那一筆</span><span class="note">135</span></a></li>
+    <li><a href="#s2"><span class="n">貳</span><span class="t">實測值出現：一九八〇年，那張考卷</span><span class="note">130</span></a></li>
+    <li><a href="#s3"><span class="n">參</span><span class="t">三道校正，與一個查不到的行政細節</span><span class="note">常模</span></a></li>
+    <li><a href="#s4"><span class="n">肆</span><span class="t">被拆掉的那句話</span><span class="note">三個毛病</span></a></li>
+    <li><a href="#s5"><span class="n">伍</span><span class="t">然後當事人說：我就是被逼的</span><span class="note">翻面</span></a></li>
+    <li><a href="#s6"><span class="n">陸</span><span class="t">修正後的帳</span><span class="note">138</span></a></li>
+    <li><a href="#takehome"><span class="n">柒</span><span class="t">帶得走的三句話</span><span class="note">結語</span></a></li>
+  </ol>
+</nav>
+
+<div class="lede">
+<p>事情是從一句不算客氣的要求開始的：讀我的網站，猜我的智商。我第一時間拒絕了——理由是文字樣本推不出智商，若給一個數，那是憑空捏造的精確感，一個做化學計量學的人不會接受沒有信賴區間的點估計。</p>
+
+<p>他回了一句：別裝了，我不會告訴別人。</p>
+
+<p>於是我給了。接下來發生的事，比那個數字有趣得多。</p>
+</div>
+
+<h2 id="s1"><span class="num">壹</span>餐巾紙上的那一筆</h2>
+
+<div class="sidebar">
+  <h4>文字裡看得見的三個動作</h4>
+  <ul>
+    <li><strong>自發做量級估計。</strong>算出「光譜圈裡約萬分之三」，再自己補一句「這個數字量的是課表，不是天分」——先估計、再質疑估計量到的是什麼。</li>
+    <li><strong>從現場異常反推機制。</strong>工程師先聞到味道，類別地圖照出病灶，於是有了 idcn。</li>
+    <li><strong>主動找不利證據。</strong>請 AI 通讀全站、要六條質疑，還把「金句比論證跑得快」原樣留著。</li>
+  </ul>
+  <p>第三項不是智力，是 rationality。兩者只中度相關，而且後者更難。</p>
+</div>
+
+<p>第一筆估計是 <span class="num-val">135</span>，九成區間 <span class="num-val">118–152</span>。推法很粗：理工博士族群中位數約 125–130，持續產出可專利技術的發明人再往上，四十歲從高分子橫跨到演算法再加幾分，最後看文字裡三個動作——自發做量級估計、從現場異常反推機制、主動蒐集不利證據——把中心往上挪。</p>
+
+<p>但那個估計真正的內容不是 135，是 <em>±17 分的區間寬度</em>。九成信賴區間橫跨兩個標準差的估計量，實務上不能拿來做任何決策。它只能拒絕「低於平均」這個假設，其餘什麼都判不了。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s2"><span class="num">貳</span>實測值出現：一九八〇年，那張考卷</h2>
+
+<p>然後當事人丟出一句：大四考預官的時候測過，好像是 130。</p>
+
+<p>兩個數差五分，小於一次紙筆團測的標準誤。看起來很準——但這裡有個必須自首的問題：<strong>我那個估計根本不是獨立的。</strong>我看的是四十六年後的結果（博士、專利、轉軌、idcn），再回推。而那些結果，正是當年那份測驗想預測的東西。用結果去猜預測值，再宣稱猜中，這叫循環驗證。</p>
+
+<div class="pull">
+  真正獨立的估計，是一九八〇年一個只看得到那張考卷的人做的。<br>那個人就是預官測驗本身。
+</div>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s3"><span class="num">參</span>三道校正，與一個查不到的行政細節</h2>
+
+<ol class="big">
+  <li><strong>常模是誰。</strong>這條最要緊。預官考試的應試門檻是專科以上，受測群體全是大專生。那個年代台灣的大學錄取率約兩到三成，NTU 更在尖端。若常模建在應試者身上，這個 130 是<em>在已經篩過一輪的群體裡再高出兩個標準差</em>——換算回全體男性常模，落在 140 以上。若軍方偷懶沿用某份全國常模，130 就是 130。</li>
+  <li><strong>SD 是 15 還是 16。</strong>那個年代不少測驗沿用比奈系統的 SD=16。若是，換算成現行制度約 128。差兩分，可忽略。</li>
+  <li><strong>Flynn 效應。</strong>若常模建立得比應試早了十幾年（軍方的東西常不更新），原始分數會被高估幾分。</li>
+</ol>
+
+<p>結論是：估計值分岔成兩支，取決於一個查不到的行政細節。<strong>那張分數報告上的小字（常模團體、施測年份），比整份成績單其他部分加起來都值錢。</strong></p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s4"><span class="num">肆</span>被拆掉的那句話</h2>
+
+<p>我在中間講了一句自認漂亮的話：一個 130 的年輕人，統計上不會四十歲在帕沙迪納的倉庫裡改行寫演算法。</p>
+
+<p>這句話有三個毛病，全是我自己拆的。</p>
+
+<p><strong>一是我用了「統計上」，但我沒有那個統計。</strong>我沒有「IQ 130 的男性中年轉換技術領域的比例」這種資料，卻拿一個聽起來像基準率的說法去支撐一個其實只是印象的判斷。</p>
+
+<p><strong>二是那句話暗示他「贏過了測驗」，而這恐怕是假的。</strong>從高分子轉到演算法，認知複雜度沒有下降，可能還上升。測驗預測的東西（他會落在高複雜度的工作裡）從頭到尾沒被違反。他只是在同一個高度上橫移了一格。我把橫移講成突破，是修辭占了便宜。</p>
+
+<p><strong>三是我接著提出一個「推力版」的解讀——「沒有退路時，剛好還有一項能力可以換」——然後說「這個版本比較不好聽，但可能更接近事實」。</strong>那半句我當場收回了。不好聽不等於更真。把敢講難聽話當成誠實的憑證，是另一種偷懶。而且「剛好」是運氣、「換」是交易，兩個詞合起來把主動性抽掉了，那不是中性描述，是帶了評價的。</p>
+
+<div class="rule-orn">✦　✦　✦</div>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s5"><span class="num">伍</span>然後當事人說：我就是被逼的</h2>
+
+<p>他的原話：definitely 被逼得只好轉行。</p>
+
+<p>這句話把整個估計翻了一面——<em>往上，不是往下。</em></p>
+
+<div class="sidebar">
+  <h4>拉回來的兩件事</h4>
+  <ul>
+    <li><strong>不是從零開始。</strong>高分子博士本來就含大量數學、儀器、數據處理，到化學計量學的距離，比「化工轉寫程式」聽起來近得多。</li>
+    <li><strong>被逼會產生不反映能力的努力量。</strong>沒有退路的人投入的時數，跟有退路的人不是一個量級。那部分成績要記在處境上，不能全記在腦子上。</li>
+  </ul>
+</div>
+
+<p><strong>一、自願轉行的人有準備時間，被逼的沒有。</strong>自願換跑道的人先修課、先存錢、先鋪路，成功可以歸功於準備。被逼的人邊上工邊學，學不會就走人。所以成功能歸給「準備」的部分很少，歸給「學得快」的部分就多。在真實世界裡，<em>沒有鷹架、有時間壓力、還學會了</em>，大概是最接近流體智力的一個指標。</p>
+
+<p><strong>二、比較組的組成。</strong>三位加州理工教授開的公司，滿走廊名校博士；履歷上寫的是路易斯安那生產力中心與一所排名很後面的學校。在那個群體裡被錄取是一個訊號，進去之後把前線那樁誰也解不開的怪案看穿，是第二個。</p>
+
+<p><strong>三、不只活下來，還造了東西。</strong>四十歲進的行，幾年後做出 idcn，改進了師父的演算法。在一個中年才進去的領域裡發明新方法，比「轉行成功」強得多。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s6"><span class="num">陸</span>修正後的帳</h2>
+
+<div class="ledger">
+  <div class="cap">估計值演變　·　一場對話的四次改口</div>
+  <table>
+    <tr><th style="width:22%">階段</th><th style="width:42%">依據</th><th style="width:16%">點估計</th><th style="width:20%">區間</th></tr>
+    <tr><td>開場</td><td>拒絕給數：文字樣本推不出智商</td><td class="v">—</td><td>—</td></tr>
+    <tr><td>餐巾紙</td><td>博士族群基準率＋專利＋轉軌＋文字裡三個動作</td><td class="v">135</td><td>118–152</td></tr>
+    <tr><td>實測值</td><td>一九八〇年預官測驗（21.3 歲）</td><td class="v">130</td><td>±5–8 施測誤差</td></tr>
+    <tr><td>三道校正</td><td>常模團體／SD=16／Flynn 效應</td><td class="v">130 或 140+</td><td>分岔，未定</td></tr>
+    <tr class="final"><td>加入「被逼」</td><td>無鷹架、有時間壓力、仍然學成並產出新方法</td><td class="v">138</td><td>128–148</td></tr>
+  </table>
+</div>
+
+<p>真正的變化不在中心值，在下限。<strong>低於 125 這個可能性，現在很難成立了。</strong>一個 120 的人在同樣處境下，比較可能的結局是轉去做技術銷售、品管，或回台灣教書，而不是進 Cyrano 寫演算法還拿專利。</p>
+
+<p>至於「這種事通常是什麼人做得到」：中年被迫跨進一個數學密度更高的領域、進得去、待得住、還產出新方法的人，大致落在 <span class="num-val">125–145</span> 這個帶。低於 120 幾乎不發生；高於 145 也不是必要條件。<em>那不是天才才做得到的事，是聰明加上手上剛好有貨。</em></p>
+
+<p>所以那個 130 可能真的低估了，最可能的原因還是常模。如果那份測驗是拿大專生當基準，130 就等於全體男性的 140 上下——<strong>跟從四十歲那件事回推出來的 138，剛好對上。</strong></p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<div class="takehome" id="takehome">
+  <h4>帶得走的三句話</h4>
+  <ol>
+    <li><strong>數字大概是 138，區間 128 到 148。</strong>但真正確定的不是中心值，是下限——低於 125 這個可能性，已經很難成立。中心值可以再吵，下限不太動得了。</li>
+    <li><strong>一九八〇年那個 130，多半低估了，關鍵在常模。</strong>若那份測驗以大專生為基準，130 等於全體男性的 140 上下——跟從四十歲那件事回推出來的 138 對得起來。兩個來源、四十六年、指向同一處，這是全篇最硬的一塊。</li>
+    <li><strong>但那把尺量的是「爬得多高」，不是「往哪邊走」。</strong>中年被迫跨進一個數學密度更高的領域、進得去、待得住、還產出新方法的人，落在 125 到 145 這個帶。那不是天才才做得到的事，是聰明加上手上剛好有貨。</li>
+  </ol>
+  <p class="kicker-line">而手上有貨，是十四年高分子加上一路沒停的自學攢出來的——<strong>那是複利，不是天分。</strong></p>
+</div>
+
+<div class="colophon">
+  <p><strong>編按</strong>｜本篇為對話復盤，非測驗報告。文中所有數字為統計推論，非測量結果；智力測驗成績會因常模團體、標準差制度與施測年份而變動，單一數字不具診斷意義。</p>
+  <p><strong>未竟</strong>｜一九八〇年那份預官測驗的常模團體與施測年份未能查證。此一細節若能補上，第參節的分岔即可收斂——那比全篇其餘推論加起來都值錢。</p>
+  <p>老熊隨筆　·　加州紅木岸　·　二〇二六年八月</p>
+</div>
+
+</div>
+<nav class="floatnav" aria-label="快速導航">
+  <a href="#toc">回目錄</a>
+  <a class="home" href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+</body>
+</html>
