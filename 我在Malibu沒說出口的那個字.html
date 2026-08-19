@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我在 Malibu 沒說出口的那個字 — 老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEFF3;--card:#FFFFFF;--ink:#0F1720;--ink-soft:#41505F;--rule:#C9D2DC;
+  --trace:#0F6E78;--biref:#A81C6B;--amber:#B0740B;--amber-fill:#FBF0D6;--stone:#5A6572;
+  --shadow:0 24px 60px rgba(15,23,32,.09);
+  --body:Arial,'Helvetica Neue',Helvetica,'Noto Serif TC','PingFang TC','Microsoft JhengHei',serif;
+  --sans:Arial,'Helvetica Neue',Helvetica,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+  --mathfont:'Cambria Math','Latin Modern Math','Times New Roman',Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:32px;font-weight:700;line-height:1.95;
+  letter-spacing:.02em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 44px 64px}
+strong,b{font-weight:900}
+
+/* 報頭 */
+.masthead{padding:82px 0 18px}
+.eyebrow{font-family:var(--sans);font-size:22px;font-weight:800;letter-spacing:.24em;
+  color:var(--trace);margin:0 0 34px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.eyebrow::before{content:"";width:64px;height:4px;background:var(--trace)}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:clamp(46px,7.2vw,76px);line-height:1.24;letter-spacing:.01em;margin:0 0 30px;max-width:19ch}
+h1 .hl{color:var(--biref)}
+.title-en{font-family:var(--sans);font-weight:700;font-size:26px;line-height:1.5;
+  color:var(--ink-soft);margin:0 0 34px;padding-left:26px;border-left:8px solid var(--biref)}
+.dek{font-size:34px;font-weight:700;color:var(--ink-soft);margin:0;line-height:1.85}
+.byline{font-family:var(--sans);font-size:22px;font-weight:700;color:var(--ink-soft);
+  letter-spacing:.08em;margin:38px 0 0;padding-top:28px;border-top:3px solid var(--rule)}
+
+/* 版面 */
+.grid{display:grid;grid-template-columns:1fr 340px;gap:56px;margin-top:96px;align-items:start}
+.side{position:sticky;top:32px;display:flex;flex-direction:column;gap:34px}
+section{margin-top:88px}
+section:first-of-type{margin-top:0}
+h2{font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:clamp(34px,4.2vw,46px);line-height:1.36;margin:0 0 28px;letter-spacing:.01em}
+h3{font-family:var(--sans);font-weight:800;font-size:24px;letter-spacing:.14em;color:var(--biref);margin:44px 0 18px}
+p{margin:0 0 32px}
+.lead::first-letter{float:left;font-family:'Noto Serif TC',serif;font-weight:900;font-size:120px;
+  line-height:.86;margin:10px 18px 0 0;color:var(--biref)}
+.quote-line{font-family:var(--sans);font-size:28px;font-weight:800;line-height:1.7;color:var(--trace);
+  border-left:8px solid var(--trace);padding:8px 0 8px 28px;margin:0 0 32px}
+.watch{display:inline-block;font-family:var(--sans);font-size:23px;font-weight:800;letter-spacing:.05em;
+  text-decoration:none;color:#fff;background:var(--ink);padding:20px 34px;border-radius:6px;margin:8px 0;
+  transition:background .2s,transform .2s}
+.watch:hover{background:var(--trace);transform:translateY(-2px)}
+.watch:focus-visible{outline:5px solid var(--biref);outline-offset:4px}
+
+/* 場景卡（2012 Malibu） */
+.scene{background:var(--ink);color:#E7ECF1;border-radius:14px;padding:46px 50px;margin:44px 0;box-shadow:var(--shadow)}
+.scene .slug{font-family:var(--sans);font-size:20px;font-weight:800;letter-spacing:.2em;
+  color:#7FB4B9;margin:0 0 26px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.scene .slug::before{content:"";width:40px;height:4px;background:#7FB4B9}
+.scene p{font-size:29px;line-height:1.86;margin:0 0 26px}
+.scene p:last-child{margin:0}
+.scene .q{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:900;line-height:1.6;
+  color:#fff;border-left:8px solid var(--biref);padding-left:28px;margin:34px 0}
+
+/* 數學 */
+.m{font-family:var(--mathfont);font-style:italic;font-weight:800;color:var(--ink);white-space:nowrap}
+.m .up{font-style:normal}
+.eq{background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:34px 40px;margin:38px 0;
+  text-align:center;font-family:var(--mathfont);font-size:34px;font-weight:800;line-height:1.9;overflow-x:auto}
+.eq .cap{display:block;font-family:var(--sans);font-style:normal;font-size:20px;font-weight:800;
+  letter-spacing:.12em;color:var(--stone);margin-top:22px}
+.eq.key{border-left:10px solid var(--biref)}
+
+/* 元件 */
+.pull{font-family:'Noto Serif TC',serif;font-size:44px;font-weight:900;line-height:1.62;color:var(--ink);
+  background:var(--card);border-left:10px solid var(--biref);padding:40px 46px;margin:46px 0;
+  border-radius:0 10px 10px 0;box-shadow:var(--shadow)}
+.pull span{display:block;font-family:var(--sans);font-size:21px;font-weight:800;letter-spacing:.16em;
+  color:var(--biref);margin-top:26px}
+.note{background:var(--card);border-left:10px solid var(--trace);border-radius:0 10px 10px 0;
+  padding:32px 38px;margin:38px 0;font-size:27px;line-height:1.82;box-shadow:var(--shadow)}
+.note h4{font-family:var(--sans);font-size:22px;font-weight:800;letter-spacing:.14em;color:var(--trace);margin:0 0 16px}
+.note p{margin:0 0 18px}
+.note p:last-child{margin:0}
+.note.warn{border-left-color:var(--amber);background:var(--amber-fill)}
+.note.warn h4{color:var(--amber)}
+
+/* 邊欄 */
+.card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:30px;border-top:8px solid var(--trace)}
+.card.b2{border-top-color:var(--biref)}
+.card.b3{border-top-color:var(--amber);background:var(--amber-fill)}
+.card h4{font-family:var(--sans);font-size:21px;font-weight:800;letter-spacing:.12em;color:var(--trace);margin:0 0 16px}
+.card.b2 h4{color:var(--biref)}
+.card.b3 h4{color:var(--amber)}
+.card p{font-size:22px;line-height:1.78;margin:0 0 16px}
+.card p:last-child{margin:0}
+.card .term{font-family:var(--sans);font-size:19px;font-weight:800;letter-spacing:.08em;color:var(--stone);
+  display:block;margin-bottom:6px}
+.card dl{margin:0;font-size:21px;line-height:1.7}
+.card dt{font-family:var(--sans);font-weight:800;color:var(--stone);letter-spacing:.06em;font-size:19px;margin-top:14px}
+.card dt:first-child{margin-top:0}
+.card dd{margin:0}
+
+/* 表 */
+.tbl-wrap{overflow-x:auto;background:var(--card);border-radius:12px;box-shadow:var(--shadow);margin:38px 0}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:22px;font-weight:700}
+thead th{background:var(--ink);color:#fff;text-align:left;padding:22px 18px;font-size:20px;font-weight:800;letter-spacing:.08em}
+tbody td{padding:22px 18px;border-bottom:2px solid #E4E9EF;vertical-align:top;line-height:1.62}
+tbody tr:nth-child(even){background:#F7F9FB}
+td.o{font-weight:800;color:var(--trace);white-space:nowrap}
+
+/* 結語 */
+.coda{margin:110px 0 0;padding:60px 64px;background:var(--ink);color:#EDEFF3;border-radius:14px}
+.coda p{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:900;line-height:1.7;margin:0}
+.coda .en{font-family:var(--sans);font-weight:700;font-size:24px;color:#9FB6BA;margin-top:30px;line-height:1.7}
+
+/* 動態／RWD／列印 */
+.rv{opacity:1;transform:none}
+.js-anim .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js-anim .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media(max-width:1000px){.grid{grid-template-columns:1fr;gap:0}.side{position:static;margin-top:64px}}
+@media(max-width:900px){
+  body{font-size:23px;line-height:1.9}.wrap{padding:0 22px 48px}section{margin-top:64px}
+  .eq{font-size:23px;padding:24px 20px}.pull{font-size:29px;padding:28px 30px}
+  .note,.card p{font-size:21px}.lead::first-letter{font-size:82px}
+  .scene{padding:30px 26px}.scene p{font-size:22px}.scene .q{font-size:27px;padding-left:18px}
+  .coda{padding:38px 28px}.coda p{font-size:27px}
+}
+@media print{
+  body{background:#fff;font-size:13.5pt;line-height:1.8}
+  .wrap{max-width:none;padding:0}.grid{display:block}
+  .side{position:static;display:block;margin-top:40px}.card{margin-bottom:24px}
+  .rv{opacity:1;transform:none}
+  section,.eq,.note,.card,table,.pull,.scene{break-inside:avoid}
+  .scene{background:#fff;color:#000;border:3px solid #000}
+  .scene .slug{color:#000}.scene .q{color:#000}
+  .coda{background:#fff;color:#000;border:3px solid #000}.coda .en{color:#333}
+  a{color:#000}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">老熊隨筆 · 一個遲到十四年的答案</p>
+    <h1>我在 Malibu <br>沒說出口的<span class="hl">那個字</span></h1>
+    <p class="title-en">The Word I Failed to Say in Malibu: How a High Schooler's Mishearing Returned the Answer to a Job Interview I Lost in 2012</p>
+    <p class="dek">陶哲軒的女兒把 infinite-dimensional 聽成了 inter-dimensional。我先是懷疑自己聽錯，去問了 Gemini，確認錯的是她不是我——然後才想起來，那正是十四年前我在 HRL 面試時，沒能說出口的那個字。</p>
+    <p class="byline">熊昌盟（老熊）· Redwood Shores, California</p>
+  </header>
+
+  <div class="grid">
+    <main>
+
+      <section class="rv">
+        <h2>先是我以為自己聽錯了</h2>
+        <p class="lead">那集 SAIR podcast 我看到接近尾聲，話題轉進量子場論。鄧煜（Yu Deng）講到，要在那個領域裡把理論真正建構起來，你得先處理無窮維的測度。坐在對面的主持人 Riley Tao——陶哲軒的女兒，一個高中生——接話時複述了他的用詞，而我聽到的是另一個字。</p>
+        <p class="quote-line">「你剛剛講的第一個字是 inter-dimensional（跨維度）。對我來說那實在是個瘋狂的題目……你到底要怎麼跟這種東西打交道？」</p>
+        <p>我把進度條倒回去聽了兩次，還是不確定。到底是他說得含糊，還是我這雙六十幾歲的耳朵在自己補字？於是我做了 2026 年的人會做的事：把那一段丟給 Gemini，請它比對逐字稿確認。</p>
+        <p>答案很乾脆。鄧煜說的是 <span class="m">infinite-dimensional</span>（無窮維），主持人複述成了 <span class="m">inter-dimensional</span>（跨維度）。錯的不是我的耳朵，是她的。</p>
+        <p>然後我在螢幕前愣了一下。不是因為她講錯——一個高中生在費爾茲獎得主面前聽錯一個專有名詞，這太正常了。我愣住，是因為 <strong>infinite dimensions 這幾個字，正好是十四年前我在 Malibu 沒能說出口的那個字。</strong></p>
+        <a class="watch" href="https://www.youtube.com/watch?v=WgGqXilEWvI" target="_blank" rel="noopener">▶ 在 YouTube 觀看這場訪談</a>
+      </section>
+
+      <section class="rv">
+        <h2>2012，Malibu，太平洋上方那兩棟白樓</h2>
+
+        <div class="scene">
+          <p class="slug">SCENE · HRL LABORATORIES, MALIBU, CA · 約 2012 年</p>
+          <p>面試那天天氣很好。HRL 的園區在太平洋岸公路旁邊的坡地上，兩棟白色多層建築，窗外就是海。我當時在 Smiths Detection 做的是近紅外與感測陣列的分類演算法，來談的職缺跟機器學習有關。</p>
+          <p>面試官裡有一位年輕的加州理工博士，華裔——可能是 ABC，口音聽不出來。前面談得都還順。然後他換了個坐姿，問了一個聽起來像是暖身、其實不是的問題：</p>
+          <p class="q">「Kernel trick 為什麼叫做 kernel trick？」</p>
+          <p>我開始講我熟的那一套：你不需要顯式地把資料映射到高維空間，只要能算出兩點在那個空間裡的內積就夠了；核函數直接給你這個內積；Mercer 定理保證這樣的映射存在；RBF 核在光譜資料上特別好用；最後解只落在支持向量上。</p>
+          <p>每一句都是對的。他聽完，點了點頭，換了下一個題目。那個點頭的樣子我到現在還記得——不是「懂了」，是「算了」。</p>
+          <p>那份工作我沒拿到。</p>
+        </div>
+
+        <p>當然，面試沒過的原因永遠不會只有一個，也永遠不會有人告訴你。但這個問題我後來反覆想了很多年，而我現在相當確定：<strong>我回答的是「kernel trick 在做什麼」，他問的是「為什麼那個字是 kernel」。</strong>這是兩個問題。我把一道概念題當成操作題答了。</p>
+      </section>
+
+      <section class="rv">
+        <h2>他要的第一個答案：kernel 這個字是從哪裡來的</h2>
+        <p>「Kernel」在這裡不是「核心」、不是「果仁」，跟作業系統的 kernel 也沒有關係。它是<strong>積分算子的核</strong>——這個用法比機器學習早了將近一個世紀。</p>
+        <p>在 Fredholm 積分方程裡，一個算子長成這樣：</p>
+        <div class="eq">
+          <span class="m">(<span class="up">T</span>f)(x) = ∫ K(x, y) f(y) dy</span>
+          <span class="cap">FREDHOLM · K 就是這個積分變換的「核」</span>
+        </div>
+        <p>那個 <span class="m">K(x, y)</span> 就叫 kernel。德文原字是 Hilbert 用的 <em>Kern</em>，中文譯成「核」。它的意思是：這個算子的全部內容都被這個兩變數函數決定了。</p>
+        <p>而 Mercer 定理處理的正是這種積分算子：如果 <span class="m">K</span> 是對稱且半正定的，這個算子可以做譜分解，特徵函數展開之後，<span class="m">K(x, y)</span> 就寫成兩個特徵向量的內積。</p>
+        <div class="eq key">
+          <span class="m">K(x, y) = Σ<sub>k</sub> λ<sub>k</sub> ψ<sub>k</sub>(x) ψ<sub>k</sub>(y) = ⟨ φ(x), φ(y) ⟩</span>
+          <span class="cap">MERCER · 核 ＝ 特徵空間裡的內積</span>
+        </div>
+        <p>所以那個「trick」不是我當年講的「省下計算」。<strong>Trick 是：一個原本屬於積分方程的物件，被拿來當成幾何物件用。</strong>你把一個算子的核，重新解讀成一個內積——一個十九世紀分析學的名詞，在二十世紀末變成了幾何。這才是那個字的來歷。</p>
+        <p>我當年沒講這一段。一個加州理工的博士問你「為什麼叫 kernel」，他要聽的是這個。</p>
+      </section>
+
+      <section class="rv">
+        <h2>他要的第二個答案：把高斯函數展開</h2>
+        <p>另一個我完全沒碰的方向，是<strong>展開</strong>。而我懷疑，這才是他真正在等的。</p>
+        <p>高斯 RBF 核：</p>
+        <div class="eq">
+          <span class="m">K(x, y) = <span class="up">exp</span>( −γ‖x − y‖² )</span>
+        </div>
+        <p>問題是：這個核對應的特徵空間，到底有多大？把平方展開，指數就分得開：</p>
+        <div class="eq">
+          <span class="m">K(x, y) = e<sup>−γ‖x‖²</sup> · e<sup>−γ‖y‖²</sup> · e<sup>2γ⟨x, y⟩</sup></span>
+        </div>
+        <p>前兩項各自只跟一邊有關，純粹是縮放。真正造出維度的是第三項，對<strong>交叉項</strong>做 Taylor 展開：</p>
+        <div class="eq key">
+          <span class="m">e<sup>2γ⟨x, y⟩</sup> = Σ<sub>n=0</sub><sup>∞</sup> (2γ)<sup>n</sup> ⟨x, y⟩<sup>n</sup> ⁄ n!</span>
+          <span class="cap">每一項都是一個 n 次多項式核</span>
+        </div>
+        <p>每個 <span class="m">⟨x, y⟩<sup>n</sup></span> 都是一個 <span class="m">n</span> 次多項式核，對應到所有 <span class="m">n</span> 次單項式張成的空間。而 <span class="m">n</span> 從 0 加到無窮。全部疊起來，特徵映射 <span class="m">φ</span> 的分量是<strong>所有次數、所有變數組合的單項式</strong>。</p>
+        <p>維度：可數無窮。這就是答案。<strong>RBF 核之所以是那個 kernel，是因為它悄悄把你的資料放進了一個無窮維的 Hilbert 空間。</strong>而它能這麼做又不算爆炸，是因為表示定理保證最後的解只需要 <span class="m">n</span> 個係數：</p>
+        <div class="eq">
+          <span class="m">f(x) = Σ<sub>i=1</sub><sup>n</sup> α<sub>i</sub> y<sub>i</sub> K(x<sub>i</sub>, x) + b</span>
+          <span class="cap">無窮維進去，n 維出來</span>
+        </div>
+
+        <div class="note warn">
+          <h4>但如果我當年只說「Taylor 展開」，可能還是會被追打</h4>
+          <p>誠實地補一句：很多人（包括我自己後來寫的草稿）會直接說「把 <span class="m">e<sup>x</sup></span> 展成 <span class="m">1 + x + x²/2! + ⋯</span>，所以是無窮維」。方向對，但展錯了對象。要被展開的必須是<strong>交叉項</strong> <span class="m">e<sup>2γ⟨x,y⟩</sup></span>，而不是整個核；只有交叉項的級數才會產生「兩邊各自的特徵向量做內積」這個結構，<span class="m">e<sup>−γ‖x‖²</sup></span> 那兩項一個維度都不造，只是縮放。</p>
+          <p>坐在對面的是加州理工的博士。如果我含糊地丟一句「Taylor 展開所以無窮維」，他大概會馬上問「展開哪一項」。所以我現在的看法是：<strong>光提 Taylor 也不夠，得提對地方。</strong></p>
+        </div>
+      </section>
+
+      <section class="rv">
+        <h2>而我真正想講、卻沒機會講的那一段</h2>
+        <p>如果那天我答對了前兩題，他多給我三分鐘，我最想講的其實是第三件事——這也是 kernel trick 在我心裡最漂亮的一面：<strong>它跟量子場論用的是同一個數學物件。</strong></p>
+        <p>回到鄧煜那句話。場不是粒子：電磁場在空間每一個點都有值，所以一個場的組態不是一串座標，<strong>它就是一個函數</strong>。所有可能組態構成的空間，是無窮維的。這正是他對那個聽錯的回答：在有限維裡一個點是一串座標，在無窮維裡，一個「點」是一個函數。</p>
+        <p>而無窮維裡最麻煩的事情是：<strong>那裡沒有 Lebesgue 測度。</strong>理由乾脆得近乎粗暴——無窮維的單位球裡塞得下無窮多個互不相交、半徑相同的小球；若要平移不變，它們測度必須相同；共同值大於零則總量無窮，等於零則整球為零。兩條路都死。</p>
+        <p>所以在無窮維裡，測度不能撿，只能造。而唯一真正好用的那一族是高斯測度，它由一個東西完全決定：<strong>共變異算子</strong>。</p>
+        <p>看到這裡，兩邊就對齊了。核函數 <span class="m">K(x, y)</span> 是什麼？是兩點之間的共變異。場論裡的傳播子 <span class="m">G(x − y)</span> 是什麼？也是兩點之間的共變異。<strong>它們是同一類物件。</strong></p>
+
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>同一個物件</th><th>量子場論</th><th>核方法</th></tr></thead>
+            <tbody>
+              <tr><td class="o">兩點函數</td><td>傳播子 <span class="m">G(x − y)</span></td><td>核函數 <span class="m">K(x, y)</span></td></tr>
+              <tr><td class="o">它決定什麼</td><td>自由場的高斯測度</td><td>對應高斯過程的先驗</td></tr>
+              <tr><td class="o">那個空間</td><td>Cameron–Martin 空間</td><td>再生核 Hilbert 空間（RKHS）</td></tr>
+              <tr><td class="o">正定條件</td><td>Osterwalder–Schrader 反射正性</td><td>Mercer 條件</td></tr>
+              <tr><td class="o">有限維出口</td><td>可觀測量的期望值</td><td>表示定理的 n 個係數</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>第三列是樞紐：一個高斯測度的 Cameron–Martin 空間，<strong>就是</strong>它共變異核的 RKHS。同一個定義，兩個名字，在兩個從不開會的社群裡各自流通了幾十年。</p>
+        <p>這件事對做光譜分類的人不是裝飾。它的意思是：當我在 MicroNIR 資料上挑一個 <span class="m">γ</span>，我不是在調靈敏度，我是在<strong>指定一個無窮維空間上的高斯測度</strong>——只是我的空間裡住著光譜，物理學家的空間裡住著場組態。</p>
+        <div class="pull">
+          他問我為什麼那個字是 kernel。<br>正確答案是：因為它是一個共變異——而共變異，就是無窮維裡唯一能讓你站穩的東西。
+          <span>THE ANSWER I OWED HIM</span>
+        </div>
+      </section>
+
+      <section class="rv">
+        <h2>遲到十四年</h2>
+        <p>那份工作我沒拿到，後來也沒再和 HRL 有過交集。這件事在我心裡不算傷口，比較像一顆沒吐乾淨的果核——每隔幾年被什麼東西碰一下，就又滾出來一次。</p>
+        <p>2026 年碰它的，是一個高中生。她把 infinite 聽成了 inter，主持人的驚呼逼出了費爾茲獎得主一句最乾淨的解釋，而那句解釋裡的關鍵字，正好是我在太平洋邊那間會議室裡欠下的那個字。</p>
+        <p>更妙的是，她那個錯字錯得離奇地準。「Inter-dimensional」作為物理是錯的；作為 kernel trick 的描述，卻幾乎完美——資料在有限維進去，計算在無窮維發生，答案在 <span class="m">n</span> 維出來，而那個無窮維空間你從頭到尾沒有真的去過。這是一趟不折不扣的跨維度往返，往返票由 Mercer 定理背書。</p>
+        <p>2012 年我沒說出口的，2026 年被一個聽錯的字還了回來。這種事沒有辦法安排，只能等。</p>
+      </section>
+
+    </main>
+
+    <aside class="side">
+
+      <div class="card b3 rv">
+        <h4>旁註 · 關於「傻白甜」這個標籤</h4>
+        <p>網路上很快有人拿「傻白甜」形容 Riley Tao 在那集裡的表現：問題天真、把專有名詞聽錯、在費爾茲獎得主面前連連驚呼。</p>
+        <p>我想替這種傻白甜說句話。她問的，是那種<strong>已經知道太多的人再也問不出口</strong>的問題。內行人聽到 infinite-dimensional 會點頭讓它過去——因為他知道那是什麼，所以不會逼對方解釋。她不知道，所以她逼了。</p>
+        <p>結果那三秒鐘的聽錯，換來了「一個點其實是一個函數」這句話。整集節目最好的一句解釋，是被一個錯字撬出來的。</p>
+        <p>而且說老實話：2012 年在 Malibu，<strong>那個沒把話講清楚的人是我，不是她。</strong>她至少問出了口。</p>
+      </div>
+
+      <div class="card b2 rv">
+        <h4>側記 · HRL LABORATORIES 是什麼地方</h4>
+        <dl>
+          <dt>正式名稱</dt>
+          <dd>HRL Laboratories, LLC。前身為 Hughes Research Laboratories（休斯研究實驗室），不是「研究院」。</dd>
+          <dt>位置</dt>
+          <dd>加州 Malibu，太平洋岸公路旁的坡地上，兩棟白色多層建築，正對太平洋。</dd>
+          <dt>身世</dt>
+          <dd>源自 Howard Hughes 1940 年代在 Culver City 的研發部門，1960 年 Malibu 園區啟用，長期是 Hughes Aircraft 的研究臂膀。</dd>
+          <dt>最有名的一件事</dt>
+          <dd>1960 年 Theodore Maiman 在這裡做出了世界第一台可運作的雷射（紅寶石雷射）。</dd>
+          <dt>現在的老闆</dt>
+          <dd>1997 年底從 Hughes 拆分為 LLC；現由波音（Boeing）與通用汽車（GM）共同持有。</dd>
+          <dt>做什麼</dt>
+          <dd>微電子、材料科學、感測器、電磁、資訊與系統科學；也是美國國防部的 Trusted Foundry。</dd>
+        </dl>
+      </div>
+
+      <div class="card rv">
+        <h4>一句話 · 為什麼是「核」</h4>
+        <p><span class="term">Kernel / Kern</span>來自積分算子 <span class="m">∫K(x,y)f(y)dy</span> 中的那個 <span class="m">K</span>，Hilbert 用的德文原字是 <em>Kern</em>。跟「核心」或作業系統的 kernel 無關。</p>
+      </div>
+
+      <div class="card rv">
+        <h4>一句話 · MERCER 條件</h4>
+        <p><span class="term">Mercer's Condition</span>對稱且半正定的 <span class="m">K(x, y)</span>，必定存在某個特徵映射 <span class="m">φ</span> 使 <span class="m">K</span> 恰為其內積。你不必找出 <span class="m">φ</span>，確認半正定，那個空間就保證存在。</p>
+      </div>
+
+      <div class="card b2 rv">
+        <h4>一句話 · CAMERON–MARTIN</h4>
+        <p><span class="term">Cameron–Martin Space</span>無窮維高斯測度下，可平移而不破壞測度等價性的方向所成之空間。它與該測度共變異核的 RKHS <strong>完全相同</strong>。</p>
+      </div>
+
+      <div class="card b3 rv">
+        <h4>實務 · γ 在調什麼</h4>
+        <p>調大 <span class="m">γ</span>，核衰減快，等於宣告只有非常靠近的光譜才算相似，RKHS 容得下更抖的函數，容易過擬合。</p>
+        <p>調小 <span class="m">γ</span>，一切都相似，決策面趨平。<strong>你調的不是靈敏度，是無窮維空間裡的光滑度預算。</strong></p>
+      </div>
+
+    </aside>
+  </div>
+
+  <div class="coda rv">
+    <p>2012 年，一位加州理工博士問我為什麼那個字是 kernel，我答不上來。<br>2026 年，一個高中生把 infinite 聽成 inter，把那個字還給了我。</p>
+    <p class="en">In 2012 a Caltech PhD asked me why the kernel trick is called a kernel, and I could not tell him. In 2026 a high-school student misheard "infinite" as "inter," and handed the word back.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  function showAll(){els.forEach(function(e){e.classList.add('in');});}
+  if(!reduce && 'IntersectionObserver' in window){
+    root.classList.add('js-anim');
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:0.01,rootMargin:'0px 0px -4% 0px'});
+    els.forEach(function(e){io.observe(e);});
+    setTimeout(showAll,2500);
+    window.addEventListener('beforeprint',showAll);
+  }
+})();
+</script>
+</body>
+</html>
