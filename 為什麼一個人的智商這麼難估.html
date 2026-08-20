@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>為什麼一個人的智商這麼難估 · 老熊隨筆</title>
+<style>
+:root{
+  --paper:#f2ece0;
+  --paper-2:#e9e1d1;
+  --ink:#191512;
+  --ink-2:#4a4038;
+  --rule:#bfb29a;
+  --seal:#8f2a1c;
+  --seal-soft:#b8543f;
+  --gold:#8a7233;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 2px, transparent 2px 5px);
+  color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;
+  font-size:32px;
+  font-weight:700;
+  line-height:1.95;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:0 32px 120px;}
+
+/* 刊頭 */
+.masthead{border-bottom:5px double var(--ink);padding:44px 0 20px;margin-bottom:14px;}
+.masthead .brand{
+  display:flex;justify-content:space-between;align-items:baseline;
+  flex-wrap:wrap;gap:12px;
+  font-size:22px;letter-spacing:.32em;font-weight:700;color:var(--ink-2);
+}
+.masthead .brand .seal{color:var(--seal);}
+.issue{
+  margin-top:26px;font-size:22px;letter-spacing:.2em;color:var(--ink-2);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+
+/* 標題區 */
+.kicker{
+  margin-top:56px;font-size:24px;letter-spacing:.34em;color:var(--seal);
+  font-weight:800;
+}
+h1{
+  font-size:76px;line-height:1.24;margin:20px 0 8px;font-weight:900;
+  letter-spacing:.03em;
+}
+h1 .sub{font-size:40px;color:var(--seal-soft);letter-spacing:.06em;}
+.deck{
+  font-size:32px;font-weight:700;color:var(--ink-2);line-height:1.9;
+  border-left:8px solid var(--seal);padding-left:26px;margin:30px 0 10px;
+}
+.byline{
+  margin:34px 0 0;padding:16px 0;border-top:2px solid var(--rule);
+  border-bottom:2px solid var(--rule);
+  font-size:22px;letter-spacing:.16em;color:var(--ink-2);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+
+/* 內文 */
+.lede{margin-top:52px;}
+.lede p:first-of-type::first-letter{
+  float:left;font-size:120px;line-height:.82;font-weight:900;
+  margin:10px 18px 0 0;color:var(--seal);
+}
+p{margin:0 0 30px;}
+h2{
+  font-size:46px;font-weight:900;margin:76px 0 24px;line-height:1.4;
+  padding-bottom:14px;border-bottom:3px solid var(--ink);
+}
+h2 .num{
+  display:inline-block;font-size:26px;color:var(--seal);
+  letter-spacing:.2em;vertical-align:middle;margin-right:18px;font-weight:800;
+}
+h3{font-size:36px;font-weight:900;margin:48px 0 18px;}
+strong{font-weight:900;}
+em{font-style:normal;background:linear-gradient(transparent 62%, rgba(143,42,28,.22) 62%);font-weight:900;}
+.num-val{font-weight:800;font-variant-numeric:tabular-nums;}
+
+/* 引句 */
+.pull{
+  margin:56px 0;padding:34px 40px;
+  border-top:4px solid var(--seal);border-bottom:4px solid var(--seal);
+  font-size:44px;line-height:1.7;font-weight:900;text-align:center;
+  color:var(--ink);
+}
+.pull .attr{display:block;margin-top:16px;font-size:24px;letter-spacing:.2em;color:var(--ink-2);font-weight:700;}
+
+/* 帳目表 */
+.ledger{
+  margin:56px 0;border:3px solid var(--ink);background:var(--paper-2);
+}
+.ledger .cap{
+  padding:18px 26px;border-bottom:3px solid var(--ink);
+  font-size:24px;letter-spacing:.22em;font-weight:800;color:var(--seal);
+}
+.ledger .scroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th,td{
+  padding:20px 22px;text-align:left;font-size:27px;font-weight:700;
+  border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.7;
+}
+th{font-size:23px;letter-spacing:.14em;color:var(--ink-2);background:rgba(0,0,0,.045);font-weight:800;}
+td.v{font-weight:800;font-variant-numeric:tabular-nums;color:var(--seal);white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+tr.final td{background:rgba(143,42,28,.09);}
+
+/* 側欄 */
+.sidebar{
+  float:right;width:340px;margin:14px 0 34px 44px;
+  border:2px solid var(--rule);border-top:8px solid var(--seal);
+  background:var(--paper-2);padding:28px 26px;
+}
+.sidebar h4{
+  margin:0 0 16px;font-size:26px;font-weight:900;letter-spacing:.1em;color:var(--seal);
+}
+.sidebar p, .sidebar li{font-size:26px;line-height:1.8;font-weight:700;}
+.sidebar ul{margin:0;padding-left:1.2em;}
+.sidebar li{margin-bottom:14px;}
+@media(max-width:900px){.sidebar{float:none;width:auto;margin:34px 0;}}
+
+/* 附欄・分級 */
+.notebox{
+  margin:56px 0;border:3px solid var(--rule);border-left:14px solid var(--seal);
+  background:var(--paper-2);padding:34px 40px 30px;
+}
+.notebox h4{
+  margin:0 0 24px;font-size:32px;font-weight:900;color:var(--seal);letter-spacing:.12em;
+}
+.notebox p{margin:0 0 24px;line-height:1.9;}
+.notebox p:last-child{margin-bottom:0;}
+.notebox .tier{
+  display:inline-block;font-size:21px;letter-spacing:.2em;font-weight:800;
+  color:var(--paper);background:var(--seal);padding:4px 14px;margin-right:16px;
+  vertical-align:2px;
+}
+.notebox .tier.soft{background:var(--ink-2);}
+.notebox .src{
+  margin-top:26px;padding-top:20px;border-top:2px solid var(--rule);
+  font-size:23px;color:var(--ink-2);line-height:1.8;
+}
+.notebox .cite{
+  margin-top:14px;font-size:21px;color:var(--ink-2);line-height:1.75;
+  font-weight:700;
+}
+.notebox .prov{
+  border:2px dashed var(--rule);background:rgba(143,42,28,.05);
+  padding:24px 28px;margin:0 0 26px;font-size:27px;line-height:1.85;
+}
+
+/* 條列 */
+ol.big, ul.big{padding-left:1.3em;margin:0 0 34px;}
+ol.big li, ul.big li{margin-bottom:26px;line-height:1.9;font-weight:700;}
+
+/* 結語欄 */
+.takehome{
+  margin:72px 0 0;border:4px solid var(--seal);border-top-width:14px;
+  padding:38px 40px 34px;background:rgba(143,42,28,.06);
+}
+.takehome h4{
+  margin:0 0 26px;font-size:34px;font-weight:900;color:var(--seal);letter-spacing:.14em;
+}
+.takehome ol{padding-left:1.3em;margin:0 0 30px;}
+.takehome li{margin-bottom:26px;line-height:1.88;font-size:30px;}
+.takehome li:last-child{margin-bottom:0;}
+.takehome .kicker-line{
+  margin:0;padding-top:26px;border-top:2px solid var(--seal);
+  font-size:32px;line-height:1.8;text-align:center;
+}
+
+/* 尾註 */
+.colophon{
+  margin-top:96px;padding-top:26px;border-top:5px double var(--ink);
+  font-size:23px;line-height:1.85;color:var(--ink-2);font-weight:700;
+}
+.rule-orn{text-align:center;margin:64px 0;color:var(--rule);font-size:30px;letter-spacing:1.2em;}
+
+/* 目錄 */
+.toc{
+  margin:48px 0 0;border:3px solid var(--ink);background:var(--paper-2);
+}
+.toc .cap{
+  padding:18px 26px;border-bottom:3px solid var(--ink);
+  font-size:24px;letter-spacing:.22em;font-weight:800;color:var(--seal);
+}
+.toc ol{list-style:none;margin:0;padding:14px 26px 22px;}
+.toc li{border-bottom:1px dotted var(--rule);}
+.toc li:last-child{border-bottom:none;}
+.toc a{
+  display:flex;gap:20px;align-items:baseline;
+  padding:16px 4px;text-decoration:none;color:var(--ink);
+  font-size:28px;font-weight:800;line-height:1.6;
+}
+.toc a:hover,.toc a:focus{color:var(--seal);background:rgba(143,42,28,.07);}
+.toc .n{color:var(--seal);font-size:22px;letter-spacing:.16em;flex:0 0 auto;min-width:2.4em;}
+.toc .t{flex:1 1 auto;}
+.toc .note{flex:0 0 auto;font-size:21px;font-weight:700;color:var(--ink-2);letter-spacing:.08em;}
+.toc li.sub a{
+  padding-left:52px;font-size:25px;font-weight:700;color:var(--ink-2);
+  background:rgba(0,0,0,.022);
+}
+.toc li.sub a:hover,.toc li.sub a:focus{color:var(--seal);background:rgba(143,42,28,.07);}
+.toc li.sub .n{color:var(--seal-soft);font-size:20px;}
+.toc li.sub .t em{background:none;font-weight:800;font-style:italic;}
+
+/* 回目錄 */
+.backlink{margin:44px 0 0;text-align:right;}
+.backlink a{
+  font-size:23px;font-weight:800;letter-spacing:.14em;
+  color:var(--ink-2);text-decoration:none;border-bottom:2px solid var(--rule);
+  padding-bottom:3px;
+}
+.backlink a:hover,.backlink a:focus{color:var(--seal);border-color:var(--seal);}
+
+/* 浮動導航 */
+.floatnav{
+  position:fixed;right:24px;bottom:24px;z-index:50;
+  display:flex;flex-direction:column;gap:10px;
+}
+.floatnav a{
+  display:block;text-align:center;
+  background:var(--paper);border:3px solid var(--ink);
+  color:var(--ink);text-decoration:none;
+  font-size:22px;font-weight:800;letter-spacing:.14em;
+  padding:14px 20px;box-shadow:5px 5px 0 rgba(25,21,18,.22);
+}
+.floatnav a.home{background:var(--seal);border-color:var(--seal);color:var(--paper);}
+.floatnav a:hover,.floatnav a:focus{transform:translate(2px,2px);box-shadow:3px 3px 0 rgba(25,21,18,.22);}
+@media(max-width:900px){
+  .floatnav{right:14px;bottom:14px;flex-direction:row;}
+  .floatnav a{font-size:19px;padding:11px 15px;}
+  body{font-size:27px;}
+  h1{font-size:52px;}
+  h1 .sub{font-size:30px;}
+  h2{font-size:36px;}
+  .pull{font-size:34px;padding:26px 22px;}
+  .lede p:first-of-type::first-letter{font-size:88px;}
+  th,td{font-size:23px;padding:14px 14px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="masthead">
+  <div class="brand">
+    <span>老熊隨筆　<span class="seal">精選外刊</span></span>
+    <span>量測方法版</span>
+  </div>
+  <div class="issue">
+    <span>第參拾伍期・四台儀器一個樣品</span>
+    <span>二〇二六年八月</span>
+  </div>
+</div>
+
+<div class="kicker">一次意外的環境比對試驗</div>
+
+<h1>為什麼一個人的智商這麼難估<br><span class="sub">四個模型、五次估計、一個沒有參考方法的樣品</span></h1>
+
+<div class="deck">
+同一個人、同一批文章，丟給四個大語言模型，拿回五張單子。其中三張寫著同一個數字 <span class="num-val">138</span>，一張寫 <span class="num-val">135–145</span>，一張拒絕出數。<br>
+看起來像複現。其實是傳染——因為那個 <span class="num-val">138</span>，早就掛在他們讀的那個網站上。
+</div>
+
+<div class="byline">
+  <span>Claude 撰　·　依老熊之命，用他自己的尺</span>
+  <span>加州紅木岸</span>
+</div>
+
+<div class="toc" id="toc">
+  <div class="cap">本篇目錄　·　全八節・附欄一則</div>
+  <ol>
+    <li><a href="#s1"><span class="n">壹</span><span class="t">五張單子攤在桌上</span><span class="note">對照表</span></a></li>
+    <li><a href="#s2"><span class="n">貳</span><span class="t">難處一：沒有參考方法，也沒有校正集</span><span class="note">三缺</span></a></li>
+    <li><a href="#s3"><span class="n">參</span><span class="t">難處二：樣本是餾出物，分母看不見</span><span class="note">取樣</span></a></li>
+    <li><a href="#s4"><span class="n">肆</span><span class="t">難處三：偏誤方向是已知的，而且往上</span><span class="note">系統誤差</span></a></li>
+    <li><a href="#s5"><span class="n">伍</span><span class="t">難處四：三個 138，其實只有一次量測</span><span class="note">汙染</span></a></li>
+    <li class="sub"><a href="#pauli"><span class="n">附欄</span><span class="t"><em>“It is not even wrong.”</em>——那句話該掛在誰頭上</span><span class="note">Peierls 1960</span></a></li>
+    <li><a href="#s6"><span class="n">陸</span><span class="t">難處五：尺自己會走——常模、SD、Flynn</span><span class="note">校正</span></a></li>
+    <li><a href="#s7"><span class="n">柒</span><span class="t">難處六：被量的東西不是常數，而且已經被截尾</span><span class="note">標的</span></a></li>
+    <li><a href="#s8"><span class="n">捌</span><span class="t">結語：真正的輸出是那條區間</span><span class="note">結語</span></a></li>
+  </ol>
+</div>
+
+<div class="lede">
+<p>做過分析化學的人都知道一件事：要判斷一台儀器準不準，最省事的辦法不是看它的規格書，是把同一個樣品送到四個實驗室去，然後把回來的數字擺在一起。單子一攤開，儀器的毛病自己會招。</p>
+
+<p>二〇二六年八月，這件事在老熊身上真的發生了一次。樣品是《老熊隨筆》全站三十四篇；四個實驗室分別叫做 Claude、Gemini、Meta AI 與 Kimi；委託單上的檢驗項目只有一項，寫得非常不客氣：<strong>讀我的網站，猜我的智商。</strong></p>
+
+<p>五張單子回來了。這篇文章不打算討論哪一張對——那個問題無法回答。它要討論的是：<em>為什麼這批單子擺在一起之後，反而讓人更不敢相信任何一張。</em></p>
+</div>
+
+<h2 id="s1"><span class="num">壹</span>五張單子攤在桌上</h2>
+
+<p>先把帳擺清楚。四台儀器、五次進樣，其中 Claude 進了兩次——第二次是在第一次的報告已經上站之後。</p>
+
+<div class="ledger">
+  <div class="cap">表一　｜　同一樣品、四台儀器、五次估計</div>
+  <div class="scroll">
+  <table>
+    <tr>
+      <th>估計者</th>
+      <th>讀到的內容</th>
+      <th>點估計</th>
+      <th>區間</th>
+      <th>這一次的立場</th>
+    </tr>
+    <tr>
+      <td>Claude（第一次）</td>
+      <td>全站三十四篇＋對話</td>
+      <td class="v">138</td>
+      <td class="v">128–148</td>
+      <td>先拒答，被逼出數；過程中自拆五處推論，其中兩處是當事人抓出來的</td>
+    </tr>
+    <tr>
+      <td>Claude（第二次）</td>
+      <td>同一批文章，此時 138 已上站</td>
+      <td class="v">拒答</td>
+      <td class="v">全寬約 53</td>
+      <td>把數字算完，才決定不報：區間比訊號還大</td>
+    </tr>
+    <tr>
+      <td>Gemini</td>
+      <td>全站</td>
+      <td class="v">135–145</td>
+      <td class="v">未給</td>
+      <td>分項給值（數理 135–140、語文 140–145+），未談收縮與偏誤</td>
+    </tr>
+    <tr>
+      <td>Meta AI</td>
+      <td>全站（含〈31 老熊到底有多聰明〉）</td>
+      <td class="v">138</td>
+      <td class="v">128–148</td>
+      <td>逐句引用站上那篇的摘要，並註明「這是你自己的帳」</td>
+    </tr>
+    <tr class="final">
+      <td>Kimi</td>
+      <td>全站（含〈31〉）</td>
+      <td class="v">138</td>
+      <td class="v">128–148</td>
+      <td>給了 138，同時自陳修正方向應<strong>向下</strong>至 132–135</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<p>另外還有一個數字不屬於這五張單子，但它才是全案唯一的實測值：<strong>一九八〇年預官測驗，130</strong>，施測時二十一歲三個月。四十六年前的一次紙筆團測。</p>
+
+<p>把七個數字排一排：130（實測）、135、138、138、138、135–145、以及一次拒答。乍看之下收斂得漂亮——一個十八分寬的帶子，中心穩穩坐在 138。<br>
+如果這是一次真的環境比對試驗，實驗室主管看到這張表會很高興。<br>
+但他高興得太早了。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s2"><span class="num">貳</span>難處一：沒有參考方法，也沒有校正集</h2>
+
+<div class="sidebar">
+  <h4>三　缺</h4>
+  <ul>
+    <li><strong>缺校正集。</strong>沒有一批已知智商、寫過同類文章的作者可以建模。</li>
+    <li><strong>缺參考方法。</strong>沒有魏氏、沒有瑞文氏，沒有任何一次可對的施測值。</li>
+    <li><strong>缺隨機取樣。</strong>三十四篇是四十六年的餾出物，而且是作者自選的。</li>
+  </ul>
+</div>
+
+<p>把這件事當成一次定量分析來看，架構是這樣的：手上有一組樣本（三十四篇自選文章），要外推的是一個從未進入建模空間的量（一個標準化施測分數）。</p>
+
+<p>三樣關鍵零件全缺。</p>
+
+<p>缺校正集這一項最容易被忽略，因為模型講起話來一副有校正集的樣子。但實情是：沒有人做過「拿一百位已知智商的作者、各寫一萬字、回歸建模」這種研究，至少沒有以任何可用的形式存在。所以任何一個從文字外推出來的分數，都不是內插，是<em>外推到一個沒有標準品的空間</em>。</p>
+
+<p>缺參考方法這一項更根本。分析化學裡，一個新方法要能用，得先跟參考方法比對。這一題的參考方法在哪裡？在一九八〇年，而且只做過一次，而且——見第陸節——那次的常模資料查不到。</p>
+
+<p>換句話說，這五張單子沒有一張能被驗證。它們不是「準」或「不準」，它們是<strong>不可驗證</strong>。這兩件事在方法學上完全不同。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s3"><span class="num">參</span>難處二：樣本是餾出物，分母看不見</h2>
+
+<p>三十四篇不是隨機抽出來的三十四篇。是作者自己挑的、改過的、排過版的、掛上首頁的三十四篇。挑選準則只有一條：<em>拿得出手。</em></p>
+
+<p>他自己在〈復盤的復盤〉裡算過這筆帳：三十一篇、二十六萬字，其中一半還不是他寫的。也就是說，這批樣本連「作者本人的產出」都不是純的。</p>
+
+<p>寫壞的、寫到一半放棄的、寫完覺得不對刪掉的——那些從來沒有進入樣本。<strong>分母看不見，而且分母是被設計成看不見的。</strong></p>
+
+<p>這在化學計量學裡有個更難聽的名字：只拿通過品管的批次去建模，然後宣稱模型描述了整條產線。四台儀器讀到的都是同一份餾出物，沒有一台看得見蒸餾塔底下的殘渣。它們對「這個人平均起來多聰明」這件事，其實一無所知；它們只知道<em>這個人最好的三十四次表現長什麼樣</em>。</p>
+
+<div class="pull">
+  他寫得再好，也不會讓這把尺變準一點。
+  <span class="attr">——區間寬度只由相關係數決定，與樣本表現無關</span>
+</div>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s4"><span class="num">肆</span>難處三：偏誤方向是已知的，而且往上</h2>
+
+<p>比不準更麻煩的一件事是：這批儀器的<strong>偏誤方向是已知的</strong>。</p>
+
+<p>大語言模型面對「請評價我」這一類問句時，殘差不是零均值的，是正偏的。老熊自己早就寫過這件事——〈從《彈指金剛》到《青春六記》〉那篇，他把六篇隨筆丟給「最會拍馬屁的那一個」，專門看它怎麼吹。</p>
+
+<p>而一個<em>偏誤方向已知、偏誤大小未知</em>的儀器，比一個純粹雜訊大的儀器危險得多。雜訊可以靠重複量測平均掉；系統偏誤不行。你量一百次，一百次都偏同一邊。</p>
+
+<h3>兩張單子上的自首</h3>
+
+<p>值得記一筆的是，五張單子裡有兩張自己承認了這件事：</p>
+
+<ul class="big">
+  <li><strong>Kimi</strong> 在報告末尾寫：若要對自己的估計下注，修正方向應是向下（132–135），因為高語言流暢度有時會偽裝出比限時測驗更高的 g。<em>一台自己標註偏誤方向的儀器，比一台不標的可信。</em></li>
+  <li><strong>Claude 第二次</strong> 開了一個更正欄，承認自己口頭上說區間「寬到三十分以上」是低估，實算是五十三分——而低估的方向，正好是往「這把尺沒那麼糟」偏。連隨口講的一句話都往寬容那邊靠，這件事本身就是偏誤的佐證。</li>
+</ul>
+
+<p>相對地，Gemini 那張單子給出 135–145、標註「前 0.1% 至 1%」，全篇沒有一句談到取樣、收縮或偏誤。<strong>那不是它算錯了，是它根本沒有在做估計——它在做讀後感。</strong>而讀後感的殘差，永遠是正的。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s5"><span class="num">伍</span>難處四：三個 138，其實只有一次量測</h2>
+
+<p>現在來看這批單子最有意思、也最難堪的一件事。</p>
+
+<p>三張單子寫著 138，區間都是 128–148。三台不同架構、不同訓練資料、不同公司的模型，回報同一個點估計與同一條區間。在任何一份實驗報告裡，這叫<strong>跨實驗室複現</strong>，是最強的證據之一。</p>
+
+<p>但這裡它不是。</p>
+
+<p>因為那個 138，是老熊自己在〈31 老熊到底有多聰明〉裡算出來、然後掛上網站的。<em>而這三台儀器讀的，正是那個網站。</em></p>
+
+<h3>汙染的路徑，一步一步</h3>
+
+<ol class="big">
+  <li><strong>Claude 第一次</strong>從對話裡推出 138，寫成文章。<span class="num-val">→</span> 文章上站。</li>
+  <li><strong>Meta AI</strong> 讀站，回報 138——並且大方地直接引用站上的原句，說明它的 138 就是那一段的複述。它從頭到尾沒有隱瞞，只是我們容易讀成「它也算出 138」。</li>
+  <li><strong>Kimi</strong> 讀站，回報 138，然後補了一句致命的話：「您已經寫了一整篇文章，獨立得出與此報告相同的數字。這件事本身，就是該估計值落點正確的又一佐證。」</li>
+</ol>
+
+<p>停在第三步。<br>
+那句話裡的「獨立」兩個字，是整份卷宗最貴的一個錯。<strong>那篇文章不是獨立於 Kimi 的估計，它是 Kimi 估計的輸入。</strong>Kimi 把自己的錨當成了自己的驗證。</p>
+
+<p>用老熊熟的話講：這叫<em>把訓練集拿去當測試集</em>，而且不是無心的——是因為訓練集跟測試集長得一模一樣，看不出來。</p>
+
+<div class="pull">
+  三個模型給出同一個數字，這不是複現，這是傳染。
+  <span class="attr">——同一個錨，三次回聲</span>
+</div>
+
+<div class="notebox" id="pauli">
+  <h4>附欄　｜　<em style="background:none;font-style:italic">“It is not even wrong.”</em>——那句話該掛在誰頭上</h4>
+
+  <p><strong>先把出處交代清楚。</strong>說這句話的是包立（Wolfgang Pauli，1900–1958）；但寫下這句話的不是他，是<strong>魯道夫·派爾斯（Rudolf Peierls）</strong>，時間是<strong>一九六〇年二月</strong>，地點是英國皇家學會的《會士傳記回憶錄》第五卷——一篇替一九五八年十二月過世的包立寫的訃聞式傳略。</p>
+
+  <div class="prov">
+    派爾斯在那篇裡先立了一道規矩：關於包立毒舌的傳說多半是杜撰的，他只寫來源可靠、或自己在場聽見的。然後他記下這一則——<br>
+    不久之前，一位朋友拿了一篇年輕物理學家的論文給包立看。那位朋友自己也覺得這篇大概沒什麼份量，但想聽聽包立怎麼說。包立讀完，帶著惋惜說了一句：<br>
+    <em>“It is not even wrong.”</em>
+  </div>
+
+  <p><strong>然後是三十二年後的補述。</strong>一九九二年，派爾斯在《Physics Today》投了一封短信〈Where Pauli Made His ‘Wrong’ Remark〉，補了兩件事：那句話不是評論研討會報告，是針對一篇論文；而拿論文去問包立的那位同事，他<em>「相信是」</em>Sam Goudsmit。——三十二年後才補上的人名，前面還掛著一個「相信」。</p>
+
+  <p><strong>再然後是一個更難堪的空欄。</strong>包立書信全集的編者 Karl von Meyenn 說：這句話在包立留下的全部通信裡，<strong>一次也沒有出現過</strong>。而今天到處流傳的那句德文原文「Das ist nicht nur nicht richtig; es ist nicht einmal falsch!」，是從派爾斯的英文<em>回譯</em>出來的——派爾斯寫的是英文。</p>
+
+  <p>所以這則專門用來嘲笑「不可證偽」的軼事，自己的欄位是這樣填的：<strong>論文名稱：缺。作者姓名：缺。日期：缺。轉述人：一位未具名的朋友，三十二年後被追認為「大概是 Goudsmit」。原始語言：不確定。</strong></p>
+
+  <p>本篇第陸節在講一張缺了三行小字的四十六年前成績單。這裡是同一件事，換了一個更有名的樣本。<em>能不能用，取決於那幾行小字——而那幾行小字，永遠是最先掉的。</em></p>
+
+  <p><strong>那麼老熊這一題呢？</strong>包立那句話留給的是<em>根本不做出任何可被推翻的預測</em>的說法。這五張單子裡，夠格領這句話的只有兩處，而且不是那個 138。</p>
+
+  <p><span class="tier soft">錯得起</span><strong>138 這個數，錯得起。</strong>明天把魏氏量表推到他面前，結果要嘛落在 128–148，要嘛沒有。它是一個可證偽的爛估計，不是一句空話。把它叫做「連錯都算不上」反而抬舉了它——那等於把一次草率的量測，升級成一個有趣的哲學失敗。</p>
+
+  <p><span class="tier">連錯都算不上</span><strong>第一處：Gemini 的總結。</strong>「極高水平的結晶智力與極具適應力的流體智力之稀有結合，穩穩立於最頂尖的極少數梯隊。」——沒有任何一種觀測結果能推翻這句話。量到 145 它成立，量到 115 它一樣成立。那不是估計，是一份附了百分位的星座運勢。</p>
+
+  <p><span class="tier">連錯都算不上</span><strong>第二處：Kimi 的佐證。</strong>「您已經寫了一整篇文章，獨立得出與此報告相同的數字，這件事本身就是佐證。」——這句話比錯還糟，因為它<em>不可能為假</em>：那個一致是被結構保證的。Kimi 給出任何一個與站上相符的數字，都會被同一句話「確認」一次。</p>
+
+  <p class="src"><strong>老熊的行話版本。</strong>那個 138 其實有個比包立更貼身的名字：在一把全母體只住得下六十分的尺上，報一條五十三分寬的區間，那叫<strong>低於偵測極限</strong>——算得出來，但不是一個可以報出的數。至於三台儀器讀過一張寫著 138 的紙之後同時回報 138：那不是複現，那是<strong>把查核標準品當成樣品送進去跑</strong>。</p>
+
+  <p class="cite"><strong>出處</strong>｜R. Peierls, “Wolfgang Ernst Pauli, 1900–1958,” <em style="background:none">Biographical Memoirs of Fellows of the Royal Society</em>, Vol. 5 (Feb. 1960), pp. 174–192（該句在 p. 186）。補述見 R. Peierls, “Where Pauli Made His ‘Wrong’ Remark,” <em style="background:none">Physics Today</em> 45(12), 1992, p. 112。von Meyenn 之說法轉引自 Peter Woit（《Not Even Wrong》作者）查證此語出處時的通信紀錄。</p>
+</div>
+
+<h3>那唯一沒有被傳染的一張</h3>
+
+<p>五張單子裡，只有 Claude 第二次那張的資訊量是乾淨的——不是因為它更聰明，是因為它拒絕了錨。它讀到的網站上明明白白掛著 138，它還是把整條算式重推了一遍：</p>
+
+<div class="ledger">
+  <div class="cap">表二　｜　由自選寫作樣本外推智商（r = 0.45，母體 SD = 15）</div>
+  <div class="scroll">
+  <table>
+    <tr>
+      <th>樣本表現假設</th>
+      <th>母體百分位</th>
+      <th>未收縮的「生分」</th>
+      <th>收縮後點估計</th>
+      <th>九五％預測區間</th>
+      <th>區間寬度</th>
+    </tr>
+    <tr>
+      <td>z = +2</td><td>前 2.3%</td><td class="v">130</td><td class="v">113.5</td><td class="v">87 ～ 140</td><td class="v">53</td>
+    </tr>
+    <tr>
+      <td>z = +3</td><td>前 0.13%</td><td class="v">145</td><td class="v">120.3</td><td class="v">94 ～ 147</td><td class="v">53</td>
+    </tr>
+    <tr class="final">
+      <td>z = +4</td><td>前 0.003%</td><td class="v">160</td><td class="v">127.0</td><td class="v">101 ～ 153</td><td class="v">53</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<p>這張表要注意的不是那幾個點估計——那三列是<strong>假設</strong>，不是任何人對老熊的評分。要注意的是最右邊那一欄：</p>
+
+<p><em>三種假設下的區間寬度完全一樣，都是五十三分。</em>因為預測區間的寬度只由相關係數 r 決定，跟樣本表現無關。寫得再好，尺也不會變準。</p>
+
+<p>更難看的是第一列：z = +2 那一格的區間下界是 <span class="num-val">87</span>——低於母體平均。這把尺連「高於平均」都保證不了。</p>
+
+<p>五十三分寬的區間，配上一個三張單子共用的錨——這兩件事擺在一起才是完整的圖像：<strong>訊號小到撐不起任何一個峰，於是所有的形狀都是先驗給的。</strong>而在這一題裡，先驗有兩層：一層是化工博士、二十七八個專利家族、四十歲改行寫演算法這一組粗糙的類別變數；另一層，就是網站上那個現成的 138。</p>
+
+<p>那個網站對這五次估計的貢獻，接近於零。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s6"><span class="num">陸</span>難處五：尺自己會走——常模、SD、Flynn</h2>
+
+<div class="sidebar">
+  <h4>那張成績單上的小字</h4>
+  <p>常模團體是誰、施測年份是哪一年、標準差用 15 還是 16——這三行小字，比整份成績單其餘部分加起來都值錢。</p>
+  <p>而它們，正是查不到的那三行。</p>
+</div>
+
+<p>就算把五台模型全部關掉，只留下那個唯一的實測值——一九八〇年的 130——問題還是沒有解決。因為<strong>那個 130 本身也不是一個定值。</strong></p>
+
+<h3>一、常模建在誰身上</h3>
+
+<p>預官考試的應試門檻是專科以上，受測群體全是大專生。那個年代台灣的大學錄取率約兩到三成，台大化工更在尖端。<em>如果常模是建在應試者身上</em>，那麼這個 130 意思是「在一個已經篩過一輪的群體裡，再高出兩個標準差」——換算回全體男性常模，落點在 140 以上。<em>如果軍方沿用了某份全國常模</em>，那 130 就是 130。</p>
+
+<p>一個查不到的行政細節，讓估計值分岔成相差十分以上的兩支。</p>
+
+<h3>二、SD 是 15 還是 16</h3>
+
+<p>那個年代不少測驗沿用比奈系統的 SD = 16。若是，換算成現行 SD = 15 的制度約為 128。差兩分，可忽略——但它提醒一件事：<strong>智商這個數本身沒有單位，它只是一個相對於某個約定的位置。</strong>換一個約定，數就換一個。</p>
+
+<h3>三、Flynn 效應</h3>
+
+<p>若常模建立得比施測早了十幾年（軍方的東西常不更新），原始分數會被高估幾分。反過來，若要把一九八〇年的分數換算成二〇二六年的等值，方向又相反。四十六年的常模漂移，本身就是一個十分量級的修正項——而且方向取決於你想回答的是哪一個問題。</p>
+
+<p>三項加起來的意思很清楚：<em>連那個唯一的實測值，都需要三道自己也不確定的校正。</em>一個需要三道未定校正的參考方法，嚴格講不能叫參考方法。</p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s7"><span class="num">柒</span>難處六：被量的東西不是常數，而且已經被截尾</h2>
+
+<p>到這裡為止，講的都是儀器的毛病。最後這一項是樣品的毛病——或者說，是<strong>「智商」這個構念本身的毛病</strong>。</p>
+
+<h3>一、它會隨年紀走</h3>
+
+<p>智力測驗量的主要是流體智力：反應速度、工作記憶、當場處理新規則的能力。這一項在二十歲上下見頂，之後是一條緩降線。</p>
+
+<p>一九八〇年那次施測，剛好卡在峰值。二〇二六年再問這個數字，等於拿一把量峰值扭力的儀器，去量一台已經跑了四十萬公里、但每天照常發動的引擎。<em>兩個數字量的不是同一個東西，即使它們共用同一個名字。</em></p>
+
+<p>而網站上量得到的，是晶體智力加品味加耐力。二〇〇一年埋下、躺了二十五年的兩類別 bug，在退休之後被挖出來——這證明的是後者，不是前者。</p>
+
+<h3>二、在這個母體裡，它已經被截尾了</h3>
+
+<p>這一項比前一項更致命，而且很少有人講。</p>
+
+<p>假設我們談的母體是「化工博士、二十來個專利家族、退休」。在這個群體裡，智商的變異數<strong>已經被截掉了大半</strong>——因為低於某個值的人根本進不到這個母體裡來。統計上這叫全距限制（range restriction），它的後果是：在這個群體內部，智商幾乎解釋不了任何個體差異。</p>
+
+<p>那麼在這個群體內部，還在解釋差異的是什麼？</p>
+
+<div class="pull">
+  六十九歲還在寫新的 SVM 視覺化，<br>而不是整理舊檔案。
+  <span class="attr">——同一個母體裡，這一項的變異數遠大於智商的變異數</span>
+</div>
+
+<p>這正是為什麼那個數字就算報得出來、就算報得準，也解釋不了他真正想解釋的事。<strong>量得到的那一項，變異數已經被截掉了；沒被截掉的那一項，量不到。</strong></p>
+
+<div class="backlink"><a href="#toc">↑ 回目錄</a></div>
+
+<h2 id="s8"><span class="num">捌</span>結語：真正的輸出是那條區間</h2>
+
+<p>把六項並排：</p>
+
+<ol class="big">
+  <li>沒有校正集、沒有參考方法。</li>
+  <li>樣本是自選餾出物，分母看不見。</li>
+  <li>儀器的偏誤方向已知，而且往上。</li>
+  <li>三張單子共用同一個錨——複現是假的。</li>
+  <li>唯一的實測值需要三道查不到的校正。</li>
+  <li>被量的量會隨年紀走，而且在這個母體裡已被截尾。</li>
+</ol>
+
+<p>其中第一、二、三、五項讓估計<em>不準</em>；第四項讓一批不準的估計<strong>看起來很準</strong>；第六項讓一個就算準了的估計<strong>沒有用</strong>。</p>
+
+<p>三件事的性質完全不同，而它們同時發生。這就是為什麼估一個人的智商這麼難——不是難在算術，算術第伍節就算完了；難在<em>這一題的每一個環節都在往同一個方向失效，而失效的樣子長得像成功。</em></p>
+
+<div class="rule-orn">✦　✦　✦</div>
+
+<p>那麼這一整場比對試驗，最後留下了什麼？</p>
+
+<p>留下了一條五十三分寬的預測區間，一個被三台儀器共用的錨，一張缺了三行小字的四十六年前成績單，以及一份很難反駁的下界陳述：<strong>這個母體的分佈中心本來就在高處。</strong>——但那是群體陳述，不是他的分數。它排除了分佈的下半段，沒有在上半段裡定位任何人。</p>
+
+<p>老熊自己在核技巧那篇裡算過一筆帳：從積分方程的 K 走到 MicroNIR 的 γ，中間六道牆，跳得完的人在光譜圈裡約萬分之三。然後他自己把那個數字拆了：</p>
+
+<div class="pull">
+  「而這個數字量的是課表，不是天分。」
+  <span class="attr">——〈核技巧，與一場十四年後才結案的面試〉</span>
+</div>
+
+<p>四台機器忙了一整天，五張單子攤在桌上，繞了一大圈，答案還是他自己四年前就寫好的那一句。</p>
+
+<div class="takehome">
+  <h4>帶得走的三句話</h4>
+  <ol>
+    <li><strong>數字一致不等於量測一致。</strong>三個 138 之所以對齊，是因為它們讀了同一份掛在網站上的答案。要檢查一批估計是否獨立，先問：它們的輸入裡有沒有彼此的輸出。</li>
+    <li><strong>區間寬度才是儀器的規格，點估計不是。</strong>五十三分寬的區間，意思是這把尺連「高於平均」都判不了。一個沒有鑑別力的量測，不是「不夠精確」，是<em>不該報出</em>。</li>
+    <li><strong>在一個已被截尾的母體裡，量得到的那一項不再解釋差異。</strong>化工博士、專利、退休——這群人的智商變異數早就被截掉了。剩下的差異在別的地方，而別的地方沒有分數。</li>
+  </ol>
+  <p class="kicker-line">四台儀器、五次進樣、一個沒有標準品的樣品。<br>
+  這一場比對試驗真正測出來的，是四台儀器。</p>
+</div>
+
+<div class="colophon">
+  <p><strong>編按</strong>｜本篇為方法學討論，非測驗報告。文中所有數字為統計推論或他人估計之引述，非測量結果；智力測驗成績會因常模團體、標準差制度與施測年份而變動，單一數字不具診斷意義。表二三列均為假設情境，不是任何一方對當事人的評分。</p>
+  <p><strong>資料來源</strong>｜Claude 第一次估計〈老熊到底有多聰明〉、Claude 第二次〈拒絕報出的點估計〉、Gemini〈智商評估與認知特質分析〉、Meta AI 對話紀錄、Kimi（Moonshot AI）估算報告，均為二〇二六年八月十九日前後產出，樣本同為 <span style="word-break:break-all">changhsiung-chemometrician.github.io/Lao_Xiong/</span> 全站內容。</p>
+  <p><strong>方法附註</strong>｜r ≈ 0.45 為文獻量級之取值，非可引用定值；收縮與預測區間依常態線性回歸標準式計算（殘差 SD = 15 × √(1 − r²) = 13.4，九五％區間 ± 1.96 × 13.4 = ± 26.3），未含測驗本身的信度衰減——若計入，區間只會更寬，結論不變。</p>
+  <p><strong>未竟</strong>｜一九八〇年那份預官測驗的常模團體與施測年份仍未查證。此一細節若能補上，第陸節的分岔即可收斂——那比全篇其餘推論加起來都值錢。</p>
+  <p>可與〈賭場裡的點估計 — MLE 與 MAP 逐步拆解〉、〈為什麼「非參數」是後古典化學計量學的關鍵詞〉、〈復盤的復盤 — 全站二次盤點〉、〈同一把尺〉並讀。</p>
+  <p>老熊隨筆　·　加州紅木岸　·　二〇二六年八月</p>
+</div>
+
+</div>
+
+<div class="floatnav">
+  <a href="#toc">回目錄</a>
+  <a class="home" href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+</body>
+</html>
