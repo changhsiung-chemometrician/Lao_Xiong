@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Built-In Abstention — Three Patents on False-Positive Rejection in Spectroscopic Classification and Quantification ｜老熊隨筆</title>
+<meta name="description" content="US 10,810,408 · US 11,009,452 · US 11,656,174. The no-match class, the single-class SVM empirical null, and the outlier step that buys the sensitivity back. A technical report by Chang Hsiung (老熊).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7E9E3;
+  --card:#F3F4F0;
+  --ink:#13171A;
+  --ink-soft:#3E464B;
+  --rule:#C0C6BB;
+  --rule-hard:#8E968A;
+  --accept:#1C5A4D;
+  --decline:#94271A;
+  --serif:"Spectral","Iowan Old Style",Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:27px;
+  font-weight:600;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px 160px}
+p{margin:0 0 1.15em}
+strong{font-weight:800}
+em{font-style:italic}
+a{color:var(--decline);text-decoration:none;border-bottom:2px solid rgba(148,39,26,.35)}
+a:hover{border-bottom-color:var(--decline)}
+a:focus-visible{outline:3px solid var(--accept);outline-offset:3px}
+
+/* ── masthead ─────────────────────────────── */
+.masthead{border-bottom:3px solid var(--ink);padding:34px 0 18px;margin-bottom:56px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.masthead .site{font-family:var(--mono);font-size:17px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.masthead .sect{font-family:var(--mono);font-size:17px;font-weight:500;letter-spacing:.14em;color:var(--ink-soft)}
+
+.eyebrow{font-family:var(--mono);font-size:17px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--decline);margin-bottom:26px}
+h1{font-size:70px;line-height:1.08;font-weight:800;letter-spacing:-.015em;margin:0 0 8px;max-width:15ch}
+.subtitle{font-size:40px;line-height:1.22;font-weight:700;color:var(--ink-soft);margin:0 0 34px;max-width:24ch}
+.deck{font-size:31px;line-height:1.5;font-weight:600;max-width:34ch;border-left:6px solid var(--decline);padding-left:26px;margin-bottom:44px}
+
+.byline{font-family:var(--mono);font-size:17px;font-weight:500;line-height:2;
+  border-top:2px solid var(--rule-hard);border-bottom:2px solid var(--rule-hard);
+  padding:18px 0;margin-bottom:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px 30px}
+.byline b{font-weight:600;color:var(--ink-soft);display:block;letter-spacing:.12em;text-transform:uppercase;font-size:14px}
+
+/* ── abstract ─────────────────────────────── */
+.abstract{background:var(--card);border:2px solid var(--rule-hard);padding:38px 40px;margin:0 0 64px}
+.abstract .lbl{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px}
+.abstract p:last-child{margin-bottom:0}
+
+/* ── toc ──────────────────────────────────── */
+#toc{margin:0 0 78px;border-top:3px solid var(--ink);padding-top:30px}
+#toc h2{font-family:var(--mono);font-size:17px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;margin:0 0 22px;border:0;padding:0}
+#toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+#toc li{counter-increment:toc;border-bottom:1px solid var(--rule);padding:12px 0}
+#toc li:last-child{border-bottom:0}
+#toc a{display:flex;gap:24px;align-items:baseline;border:0;color:var(--ink);font-size:26px;font-weight:700;line-height:1.35}
+#toc a:hover{color:var(--decline)}
+#toc a::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);font-size:17px;
+  font-weight:600;color:var(--decline);flex:0 0 auto}
+
+/* ── sections ─────────────────────────────── */
+section{margin:0 0 84px;scroll-margin-top:24px}
+h2{font-size:46px;line-height:1.16;font-weight:800;letter-spacing:-.01em;
+  margin:0 0 30px;padding-top:22px;border-top:3px solid var(--ink)}
+h2 .num{display:block;font-family:var(--mono);font-size:17px;font-weight:600;
+  letter-spacing:.2em;color:var(--decline);margin-bottom:14px}
+h3{font-size:32px;line-height:1.28;font-weight:800;margin:48px 0 16px}
+h4{font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);margin:40px 0 14px}
+
+.back{font-family:var(--mono);font-size:16px;font-weight:600;letter-spacing:.1em;
+  display:inline-block;margin-top:18px;color:var(--ink-soft);border:0;border-bottom:2px solid var(--rule)}
+.back:hover{color:var(--decline);border-bottom-color:var(--decline)}
+
+/* ── patent block ─────────────────────────── */
+.patent{border:3px solid var(--ink);background:var(--card);margin:0 0 40px}
+.patent .head{background:var(--ink);color:var(--paper);font-family:var(--mono);
+  font-size:18px;font-weight:600;letter-spacing:.08em;padding:16px 26px;
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.patent .head .no-{color:#E8705F}
+.patent .body{padding:28px 30px}
+.patent .body p:last-child{margin-bottom:0}
+.patent .title{font-size:29px;font-weight:800;line-height:1.3;margin:0 0 18px}
+
+/* ── figure ───────────────────────────────── */
+figure{margin:44px 0;padding:0}
+figure svg{width:100%;height:auto;display:block;background:var(--card);border:2px solid var(--rule-hard)}
+figcaption{font-family:var(--mono);font-size:17px;font-weight:500;line-height:1.65;
+  color:var(--ink-soft);margin-top:16px;padding-left:18px;border-left:4px solid var(--decline)}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* ── pipeline strip ───────────────────────── */
+.pipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin:40px 0;border:2px solid var(--ink)}
+.pipe div{padding:22px 20px;border-right:2px solid var(--ink);font-family:var(--mono);
+  font-size:17px;font-weight:500;line-height:1.55}
+.pipe div:last-child{border-right:0}
+.pipe div b{display:block;font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--decline);font-weight:600;margin-bottom:10px}
+.pipe .bad{background:#EFE2E0}
+.pipe .good{background:#DFE9E2}
+
+/* ── tables ───────────────────────────────── */
+.tw{overflow-x:auto;margin:40px 0}
+table{border-collapse:collapse;width:100%;font-size:21px;font-weight:600;line-height:1.45}
+th{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  text-align:left;padding:14px 16px;border-bottom:3px solid var(--ink);color:var(--ink-soft);white-space:nowrap}
+td{padding:16px;border-bottom:1px solid var(--rule);vertical-align:top}
+td.mono{font-family:var(--mono);font-weight:600;white-space:nowrap;font-size:19px}
+tr.hi td{background:#EFE2E0}
+tr.hi td.mono{color:var(--decline);font-weight:600}
+
+/* ── contract box ─────────────────────────── */
+.contract{border:3px double var(--ink);padding:34px 36px;margin:44px 0;background:var(--card)}
+.contract .lbl{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--decline);margin-bottom:18px}
+.contract p{font-size:29px;line-height:1.45;margin:0 0 .6em}
+.contract p:last-child{margin-bottom:0}
+
+/* ── caveat list ──────────────────────────── */
+ul.plain{list-style:none;margin:32px 0;padding:0}
+ul.plain li{border-left:5px solid var(--rule-hard);padding:4px 0 4px 24px;margin-bottom:26px}
+ul.plain li b{display:block;font-weight:800;margin-bottom:6px}
+
+/* ── colophon ─────────────────────────────── */
+.colophon{border-top:3px solid var(--ink);padding-top:30px;margin-top:90px;
+  font-family:var(--mono);font-size:17px;font-weight:500;line-height:1.85;color:var(--ink-soft)}
+.colophon b{color:var(--ink);font-weight:600}
+
+/* ── floating nav ─────────────────────────── */
+.fnav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:8px;z-index:50}
+.fnav a{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:16px;font-weight:600;
+  letter-spacing:.08em;padding:12px 18px;border:0;border-radius:2px;text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.22)}
+.fnav a:hover{background:var(--decline)}
+
+@media (max-width:820px){
+  body{font-size:21px}
+  .wrap{padding:0 20px 140px}
+  h1{font-size:40px;max-width:none}
+  .subtitle{font-size:26px;max-width:none}
+  .deck{font-size:23px;padding-left:18px;max-width:none}
+  h2{font-size:31px}
+  h3{font-size:25px}
+  .contract p{font-size:22px}
+  table{font-size:17px}
+  td.mono{font-size:16px}
+  .pipe div{border-right:0;border-bottom:2px solid var(--ink)}
+  .pipe div:last-child{border-bottom:0}
+  .fnav a{font-size:14px;padding:10px 14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead" id="top">
+  <div class="site">老熊隨筆 · Lao Xiong</div>
+  <div class="sect">Technical Reports · No. 6</div>
+</header>
+
+<div class="eyebrow">Chemometrics · Open-Set Classification · Patent Review</div>
+
+<h1>Built-In Abstention</h1>
+<div class="subtitle">Three patents on false-positive rejection in spectroscopic classification and quantification</div>
+
+<div class="deck">A supervised classifier partitions the whole of feature space. There is no leftover, no remainder, nowhere for "I have never seen this before" to land. Every unknown gets a label — including the ones that deserve none.</div>
+
+<div class="byline">
+  <div><b>Author</b>Chang Meng Hsiung （老熊）</div>
+  <div><b>Date</b>August 20, 2026 · Redwood Shores, CA</div>
+  <div><b>Subject</b>US 10,810,408 B2 · US 11,009,452 B2 · US 11,656,174 B2</div>
+  <div><b>Priority</b>January 26, 2018 · Assignee VIAVI Solutions Inc.</div>
+</div>
+
+
+<div class="abstract">
+  <div class="lbl">Abstract</div>
+  <p>A spectroscopic classifier trained on <em>K</em> library materials will assign one of those <em>K</em> labels to any spectrum presented to it, because nearest-class semantics leave no region of feature space unclaimed. In the field this is not a theoretical nuisance: handheld analyzers meet materials outside the library daily, and they meet operator error more often than that. Three patents with a common priority date address the problem as a system. The first converts open-set rejection into a supervised problem by training an explicit <strong>no-match class</strong> containing both nuisance materials and deliberately corrupted measurements. The second solves the harder quantification case, where no counterexamples exist by construction, using a <strong>single-class support vector machine</strong> whose own out-of-boundary training samples serve as an empirical null distribution. The third removes the side effect of the first two: because abstention costs sensitivity, an <strong>outlier-removal step</strong> is inserted after local-model assembly and before prediction, so the rejection threshold can be raised without discarding true positives. Together they change the analyzer's output contract from <em>what is this</em> to <em>what is this, and is this question mine to answer</em>.</p>
+</div>
+
+<nav id="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s1">The classifier that cannot decline</a></li>
+    <li><a href="#s2">US 10,810,408 — giving the answer somewhere to go</a></li>
+    <li><a href="#s3">US 11,009,452 — letting the calibration set grow its own ruler</a></li>
+    <li><a href="#s4">US 11,656,174 — the fix that needed a fix</a></li>
+    <li><a href="#s5">The three as one system</a></li>
+    <li><a href="#s6">What this is not</a></li>
+    <li><a href="#s7">Why it reads differently in 2026</a></li>
+    <li><a href="#s8">Appendix — patent record and scope</a></li>
+  </ol>
+</nav>
+
+<!-- ══ 1 ══ -->
+<section id="s1">
+  <h2><span class="num">Section 01</span>The classifier that cannot decline</h2>
+
+  <p>Train a discriminant model on three polymers and it learns three regions. Not three regions plus a void — three regions that between them tile the entire space. Push a spectrum of motor oil, of an empty sample cup, of a fingerprint on the sapphire window, and the model returns polyethylene, or PVC, or polystyrene, with a confidence number attached that was never designed to mean what the user reads into it.</p>
+
+  <p>This is the open-set problem, and in laboratory chemometrics it stays mostly academic because the analyst controls what enters the beam. Put the same model in a handheld analyzer, hand it to an inspector on a loading dock, and it stops being academic. The instrument will be pointed at things nobody anticipated. It will also — far more often — be pointed correctly at the right material under wrong conditions: the wrong standoff distance, an unblocked background, a lamp near the end of its life, a measurement started before the sample was in place.</p>
+
+  <p>Both cases produce the same symptom, a confident wrong answer, and both are conventionally handled the same way: bolt a threshold onto the confidence output and hope. That approach has two structural defects. The threshold is a free parameter tuned against whatever happened to be available, so it carries no validated error rate. And the confidence score it thresholds was produced by a closed-set model, whose posterior is conditioned on the assumption that the sample <em>is</em> one of the <em>K</em> classes — the very assumption in question. Calibrating a novelty test on a quantity that presupposes no novelty is circular.</p>
+
+  <p>The three patents reviewed here take a different route. Each one manufactures, by a different device, the thing a rejection rule actually needs: <strong>a population of legitimate negatives to calibrate against</strong>.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 2 ══ -->
+<section id="s2">
+  <h2><span class="num">Section 02</span>US 10,810,408 — giving the answer somewhere to go</h2>
+
+  <div class="patent">
+    <div class="head"><span>US 10,810,408 B2</span><span>Granted 2020-10-20</span></div>
+    <div class="body">
+      <div class="title">Reduced false positive identification for spectroscopic classification</div>
+      <p>Hsiung, Sun, Smith · VIAVI Solutions Inc. · Priority 2018-01-26</p>
+    </div>
+  </div>
+
+  <p>The move is simple to state and easy to underrate: add a class. Not a threshold, not a post-hoc filter — a <em>K</em>+1th trainable category, the <strong>no-match class</strong>, and let the classifier route rejections into it the same way it routes anything else.</p>
+
+  <p>The consequence of stating the problem this way is that rejection stops being a special case. It acquires training samples, cross-validation statistics, a confusion-matrix row and column, a measurable false-negative rate. It can be tuned by the same procedure that tunes everything else in the model. Nothing about the inference path is exceptional any more; the analyzer does not detect novelty, it <em>predicts</em> no-match.</p>
+
+  <h3>What goes in it</h3>
+
+  <p>The interesting engineering is in the contents, which come from two sources that have nothing in common except that the field cannot tell them apart.</p>
+
+  <p><strong>Nuisance materials.</strong> Substances that resemble library entries without being them — the near-misses, the adulterants, the wrong grade of the right polymer, the common contaminants of the workflow in question. These populate the space immediately adjacent to the class boundaries, which is exactly where a closed-set model's mistakes are most confident and most consequential.</p>
+
+  <p><strong>Deliberately bad measurements.</strong> Spectra collected on purpose under conditions that should never occur: no sample present, incorrect measurement distance, wrong background reference, wrong illumination. These are not degraded copies of good data — they are a systematic sampling of the ways the instrument can be misused.</p>
+
+  <h3>Why folding them together is the right call</h3>
+
+  <p>An instrument designer's instinct is to separate these. Sample novelty is a chemometric problem; instrument misuse is a hardware or firmware problem; they belong in different subsystems with different owners. That instinct is correct about causes and wrong about consequences.</p>
+
+  <p>The user needs exactly one thing from the analyzer at the moment of measurement: permission to trust the reading. Whether it should be withheld because the material is unknown or because the operator's hand moved is, at that instant, immaterial. Folding both into one trainable class matches the output to the decision the user is actually making — and it has the practical virtue of covering the dominant field failure mode, which has never been a broken algorithm. It has always been someone measuring the wrong thing, or measuring the right thing wrongly.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 3 ══ -->
+<section id="s3">
+  <h2><span class="num">Section 03</span>US 11,009,452 — letting the calibration set grow its own ruler</h2>
+
+  <div class="patent">
+    <div class="head"><span>US 11,009,452 B2</span><span>Granted 2021-05-18</span></div>
+    <div class="body">
+      <div class="title">Reduced false positive identification for spectroscopic quantification</div>
+      <p>Hsiung, Sun, Smith · VIAVI Solutions Inc. · Priority 2018-01-26</p>
+    </div>
+  </div>
+
+  <p>Quantification will not accept the previous solution, and the reason is structural rather than practical. A classification library has other classes in it; the no-match class can be built by collecting things that are not the target. A calibration set has no such thing. It contains one material, presented at a range of concentration levels, and that is the whole of it. There is no natural negative to collect. Ask what a "wrong sample" looks like for an assay and the honest answer is: anything at all, which is to say the question is not well posed as a supervised problem.</p>
+
+  <p>So the second patent stops looking for negatives outside and manufactures them inside.</p>
+
+  <h3>The construction</h3>
+
+  <p>Aggregate every concentration level of the calibration set into a <strong>single class</strong> — discard the <em>y</em> values for this purpose entirely; the question is no longer <em>how much</em> but <em>is this the material at all</em>. Fit a single-class support vector machine (SC-SVM) to that aggregate. A one-class SVM finds a boundary enclosing most of the data, with a parameter <em>ν</em> that upper-bounds the fraction of training samples permitted to fall <em>outside</em> it.</p>
+
+  <p>Standard practice treats those excluded samples as the price of a tight boundary — noise, discarded. The patent's move is to keep them.</p>
+
+  <div class="contract">
+    <div class="lbl">The key step</div>
+    <p>The training samples that fall outside the boundary <em>are</em> the empirical null distribution. They are the record of how far outside a genuine sample of this material has actually been observed to land.</p>
+  </div>
+
+  <p>With that population in hand, the rest follows. An unknown's signed distance to the boundary is expressed on a log scale, where these distances are approximately lognormal, and compared against the standard deviation of that empirical null. Beyond a chosen multiple — three σ is the natural default — the analyzer declines to report a concentration and states that the sample is outside its competence.</p>
+
+  <p>The units of the ruler are therefore derived from the calibration set itself. Nothing is imported: not a distributional assumption fitted to convenience, not a threshold inherited from another project, not a percentage someone found acceptable in a meeting. The instrument's willingness to answer is calibrated in the same experiment that taught it the answers.</p>
+
+  <figure>
+<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a single-class SVM boundary enclosing calibration samples, with excluded training samples forming an empirical null distribution and a three-sigma rejection contour outside it.">
+  <defs>
+    <style>
+      .bd{fill:none;stroke:#1C5A4D;stroke-width:4}
+      .fill{fill:#1C5A4D;fill-opacity:.10}
+      .sig{fill:none;stroke:#94271A;stroke-width:3;stroke-dasharray:12 10}
+      .pt{fill:#1C5A4D}
+      .ex{fill:#F3F4F0;stroke:#94271A;stroke-width:3.5}
+      .lb{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:500;fill:#13171A}
+      .lbs{font-family:"IBM Plex Mono",monospace;font-size:16px;font-weight:500;fill:#3E464B}
+      .ldr{stroke:#3E464B;stroke-width:2;fill:none}
+      .xk{stroke-width:5;fill:none;stroke-linecap:round}
+    </style>
+  </defs>
+
+  <!-- 3 sigma contour -->
+  <path class="sig" d="M 175,305 C 175,175 275,95 430,86 C 585,77 715,140 768,248 C 820,356 762,478 618,520 C 474,562 322,533 240,452 C 190,404 175,357 175,305 Z"/>
+  <!-- SC-SVM boundary -->
+  <path class="fill" d="M 252,303 C 252,208 320,152 428,142 C 536,132 644,180 682,256 C 720,332 682,417 586,450 C 490,483 372,464 304,407 C 264,373 252,340 252,303 Z"/>
+  <path class="bd" d="M 252,303 C 252,208 320,152 428,142 C 536,132 644,180 682,256 C 720,332 682,417 586,450 C 490,483 372,464 304,407 C 264,373 252,340 252,303 Z"/>
+
+  <!-- inside points -->
+  <g class="pt">
+    <circle cx="352" cy="232" r="6"/><circle cx="398" cy="196" r="6"/><circle cx="452" cy="212" r="6"/>
+    <circle cx="503" cy="188" r="6"/><circle cx="556" cy="216" r="6"/><circle cx="604" cy="252" r="6"/>
+    <circle cx="336" cy="292" r="6"/><circle cx="386" cy="268" r="6"/><circle cx="438" cy="284" r="6"/>
+    <circle cx="492" cy="258" r="6"/><circle cx="544" cy="288" r="6"/><circle cx="598" cy="316" r="6"/>
+    <circle cx="330" cy="352" r="6"/><circle cx="382" cy="336" r="6"/><circle cx="430" cy="356" r="6"/>
+    <circle cx="486" cy="330" r="6"/><circle cx="538" cy="360" r="6"/><circle cx="590" cy="380" r="6"/>
+    <circle cx="368" cy="404" r="6"/><circle cx="424" cy="418" r="6"/><circle cx="478" cy="400" r="6"/>
+    <circle cx="530" cy="422" r="6"/><circle cx="576" cy="412" r="6"/><circle cx="462" cy="152" r="6"/>
+    <circle cx="640" cy="292" r="6"/><circle cx="292" cy="332" r="6"/>
+  </g>
+
+  <!-- exiles: outside boundary, inside 3 sigma -->
+  <g class="ex">
+    <circle cx="232" cy="248" r="8"/><circle cx="300" cy="140" r="8"/><circle cx="472" cy="104" r="8"/>
+    <circle cx="700" cy="192" r="8"/><circle cx="712" cy="386" r="8"/><circle cx="404" cy="492" r="8"/>
+    <circle cx="266" cy="424" r="8"/>
+  </g>
+
+  <!-- unknown A: inside -> quantify -->
+  <g class="xk" stroke="#1C5A4D">
+    <line x1="497" y1="309" x2="521" y2="333"/><line x1="521" y1="309" x2="497" y2="333"/>
+  </g>
+  <!-- unknown B: beyond 3 sigma -> decline -->
+  <g class="xk" stroke="#94271A">
+    <line x1="874" y1="146" x2="900" y2="172"/><line x1="900" y1="146" x2="874" y2="172"/>
+  </g>
+
+  <!-- labels -->
+  <path class="ldr" d="M 690,268 L 790,268"/>
+  <text class="lb" x="798" y="262">SC-SVM boundary</text>
+  <text class="lbs" x="798" y="288">set by ν</text>
+
+  <path class="ldr" d="M 716,384 L 800,404"/>
+  <text class="lb" x="808" y="400">training exiles</text>
+  <text class="lbs" x="808" y="426">= empirical null</text>
+
+  <path class="ldr" d="M 250,470 L 190,516"/>
+  <text class="lb" x="60" y="546">3σ rejection</text>
+  <text class="lbs" x="60" y="572">contour</text>
+
+  <path class="ldr" d="M 528,321 L 620,120"/>
+  <text class="lb" x="470" y="70">unknown A → REPORT</text>
+
+  <text class="lb" x="800" y="118">unknown B</text>
+  <text class="lbs" x="800" y="212">→ DECLINE</text>
+</svg>
+    <figcaption><b>Figure 1 — The ruler and where it comes from.</b> Green: calibration samples of one material, all concentration levels aggregated into a single class. The solid boundary is fitted by the SC-SVM; ν sets how many training samples are allowed outside it. Those exiles (red rings) are not discarded — their distances form the empirical null from which σ is estimated, and the dashed 3σ contour is drawn in those units. Unknown A lies inside and is quantified. Unknown B lies beyond the contour and is refused. Schematic; the real geometry lives in a kernel-induced feature space, not the plane.</figcaption>
+  </figure>
+
+  <h3>ν is not a nuisance parameter</h3>
+
+  <p>It is tempting to read <em>ν</em> as a tightness knob to be set once and forgotten. In this construction it is doing something else: it determines <strong>the sample size of the null distribution</strong>, and therefore the resolution of the test built on it.</p>
+
+  <p>Set <em>ν</em> too small and the boundary hugs the data, few samples land outside, and σ is estimated from a handful of points — an unstable ruler that will read differently on the next calibration set. Set it too large and legitimate calibration samples are exiled in quantity, inflating σ; the 3σ contour balloons outward and the rejection test becomes permissive precisely when it is most needed. The parameter trades statistical stability in the null against the discriminating power of the boundary, and it should be chosen with that trade in view rather than by convention.</p>
+
+  <p>The pattern generalizes beyond spectroscopy, which is the part worth carrying away. <em>When no counterexamples exist, deliberately mis-specify the model by a controlled amount and read the residue as the null.</em> The exiles were always there. Most procedures throw them away.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 4 ══ -->
+<section id="s4">
+  <h2><span class="num">Section 04</span>US 11,656,174 — the fix that needed a fix</h2>
+
+  <div class="patent">
+    <div class="head"><span>US 11,656,174 B2</span><span>Granted 2023-05-23</span></div>
+    <div class="body">
+      <div class="title">Outlier detection for spectroscopic classification</div>
+      <p>Hsiung, Sun, Smith · VIAVI Solutions Inc. · Priority 2018-01-26</p>
+    </div>
+  </div>
+
+  <p>Abstention is not free. It is purchased with sensitivity, and the third patent is about the invoice.</p>
+
+  <p>To block false positives the rejection threshold must be set high. But an <em>in-situ</em> local model is assembled at prediction time from a neighborhood of calibration spectra selected around the unknown — and a neighborhood is a small sample. A single contaminated spectrum inside it inflates the local spread out of proportion. Raise the threshold against that inflated spread and the model begins refusing samples it should have accepted. The instrument becomes cautious in the worst possible way: not more accurate, merely less useful, and the field response to an analyzer that says <em>no</em> too often is to stop carrying it.</p>
+
+  <p>The remedy is a step, and the step's position in the sequence is the whole of the invention. Outliers are removed <strong>after</strong> the local model is assembled and <strong>before</strong> prediction runs.</p>
+
+  <div class="pipe">
+    <div><b>Step 1</b>Assemble the in-situ local model from the neighborhood of calibration spectra</div>
+    <div class="good"><b>Step 2 — inserted</b>Screen the neighborhood and drop contaminated spectra (MAD; or Grubbs, Mahalanobis distance, Hotelling T²)</div>
+    <div><b>Step 3</b>Raise the rejection threshold against a spread that is now clean</div>
+    <div class="bad"><b>Omit step 2</b>Threshold rises against inflated spread → true positives refused</div>
+  </div>
+
+  <p>The median absolute deviation is the sensible default, and for a reason specific to this setting. MAD has a 50% breakdown point and depends on neither the mean nor the standard deviation — the two quantities the contaminated spectrum has already corrupted. Screening with a mean-based statistic asks the outlier to help detect itself. Grubbs, Mahalanobis distance, and Hotelling T² remain available where the data structure or the number of variables makes them preferable.</p>
+
+  <p>What this patent really documents is a designer following through on his own side effects. The first two patents make the analyzer able to say no. This one makes sure it still says yes when it should.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 5 ══ -->
+<section id="s5">
+  <h2><span class="num">Section 05</span>The three as one system</h2>
+
+  <p>Read singly, each patent looks like a point solution. Read together, they cover the three ways a field analyzer produces a confident wrong number, and they cover them at the three different places where the failure originates.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Patent</th><th>Failure addressed</th><th>Mechanism</th><th>Where the negatives come from</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="mono">US&nbsp;10,810,408</td><td>Unknown material, or misused instrument</td><td>Trainable no-match class</td><td>Collected: nuisance materials plus deliberately corrupted measurements</td></tr>
+      <tr class="hi"><td class="mono">US&nbsp;11,009,452</td><td>Assay run on a sample outside calibration</td><td>SC-SVM boundary, distance scored in σ of an empirical null</td><td>Manufactured: the ν-fraction of training samples excluded by the boundary</td></tr>
+      <tr class="hi"><td class="mono">US&nbsp;11,656,174</td><td>True positives lost to a high threshold</td><td>Outlier removal between local-model assembly and prediction</td><td>Not applicable — this one protects the yes, not the no</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="contract">
+    <div class="lbl">The output contract</div>
+    <p>Without abstention, an analyzer returns <em>a label</em>, or <em>a concentration</em>.</p>
+    <p>With it, the analyzer returns <em>a label or a concentration, together with a validated statement of admissibility</em> — and the admissibility carries its own error rate, estimated from data, by the same procedure that estimated everything else.</p>
+  </div>
+
+  <p>Verification, in other words, is moved inside the deliverable. It is not a separate qualification exercise performed once at method validation and assumed to hold thereafter; it is computed per sample, at the moment of measurement, on the instrument. The analyzer does not merely answer the question. It first rules on whether the question was properly put to it.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 6 ══ -->
+<section id="s6">
+  <h2><span class="num">Section 06</span>What this is not</h2>
+
+  <p>A report written by the first inventor should be explicit about the limits, so here they are.</p>
+
+  <ul class="plain">
+    <li><b>The no-match class covers only the nuisance space you thought to sample.</b> It is a supervised solution to an open-set problem, which means it converts an unbounded difficulty into a bounded one by an act of anticipation. Anticipation fails. A material sufficiently unlike both the library and the collected nuisances can still land inside a library class, and nothing in the construction prevents it.</li>
+
+    <li><b>The empirical null inherits the calibration set's blind spots.</b> The σ is estimated from legitimate samples as they were actually measured — at the temperatures, particle sizes, packing densities, and lamp ages present during calibration. Legitimate variation never sampled is, to this test, indistinguishable from novelty. The instrument will decline correctly formed measurements taken under conditions it was never shown.</li>
+
+    <li><b>Neither mechanism detects a sample that is genuinely inside the distribution and wrong at source.</b> A correctly measured, in-library material that was mislabeled upstream passes every test here, as it should — the failure is not spectroscopic.</li>
+
+    <li><b>The abstention rate is a commercial parameter, not only a statistical one.</b> There is a rate above which users stop trusting the instrument, and it is lower than most statisticians expect. The three patents move the accuracy/refusal frontier outward; they do not choose the operating point on it. That choice belongs to whoever owns the workflow.</li>
+  </ul>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 7 ══ -->
+<section id="s7">
+  <h2><span class="num">Section 07</span>Why it reads differently in 2026</h2>
+
+  <p>These were instrument patents, filed in January 2018, addressing a handheld NIR analyzer's habit of answering questions it had no business answering. Eight years on the same shape of problem has arrived at a scale nobody was contemplating then.</p>
+
+  <p>The current discussion of AI for science converges on one observation: generation has become cheap and verification has not. Candidate proofs, candidate hypotheses, candidate syntheses can be produced faster than any human community can adjudicate them. The bottleneck has moved wholesale to the verification end, and the systems doing the generating share the property described in Section 1 — <strong>they always answer</strong>. A language model has no null class either. Its output distribution covers the space and leaves no remainder.</p>
+
+  <p>The structural correspondence is worth naming precisely, because the naïve version of the analogy is wrong and the careful version is useful.</p>
+
+  <h4>What transfers</h4>
+
+  <p>The shape of the solution. Abstention works when it is trained rather than thresholded, and when its calibration comes from the system's own data rather than from an external constant. Both of those are transferable statements, and both are still uncommon in practice.</p>
+
+  <h4>What does not</h4>
+
+  <p>Everything that made the construction possible. A spectroscopic feature space has a metric with physical meaning: distance corresponds to spectral dissimilarity, which corresponds to chemical dissimilarity. That is what lets an empirical null in that space mean something. Whether an analogous quantity exists for the output of a large language model is an open question, and asserting it by analogy would be exactly the sort of overreach the fourth caveat in Section 6 warns against.</p>
+
+  <p>The one claim worth making without hedging is smaller and, I think, more durable: <em>a system that cannot decline has not finished being designed.</em> That was true for a handheld analyzer in 2018 at a scale of one measurement at a time. It is true now for systems generating candidate knowledge by the thousand. The engineering discipline is the same discipline. Only the invoice is larger.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ══ 8 ══ -->
+<section id="s8">
+  <h2><span class="num">Section 08</span>Appendix — patent record and scope</h2>
+
+  <h4>The three discussed</h4>
+  <div class="tw">
+  <table>
+    <thead><tr><th>#</th><th>Patent</th><th>Granted</th><th>Title</th><th>Inventors</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td class="mono">7</td><td class="mono">US 11,656,174 B2</td><td class="mono">2023-05-23</td><td>Outlier detection for spectroscopic classification</td><td>Chang Hsiung, Lan Sun, Valton Smith</td></tr>
+      <tr class="hi"><td class="mono">10</td><td class="mono">US 11,009,452 B2</td><td class="mono">2021-05-18</td><td>Reduced false positive identification for spectroscopic quantification</td><td>Chang Hsiung, Lan Sun, Valton Smith</td></tr>
+      <tr class="hi"><td class="mono">15</td><td class="mono">US 10,810,408 B2</td><td class="mono">2020-10-20</td><td>Reduced false positive identification for spectroscopic classification</td><td>Chang Hsiung, Lan Sun, Valton Smith</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>Adjacent work from the same toolchain</h4>
+  <div class="tw">
+  <table>
+    <thead><tr><th>#</th><th>Patent</th><th>Granted</th><th>Title</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">8</td><td class="mono">US 11,445,927 B2</td><td class="mono">2022-09-20</td><td>Baseline correction and extraction of heartbeat profile</td></tr>
+      <tr><td class="mono">9</td><td class="mono">US 11,331,017 B2</td><td class="mono">2022-05-17</td><td>Calibration-free pulse oximetry</td></tr>
+      <tr><td class="mono">11</td><td class="mono">US 11,000,198 B2</td><td class="mono">2021-05-11</td><td>Autonomous full spectrum biometric monitoring</td></tr>
+      <tr><td class="mono">12</td><td class="mono">US 10,984,334 B2</td><td class="mono">2021-04-20</td><td>Endpoint detection in manufacturing process by near-infrared spectroscopy</td></tr>
+      <tr><td class="mono">13</td><td class="mono">US 10,969,331 B2</td><td class="mono">2021-04-06</td><td>Focusing linear model correction and linear model correction for model optimization</td></tr>
+      <tr><td class="mono">14</td><td class="mono">US 10,928,309 B2</td><td class="mono">2021-02-23</td><td>Cross-validation based calibration of a spectroscopic model</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Item 14 belongs to the same lineage as the verification discipline described here; items 12 and 13 are other outlets of the same NIR toolchain.</p>
+
+  <h4>Scope note</h4>
+
+  <p>All patents cited are granted and published. Everything described in this report is drawn from that public disclosure, from the general chemometrics and machine-learning literature, and from the author's own recollection of the design reasoning. No unpublished implementation detail, source code, parameter value, or dataset belonging to the assignee appears here. Assignee of record for all cited patents is VIAVI Solutions Inc.; full text is available through USPTO Patent Public Search or Google Patents. Claim scope is defined by the claims as granted, not by the plain-language descriptions in this report, which are explanatory and deliberately non-legal.</p>
+
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<div class="colophon">
+  <b>老熊隨筆 · Technical Reports</b><br>
+  Built-In Abstention — Three Patents on False-Positive Rejection in Spectroscopic Classification and Quantification.<br>
+  Written by <b>Chang Meng Hsiung （老熊）</b>, first inventor on all three patents discussed. Drafting assistance and figure construction by Claude; technical content, design reasoning, and final judgment are the author's.<br>
+  August 20, 2026 · Redwood Shores, California.
+</div>
+
+</div>
+
+<nav class="fnav" aria-label="Page navigation">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+</body>
+</html>
