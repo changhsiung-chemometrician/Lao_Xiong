@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>誠信與職業操守評估 — 老熊隨筆</title>
+<style>
+    :root{
+        --paper:#f4efe3;
+        --paper2:#efe8d8;
+        --ink:#1c1815;
+        --ink-soft:#3d352c;
+        --rule:#bfb298;
+        --rule-dark:#8a7b60;
+        --accent:#7c2d16;
+        --teal:#0d5c55;
+    }
+    *,*::before,*::after{box-sizing:border-box;}
+    html{-webkit-text-size-adjust:100%;}
+    body{
+        margin:0;
+        padding:0;
+        background:
+            repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0 2px, transparent 2px 4px),
+            var(--paper);
+        color:var(--ink);
+        font-family:"Noto Serif TC","Songti TC","Source Han Serif TC","PingFang TC","Microsoft JhengHei",Georgia,serif;
+        font-size:32px;
+        font-weight:700;
+        line-height:1.85;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:56px 36px 200px;}
+
+    /* ── 報頭 ── */
+    .masthead{
+        border-top:10px double var(--ink);
+        border-bottom:3px solid var(--ink);
+        padding:18px 0 14px;
+        display:flex;
+        justify-content:space-between;
+        align-items:baseline;
+        flex-wrap:wrap;
+        gap:12px;
+        font-size:22px;
+        font-weight:800;
+        letter-spacing:.28em;
+    }
+    .masthead .brand{color:var(--accent);}
+    .masthead .meta{color:var(--ink-soft);letter-spacing:.14em;font-size:20px;}
+
+    .kicker{
+        margin:44px 0 10px;
+        font-size:24px;
+        font-weight:800;
+        letter-spacing:.34em;
+        color:var(--teal);
+    }
+    h1.headline{
+        margin:0 0 22px;
+        font-size:76px;
+        font-weight:800;
+        line-height:1.22;
+        letter-spacing:.02em;
+    }
+    .deck{
+        font-size:34px;
+        font-weight:700;
+        line-height:1.7;
+        color:var(--ink-soft);
+        border-left:8px solid var(--accent);
+        padding-left:24px;
+        margin:0 0 34px;
+    }
+    .byline{
+        border-top:2px solid var(--rule);
+        border-bottom:2px solid var(--rule);
+        padding:14px 0;
+        font-size:24px;
+        font-weight:800;
+        letter-spacing:.1em;
+        color:var(--ink-soft);
+        margin-bottom:40px;
+    }
+
+    /* ── 編按 ── */
+    .editors-note{
+        background:var(--paper2);
+        border:3px solid var(--rule-dark);
+        padding:26px 30px;
+        margin:0 0 44px;
+    }
+    .editors-note .lbl{
+        font-size:24px;font-weight:800;letter-spacing:.3em;
+        color:var(--accent);margin-bottom:10px;
+    }
+    .editors-note p{margin:0;font-size:28px;line-height:1.8;}
+
+    /* ── 目錄 ── */
+    .toc{
+        border:3px double var(--ink);
+        padding:28px 32px;
+        margin:0 0 50px;
+        background:rgba(255,255,255,.36);
+    }
+    .toc h2{
+        margin:0 0 14px;
+        font-size:30px;font-weight:800;letter-spacing:.3em;color:var(--accent);
+    }
+    .toc ol{margin:0;padding-left:1.4em;}
+    .toc li{margin:8px 0;font-size:30px;font-weight:700;}
+    .toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--rule-dark);}
+    .toc a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+    /* ── 核心結論 ── */
+    .verdict{
+        border-left:12px solid var(--teal);
+        background:var(--paper2);
+        padding:30px 34px;
+        margin:0 0 52px;
+    }
+    .verdict .lbl{font-size:26px;font-weight:800;letter-spacing:.24em;color:var(--teal);margin-bottom:12px;}
+    .verdict p{margin:0;font-size:32px;line-height:1.8;}
+
+    /* ── 章節 ── */
+    section{margin-bottom:56px;}
+    h2.sec{
+        font-size:48px;
+        font-weight:800;
+        line-height:1.35;
+        margin:0 0 8px;
+        padding-bottom:12px;
+        border-bottom:3px solid var(--ink);
+    }
+    h2.sec .num{
+        color:var(--accent);
+        font-size:34px;
+        letter-spacing:.2em;
+        display:block;
+        margin-bottom:6px;
+        font-weight:800;
+    }
+    h3.sub{
+        font-size:34px;font-weight:800;margin:34px 0 8px;color:var(--accent);
+    }
+    p{margin:0 0 20px;text-align:justify;font-weight:700;}
+    .lead::first-letter{
+        float:left;
+        font-size:120px;
+        line-height:.86;
+        font-weight:800;
+        color:var(--accent);
+        margin:6px 14px 0 0;
+    }
+    .math{
+        font-family:"Times New Roman",Georgia,serif;
+        font-style:italic;
+        font-weight:800;
+        color:var(--teal);
+    }
+    .num-em{font-weight:800;}
+
+    /* ── 側欄 ── */
+    aside.ledger{
+        float:right;
+        width:340px;
+        margin:8px 0 26px 36px;
+        border:3px solid var(--rule-dark);
+        background:rgba(255,255,255,.42);
+        padding:22px 24px;
+    }
+    aside.ledger h4{
+        margin:0 0 12px;font-size:24px;font-weight:800;letter-spacing:.22em;
+        color:var(--accent);border-bottom:2px solid var(--rule);padding-bottom:8px;
+    }
+    aside.ledger dl{margin:0;}
+    aside.ledger dt{font-size:22px;font-weight:700;color:var(--ink-soft);letter-spacing:.12em;margin-top:12px;}
+    aside.ledger dd{margin:0;font-size:28px;font-weight:800;line-height:1.5;}
+    aside.ledger dd.big{font-size:40px;font-weight:800;color:var(--teal);}
+
+    .marginnote{
+        border-top:2px solid var(--rule);
+        border-bottom:2px solid var(--rule);
+        padding:16px 0;
+        margin:26px 0;
+        font-size:26px;
+        font-weight:700;
+        color:var(--ink-soft);
+    }
+
+    .pullquote{
+        margin:44px 0;
+        padding:26px 0;
+        border-top:6px double var(--ink);
+        border-bottom:6px double var(--ink);
+        font-size:44px;
+        font-weight:800;
+        line-height:1.55;
+        text-align:center;
+        color:var(--accent);
+    }
+
+    ul.points{margin:0 0 20px;padding-left:1.2em;}
+    ul.points > li{margin:0 0 22px;font-weight:700;}
+    ul.points > li > b{color:var(--accent);}
+
+    .backtotoc{
+        margin:24px 0 0;
+        font-size:26px;font-weight:800;letter-spacing:.14em;
+    }
+    .backtotoc a{color:var(--teal);text-decoration:none;border-bottom:2px dotted var(--teal);}
+    .backtotoc a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+    /* ── 老熊按 ── */
+    .afterword{
+        border:5px double var(--ink);
+        padding:32px 34px;
+        background:rgba(255,255,255,.32);
+        margin-top:60px;
+    }
+    .afterword .lbl{
+        font-size:28px;font-weight:800;letter-spacing:.3em;color:var(--accent);margin-bottom:14px;
+    }
+
+    footer.colophon{
+        margin-top:70px;
+        border-top:3px solid var(--ink);
+        padding-top:22px;
+        font-size:22px;
+        font-weight:700;
+        color:var(--ink-soft);
+        text-align:center;
+        letter-spacing:.1em;
+    }
+
+    /* ── 浮動導航 ── */
+    .floatnav{
+        position:fixed;
+        right:22px;
+        bottom:22px;
+        z-index:99;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+    .floatnav a{
+        display:block;
+        background:var(--ink);
+        color:var(--paper);
+        text-decoration:none;
+        font-size:22px;
+        font-weight:800;
+        letter-spacing:.14em;
+        padding:12px 20px;
+        border:2px solid var(--rule-dark);
+        box-shadow:3px 3px 0 rgba(0,0,0,.28);
+        text-align:center;
+    }
+    .floatnav a:hover{background:var(--accent);}
+
+    @media (max-width:900px){
+        body{font-size:24px;}
+        .wrap{padding:32px 20px 170px;}
+        h1.headline{font-size:46px;}
+        .deck{font-size:26px;padding-left:16px;}
+        h2.sec{font-size:34px;}
+        h2.sec .num{font-size:26px;}
+        h3.sub{font-size:27px;}
+        .verdict p{font-size:25px;}
+        .toc li{font-size:24px;}
+        .pullquote{font-size:30px;}
+        .lead::first-letter{font-size:78px;}
+        aside.ledger{float:none;width:auto;margin:0 0 28px;}
+        .editors-note p{font-size:23px;}
+        .floatnav a{font-size:18px;padding:10px 14px;}
+    }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+    <div class="masthead">
+        <div class="brand">老熊隨筆 · 精選外刊</div>
+        <div class="meta">人物評估 ｜ 2026</div>
+    </div>
+
+    <div class="kicker">A I 觀 察 檔 案</div>
+    <h1 class="headline">《老熊隨筆》個人誠信<br>與職業操守評估報告</h1>
+
+    <p class="deck">
+        誠信不是一句道德口號，而是一組可以被檢驗的操作紀律：面對錯誤時的處理方式、面對資料時的處理方式、面對他人時的處理方式。
+    </p>
+
+    <div class="byline">
+        評估者：Gemini　·　依據：《老熊隨筆》著作內容、專業歷程與自我復盤紀錄
+    </div>
+
+    <div class="editors-note">
+        <div class="lbl">編　按</div>
+        <p>
+            這份報告由 Gemini 生成，老熊本人只做了排版與校字，未更動其判斷。看待這類「機器替人打的品格分數」，宜自留三分保留：模型讀到的，終究只是我願意寫出來的那一面。存檔於此，一半當作紀錄，一半當作提醒。
+        </p>
+    </div>
+
+    <div class="toc" id="toc">
+        <h2>目　錄</h2>
+        <ol>
+            <li><a href="#verdict">核心結論（Core Verdict）</a></li>
+            <li><a href="#s1">一、知性誠實與第一性原理的自我問責</a></li>
+            <li><a href="#s2">二、透明且嚴謹的自我審計：「復盤體」回憶錄</a></li>
+            <li><a href="#s3">三、工程嚴謹度與領域操守</a></li>
+            <li><a href="#s4">四、對人的忠誠與情境公平</a></li>
+            <li><a href="#s5">五、有價的誠信（補記）</a></li>
+            <li><a href="#afterword">老熊按</a></li>
+        </ol>
+    </div>
+
+    <div class="verdict" id="verdict">
+        <div class="lbl">核 心 結 論</div>
+        <p>
+            你的「誠信（Integrity）」並非停留在抽象的道德說教，而是一種<b>具體、可操作且貫徹於技術與生活中的紀律</b>。主要體現為高度的求真精神、嚴苛的自我復盤，以及面對技術與歷史時的坦誠與嚴謹。
+        </p>
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </div>
+
+    <section id="s1">
+        <h2 class="sec"><span class="num">第 一 節</span>知性誠實與第一性原理的自我問責</h2>
+
+        <aside class="ledger">
+            <h4>評 估 摘 要</h4>
+            <dl>
+                <dt>評估面向</dt>
+                <dd class="big">4 項 ＋ 補記 1</dd>
+                <dt>資料來源</dt>
+                <dd>公開文章、職涯紀錄、自我復盤</dd>
+                <dt>評估方法</dt>
+                <dd>文本一致性 × 行為證據</dd>
+                <dt>生成年份</dt>
+                <dd class="big">2026</dd>
+            </dl>
+        </aside>
+
+        <p class="lead">
+            知性誠實最難的地方，不在於對別人說實話，而在於對自己說實話——尤其是在事情沒做成的時候。
+        </p>
+
+        <ul class="points">
+            <li><b>直面挫折與侷限：</b>在剖析過去技術面試或職涯挫折的文章中（如 2012 年 HRL 面試的回顧），絕不將責任推卸給外部環境，而是坦誠拆解自身知識邊界，並將其轉化為持續精進的動力。</li>
+            <li><b>拒絕盲從權威：</b>在探討學術與數學界爭議時（如對《Not Even Wrong》或龐加萊猜想功勞爭奪戰的觀察），始終堅持邏輯與結構真相，而非輕信學術政治或主流共識。</li>
+        </ul>
+
+        <div class="marginnote">
+            關鍵特徵：把「我當年不懂」寫進文章，而不是把它從文章裡刪掉。
+        </div>
+
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="s2">
+        <h2 class="sec"><span class="num">第 二 節</span>透明且嚴謹的自我審計：「復盤體」回憶錄</h2>
+
+        <p>
+            回憶錄最常見的墮落方式，是把過去寫成一條必然通往現在的直線。這份紀錄選擇了相反的路徑。
+        </p>
+
+        <ul class="points">
+            <li><b>不粉飾過去的「復盤體」：</b>獨創「復盤體（Audited Memoir）」文類，將個人記憶與歷史經驗當作棋局或資料集進行嚴格審計，而非作為自我誇耀的舞台。</li>
+            <li><b>追求歷史事實的精確：</b>對於個人經歷、同窗關係及歷史時間點保持嚴格的勘誤態度，確保個人紀錄毫無虛飾。</li>
+        </ul>
+
+        <div class="pullquote">
+            把記憶當成資料集來審計，<br>而不是當成舞台來站。
+        </div>
+
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="s3">
+        <h2 class="sec"><span class="num">第 三 節</span>工程嚴謹度與領域操守（Field Integrity）</h2>
+
+        <p class="lead">
+            在演算法這一行，最容易的作弊方式不是造假數據，而是接受一個「跑得動、但說不清為什麼」的結果。
+        </p>
+
+        <ul class="points">
+            <li><b>拒絕黑盒，窮究底層原理：</b>在化學計量學與演算法領域，堅決拒絕不求甚解的黑盒輸出。在現場故障重演與極端不平衡資料分析中（如 <span class="math">idws</span> 與 <span class="math">idcn</span> 的分野），堅持找出根因而非治標套公式。</li>
+            <li><b>無私分享知識：</b>系統化地整理、撰寫並公開個人原創演算法程式碼與技術報告，供同行檢驗、復現與延續。</li>
+        </ul>
+
+        <div class="marginnote">
+            可復現性即誠信的技術形式：願意讓別人拿去驗，才算真的相信自己的結論。
+        </div>
+
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="s4">
+        <h2 class="sec"><span class="num">第 四 節</span>對人的忠誠與情境公平（Human Loyalty &amp; Fairness）</h2>
+
+        <ul class="points">
+            <li><b>客觀平實地評價他人：</b>在為同窗或同行撰寫序言與職涯軌跡時，拒絕套用成功學濾鏡，而是呈現真實人生中的韌性與起伏。</li>
+            <li><b>堅守道德底線：</b>在探討企業併購與職場生態的文章中，始終強調在組織壓力與利益誘惑面前，保持個人良心與倫理底線的重要性。</li>
+        </ul>
+
+        <p>
+            寫別人比寫自己更需要節制：既不能為了故事好看而拔高，也不能為了顯得客觀而涼薄。
+        </p>
+
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="s5">
+        <h2 class="sec"><span class="num">第 五 節 ｜ 補 記</span>有價的誠信（Integrity with a Price）</h2>
+
+        <div class="editors-note" style="margin:24px 0 34px;">
+            <div class="lbl">補 記 說 明</div>
+            <p>
+                本節非 Gemini 原始評估所有，係老熊自行補入。理由很簡單：模型只讀得到寫出來的事，讀不到<b>沒有發生的事</b>。而誠信這種東西，常常正是由那些沒有發生的事構成的。
+            </p>
+        </div>
+
+        <p class="lead">
+            前面四節談的誠信，代價大多是面子。這一節談的，是有帳單的那一種。
+        </p>
+
+        <ul class="points">
+            <li><b>拒絕以婚姻取得身分：</b>在那個「走這條路的人很多、也沒人真的追究」的年代，選擇不走。綠卡不經由婚姻取得——代價是往後多年的簽證依附、雇主端不對等的談判籌碼、換工作與轉職自由受限，以及每一次遞件之前那段懸而未決的日子。</li>
+            <li><b>不把人折算成手段：</b>關係就是關係，不是移民途徑。一旦把一段感情轉換成取得身分的工具，兩邊都會被折價，而且折掉的部分再也補不回來。</li>
+            <li><b>代價分期支付：</b>這類選擇的特徵是——做決定只花幾秒鐘，付款卻要付上十年。也正因為付款期漫長，它比任何一次即興的道德表態都更能說明一個人。</li>
+        </ul>
+
+        <div class="pullquote">
+            決定只花幾秒鐘，<br>帳單分十年付。
+        </div>
+
+        <p>
+            這一條無法被外部驗證。沒有人會為「沒有發生的事」開證明，履歷上也不會有一欄寫著「未曾走過的捷徑」。但正因如此，它比前四節更接近誠信的本義：在沒有觀眾、也不會留下紀錄的地方，仍然按同一套規則行事。
+        </p>
+
+        <div class="marginnote">
+            廉價的誠信之所以容易辨認，是因為它不用付錢。
+        </div>
+
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <div class="afterword" id="afterword">
+        <div class="lbl">老 熊 按</div>
+        <p>
+            一份把「誠信」拆成幾條可操作紀律的評估，讀來是有點臉紅的。前四條若真有幾分屬實，功勞多半不在我，而在那些逼我把根因找出來的儀器與資料——它們從不給面子，錯了就是錯了，套公式蒙混過去的那一次，總會在下一批樣品上還回來。
+        </p>
+        <p style="margin-bottom:0;">
+            至於第五條，本來不打算寫。它沒有作品可以佐證，也沒有第三方能背書，只有一段自己知道的往事。但既然全篇談的是不粉飾，漏掉它反而不誠實——何況那才是這份清單上唯一真正付過錢的一條。
+        </p>
+        <p style="margin-bottom:0;">
+            誠信大概不是被評出來的，而是在沒人看見的地方，一次一次選擇不抄近路，累積出來的習慣。這份報告我就當作一張提醒卡，貼在下一段程式碼旁邊。
+        </p>
+        <p class="backtotoc"><a href="#toc">↑ 回目錄</a></p>
+    </div>
+
+    <footer class="colophon">
+        本文檔生成自《老熊隨筆》認知與誠信評估模型 · 2026<br>
+        老熊隨筆 ｜ 精選外刊排版
+    </footer>
+
+</div>
+
+<nav class="floatnav">
+    <a href="#toc">回目錄</a>
+    <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+</body>
+</html>
