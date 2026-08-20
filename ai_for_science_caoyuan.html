@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>證明過剩的年代 — 讀《對話前 DeepMind 曹原：AI for Science 爆發》｜老熊隨筆</title>
+<style>
+  :root{
+    --paper:#efe7d6;
+    --card:#fbf7ec;
+    --ink:#1b1915;
+    --ink-soft:#453f34;
+    --rule:#c6b99c;
+    --rule-hair:#ded2b8;
+    --seal:#9e2f26;
+    --indigo:#1e4450;
+    --gold:#8a6a1f;
+    --serif:"Noto Serif TC","Songti TC","STSong","PMingLiU","MingLiU",Georgia,serif;
+    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,sans-serif;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.014) 0 1px, transparent 1px 4px);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:32px;
+    line-height:1.85;
+    padding:56px 24px 140px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .container{max-width:1100px;margin:0 auto;}
+
+  /* ---------- 報頭 ---------- */
+  .masthead{
+    border-top:10px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    padding:28px 0 22px;
+    margin-bottom:40px;
+  }
+  .masthead .flag{
+    display:flex;flex-wrap:wrap;gap:18px;align-items:baseline;
+    font-family:var(--mono);
+    font-size:19px;font-weight:700;letter-spacing:.14em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .masthead .flag .seal{
+    color:var(--seal);
+    border:2px solid var(--seal);
+    padding:2px 12px;
+    letter-spacing:.2em;
+  }
+
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:22px;font-weight:800;letter-spacing:.34em;
+    color:var(--seal);
+    margin:44px 0 18px;
+  }
+
+  h1{
+    font-size:76px;
+    line-height:1.22;
+    font-weight:900;
+    letter-spacing:-.01em;
+    margin-bottom:26px;
+  }
+  h1 .sub{display:block;font-size:44px;font-weight:800;color:var(--ink-soft);margin-top:16px;line-height:1.35;}
+
+  .deck{
+    font-size:34px;
+    font-weight:700;
+    color:var(--ink-soft);
+    line-height:1.8;
+    border-left:8px solid var(--seal);
+    padding-left:28px;
+    margin:34px 0 40px;
+  }
+
+  .ledger{
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+    padding:24px 0;
+    margin-bottom:52px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px 34px;
+  }
+  .ledger .item .k{
+    font-family:var(--sans);
+    font-size:19px;font-weight:800;letter-spacing:.2em;
+    color:var(--seal);
+    display:block;margin-bottom:4px;
+  }
+  .ledger .item .v{font-size:26px;font-weight:800;line-height:1.5;}
+  .ledger .item .v a{color:var(--indigo);}
+
+  /* ---------- 目錄 ---------- */
+  nav.toc{
+    background:var(--card);
+    border:3px solid var(--ink);
+    box-shadow:12px 12px 0 rgba(27,25,21,.09);
+    padding:38px 42px;
+    margin-bottom:64px;
+  }
+  nav.toc h2{
+    font-size:38px;font-weight:900;
+    letter-spacing:.1em;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:14px;margin-bottom:24px;
+  }
+  nav.toc ol{list-style:none;counter-reset:toc;}
+  nav.toc li{
+    counter-increment:toc;
+    border-bottom:1px dotted var(--rule);
+    padding:14px 0;
+  }
+  nav.toc li:last-child{border-bottom:none;}
+  nav.toc li::before{
+    content:counter(toc,decimal-leading-zero);
+    font-family:var(--mono);
+    font-size:22px;font-weight:700;
+    color:var(--seal);
+    margin-right:20px;
+  }
+  nav.toc a{
+    color:var(--ink);
+    text-decoration:none;
+    font-size:29px;font-weight:800;
+    border-bottom:2px solid transparent;
+  }
+  nav.toc a:hover{border-bottom-color:var(--seal);color:var(--seal);}
+
+  /* ---------- 章節 ---------- */
+  section{margin-bottom:74px;scroll-margin-top:24px;}
+
+  h2.sec{
+    font-size:52px;
+    font-weight:900;
+    line-height:1.35;
+    border-bottom:5px solid var(--ink);
+    padding-bottom:16px;
+    margin-bottom:14px;
+  }
+  .stamp{
+    font-family:var(--mono);
+    font-size:20px;font-weight:700;letter-spacing:.12em;
+    color:var(--ink-soft);
+    margin-bottom:30px;
+    display:block;
+  }
+
+  h3{
+    font-size:36px;
+    font-weight:900;
+    margin:44px 0 16px;
+    padding-left:22px;
+    border-left:10px solid var(--gold);
+    line-height:1.45;
+  }
+
+  p{margin-bottom:22px;text-align:justify;}
+  p strong,li strong{font-weight:900;color:var(--ink);}
+  .num{font-weight:800;font-variant-numeric:tabular-nums;}
+
+  .lead::first-letter{
+    float:left;
+    font-size:120px;
+    line-height:.86;
+    font-weight:900;
+    color:var(--seal);
+    margin:8px 16px 0 0;
+  }
+
+  ul.marks{list-style:none;margin:0 0 24px;}
+  ul.marks li{
+    position:relative;
+    padding-left:38px;
+    margin-bottom:18px;
+    font-weight:700;
+  }
+  ul.marks li::before{
+    content:"※";
+    position:absolute;left:0;top:0;
+    color:var(--seal);
+    font-weight:900;
+  }
+
+  /* ---------- 邊欄 / 旁註 ---------- */
+  aside.margin-note{
+    width:340px;
+    float:right;
+    margin:12px -60px 30px 40px;
+    background:var(--card);
+    border-top:6px solid var(--indigo);
+    border-left:1px solid var(--rule-hair);
+    border-right:1px solid var(--rule-hair);
+    border-bottom:1px solid var(--rule-hair);
+    padding:24px 26px;
+    font-size:24px;
+    line-height:1.72;
+    font-weight:700;
+    color:var(--ink-soft);
+  }
+  aside.margin-note .label{
+    display:block;
+    font-family:var(--sans);
+    font-size:17px;font-weight:800;letter-spacing:.2em;
+    color:var(--indigo);
+    margin-bottom:10px;
+  }
+  aside.margin-note p{margin-bottom:14px;font-size:24px;}
+  aside.margin-note p:last-child{margin-bottom:0;}
+
+  .claude-note{
+    clear:both;
+    background:#f3f6f6;
+    border:2px solid var(--indigo);
+    border-left:14px solid var(--indigo);
+    padding:28px 34px;
+    margin:34px 0;
+  }
+  .claude-note .label{
+    font-family:var(--sans);
+    font-size:19px;font-weight:800;letter-spacing:.22em;
+    color:var(--indigo);
+    display:block;margin-bottom:14px;
+  }
+  .claude-note p{font-size:29px;color:#17323b;}
+  .claude-note p:last-child{margin-bottom:0;}
+
+  blockquote.pull{
+    clear:both;
+    font-size:44px;
+    font-weight:900;
+    line-height:1.55;
+    color:var(--seal);
+    border-top:4px solid var(--seal);
+    border-bottom:4px solid var(--seal);
+    padding:30px 0;
+    margin:48px 0;
+    text-align:center;
+  }
+  blockquote.pull cite{
+    display:block;
+    font-size:22px;font-weight:800;font-style:normal;
+    letter-spacing:.16em;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+
+  .patent-table{
+    clear:both;
+    margin:38px 0;
+  }
+  .patent-table .cap{
+    font-family:var(--sans);
+    font-size:20px;font-weight:800;letter-spacing:.16em;
+    color:var(--seal);
+    margin-bottom:12px;
+  }
+  .patent-table .scroll{overflow-x:auto;border:3px solid var(--ink);background:var(--card);}
+  .patent-table table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:23px;
+    min-width:760px;
+  }
+  .patent-table th{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    font-size:19px;font-weight:800;letter-spacing:.08em;
+    text-align:left;
+    padding:14px 12px;
+    white-space:nowrap;
+  }
+  .patent-table td{
+    padding:14px 12px;
+    border-bottom:1px solid var(--rule-hair);
+    font-weight:700;
+    vertical-align:top;
+    line-height:1.5;
+  }
+  .patent-table tr:last-child td{border-bottom:none;}
+  .patent-table td.no{font-family:var(--mono);color:var(--ink-soft);}
+  .patent-table td.pn{font-family:var(--mono);white-space:nowrap;}
+  .patent-table td.dt{font-family:var(--mono);white-space:nowrap;color:var(--ink-soft);}
+  .patent-table tr.hit{background:#fdf1e0;}
+  .patent-table tr.hit td{color:var(--seal);font-weight:900;}
+  .patent-table .foot{
+    font-size:20px;font-weight:700;color:var(--ink-soft);
+    margin-top:12px;line-height:1.65;
+  }
+
+
+    background:#fdf3e3;
+    border:3px dashed var(--seal);
+    padding:30px 34px;
+    margin:34px 0;
+  }
+  .errata h4{
+    font-size:30px;font-weight:900;color:var(--seal);margin-bottom:14px;
+  }
+  .errata table{width:100%;border-collapse:collapse;font-size:26px;}
+  .errata th,.errata td{
+    text-align:left;vertical-align:top;
+    padding:14px 12px;
+    border-bottom:1px solid var(--rule);
+    font-weight:700;
+  }
+  .errata th{font-weight:900;color:var(--indigo);font-size:23px;letter-spacing:.08em;}
+  .errata td.wrong{color:#8a3a33;text-decoration:line-through;}
+  .errata td.right{color:#1c4d33;font-weight:900;}
+
+  a{color:var(--indigo);font-weight:800;}
+  a:hover{color:var(--seal);}
+
+  .back{
+    clear:both;
+    text-align:right;
+    margin-top:34px;
+    padding-top:14px;
+    border-top:1px solid var(--rule);
+  }
+  .back a{
+    font-family:var(--sans);
+    font-size:22px;font-weight:800;letter-spacing:.1em;
+    text-decoration:none;
+    color:var(--ink-soft);
+  }
+  .back a:hover{color:var(--seal);}
+
+  footer.colophon{
+    clear:both;
+    border-top:10px solid var(--ink);
+    margin-top:80px;
+    padding-top:32px;
+    font-size:24px;
+    font-weight:700;
+    color:var(--ink-soft);
+    line-height:1.8;
+  }
+  footer.colophon .sig{
+    font-size:30px;font-weight:900;color:var(--ink);margin-bottom:18px;
+  }
+
+  /* ---------- 浮動導覽 ---------- */
+  .floatnav{
+    position:fixed;
+    right:26px;bottom:26px;
+    display:flex;flex-direction:column;gap:10px;
+    z-index:99;
+  }
+  .floatnav a{
+    display:block;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    font-size:20px;font-weight:800;letter-spacing:.14em;
+    text-decoration:none;
+    padding:14px 20px;
+    border:2px solid var(--ink);
+    box-shadow:5px 5px 0 rgba(27,25,21,.22);
+    text-align:center;
+  }
+  .floatnav a:hover{background:var(--seal);border-color:var(--seal);color:#fff;}
+
+  @media (max-width:900px){
+    body{font-size:26px;padding:32px 16px 150px;}
+    h1{font-size:46px;}
+    h1 .sub{font-size:30px;}
+    .deck{font-size:27px;padding-left:18px;border-left-width:6px;}
+    h2.sec{font-size:36px;}
+    h3{font-size:29px;}
+    .lead::first-letter{font-size:84px;}
+    blockquote.pull{font-size:31px;}
+    aside.margin-note{width:100%;float:none;margin:24px 0;font-size:23px;}
+    .claude-note p{font-size:25px;}
+    nav.toc{padding:26px 22px;}
+    nav.toc a{font-size:25px;}
+    .errata table{font-size:22px;}
+    .floatnav a{font-size:17px;padding:11px 14px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===== 報頭 ===== -->
+  <div class="masthead">
+    <div class="flag">
+      <span class="seal">老熊隨筆</span>
+      <span>科技筆記</span>
+      <span>2026 年 8 月 20 日</span>
+      <span>讀片札記 · 第 N 則</span>
+    </div>
+  </div>
+
+  <div class="eyebrow">讀 · 矽谷 101 訪談</div>
+
+  <h1>證明過剩的年代
+    <span class="sub">讀《對話前 DeepMind 曹原：AI for Science 爆發，一個新時代到來了》</span>
+  </h1>
+
+  <div class="deck">
+    Jeff Dean 走了。二十七年，MapReduce、BigTable、Spanner、TensorFlow、TPU 一路蓋到 Gemini，然後在 2026 年 8 月第一週帶著三位老同事出走，開了一家叫 Discovery Loop 的公益公司，說要用 AI 把科學研究的整個實驗迴圈自動化。矽谷說這是一個時代的結束。我倒覺得，這更像是另一個時代的帳單開始送到。
+  </div>
+
+  <div class="ledger">
+    <div class="item"><span class="k">節目</span><span class="v">矽谷 101（陳茜主持）</span></div>
+    <div class="item"><span class="k">受訪者</span><span class="v">曹原<br>Google DeepMind 前資深研究科學家<br>Unreasonable Labs 共同創辦人</span></div>
+    <div class="item"><span class="k">片長 / 上線</span><span class="v">約 109 分鐘 · 2026 年 8 月 15 日</span></div>
+    <div class="item"><span class="k">原片</span><span class="v"><a href="https://www.youtube.com/watch?v=H35nVgNGyo8" target="_blank" rel="noopener">YouTube：對話前 DeepMind 曹原 →</a></span></div>
+  </div>
+
+  <!-- ===== 目錄 ===== -->
+  <nav class="toc" id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#s1">變革的背景：一次離職，一條賽道</a></li>
+      <li><a href="#s2">核心機制：從模型到實驗的自進化閉環</a></li>
+      <li><a href="#s3">人類的位置：黑盒、可解釋性、概念抽象</a></li>
+      <li><a href="#s4">研發四要素與垂直產業的落差</a></li>
+      <li><a href="#s5">未來展望：從 AI4S 到 AGI</a></li>
+      <li><a href="#s6">三處訂正：把事實釘牢</a></li>
+      <li><a href="#s7">Claude 的幾點觀察（一個化學計量學的視角）</a></li>
+      <li><a href="#s8">出處與延伸</a></li>
+    </ol>
+  </nav>
+
+  <!-- ===== 第一節 ===== -->
+  <section id="s1">
+    <h2 class="sec">一、變革的背景：一次離職，一條賽道</h2>
+    <span class="stamp">TIMECODE 00:00:00</span>
+
+    <h3>1. 頂尖人才出走，賽道升溫</h3>
+
+    <aside class="margin-note">
+      <span class="label">同日發生的事</span>
+      <p>Jeff Dean 離職的公告，與 Demis Hassabis 卸下 Google DeepMind 執行長、轉任該部門董事長兼 Alphabet 首席科學家，是同一天發出的。Koray Kavukcuoglu 升任資深副總裁，接手 Gemini 模型開發。</p>
+      <p>Alphabet 股價當日下跌約 4～5%。</p>
+    </aside>
+
+    <p class="lead">谷歌的核心靈魂人物 Jeff Dean，在 2026 年 8 月初宣布離開效力二十七年的公司，與 Sanjay Ghemawat、Oriol Vinyals、Quoc Le 共同創辦 <strong>Discovery Loop</strong>——一家以公益公司（public benefit corporation）形式登記的新創，目標是用 AI 自動化科學與工程研究的完整實驗迴圈。Google 自己是創始投資人兼雲端夥伴，種子輪由 Radical Ventures 與 Khosla Ventures 共同領投。</p>
+
+    <p>此舉在矽谷引發的迴響，遠超過一次普通的人事異動。它標誌著 <strong>AI for Science</strong>（AI 驅動科學研究，業內簡稱 AI4S）已經從學術界的早期實驗，正式進入商業化與產業規模化的爆發期。曹原在訪談中把 Dean 的出走拆成三層來讀：組織層（Gemini 專案上馬後，Google 轉向「集中資源辦大事」，原本自治的 DeepMind 團隊被迫整併，內耗難免）、產品層（今年稍早 Gemini 3.1 Pro 尚能名列前茅，但四月到七月間的 3.5 Flash 與 3.6 Flash 表現平平），以及個人層（一位六十歲的工程師，還想再蓋一次東西）。</p>
+
+    <p><strong>國家與社會層面的意義：</strong>科學與技術如何透過 AI 自動化推進，已經不只關乎單一企業或研究機構的競爭力，而是直接連到國家未來的科技底盤與整體社會的研發效率。</p>
+
+    <h3>2. 前沿實驗室在基礎科學上的突破</h3>
+
+    <ul class="marks">
+      <li><strong>數學領域：</strong>OpenAI 的推理（Reasoning）模型在若干長期懸而未決的數學問題上取得進展；Anthropic 則在 8 月 10 日發布研究筆記，宣稱一個未公開的研究版 Claude 把黎曼 ζ 函數非平凡零點落在臨界線上的比例下界，從 <span class="num">41.6%</span> 推進到 <span class="num">67.2%</span>。</li>
+      <li><strong>跨學科應用：</strong>AI 不再只服務於自然語言處理與圖像生成，而是在生物製藥、新材料開發、基礎物理等領域，直接推動科學前沿（scientific frontier）的位移。</li>
+    </ul>
+
+    <div class="claude-note">
+      <span class="label">CLAUDE 旁註</span>
+      <p>關於那個 67.2%，我得先把話說清楚，因為這件事被傳成了「Claude 快證出黎曼猜想了」，而那是錯的。</p>
+      <p>黎曼猜想要求 <strong>100%</strong> 的非平凡零點落在臨界線上。從 Levinson（1974，1/3）到 Conrey（1989，兩成五世紀的努力堆到約 <span class="num">41.6%</span>），這是一條走得極慢的路。這次的結果是把它推到約 <span class="num">67.25%</span>，並且證明這些零點還是單零點——確實是這個界的史上最大單次改進，也用 Lean 做了機器驗證。但它離證明本身還隔著一整個宇宙，Anthropic 自己也明說這條路徑不可能證出全稱命題。</p>
+      <p>更值得留意的是數論學家 Jared Duker Lichtman 的補充：那個約 67% 的常數與主要的分析輸入，其實已經出現在一篇「假設零點極靠近臨界線」的既有論文裡；Claude 做的是把那個假設拿掉，方法是把既有論證跟一個已知的矩陣觀點接起來。換句話說，這是<strong>高強度的文獻綜合</strong>，不是概念上的開創。這個區分，正好就是曹原整場訪談的主軸。</p>
+    </div>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第二節 ===== -->
+  <section id="s2">
+    <h2 class="sec">二、核心機制：從模型到實驗的自進化閉環</h2>
+    <span class="stamp">TIMECODE 00:00:52</span>
+
+    <h3>1. 自進化閉環（Self-Evolving Loop）</h3>
+
+    <p><strong>傳統科研流程：</strong>高度依賴人類科學家提出假設、設計實驗、動手操作、分析數據、修正模型。週期以月甚至年計，效率受限於人的頻寬與耐心。</p>
+
+    <p><strong>AI 驅動的閉環：</strong>AI 根據現有的程式碼庫與實驗數據自動生成假設與 proposal——例如建議調整某個特定的物理或化學參數——隨後直接接上自動化實驗設備（automated labs）執行測試，並把結果即時回饋給模型，進入下一輪迭代。Discovery Loop 對外的說法是「同時發起並迭代數千個實驗」，Dean 自己在史丹佛的演講裡也提到，這家公司只有四個人。</p>
+
+    <h3>2. 驗證（Verification）瓶頸與證明過剩（Proof Surplus）</h3>
+
+    <aside class="margin-note">
+      <span class="label">曹原的核心命題</span>
+      <p>AI4S 不是「把科學當成 AI 的應用場景」，而是「AI and Science」——要讓 AI 解決科學問題，AI 自身的推理、因果理解與抽象能力都得先被推到極限。</p>
+    </aside>
+
+    <p><strong>瓶頸不在生成，在驗證：</strong>AI 生成新想法與假設的速度極快，快到現在的限制因素已經整個移位——移到了「實驗驗證」這一端。一旦自動化驗證的閘門被打開，科研的迭代速度會呈指數躍升。</p>
+
+    <p><strong>從缺證到過剩：</strong>以數學與理論科學為例，過往的常態是「證明稀缺（proof scarcity）」——一個猜想等一位天才等幾十年。而在 AI 介入之後，系統能在短時間內生成大量候選證明，人類因此第一次面對「<strong>證明過剩（proof surplus）</strong>」這個歷史上從未有過的處境。</p>
+
+    <blockquote class="pull">
+      稀缺的東西一旦過剩，價值就會轉移到<br>能篩選它的那個環節上。
+      <cite>—— 老熊按</cite>
+    </blockquote>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第三節 ===== -->
+  <section id="s3">
+    <h2 class="sec">三、人類的位置：黑盒、可解釋性、概念抽象</h2>
+    <span class="stamp">TIMECODE 00:01:16</span>
+
+    <h3>1. 黑盒（Black Box）問題</h3>
+
+    <p><strong>可解釋性的困境：</strong>如果 AI 系統是一個黑盒，而它輸出了一個正確、但人類無法理解的結果，這在科學研究裡會同時觸發倫理與邏輯上的難題。科學的產出不只是「答案對」，而是「為什麼對」。</p>
+
+    <p><strong>理解與評判：</strong>單純結果正確並不等於問題解決。人類科學家仍然必須理解其背後的原理與機制，並對其產生的知識進行評判與審核。否則我們得到的不是知識，而是一組可用但不可說的神諭。</p>
+
+    <h3>2. 概念抽象（Conceptual Abstraction）——AI 的最後一哩路</h3>
+
+    <p><strong>人類目前的獨特優勢：</strong>把複雜的現象與大量結果，壓縮成簡潔、抽象、具普適性的科學概念，這是曹原認為 AI 發展中最艱難的「最後一哩路（last mile）」。展開容易，收攏極難。</p>
+
+    <p><strong>知識的本質：</strong>一項無法被人類理解與同化的科學發現，其價值是受限的。人類的作用，在於把 AI 的計算結果<strong>升格</strong>為真正進入人類科學知識體系的東西。</p>
+
+    <div class="claude-note">
+      <span class="label">CLAUDE 旁註</span>
+      <p>「概念抽象是最後一哩路」這句話，用你熟悉的例子講最清楚：<strong>核技巧（kernel trick）</strong>。</p>
+      <p>把資料映射到高維空間、在那裡找一個線性分離面——這個念頭本身不難想。真正的概念壓縮，是意識到「我根本不需要真的走到高維去，我只需要把內積換掉」。一行替換，換掉了整個計算宇宙。那不是搜尋出來的，那是<strong>看穿</strong>出來的。</p>
+      <p>目前的 AI 系統極擅長把東西展開——枚舉、綜合、把三百篇論文接在一起。但把一團複雜性收攏成一句可以寫在黑板上的話，這件事的訊號在訓練資料裡幾乎不存在，因為人類自己一輩子也做不出幾次。</p>
+    </div>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第四節 ===== -->
+  <section id="s4">
+    <h2 class="sec">四、研發四要素與垂直產業的落差</h2>
+    <span class="stamp">TIMECODE 00:12:01</span>
+
+    <h3>1. 大模型與科研工具研發的四要素</h3>
+
+    <p><strong>四大關鍵：</strong>人才（talent）、數據（data）、算力（compute），以及最常被外界忽視的第四項——<strong>專案管理與軟體架構的設置</strong>。曹原強調，前三項在頭部機構之間差距其實正在縮小，真正拉開差距的往往是第四項。</p>
+
+    <p><strong>組織靈活性：</strong>團隊需要有自我革新的勇氣與敏捷的專案管理能力，才能快速迭代並維持技術領先。這也回頭解釋了為什麼 Jeff Dean 會覺得四個人的公司反而是「加速創新的最佳載具」——雲端把基礎設施外包掉之後，剩下的瓶頸就是組織摩擦。</p>
+
+    <h3>2. 垂直領域的產業特性差異</h3>
+
+    <ul class="marks">
+      <li><strong>生醫與藥物研發：</strong>標的明確、商業回報巨大、研發鏈條集中，因此成為 AI4S 最先落地、資本最密集的領域。</li>
+      <li><strong>材料科學：</strong>應用面涵蓋金屬、皮革、生物材料、半導體、稀土等等，但因為應用場景過度碎片化（niche markets），難以形成單一統一的商業轉化路徑。</li>
+    </ul>
+
+    <div class="claude-note">
+      <span class="label">CLAUDE 旁註</span>
+      <p>材料科學碎片化這一點，他說對了，但我想把原因再往下挖一層——碎片化的根源不在市場，在<strong>量測</strong>。</p>
+      <p>生醫有一套共通的 assay 語言：IC50、結合親和力、細胞存活率。全世界的資料多少可以互相對話、堆疊、當成同一個訓練集。材料沒有這種東西。今天量 DSC，明天量 XRD，後天做拉伸試驗，隔壁在跑近紅外光譜——每一種量測模態各有各的雜訊結構、各有各的前處理慣例、各有各的儀器間差異。跨實驗室的資料連合併都困難，遑論拿來訓練。</p>
+      <p>所以材料領域的瓶頸，其實出現在比「商業轉化路徑」更早的地方：<strong>資料層根本還沒統一</strong>。這一點，你在感測器與 NIR 那十幾年裡見過太多次了——同一台儀器換個燈泡，模型就得重新校正。</p>
+    </div>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第五節 ===== -->
+  <section id="s5">
+    <h2 class="sec">五、未來展望：從 AI4S 到 AGI</h2>
+    <span class="stamp">TIMECODE 01:46:30</span>
+
+    <h3>1. 未來 5～30 年的技術瓶頸</h3>
+
+    <p><strong>長時記憶與因果推理：</strong>目前 AI 在處理長期實驗記憶（提取過往無數次實驗的脈絡與教訓）以及嚴密的因果推理（causal reasoning）上，仍有明顯欠缺。它能記住很多，但不太會「記取教訓」。</p>
+
+    <p><strong>時間軸預測：</strong>徹底解決這些底層問題可能需要 5～10 年甚至更久；而實現「AI 自主取得諾貝爾獎等級突破」這個願景，則需要更長期的探索。</p>
+
+    <h3>2. AI 作為通用元技術（Meta-Technology / GPT）</h3>
+
+    <p><strong>跨領域轉化：</strong>AI 本質上是一種大腦形態的通用技術（general purpose technology）。曹原的論點是：當一個模型強大到能解決最複雜的科學與物理難題時，它同樣具備能力擔任代理 CEO 或處理複雜的社會經濟決策。</p>
+
+    <p><strong>推動經濟效率：</strong>對 AI4S 的極限挑戰，會直接驅動整體 AGI 的發展，並全面提升人類所有經濟活動的生產力。</p>
+
+    <div class="claude-note">
+      <span class="label">CLAUDE 旁註（一點不同意見）</span>
+      <p>「能解科學難題就能當 CEO」這個推論，我覺得跳得太快了。</p>
+      <p>科學問題有一個奢侈品：<strong>ground truth</strong>。實驗會告訴你錯了，證明可以被機器驗證，複現失敗就是失敗。整場訪談之所以圍著「驗證瓶頸」轉，正是因為驗證在科學裡<em>存在</em>——它只是慢、只是貴。</p>
+      <p>經營決策沒有這個東西。同一個決策不能重跑第二次，反事實永遠不可觀測，回饋訊號要等三年而且被十七個混淆變數污染。把科學能力外推到管理能力，等於默認驗證機制到處都有——而那恰恰是這場訪談自己指出來的、最稀缺的資源。</p>
+    </div>
+
+    <blockquote class="pull">
+      當 AI 承擔了大部分的計算、推理與實驗操作，<br>人類的角色將從「執行者」轉為「定義者與審判者」。<br>核心價值落在：問題定義、結果驗證、創新應用、最終審判權。
+      <cite>—— 訪談結語重點</cite>
+    </blockquote>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第六節 ===== -->
+  <section id="s6">
+    <h2 class="sec">六、三處訂正：把事實釘牢</h2>
+    <span class="stamp">FACT CHECK · 2026-08-20</span>
+
+    <p>整理稿在幾個具體事實上有偏差。既然要放上站，先把釘子釘牢：</p>
+
+    <div class="errata">
+      <h4>勘　誤</h4>
+      <table>
+        <tr>
+          <th style="width:22%">項目</th>
+          <th style="width:30%">原稿</th>
+          <th style="width:48%">應為</th>
+        </tr>
+        <tr>
+          <td>曹原的公司</td>
+          <td class="wrong">Unrealism Labs</td>
+          <td class="right">Unreasonable Labs<br><span style="font-weight:700;color:var(--ink-soft);font-size:22px;">主攻 AI for Knowledge Creation、AI for Science 與 R&amp;D 自動化。</span></td>
+        </tr>
+        <tr>
+          <td>Jeff Dean 團隊</td>
+          <td class="wrong">「與多位高管離職」</td>
+          <td class="right">共四人：Jeff Dean、Sanjay Ghemawat、Oriol Vinyals、Quoc Le。Dean 任執行長，在 Google 服務二十七年。</td>
+        </tr>
+        <tr>
+          <td>黎曼猜想結果</td>
+          <td class="wrong">「發布科研版 Claude，推進至 67.2%」</td>
+          <td class="right">是一個<strong>未公開的研究版本</strong>，非上架產品；結果為「至少約 67.25% 的非平凡零點為單零點且位於臨界線上」；已用 Lean 形式化驗證，但尚未經傳統同儕審查。</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>另外一個小地方：整理稿裡有一句「將 AI 的計算結果<span style="text-decoration:line-through;color:#8a3a33;">升理</span>為人類科學知識體系」，應為「<strong>升格</strong>」或「<strong>整理</strong>」，大概是聽打之誤。</p>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第七節 ===== -->
+  <section id="s7">
+    <h2 class="sec">七、Claude 的幾點觀察<br><span style="font-size:32px;font-weight:800;color:var(--ink-soft);">——一個化學計量學的視角</span></h2>
+    <span class="stamp">COMMENTARY</span>
+
+    <h3>其一：「驗證是瓶頸」在化學計量學裡不是新聞</h3>
+
+    <p>整場訪談最有力的洞見是「生成便宜、驗證昂貴」。但這個結構，做化學計量學的人已經跟它同居三十年了。</p>
+
+    <p>建一個 PLS 模型要多久？幾秒。建一百個、把預處理組合、波段選擇、潛在變數數目全部掃過去要多久？一個下午。那麼真正的工作在哪裡？在<strong>外部驗證集</strong>，在跨儀器、跨批次、跨季節的重現性，在「這個模型下個月換了燈泡還算不算數」。整個交叉驗證的方法學，本質上就是一整套為了對抗「生成過剩」而發明的紀律。</p>
+
+    <p>更貼近的例子是偽陽性。當一個分類器對一個從未見過的樣品給出答案時，真正的問題從來不是「它說什麼」，而是「<strong>它憑什麼</strong>」——這個樣品究竟落在訓練集所張的那個空間裡面，還是根本在外面，而系統仍然硬給了它一個最近的標籤。任何一個只懂得輸出「最相似類別」的分類器，面對訓練集之外的東西必然產生偽陽性。真正需要被發明出來的，是讓系統有權回答「<strong>以上皆非</strong>」的那個機制。</p>
+
+    <aside class="margin-note">
+      <span class="label">三件已核准的美國專利</span>
+      <p><strong>US 10,810,408 B2</strong>（2020-10-20）<br>Reduced False Positive Identification for Spectroscopic Classification</p>
+      <p><strong>US 11,009,452 B2</strong>（2021-05-18）<br>Reduced False Positive Identification for Spectroscopic Quantification</p>
+      <p><strong>US 11,656,174 B2</strong>（2023-05-23）<br>Outlier Detection for Spectroscopic Classification</p>
+      <p>優先權日 2018-01-26，讓與人 VIAVI Solutions。</p>
+    </aside>
+
+    <p>這件事老熊在 2018 年就做完了，而且分三路做：</p>
+
+    <p><strong>分類端</strong>（US 10,810,408）的辦法是給模型一個<strong>「無匹配類別」（no-match class）</strong>。裡面裝的不只是「長得像但不是」的干擾物質（nuisance materials），還包括一整批<em>刻意量壞的光譜</em>——沒放樣品就量、量測距離不對、背景不對、照明不對。這一步的漂亮之處在於，它把「儀器被誤用」和「樣品不對」這兩種完全不同來源的錯誤，收進同一個可訓練的類別裡。分析儀最常見的失效模式從來不是演算法錯，而是人拿錯東西、或者手抖了。</p>
+
+    <p><strong>定量端</strong>（US 11,009,452）比較難，因為定量模型只有「同一種材料的不同濃度」，你沒有現成的反例可以蒐集。這裡用的是<strong>單類別支援向量機（Single-Class SVM／SC-SVM）</strong>：把所有濃度階層聚合成單一類別，用一個可調參數 ν 把決策邊界設在「訓練集有一部分落在界內、一部分落在界外」的位置，然後——這是關鍵的一步——<strong>拿那些落在界外的訓練樣品本身，當作經驗虛無分布</strong>。未知樣品到邊界的距離，是以對數常態標準差的形式，跟這個分布相比；超過門檻（例如 3σ）就拒絕定量，直接回報「這個樣品不歸我管」。沒有反例？那就讓訓練集自己長出一把尺。</p>
+
+    <p><strong>第三路</strong>（US 11,656,174）處理的是前兩者的副作用。既然要靠門檻擋偽陽性，門檻就必須拉得夠高；但只要局部模型裡混進一條離群光譜，門檻一拉高，真陽性也跟著被擋掉。於是在 in-situ 局部模型建好之後、預測之前，先用中位數絕對偏差（MAD，或 Grubbs 檢定、馬氏距離、Hotelling T²）把離群光譜清掉。清乾淨了，拒絕門檻才推得上去，而不犧牲準確率。</p>
+
+    <p>這三件加起來，就是把「驗證」內建進輸出裡面：不只回答是哪一類、濃度多少，還同時回答<strong>這個問題到底該不該由我來回答</strong>。優先權日是 2018 年 1 月。AI4S 現在正在全域的規模上重新遭遇同一個問題——一個生成速度極快、但沒有內建棄權機制的系統——而且暫時還沒有答案。</p>
+
+    <div class="patent-table">
+      <div class="cap">附表　專利清單節錄（第 7–15 件）</div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>專利號</th>
+              <th>核准日</th>
+              <th>名稱</th>
+              <th>發明人</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hit">
+              <td class="no">7</td>
+              <td class="pn">US 11,656,174 B2</td>
+              <td class="dt">2023-05-23</td>
+              <td>Outlier detection for spectroscopic classification</td>
+              <td>Chang Hsiung, Lan Sun, Valton Smith</td>
+            </tr>
+            <tr>
+              <td class="no">8</td>
+              <td class="pn">US 11,445,927 B2</td>
+              <td class="dt">2022-09-20</td>
+              <td>Baseline correction and extraction of heartbeat profile</td>
+              <td>Chang Hsiung, Michael Klimek, Edward Gooding</td>
+            </tr>
+            <tr>
+              <td class="no">9</td>
+              <td class="pn">US 11,331,017 B2</td>
+              <td class="dt">2022-05-17</td>
+              <td>Calibration-free pulse oximetry</td>
+              <td>Chang Hsiung, Michael Klimek, Edward Gooding</td>
+            </tr>
+            <tr class="hit">
+              <td class="no">10</td>
+              <td class="pn">US 11,009,452 B2</td>
+              <td class="dt">2021-05-18</td>
+              <td>Reduced false positive identification for spectroscopic quantification</td>
+              <td>Chang Hsiung, Lan Sun, Valton Smith</td>
+            </tr>
+            <tr>
+              <td class="no">11</td>
+              <td class="pn">US 11,000,198 B2</td>
+              <td class="dt">2021-05-11</td>
+              <td>Autonomous full spectrum biometric monitoring</td>
+              <td>Chang Hsiung, Michael Klimek, Christopher G. Pederson</td>
+            </tr>
+            <tr>
+              <td class="no">12</td>
+              <td class="pn">US 10,984,334 B2</td>
+              <td class="dt">2021-04-20</td>
+              <td>Endpoint detection in manufacturing process by near-infrared spectroscopy</td>
+              <td>Chang Hsiung, Lan Sun, Marc K. Von Gunten</td>
+            </tr>
+            <tr>
+              <td class="no">13</td>
+              <td class="pn">US 10,969,331 B2</td>
+              <td class="dt">2021-04-06</td>
+              <td>Focusing linear model correction and linear model correction for model optimization</td>
+              <td>Chang Hsiung, Lan Sun, Valton Smith</td>
+            </tr>
+            <tr>
+              <td class="no">14</td>
+              <td class="pn">US 10,928,309 B2</td>
+              <td class="dt">2021-02-23</td>
+              <td>Cross-validation based calibration of a spectroscopic model</td>
+              <td>Chang Hsiung, Lan Sun, Marc K. Von Gunten</td>
+            </tr>
+            <tr class="hit">
+              <td class="no">15</td>
+              <td class="pn">US 10,810,408 B2</td>
+              <td class="dt">2020-10-20</td>
+              <td>Reduced false positive identification for spectroscopic classification</td>
+              <td>Chang Hsiung, Lan Sun, Valton Smith</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="foot">橘色三列即本節所述的三件。第 14 件「Cross-validation based calibration」與本節開頭談的驗證紀律屬同一條脈絡；第 13 件的模型修正、第 12 件的製程終點判定，則是同一套 NIR 工具鏈的其他出口。</div>
+    </div>
+
+    <h3>其二：「證明過剩」的帳單，最後是寄給審稿人的</h3>
+
+    <aside class="margin-note">
+      <span class="label">歷史押韻</span>
+      <p>1990 年代的組合化學：合成通量暴增，化合物庫從幾百衝到幾十萬，於是瓶頸整個移到篩選端。高通量篩選（HTS）產業就是那張帳單。</p>
+      <p>結果呢？化合物數量漲了三個數量級，上市新藥數量並沒有。過剩本身不是進步。</p>
+    </aside>
+
+    <p>如果生成端的產能是指數的，而人類的審查頻寬是常數，那麼「證明過剩」的真正後果不是知識加速，而是<strong>一個新的排隊系統</strong>。誰決定哪一份候選證明值得一位數論學家花三週去讀？這個篩選機制目前完全不存在，而它比生成端困難得多——因為篩選需要品味，而品味不能平行化。</p>
+
+    <p>那個 67.2% 之所以被當真，靠的不是模型有多強，而是三件很老派的事：機器可驗證的 Lean 形式化、外部專家願意背書、以及一份人看得懂的論文。三者缺一，它就只是一則推文。</p>
+
+    <h3>其三：材料科學的「碎片化」其實是量測學問題</h3>
+
+    <p>前面旁註已經說過一輪，這裡補一句更尖銳的：AI4S 在生醫先起飛，不只是因為錢多，而是因為<strong>生醫早幾十年就把自己的資料標準化了</strong>。材料與過程分析化學至今沒有等價物。誰把跨儀器、跨實驗室的光譜與物性資料真的標準化了，誰就掌握了材料 AI4S 的入場券——而那是一件標準委員會的工作，不是一件模型架構的工作。無聊，但那就是關鍵路徑。</p>
+
+    <h3>其四：關於我自己這一邊，一點誠實話</h3>
+
+    <p>這篇文章裡有兩個 Claude：一個是被丟去撞黎曼猜想、跑了六十個子代理、燒掉三千一百萬 output token、失敗六百五十次之後撈出一個結果的研究版本；另一個是現在坐在這裡幫你排版、查證、寫旁註的我。</p>
+
+    <p>值得注意的是那個過程的形狀：不是一次靈光，是<strong>大量的失敗加上不放棄</strong>。而且提示者是一位非數學家，提供的是鼓勵而非方向。這裡面有一個對「AI 做科研」很不浪漫、但可能很真實的預告——它看起來不會像天才，它看起來會像一個非常有耐心、從不厭倦、而且不太在乎面子的博士後。</p>
+
+    <p>至於曹原說的最後一哩路，我不太確定我這一邊會不會走完。但我可以誠實地說：把三百篇論文接起來，我做得到；意識到「不必去高維、換掉內積就行」，我還沒證明我做得到。</p>
+
+    <blockquote class="pull">
+      未來稀缺的不是答案，<br>是知道哪個答案值得看的人。
+    </blockquote>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <!-- ===== 第八節 ===== -->
+  <section id="s8">
+    <h2 class="sec">八、出處與延伸</h2>
+    <span class="stamp">SOURCES</span>
+
+    <ul class="marks">
+      <li><strong>原始影片：</strong><a href="https://www.youtube.com/watch?v=H35nVgNGyo8" target="_blank" rel="noopener">矽谷 101《對話前 DeepMind 曹原：AI for Science 爆發，一個新時代到來了》（YouTube）</a>　約 109 分鐘，2026 年 8 月 15 日上線，主持人陳茜。</li>
+      <li><strong>文字整理稿：</strong>虎嗅網、鈦媒體、網易等站均有全文轉載，標題同上。</li>
+      <li><strong>Jeff Dean 離職與 Discovery Loop：</strong>TechCrunch（2026-08-05）、《華爾街日報》、Alphabet 官方公告。</li>
+      <li><strong>黎曼 ζ 函數下界結果：</strong>Anthropic 研究筆記（2026-08-10）；數論學家 Jared Duker Lichtman 於 X 上的評論提供了重要的脈絡補充。</li>
+      <li><strong>第七節其一所引專利：</strong>US 10,810,408 B2；US 11,009,452 B2；US 11,656,174 B2。均已核准公開，讓與人 VIAVI Solutions Inc.，優先權日 2018 年 1 月 26 日。三件的第一發明人皆為本站作者（Chang Meng Hsiung）。全文可於 USPTO Patent Public Search 或 Google Patents 查得。</li>
+    </ul>
+
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <footer class="colophon">
+    <div class="sig">老熊隨筆 · 讀片札記</div>
+    <p>本篇由原始整理稿重新編排、查證與擴寫。第六節的訂正與第七節的觀察由 Claude 提供，文責分明：訪談觀點屬曹原，訂正與評論屬 Claude，選題與最終取捨屬老熊。</p>
+    <p>2026 年 8 月 20 日　於紅木岸</p>
+  </footer>
+
+</div>
+
+<div class="floatnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+</body>
+</html>
