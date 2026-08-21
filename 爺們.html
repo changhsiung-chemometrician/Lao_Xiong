@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>爺們 — 阿發的破釜沉舟，與我那張走了七年的綠卡｜老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16202b;
+  --ink-soft:#3d4b59;
+  --paper:#f6f4ef;
+  --paper-2:#efece4;
+  --seal:#9e2b25;
+  --brass:#9a7431;
+  --rule:#c9c2b4;
+  --serif:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","Source Han Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-weight:600;font-size:27px;line-height:1.95;
+  -webkit-text-size-adjust:100%;
+}
+strong,b{font-weight:800}
+.num{font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.en{font-family:var(--sans);font-weight:700;letter-spacing:.01em}
+a{color:var(--seal)}
+
+/* ───── 報頭 ───── */
+header.masthead{
+  background:var(--ink);color:var(--paper);
+  padding:64px 28px 56px;text-align:center;
+  border-bottom:10px solid var(--seal);
+}
+.kicker{
+  font-family:var(--sans);font-weight:700;font-size:21px;
+  letter-spacing:.55em;color:#c8b78d;margin:0 0 30px;text-indent:.55em;
+}
+.seal-title{
+  display:inline-block;background:var(--seal);color:#fff;
+  font-family:var(--serif);font-weight:900;
+  font-size:104px;line-height:1;padding:26px 34px 30px;
+  letter-spacing:.18em;text-indent:.18em;
+  box-shadow:10px 10px 0 rgba(0,0,0,.28);
+}
+h1.sub{
+  font-weight:700;font-size:40px;line-height:1.6;
+  margin:42px auto 0;max-width:900px;color:#f3ecdd;
+}
+.byline{
+  font-family:var(--sans);font-weight:700;font-size:20px;
+  letter-spacing:.3em;color:#9fb0bf;margin-top:26px;text-indent:.3em;
+}
+
+/* ───── 版面 ───── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px 120px}
+.lede{
+  font-size:31px;line-height:1.9;font-weight:700;
+  border-left:9px solid var(--brass);padding:6px 0 6px 30px;
+  margin:64px 0 10px;color:var(--ink-soft);
+}
+
+/* ───── 目錄 ───── */
+nav.toc{
+  background:var(--paper-2);border:2px solid var(--rule);
+  padding:34px 38px;margin:56px 0 20px;
+}
+nav.toc h2{
+  font-family:var(--sans);font-size:22px;font-weight:900;
+  letter-spacing:.42em;text-indent:.42em;margin:0 0 20px;color:var(--brass);
+}
+nav.toc ol{margin:0;padding-left:1.5em}
+nav.toc li{font-size:25px;font-weight:700;margin:10px 0}
+nav.toc a{text-decoration:none;border-bottom:1px dotted var(--rule)}
+nav.toc a:hover{border-bottom-color:var(--seal)}
+
+/* ───── 章節 ───── */
+section{margin-top:78px}
+h2.sec{
+  font-size:52px;font-weight:900;line-height:1.35;margin:0 0 8px;
+  border-bottom:4px solid var(--ink);padding-bottom:16px;
+}
+h2.sec .no{
+  display:block;font-family:var(--sans);font-size:19px;font-weight:700;
+  letter-spacing:.5em;text-indent:.5em;color:var(--brass);margin-bottom:12px;
+}
+.sec-sub{
+  font-family:var(--sans);font-size:21px;font-weight:700;
+  color:var(--ink-soft);letter-spacing:.08em;margin:14px 0 34px;
+}
+p{margin:0 0 30px}
+.dropcap::first-letter{
+  float:left;font-size:112px;line-height:.86;font-weight:900;
+  margin:8px 16px 0 0;color:var(--seal);
+}
+blockquote.pull{
+  margin:52px 0;padding:34px 40px;
+  background:var(--ink);color:#f3ecdd;
+  font-size:42px;line-height:1.6;font-weight:700;
+  border-left:12px solid var(--seal);
+}
+blockquote.pull cite{
+  display:block;font-family:var(--sans);font-size:20px;font-weight:700;
+  font-style:normal;letter-spacing:.2em;color:#9fb0bf;margin-top:20px;
+}
+
+/* 對話截圖引文 */
+.chat{
+  background:#dfeaf2;border:2px solid var(--rule);
+  padding:30px 34px;margin:44px 0;
+}
+.bubble{
+  background:#8de06a;color:#10240b;border-radius:20px;
+  padding:20px 26px;margin:0 0 16px;font-weight:700;font-size:26px;line-height:1.7;
+}
+.bubble.left{background:#fff;color:var(--ink)}
+.chat .who{
+  font-family:var(--sans);font-size:19px;font-weight:700;
+  letter-spacing:.16em;color:var(--ink-soft);margin:0 0 6px;
+}
+
+/* 小註方塊 */
+aside.note{
+  background:var(--paper-2);border-top:6px solid var(--brass);
+  padding:30px 34px;margin:48px 0;font-size:25px;line-height:1.85;
+}
+aside.note h4{
+  font-family:var(--sans);font-size:21px;font-weight:900;
+  letter-spacing:.35em;text-indent:.35em;color:var(--brass);margin:0 0 18px;
+}
+aside.note p{margin:0 0 16px}
+aside.note p:last-child{margin-bottom:0}
+.term{font-weight:900;color:var(--seal)}
+
+/* 表 */
+.tablewrap{overflow-x:auto;margin:52px 0}
+table{border-collapse:collapse;width:100%;font-size:23px;background:#fff}
+caption{
+  font-family:var(--sans);font-size:21px;font-weight:900;
+  letter-spacing:.35em;text-indent:.35em;color:var(--brass);
+  text-align:left;padding-bottom:16px;
+}
+th,td{border:2px solid var(--rule);padding:16px 18px;font-weight:700;vertical-align:top}
+thead th{background:var(--ink);color:var(--paper);font-weight:900;letter-spacing:.08em}
+tbody th{background:var(--paper-2);width:200px;color:var(--brass);font-weight:900}
+td.hit{background:#fdf5e6}
+
+/* 時間軸 */
+ul.line{list-style:none;margin:44px 0;padding:0;border-left:5px solid var(--rule)}
+ul.line li{position:relative;padding:0 0 34px 34px;font-size:26px;font-weight:700}
+ul.line li::before{
+  content:"";position:absolute;left:-14px;top:14px;
+  width:22px;height:22px;background:var(--seal);border-radius:50%;
+}
+ul.line .yr{
+  display:block;font-family:var(--sans);font-size:20px;font-weight:900;
+  letter-spacing:.22em;color:var(--brass);margin-bottom:4px;
+}
+
+.backtop{text-align:right;margin:16px 0 0}
+.backtop a{
+  font-family:var(--sans);font-size:20px;font-weight:700;
+  letter-spacing:.2em;text-decoration:none;border-bottom:2px solid var(--rule);
+}
+.endmark{text-align:center;color:var(--brass);font-size:34px;letter-spacing:.6em;margin:70px 0 0}
+
+/* 浮動導覽 */
+.floatnav{position:fixed;right:22px;bottom:22px;z-index:99;display:flex;flex-direction:column;gap:10px}
+.floatnav a{
+  display:block;background:var(--ink);color:var(--paper);text-decoration:none;
+  font-family:var(--sans);font-size:19px;font-weight:700;letter-spacing:.14em;
+  padding:14px 20px;border:2px solid var(--brass);text-align:center;
+  box-shadow:4px 4px 0 rgba(0,0,0,.2);
+}
+.floatnav a:hover{background:var(--seal);border-color:var(--seal)}
+
+@media (max-width:760px){
+  body{font-size:22px}
+  .seal-title{font-size:62px;padding:18px 22px 22px}
+  h1.sub{font-size:28px}
+  h2.sec{font-size:36px}
+  blockquote.pull{font-size:29px;padding:24px 26px}
+  .dropcap::first-letter{font-size:76px}
+  .floatnav a{font-size:16px;padding:11px 14px}
+  tbody th{width:auto}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="kicker">老 熊 隨 筆 ・ 對 讀 篇</p>
+  <div class="seal-title">爺　們</div>
+  <h1 class="sub">阿發的破釜沉舟，<br>與我那張走了七年的綠卡</h1>
+  <p class="byline">老 熊 ・ 二 ○ 二 六 年 八 月</p>
+</header>
+
+<div class="wrap">
+
+  <p class="lede">一句在群組裡順口說出來的話，後來自己回頭讀，才發現它把兩個人、兩段完全不相干的人生，扣在了同一個扣子上——「一樣『爺們』的路數」。這篇就來把那個扣子拆開看看。</p>
+
+  <nav class="toc" id="toc">
+    <h2>本 篇 目 錄</h2>
+    <ol>
+      <li><a href="#s1">楔子：一張截圖，一句順口話</a></li>
+      <li><a href="#s2">阿發那一邊：五十多萬，和一張辭掉的家教表</a></li>
+      <li><a href="#s3">「爺們」是什麼？——北方話小考</a></li>
+      <li><a href="#s4">我這一邊：兩次沒去領的綠卡</a></li>
+      <li><a href="#s5">那條笨路：從紐澤西繞到路易斯安納</a></li>
+      <li><a href="#s6">帳房：兩張帳單並排放</a></li>
+      <li><a href="#s7">結：路數一樣，橋不是自己長出來的</a></li>
+    </ol>
+  </nav>
+
+  <!-- ══════════ 1 ══════════ -->
+  <section id="s1">
+    <h2 class="sec"><span class="no">其 一</span>楔子：一張截圖，一句順口話</h2>
+    <p class="sec-sub">下午五點十六分到五點二十八分，十二分鐘</p>
+
+    <p class="dropcap">那天下午讀完阿發的〈破釜沉舟〉，我在群組裡連按了幾個讚，接著順手打了兩段話。第一段是感動，第二段是想起了另一件舊事。中間隔了四分鐘。</p>
+
+    <div class="chat">
+      <p class="bubble">👍👍　阿發的同學太令人感動了　👍👍</p>
+      <p class="bubble">我老嫂當年從澎湖轉來高雄，想進一所中學教書，用的是打點校長，好像是花了 <span class="num">八萬</span> 塊錢？？</p>
+      <p class="who">阿發</p>
+      <p class="bubble left">（一個笑到瞇眼的貼圖）</p>
+      <p class="bubble">阿發跟我當年拿綠卡，走的是一樣「爺們」的路數　哈哈　👍👍</p>
+    </div>
+
+    <p>當時只是順口。八萬塊那一段，本來也不是要議論誰——那個年代，那條路確實有人走，走了也未必有人覺得不對。我把它打出來，是因為它剛好站在阿發那篇文章的正對面：<strong>同樣是想進一所學校，一邊是打點，一邊是把飯碗辭光了去考試。</strong></p>
+
+    <p>四分鐘之後我才想明白，我為什麼看阿發那篇會這麼有感覺。因為我自己那張綠卡，走的也是那條笨路。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ══════════ 2 ══════════ -->
+  <section id="s2">
+    <h2 class="sec"><span class="no">其 二</span>阿發那一邊：五十多萬，和一張辭掉的家教表</h2>
+    <p class="sec-sub">白天代課，晚上家教，假日進修</p>
+
+    <p>阿發那幾年的作息，他自己寫得很清楚：白天在學校站講台，晚上換個地方繼續站講台，週末北上進修。房貸照樣來報到，孩子照樣長大。他說那時候若有人問他日子過得怎麼樣，他大概只能回一句「還可以」——意思是房貸有繳、孩子有飯吃、自己還沒累倒。</p>
+
+    <p>轉機來自一趟台北。他因為買了同學廖振安同事的一輛中古車北上，老同學見面，談著談著談到人生。振安沒說「辛苦了」，只說了一句很不客氣的話：<strong>你如果真的想考公職，就不能再這樣下去了。</strong>理由也很硬——代課一年一聘，家教把晚上填得滿滿的，哪裡還有時間準備考試？</p>
+
+    <p>後面的事更硬。振安去找了雷輝、輝正、子益、順家、永男、樹盛、再程幾位同學，東湊一點西湊一點，前後集資<span class="num">五十多萬</span>元先借給他周轉。而阿發拿到這筆錢之後做的第一件事，是<strong>把所有家教辭光</strong>——每個月的收入立刻少掉一截，房貸孩子生活費一樣不少。</p>
+
+    <blockquote class="pull">
+      同學可以救急，不能救貧。錢可以借給你，考試卻不能代考；別人可以給你機會，最後那一張榜單上，還是得寫自己的名字。
+      <cite>阿發《破釜沉舟》</cite>
+    </blockquote>
+
+    <p>那一年代課聘約期滿，他同時考上兩個：教育特考教育行政科，以及代課老師教育學程進修班。特考錄取後分發到台北市南港完全中學教務處，負責註冊組；進修班則是政大的夜間班。</p>
+
+    <p>整件事最要緊的一句，是他自己下的：<strong>後路留得太多，往往就不肯把前路走到底。</strong></p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ══════════ 3 ══════════ -->
+  <section id="s3">
+    <h2 class="sec"><span class="no">其 三</span>「爺們」是什麼？——北方話小考</h2>
+    <p class="sec-sub">yé‑men‧r　／　北京話多帶兒化：爺們兒</p>
+
+    <p>這個詞台灣不太用，我在群組裡打出來，多半也是這些年在北方朋友、上海的內人娘家那邊聽熟的。它在北方話裡至少有三層用法，層層不同：</p>
+
+    <aside class="note">
+      <h4>爺 們 兒 ・ 三 種 用 法</h4>
+      <p><span class="term">一、統稱</span>　男人們。「這桌都是爺們兒」＝這一桌都是男的。相對的說法是「娘們兒」。</p>
+      <p><span class="term">二、指丈夫</span>　「我們家那爺們兒」＝我家那口子、當家的。純粹是稱呼，不帶褒貶。</p>
+      <p><span class="term">三、評語（重點在這裡）</span>　「真爺們兒」「夠爺們兒」——說一個人有擔當：話說出口就算數，事扛在自己肩上，不推、不賴、不哭窮、不走小門。反面是「慫」。</p>
+      <p><span class="term">四、（附帶）咱爺們兒</span>　＝自己人、哥們兒。把對方拉進同一條船的說法。</p>
+    </aside>
+
+    <p>字源上不難猜：北方話裡「爺」本是對男人的敬稱（老爺、大爺、爺兒們），加「們」成群體，再兒化一軟，就從敬稱降格成了日常的評價語。<strong>降格之後反而更重</strong>——因為它不再是身分，而是考評。</p>
+
+    <p>要緊的是第三層那個「擔」字。北方話說「爺們兒」，比的不是誰橫、誰能打、誰嗓門大；比的是事情落到你頭上時，你是自己扛，還是找人替、找路繞。<strong>所以「爺們兒」的反義詞不是「軟弱」，是「取巧」。</strong>台灣沒有完全對應的詞，最接近的大概是「有種」，或者台語那句「條直」（tiâu‑tit）——直來直往，不彎。</p>
+
+    <p>用這把尺回頭量那天下午的三件事，就很清楚了：打點校長那條，是繞；阿發辭掉全部家教去考，是扛；而我那張綠卡——下面說。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ══════════ 4 ══════════ -->
+  <section id="s4">
+    <h2 class="sec"><span class="no">其 四</span>我這一邊：兩次沒去領的綠卡</h2>
+    <p class="sec-sub">一九八五・Akron　／　一九八七・南加州</p>
+
+    <p>先說結論：我的綠卡是<span class="num">一九九四</span>年在路易斯安納辦下來的。帳單很清楚——<span class="num">六到八千</span>美金、整整<span class="num">兩年</span>公文、一堆狗血的破事，哈哈。</p>
+
+    <p>但把舊稿一篇篇重讀之後，我算出過一筆從沒算過的帳：<strong>這張卡，本來有兩次可以不必這麼辦。</strong>那兩次的難度，跟後來走的那條笨路根本不在同一個量級——都只是一張結婚證書的事，差別只在早半年還是晚半年。</p>
+
+    <ul class="line">
+      <li><span class="yr">一 九 八 五 春 ・ Akron</span>眼前站著一位美國公民。若走這條，就是「直系親屬」——不受配額、不必勞工證、不必雇主，一年上下的事。當時我腦子裡在想的是羽毛球場地。</li>
+      <li><span class="yr">一 九 八 七 ？ ・ 南 加 州</span>一位台大學姐，念 MIS，畢業即就業，綠卡即將到手。若在她拿卡「前」結婚，我就是隨行配偶，共用同一個優先日期，跟她同車同日抵達。規矩就擺在那裡，只是當時沒有人告訴我——而我親手把照片撕了丟進垃圾桶。</li>
+    </ul>
+
+    <aside class="note">
+      <h4>名 詞 小 註</h4>
+      <p><span class="term">直系親屬（immediate relative）</span>　美國公民的配偶、未成年子女與父母。不受年度配額限制，不必勞工證，也不必雇主——所有移民途徑裡最短的一條。</p>
+      <p><span class="term">隨行配偶（derivative spouse）</span>　職業移民主申請人的配偶與未成年子女，適用同一優先類別、共用同一優先日期，與主申請人同時取得身分。</p>
+      <p><span class="term">優先日期（priority date）</span>　排隊時的號碼牌。隨行配偶不必自己抽號，直接用主申請人那一張。差半年結婚，可能就差好幾年。</p>
+    </aside>
+
+    <p>誠實講，即使當年有人把法條攤在我面前，我大概也走不了那條路——因為我受不了自己那樣拿到身分。這不是事後替自己貼金：<strong>最後我娶的田總，是個一樣沒有身分的同學。</strong>這件事本身就是證據——那兩條路，從來沒有上過我的清單。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ══════════ 5 ══════════ -->
+  <section id="s5">
+    <h2 class="sec"><span class="no">其 五</span>那條笨路：從紐澤西繞到路易斯安納</h2>
+    <p class="sec-sub">一九九〇 — 一九九四</p>
+
+    <p>不走捷徑的代價，是要繞很遠。</p>
+
+    <ul class="line">
+      <li><span class="yr">一 九 九 〇 末 ─ 九 一 初</span><strong>Ethicon（嬌生子公司，紐澤西 Somerville）</strong>——熱門的生醫材料，而且是能辦綠卡的全職正式員工。去了兩趟，見了三層老闆，最後沒錄取。</li>
+      <li><span class="yr">一 九 九 一 夏</span><strong>佛羅里達大學物理系</strong>——對方口頭承諾「這個工作能幫你辦綠卡」，於是租了 U‑Haul，全家從俄亥俄搬到 Gainesville。到職後才從人事那裡得知：辦不了。順帶一提，薪水還從兩萬八憑空縮成兩萬七。</li>
+      <li><span class="yr">一 九 九 二 春</span><strong>哈大媽</strong>——同實驗室的資深博士後，白人中年女子，名校化學博士，柯達待過三年嫌無聊回學術界。她去 <span class="en">LPC／USL</span> 面試，當場錄用，但對方開的是助理教授，她要的是副教授，幾輪談不攏。幾週後她主動問我有沒有興趣去試——而且早已先向對方提了我的名字。後來還花了一個週末下午請我去她家，把履歷脫胎換骨改過一遍，順帶傳授一大堆面試技巧。</li>
+      <li><span class="yr">一 九 九 二 ・ 愚 人 節</span><strong>報到 LPC</strong>——路易斯安納生產力中心，一個由 <span class="en">USL</span> 科研室、機械系、石化原料廠與州政府經濟發展局湊出來的怪胎單位。真正肯替我辦的，是它。</li>
+      <li><span class="yr">一 九 九 四</span><strong>綠卡到手。</strong>兩年，六到八千美金，一堆破事。</li>
+    </ul>
+
+    <blockquote class="pull">
+      一張結婚證書可以了結的事，我繞了七年。
+      <cite>老熊《兩次半沒去領的綠卡》</cite>
+    </blockquote>
+
+    <p>我在自傳裡寫過一句話，現在看更像是替這一切下的註腳：<strong>被推的人往往比自己選路的人走得更遠，因為他從來不知道哪裡是邊界，也就不會提前停下來。</strong>兩次可以輕鬆上岸的機會沒接住，我才被一路推到路州、推到加州、推進那家由三位加州理工學院教授創辦的小公司，推進後來那些年寫演算法的日子。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ══════════ 6 ══════════ -->
+  <section id="s6">
+    <h2 class="sec"><span class="no">其 六</span>帳房：兩張帳單並排放</h2>
+    <p class="sec-sub">同一把尺，兩個人，兩件完全不相干的事</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>本 篇 帳 房</caption>
+        <thead>
+          <tr><th>項　目</th><th>阿發・一張教職</th><th>老熊・一張綠卡</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>眼前的捷徑</th><td class="hit">打點校長，行情約<span class="num">八萬</span>塊</td><td class="hit">一張結婚證書，兩次機會</td></tr>
+          <tr><th>走不走</th><td><b>不走</b></td><td><b>不走</b></td></tr>
+          <tr><th>付出的代價</th><td>辭掉全部家教，收入立刻少掉一截；房貸孩子一樣不少</td><td>繞了七年；兩年公文、<span class="num">六到八千</span>美金、一堆破事</td></tr>
+          <tr><th>借到的力</th><td>振安等八位同學集資<span class="num">五十多萬</span>；一句「不能再這樣下去了」</td><td>哈大媽讓賢薦才、改履歷、授面經</td></tr>
+          <tr><th>最後那一步</th><td>自己去考</td><td>自己去面試</td></tr>
+          <tr><th>結　果</th><td>教育特考教育行政科錄取，分發南港完中；同年考上政大教育學程進修班</td><td><span class="num">一九九四</span>年於路易斯安納取得綠卡</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>兩張帳單的金額、幣別、年代全不一樣，只有中間那兩格是一模一樣的：<strong>捷徑就在眼前，不走。</strong></p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ══════════ 7 ══════════ -->
+  <section id="s7">
+    <h2 class="sec"><span class="no">其 七</span>結：路數一樣，橋不是自己長出來的</h2>
+    <p class="sec-sub">五點二十八分那句話的意思</p>
+
+    <p>所以那天下午我打的那句「一樣『爺們』的路數」，現在補上完整的意思應該是這樣：</p>
+
+    <p><strong>不是說我們有多硬氣。</strong>是說在那個岔口上，我們都沒有伸手去拿那張比較短的票。阿發沒去打點，我沒去領那張結婚證書。兩個人都因此多付了好幾年。</p>
+
+    <p>而且——這一點阿發寫得比我好——<strong>橋不是自己長出來的。</strong>他過的那座橋是八位同學湊出來的五十多萬；我過的那座橋，是哈大媽一個週末下午替我改的履歷，和她主動報給對方的那個名字。北方話裡「咱爺們兒」那一層意思，正好在這裡：真爺們兒不是一個人硬撐的意思，是<strong>該扛的自己扛，該謝的認真謝</strong>。</p>
+
+    <p>阿發說，人生所謂的貴人，未必是成功以後站在台下替你鼓掌的人；有時候真正的貴人，只是在你迷迷糊糊的時候拍拍你的肩膀，說一句「不要再這樣下去了」。</p>
+
+    <p>他的貴人姓廖。我的貴人，我到今天還只會叫她「哈大媽」。沒有她，我後半生的軌跡將大不相同。</p>
+
+    <blockquote class="pull">
+      船既然下水，就得划。至於會不會到岸，誰也沒有把握。
+      <cite>阿發《破釜沉舟》</cite>
+    </blockquote>
+
+    <p>兩條船，一條在台灣往南港划，一條在美國往路易斯安納划。都劃了很久。都到了岸。</p>
+
+    <p class="endmark">❦　❦　❦</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <aside class="note">
+    <h4>延 伸 閱 讀</h4>
+    <p><span class="term">阿發</span>《破釜沉舟》——本篇對讀的另一半。</p>
+    <p><span class="term">老熊</span>〈我的兩次半輕鬆拿綠卡〉、〈佛州的一年（下）— 天上掉下來的綠卡〉、〈關鍵選擇 1985 春 — 1986 夏〉。</p>
+  </aside>
+
+</div>
+
+<div class="floatnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+</body>
+</html>
