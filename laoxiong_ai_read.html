@@ -1,0 +1,542 @@
+<title>老熊隨筆・文風檢定</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f2efe8;
+    --surface:#faf8f3;
+    --surface-2:#ece8de;
+    --ink:#211e19;
+    --ink-soft:#4c473e;
+    --ink-faint:#736c5f;
+    --line:#d8d2c5;
+    --line-strong:#c3bcac;
+    --seal:#9e3b28;         /* 硃砂・印泥 */
+    --seal-soft:#b8654f;
+    --indigo:#33405f;       /* 靛・資料色 */
+    --indigo-soft:#5a6a8c;
+    /* 檢定分帶 */
+    --b-low:#3f7566;    --b-low-bg:#e2ece5;
+    --b-mid:#9a7a2f;    --b-mid-bg:#efe8d2;
+    --b-hi:#b06336;     --b-hi-bg:#f1e2d4;
+    --b-top:#9e3b28;    --b-top-bg:#f0dcd5;
+    --shadow:0 1px 2px rgba(33,30,25,.05),0 10px 30px -18px rgba(33,30,25,.35);
+  }
+  /* 預設一律淺色米紙（與首頁一致）；深色僅在使用者按「明／暗」時套用 */
+  :root[data-theme="dark"]{
+    --paper:#16150f; --surface:#1e1c15; --surface-2:#26241b;
+    --ink:#ece7da; --ink-soft:#c3bcaa; --ink-faint:#8f8879;
+    --line:#332f24; --line-strong:#463f30;
+    --seal:#d9765f; --seal-soft:#c46a53; --indigo:#9fb0d6; --indigo-soft:#7f8fb5;
+    --b-low:#79b7a3; --b-low-bg:#1f2c27; --b-mid:#cba94f; --b-mid-bg:#2c2718;
+    --b-hi:#d98f5f; --b-hi-bg:#2d2419; --b-top:#e0836c; --b-top-bg:#2f1e19;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -22px rgba(0,0,0,.8);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;font-size:20px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  [id]{scroll-margin-top:18px}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC",system-ui,sans-serif;
+    line-height:1.8;font-size:1.2rem;font-weight:700;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  h1,h2,h3,.serif{font-family:"Noto Serif TC",Georgia,"Songti TC",serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+  /* ── header ── */
+  header{border-bottom:1px solid var(--line);background:
+     linear-gradient(180deg,var(--surface),var(--paper));}
+  .top{display:flex;justify-content:space-between;align-items:center;
+     padding:18px 0;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:"Noto Serif TC",serif;
+     font-weight:700;letter-spacing:.02em}
+  .seal-mark{width:34px;height:34px;flex:0 0 auto;border-radius:6px;
+     background:var(--seal);color:#fff;display:grid;place-items:center;
+     font-family:"Noto Serif TC",serif;font-weight:900;font-size:19px;
+     box-shadow:inset 0 0 0 2px rgba(255,255,255,.18)}
+  .theme-btn{font-family:"IBM Plex Mono",monospace;font-size:12.5px;
+     background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft);
+     border-radius:20px;padding:6px 14px;cursor:pointer}
+  .theme-btn:hover{border-color:var(--seal);color:var(--seal)}
+
+  .hero{padding:56px 0 40px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.28em;
+     text-transform:uppercase;color:var(--seal);margin:0 0 20px}
+  h1{font-size:clamp(2.1rem,5.6vw,3.5rem);line-height:1.12;margin:0;
+     font-weight:900;letter-spacing:.01em;text-wrap:balance}
+  h1 .sub{display:block;font-size:clamp(1rem,2.4vw,1.35rem);font-weight:600;
+     color:var(--ink-soft);margin-top:14px;letter-spacing:.04em}
+  .lede{max-width:60ch;margin:26px 0 0;color:var(--ink-soft);font-size:1.05rem}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:28px;
+     font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-faint)}
+  .meta-row b{color:var(--ink);font-weight:600}
+
+  /* ── caution ── */
+  .caution{margin:8px 0 44px;border:1px solid var(--line-strong);
+     border-left:4px solid var(--seal);border-radius:12px;
+     background:var(--surface);padding:22px 24px;box-shadow:var(--shadow)}
+  .caution h2{margin:0 0 12px;font-size:1.12rem;color:var(--seal)}
+  .caution p{margin:0 0 12px;font-size:.97rem;color:var(--ink-soft)}
+  .caution p:last-child{margin-bottom:0}
+  .caution strong{color:var(--ink)}
+
+  section{padding:20px 0}
+  .h2row{display:flex;align-items:baseline;gap:14px;margin:34px 0 6px;
+     border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .h2row h2{margin:0;font-size:1.5rem;font-weight:700}
+  .h2row .n{font-family:"IBM Plex Mono",monospace;color:var(--seal);font-size:1rem;
+     font-weight:600}
+  .h2note{color:var(--ink-faint);font-size:.9rem;margin:10px 0 22px;max-width:62ch}
+
+  /* ── method cards ── */
+  .method{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+     gap:14px;margin:22px 0}
+  .mcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+     padding:18px}
+  .mcard h3{margin:0 0 8px;font-size:1rem}
+  .mcard p{margin:0;font-size:.88rem;color:var(--ink-soft);line-height:1.65}
+  .mcard .k{font-family:"IBM Plex Mono",monospace;color:var(--seal);font-size:.8rem}
+
+  /* ── distribution strip ── */
+  .dist{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+     gap:12px;margin:24px 0 8px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+     padding:16px 18px}
+  .stat .num{font-family:"IBM Plex Mono",monospace;font-size:1.9rem;font-weight:800;
+     line-height:1}
+  .stat .lab{font-size:.82rem;color:var(--ink-faint);margin-top:8px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:20px 0 4px;
+     font-size:.82rem;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+  /* ── group + essay cards ── */
+  .grp{margin:14px 0 8px}
+  .grp-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+     margin:38px 0 4px}
+  .grp-tag{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.15em;
+     background:var(--surface-2);color:var(--ink-soft);border-radius:6px;
+     padding:4px 10px}
+  .grp-head h2{margin:0;font-size:1.3rem}
+  .grp-desc{color:var(--ink-faint);font-size:.9rem;margin:6px 0 18px;max-width:64ch}
+
+  .cards{display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:13px;
+     padding:18px 20px;box-shadow:var(--shadow);display:grid;
+     grid-template-columns:1fr 210px;gap:8px 26px;align-items:start}
+  .card .ttl{font-family:"Noto Serif TC",serif;font-weight:700;font-size:1.12rem;
+     line-height:1.35;margin:0}
+  .card .why{grid-column:1;color:var(--ink-soft);font-size:.92rem;margin:8px 0 0}
+  .card .flag{grid-column:1;margin-top:9px;display:inline-flex;align-items:center;gap:7px;
+     font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--seal);
+     border:1px dashed var(--seal-soft);border-radius:6px;padding:3px 9px;width:fit-content}
+  .gauge{grid-column:2;grid-row:1 / span 3;align-self:center}
+  .gnum{font-family:"IBM Plex Mono",monospace;font-weight:800;font-size:1.7rem;
+     line-height:1;text-align:right}
+  .gnum small{font-size:.8rem;color:var(--ink-faint);font-weight:400}
+  .gband{font-family:"IBM Plex Mono",monospace;font-size:11px;text-align:right;
+     margin-top:4px;letter-spacing:.04em}
+  .track{height:9px;border-radius:6px;background:var(--surface-2);margin-top:10px;
+     overflow:hidden;border:1px solid var(--line)}
+  .fill{height:100%;border-radius:6px}
+
+  @media (max-width:620px){
+    .card{grid-template-columns:1fr;gap:6px}
+    .gauge{grid-column:1;grid-row:auto;margin-bottom:6px}
+    .gnum,.gband{text-align:left}
+    .card .why,.card .flag{grid-column:1}
+  }
+
+  .close{margin:50px 0 20px;padding:26px 24px;border-radius:14px;
+     background:var(--surface);border:1px solid var(--line-strong);box-shadow:var(--shadow)}
+  .close h2{margin:0 0 14px;font-size:1.35rem}
+  .close p{color:var(--ink-soft);margin:0 0 14px}
+  .close p:last-child{margin:0}
+  .close .kicker{font-family:"Noto Serif TC",serif;font-size:1.15rem;color:var(--ink);
+     border-left:3px solid var(--seal);padding-left:16px;margin:18px 0}
+
+  /* ── executive summary ── */
+  .exec{margin:8px 0 30px;border:1px solid var(--line-strong);
+     border-left:4px solid var(--indigo);border-radius:12px;
+     background:var(--surface);padding:26px 26px;box-shadow:var(--shadow)}
+  .exec .kh{display:flex;align-items:baseline;gap:12px;margin:0 0 6px}
+  .exec .kh h2{margin:0;font-size:1.3rem}
+  .exec .kh span{font-family:"IBM Plex Mono",monospace;font-size:11px;
+     letter-spacing:.24em;text-transform:uppercase;color:var(--indigo)}
+  .exec p{margin:14px 0 0;color:var(--ink-soft);max-width:66ch}
+  .exec p strong{color:var(--ink)}
+  .exec .finds{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px}
+  .exec .finds li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  .exec .finds .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+     letter-spacing:.06em;color:#fff;background:var(--indigo);border-radius:6px;
+     padding:3px 9px;white-space:nowrap;margin-top:3px}
+  .exec .finds p{margin:0;font-size:.95rem}
+
+  /* ── toc ── */
+  .toc{margin:0 0 40px;border:1px solid var(--line);border-radius:12px;
+     background:var(--surface);padding:22px 24px}
+  .toc .kh{display:flex;align-items:baseline;gap:12px;margin:0 0 16px;
+     border-bottom:1px solid var(--line);padding-bottom:12px}
+  .toc .kh h2{margin:0;font-size:1.05rem;font-family:"Noto Serif TC",serif}
+  .toc .kh span{font-family:"IBM Plex Mono",monospace;font-size:11px;
+     letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint)}
+  .toc ol{list-style:none;margin:0;padding:0;
+     columns:2;column-gap:34px}
+  .toc li{break-inside:avoid;margin:0 0 4px}
+  .toc a{display:flex;align-items:baseline;gap:10px;text-decoration:none;
+     color:var(--ink);padding:7px 8px;border-radius:8px;font-size:.96rem}
+  .toc a:hover{background:var(--surface-2);color:var(--seal)}
+  .toc a .no{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--seal);
+     min-width:2.1em;font-weight:600}
+  .toc .sub a{padding-left:30px;font-size:.88rem;color:var(--ink-soft)}
+  .toc .sub a .no{color:var(--ink-faint);font-weight:400}
+  @media (max-width:560px){.toc ol{columns:1}}
+
+  /* ── take-home ── */
+  .takehome{margin:34px 0 10px;border:1px solid var(--line-strong);border-radius:14px;
+     background:linear-gradient(180deg,var(--surface),var(--surface-2));
+     padding:28px 26px;box-shadow:var(--shadow)}
+  .takehome .kh{display:flex;align-items:baseline;gap:12px;margin:0 0 8px}
+  .takehome .kh h2{margin:0;font-size:1.5rem}
+  .takehome .kh span{font-family:"IBM Plex Mono",monospace;font-size:11px;
+     letter-spacing:.24em;text-transform:uppercase;color:var(--seal)}
+  .takehome ol{list-style:none;counter-reset:th;margin:20px 0 0;padding:0;
+     display:grid;gap:16px}
+  .takehome li{counter-increment:th;display:grid;grid-template-columns:auto 1fr;
+     gap:16px;align-items:start}
+  .takehome li::before{content:counter(th);font-family:"IBM Plex Mono",monospace;
+     font-weight:600;font-size:1rem;color:var(--seal);background:var(--paper);
+     border:1px solid var(--line-strong);border-radius:8px;width:30px;height:30px;
+     display:grid;place-items:center;flex:0 0 auto}
+  .takehome li b{display:block;font-family:"Noto Serif TC",serif;font-size:1.06rem;
+     margin-bottom:3px}
+  .takehome li p{margin:0;color:var(--ink-soft);font-size:.94rem}
+
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 100px;
+     color:var(--ink-faint);font-size:.82rem}
+  footer a{color:var(--seal)}
+  ::selection{background:var(--seal);color:#fff}
+
+  /* ── 回目錄 (end-of-section) ── */
+  .backtop{display:inline-flex;align-items:center;gap:6px;margin:6px 0 30px;
+     font-family:"IBM Plex Mono",monospace;font-size:.82rem;font-weight:700;
+     letter-spacing:.06em;color:var(--ink-faint);text-decoration:none;
+     border:1px solid var(--line-strong);border-radius:20px;padding:6px 15px;
+     background:var(--surface);transition:color .15s,border-color .15s}
+  .backtop:hover{color:var(--seal);border-color:var(--seal)}
+
+  /* ── header 回首頁 ── */
+  .home-btn{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:700;
+     background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft);
+     border-radius:20px;padding:6px 14px;cursor:pointer;text-decoration:none;
+     display:inline-flex;align-items:center;gap:6px}
+  .home-btn:hover{border-color:var(--seal);color:var(--seal)}
+  .top .nav-cluster{display:flex;align-items:center;gap:10px}
+  a.brand{color:inherit;text-decoration:none}
+
+  /* ── floating fixed nav (bottom-right) ── */
+  .floatnav{position:fixed;right:20px;bottom:20px;z-index:60;
+     display:flex;flex-direction:column;gap:9px}
+  .floatnav a{display:flex;align-items:center;gap:8px;
+     font-family:"Noto Serif TC",serif;font-weight:700;font-size:.92rem;
+     text-decoration:none;color:var(--ink);background:var(--surface);
+     border:1px solid var(--line-strong);border-radius:26px;
+     padding:10px 18px;box-shadow:var(--shadow);
+     transition:color .15s,background .15s,border-color .15s}
+  .floatnav a:hover{color:#fff;background:var(--seal);border-color:var(--seal)}
+  .floatnav a .ic{font-family:"IBM Plex Mono",monospace;font-weight:800;font-size:1rem}
+  @media (max-width:620px){
+    .floatnav{right:12px;bottom:12px;gap:7px}
+    .floatnav a{padding:11px 14px;font-size:.86rem}
+    .floatnav a .lab{display:none}
+  }
+</style>
+
+<header>
+  <div class="wrap top">
+    <a class="brand" href="https://changhsiung-chemometrician.github.io/Lao_Xiong/"><span class="seal-mark">熊</span>老熊隨筆・文風檢定</a>
+    <div class="nav-cluster">
+      <a class="home-btn" href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">← 回首頁</a>
+      <button class="theme-btn" id="themeBtn" type="button">明／暗</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <p class="eyebrow">A Stylistic Read · Not a Watermark Test</p>
+    <h1>四十篇的一次文風盤點
+      <span class="sub">這批文字，讀起來有多像「AI 生成」？——一份主觀的風格檢定，不是浮水印偵測</span>
+    </h1>
+    <p class="lede">把 <span class="mono">changhsiung-chemometrician.github.io/Lao_Xiong</span> 全站三十八篇逐篇讀過，另加一部相關的小說原著《弹指金刚》，為每一篇給一個「讀起來像 AI 生成」的機率，並附簡短理由。用的是同一把尺——只是這回量的是文字本身。</p>
+    <div class="meta-row">
+      <span>樣本 <b>38 篇 ＋ 小說原著 1 部</b></span>
+      <span>方法 <b>人工通讀・風格判讀</b></span>
+      <span>日期 <b>2026-08-22</b></span>
+      <span>檢定者 <b>Claude</b></span>
+    </div>
+  </div>
+
+  <div class="caution">
+    <h2>先把話說清楚（這件事很要緊）</h2>
+    <p><strong>這不是浮水印偵測。</strong>Anthropic 的 Claude 文字浮水印要用官方私鑰驗證，目前尚未開放，我沒有那把鑰匙，也無從驗起。此處給的每一個數字，都是<strong>「文字風格讀起來像不像機器寫的」</strong>的主觀印象，不是任何技術上的檢出結果。</p>
+    <p><strong>風格式判讀本來就不可靠。</strong>這類判斷（就像市面上的「AI 偵測器」）誤報率很高，特別會冤枉<strong>寫得工整、結構清楚、對仗漂亮</strong>的人——而這恰恰是本站的特徵。把數字當成印象，不要當成裁決。</p>
+    <p><strong>而且，本站早就自己招了。</strong>老熊在文章裡對 AI 參與極其透明：有的自署「老熊撰・Claude 排印」，有的直接標「Claude 撰」「Gemini 評估」，技術報告寫明「Drafting assistance by Claude」。所以真正該問的不是「AI 有沒有碰過」（作者公開說碰得很多），而是「這段散文<em>讀起來</em>是人在寫、還是機器在寫」。下面的機率，量的就是這一件事。</p>
+  </div>
+
+  <div class="exec" id="summary">
+    <div class="kh"><span>Executive Summary</span><h2>提要</h2></div>
+    <p>把這批文字放到「人聲 → 機器手筆」的光譜上，結論其實很乾淨：<strong>最像人的，是帶著「哈哈」、離題、寫得最不體面的口述回憶，以及兩部非老熊手筆的客稿</strong>（林進發《感恩》、W君小說《弹指金刚》）；<strong>最像機器的，是那些篇首就自署「Claude 撰／Gemini 評估」的分析與復盤</strong>。中間一大片，是「老熊的內容，穿上了 AI 的版式」——真實的骨，工整的皮。</p>
+    <ul class="finds">
+      <li><span class="tag">核心</span><p>這不是浮水印偵測，是<strong>文風主觀判讀</strong>；它的盲點是懲罰寫得整齊的人，而本站正好極其整齊。數字是印象，不是裁決。</p></li>
+      <li><span class="tag">最低分</span><p>《弹指金刚》原著（22%）、《感恩》（15%）、〈佛州的一年（上）〉（18%）——純敘事、口語、帶人手初稿的痕跡（如人名前後不一）。</p></li>
+      <li><span class="tag">最高分</span><p>〈誠信評估〉（95%，Gemini 生成）、〈為什麼智商難估〉（92%，Claude 撰）、〈同一把尺〉（90%，Claude 復盤）——作者已自我揭露。</p></li>
+      <li><span class="tag">關鍵</span><p>作者對 AI 參與幾乎全盤揭露。真正該問的不是「AI 有沒有碰」，而是「這段散文<em>讀起來</em>是誰在寫」——本報告量的就是後者。</p></li>
+    </ul>
+  </div>
+
+  <nav class="toc" id="toc" aria-label="目次">
+    <div class="kh"><span>Contents</span><h2>目次</h2></div>
+    <ol>
+      <li><a href="#summary"><span class="no">提要</span>Executive Summary</a></li>
+      <li><a href="#s-method"><span class="no">§1</span>怎麼讀這份檢定</a></li>
+      <li><a href="#s-overview"><span class="no">§2</span>全站概覽</a></li>
+      <li><a href="#s-perpiece"><span class="no">§3</span>逐篇檢定</a></li>
+      <li class="sub"><a href="#grp-A"><span class="no">A</span>作者原聲・口語回憶／客稿</a></li>
+      <li class="sub"><a href="#grp-B"><span class="no">B</span>作者內容 × AI 潤色排版</a></li>
+      <li class="sub"><a href="#grp-C"><span class="no">C</span>說理散文・AI 味較重</a></li>
+      <li class="sub"><a href="#grp-D"><span class="no">D</span>明確 AI 撰寫／復盤</a></li>
+      <li class="sub"><a href="#grp-E"><span class="no">E</span>英文技術報告</a></li>
+      <li class="sub"><a href="#grp-F"><span class="no">F</span>結構化附錄・表與圖</a></li>
+      <li><a href="#s-conclusion"><span class="no">結</span>結論</a></li>
+      <li><a href="#s-takehome"><span class="no">帶</span>帶走的重點 · Take-Home</a></li>
+    </ol>
+  </nav>
+
+  <section id="s-method">
+    <div class="h2row"><span class="n">§1</span><h2>怎麼讀這份檢定</h2></div>
+    <p class="h2note">機率＝一個只看文字風格的讀者或偵測器，會把該篇判為「AI 生成／重度 AI 參與」的可能性。分數越高，越像機器的手筆；越低，越像未經整理的人聲。</p>
+    <div class="method">
+      <div class="mcard"><h3>拉低分數的訊號</h3><p><span class="k">HUMAN →</span> 口語與「哈哈」、離題、瑣碎的私人細節、記錯又改正、情緒不勻、無工整小標。</p></div>
+      <div class="mcard"><h3>拉高分數的訊號</h3><p><span class="k">MACHINE →</span> 執行摘要／目錄／帶走的重點、對仗小標、金句收尾、表格與詞條欄、術語密度均勻。</p></div>
+      <div class="mcard"><h3>自我揭露</h3><p><span class="k">DISCLOSED →</span> 篇中明載作者（Claude／Gemini 撰、口述整理、排印、drafting assistance）——直接抬高分數。</p></div>
+      <div class="mcard"><h3>不計入的</h3><p><span class="k">N/A →</span> 內容是真是假、事實對不對、寫得好不好——都與「像不像 AI」無關，此處不評。</p></div>
+    </div>
+    <a class="backtop" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <section id="s-overview">
+    <div class="h2row"><span class="n">§2</span><h2>全站概覽</h2></div>
+    <div class="dist" id="stats"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--b-low)"></i>低・人味濃 &lt;30%</span>
+      <span><i class="dot" style="background:var(--b-mid)"></i>中低 30–55%</span>
+      <span><i class="dot" style="background:var(--b-hi)"></i>中高 55–75%</span>
+      <span><i class="dot" style="background:var(--b-top)"></i>高・機器手筆 &gt;75%</span>
+    </div>
+    <a class="backtop" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <section id="s-perpiece">
+    <div class="h2row"><span class="n">§3</span><h2>逐篇檢定</h2></div>
+    <p class="h2note">依「人聲 → 機器手筆」的光譜分為六組。同組之內大致由低到高。</p>
+    <div id="groups"></div>
+    <a class="backtop" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <div class="close" id="s-conclusion">
+    <h2>結論</h2>
+    <p>這是一個罕見的案例：作者本人是化學計量學家，畢生的手藝就是「診斷模型、標記缺失值、拒絕黑箱」，而他把同一套紀律用到了自己的網站上——對 AI 參與幾乎全盤揭露。所以與其說這份檢定「抓到了 AI」，不如說<strong>它只是把作者早已寫在版權列裡的東西，換算成了一條光譜</strong>。</p>
+    <p class="kicker">最像人聲的，是那些帶著「哈哈」、離題、寫得最不體面的口述回憶；最像機器的，是那些自署「Claude 撰／Gemini 評估」的分析與復盤。中間那一大片，是「老熊的內容，穿上了 AI 的版式」——真實的骨，工整的皮。</p>
+    <p>換句話說：一個只看文風的偵測器，會把這個站判得偏「像 AI」——不是因為內容是假的，而是因為它太工整、太會收尾、太愛做表格。這正是風格式判讀的盲點：<strong>它懲罰的是寫得整齊的人。</strong>作者自己在〈理性討論的語境枷鎖〉裡早就把這句話寫下來了。</p>
+    <p style="margin-top:14px;color:var(--ink-faint);font-size:.9rem">若要真正回答「這是不是 Claude 寫的」，唯一可靠的路是等 Anthropic 的浮水印偵測 API 上線，用官方私鑰驗證。此份文件無法、也不宣稱做到那件事。</p>
+    <a class="backtop" href="#toc">↑ 回目錄</a>
+  </div>
+
+  <div class="takehome" id="s-takehome">
+    <div class="kh"><span>Take-Home</span><h2>帶走的重點</h2></div>
+    <ol>
+      <li><b>這是文風判讀，不是浮水印偵測。</b><p>沒有官方私鑰，任何人都驗不出真正的 Claude 浮水印。這裡的數字是「讀起來像不像」，會冤枉寫得工整的人，只能當印象。</p></li>
+      <li><b>本站不必「抓」——它自己招了。</b><p>版權列白紙黑字寫著誰寫的：Claude 撰、Gemini 評估、口述整理、排印、drafting assistance。透明度本身，就是這個站最不像「偷用 AI」的地方。</p></li>
+      <li><b>光譜的兩端很清楚，難判的是中間。</b><p>純敘事的回憶與小說最像人；自署 AI 的分析最像機器；中間那一大片是「真實的骨、工整的皮」——內容出於作者，版式出於 AI。</p></li>
+      <li><b>工整會被誤判成機器。</b><p>執行摘要、對仗小標、金句收尾、滿版表格——這些讓一個文風偵測器把老熊判得偏「像 AI」，不是因為內容是假的，而是因為它太會收尾。作者在〈語境枷鎖〉裡早寫過：它懲罰的是寫得整齊的人。</p></li>
+    </ol>
+    <a class="backtop" href="#toc">↑ 回目錄</a>
+  </div>
+</main>
+
+<footer class="wrap">
+  來源：全站三十八篇原始檔取自 GitHub 倉庫 <a href="https://github.com/changhsiung-chemometrician/Lao_Xiong">changhsiung-chemometrician/Lao_Xiong</a>，逐篇人工通讀；小說原著《弹指金刚》二稿取自使用者提供的 PDF（172 頁），首、中、尾與日記、后記、关于各段抽讀。<br>
+  本檢定為風格印象，非浮水印或任何技術性 AI 檢出；數字不具裁決效力。Claude ・ 2026 年 8 月 22 日。
+</footer>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc"><span class="ic">☰</span><span class="lab">回目錄</span></a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/"><span class="ic">⌂</span><span class="lab">回首頁</span></a>
+</nav>
+
+<script>
+(function(){
+  var btn=document.getElementById('themeBtn');
+  function cur(){try{return localStorage.getItem('lx-theme')}catch(e){return null}}
+  function set(t){try{localStorage.setItem('lx-theme',t)}catch(e){}}
+  var t=cur(); if(t)document.documentElement.setAttribute('data-theme',t);
+  btn.addEventListener('click',function(){
+    var now=document.documentElement.getAttribute('data-theme');
+    var isDark = now==='dark';
+    var next=isDark?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next); set(next);
+  });
+})();
+
+var DATA=[
+ {g:'A',t:'佛州的一年（上）',p:18,note:null,
+  w:'「哈哈」頻繁、行文離題、私人細節瑣碎；沒有工整小標，也沒有金句收尾。全站最接近未整理的口述，最像人在講話。'},
+ {g:'A',t:'離開 Akron',p:22,note:null,
+  w:'口語自述、語氣鬆散帶個人腔（「離宇宙大爆炸最近的一次」）；只有末尾的名詞編者註像後補的知識框。'},
+ {g:'A',t:'阿發回憶錄《感恩》（林進發 著）',p:15,note:'客稿・另一位作者',
+  w:'非老熊作品，是同學林進發的回憶錄。樸素直白的傳統散文，篇短情真、無 AI 式結構——不同的手，也是最像人的一手。'},
+ {g:'A',t:'《弹指金刚》二稿（W君／FKF 著・小說原著）',p:22,note:'客稿・小說原著（非老熊作品）',
+  w:'〈從弹指金刚到青春六記〉評論的那部長篇小說本身，約十四萬字。第一人稱敘事聲音強烈、川腔口語與自嘲密集、情緒起伏不勻；通篇純敘事，沒有任何 AI 式框架（無執行摘要、表格、對仗小標）。更關鍵的是它帶著人手二稿的指紋——人名前後不一（陳遠／陳重飛的框架、配角名字矛盾）、陰謀成本不成比例、〈关于〉把主題講得太白。這些是熱情的人類作者會犯的毛病，不是機器。此處 AI 只當了讀者與評論者，不是作者。'},
+
+ {g:'B',t:'佛州的一年（下）— 天上掉下來的綠卡',p:40,note:'自署：老熊撰・Claude 排印',
+  w:'內容仍是口語回憶，但已套進拉頁引言、「本輯帳房」表格等版式；人味在骨，工整在皮。'},
+ {g:'B',t:'老熊的選擇 1983–1987（敘事版）',p:45,note:null,
+  w:'記憶敘事為主體，讀來真實；但人物簡介三十餘人、卷目與判詞框架高度結構化，是被整理過的痕跡。'},
+ {g:'B',t:'老熊初試啼聲——加州理工環伺下那個深南小子',p:52,note:null,
+  w:'故事生動、情緒真；但「檔案小註／按語／圖一圖二」模組化排版與對仗小標，是典型的 AI 編輯層。'},
+ {g:'B',t:'爺們——阿發的破釜沉舟，與我那張走了七年的綠卡',p:55,note:null,
+  w:'真實情感＋「本篇帳房」對照表；對稱小標與「捷徑就在眼前，不走」式金句收尾偏機器潤飾。'},
+ {g:'B',t:'老熊的黑徒兒',p:58,note:null,
+  w:'師徒故事真誠、附「事件帳冊」；風清揚楔子、六點不收錢的理由條列、金句對仗，經明顯的 AI 潤色。'},
+ {g:'B',t:'從《弹指金刚》到《青春六記》，文學創作的本質是啥？',p:52,note:null,
+  w:'敘事框架人味足，但大段照錄三個大模型的書評，結語「虛構的功夫／回憶的功夫」對仗金句是 AI 手法。'},
+ {g:'B',t:'數學界的八卦——二〇〇六年那場功勞爭奪戰',p:60,note:null,
+  w:'條理極清、出場人物／時間軸／名詞小注全套模組化，讀來像 AI 整理的科普長文，個人聲音較淡。'},
+ {g:'B',t:'Not Even Wrong — 46 years after we graduated',p:52,note:null,
+  w:'論點鋒利且個人化（包立那句話的考證）；但兩欄對照表與「連錯都不是」判決式收尾偏 AI。'},
+ {g:'B',t:'從陶神女兒到 HRL 那場失敗面試（kernel trick）',p:55,note:null,
+  w:'個人故事＋硬核技術，敘事有我；但「提要／旁註／帶走的四句話」與費米估計欄是結構化模組。'},
+
+ {g:'C',t:'幸福的職涯大致相似，不幸的卻各有不同',p:68,note:null,
+  w:'高度對稱：三個共同點／三個分岔點／低谷對照／考據欄。論證框架工整到像 AI 生成的比較分析。'},
+ {g:'C',t:'啥樣的人類智能最重要',p:66,note:null,
+  w:'判準三條、九項逐一過篩表、數字盤點——典型 AI 說明文結構，術語密度均勻。'},
+ {g:'C',t:'理性討論的語境枷鎖',p:72,note:null,
+  w:'命題式／表態式對舉、六處破綻條列、傳播學術語密集；論說口吻高度接近 AI 生成的思辨文。'},
+ {g:'C',t:'答案先到，問題後到（杞人憂天・續篇）',p:62,note:null,
+  w:'戲擬古文＋條件機率表＋本期詞條欄，設計巧妙但高度模組化，工整壓過了即興。'},
+ {g:'C',t:'AI 時代數學的危機與新生（陶哲軒 ICM 2026）',p:70,note:null,
+  w:'影片摘要體：執行摘要／目錄／帶走的重點／影片索引／關鍵詞——整套 AI 摘要框架，僅「老熊按」一節見人聲。'},
+ {g:'C',t:'證明過剩的年代——讀曹原 AI for Science 訪談',p:70,note:'含多段明標「Claude 旁註」',
+  w:'讀片札記，多段「Claude 旁註」由 AI 直接撰寫並標明；其餘為 AI 式編排與勘誤表。'},
+ {g:'C',t:'想被理解的人，與想理解的人',p:75,note:null,
+  w:'附論性質，對照表＋對仗金句貫穿；分析口吻與第三人稱評點，非常接近 Claude 的評述體。'},
+
+ {g:'D',t:'為什麼一個人的智商這麼難估',p:92,note:'自署：Claude 撰',
+  w:'篇首明載「Claude 撰・依老熊之命」。分析語氣、多層表格、方法附註（r=0.45、殘差 SD）全是 AI 手筆。'},
+ {g:'D',t:'同一把尺——全站盤點與評點',p:90,note:'自署：Claude 復盤',
+  w:'以第二人稱「你」評點老熊本人，六條質疑收尾——明白是 AI 作者對作者的評論。'},
+ {g:'D',t:'復盤的復盤——全站二次盤點',p:85,note:'統計：Claude',
+  w:'資料抓取、字數統計與分析為 AI 主筆，夾入少量「老熊按」；方法說明段落是機器口吻。'},
+ {g:'D',t:'老熊到底有多聰明',p:80,note:'老熊 × Claude 對話復盤',
+  w:'對話復盤體，敘述者是 AI，當事人以插話出現；表格與區間估計是機器結構，仍保留來回交鋒的痕跡。'},
+ {g:'D',t:'叫醒 AQP——一套沉睡演算法的四十八小時',p:88,note:'老熊口述・Claude 整理復盤',
+  w:'工程除錯復盤由 AI 主筆（失敗鏈、BUGFIX 標註、工時對照表），老熊為口述來源。'},
+ {g:'D',t:'復盤體——一種回憶錄的新文類（伴讀）',p:88,note:'「本刊編輯部」口吻',
+  w:'以文類評論的姿態剖析作者的「復盤體」，prosopography／microhistory 等術語密集，是 AI 的學術評述。'},
+ {g:'D',t:'誠信與職業操守評估報告',p:95,note:'明載：評估者 Gemini',
+  w:'整篇為 Gemini 生成的品格評估報告，老熊只排版校字並補一節「老熊按」——自我揭露最徹底的一篇。'},
+
+ {g:'E',t:'Built-In Abstention — 三件偽陽性拒判專利',p:85,note:'Drafting assistance by Claude',
+  w:'自署 AI 起草。結構嚴謹的技術英文：Abstract／Contents／逐節論證＋圖，是標準 AI 技術報告格式。'},
+ {g:'E',t:'Why Non-Parametric Is the Keyword…',p:80,note:'“an argument with a machine”',
+  w:'自述由「與機器對辯」寫成；比喻式科普英文（直尺 vs 軟繩）流暢均勻，但保有作者的敘事框。'},
+ {g:'E',t:'RUN_BoostedTrees_CmpClsfr — Development Report',p:86,note:'AUTHOR: CMH w/ Claude',
+  w:'自署與 Claude 合寫。Executive Summary／TOC／逐步迭代——教科書式 AI 技術報告。'},
+ {g:'E',t:'Balanced Bagging for Extreme Class Imbalance',p:86,note:null,
+  w:'執行摘要＋大數字 KPI＋步驟式流程＋流程圖，典型 AI 生成技術報告；英文行文均勻無個人腔。'},
+ {g:'E',t:'Fable Enhances Contrast of idws vs idcn',p:88,note:'CLAUDE (FABLE 5) FOR OLD BEAR',
+  w:'版權列明載由 Claude（Fable）為老熊撰寫。英文技術敘事，AI 主筆無疑。'},
+ {g:'E',t:'MLE vs MAP in a Multi-Armed Bandit（Session Summary）',p:85,note:null,
+  w:'「session summary」體例、逐回合講解、符號表——AI 整理對話的標準產物。'},
+
+ {g:'F',t:'老熊職涯軌跡・全 24 站',p:72,note:'Claude 整理',
+  w:'互動式軌跡表：資料與事件出自作者，但分段、敘述與版式是 AI 組裝的結構化附錄。'},
+ {g:'F',t:'林進發職涯軌跡・全 16 站',p:72,note:'Claude 整理',
+  w:'同型的軌跡表；資料為客稿內容，呈現與敘述為 AI 生成。'},
+ {g:'F',t:'老熊地理軌跡',p:74,note:'自署：Claude 復盤',
+  w:'一生落點的地理附錄，時間軸＋逐段細目＋「三處待補的空白」，AI 整理痕跡明顯。'},
+ {g:'F',t:'《彈指金剛》故事線與人物譜',p:75,note:null,
+  w:'把老友小說收攏成八幕、四十七位人物分類——AI 摘要與整理體例，非原創敘事。'},
+ {g:'F',t:'《彈指金剛》人物關係圖',p:70,note:null,
+  w:'互動關係圖（資料＋程式繪製）；內容是整理小說人物，形式由 AI／程式組裝。'},
+ {g:'F',t:'《老熊的選擇》人物關係圖',p:70,note:null,
+  w:'同型的 typed-edges 關係圖；九類關係為事先定義的結構化資料，AI 組裝呈現。'},
+];
+
+var GROUPS={
+ A:{tag:'GROUP A',h:'作者原聲・口語回憶／客稿',d:'帶著口語、離題與私人瑣事的人聲，加上兩部非老熊手筆的客稿（同學回憶錄與小說原著）——最像人在寫的一片。'},
+ B:{tag:'GROUP B',h:'作者內容 × AI 潤色排版',d:'骨是老熊的真實記憶，皮是 AI 的工整版式——最難判、也最典型的一片。'},
+ C:{tag:'GROUP C',h:'說理散文・AI 味較重',d:'對仗、條列、金句密集的思辨與科普，結構工整到接近機器手筆。'},
+ D:{tag:'GROUP D',h:'明確 AI 撰寫／復盤',d:'篇中自署 Claude 撰、Gemini 評估或口述整理——作者已公開揭露。'},
+ E:{tag:'GROUP E',h:'英文技術報告・AI 重度起草',d:'Executive Summary 式技術文件，多數自署「w/ Claude」或「drafting by Claude」。'},
+ F:{tag:'GROUP F',h:'結構化附錄・表與圖',d:'軌跡表、故事線、人物關係圖——資料為人，組裝為機。'},
+};
+
+function band(p){
+  if(p<30)return{c:'--b-low',bg:'--b-low-bg',n:'低・人味濃'};
+  if(p<55)return{c:'--b-mid',bg:'--b-mid-bg',n:'中低'};
+  if(p<75)return{c:'--b-hi',bg:'--b-hi-bg',n:'中高'};
+  return{c:'--b-top',bg:'--b-top-bg',n:'高・機器手筆'};
+}
+function cssv(v){return 'var('+v+')'}
+
+/* stats */
+var n=DATA.length, sum=DATA.reduce(function(a,d){return a+d.p},0), mean=Math.round(sum/n);
+var buckets=[0,0,0,0];
+DATA.forEach(function(d){var p=d.p; buckets[p<30?0:p<55?1:p<75?2:3]++});
+var statsEl=document.getElementById('stats');
+[[n+'','檢定樣本（含小說原著）'],[mean+'%','全體平均機率'],
+ [buckets[0]+' 篇','低分帶 &lt;30%'],[buckets[3]+' 篇','高分帶 &gt;75%']]
+.forEach(function(s,i){
+  var d=document.createElement('div');d.className='stat';
+  var color = i===2?'var(--b-low)':i===3?'var(--b-top)':'var(--ink)';
+  d.innerHTML='<div class="num" style="color:'+color+'">'+s[0]+'</div><div class="lab">'+s[1]+'</div>';
+  statsEl.appendChild(d);
+});
+
+/* groups */
+var host=document.getElementById('groups');
+['A','B','C','D','E','F'].forEach(function(key){
+  var g=GROUPS[key];
+  var head=document.createElement('div');head.className='grp-head';head.id='grp-'+key;
+  head.innerHTML='<span class="grp-tag">'+g.tag+'</span><h2>'+g.h+'</h2>';
+  host.appendChild(head);
+  var desc=document.createElement('p');desc.className='grp-desc';desc.textContent=g.d;
+  host.appendChild(desc);
+  var cards=document.createElement('div');cards.className='cards';
+  DATA.filter(function(d){return d.g===key}).sort(function(a,b){return a.p-b.p})
+  .forEach(function(d){
+    var b=band(d.p);
+    var el=document.createElement('div');el.className='card';
+    el.innerHTML=
+      '<div class="gauge">'
+      +'<div class="gnum" style="color:'+cssv(b.c)+'">'+d.p+'<small>%</small></div>'
+      +'<div class="gband" style="color:'+cssv(b.c)+'">'+b.n+'</div>'
+      +'<div class="track"><div class="fill" style="width:'+d.p+'%;background:'+cssv(b.c)+'"></div></div>'
+      +'</div>'
+      +'<p class="ttl">'+d.t+'</p>'
+      +'<p class="why">'+d.w+'</p>'
+      +(d.note?'<span class="flag">自署 · '+d.note+'</span>':'');
+    cards.appendChild(el);
+  });
+  host.appendChild(cards);
+});
+</script>
