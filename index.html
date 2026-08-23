@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 43 篇。">
+<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 44 篇。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -161,7 +161,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 43 篇</span><span class="dot">·</span><span>九個分區</span><span class="dot">·</span><span>最近更新 2026.08.23</span></p>
+<p class="toolbar"><span>全 44 篇</span><span class="dot">·</span><span>九個分區</span><span class="dot">·</span><span>最近更新 2026.08.23</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
 <summary>精選外刊<span class="n">9</span><span class="caret" aria-hidden="true">▾</span></summary>
@@ -247,9 +247,10 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </div>
 </details>
 <details class="lxsec">
-<summary>本站自評<span class="n">8</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>本站自評<span class="n">9</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#ziping">前往本區　↓</a>
+<a href="anthropic_model_evals_laoxiong_match.html">五十萬到八十五萬 — 一個化學計量學老兵，讀 Anthropic 的 Model Evaluations 職缺<span class="lab">新</span></a>
 <a href="%E5%85%A8%E5%8B%A4%E7%8D%8E_week_usage_20260822.html">全勤獎 — 一週用量復盤，2026.08.17–08.22<span class="lab">新</span></a>
 <a href="laoxiong_ai_read.html">四十篇的一次文風盤點 — 這批文字讀起來有多像「AI 生成」<span class="lab">新</span></a>
 <a href="integrity_assessment_lao_xiong.html">誠信與職業操守評估 · Gemini 報告，附老熊補記<span class="lab">新</span></a>
@@ -653,8 +654,18 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 
 <p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
 
-<h2 class="section" id="ziping">本站自評<span class="count">8 篇</span></h2>
-<p class="section-note">把尺量回自己身上 · 量了兩次，問過讀者是誰，量了腦袋，也量了品格，連量腦袋的那幾台儀器也一起量了，把尺翻過來量文字本身，最後連這一週燒掉的算力也一起量了</p>
+<h2 class="section" id="ziping">本站自評<span class="count">9 篇</span></h2>
+<p class="section-note">把尺量回自己身上 · 量了兩次，問過讀者是誰，量了腦袋，也量了品格，連量腦袋的那幾台儀器也一起量了，把尺翻過來量文字本身，連這一週燒掉的算力也一起量了，最後拿一張別人的職缺告示回頭量自己</p>
+
+<article class="entry">
+<h3 class="headline"><a href="anthropic_model_evals_laoxiong_match.html">五十萬到八十五萬 — 一個化學計量學老兵，讀 Anthropic 的 Model Evaluations 職缺 <span class="tag">新</span></a></h3>
+<p class="meta"><time class="date">2026.08.23</time><span class="chip">自評</span><span class="chip">職缺復盤</span><span class="chip">AI 評測</span><span class="chip">缺口清單</span></p>
+<p class="deck">$500,000–$850,000 base，不含股權——這是前沿實驗室為「做評測」開的價，是美國資深光譜演算法職位天花板的兩到三倍。老熊把這張八千字的告示逐條拆開，對著自己的三十年一格一格比：Minimum 五條、Preferred 九條、四個代表性專案，每一條給一個不美化的判定。對得上的是同構的老題目——故障歸因（是模型、是 harness、是資料，還是儀器自己漂了）、calibration transfer、以及三件教分類器說「我沒見過」的棄權專利；對不上的也寫進來：Python 手感不如 MATLAB、沒有分散式經驗、沒在半夜盯過一條訓練曲線、三十年資歷在這裡不自動換成 seniority。第陸節把上週那份〈全勤獎〉當成現成的 work sample 貼回 JD 逐條對照，第玖節則用四張截圖取證一件事：那個「他們看得很重」的必填自由作答題，字數規格藏在表單第十欄下方、字級小於正文的 helper text 裡——最關鍵的判準躺在附錄裡，正是他一輩子在報告裡抓的那種錯。結論不是投或不投：他們造出了一個自己還沒完全理解的東西，所以願意花大錢請人來把它量準；這齣戲 1990 年代在近紅外光譜儀身上演過一次，只是這回被量的是語言模型。</p>
+<div class="tools">
+<a class="read" href="anthropic_model_evals_laoxiong_match.html">閱讀</a>
+<button class="copy" data-file="anthropic_model_evals_laoxiong_match.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="%E5%85%A8%E5%8B%A4%E7%8D%8E_week_usage_20260822.html">全勤獎 — 一週用量復盤，2026.08.17–08.22 <span class="tag">新</span></a></h3>
