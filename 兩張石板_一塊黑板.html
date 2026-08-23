@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兩張石板，一塊黑板——十誡與十二條班規的對讀</title>
+<meta name="description" content="摩西十誡與林進發《感恩》第 108 篇〈十二條班規〉的結構對讀：第一條的立約語法、否定表列與正面表列、良心條款的位置、誠實的方向，以及兩種完全相反的規範觀。">
+<style>
+:root{
+  --paper:#F2F0E9;
+  --paper-deep:#E5E2D8;
+  --stone:#D7D3C6;
+  --board:#24352E;
+  --chalk:#EDE9DC;
+  --ink:#15181B;
+  --ink-soft:#3A4045;
+  --muted:#6E7671;
+  --seal:#A93226;
+  --indigo:#2C4757;
+  --rule:#C7CBC4;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Serif TC","Source Han Serif TC","Songti TC","PMingLiU",Georgia,serif;
+  font-size:32px;
+  font-weight:700;
+  line-height:1.95;
+  letter-spacing:.01em;
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px 140px;}
+
+/* ---------- masthead ---------- */
+.masthead{padding:72px 0 0;border-bottom:5px solid var(--ink);}
+
+.kicker{
+  font-size:22px;font-weight:800;letter-spacing:.42em;
+  color:var(--seal);margin:0 0 26px;
+}
+
+h1{
+  font-size:76px;line-height:1.22;font-weight:800;
+  letter-spacing:.02em;margin:0 0 26px;
+}
+h1 .sub{display:block;font-size:34px;line-height:1.5;color:var(--ink-soft);margin-top:16px;letter-spacing:.06em;}
+
+.standfirst{
+  font-size:34px;line-height:1.78;font-weight:700;
+  color:var(--ink-soft);max-width:920px;margin:0 0 34px;
+}
+
+.byline{
+  display:flex;flex-wrap:wrap;gap:34px;
+  font-size:21px;font-weight:800;letter-spacing:.24em;
+  color:var(--muted);padding-bottom:22px;
+}
+
+/* ---------- TOC ---------- */
+.toc{
+  margin:52px 0 0;
+  border-top:3px solid var(--ink);
+  border-bottom:3px solid var(--ink);
+  padding:30px 0 34px;
+  scroll-margin-top:20px;
+}
+.toc h2{
+  font-size:22px;font-weight:800;letter-spacing:.4em;
+  color:var(--seal);margin:0 0 22px;border:none;padding:0;
+}
+.toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:56px;}
+.toc li{
+  break-inside:avoid;font-size:26px;line-height:1.6;
+  padding:9px 0;border-bottom:1px dotted var(--rule);
+}
+.toc a{color:var(--ink);text-decoration:none;display:flex;gap:14px;align-items:baseline;}
+.toc a:hover{color:var(--seal);}
+.toc .n{font-size:20px;font-weight:800;color:var(--seal);min-width:2.2em;letter-spacing:.1em;}
+
+/* ---------- body ---------- */
+main{margin-top:70px;}
+section{margin-bottom:66px;scroll-margin-top:24px;}
+
+h2{
+  font-size:46px;line-height:1.4;font-weight:800;
+  margin:0 0 24px;padding-bottom:14px;
+  border-bottom:3px solid var(--ink);
+}
+h2 .n{color:var(--seal);margin-right:.5em;}
+
+p{margin:0 0 1.35em;}
+
+.lede::first-letter{
+  float:left;font-size:120px;line-height:.82;font-weight:800;
+  color:var(--seal);margin:10px 16px 0 0;
+}
+
+strong{font-weight:800;}
+em{font-style:normal;font-weight:800;border-bottom:4px solid var(--seal);padding-bottom:1px;}
+
+.pull{
+  margin:40px 0;padding:8px 0 8px 30px;
+  border-left:11px solid var(--indigo);
+  font-size:44px;line-height:1.58;font-weight:800;
+}
+
+/* ---------- signature: 石板 / 黑板 對照帳 ---------- */
+.ledger{margin:40px 0 46px;border-top:6px solid var(--ink);}
+.lrow{display:grid;grid-template-columns:80px 1fr 1fr;gap:0;border-bottom:2px solid var(--rule);}
+.lrow.head{border-bottom:3px solid var(--ink);}
+.lnum{
+  font-size:26px;font-weight:800;color:var(--seal);
+  padding:18px 12px;text-align:center;letter-spacing:.06em;
+}
+.tablet,.board{padding:18px 24px;font-size:26px;line-height:1.62;font-weight:700;}
+.tablet{background:var(--stone);border-right:3px solid var(--paper);}
+.board{background:var(--board);color:var(--chalk);}
+.lrow.head .lnum{font-size:20px;letter-spacing:.3em;color:var(--muted);}
+.lrow.head .tablet,.lrow.head .board{
+  font-size:22px;font-weight:800;letter-spacing:.3em;padding:16px 24px;
+}
+.lrow.head .tablet{color:var(--ink-soft);}
+.tablet .none{color:var(--muted);font-weight:800;}
+.ledger-note{font-size:22px;font-weight:700;color:var(--muted);line-height:1.7;margin:-30px 0 40px;}
+
+/* ---------- 編輯附記 ---------- */
+.editnote{
+  background:var(--paper-deep);border-left:11px solid var(--seal);
+  padding:30px 32px 12px;margin:38px 0 0;
+}
+.editnote .tag{
+  display:block;font-size:20px;font-weight:800;letter-spacing:.3em;
+  color:var(--seal);margin-bottom:16px;
+}
+.editnote p{font-size:28px;line-height:1.8;}
+
+.coda{
+  margin-top:20px;padding-top:34px;
+  border-top:6px solid var(--ink);
+  font-size:36px;line-height:1.76;font-weight:800;
+}
+
+.backtop{
+  display:block;text-align:right;font-size:20px;font-weight:800;
+  letter-spacing:.16em;margin:8px 0 0;text-decoration:none;color:var(--indigo);
+}
+.backtop:hover{color:var(--seal);}
+
+.colophon{
+  margin-top:60px;padding-top:20px;border-top:2px solid var(--rule);
+  font-size:20px;font-weight:700;letter-spacing:.18em;color:var(--muted);
+}
+
+a{color:var(--indigo);}
+a:focus-visible{outline:4px solid var(--seal);outline-offset:3px;}
+
+/* ---------- 浮動導覽 ---------- */
+#lx-nav{
+  position:fixed;right:22px;bottom:22px;z-index:50;
+  display:flex;flex-direction:column;gap:10px;
+}
+#lx-nav a{
+  background:var(--ink);color:#F7F1E2;text-decoration:none;
+  font-size:20px;font-weight:800;letter-spacing:.14em;
+  padding:14px 18px;border:3px solid var(--paper-deep);
+  box-shadow:0 4px 14px rgba(0,0,0,.28);line-height:1.4;text-align:center;
+}
+#lx-nav a:hover{background:var(--seal);color:#fff;}
+
+@media (max-width:1040px){
+  body{font-size:28px;}
+  .wrap{padding:0 22px 110px;}
+  h1{font-size:52px;}
+  h1 .sub{font-size:26px;}
+  .standfirst{font-size:29px;}
+  h2{font-size:37px;}
+  .pull{font-size:34px;}
+  .coda{font-size:30px;}
+  .toc ol{columns:1;}
+  .lrow{grid-template-columns:60px 1fr;}
+  .lnum{grid-row:span 2;display:flex;align-items:center;justify-content:center;}
+  .tablet{border-right:none;border-bottom:3px solid var(--paper);}
+  .tablet,.board{font-size:23px;padding:14px 18px;}
+  .editnote p{font-size:24px;}
+  #lx-nav a{right:12px;font-size:17px;padding:11px 13px;}
+}
+
+@media print{
+  @page{size:A4;margin:15mm 14mm;}
+  body{background:#fff;font-size:12.5pt;line-height:1.72;}
+  .wrap{max-width:none;padding:0;}
+  .masthead{padding-top:0;}
+  h1{font-size:30pt;margin-bottom:12pt;}
+  h1 .sub{font-size:13pt;}
+  .standfirst{font-size:13.5pt;}
+  h2{font-size:17pt;page-break-after:avoid;}
+  .lede::first-letter{font-size:44pt;margin:4pt 7pt 0 0;}
+  .pull{font-size:15pt;margin:14pt 0;}
+  .ledger{page-break-inside:avoid;}
+  .tablet,.board{font-size:10.5pt;padding:6pt 8pt;}
+  .board{background:#24352E !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .tablet{background:#D7D3C6 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .editnote p{font-size:11pt;}
+  .coda{font-size:14pt;}
+  .backtop,#lx-nav{display:none;}
+  .colophon{font-size:8pt;}
+  a{color:inherit;text-decoration:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+<header class="masthead">
+  <p class="kicker">老 熊 隨 筆 ・ 對 讀 篇</p>
+  <h1>兩張石板，一塊黑板
+    <span class="sub">摩西十誡與《感恩》第 108 篇〈十二條班規〉的結構對讀</span>
+  </h1>
+  <p class="standfirst">一套刻在三千年前的石板上，一套寫在三十年前溪崑國中的黑板上。條文毫不相干，骨架卻對得上——差別在於：一套以被記住為目的，另一套以被忘掉為目的。</p>
+  <div class="byline">
+    <span>對 讀 筆 記</span>
+    <span>二 〇 二 六 ・ 八 月</span>
+    <span>加 州 紅 木 灣</span>
+  </div>
+</header>
+
+<nav class="toc" id="toc">
+  <h2>目 次</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">壹</span><span>兩張表並列</span></a></li>
+    <li><a href="#s2"><span class="n">貳</span><span>第一條佔的是同一個位置</span></a></li>
+    <li><a href="#s3"><span class="n">參</span><span>「不可」與「要」</span></a></li>
+    <li><a href="#s4"><span class="n">肆</span><span>良心條款的位置</span></a></li>
+    <li><a href="#s5"><span class="n">伍</span><span>誠實的兩個方向</span></a></li>
+    <li><a href="#s6"><span class="n">陸</span><span>一條裝了兩件事</span></a></li>
+    <li><a href="#s7"><span class="n">柒</span><span>兩種相反的規範觀</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="s1">
+  <h2><span class="n">壹</span>兩張表並列</h2>
+  <p class="lede">阿發的回憶錄《感恩》寫到第 108 篇，最後一篇的題目是〈老師也曾年輕過——十二條班規〉。他在溪崑國中當導師，開學第一次班會，一口氣訂了十二條。他自己回頭看，說那十二條頗有《大學》《中庸》的氣派。</p>
+  <p>氣派是有的，但不是《大學》《中庸》的氣派。把兩張表並排擺出來，形狀更像另一份東西。</p>
+
+  <div class="ledger">
+    <div class="lrow head">
+      <div class="lnum">條</div>
+      <div class="tablet">石 板 ・ 摩 西 十 誡</div>
+      <div class="board">黑 板 ・ 十 二 條 班 規</div>
+    </div>
+    <div class="lrow"><div class="lnum">一</div>
+      <div class="tablet">不可有別的神</div>
+      <div class="board">愛護學校聲譽，校外言行要檢點</div></div>
+    <div class="lrow"><div class="lnum">二</div>
+      <div class="tablet">不可造偶像</div>
+      <div class="board">維護班級秩序，不做害群之馬</div></div>
+    <div class="lrow"><div class="lnum">三</div>
+      <div class="tablet">不可妄稱神的名</div>
+      <div class="board">鐘響立刻回座位，拿出課本預習</div></div>
+    <div class="lrow"><div class="lnum">四</div>
+      <div class="tablet">守安息日</div>
+      <div class="board">上課要專心</div></div>
+    <div class="lrow"><div class="lnum">五</div>
+      <div class="tablet">孝敬父母</div>
+      <div class="board">作業要認真，按時繳交</div></div>
+    <div class="lrow"><div class="lnum">六</div>
+      <div class="tablet">不可殺人</div>
+      <div class="board">午休要安靜（附：體諒父母、盡孝）</div></div>
+    <div class="lrow"><div class="lnum">七</div>
+      <div class="tablet">不可姦淫</div>
+      <div class="board">沒有老師監督時，也要懂得自我約束</div></div>
+    <div class="lrow"><div class="lnum">八</div>
+      <div class="tablet">不可偷盜</div>
+      <div class="board">同學互相幫助，不自私、不驕傲，也不自卑</div></div>
+    <div class="lrow"><div class="lnum">九</div>
+      <div class="tablet">不可作假見證</div>
+      <div class="board">犯錯要勇於承認，並且改過</div></div>
+    <div class="lrow"><div class="lnum">十</div>
+      <div class="tablet">不可貪戀</div>
+      <div class="board">教室內不准奔跑追逐，男生斯文，女生端莊，彼此尊重</div></div>
+    <div class="lrow"><div class="lnum">十一</div>
+      <div class="tablet"><span class="none">——</span></div>
+      <div class="board">打掃要認真</div></div>
+    <div class="lrow"><div class="lnum">十二</div>
+      <div class="tablet"><span class="none">——</span></div>
+      <div class="board">服裝儀容要整潔，不標新立異</div></div>
+  </div>
+  <p class="ledger-note">左欄採新教編號。十誡條文只有一組，編號卻有三套：猶太傳統把開頭「我是耶和華你的神」自成第一誡，天主教與信義宗把「別神」與「偶像」合為一條、另把「貪戀」拆成兩條。所以有人講「第十誡」時，你並不知道他指的是貪財還是貪色。這一點稍後還會回來。</p>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s2">
+  <h2><span class="n">貳</span>第一條佔的是同一個位置</h2>
+  <p>十誡的第一誡不是道德命令。它不叫人做什麼、也不禁止什麼，它只宣告一件事：<strong>你屬於誰。</strong>整部律法的效力全都掛在這句宣告上——先立約，才有條文。</p>
+  <p>阿發的第一條也不是行為規範。「愛護學校聲譽，校外言行要檢點」表面上在管校外行為，實際上在做同一個動作。他自己在回憶錄裡的解釋更清楚：穿著溪崑國中的制服走在街上，就代表溪崑國中；行為不好，人家不會查你的戶口，只會說「溪崑國中的學生怎麼這樣」。</p>
+  <p>他還加了一句玩笑話——請暫時忘記自己姓什麼，因為你現在姓「溪崑」。</p>
+  <p class="pull">那不是玩笑。那是立約的語法。</p>
+  <p>差別只在垂直軸的頂端擺了什麼。十誡擺的是神；十二條班規沒有超驗維度，那個空位由<em>「別人怎麼看溪崑國中」</em>填滿。集體聲譽取代了神，成為整套規範效力的來源。這在戰後台灣的校園裡是通例，不是阿發的發明——但由他寫得這麼直白，反而看得特別清楚。</p>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s3">
+  <h2><span class="n">參</span>「不可」與「要」</h2>
+  <p>十誡十條裡有八條是「不可」。班規十二條裡有九條是「要」。</p>
+  <p>這不是修辭上的差異，是規範哲學上的差異。<strong>禁令劃邊界，邊界之外是自由。</strong>而且禁令可以「做到」——今天沒有殺人、沒有偷盜、沒有作假見證，這一天你就守住了，帳可以結清。</p>
+  <p>正面規訓沒有上限。「上課要專心」「作業要認真」「打掃要認真」——永遠可以更專心一點、更認真一點。沒有任何一個時刻可以說「這條我今天達標了」。</p>
+  <p class="pull">十誡可以完成；班規不能。</p>
+  <p>所以嚴格說起來，一個國中生活在一套<em>比十誡更難遵守</em>的規範裡。這大概也解釋了阿發那個罰則為什麼非得長成那個樣子：違反班規的同學，除了接受處理，還要把班規背一遍、再抄寫一遍。既然沒有「達標」這回事，處罰就無法對應到具體的虧欠，只能回到條文本身——罰的內容就是條文，複誦即是償還。</p>
+  <p>順帶一提，這一點反而離猶太傳統更遠、離儒家更近。誦讀律法在猶太傳統裡是敬拜，不是懲罰；抄寫則是「習」。</p>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s4">
+  <h2><span class="n">肆</span>良心條款的位置</h2>
+  <p>兩套規範各有一條「良心條款」——管的不是可觀測的行為，而是沒有人看見時的狀態。</p>
+  <p>十誡裡是最後一條：不可貪戀。前面九條都指向可以指認的行為，只有這一條伸進心裡去。它壓在末尾，像壓艙石。</p>
+  <p>班規裡是第七條：沒有老師監督時，也要懂得自我約束。阿發說這是他最看重的一條，理由講得很好——一個學生如果只有老師在場時才守規矩，那麼老師一走，他就不知道自己該做什麼，這樣的教育算不得成功。</p>
+  <p>位置不同。十誡放末尾，班規放正中——十二之中點，前六條與後六條的接榫處。</p>
+  <p>但功能完全一樣。<strong>任何規範系統想從外部強制轉為內部自律，都必須有這麼一條。</strong>沒有它，執法者一離場，整個系統歸零。有了它，規範才有機會從「被監督」長成「習慣」。</p>
+  <p>值得一提的是，這也是兩套條文裡唯一無法執行的一條。貪戀無從查證，自律更不可能監督——一個「沒有人看見時」的條款，按定義就沒有人能看見它是否被遵守。它不是給執法者用的，是給被規範者自己用的。</p>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s5">
+  <h2><span class="n">伍</span>誠實的兩個方向</h2>
+  <p>十誡第九誡「不可作假見證」，防的是<strong>他證</strong>——你不許用謊言去害鄰人。它的原始場景是法庭：一個人的性命可能取決於旁人的一句證詞。</p>
+  <p>班規第九條「犯錯要勇於承認，並且改過」，防的是<strong>自證</strong>——你不許替自己編故事。</p>
+  <p>阿發寫這一條時最傳神。他說他並不要求學生做聖人，人非聖賢孰能無過，他最不能接受的是犯了錯還要編故事；有些學生說謊的本領相當高明，一個小錯誤可以編成一部長篇小說，人物眾多、情節曲折，最後連老師都不知道自己究竟是在處理一件遲到事件，還是在聽一齣八點檔連續劇。</p>
+  <p>從一個民族的憲法性文件縮到一間教室，同一條誡命的對象換了：<em>作偽的受害者，從法庭上的鄰人，變成講台上的自己。</em></p>
+  <p>兩者其實有先後關係。一個人若連對自己都不誠實，作假見證只是遲早的事。班規那一條，管的是十誡那一條的上游。</p>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s6">
+  <h2><span class="n">陸</span>一條裝了兩件事</h2>
+  <p>前面提過，十誡真正的麻煩是條文一組、編號三套。而拆合的壓力集中在同一個地方：<strong>最後那條「不可貪戀」原本就裝了兩件事</strong>——貪戀鄰人的妻子，與貪戀鄰人的財物。天主教與信義宗把它拆成兩條，正是因為一條裝兩件事，遲早有人要動手。</p>
+  <p>有意思的是，十二條班規也有同樣的一格。</p>
+  <div class="editnote">
+    <span class="tag">編 輯 附 記</span>
+    <p>全篇十二條之中，只有第六條沒有用統一句式「第六條是：」列出，原文寫成「第六條，我特別強調午休要安靜」，並且把「要體諒父母、要懂得盡孝」一併寫進同一條。</p>
+    <p>這一格裝了兩件性質完全不同的事：午休安靜是紀律，孝親是倫理。若將來要把十二條單獨抽出來做表格、索引或條文卡，第六條會是唯一對不齊的一格。</p>
+    <p>處理方式有二：其一，補一句把孝親獨立成條（十二條則需重編）；其二，維持原貌，在序或註中點明「原稿如此」。以回憶錄的性質而言，後者較妥——那個「不整齊」本身就是現場的證據：一位導師在班會上講到午休，順口就講到了父母。</p>
+  </div>
+  <p style="margin-top:34px">另外值得記一筆的是<strong>孝親在兩套規範裡的落點</strong>。十誡第五誡「孝敬父母」，正是從「對神」轉向「對人」的接榫；班規的孝親附在第六條，也正落在十二條的前後半交界。這很可能只是巧合，不宜當成結論——但一個規範系統若要從「向上」轉為「向旁」，孝親確實是最自然的那道門。</p>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s7">
+  <h2><span class="n">柒</span>兩種相反的規範觀</h2>
+  <p>以上都是骨架上的相似。真正的分歧在最後一步，而且分得很徹底。</p>
+  <p>十誡的設計目的，是被記住三千年。石板本身就是重點：文字要能穿過時間、跨過語言、經歷編號的分歧而條文不改。<strong>文本的不朽即是成功。</strong></p>
+  <p>阿發在篇末寫的卻是反過來的。他說，那些當年被他罰抄班規的學生，如今恐怕早已忘了第七條、第八條究竟寫了什麼；沒有關係。他只希望那些孩子在走過幾十年風雨以後，還能記得做人要自重、待人要寬厚、做錯要改、受人要謝，沒有人看見的時候也要把自己管好。如果真能如此，那麼當年的十二條班規，即使一條也沒有完整背下來，也算是沒有白教。</p>
+  <p class="pull">一套以文本的存續為成功，<br>一套以文本的消失為成功。</p>
+  <p>他罰學生抄班規，抄的目的卻是為了有一天不必再抄。條文被忘掉、習慣留下來，這套規範才算真正生效——這正是第七條那條良心條款的長期形態。石板要人記得字，黑板要人記得字擦掉以後剩下的東西。</p>
+  <p>黑板本來就是要擦的。這大概是它跟石板最深的一處差別，也是阿發那篇文章真正的題目。</p>
+  <div class="coda">
+    <p>教育有一件事情始終沒有變：老師把一顆心交給學生，學生帶著老師的一句話走進人生。</p>
+    <p>——十二條裡究竟是哪一句，其實並不重要。</p>
+  </div>
+  <a class="backtop" href="#toc">↑ 回目錄</a>
+</section>
+
+</main>
+
+<p class="colophon">《老熊隨筆》・ 兩張石板，一塊黑板 ・ 對讀《感恩》第 108 篇 ・ 加州紅木灣</p>
+
+</div>
+
+<nav id="lx-nav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+</body>
+</html>
