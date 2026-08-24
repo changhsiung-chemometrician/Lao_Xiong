@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 44 篇。">
+<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、m-files、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 44 篇，另收 6 支 MATLAB 檔案。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -44,6 +44,12 @@ h3.headline a:focus-visible{outline:4px solid var(--stone);outline-offset:8px}
 .copy:hover{border-color:var(--stone)}
 .copy:focus-visible{outline:4px solid var(--stone);outline-offset:6px}
 .copy.done{color:var(--seal);border-color:var(--seal)}
+.ghlink{display:inline-block;font-family:var(--sans);font-size:23px;font-weight:800;letter-spacing:.1em;color:var(--stone);
+  background:transparent;border:3px solid var(--rule);border-radius:2px;padding:8px 24px;text-decoration:none;transition:border-color .2s,color .2s}
+.ghlink:hover{border-color:var(--stone);color:var(--ink)}
+.ghlink:focus-visible{outline:4px solid var(--stone);outline-offset:6px}
+.figlink{border-style:dashed}
+.entry .srcline{font-family:var(--sans);font-size:20px;font-weight:800;letter-spacing:.04em;color:var(--stone);margin:-6px 0 14px}
 .tag{font-size:20px;font-weight:800;letter-spacing:.2em;color:var(--seal)}
 footer{padding:56px 0 96px;font-size:22px;font-weight:700;color:var(--ink-soft);line-height:1.9}
 footer a{color:var(--stone);font-weight:800}
@@ -161,7 +167,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 44 篇</span><span class="dot">·</span><span>九個分區</span><span class="dot">·</span><span>最近更新 2026.08.23</span></p>
+<p class="toolbar"><span>全 44 篇</span><span class="dot">·</span><span>另收 6 支 MATLAB 檔案</span><span class="dot">·</span><span>十個分區</span><span class="dot">·</span><span>最近更新 2026.08.23</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
 <summary>精選外刊<span class="n">9</span><span class="caret" aria-hidden="true">▾</span></summary>
@@ -209,6 +215,18 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <a href="BoostedTrees_Report.html">Boosted Trees for MATLAB — 從 0% 到 87%<span class="lab">EN</span></a>
 <a href="why_nonparametric_postclassical_chemometrics.html">為什麼「非參數」是後古典化學計量學的關鍵詞<span class="lab">EN</span></a>
 <a href="MLE_vs_MAP_in_a_Multi-Armed_Bandit____Step_by_Step_Session_Summary.html">賭場裡的點估計 — MLE 與 MAP 逐步拆解<span class="lab">EN</span></a>
+</div>
+</details>
+<details class="lxsec">
+<summary>m-files<span class="en2">MATLAB</span><span class="n">6</span><span class="caret" aria-hidden="true">▾</span></summary>
+<div class="panel">
+<a class="jump" href="#mfiles">前往本區　↓</a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">AQP_gui.m — 主程式・合併版<span class="lab">4.1 萬行</span></a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.fig">AQP_gui.fig — GUIDE 版面檔<span class="lab">二進位</span></a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Run_AQP.m">Run_AQP.m — Run AQP 動作的相依閉包<span class="lab">2.2 萬行</span></a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Cmp_Results.m">Cmp_Results.m — 比較報告重播<span class="lab">1477 行</span></a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/StepbyStep_plots.m">StepbyStep_plots.m — 逐步圖派工<span class="lab">418 行</span></a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">Load_DS.m — 資料夾選取與欄位回寫<span class="lab">76 行</span></a>
 </div>
 </details>
 <details class="lxsec">
@@ -519,6 +537,87 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <div class="tools">
 <a class="read" href="MLE_vs_MAP_in_a_Multi-Armed_Bandit____Step_by_Step_Session_Summary.html">閱讀</a>
 <button class="copy" data-file="MLE_vs_MAP_in_a_Multi-Armed_Bandit____Step_by_Step_Session_Summary.html">複製連結</button>
+</div>
+</article>
+
+<p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
+
+<h2 class="section" id="mfiles">m-files<span class="en">（MATLAB 檔案）</span><span class="count">6 支</span></h2>
+<p class="section-note">不是文章，是程式本身 · 一支四萬行的 GUI 主幹與它的版面檔，加上四塊從主幹身上依相依閉包切下來、能單獨跑的動作</p>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">AQP_gui.m — AutoQuant_DA_pipeline 的圖形介面・合併版 <span class="tag">主程式</span></a></h3>
+<p class="meta"><time class="date">2026.08</time><span class="chip">MATLAB</span><span class="chip">GUI</span><span class="chip">主幹版</span></p>
+<p class="srcline">40,835 行 · 471 個 function · 1.64 MB · GUIDE v2.5，最後由 GUIDE 修改於 2017-10-14</p>
+<p class="deck">整套 AQP 的入口：GUIDE 生成的圖形介面，主要往下呼叫 BatchRun_AutoQuant_DA_pipeline，另與 BatchRun_PLS_wTcv_StandAlone、SVR_PLS_Opm_by_Testset_then_AppliedToPset_MLtool 相通。這一支是把散在各檔的 helper 全部折進同一支檔案的合併版——四百七十一個 function 疊在一起，每一個都以自己的 end 收尾（少一個，MATLAB 就會認不出 sub-function 的邊界，後面所有的 helper 都會變成「找不到」）。檔案 1.6 MB，超過 GitHub 網頁版的顯示上限，「檢視原始碼」走 raw 純文字。另需 GUIDE 版面檔 AQP_gui.fig 與本檔同目錄，GUI 才開得起來。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">檢視原始碼</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/AQP_gui.m">GitHub</a>
+<a class="ghlink figlink" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.fig" title="GUIDE 版面檔，26.9 KB 二進位，須與 AQP_gui.m 同目錄">.fig 版面檔</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.fig">AQP_gui.fig — GUIDE 版面檔 <span class="tag">附檔</span></a></h3>
+<p class="meta"><time class="date">2026.08</time><span class="chip">MATLAB</span><span class="chip">GUIDE</span><span class="chip">二進位</span></p>
+<p class="srcline">26,926 bytes · 二進位（MAT-file 格式）· 非文字，瀏覽器開啟只會看到亂碼</p>
+<p class="deck">這一支不是原始碼，是版面：AQP_gui 那張圖上每一顆按鈕、每一個 popupmenu、每一格輸入框的位置、標籤與 tag，
+全記在這裡。GUIDE 的分工是圖與碼分兩個檔——<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">AQP_gui.m</a> 只有行為，長相在 .fig 裡；
+兩個檔必須同名、同目錄，缺一個 GUI 就開不起來。列在這裡不是給人讀的，是為了讓這個分區與 repo 的實際內容對得上：
+資料夾裡就是六個檔，五支讀得懂、一支讀不懂，而讀不懂的那支反而是少了就跑不動的那支。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.fig">下載</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/AQP_gui.fig">GitHub</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.fig">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Run_AQP.m">Run_AQP.m — 「Run AQP」動作的獨立抽出版 <span class="tag">閉包</span></a></h3>
+<p class="meta"><time class="date">2026.08</time><span class="chip">MATLAB</span><span class="chip">相依閉包</span><span class="chip">可獨立執行</span></p>
+<p class="srcline">22,385 行 · 256 個 function（255 支 helper ＋ callback 本體）· 2026-08-19 抽出</p>
+<p class="deck">從合併後的 AQP_gui.m 用相依閉包分析切下來的一整塊：主 function 只是一層呼叫慣例的轉接器，原本的 Run_AQP_Callback 本體逐字擺在第一個 local function，凡是它走得到的通通折進來，走不到的一百七十五支則不收。支援 handles = Run_AQP(handles) 與 GUIDE 三參數兩種叫法。四項外部相依必須留在 path 上：ssds.m（classdef 得自己一個檔，而 local function 是檔案私有的，所以折不進來）、LIBSVM 的 svmtrain／svmpredict MEX（只有 SVR 分支會用）、plsregress、以及 xlsread／readtable。SVMnose.m 不需要。對原始本體只動了兩行，都標了 [EXTRACTED]：callback 改成回傳 handles，guidata(gcbo,handles) 加了防護，在 callback 之外變成空操作。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Run_AQP.m">檢視原始碼</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/Run_AQP.m">GitHub</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Run_AQP.m">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Cmp_Results.m">Cmp_Results.m — 比較報告的重播 <span class="tag">按鈕</span></a></h3>
+<p class="meta"><time class="date">2026.08</time><span class="chip">MATLAB</span><span class="chip">自我更正</span></p>
+<p class="srcline">1,477 行 · 41 個 function · 2026-08-20 抽出，2026-08-22 更正標頭</p>
+<p class="deck">Compare Results 按鈕的抽出版：對著上一次 AQP run 記下的最終結果子資料夾，把比較報告重跑一遍。值得看的是標頭上那則八月二十二日的更正——原本寫著「完整的 25-function 閉包」，實際折進來的只有三支（find_keyword_merge_dual_curly_bracket、ismember_wMatchLoc、strwrite_all_space），另外七支仍然靠 MATLAB path 解析，那幾個 .m 檔得留著。底部後加的 CmpR_~ 區塊倒是真的自給自足，只用到基礎 MATLAB 加 warndlg／questdlg。這個 callback 不新增任何 struct 欄位，handles 照樣回傳——為的是日後某次修改真的加了欄位時，不會無聲無息掉掉。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Cmp_Results.m">檢視原始碼</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/Cmp_Results.m">GitHub</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Cmp_Results.m">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/StepbyStep_plots.m">StepbyStep_plots.m — 逐步圖的派工 <span class="tag">選單</span></a></h3>
+<p class="meta"><time class="date">2026.08</time><span class="chip">MATLAB</span><span class="chip">相依閉包</span></p>
+<p class="srcline">418 行 · 完整 32-function 閉包 · 2026-08-20 抽出</p>
+<p class="deck">popupmenu 當命令用的典型寫法：選第 1 項時只把可選項目印出來，選第 2、3 項（CS_XRSmst_Bef_MGs、CS_Val_CabXfer_PP）才把 StepByStep 資料夾丟給 StepbyStep_plots_AQP，跑完自己把 Value 歸位回 1。三十二支相依 function 全數折入，自給自足。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/StepbyStep_plots.m">檢視原始碼</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/StepbyStep_plots.m">GitHub</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/StepbyStep_plots.m">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">Load_DS.m — 資料夾選取與三個欄位的回寫 <span class="tag">回呼</span></a></h3>
+<p class="meta"><time class="date">2026.08</time><span class="chip">MATLAB</span><span class="chip">傳值陷阱</span></p>
+<p class="srcline">76 行 · 2-function 閉包 · 2026-08-20 抽出</p>
+<p class="deck">五支裡最短的一支，卻是最容易出事的一支。開 uigetdir 讓使用者挑資料集資料夾，把選到的路徑寫回 handles、回填 Loaded_DS_folder 標籤，AQP class 不是 lite 時順手把 cPP1 顯示出來。它設定的三個純欄位——path_DS（Run_AQP 與 StepbyStep_plots_AQP 都要讀）、path_XLSX、path_DSn_ParentFolder（多資料集模式用）——正是 handles 非回傳不可的原因：MATLAB 的 struct 是傳值的，不接回去，改的就只是一份副本。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">檢視原始碼</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/Load_DS.m">GitHub</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">複製連結</button>
 </div>
 </article>
 
