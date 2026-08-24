@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、m-files、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 44 篇，另收 6 支 MATLAB 檔案。">
+<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、m-files、復盤體回憶錄、職涯軌跡、現場誌、本站自評，共 44 篇，另收 MATLAB 檔案 68 個。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -167,7 +167,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 44 篇</span><span class="dot">·</span><span>另收 6 支 MATLAB 檔案</span><span class="dot">·</span><span>十個分區</span><span class="dot">·</span><span>最近更新 2026.08.23</span></p>
+<p class="toolbar"><span>全 44 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 68 個</span><span class="dot">·</span><span>十個分區</span><span class="dot">·</span><span>最近更新 2026.08.23</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
 <summary>精選外刊<span class="n">9</span><span class="caret" aria-hidden="true">▾</span></summary>
@@ -218,7 +218,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </div>
 </details>
 <details class="lxsec">
-<summary>m-files<span class="en2">MATLAB</span><span class="n">6</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>m-files<span class="en2">MATLAB</span><span class="n">10</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#mfiles">前往本區　↓</a>
 <a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">AQP_gui.m — 主程式・合併版<span class="lab">4.1 萬行</span></a>
@@ -227,6 +227,10 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Cmp_Results.m">Cmp_Results.m — 比較報告重播<span class="lab">1477 行</span></a>
 <a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/StepbyStep_plots.m">StepbyStep_plots.m — 逐步圖派工<span class="lab">418 行</span></a>
 <a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">Load_DS.m — 資料夾選取與欄位回寫<span class="lab">76 行</span></a>
+<a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/ssds.m">ssds.m — Spectral Sensing DataSet 類別<span class="lab">2.3 萬行</span></a>
+<a href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Run_AQP">help_Run_AQP/ — path 相依 helper<span class="lab">38 支</span></a>
+<a href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Cmp_Results">help_Cmp_Results/ — path 相依 helper<span class="lab">21 支</span></a>
+<a href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Load_DS">help_Load_DS/ — path 相依 helper<span class="lab">2 支</span></a>
 </div>
 </details>
 <details class="lxsec">
@@ -542,8 +546,8 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 
 <p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
 
-<h2 class="section" id="mfiles">m-files<span class="en">（MATLAB 檔案）</span><span class="count">6 支</span></h2>
-<p class="section-note">不是文章，是程式本身 · 一支四萬行的 GUI 主幹與它的版面檔，加上四塊從主幹身上依相依閉包切下來、能單獨跑的動作</p>
+<h2 class="section" id="mfiles">m-files<span class="en">（MATLAB 檔案）</span><span class="count">10 項</span></h2>
+<p class="section-note">不是文章，是程式本身 · 一支四萬行的 GUI 主幹與它的版面檔，四塊依相依閉包切下來、能單獨跑的動作，一支折不進去的 classdef，以及三個裝著 path 相依 helper 的資料夾（共 61 支）</p>
 
 <article class="entry">
 <h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui.m">AQP_gui.m — AutoQuant_DA_pipeline 的圖形介面・合併版 <span class="tag">主程式</span></a></h3>
@@ -618,6 +622,57 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">檢視原始碼</a>
 <a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/Load_DS.m">GitHub</a>
 <button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/Load_DS.m">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/ssds.m">ssds.m — Spectral Sensing DataSet 類別 <span class="tag">classdef</span></a></h3>
+<p class="meta"><time class="date">2026.08.24</time><span class="chip">MATLAB</span><span class="chip">classdef</span><span class="chip">2017–2023</span></p>
+<p class="srcline">22,871 行 · 931 KB · classdef · Chang Hsiung，2017-06-02 起持續增修</p>
+<p class="deck">光譜資料集的物件封裝：一個 ssds 物件裝著 Atrainpk／Apred 與兩份 classinfo，把資料集本身變成可以做運算的東西——
+o1+o2 是合併，o1&gt;o2 建出 TP pair，P2T 把預測集轉回訓練集，merge_rm_extract_class 併類別、
+rm_samps_Pset 砍樣本、parse_Tset_Nfolds_Extr_Tcv 切交叉驗證的 fold。註解裡的時間戳從 2017 一路排到 2023，
+是這個分區裡改得最久的一支。它之所以單獨列在這裡，是因為它<b>折不進去</b>：
+MATLAB 規定 classdef 必須獨佔一個檔案，而 local function 是檔案私有的——
+Run_AQP.m 的標頭把這件事寫成第一項外部相依，六支閉包函式呼叫它，卻沒有一支能把它帶著走。
+整個 m-files 分區裡，這是唯一「非它不可、又非分開不可」的檔。</p>
+<div class="tools">
+<a class="read" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/ssds.m">檢視原始碼</a>
+<a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/ssds.m">GitHub</a>
+<button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/ssds.m">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Run_AQP">help_Run_AQP/ — 38 支 path 相依 helper <span class="tag">資料夾</span></a></h3>
+<p class="meta"><time class="date">2026.08.24</time><span class="chip">MATLAB</span><span class="chip">helper</span><span class="chip">超集</span></p>
+<p class="srcline">38 支 .m · 192 KB · 整個資料夾加進 MATLAB path，不是折進主檔的 local function</p>
+<p class="deck">Run_AQP.m 那份 256-function 閉包之外、仍然靠 MATLAB path 解析的三十八支小工具。多半是三十年間累積下來的手工基礎件：col_always／row_always（不管進來的是列是行，出去一定是要的那個方向）、cell_unwrap、strfind_cstr、fdir_wildcard 系列的檔案搜尋、color_CH 與 plot_hline／plot_vline 的繪圖小件、roundns／scale／IsNear 這類數值瑣事，以及 Speak_mk、disp_with_border、done_with_this_function 這些只為了讓 console 訊息好讀而存在的東西。值得記一筆：另外兩個 help_ 資料夾的內容<b>全部</b>包含在這一個裡面——help_Cmp_Results 的二十一支、help_Load_DS 的兩支，一支不差。所以真要圖省事，把這一個資料夾加進 path，四支抽出程式就都跑得動了。</p>
+<div class="tools">
+<a class="read" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Run_AQP">瀏覽資料夾</a>
+<button class="copy" data-file="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Run_AQP">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Cmp_Results">help_Cmp_Results/ — 21 支 path 相依 helper <span class="tag">資料夾</span></a></h3>
+<p class="meta"><time class="date">2026.08.24</time><span class="chip">MATLAB</span><span class="chip">helper</span><span class="chip">真子集</span></p>
+<p class="srcline">21 支 .m · 120 KB · 整個資料夾加進 MATLAB path，不是折進主檔的 local function</p>
+<p class="deck">Cmp_Results.m 標頭那則自我更正點名的七支——fdir_wildcard_ext_wPath、find_keyword_between_markers、fileparts_name_ext、find_lastfolder、set_XTickLabel、row_always、done_with_this_function——連同它們自己的相依，一共二十一支。這個資料夾等於把那則更正從一段文字變成可執行的東西：標頭說「這些必須留在 path 上」，這裡就是那些。二十一支全部同時出現在 help_Run_AQP 裡，是它的真子集。</p>
+<div class="tools">
+<a class="read" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Cmp_Results">瀏覽資料夾</a>
+<button class="copy" data-file="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Cmp_Results">複製連結</button>
+</div>
+</article>
+
+<article class="entry">
+<h3 class="headline"><a href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Load_DS">help_Load_DS/ — 2 支 path 相依 helper <span class="tag">資料夾</span></a></h3>
+<p class="meta"><time class="date">2026.08.24</time><span class="chip">MATLAB</span><span class="chip">helper</span><span class="chip">標頭待更正</span></p>
+<p class="srcline">2 支 .m · 12 KB · 整個資料夾加進 MATLAB path，不是折進主檔的 local function</p>
+<p class="deck">只有兩支：disp_with_border.m 與 get_curAQP_class.m。而這兩支恰好暴露一件事——Load_DS.m 的標頭寫著「本檔自給自足，完整的 2-function 閉包已折入為檔案私有的 local function」，但打開來數，整個檔案只有兩個 function：Load_DS 與 Load_DS_Callback，一支 helper 都沒折進去。所謂的「2-function 閉包」不在檔案裡，就在這個資料夾裡。這與 Cmp_Results.m 八月二十二日那則更正是同一類錯誤，只是還沒被更正。</p>
+<div class="tools">
+<a class="read" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Load_DS">瀏覽資料夾</a>
+<button class="copy" data-file="https://github.com/changhsiung-chemometrician/Lao_Xiong/tree/main/help_Load_DS">複製連結</button>
 </div>
 </article>
 
