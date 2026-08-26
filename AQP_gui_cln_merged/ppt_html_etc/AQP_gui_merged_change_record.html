@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQP_gui_merged — Build &amp; Change Record, 25 Aug 2026</title>
+<style>
+  :root{
+    --paper:#F4F6F8;
+    --panel:#FFFFFF;
+    --ink:#101A24;
+    --ink-soft:#3C4C5A;
+    --rule:#C4D0D9;
+    --fix:#0B6E63;
+    --alert:#9E2B22;
+    --code-bg:#E7EDF2;
+    --code-ink:#16202B;
+    --sans:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono:"Cascadia Mono", Consolas, "SF Mono", Menlo, "DejaVu Sans Mono", monospace;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:27px;
+    font-weight:600;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 48px 140px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    border-bottom:5px solid var(--ink);
+    padding:76px 0 34px;
+    margin-bottom:56px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:21px;
+    font-weight:700;
+    letter-spacing:.20em;
+    text-transform:uppercase;
+    color:var(--fix);
+    margin-bottom:22px;
+  }
+  h1{
+    font-size:66px;
+    font-weight:800;
+    line-height:1.08;
+    letter-spacing:-.02em;
+    margin:0 0 26px;
+  }
+  h1 .mono{font-family:var(--mono);font-weight:700;letter-spacing:-.01em;}
+  .standfirst{
+    font-size:30px;
+    font-weight:600;
+    color:var(--ink-soft);
+    max-width:1050px;
+    margin:0 0 34px;
+  }
+  .meta{
+    font-family:var(--mono);
+    font-size:21px;
+    font-weight:700;
+    color:var(--ink-soft);
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 44px;
+  }
+  .meta b{color:var(--ink);font-weight:800;}
+
+  /* ---------- table of contents ---------- */
+  nav.toc{
+    background:var(--panel);
+    border:2px solid var(--rule);
+    border-left:10px solid var(--ink);
+    padding:36px 44px 40px;
+    margin:0 0 72px;
+  }
+  nav.toc h2{
+    font-family:var(--mono);
+    font-size:22px;
+    font-weight:800;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    margin:0 0 22px;
+    padding:0;
+    border:0;
+    color:var(--ink-soft);
+  }
+  nav.toc ol{
+    margin:0; padding:0; list-style:none;
+    counter-reset:toc;
+    column-count:2; column-gap:60px;
+  }
+  nav.toc li{
+    counter-increment:toc;
+    margin:0 0 14px;
+    break-inside:avoid;
+    font-size:25px;
+  }
+  nav.toc li::before{
+    content:counter(toc,decimal-leading-zero);
+    font-family:var(--mono);
+    font-weight:800;
+    color:var(--fix);
+    margin-right:16px;
+  }
+  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--rule);}
+  nav.toc a:hover{border-bottom-color:var(--fix);color:var(--fix);}
+
+  /* ---------- sections ---------- */
+  section{margin:0 0 78px;scroll-margin-top:28px;}
+  h2{
+    font-size:42px;
+    font-weight:800;
+    letter-spacing:-.015em;
+    line-height:1.18;
+    margin:0 0 12px;
+    padding-bottom:16px;
+    border-bottom:3px solid var(--rule);
+  }
+  h3{
+    font-size:31px;
+    font-weight:800;
+    margin:44px 0 14px;
+  }
+  p{margin:0 0 22px;max-width:1180px;}
+  strong{font-weight:800;}
+  code{
+    font-family:var(--mono);
+    font-size:.86em;
+    font-weight:700;
+    background:var(--code-bg);
+    color:var(--code-ink);
+    padding:2px 8px;
+    border-radius:3px;
+    word-break:break-word;
+  }
+  pre{
+    font-family:var(--mono);
+    font-size:22px;
+    font-weight:600;
+    line-height:1.55;
+    background:var(--code-bg);
+    color:var(--code-ink);
+    border-left:8px solid var(--ink-soft);
+    padding:26px 30px;
+    overflow-x:auto;
+    margin:0 0 26px;
+  }
+  pre code{background:none;padding:0;font-size:inherit;font-weight:600;}
+
+  ul{margin:0 0 24px;padding-left:34px;max-width:1180px;}
+  li{margin-bottom:12px;}
+
+  /* ---------- tables ---------- */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:0 0 30px;
+    font-size:24px;
+  }
+  th{
+    text-align:left;
+    font-family:var(--mono);
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:3px solid var(--ink);
+    padding:0 18px 12px 0;
+    vertical-align:bottom;
+  }
+  td{
+    border-bottom:2px solid var(--rule);
+    padding:16px 18px 16px 0;
+    vertical-align:top;
+    font-weight:600;
+  }
+  td.num, .num{font-family:var(--mono);font-weight:800;white-space:nowrap;}
+  tr:last-child td{border-bottom:3px solid var(--ink);}
+
+  /* ---------- defect ledger (the signature device) ---------- */
+  .defect{
+    background:var(--panel);
+    border:2px solid var(--rule);
+    border-top:8px solid var(--alert);
+    padding:38px 44px 30px;
+    margin:0 0 40px;
+  }
+  .defect.clean{border-top-color:var(--fix);}
+  .defect-head{
+    display:flex;
+    align-items:baseline;
+    gap:22px;
+    margin-bottom:8px;
+    flex-wrap:wrap;
+  }
+  .defect-id{
+    font-family:var(--mono);
+    font-size:24px;
+    font-weight:800;
+    color:var(--alert);
+    letter-spacing:.06em;
+  }
+  .defect.clean .defect-id{color:var(--fix);}
+  .defect-title{font-size:32px;font-weight:800;line-height:1.2;}
+  .defect dl{margin:22px 0 0;}
+  .defect dt{
+    font-family:var(--mono);
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:20px;
+  }
+  .defect dd{margin:6px 0 0;font-size:26px;font-weight:600;}
+  .defect dd:first-of-type{margin-top:6px;}
+
+  .callout{
+    background:var(--panel);
+    border-left:10px solid var(--fix);
+    padding:28px 34px;
+    margin:0 0 30px;
+    font-size:26px;
+  }
+  .callout .label{
+    font-family:var(--mono);
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--fix);
+    display:block;
+    margin-bottom:10px;
+  }
+
+  .totop{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-decoration:none;
+    border-bottom:2px solid var(--rule);
+    margin-top:6px;
+  }
+  .totop:hover{color:var(--fix);border-bottom-color:var(--fix);}
+
+  footer{
+    border-top:5px solid var(--ink);
+    padding-top:30px;
+    margin-top:20px;
+    font-family:var(--mono);
+    font-size:21px;
+    font-weight:700;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:900px){
+    body{font-size:22px;}
+    .wrap{padding:0 22px 90px;}
+    h1{font-size:42px;}
+    h2{font-size:32px;}
+    h3{font-size:26px;}
+    nav.toc ol{column-count:1;}
+    pre{font-size:17px;}
+    table{font-size:19px;}
+    .defect{padding:26px 24px;}
+    .defect-title{font-size:25px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead" id="top">
+  <div class="eyebrow">Build &amp; change record · 25 August 2026</div>
+  <h1>Folding AQP_gui into a single file:<br><span class="mono">AQP_gui_merged.m</span> + <span class="mono">.fig</span></h1>
+  <p class="standfirst">42 m-files merged into one 876-function program, and the five defects that had to be found and fixed before the GUI would actually run.</p>
+  <div class="meta">
+    <span><b>Output</b> AQP_gui_merged.m · AQP_gui_merged.fig</span>
+    <span><b>Lines</b> 71,667</span>
+    <span><b>Functions</b> 876</span>
+    <span><b>Status</b> all checks pass</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#scope">What was merged</a></li>
+    <li><a href="#collisions">Collision policy</a></li>
+    <li><a href="#preflight">Edits made before merging</a></li>
+    <li><a href="#ledger">Defect ledger</a></li>
+    <li><a href="#figtech">How the .fig was patched</a></li>
+    <li><a href="#verify">Verification</a></li>
+    <li><a href="#residual">What still lives on the path</a></li>
+    <li><a href="#tags">Finding the edits later</a></li>
+  </ol>
+</nav>
+
+<section id="scope">
+  <h2>1. What was merged</h2>
+  <p>The session opened with a related question — whether the <code>ssds.m</code> classdef was still needed with <code>AQP_gui.m</code> as the main program. It was not: all 147 <code>ssds</code> references already resolved to the in-file <code>[SSDS-LOCAL]</code> block. That answer set up the merge, since it confirmed nothing in the closure required a separate class file.</p>
+  <p>Everything then went into one file. <strong>Nothing had to stay separate</strong> — there was no classdef and no script in the set, so the usual "these files can't be inlined" caveat did not apply.</p>
+
+  <table>
+    <thead><tr><th>Source</th><th>Role after merge</th><th class="num">Functions</th></tr></thead>
+    <tbody>
+      <tr><td><code>AQP_gui.m</code></td><td>Primary function, renamed <code>AQP_gui_merged</code></td><td class="num">496</td></tr>
+      <tr><td><code>Run_AQP.m</code></td><td>Local function (primary keeps its name)</td><td class="num">288</td></tr>
+      <tr><td><code>Cmp_Results.m</code></td><td>Local function</td><td class="num">—</td></tr>
+      <tr><td><code>StepbyStep_plots.m</code></td><td>Local function</td><td class="num">—</td></tr>
+      <tr><td><code>Load_DS.m</code></td><td>Local function</td><td class="num">—</td></tr>
+      <tr><td>38 helpers from <code>All_Help_AQP_gui.zip</code></td><td>Local functions, canonical copies</td><td class="num">38</td></tr>
+      <tr><td><strong>Merged total</strong></td><td>Every function closed with its own <code>end</code></td><td class="num">876</td></tr>
+    </tbody>
+  </table>
+
+  <p>The <code>.fig</code> was renamed to match. That part is automatic on the m-file side: <code>gui_State.gui_Name</code> is <code>mfilename</code>, so the renamed file looks for the renamed fig without any edit. The fig itself was a different story — see the ledger.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="collisions">
+  <h2>2. Collision policy</h2>
+  <p><strong>337 names were defined in more than one source file.</strong> None were dropped on the assumption that two copies were identical. The file that owns a name as its <em>primary</em> keeps it; every other host's private copy became <code>&lt;hostfile&gt;__&lt;name&gt;</code>, with that host's internal references rewritten to match. Each half therefore keeps calling exactly the copy it always called.</p>
+  <p>The <code>ssds</code> split shows the shape of it cleanly:</p>
+<pre><code>147 calls in the AQP_gui body  ->  AQP_gui_merged__ssds
+ 53 calls in the Run_AQP body  ->  Run_AQP__ssds
+  0 bare ssds( left anywhere</code></pre>
+  <p>Duplication across the two halves is correct and behaviour-identical, because each host uses its own private copy — exactly as separate files resolved before the merge.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="preflight">
+  <h2>3. Edits made before merging</h2>
+  <p>All five share one cause: <strong><code>exist()</code> and <code>which()</code> cannot see a local function.</strong> Every path-based self-check in the GUI had to be retired, or it would have reported a dependency missing that was sitting right there in the same file.</p>
+
+  <table>
+    <thead><tr><th class="num">Line</th><th>Was</th><th>Consequence if left alone</th></tr></thead>
+    <tbody>
+      <tr><td class="num">453</td><td><code>local_pin_deps_to_path({'Run_AQP'})</code></td><td><strong>Worst of the five.</strong> The pre-flight resolves names with <code>which()</code>, would have reported <code>Run_AQP</code> missing, and returned out of <em>every</em> run before anything started.</td></tr>
+      <tr><td class="num">332</td><td><code>exist('Load_DS','file') ~= 2</code></td><td>Returns 0 → every Load DS click silently diverted to the archived <code>*_legacy_inline</code> body.</td></tr>
+      <tr><td class="num">469</td><td><code>exist('Run_AQP','file') ~= 2</code></td><td>Same, for Run AQP.</td></tr>
+      <tr><td class="num">980</td><td><code>exist('Cmp_Results','file') ~= 2</code></td><td>Same, for Compare Results.</td></tr>
+      <tr><td class="num">1068</td><td><code>exist('StepbyStep_plots','file') ~= 2</code></td><td>Same, for StepbyStep.</td></tr>
+    </tbody>
+  </table>
+
+  <p>The four <code>exist</code> guards are now pinned <code>false</code> with the fallback kept as documentation; the required pre-flight list is empty, while the <em>optional</em> pin for <code>svmtrain_MEX</code> / <code>svmpredict_MEX</code> still runs, since those really are external.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="ledger">
+  <h2>4. Defect ledger</h2>
+  <p>Five defects surfaced after the first build. They are numbered in discovery order, because that order matters: each one was masking the next.</p>
+
+  <div class="defect">
+    <div class="defect-head"><span class="defect-id">D1</span><span class="defect-title">The fig would not read at all</span></div>
+    <dl>
+      <dt>Symptom</dt>
+      <dd><code>Dot indexing is not supported for variables of this type</code> in <code>FigFile/read</code>, at <code>hgDataVars.(vars_hgM{1}).GraphicsObjects.Format3Data</code>.</dd>
+      <dt>Root cause</dt>
+      <dd>A MAT-file header stores the <strong>byte offset of the subsystem element</strong> at bytes 116–123. That element holds <code>__function_workspace__</code>, and <code>hgM_070000.GraphicsObjects</code> is an MCOS object living inside it. The header was copied verbatim while the body was re-serialized, so the offset still said <span class="num">11665</span> when the element had moved to <span class="num">8353</span>. MATLAB read the subsystem from the wrong place and got garbage.</dd>
+      <dt>Fix</dt>
+      <dd>The patcher now records which element the old offset pointed at and rewrites bytes 116–123 with its new position.</dd>
+    </dl>
+  </div>
+
+  <div class="defect">
+    <div class="defect-head"><span class="defect-id">D2</span><span class="defect-title">Four names past the 63-character limit</span></div>
+    <dl>
+      <dt>Symptom</dt>
+      <dd><code>'Run_AQP__find_keyword_merge_dual_curly_bracket_w_targetstring_remain' exceeds the MATLAB maximum name length of 63 characters and will be truncated</code>.</dd>
+      <dt>Root cause</dt>
+      <dd>The <code>&lt;hostfile&gt;__</code> collision prefix pushed four already-long helper names over the limit. MATLAB does not error on this — it <strong>truncates and warns</strong>, which silently detaches a definition from its call sites.</dd>
+      <dt>Fix</dt>
+      <dd>Short host tags <code>AG_</code> and <code>RA_</code> on those four only; 39 references rewritten. Longest name is now exactly 63, and no two names collide when truncated at 63.</dd>
+    </dl>
+  </div>
+
+  <div class="defect">
+    <div class="defect-head"><span class="defect-id">D3</span><span class="defect-title">Four dead fig entry points</span></div>
+    <dl>
+      <dt>Symptom</dt>
+      <dd>None yet — caught by audit before it could fire. Every one of the four main buttons would have thrown <code>Undefined function</code> on click.</dd>
+      <dt>Root cause</dt>
+      <dd><code>Load_DS.m</code>, <code>Run_AQP.m</code>, <code>Cmp_Results.m</code> and <code>StepbyStep_plots.m</code> each carry their <em>own</em> copy of the callback body they were extracted from, while <code>AQP_gui.m</code> keeps the delegating stub. Neither copy is its file's primary, so the collision rule renamed <strong>both</strong> — leaving no plain <code>Load_DS_Callback</code> etc. for the fig to dispatch to.</dd>
+      <dt>Fix</dt>
+      <dd>The GUI stub reclaims the bare name, since it is the entry point the fig calls by string. Each extraction's private copy keeps its prefixed form. Required names are now <strong>read out of the fig</strong> rather than listed by hand, so the check covers all 16 dispatched callbacks.</dd>
+    </dl>
+  </div>
+
+  <div class="defect">
+    <div class="defect-head"><span class="defect-id">D4</span><span class="defect-title">A second copy of the callback text</span></div>
+    <dl>
+      <dt>Symptom</dt>
+      <dd>Fig opened, but six <code>CreateFcn</code> errors at load: <code>AQP_gui is not found in the current folder or on the MATLAB path</code>.</dd>
+      <dt>Root cause</dt>
+      <dd>GUIDE stores each callback's text <strong>twice</strong>. Once in <code>hgS_070000</code> as a readable <code>MatlabFunction</code> property — which is what had been patched, and what read back correctly. And once inside the <code>__function_workspace__</code> MCOS blob as <code>miUTF8</code> char data. <strong>MATLAB rebuilds the handle from the second copy.</strong> Only the six <code>CreateFcn</code>s fire at load, so only they complained; the ten <code>Callback</code>s were equally broken and would have failed on first click.</dd>
+      <dt>Fix</dt>
+      <dd>The blob turns out to be a complete MAT element stream in its own right — an 8-byte version prefix followed by ordinary <code>miMATRIX</code> elements — so the same parser reached in and patched all 16. It grew 114,840 → 114,952 bytes, which meant fixing the enclosing <code>uint8</code> array's dimensions too.</dd>
+    </dl>
+  </div>
+
+  <div class="defect">
+    <div class="defect-head"><span class="defect-id">D5</span><span class="defect-title">The spoken SamLibrary.dll nag</span></div>
+    <dl>
+      <dt>Symptom</dt>
+      <dd>An audible complaint about <code>SamLibrary.dll</code> on every <code>.sam</code> export pass.</dd>
+      <dt>Root cause</dt>
+      <dd><code>Speak_mk</code> was only the megaphone. <code>load_SamLibrary</code> looked in exactly one place — <code>which('SamLibrary.dll')</code> — and with the dll off the path that returns <code>''</code>, so <code>NET.addAssembly('')</code> threw and the caller spoke the error unconditionally. Worth noting: the hard-coded <code>samLibPath</code> computed a few lines above was <strong>dead code</strong>, left stranded when someone commented out the try/catch that used it.</dd>
+      <dt>Fix</dt>
+      <dd>Four candidate locations tried in order (path, the revived hard-coded <code>mainPath</code>, beside <code>AQP_gui_merged.m</code>, then <code>pwd</code>), with <code>NET.addAssembly</code> called only on a path that exists. The outcome is cached in a <code>persistent</code>, and a second output tells callers whether this is a <em>first</em> failure — so it loads silently when found, speaks once per session when not, and stays quiet thereafter.</dd>
+    </dl>
+  </div>
+
+  <div class="callout">
+    <span class="label">To get .sam output working</span>
+    Drop <code>SamLibrary.dll</code> beside <code>AQP_gui_merged.m</code> or <code>addpath</code> its folder; on success the console shows <code>load_SamLibrary: loaded &lt;path&gt;</code>. To skip <code>.sam</code> entirely, the GUI already has the switch — <code>handles.Option_Output</code> set to <code>Output_SAM_yes=0</code> bypasses the block, dll and all.
+  </div>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="figtech">
+  <h2>5. How the .fig was patched</h2>
+  <p>A GUIDE fig is a MAT v5 file, and the callbacks are serialized anonymous function handles whose source text hard-codes the main file's name:</p>
+<pre><code>@(hObject,eventdata)AQP_gui('Load_DS_Callback',hObject,eventdata,guidata(hObject))</code></pre>
+  <p>MATLAB rebuilds the handle from that text on load, so <strong>renaming the fig alone fixes nothing</strong>. The replacement is seven characters longer than the original, which rules out a byte patch: every char array's dimensions, every enclosing <code>miMATRIX</code> byte count, the outer zlib element and the header offset all have to be recomputed.</p>
+  <p>So the file is parsed into an element tree, edited, and re-serialized. Three format details mattered:</p>
+  <ul>
+    <li><strong><code>miCOMPRESSED</code> elements are not padded</strong> to 8 bytes, unlike every other type. Getting this wrong on the first pass sent the parser off the rails after the first element.</li>
+    <li><strong>The header's subsystem offset must be recomputed</strong> — D1.</li>
+    <li><strong>The workspace blob is a nested MAT stream</strong> holding a second copy of every string — D4.</li>
+  </ul>
+  <p>A lossless round-trip was verified before any edit: <code>hgS_070000</code>, <code>hgM_070000</code> and <code>__function_workspace__</code> all came back byte-identical through an independent MAT reader.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="verify">
+  <h2>6. Verification</h2>
+  <p>An audit script re-runs after every edit. Final state:</p>
+<pre><code>1. STRUCTURE
+   lines ................. 71,667
+   functions / ends ...... 876 / 876
+   stack leftover ........ 0     paren depth 0     negative False
+   unique names .......... 876   duplicates none
+
+2. IDENTIFIER LENGTH (namelengthmax = 63)
+   names over 63 ......... none
+   longest name .......... 63
+   truncation clashes .... none
+
+3. FIG -> M-FILE ENTRY POINTS
+   callbacks in fig ...... 16
+   resolved in m-file .... 16
+   MISSING ............... none
+   stale AQP_gui(...) .... none
+   fn-handle workspace ... 16 merged / 0 stale
+
+4. FIG FILE INTEGRITY
+   subsystem offset ...... valid element boundary (last element)
+   hgM_070000 ............ identical to original
+
+5. PATH LOOKUPS OF NOW-LOCAL NAMES
+   exist/which/feval/str2func on a merged stem: none</code></pre>
+  <p>Plus an independent parse: <code>octave --eval "nargin('AQP_gui_merged')"</code> returns <code>-1</code>, meaning all 71,667 lines parsed cleanly.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="residual">
+  <h2>7. What still lives on the path</h2>
+  <p>The merged file is self-contained for its own execution, but these are still resolved externally and should stay reachable:</p>
+  <table>
+    <thead><tr><th>Item</th><th>Why it is still external</th></tr></thead>
+    <tbody>
+      <tr><td><code>ssds_method_maxDV_dvABC_kt</code></td><td>Live code at L35806, not present in the help zip, so it could not be merged. If it internally calls <code>ssds(...)</code> it will resolve the path classdef — the only remaining reason <code>ssds.m</code> might need to stay put.</td></tr>
+      <tr><td><code>svmtrain_MEX</code>, <code>svmpredict_MEX</code></td><td>Compiled libsvm, reached only behind <code>run_SVR_yes</code>. Pinned optionally, never fatally.</td></tr>
+      <tr><td><code>SamLibrary.dll</code></td><td>.NET assembly for <code>.sam</code> output. Optional — see D5.</td></tr>
+      <tr><td>The 38 helper <code>.m</code> files</td><td>The merged file no longer needs them, but <code>AQPlite</code>, <code>SVMnose</code> and any compiled <code>.p</code> resolve through the path and will still look for them there.</td></tr>
+    </tbody>
+  </table>
+  <h3>Deliberately left alone</h3>
+  <p>The figure's <code>Name</code> property is still <code>AQP_gui</code>, so the window title reads that way. This is on purpose: <code>AQP_gui_OutputFcn</code> finds the window with <code>get_handles_from_GUI_Name('AQP_gui')</code>, which matches on <code>Name</code> rather than filename, and any external tool that looks the window up by name keeps working. Changing it is a two-line edit on both sides.</p>
+  <p>The <code>IsOKToExecuteAqpLite returned FALSE</code> message seen during testing comes from the pre-existing user gate reading <code>getenv('username')</code> — independent of the merge.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<section id="tags">
+  <h2>8. Finding the edits later</h2>
+  <p>Every change to the moved or merged code carries a searchable tag. Grep <code>[MERGED 25 Aug 2026]</code> to find all of them: the header banner, the five pre-flight guards, the two <code>load_SamLibrary</code> rewrites and the four call sites. Earlier provenance tags from previous sessions — <code>[SSDS-LOCAL]</code>, <code>[EXTRACTED]</code>, <code>[DELEGATED, Aug 2026]</code> — are preserved untouched.</p>
+  <p>The header block of <code>AQP_gui_merged.m</code> also records the two facts most likely to confuse a future reader: which four callback names must keep their bare form because the fig dispatches to them by string, and which four helpers use the short <code>AG_</code> / <code>RA_</code> tags because of the 63-character limit.</p>
+  <a class="totop" href="#top">↑ contents</a>
+</section>
+
+<footer>
+  AQP_gui_merged · build record · 25 August 2026 · 876 functions · all checks pass
+</footer>
+
+</div>
+</body>
+</html>
