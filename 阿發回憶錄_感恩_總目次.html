@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>阿發回憶錄　《感恩》　總目次　林進發 著</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4ece0; --paper2:#efe5d6; --ink:#1d1a15; --ink-soft:#4c453a;
+  --rule:#c9baa1; --seal:#8e2b1e; --seal-lt:#b0472f; --gold:#8a7443;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(180,150,105,.10) 0 42%, transparent 60%),
+    radial-gradient(circle at 88% 92%, rgba(150,120,80,.10) 0 40%, transparent 62%);
+  color:var(--ink);
+  font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;
+  font-weight:700; font-size:32px; line-height:2.05;
+  -webkit-text-size-adjust:100%;
+}
+.sheet{max-width:1100px; margin:0 auto; padding:64px 60px 140px;}
+
+/* ---------- masthead ---------- */
+.masthead{border-top:14px solid var(--ink); border-bottom:6px double var(--ink);
+  padding:34px 0 30px; margin-bottom:14px; text-align:center;}
+.kicker{font-size:24px; font-weight:800; letter-spacing:.42em; color:var(--seal);
+  margin-bottom:26px;}
+.masthead h1{font-size:118px; font-weight:900; letter-spacing:.16em; margin:0 0 6px;
+  line-height:1.12;}
+.masthead .en{font-size:22px; letter-spacing:.5em; color:var(--ink-soft); font-weight:700;
+  margin-top:18px;}
+.byline{font-size:30px; font-weight:800; letter-spacing:.28em; margin-top:26px;}
+.dateline{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-size:22px; font-weight:700; letter-spacing:.2em; color:var(--ink-soft);
+  border-bottom:2px solid var(--rule); padding:16px 2px 20px; margin-bottom:54px;}
+
+/* ---------- table of contents ---------- */
+.toc{border:3px solid var(--ink); background:var(--paper2);
+  padding:48px 52px 40px; margin-bottom:78px; scroll-margin-top:24px;}
+.toc h2{font-size:52px; font-weight:900; letter-spacing:.5em; text-align:center;
+  margin:0 0 10px;}
+.toc .note{text-align:center; font-size:22px; font-weight:700; color:var(--ink-soft);
+  letter-spacing:.14em; margin-bottom:34px;}
+.toc .grp{font-size:26px; font-weight:900; letter-spacing:.3em; color:var(--seal);
+  border-bottom:2px solid var(--rule); padding-bottom:10px; margin:30px 0 18px;}
+.toc ol{list-style:none; margin:0; padding:0; columns:2; column-gap:56px;}
+.toc.single ol{columns:1;}
+.toc li{break-inside:avoid; margin-bottom:2px;}
+.toc a{display:flex; gap:16px; align-items:baseline; text-decoration:none; color:var(--ink);
+  font-size:25px; font-weight:700; line-height:1.75; padding:7px 8px; border-radius:3px;}
+.toc a:hover,.toc a:focus{background:rgba(142,43,30,.10); color:var(--seal);}
+.toc .n{font-size:20px; font-weight:800; color:var(--seal); min-width:3.1em;
+  letter-spacing:.08em; font-variant-numeric:tabular-nums;}
+.toc .t{flex:1;}
+
+/* ---------- chapters ---------- */
+article{margin:0 0 88px; scroll-margin-top:20px;}
+.chead{border-bottom:5px double var(--ink); padding-bottom:20px; margin-bottom:40px;}
+.chead .cn{font-size:21px; font-weight:800; letter-spacing:.36em; color:var(--seal);
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+.chead h3{font-size:62px; font-weight:900; letter-spacing:.1em; margin:0; line-height:1.3;}
+.back{font-size:20px; font-weight:800; letter-spacing:.2em; text-decoration:none;
+  color:var(--ink-soft); border:2px solid var(--rule); padding:5px 14px; border-radius:3px;
+  white-space:nowrap;}
+.back:hover,.back:focus{color:var(--paper); background:var(--seal); border-color:var(--seal);}
+p{margin:0 0 30px; text-align:justify; text-justify:inter-ideograph;}
+strong{font-weight:900; color:var(--seal);
+  -webkit-text-emphasis:filled dot var(--seal); text-emphasis:filled dot var(--seal);
+  -webkit-text-emphasis-position:under right; text-emphasis-position:under right;}
+p.first::first-letter{
+  float:left; font-size:120px; line-height:.86; font-weight:900; color:var(--seal);
+  margin:10px 16px 0 0;}
+.tailback{text-align:center; margin-top:22px;}
+.tail{text-align:center; color:var(--rule); font-size:24px; letter-spacing:1.2em;
+  margin:52px 0 0;}
+
+/* ---------- prefaces ---------- */
+.parthead{text-align:center; margin:0 0 56px; padding:44px 0;
+  border-top:6px double var(--ink); border-bottom:6px double var(--ink);}
+.parthead .pl{font-size:22px; font-weight:800; letter-spacing:.55em; color:var(--seal);}
+.parthead h2{font-size:76px; font-weight:900; letter-spacing:.18em; margin:16px 0 8px;}
+.parthead .pd{font-size:24px; font-weight:700; color:var(--ink-soft); letter-spacing:.2em;}
+.xu{background:var(--paper2); border-left:14px solid var(--seal); border-right:3px solid var(--rule);
+  border-top:3px solid var(--rule); border-bottom:3px solid var(--rule);
+  padding:52px 56px 44px;}
+.xu .sub{font-size:30px; font-weight:800; color:var(--seal); letter-spacing:.18em;
+  margin:-8px 0 34px;}
+.pull{border-top:4px solid var(--seal); border-bottom:4px solid var(--seal);
+  padding:30px 12px; margin:44px 0; text-align:center; font-size:44px; font-weight:900;
+  color:var(--seal); line-height:1.75; letter-spacing:.06em;}
+.sign{margin-top:48px; text-align:right; font-size:30px; font-weight:800; line-height:1.9;}
+.sign .seal{display:inline-block; background:var(--seal); color:var(--paper);
+  font-weight:900; font-size:30px; letter-spacing:.24em; padding:12px 18px;
+  margin-left:14px; transform:rotate(-4deg); border-radius:3px;}
+
+/* ---------- floating back-to-contents ---------- */
+#totop{position:fixed; right:26px; bottom:26px; z-index:50;
+  display:flex; flex-direction:column; gap:10px; opacity:0; pointer-events:none;
+  transition:opacity .25s ease;}
+#totop.on{opacity:1; pointer-events:auto;}
+#totop a{background:var(--seal); color:var(--paper); text-decoration:none;
+  font-size:24px; font-weight:900; letter-spacing:.24em; padding:16px 14px;
+  border-radius:4px; writing-mode:vertical-rl; text-align:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.28);}
+#totop a.up{background:var(--ink);}
+#totop a:hover{background:var(--seal-lt);}
+
+.colophon{border-top:6px double var(--ink); margin-top:80px; padding-top:34px;
+  text-align:center; font-size:24px; font-weight:700; letter-spacing:.2em;
+  color:var(--ink-soft); line-height:2;}
+
+@media (max-width:900px){
+  .sheet{padding:34px 22px 130px;}
+  body{font-size:28px;}
+  .masthead h1{font-size:62px;}
+  .toc{padding:30px 24px;} .toc ol{columns:1;}
+  .chead h3{font-size:44px;}
+  .parthead h2{font-size:48px;}
+  .xu{padding:32px 24px;} .pull{font-size:34px;}
+  p.first::first-letter{font-size:88px;}
+}
+@media print{
+  body{background:#fff; font-size:12.5pt; line-height:1.85;}
+  .sheet{max-width:none; padding:0;}
+  #totop{display:none;}
+  .back{border:none; padding:0; color:var(--seal); font-size:9pt; letter-spacing:.14em;}
+  .toc a{font-size:11pt; padding:2px 0;}
+  .toc{border-width:2px;}
+  article{page-break-inside:auto;}
+  .chead{page-break-after:avoid;} .parthead{page-break-before:always;}
+  h3,h2{page-break-after:avoid;}
+  @page{size:A4; margin:20mm 18mm;}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ---------- 分冊版新增 ---------- */
+.crossnav{display:flex; flex-wrap:wrap; justify-content:center; gap:14px;
+  border:2px solid var(--rule); background:var(--paper2); padding:18px 20px;
+  margin:0 0 46px; font-size:24px; font-weight:800; letter-spacing:.16em;}
+.crossnav a{color:var(--seal); text-decoration:none; padding:6px 16px; border-radius:3px;}
+.crossnav a:hover,.crossnav a:focus{background:rgba(142,43,30,.10);}
+.crossnav .cur{color:var(--ink-soft); padding:6px 16px; border-bottom:3px solid var(--seal);}
+.volcard{border:3px solid var(--ink); background:var(--paper2);
+  padding:46px 50px 40px; margin-bottom:46px;}
+.volcard .vl{font-size:24px; font-weight:800; letter-spacing:.4em; color:var(--seal);
+  margin-bottom:16px;}
+.volcard h3{font-size:60px; font-weight:900; letter-spacing:.14em; margin:0 0 14px;}
+.volcard .vmeta{font-size:24px; font-weight:700; color:var(--ink-soft);
+  letter-spacing:.14em; margin-bottom:22px;}
+.volcard p{margin:0 0 26px;}
+.volcard .go{display:inline-block; font-size:26px; font-weight:900; letter-spacing:.22em;
+  color:var(--paper); background:var(--seal); text-decoration:none;
+  padding:14px 34px; border-radius:3px;}
+.volcard .go:hover,.volcard .go:focus{background:var(--seal-lt);}
+.nextvol{border-top:6px double var(--ink); margin-top:70px; padding-top:44px;
+  text-align:center;}
+.nextvol .nl{font-size:24px; font-weight:800; letter-spacing:.4em; color:var(--seal);
+  margin-bottom:14px;}
+.nextvol h3{font-size:48px; font-weight:900; letter-spacing:.14em; margin:0 0 22px;}
+.nextvol a.go{display:inline-block; font-size:26px; font-weight:900; letter-spacing:.22em;
+  color:var(--paper); background:var(--seal); text-decoration:none;
+  padding:14px 34px; border-radius:3px;}
+.nextvol a.go:hover,.nextvol a.go:focus{background:var(--seal-lt);}
+#totop a.home{background:var(--gold);}
+@media (max-width:860px){
+  .volcard{padding:34px 26px 30px;} .volcard h3{font-size:44px;}
+  .nextvol h3{font-size:36px;} .crossnav{font-size:21px; gap:8px;}
+}
+</style>
+</head>
+<body>
+<div class="sheet" id="top">
+
+  <header class="masthead">
+    <div class="kicker">阿　發　回　憶　錄</div>
+    <h1>感　恩</h1>
+    <div class="en">M E M O I R　·　全 118 篇　·　分 上 下 兩 冊</div>
+    <div class="byline">林　進　發　著</div>
+  </header>
+  <div class="dateline">
+    <span>雲林崙背　·　嘉義旭陵　·　台中</span>
+    <span>全 118 篇　·　約 188,000 字</span>
+    <span>二〇二六年八月　排印</span>
+  </div>
+  <nav class="crossnav">
+    <span class="cur">總目次</span>
+    <a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html">上冊　求學卷</a>
+    <a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html">下冊　成家立業卷</a>
+    <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+  </nav>
+
+  <div class="volcard">
+    <div class="vl">上　冊</div>
+    <h3>求　學　卷</h3>
+    <div class="vmeta">第 001–052 篇　·　約 84,000 字　·　附自序、老熊序</div>
+    <p>崙背五魁村的土角厝與煤油燈，圓福寺的木魚與芒果樹，嘉中旭陵岡上的三年，東海大肚山上靠助學貸款、家教與親人接濟撐完的四年。自〈故鄉那間土角厝〉至〈大學夢想終成真〉。</p>
+    <a class="go" href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html">翻　開　上　冊</a>
+  </div>
+
+  <div class="volcard">
+    <div class="vl">下　冊</div>
+    <h3>成家立業卷</h3>
+    <div class="vmeta">第 053–118 篇　·　約 104,000 字　·　附導讀、卷末補記</div>
+    <p>楠梓的履歷、溪湖的雅房、父親的背影、虎尾牽起的姻緣、三條崙的海；再到資遣、水果攤、四十歲以後才真正站上的講台，以及溪崑十八年與退休後的尋常光陰。自〈求職記〉至〈人生的四份厚禮〉。</p>
+    <a class="go" href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html">翻　開　下　冊</a>
+  </div>
+  <nav class="toc single" id="toc">
+    <h2>全　書　總　目　次</h2>
+    <div class="note">點選篇名即可直接跳至該冊的該篇。</div>
+    <div class="grp">卷　首　·　上冊</div>
+    <ol>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#zixu"><span class="n">自序</span><span class="t">把歲月還給歲月　　林進發</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#xu-laoxiong"><span class="n">序</span><span class="t">跟發哥一起珍藏那段酸甜苦澀的記憶　　老熊</span></a></li>
+    </ol>
+    <div class="grp">上　冊　·　求學卷　·　全 52 篇</div>
+    <ol>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c1"><span class="n">001</span><span class="t">故鄉那間土角厝</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c2"><span class="n">002</span><span class="t">一只金手鐲</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c3"><span class="n">003</span><span class="t">窮，也要讀書</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c4"><span class="n">004</span><span class="t">一件夾克的溫度</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c5"><span class="n">005</span><span class="t">人生最長的一堂課</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c6"><span class="n">006</span><span class="t">那一聲下課鐘</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c7"><span class="n">007</span><span class="t">寄宿圓福寺的歲月</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c8"><span class="n">008</span><span class="t">一場競賽，兩種心情</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c9"><span class="n">009</span><span class="t">一張小小的車票</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c10"><span class="n">010</span><span class="t">老師的一句話</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c11"><span class="n">011</span><span class="t">最難的一場考試</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c12"><span class="n">012</span><span class="t">閣樓下的燈火</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c13"><span class="n">013</span><span class="t">學會管住自己</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c14"><span class="n">014</span><span class="t">那一篇滿江紅</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c15"><span class="n">015</span><span class="t">逆風，也要向前騎</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c16"><span class="n">016</span><span class="t">一碗白飯的滋味</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c17"><span class="n">017</span><span class="t">十八歲，立志</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c18"><span class="n">018</span><span class="t">等待放榜的日子</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c19"><span class="n">019</span><span class="t">沒有選擇的年紀</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c20"><span class="n">020</span><span class="t">永不放棄</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c21"><span class="n">021</span><span class="t">借來的人生</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c22"><span class="n">022</span><span class="t">父親留下的祖產</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c23"><span class="n">023</span><span class="t">母親住院的那些天</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c24"><span class="n">024</span><span class="t">奔波的暑假</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c25"><span class="n">025</span><span class="t">站上講臺之前</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c26"><span class="n">026</span><span class="t">青春未熟</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c27"><span class="n">027</span><span class="t">成家之前，先學做人</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c28"><span class="n">028</span><span class="t">婚姻，是一生最長的修行</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c29"><span class="n">029</span><span class="t">補考之後</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c30"><span class="n">030</span><span class="t">那一千元</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c31"><span class="n">031</span><span class="t">寂寞也是一種修行</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c32"><span class="n">032</span><span class="t">大二末的那一盞孤燈</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c33"><span class="n">033</span><span class="t">那一句傷了母親的話</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c34"><span class="n">034</span><span class="t">一本聖經的重量</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c35"><span class="n">035</span><span class="t">最長的一個暑假</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c36"><span class="n">036</span><span class="t">細雨中的青春</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c37"><span class="n">037</span><span class="t">青春沒有教科書</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c38"><span class="n">038</span><span class="t">等待，也是青春</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c39"><span class="n">039</span><span class="t">那一場沒有回音的等待</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c40"><span class="n">040</span><span class="t">先讓自己站起來</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c41"><span class="n">041</span><span class="t">牧場晨光，重新出發</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c42"><span class="n">042</span><span class="t">春假的舊夢</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c43"><span class="n">043</span><span class="t">大四前的徬徨</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c44"><span class="n">044</span><span class="t">雨中的方向</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c45"><span class="n">045</span><span class="t">那二千元的重量</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c46"><span class="n">046</span><span class="t">經濟學與人生</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c47"><span class="n">047</span><span class="t">一雙破皮鞋</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c48"><span class="n">048</span><span class="t">父親的不放心</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c49"><span class="n">049</span><span class="t">一個人住的日子</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c50"><span class="n">050</span><span class="t">風雨中的青春</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c51"><span class="n">051</span><span class="t">築夢踏實</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8A%E5%86%8A_%E6%B1%82%E5%AD%B8%E5%8D%B7.html#c52"><span class="n">052</span><span class="t">大學夢想終成真</span></a></li>
+    </ol>
+    <div class="grp">卷　首　·　下冊</div>
+    <ol>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#daodu"><span class="n">導讀</span><span class="t">從校門走到人間　　老熊</span></a></li>
+    </ol>
+    <div class="grp">下　冊　·　成家立業卷　·　全 66 篇</div>
+    <ol>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c53"><span class="n">053</span><span class="t">求職記</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c54"><span class="n">054</span><span class="t">等待，也是人生的一門課</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c55"><span class="n">055</span><span class="t">初入江湖</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c56"><span class="n">056</span><span class="t">人生的秋天</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c57"><span class="n">057</span><span class="t">歲月向前，人生向暖</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c58"><span class="n">058</span><span class="t">父親的背影</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c59"><span class="n">059</span><span class="t">工作一年的心得</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c60"><span class="n">060</span><span class="t">歲月留下的，不只是年資，而是人生的厚度</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c61"><span class="n">061</span><span class="t">月亮還在，少年已遠</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c62"><span class="n">062</span><span class="t">歲暮風寒</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c63"><span class="n">063</span><span class="t">姻緣</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c64"><span class="n">064</span><span class="t">三條崙的海</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c65"><span class="n">065</span><span class="t">教堂前的草坡</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c66"><span class="n">066</span><span class="t">尋常光陰</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c67"><span class="n">067</span><span class="t">等一封點頭的信</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c68"><span class="n">068</span><span class="t">心定</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c69"><span class="n">069</span><span class="t">一封訂婚前的信</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c70"><span class="n">070</span><span class="t">紅壇之前</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c71"><span class="n">071</span><span class="t">一封信，一生的同行</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c72"><span class="n">072</span><span class="t">婚宴上的那ㄧ桌素食</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c73"><span class="n">073</span><span class="t">小屋亦有春</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c74"><span class="n">074</span><span class="t">把日子住成家</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c75"><span class="n">075</span><span class="t">家有初啼</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c76"><span class="n">076</span><span class="t">等待團圓</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c77"><span class="n">077</span><span class="t">母親走後，才懂得家</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c78"><span class="n">078</span><span class="t">從此有人出生，也有人離開</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c79"><span class="n">079</span><span class="t">家裡有人等</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c80"><span class="n">080</span><span class="t">界線之外</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c81"><span class="n">081</span><span class="t">家，是慢慢長大的</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c82"><span class="n">082</span><span class="t">返鄉的念頭</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c83"><span class="n">083</span><span class="t">返鄉，不是退後</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c84"><span class="n">084</span><span class="t">同心公園的一堂課</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c85"><span class="n">085</span><span class="t">搬回台中</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c86"><span class="n">086</span><span class="t">人生的十字路口</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c87"><span class="n">087</span><span class="t">有些門，不是用力就能推開</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c88"><span class="n">088</span><span class="t">方向盤還在手上</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c89"><span class="n">089</span><span class="t">工作也是人生的一種修行</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c90"><span class="n">090</span><span class="t">人在職場，最重要的不是職位</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c91"><span class="n">091</span><span class="t">有人陪你坐在黑暗裡</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c92"><span class="n">092</span><span class="t">轉彎以後，才知道路在哪裡</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c93"><span class="n">093</span><span class="t">留在家裡的那盞燈</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c94"><span class="n">094</span><span class="t">水果攤上的幾個月</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c95"><span class="n">095</span><span class="t">從樓上的家教班走進崙背國中</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c96"><span class="n">096</span><span class="t">在講台上，看見另一條路</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c97"><span class="n">097</span><span class="t">破釜沉舟</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c98"><span class="n">098</span><span class="t">別後可好</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c99"><span class="n">099</span><span class="t">帶著教具去趕考</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c100"><span class="n">100</span><span class="t">難得的寒假</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c101"><span class="n">101</span><span class="t">親情，是父母留下的另一份遺產</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c102"><span class="n">102</span><span class="t">難忘的背影</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c103"><span class="n">103</span><span class="t">且走且看</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c104"><span class="n">104</span><span class="t">家裡那點事</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c105"><span class="n">105</span><span class="t">風景與兩公斤</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c106"><span class="n">106</span><span class="t">青雲有路志為梯</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c107"><span class="n">107</span><span class="t">七夕，老夫老妻</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c108"><span class="n">108</span><span class="t">老師也曾年輕過——十二條班規</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c109"><span class="n">109</span><span class="t">搬家搬到最後，才知道什麼叫安身</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c110"><span class="n">110</span><span class="t">回家，才知道什麼叫幸福</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c111"><span class="n">111</span><span class="t">清明時節，且把心安放在家裡</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c112"><span class="n">112</span><span class="t">一個人的週末，讀懂了幸福的重量</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c113"><span class="n">113</span><span class="t">梅雨夜醒，且把人生慢慢看</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c114"><span class="n">114</span><span class="t">老師的燈</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c115"><span class="n">115</span><span class="t">公園裡的人生百態</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c116"><span class="n">116</span><span class="t">博愛街上的人生景氣</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c117"><span class="n">117</span><span class="t">人生不能重灌</span></a></li>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#c118"><span class="n">118</span><span class="t">人生的四份厚禮</span></a></li>
+    </ol>
+    <div class="grp">卷　末　·　下冊</div>
+    <ol>
+      <li><a href="%E9%98%BF%E7%99%BC%E5%9B%9E%E6%86%B6%E9%8C%84_%E6%84%9F%E6%81%A9_%E4%B8%8B%E5%86%8A_%E6%88%90%E5%AE%B6%E7%AB%8B%E6%A5%AD%E5%8D%B7.html#banben"><span class="n">補記</span><span class="t">本版新增與分冊說明</span></a></li>
+    </ol>
+  </nav>
+
+  <footer class="colophon">
+    全 118 篇　·　約 188,000 字　·　分上下兩冊<br>
+    《感恩》　林進發 著　·　序：老熊<br>
+    二〇二六年八月　排印
+  </footer>
+
+</div>
+<div id="totop">
+  <a class="up" href="#top" aria-label="回封面">封面</a>
+  <a class="home" href="https://changhsiung-chemometrician.github.io/Lao_Xiong/" aria-label="回首頁">首頁</a>
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('totop');
+  function upd(){ btn.classList.toggle('on', window.scrollY > 600); }
+  window.addEventListener('scroll', upd, {passive:true});
+  upd();
+})();
+</script>
+</body>
+</html>
