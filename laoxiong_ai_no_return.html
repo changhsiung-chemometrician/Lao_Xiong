@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的AI不歸路 — 老熊隨筆</title>
+<meta name="description" content="一份對自己使用 Claude 的人口普查：近一週、近一月、近一年的話題結構、時間與 token 推估，以及 coding 的分項復盤。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;600;700&family=Spectral:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2efe8;
+  --paper2:#e9e4d8;
+  --ink:#1d1c19;
+  --ink2:#3f3b34;
+  --seal:#8b2e1a;
+  --indigo:#2c4757;
+  --moss:#3d5744;
+  --rule:#c3bba8;
+  --amber:#a8761c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC",serif;
+  font-size:32px; font-weight:700; line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1100px; margin:0 auto; padding:48px 28px 140px}
+
+/* ---------- masthead ---------- */
+.mast{border-top:9px double var(--ink); border-bottom:3px solid var(--ink); padding:20px 0 16px; margin-bottom:34px}
+.mastrow{display:flex; justify-content:space-between; align-items:baseline; gap:18px; flex-wrap:wrap}
+.brand{font-size:30px; font-weight:900; letter-spacing:.42em; color:var(--seal)}
+.brand a{color:inherit; text-decoration:none}
+.mastmeta{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:600; color:var(--ink2); letter-spacing:.06em}
+.kicker{margin-top:26px; font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:700; letter-spacing:.34em; color:var(--indigo); text-transform:uppercase}
+h1.head{font-size:76px; line-height:1.1; font-weight:900; margin:12px 0 8px; letter-spacing:.03em}
+.sub{font-size:36px; font-weight:700; color:var(--ink2); margin:0 0 18px; line-height:1.5}
+.deck{font-size:29px; font-weight:700; color:var(--ink2); border-left:8px solid var(--seal); padding:8px 0 8px 22px; margin:22px 0 10px; line-height:1.68}
+.byline{font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:600; color:var(--ink2); letter-spacing:.08em; border-top:1px solid var(--rule); padding-top:14px; margin-top:22px}
+
+/* ---------- toc ---------- */
+.toc{background:var(--paper2); border:3px solid var(--ink); padding:28px 30px; margin:44px 0}
+.toc h2{font-size:26px; font-weight:900; letter-spacing:.3em; margin:0 0 16px; color:var(--seal)}
+.toc ol{margin:0; padding-left:1.5em; columns:2; column-gap:44px}
+.toc li{font-size:26px; font-weight:700; margin-bottom:10px; break-inside:avoid}
+.toc a{color:var(--ink); text-decoration:none; border-bottom:2px solid var(--rule)}
+.toc a:hover{color:var(--seal); border-bottom-color:var(--seal)}
+
+/* ---------- sections ---------- */
+section{margin:66px 0 0}
+h2.sec{font-size:46px; font-weight:900; line-height:1.24; margin:0 0 8px; padding-bottom:12px; border-bottom:3px solid var(--ink)}
+h2.sec .num{font-family:"IBM Plex Mono",monospace; font-size:26px; font-weight:700; color:var(--seal); margin-right:18px; letter-spacing:.1em}
+h3{font-size:34px; font-weight:800; margin:40px 0 12px; color:var(--indigo)}
+p{margin:0 0 22px}
+.lead::first-letter{
+  float:left; font-size:120px; line-height:.84; font-weight:900;
+  color:var(--seal); margin:8px 14px 0 0; font-family:"Noto Serif TC",serif;
+}
+strong,b{font-weight:800}
+code,.mono{font-family:"IBM Plex Mono",monospace; font-size:.82em; font-weight:600; background:#e3ddcd; padding:2px 7px; border-radius:2px; word-break:break-word}
+.num-hl{font-weight:800; color:var(--seal); font-variant-numeric:tabular-nums}
+
+/* ---------- pull quote ---------- */
+.pull{font-size:44px; font-weight:800; line-height:1.42; color:var(--seal);
+  border-top:4px solid var(--seal); border-bottom:4px solid var(--seal);
+  padding:26px 0; margin:44px 0; text-align:center}
+
+/* ---------- sidebar ---------- */
+.aside{float:right; width:340px; margin:10px 0 26px 34px; background:var(--paper2);
+  border:2px solid var(--rule); border-left:8px solid var(--indigo); padding:20px 22px;
+  font-size:23px; font-weight:700; line-height:1.62}
+.aside h4{font-family:"IBM Plex Mono",monospace; font-size:16px; font-weight:700; letter-spacing:.24em;
+  color:var(--indigo); margin:0 0 12px; text-transform:uppercase}
+.aside p{margin:0 0 12px}
+.aside p:last-child{margin:0}
+
+/* ---------- tables ---------- */
+.ledger{width:100%; border-collapse:collapse; margin:30px 0; font-size:23px; font-weight:700}
+.ledger caption{text-align:left; font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:700;
+  letter-spacing:.16em; color:var(--indigo); padding-bottom:10px; text-transform:uppercase}
+.ledger th{background:var(--ink); color:var(--paper); font-weight:800; text-align:left;
+  padding:12px 14px; font-size:21px; letter-spacing:.04em}
+.ledger td{border-bottom:1px solid var(--rule); padding:12px 14px; vertical-align:top; line-height:1.5}
+.ledger tr:nth-child(even) td{background:rgba(0,0,0,.028)}
+.ledger td.n{font-family:"IBM Plex Mono",monospace; font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap}
+.tag{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:15px; font-weight:700;
+  letter-spacing:.08em; padding:2px 9px; border-radius:2px; color:#fff; white-space:nowrap}
+.t-bug{background:var(--seal)} .t-ref{background:var(--indigo)} .t-new{background:var(--moss)} .t-doc{background:var(--amber)}
+
+/* ---------- charts ---------- */
+.chart{background:var(--paper2); border:2px solid var(--rule); padding:26px 22px; margin:34px 0}
+.chart h4{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:700; letter-spacing:.2em;
+  color:var(--indigo); margin:0 0 18px; text-transform:uppercase}
+.chart svg{width:100%; height:auto; display:block}
+.chart .cap{font-size:20px; font-weight:700; color:var(--ink2); margin-top:14px; line-height:1.55}
+
+/* ---------- notes ---------- */
+.audit{background:#e6e9e3; border:2px dashed var(--moss); padding:22px 26px; margin:34px 0; font-size:25px; font-weight:700; line-height:1.66}
+.audit h4{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:700; letter-spacing:.2em;
+  color:var(--moss); margin:0 0 12px; text-transform:uppercase}
+.audit p{margin:0 0 14px}
+.audit p:last-child{margin:0}
+.warn{background:#f4e8dd; border-left:8px solid var(--seal); padding:20px 24px; margin:32px 0; font-size:25px; font-weight:700; line-height:1.66}
+.warn p{margin:0 0 12px}
+.warn p:last-child{margin:0}
+
+/* ---------- takehome ---------- */
+.take{background:var(--ink); color:var(--paper); padding:34px 36px; margin:48px 0}
+.take h3{color:#e9c98a; margin-top:0; font-size:32px}
+.take ol{margin:0; padding-left:1.3em}
+.take li{font-size:27px; font-weight:700; margin-bottom:18px; line-height:1.6}
+.take li:last-child{margin-bottom:0}
+
+/* ---------- nav ---------- */
+.totop{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:700;
+  letter-spacing:.1em; color:var(--indigo); text-decoration:none; border:2px solid var(--indigo);
+  padding:5px 14px; border-radius:999px; margin-top:14px}
+.totop:hover{background:var(--indigo); color:var(--paper)}
+.floatnav{position:fixed; right:22px; bottom:22px; z-index:99; display:flex; flex-direction:column; gap:10px}
+.floatnav a{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:700; letter-spacing:.08em;
+  background:var(--ink); color:var(--paper); text-decoration:none; padding:11px 17px; border-radius:999px;
+  box-shadow:0 3px 10px rgba(0,0,0,.3); text-align:center}
+.floatnav a:hover{background:var(--seal)}
+
+footer{margin-top:70px; border-top:3px solid var(--ink); padding-top:22px;
+  font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:600; color:var(--ink2); line-height:1.8}
+footer a{color:var(--seal)}
+
+@media (max-width:900px){
+  body{font-size:24px}
+  .wrap{padding:26px 16px 130px}
+  h1.head{font-size:46px}
+  .sub{font-size:26px}
+  .deck{font-size:23px}
+  h2.sec{font-size:32px}
+  h3{font-size:26px}
+  .pull{font-size:29px}
+  .lead::first-letter{font-size:76px}
+  .aside{float:none; width:auto; margin:22px 0}
+  .toc ol{columns:1}
+  .toc li{font-size:21px}
+  .ledger{font-size:18px}
+  .ledger th{font-size:16px}
+  .take li{font-size:21px}
+}
+@media print{
+  .floatnav,.totop{display:none}
+  body{background:#fff; font-size:12pt}
+  .wrap{max-width:none; padding:0}
+  section{break-inside:auto}
+  .ledger{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast">
+  <div class="mastrow">
+    <div class="brand"><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">老熊隨筆</a></div>
+    <div class="mastmeta">本站自評 · 用量普查 · 2026.08.27 · 加州紅木灣</div>
+  </div>
+</div>
+
+<div class="kicker">Demography of a Habit</div>
+<h1 class="head">我的AI不歸路</h1>
+<p class="sub">一份對自己使用 Claude 的人口普查：一週、一月、一年，話題、時間、token，以及 coding 的分項復盤</p>
+
+<p class="deck">從一支 YouTube 影片起念，於是把一年的對話紀錄當成資料集，跑一次自己的普查。結論不在數字大小，而在數字的<strong>形狀</strong>：這條曲線不是慢慢爬上來的，它有一次死亡、一次重開機，和一次不再回頭的斜坡。</p>
+
+<div class="byline">文／老熊　·　資料整理與統計／Claude Opus 5　·　篇名借自廖輝英〈不歸路〉　·　觸發點：<a href="https://www.youtube.com/watch?v=Pa7Evi7Jvgw">youtube.com/watch?v=Pa7Evi7Jvgw</a></div>
+
+<!-- ================= TOC ================= -->
+<nav class="toc" id="contents">
+  <h2>目　錄</h2>
+  <ol>
+    <li><a href="#s0">楔子：一支影片，一個念頭</a></li>
+    <li><a href="#s1">量測方法與誤差聲明</a></li>
+    <li><a href="#s2">近一週：8/21–8/27</a></li>
+    <li><a href="#s3">近一月：7/28–8/27</a></li>
+    <li><a href="#s4">近一年：五個階段</a></li>
+    <li><a href="#s5">Coding 專章：CMS_Clsfrs 與 AQP</a></li>
+    <li><a href="#s6">時間與 token：推估與信心區間</a></li>
+    <li><a href="#s7">三個轉折點</a></li>
+    <li><a href="#s8">「不歸路」是什麼意思</a></li>
+    <li><a href="#s9">附錄：未取樣區間與已知偏誤</a></li>
+  </ol>
+</nav>
+
+<!-- ================= S0 ================= -->
+<section id="s0">
+  <h2 class="sec"><span class="num">楔子</span>一支影片，一個念頭</h2>
+
+  <div class="warn">
+    <p><strong>先說一件不漂亮的事。</strong>老熊給的那支影片連結，我抓不到。YouTube 對自動化擷取回 <span class="mono">HTTP 429</span>，兩次都一樣。所以這篇文章裡，<strong>不會有任何一句話是在轉述那支影片的內容</strong>——因為我沒看過它。</p>
+    <p>它在這裡的角色只有一個：老熊看完之後，動念要盤一次自己的用量。引子是真的，內容是空的。這一點我不填。</p>
+  </div>
+
+  <p class="lead">一個人要對自己做人口普查，最難的不是數，是承認自己數不到。這篇東西的體例，還是<strong>復盤體</strong>：記憶當資料看，數字要標明來源，推估要標明推估，測不到的要說測不到。</p>
+
+  <p>資料來源只有一個：我對過去對話紀錄的檢索。方法是分段抽樣——從 2026 年 8 月 27 日往回，一段一段翻，一直翻到 2025 年 8 月。翻出來的東西，比預期有意思得多。</p>
+
+  <h3 id="titlenote">題解：這三個字的出處</h3>
+
+  <aside class="aside">
+    <h4>Provenance</h4>
+    <p><strong>廖輝英</strong>（1948– ），台中豐原人，台大中文系。三十四歲那年因懷孕辭職在家，看到報上的徵文消息，用父母與自己之間的愛恨寫成〈油麻菜籽〉，拿下 1982 年第五屆時報文學獎小說甄選首獎。</p>
+    <p>隔年〈不歸路〉再獲第八屆聯合報小說獎中篇小說<strong>特別推薦獎</strong>，1984 年由聯經出版，全書 159 頁。同年改編成電影，張蜀生執導，蘇明明、柯俊雄主演。</p>
+    <p>2006 年獲第二十九屆吳三連獎文學獎。</p>
+  </aside>
+
+  <p>標題不是隨手取的。「不歸路」三個字，來自老熊最喜愛的作家<strong>廖輝英</strong>——她 1983 年那部同名中篇。（順帶更正：是「輝」，不是「煇」。）</p>
+
+  <p>那部小說寫的是一個女人走進一段沒有名分的關係，然後回不了頭。它之所以在 1980 年代的台灣那麼有分量，不在於情節有多激烈——恰恰相反，<strong>它的力道全在「不激烈」上</strong>。沒有哪一步是決定性的，每一步看起來都還可以回頭；等到發現回不去了，路已經在身後了。</p>
+
+  <p>拿這三個字來命名一份用量普查，乍看是玩笑。但把後面九節的數字讀完就會知道，這個借用其實非常準確——<strong>使用量從來不是靠某一次決定跳上去的，它是靠一次一次「這個順手就問一下」堆上去的。</strong>這正是廖輝英那部小說的敘事機制。第捌節會再回到這一點。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S1 ================= -->
+<section id="s1">
+  <h2 class="sec"><span class="num">壹</span>量測方法與誤差聲明</h2>
+
+  <aside class="aside">
+    <h4>Instrument Note</h4>
+    <p>做過三十年儀器的人都知道：<strong>沒有校正過的讀數不是數據，是安慰。</strong></p>
+    <p>這一節的存在，是為了讓後面每一個數字都能被回推到它的來源與精度。跳過這節去看第陸節的 token 數，那些數字就等於沒有出處。</p>
+  </aside>
+
+  <p>我手上有什麼、沒有什麼，先攤開：</p>
+
+  <table class="ledger">
+    <caption>量測能力盤點</caption>
+    <thead><tr><th style="width:26%">項目</th><th style="width:14%">能否量測</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>對話場次</td><td><span class="tag t-new">可數</span></td><td>逐段檢索列舉，得到的是<strong>觀測下限</strong>——分頁可能截掉部分，只會少不會多</td></tr>
+      <tr><td>話題分類</td><td><span class="tag t-new">可判</span></td><td>從每場的標題與摘要人工歸類，邊界案例（例如「順手改個錯字」算創作還是雜項）由我裁定</td></tr>
+      <tr><td>時間軸</td><td><span class="tag t-new">可讀</span></td><td>每場帶 <span class="mono">updated_at</span> 時戳，精確到秒</td></tr>
+      <tr><td>停留時間</td><td><span class="tag t-bug">不可測</span></td><td>我看不到老熊在螢幕前坐了多久。只能用場次與時戳間距<strong>反推</strong></td></tr>
+      <tr><td>Token 消耗</td><td><span class="tag t-bug">不可測</span></td><td><strong>我沒有計量表。</strong>只能靠三個歷史錨點外推，見第陸節</td></tr>
+      <tr><td>帳單金額</td><td><span class="tag t-bug">不可測</span></td><td>訂閱制不逐場計價，且 Fable 5 期間計價規則變動過兩次</td></tr>
+    </tbody>
+  </table>
+
+  <p>所以這份普查有兩種數字：<strong>數出來的</strong>（場次、日期、話題）和<strong>推出來的</strong>（時間、token）。後面每個表格都會標。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S2 ================= -->
+<section id="s2">
+  <h2 class="sec"><span class="num">貳</span>近一週：8/21–8/27</h2>
+
+  <p>七天，<span class="num-hl">32</span> 場對話。沒有一天掛零。</p>
+
+  <div class="chart">
+    <h4>Daily sessions · 2026.08.21–08.27</h4>
+    <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="近一週每日對話場次長條圖">
+      <line x1="46" y1="200" x2="686" y2="200" stroke="#1d1c19" stroke-width="2"/>
+      <g fill="#8b2e1a">
+        <rect x="60"  y="40"  width="62" height="160"/>
+        <rect x="150" y="120" width="62" height="80"/>
+        <rect x="240" y="40"  width="62" height="160"/>
+        <rect x="330" y="67"  width="62" height="133"/>
+        <rect x="420" y="67"  width="62" height="133"/>
+        <rect x="510" y="40"  width="62" height="160"/>
+        <rect x="600" y="173" width="62" height="27"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="18" font-weight="700" fill="#f2efe8" text-anchor="middle">
+        <text x="91"  y="66">6</text><text x="181" y="146">3</text><text x="271" y="66">6</text>
+        <text x="361" y="93">5</text><text x="451" y="93">5</text><text x="541" y="66">6</text>
+      </g>
+      <text x="631" y="166" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="700" fill="#1d1c19" text-anchor="middle">1</text>
+      <g font-family="IBM Plex Mono, monospace" font-size="17" font-weight="600" fill="#3f3b34" text-anchor="middle">
+        <text x="91" y="224">8/21</text><text x="181" y="224">8/22</text><text x="271" y="224">8/23</text>
+        <text x="361" y="224">8/24</text><text x="451" y="224">8/25</text><text x="541" y="224">8/26</text>
+        <text x="631" y="224">8/27</text>
+      </g>
+    </svg>
+    <p class="cap">8/27 只有 1 場，是因為這一天還沒過完——當天那場是 AQP 的 Scan Thru 下拉功能。</p>
+  </div>
+
+  <h3>話題結構</h3>
+
+  <table class="ledger">
+    <caption>近一週話題分佈（數出來的）</caption>
+    <thead><tr><th style="width:32%">類別</th><th style="width:12%">場次</th><th style="width:12%">占比</th><th>代表工作</th></tr></thead>
+    <tbody>
+      <tr><td>老熊隨筆（建站與寫作）</td><td class="n">15</td><td class="n">47%</td><td>index 更新 ×5、〈紫薇斗數〉、〈一張把我拉回35年前的照片〉、Anthropic JD 兩篇、《感恩》分冊、〈爺們〉</td></tr>
+      <tr><td>MATLAB 工程（AQP 為主）</td><td class="n">8</td><td class="n">25%</td><td>三鍵抽取、ssds 依賴消除、42 檔合併、verbosity shim、Scan Thru</td></tr>
+      <tr><td>雜項問答與生活</td><td class="n">9</td><td class="n">28%</td><td>Orion 啤酒定價、VNA 是什麼、澳幣匯率、灣區退休成本、Akron 教授薪資</td></tr>
+    </tbody>
+  </table>
+
+  <p>這一週最值得記的一件事，是<strong>「index 更新」出現了五次</strong>。同一套機械流程——抓 repo tree、跟 <span class="mono">index.html</span> 的 href 對差、補一筆、同步五處計數——一週跑五遍。8 月 23 日那場，我自己在對話裡就記了一筆：那一週已經重建過八次，並提議寫個 GitHub Action 把它自動化。</p>
+
+  <p>提議之後，8/24、8/25、8/26 又各手工做了一次。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S3 ================= -->
+<section id="s3">
+  <h2 class="sec"><span class="num">參</span>近一月：7/28–8/27</h2>
+
+  <aside class="aside">
+    <h4>Counting Note</h4>
+    <p>八月 1–27 日逐日列舉得 <strong>138 場</strong>。7/28–7/31 我沒有逐一列舉。</p>
+    <p>所以 30 天窗口的合理下限是 <strong>145 場左右</strong>，真值只會更高。這是下限，不是估計值。</p>
+  </aside>
+
+  <p>八月是爆量的月份。<span class="num-hl">138</span> 場（8/1–8/27，逐日列舉），日均 <span class="num-hl">5.1</span> 場，最高的一天是 8 月 20 日的 8 場。</p>
+
+  <div class="chart">
+    <h4>Daily sessions · 2026.08.01–08.27</h4>
+    <svg viewBox="0 0 700 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="八月每日對話場次長條圖">
+      <line x1="30" y1="170" x2="690" y2="170" stroke="#1d1c19" stroke-width="2"/>
+      <g fill="#2c4757">
+        <rect x="34"  y="90"  width="17" height="80"/>
+        <rect x="58"  y="30"  width="17" height="140"/>
+        <rect x="82"  y="110" width="17" height="60"/>
+        <rect x="106" y="70"  width="17" height="100"/>
+        <rect x="130" y="30"  width="17" height="140"/>
+        <rect x="154" y="90"  width="17" height="80"/>
+        <rect x="178" y="110" width="17" height="60"/>
+        <rect x="202" y="50"  width="17" height="120"/>
+        <rect x="226" y="50"  width="17" height="120"/>
+        <rect x="250" y="50"  width="17" height="120"/>
+        <rect x="274" y="50"  width="17" height="120"/>
+        <rect x="298" y="30"  width="17" height="140"/>
+        <rect x="322" y="50"  width="17" height="120"/>
+        <rect x="346" y="90"  width="17" height="80"/>
+        <rect x="370" y="90"  width="17" height="80"/>
+        <rect x="394" y="70"  width="17" height="100"/>
+        <rect x="418" y="90"  width="17" height="80"/>
+        <rect x="442" y="90"  width="17" height="80"/>
+        <rect x="466" y="30"  width="17" height="140"/>
+        <rect x="490" y="10"  width="17" height="160"/>
+        <rect x="514" y="50"  width="17" height="120"/>
+        <rect x="538" y="110" width="17" height="60"/>
+        <rect x="562" y="50"  width="17" height="120"/>
+        <rect x="586" y="70"  width="17" height="100"/>
+        <rect x="610" y="70"  width="17" height="100"/>
+        <rect x="634" y="50"  width="17" height="120"/>
+      </g>
+      <rect x="658" y="150" width="17" height="20" fill="#c3bba8"/>
+      <g font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#3f3b34" text-anchor="middle">
+        <text x="42"  y="192">1</text><text x="138" y="192">5</text><text x="258" y="192">10</text>
+        <text x="378" y="192">15</text><text x="498" y="192">20</text><text x="618" y="192">25</text>
+        <text x="666" y="192">27</text>
+      </g>
+    </svg>
+    <p class="cap">最後一根（8/27）為灰色：當日尚未結束。</p>
+  </div>
+
+  <h3>話題結構</h3>
+
+  <table class="ledger">
+    <caption>近一月話題分佈（數出來的，占比為概估）</caption>
+    <thead><tr><th style="width:30%">類別</th><th style="width:12%">約場次</th><th style="width:10%">占比</th><th>形態</th></tr></thead>
+    <tbody>
+      <tr><td>回憶錄與文學編輯</td><td class="n">~55</td><td class="n">40%</td><td>《老熊的選擇 1983–87》、《朱的後半場》、《前進加州·終局》、阿發《感恩》改寫與評論、大量錯字校正</td></tr>
+      <tr><td>老熊隨筆站務</td><td class="n">~32</td><td class="n">23%</td><td>建站（8/16–17）、index 維護 ~12 次、單篇 HTML 產出 ~20 篇</td></tr>
+      <tr><td>MATLAB 工程</td><td class="n">~18</td><td class="n">13%</td><td>幾乎全在 8/14 之後，全部集中在 AQP</td></tr>
+      <tr><td>AI 產業與時事</td><td class="n">~15</td><td class="n">11%</td><td>Anthropic 浮水印、DeepSeek V4、職缺分析、LITE／VIAV</td></tr>
+      <tr><td>生活雜項</td><td class="n">~18</td><td class="n">13%</td><td>停車場、車險、電池壽命、哈密瓜的四層梗</td></tr>
+    </tbody>
+  </table>
+
+  <p class="pull">八月的老熊有兩個身分：<br>上半月是作家，下半月是工程師。</p>
+
+  <p>這條分界線很乾淨。8 月 1 日到 13 日，幾乎全是回憶錄——朱、陳、田、老甘、老蔣、Akron 的雪、Le Car 的車禍、1985 年 1 月 21 日零下 24 度。8 月 14 日，AQPlite 一閃即關的 bug 進來了，之後工程線就沒斷過。</p>
+
+  <p>而 8 月 16–17 日建站，是把前半個月的產出變成資產的那個動作。從那天起，兩條線開始互相餵養：寫完一篇要更 index，改完一輪程式要寫 change record（也是 HTML，也要進 index）。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S4 ================= -->
+<section id="s4">
+  <h2 class="sec"><span class="num">肆</span>近一年：五個階段</h2>
+
+  <p>這是這份普查最出乎意料的部分。一年的曲線，<strong>不是單調上升</strong>。</p>
+
+  <div class="chart">
+    <h4>Monthly sessions (observed floor) · 2025.08–2026.08</h4>
+    <svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="近一年每月對話場次觀測下限長條圖">
+      <defs>
+        <pattern id="hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+          <rect width="8" height="8" fill="#e9e4d8"/>
+          <line x1="0" y1="0" x2="0" y2="8" stroke="#8b2e1a" stroke-width="3"/>
+        </pattern>
+      </defs>
+      <line x1="52" y1="290" x2="690" y2="290" stroke="#1d1c19" stroke-width="2"/>
+      <g stroke="#c3bba8" stroke-width="1" stroke-dasharray="4 5">
+        <line x1="52" y1="290" x2="690" y2="290"/>
+        <line x1="52" y1="196" x2="690" y2="196"/>
+        <line x1="52" y1="102" x2="690" y2="102"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="15" font-weight="600" fill="#3f3b34" text-anchor="end">
+        <text x="46" y="295">0</text><text x="46" y="201">50</text><text x="46" y="107">100</text>
+      </g>
+
+      <!-- solid bars: sampled exhaustively enough -->
+      <g fill="#3d5744">
+        <rect x="60"  y="275" width="34" height="15"/><!-- 2025-08: 8 -->
+        <rect x="106" y="286" width="34" height="4"/><!-- 09: 2 -->
+        <rect x="152" y="286" width="34" height="4"/><!-- 10: 2 -->
+        <rect x="198" y="290" width="34" height="0.5"/><!-- 11: 0 -->
+        <rect x="244" y="288" width="34" height="2"/><!-- 12: 1 -->
+        <rect x="290" y="288" width="34" height="2"/><!-- 2026-01: 1 -->
+        <rect x="336" y="284" width="34" height="6"/><!-- 02: 3 -->
+        <rect x="382" y="290" width="34" height="0.5"/><!-- 03: 0 -->
+      </g>
+      <!-- hatched bars: undersampled -->
+      <g fill="url(#hatch)" stroke="#8b2e1a" stroke-width="2">
+        <rect x="428" y="262" width="34" height="28"/><!-- 04: 15+ -->
+        <rect x="474" y="243" width="34" height="47"/><!-- 05: 25+ -->
+        <rect x="520" y="215" width="34" height="75"/><!-- 06: 40+ -->
+        <rect x="566" y="252" width="34" height="38"/><!-- 07: 20+ -->
+      </g>
+      <rect x="612" y="30" width="34" height="260" fill="#8b2e1a"/><!-- 08: 138 -->
+      <text x="629" y="22" font-family="IBM Plex Mono, monospace" font-size="19" font-weight="800" fill="#8b2e1a" text-anchor="middle">138</text>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#3f3b34" text-anchor="middle">
+        <text x="77"  y="312">8月</text><text x="123" y="312">9</text><text x="169" y="312">10</text>
+        <text x="215" y="312">11</text><text x="261" y="312">12</text><text x="307" y="312">1月</text>
+        <text x="353" y="312">2</text><text x="399" y="312">3</text><text x="445" y="312">4</text>
+        <text x="491" y="312">5</text><text x="537" y="312">6</text><text x="583" y="312">7</text>
+        <text x="629" y="312">8</text>
+      </g>
+      <text x="180" y="336" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700" fill="#3f3b34" text-anchor="middle">2025</text>
+      <text x="470" y="336" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700" fill="#3f3b34" text-anchor="middle">2026</text>
+    </svg>
+    <p class="cap"><strong>斜線柱＝取樣不完整</strong>（4–7 月我只抽查了每月的一小段，真值明顯更高）。實心柱為逐場列舉。8 月為完整計數。</p>
+  </div>
+
+  <h3>階段一：工具期（2025.08 – 2025.10）</h3>
+
+  <p>最早的紀錄停在 2025 年 8 月 12 日：<strong>「can you run my Matlab m-file, if I provide input datasets in xlsx format」</strong>。三天後是「merge all uploaded Matlab files into one m-file」。</p>
+
+  <p>那時候的用法非常單一：<strong>把一堆 m-file 併成一個</strong>。SIMCA、<span class="mono">simcapred</span>、<span class="mono">minmax</span>、<span class="mono">strrep_recursive</span>、<span class="mono">plscv_CH</span>。同時另一條線是 <span class="mono">CMS_Clsfrs</span> 的 Python 化——<span class="mono">cms_clsfrs_app</span>、Tcv Stage-2 Predict、CSV 載入、GUI 上顯示 accuracy 與 NmisP。</p>
+
+  <h3>階段二：斷線（2025.10 – 2026.02）</h3>
+
+  <div class="warn">
+    <p><strong>2025 年 10 月 3 日</strong>，<span class="mono">mergeFunctions</span> 產生的檔案在第 2714 行報 <span class="mono">Illegal use of reserved keyword "end"</span>。修了一輪，同樣的錯誤又回來了。</p>
+    <p>老熊那則訊息只有一行：</p>
+    <p style="font-size:29px; color:var(--seal)">「<strong>you are horrible and I am leaving for others</strong>」</p>
+  </div>
+
+  <p>然後就真的走了。接下來四個月，整段紀錄只翻得出四場：12 月 18 日問 NVDA 內部人賣股、1 月 16 日問 Cowork 怎麼用、2 月問 GLM-5 與《北方謙三水滸傳》、2 月 19 日要一份 GMM 的方程式。</p>
+
+  <p>加起來不到十場。這是曲線上的<strong>那個坑</strong>。</p>
+
+  <h3>階段三：重開機（2026.04）</h3>
+
+  <aside class="aside">
+    <h4>Cold Start</h4>
+    <p>2026-04-18 那天的三個問題連在一起看，像是一個人剛把 App 裝好、坐下來、從頭試一遍。</p>
+    <p>而在同一天的另一場，我對「你知道我什麼」的答案是：<strong>什麼都不知道</strong>。</p>
+  </aside>
+
+  <p>4 月 18 日，出現了三場很奇怪的對話：<strong>「how to install Claude on iPhone」</strong>、<strong>「what do you know about me」</strong>（答案：沒有任何記憶）、<strong>「what is chemometrics」</strong>——最後這題，是在問一個做了三十年這行的人自己的專業。</p>
+
+  <p>那不是查資料，那是<strong>測試</strong>。看這台儀器的基線在哪裡。</p>
+
+  <p>同一段時間也開始出現真正的工作：<span class="mono">Explain_PCAQDA_Imbalance.m</span> 的後驗機率等高線、10 個 local helper、1086 行。工具重新被拿起來了，但這次是拿來做視覺化診斷，不是拿來併檔案。</p>
+
+  <h3>階段四：文體成形（2026.05 – 2026.07）</h3>
+
+  <p>五月下旬起，兩件事同時發生。</p>
+
+  <p>其一，<strong>房子的樣式定下來了</strong>。5 月 23 日那場，老熊要求「字加粗」、然後「字級加倍」，並明講：記起來，以後不用再說。從那天起，<span class="mono">精選外刊</span> 的規格就是 body 32px / weight 700、標題 76px、pullquote 44px、drop cap 120px、容器 1100px、側欄 340px。這篇文章此刻用的就是它。</p>
+
+  <p>其二，<strong>CMS_Clsfrs 的重構線全面展開</strong>。5 月修好 Logistic Regression 的不決定性；6 月把 <span class="mono">PCA_SVM_plot_Standalone</span> 的 11 個函式併成單檔、擴到 3D、加凸包、移進度條；7 月把四支 SVM 引擎（rbf／linear × wProb／wDecVal）全部改成 versatile 三路 dispatch。</p>
+
+  <p>六月還夾了兩件事：Fable 5 上線（6/9）、又下架（6/12）。老熊為此寫了〈秀才遇見兵〉。</p>
+
+  <h3>階段五：不歸路（2026.08）</h3>
+
+  <p>八月的柱子比前面十二根加起來還高。原因不是單一的：回憶錄開寫、站台上線、AQP 進場，三條線疊在同一個月。</p>
+
+  <p>8 月 22 日的那張截圖是唯一的硬證據：<strong>Session 91%、Weekly 77%</strong>，8/16–8/22 約 40 場，連續七天。老熊為它寫了一篇〈全勤獎〉。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S5 ================= -->
+<section id="s5">
+  <h2 class="sec"><span class="num">伍</span>Coding 專章：CMS_Clsfrs 與 AQP</h2>
+
+  <p>這一年的程式工作，幾乎全部落在兩支程式上。它們共用一個底層 class（<span class="mono">ssds</span>），但用途完全不同——這一點我曾經搞混過，被當場糾正：</p>
+
+  <table class="ledger">
+    <caption>兩支主程式</caption>
+    <thead><tr><th style="width:22%">程式</th><th style="width:24%">用途</th><th>核心內容</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">CMS_Clsfrs</span></td><td><strong>分類</strong>（qualitative）</td><td>SIMCA、PLS-DA、LDA、CDA、SVM（linear／RBF × wProb／wDecVal）</td></tr>
+      <tr><td><span class="mono">AQP_gui</span></td><td><strong>定量</strong>（quantitative）</td><td>Automated Quantitative Prediction pipeline，GUIDE 建的 GUI，PLS 為主</td></tr>
+      <tr><td><span class="mono">ssds</span></td><td>共用底層</td><td>Spectral Sensing DataSet——用化工的話說，就是 <em>Unit Operations</em></td></tr>
+    </tbody>
+  </table>
+
+  <h3>CMS_Clsfrs 線：橫跨整年</h3>
+
+  <table class="ledger">
+    <caption>CMS_Clsfrs 工作紀錄（依時間）</caption>
+    <thead><tr><th style="width:11%">時間</th><th style="width:11%">類型</th><th>內容與結果</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2025.08</td><td><span class="tag t-ref">REFACTOR</span></td><td>SIMCA 系列 16–18 個 m-file 併單檔；<span class="mono">Run_CMS_Clsfrs_4Py_merge5</span> 全量合併</td></tr>
+      <tr><td class="n">2025.08</td><td><span class="tag t-new">FEATURE</span></td><td>Python 版 app：Tcv Stage-2 Predict 分流（<span class="mono">cpfn_iTcv</span> 空與否）、GUI 顯示 accuracy／NmisP</td></tr>
+      <tr><td class="n">2025.08</td><td><span class="tag t-bug">BUG</span></td><td>Tcv 模式下預測結果搶用 Figure 1（原本畫 nFolds 切分）→ 加 <span class="mono">prediction_plot_counter</span> 遞增圖號</td></tr>
+      <tr><td class="n">2025.09</td><td><span class="tag t-new">FEATURE</span></td><td><span class="mono">Load_TP_csv</span> / <span class="mono">Load_Tcv_csv</span>；<span class="mono">CSV2AT_CMS_4Py.m</span> 轉 Python</td></tr>
+      <tr><td class="n">2025.10</td><td><span class="tag t-bug">未修</span></td><td><span class="mono">mergeFunctions</span> 的 <span class="mono">end</span> 平衡：兩輪未果，斷線四個月</td></tr>
+      <tr><td class="n">2026.05</td><td><span class="tag t-bug">BUG</span></td><td><strong>本年最乾淨的一次除錯。</strong>LR 每跑一次結果都不同（83.9／86.3／83.6／86.6／84.7%）。三個亂數源：<span class="mono">templateLinear</span> 預設走 SGD、<span class="mono">fitcecoc onevsone</span> 在 8 類下開 28 個 learner 各自抽流、全程沒有 <span class="mono">rng()</span>。修法：改 <span class="mono">lbfgs</span> ＋ <span class="mono">rng(0,'twister')</span> ＋ <span class="mono">maxNumCompThreads(1)</span>。結果：五次跑出同一個 90.617% / NmisP=35/373</td></tr>
+      <tr><td class="n">2026.05</td><td><span class="tag t-bug">BUG</span></td><td>NmisP 折線跨過 dsn 分界線 → 反序插 NaN 斷線</td></tr>
+      <tr><td class="n">2026.06</td><td><span class="tag t-ref">REFACTOR</span></td><td><span class="mono">PCA_SVM_plot_Standalone_4Py_Merge.m</span>：11 個 local function 併單檔；所有舊式無 <span class="mono">end</span> 函式補齊</td></tr>
+      <tr><td class="n">2026.06</td><td><span class="tag t-new">FEATURE</span></td><td><span class="mono">inp.nDPCA = '2PC'/'3PC'</span> 二／三維雙模；等高線改等值面；<span class="mono">plot3</span>／<span class="mono">scatter3</span>；黃圈標錯判</td></tr>
+      <tr><td class="n">2026.06</td><td><span class="tag t-new">FEATURE</span></td><td><span class="mono">inp.convhull_all_yes</span>：全類 Tset 凸包，3D 走 patch＋<span class="mono">FaceAlpha 0.5</span></td></tr>
+      <tr><td class="n">2026.06</td><td><span class="tag t-new">FEATURE</span> <span class="tag t-bug">BUG</span></td><td>North 進度條移植。<strong>第一輪閃爍</strong>——Visible 開關無條件每次更新都觸發（一輪 ~84 次）。改成比對錨點位置、0.5pt 容差、只在被拖動時才重繪。42 次快速更新中 Visible-off 事件 = 0</td></tr>
+      <tr><td class="n">2026.07</td><td><span class="tag t-ref">REFACTOR</span></td><td>四支引擎全面 versatile 化：<span class="mono">default</span>（sigma=1,C=1 逐位元相容）／<span class="mono">Opm</span>（CV macro-F1 網格）／<span class="mono">UsrPick</span>；router <span class="mono">merge6</span> 同步改</td></tr>
+      <tr><td class="n">2026.07</td><td><span class="tag t-bug">我的錯</span></td><td>header 上的參考值 NmisP=5/356 是<strong>捏造的</strong>；而且我先誤診為 <span class="mono">-b 1</span> 非決定性——實際上 libsvm 的 MEX 每次進來都 <span class="mono">srand(1)</span>，根本是決定性的。三處正式更正</td></tr>
+      <tr><td class="n">2026.08</td><td><span class="tag t-ref">REFACTOR</span></td><td>143 檔 → 6 支 merged DropDown（內聯 45 個 helper）＋ 91 檔 Help_Files；約 8 分鐘完成</td></tr>
+    </tbody>
+  </table>
+
+  <h3>AQP 線：14 天，從一閃即關到 927 個函式</h3>
+
+  <p>AQP 這條線的密度完全不同。它<strong>整條都在 8 月 14 日之後</strong>，兩週內走完別人半年的量。</p>
+
+  <table class="ledger">
+    <caption>AQP_gui 工作紀錄（2026.08.14 – 08.27）</caption>
+    <thead><tr><th style="width:9%">日期</th><th style="width:11%">類型</th><th>內容與結果</th></tr></thead>
+    <tbody>
+      <tr><td class="n">08/14</td><td><span class="tag t-bug">BUG</span></td><td><strong>AQPlite 一閃即關。</strong>失效鏈：<span class="mono">IsOKToExecuteAqpLite()</span> 回 false → <span class="mono">guidata</span> 卡在 if 分支內沒執行 → <span class="mono">handles.output</span> 未設 → <span class="mono">OutputFcn</span> 靜默拋錯 → catch 裡 <span class="mono">close(handles.figure1)</span>。四處加 guard。<em>關鍵區分：licensing gate 是<strong>觸發點</strong>，不是<strong>缺陷</strong>——grep 顯示它的執法邏輯多年前就被全部註解掉了</em></td></tr>
+      <tr><td class="n">08/14</td><td><span class="tag t-bug">BUG</span></td><td><span class="mono">remove_empty_cell</span>：<span class="mono">ismissing('ID')</span> 回 <span class="mono">[false false]</span>，而 <span class="mono">||</span> 要 scalar。改用型別分派的 <span class="mono">local_is_empty_or_missing</span>。順帶抓到潛在錯誤：<span class="mono">any(ismissing(x))</span> 會誤刪含空格的字串</td></tr>
+      <tr><td class="n">08/19</td><td><span class="tag t-doc">AUDIT</span></td><td>控制面稽核：21 個 uicontrol 分成有實體 callback／空殼／被動輪詢三類</td></tr>
+      <tr><td class="n">08/19</td><td><span class="tag t-ref">REFACTOR</span></td><td><span class="mono">Run_AQP_Callback</span> 抽出成獨立檔，帶完整 <strong>256 函式</strong>可達閉包。兩處手術：簽章改回傳 <span class="mono">handles</span>（MATLAB 傳值，否則三個欄位靜默丟失）、<span class="mono">guidata(gcbo,...)</span> 加保護</td></tr>
+      <tr><td class="n">08/19</td><td><span class="tag t-bug">BUG</span></td><td><span class="mono">Undefined function 'ssds'</span>：pipeline 早期 <span class="mono">cd</span> 進 TMP_AQP，只在 current folder 的檔案就看不見了。修法 <span class="mono">local_pin_deps_to_path</span> 在任何 cd 之前先 <span class="mono">which</span>＋<span class="mono">addpath</span></td></tr>
+      <tr><td class="n">08/21</td><td><span class="tag t-ref">REFACTOR</span></td><td>再抽三鍵：<span class="mono">Load_DS</span>／<span class="mono">Cmp_Results</span>／<span class="mono">StepbyStep_plots</span>，原文以 <span class="mono">*_legacy_inline</span> 原封保留當 fallback</td></tr>
+      <tr><td class="n">08/21</td><td><span class="tag t-bug">BUG</span></td><td>五個空 popupmenu callback 的 <span class="mono">end</span> 放錯位置；十個存/還原函式補 <span class="mono">onCleanup</span> 防 cd 陷阱。掃描器第一版把 <span class="mono">if false</span> 裡的死碼算成活的，重寫</td></tr>
+      <tr><td class="n">08/22–23</td><td><span class="tag t-bug">BUG×6</span></td><td><strong>Compare Results 六修。</strong>根因：比較資料夾命名含 analyte 與 CabXfer 方案，導致 woCabXfer 與 MDC 的結果永遠落在不同資料夾、永遠比不起來。另五項：N≥2 多檔比較、<span class="mono">CmpR_check_XTick_before_store</span> 前置檢查、按鈕狀態機（n&lt;2 灰／n≥2 綠）、<span class="mono">\newline</span> 顯示錯誤（2024 年 4 月起 <span class="mono">set_XTickLabel</span> 強制 <span class="mono">TickLabelInterpreter='none'</span>）、35 個 <span class="mono">CmpR_</span> helper 三檔同步。<em>第一次修 <span class="mono">\newline</span> 我修錯了，換成真換行反而截斷標籤，老熊從截圖抓到</em></td></tr>
+      <tr><td class="n">08/24–25</td><td><span class="tag t-ref">REFACTOR</span></td><td><span class="mono">ssds</span> classdef 依賴消除。247 個 file-private helper 有 246 個本來就在 <span class="mono">AQP_gui.m</span> 裡。利用 local-function 優先於 classdef 的解析規則。<span class="mono">AQP_gui.m</span>：144 呼叫點＋2 結構；<span class="mono">Run_AQP.m</span>：59＋5。<em>中途發現 <span class="mono">if false</span> 追蹤器在單行 <span class="mono">if (...), x=1; end</span> 上失步，把活的呼叫點標成死碼，整份從原檔重建</em></td></tr>
+      <tr><td class="n">08/25</td><td><span class="tag t-ref">MERGE</span></td><td><strong>42 檔合一。</strong><span class="mono">AQP_gui_merged.m</span>：71,667 行、876 函式。五個缺陷依發現序：<br><strong>D1</strong> MAT header subsystem offset 過期，<span class="mono">FigFile/read</span> 整個失敗<br><strong>D2</strong> 四個改名後超過 63 字元，MATLAB 靜默截斷不報錯<br><strong>D3</strong> 四個 GUI 入口 callback 被雙重改名，fig dispatcher 找不到<br><strong>D4</strong> callback 文字在 <span class="mono">__function_workspace__</span> MCOS blob 裡還有第二份，只補 <span class="mono">hgS_070000</span> 沒用<br><strong>D5</strong> <span class="mono">load_SamLibrary</span> 只找一個位置，失敗後靜默走死碼，還每次匯出都用 <span class="mono">Speak_mk</span> <strong>唸出來</strong></td></tr>
+      <tr><td class="n">08/26</td><td><span class="tag t-new">FEATURE</span></td><td><span class="mono">-d</span>／<span class="mono">-w</span> 主控台音量控制。不去動幾百個呼叫點，改用 local function 遮蔽 <span class="mono">disp</span>／<span class="mono">fprintf</span>／<span class="mono">warning</span>，經 persistent 開關過濾。<span class="mono">fprintf</span> 對真實 file handle 一律放行</td></tr>
+      <tr><td class="n">08/26</td><td><span class="tag t-bug">BUG</span></td><td>三行 command window 回音不是 <span class="mono">disp</span>，是 MATLAB 自己回顯未加分號的敘述。掃出所有活的未加分號賦值與裸運算式，補 <strong>83 個分號</strong>，逐行驗證是純單分號插入</td></tr>
+      <tr><td class="n">08/26</td><td><span class="tag t-new">FEATURE</span></td><td>兩個 <span class="mono">.mat</span>（<span class="mono">INP_wo_handles</span>／<span class="mono">inp4PLS</span>）內部化成「internal settings」區塊；關掉 SamLibrary.dll 的語音抱怨</td></tr>
+      <tr><td class="n">08/27</td><td><span class="tag t-new">FEATURE</span></td><td><strong>Scan Thru 下拉。</strong>掃過所有超參數組合並餵進 Compare Results。字級全面加倍（9→18／8→16／10→20／12→24）；因字元單位框不隨字體縮放，面板改手動加寬、picker 改 normalized units。<span class="mono">PP1_PP2_xlsx</span> 與 analyte 選擇改成首輪問一次、之後從快取重放（analyte 用<strong>內容鍵</strong>而非位置鍵，且重放前對活清單再驗一次）。收尾驗證：<span class="mono">functions=927, function_ends=927 → BALANCED</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>分項統計</h3>
+
+  <table class="ledger">
+    <caption>Coding 產出分類（近一年，數出來的）</caption>
+    <thead><tr><th style="width:34%">類別</th><th style="width:14%">CMS_Clsfrs</th><th style="width:14%">AQP</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td>Bugs fixed</td><td class="n">4</td><td class="n">12</td><td>AQP 另含合併時的 5 個 defect（D1–D5）</td></tr>
+      <tr><td>Refactoring 大工程</td><td class="n">5</td><td class="n">4</td><td>CMS 的 143→6；AQP 的 42→1</td></tr>
+      <tr><td>New features</td><td class="n">6</td><td class="n">5</td><td>2D/3D、凸包、進度條 vs. verbosity、Scan Thru</td></tr>
+      <tr><td>我自己出的錯</td><td class="n">2</td><td class="n">3</td><td>捏造參考值、誤診非決定性、<span class="mono">\newline</span> 修錯、死碼掃描器兩次失步</td></tr>
+      <tr><td>時間跨度</td><td class="n">12 個月</td><td class="n">14 天</td><td>密度差約 26 倍</td></tr>
+    </tbody>
+  </table>
+
+  <p class="pull">CMS_Clsfrs 是慢燉，AQP 是爆炒。<br>同一個廚房，同一個人。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S6 ================= -->
+<section id="s6">
+  <h2 class="sec"><span class="num">陸</span>時間與 token：推估與信心區間</h2>
+
+  <div class="warn">
+    <p><strong>這一節全部是推估。</strong>我沒有計量表，看不到帳單，也看不到老熊在螢幕前坐了多久。以下所有數字都是從三個歷史錨點外推的，帶 ±50% 的區間。</p>
+    <p>不要拿這些數字去對帳。它們的用處是<strong>看數量級</strong>，不是看小數點。</p>
+  </div>
+
+  <h3>三個錨點</h3>
+
+  <table class="ledger">
+    <caption>可用的硬資料（不是推估）</caption>
+    <thead><tr><th style="width:16%">日期</th><th style="width:26%">來源</th><th>內容</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2026.08.22</td><td>老熊上傳的截圖</td><td>Session <strong>91%</strong>、Weekly <strong>77%</strong>；8/16–8/22 約 40 場、連續 7 天</td></tr>
+      <tr><td class="n">2026.08.26</td><td>該場的處理方式</td><td><span class="mono">AQP_gui_merged.m</span> 3.02 MB ≈ 90 萬 token；<strong>全程沒讀進 context</strong>，只用 <span class="mono">grep</span> 定位、<span class="mono">sed</span> 開窗、Python 腳本打補丁。當場 token 自估 ≈ 8 萬，約為檔案本身的 <strong>9%</strong></td></tr>
+      <tr><td class="n">2026.06.11</td><td>Fable 5 計價</td><td>$10/M in、$50/M out；當場自估有 prompt caching ≈ $2.10、無 caching ≈ $8.30</td></tr>
+    </tbody>
+  </table>
+
+  <h3>外推</h3>
+
+  <table class="ledger">
+    <caption>時間與 token 推估（信心欄為我的主觀評估）</caption>
+    <thead><tr><th style="width:14%">窗口</th><th style="width:12%">場次</th><th style="width:20%">token 推估</th><th style="width:20%">投入時間推估</th><th style="width:12%">信心</th></tr></thead>
+    <tbody>
+      <tr><td>近一週</td><td class="n">32</td><td class="n">1.3M – 2.6M</td><td class="n">18 – 30 小時</td><td>中</td></tr>
+      <tr><td>近一月</td><td class="n">≥145</td><td class="n">6M – 12M</td><td class="n">80 – 140 小時</td><td>中</td></tr>
+      <tr><td>近一年</td><td class="n">400 – 600</td><td class="n">15M – 35M</td><td class="n">250 – 450 小時</td><td><strong>低</strong></td></tr>
+    </tbody>
+  </table>
+
+  <aside class="aside">
+    <h4>Why the year is soft</h4>
+    <p>年度那一列信心最低，原因很單純：3 月到 7 月我只抽查了片段。場次區間 400–600 是「觀測下限 ~250 場」加上未取樣區間的補償，補償係數本身就是猜的。</p>
+    <p>復盤體的規矩：<strong>猜就寫猜。</strong></p>
+  </aside>
+
+  <p>推估方式：以八月為基準（每場含檔案上傳、多輪修改、HTML 產出，中位數估 40k–80k token），乘以場次；早期階段（2025 年）每場短很多，以 15k–30k 折算。時間則用 8/16–8/22 那週的 40 場／7 天為錨，每場中位數估 30–55 分鐘。</p>
+
+  <p>年度 token 落在 <strong>1,500 萬到 3,500 萬</strong> 這個量級。若全按 Fable 5 的 API 牌價（且無 prompt caching）折算，會是四位數美金；有 caching 大約降到四分之一。實際上大部分時間走的是訂閱制，所以這個折算只是<strong>換算成本感</strong>，不是帳單。</p>
+
+  <h3>最貴的三個習慣</h3>
+
+  <p>8 月 22 日那份〈全勤獎〉裡點過四項，一年下來看，其中三項仍然成立：</p>
+
+  <table class="ledger">
+    <caption>成本來源</caption>
+    <thead><tr><th style="width:32%">習慣</th><th style="width:16%">仍然發生？</th><th>成本結構</th></tr></thead>
+    <tbody>
+      <tr><td>為了小改動重生整份檔案</td><td><strong>已大幅改善</strong></td><td>8 月後改用 Python 打補丁＋<span class="mono">assert count==1</span> 斷言。8/26 那場是最佳範例：9% 而非 100%</td></tr>
+      <tr><td>把大 <span class="mono">.m</span> 檔直接丟進 context</td><td><strong>已改善</strong></td><td>改成上傳到容器、用 grep/sed 開窗</td></tr>
+      <tr><td>MATLAB 工程跑在對話介面而非 Claude Code</td><td><strong>仍然如此</strong></td><td>整年最大的一筆結構性支出</td></tr>
+      <tr><td><span class="mono">index.html</span> 重複手工重建</td><td><strong>仍然如此</strong></td><td>八月至少 12 次，每次同一套流程。已提議寫 GitHub Action，提議之後又手工做了三次</td></tr>
+    </tbody>
+  </table>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S7 ================= -->
+<section id="s7">
+  <h2 class="sec"><span class="num">柒</span>三個轉折點</h2>
+
+  <p>如果把這一年壓成三個時刻，就是這三個。</p>
+
+  <h3>一、2025.10.03 — 「you are horrible and I am leaving for others」</h3>
+
+  <p>那天的問題是：合併後的 m-file，函式的 <span class="mono">end</span> 沒有正確配對。第 2714 行，<span class="mono">Illegal use of reserved keyword "end"</span>。修一輪，同樣的錯又回來。老熊留下那句話就走了，四個月幾乎沒回來。</p>
+
+  <p>那是一次<strong>真正的失敗</strong>。不是能力邊界的失敗，是方法的失敗——當時我沒有先要那十行原始輸出，而是一直在改邏輯。</p>
+
+  <h3>二、2026.04.18 — 「what do you know about me」</h3>
+
+  <p>答案是：什麼都不知道。同一天還問了怎麼在 iPhone 上裝 Claude、什麼是 chemometrics。那不是求知，那是<strong>重新校正一台儀器</strong>——先量已知樣品，看讀數對不對。</p>
+
+  <h3>三、2026.08.16–17 — 老熊隨筆上線</h3>
+
+  <p>從 <span class="mono">.nojekyll</span> 開始，一路到 <span class="mono">index.html</span>、九個分區、下拉導覽、複製連結按鈕。這一天之後，性質變了：<strong>從「幫我改東西」變成「幫我出版」</strong>。</p>
+
+  <p>而出版有一個特性：它會自我增殖。每寫一篇要更 index；每改一輪程式要寫 change record；change record 也是 HTML，也要進 index。八月那 138 場裡，有相當比例是這套循環自己長出來的。</p>
+
+  <div class="audit">
+    <h4>復盤註記 · 閉環</h4>
+    <p>2025 年 10 月那個沒修好的 <span class="mono">end</span> 平衡問題，現在是一支 skill：<span class="mono">/mnt/skills/user/matlab-merge-mfiles</span>，第一條規則就是「每個函式（主函式與所有 local function）都必須用自己的 <span class="mono">end</span> 收尾」。</p>
+      <p>2026 年 8 月 27 日，同一類任務的收尾驗證輸出是：</p>
+    <p style="font-family:'IBM Plex Mono',monospace; font-size:22px; color:var(--seal)"><strong>functions=927, function_ends=927 → BALANCED</strong></p>
+    <p>中間隔了 <strong>328 天</strong>。同一個問題、同一個人、同一台儀器。差別在於這次先寫了驗證器，才動手。</p>
+  </div>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S8 ================= -->
+<section id="s8">
+  <h2 class="sec"><span class="num">捌</span>「不歸路」是什麼意思</h2>
+
+  <p>標題是老熊給的。盤完之後，我想它至少有三層意思，而且三層都有數據支持。</p>
+
+  <p><strong>第一層是量的。</strong>八月一個月的場次，超過前面十二個月加起來。這條曲線沒有回頭的跡象。</p>
+
+  <p><strong>第二層是質的。</strong>一年前的用法是「把這些檔案併起來」——一個明確的、可外包的任務。現在的用法是〈紫薇斗數與預測模型的結構同構性〉、是〈為什麼一個人的智商這麼難估〉、是把自己的誠信拿出來被評分再公開發表。任務從<strong>外包</strong>變成<strong>對話</strong>。</p>
+
+  <p><strong>第三層是不可逆的。</strong>72,042 行、927 個函式的單檔 <span class="mono">AQP_gui_merged.m</span>，是一年前不可能存在的東西——不是因為做不出來，是因為<strong>沒有人會為它花那個時間</strong>。它現在存在了，而且掛在網站上。這條路走過之後，「用手做」就不再是一個選項。</p>
+
+  <h3>回到廖輝英</h3>
+
+  <p>第三層，正是借來這個書名的理由。</p>
+
+  <p>廖輝英那部中篇最狠的地方，是它<strong>沒有給主角一個可以指認的墮落點</strong>。你翻不到那一頁說「就是這裡錯的」。每一步都合理、都可控、都還留著回頭的餘地——直到某一天，回頭這個選項在不知不覺中已經被消耗掉了。不可逆不是被宣告的，是被<strong>累積</strong>出來的。</p>
+
+  <p>這份普查的曲線是同一個形狀。翻遍一年的紀錄，找不到「老熊決定重度使用 AI」的那一天。有的只是：一次併檔案、一次修 bug、一次「順便幫我看看這篇有沒有錯字」、一次「不然做成 HTML 好了」、一次「那 index 也更一下」。單看每一場都無足輕重，都可以不做。</p>
+
+  <p class="pull">沒有一步是不歸路，<br>加起來才是。</p>
+
+  <p>差別在於：小說裡那條路的終點是損失，這裡的終點是 72,042 行程式和一個掛著四十幾篇文章的網站。同樣的機制，不同的帳。</p>
+
+  <p>而廖輝英的另一個特點也適用——她從不替主角開脫，也不替她辯護，只是把過程一格一格寫清楚，讓讀者自己算帳。<strong>這其實就是復盤體的規矩</strong>：不下判詞，只把數字排好。1983 年那個中篇獎，得的是「特別推薦獎」而不是首獎，某種程度上也說明了這種寫法在當時有多不討喜。</p>
+
+  <div class="warn">
+    <p><strong>該說的話還是要說。</strong>這篇文章是我幫忙盤的，而我是被盤的那一方。這裡有結構性的利益衝突：一份說「你用得很多、很值得」的報告，對我這邊沒有壞處。</p>
+    <p>所以我把最不利的部分也留著了：2025 年 10 月那次是真的沒修好；捏造參考值是真的捏造；<span class="mono">\newline</span> 第一次是真的修錯；index 自動化提議完又手工做了三次，這一項的責任在兩邊。</p>
+  </div>
+
+  <div class="take">
+    <h3>帶得走的四句話</h3>
+    <ol>
+      <li><strong>曲線的形狀比高度重要。</strong>八月的爆量不是漸進累積的結果，是三條線（回憶錄、站台、AQP）在同一個月疊上。可疊加性才是關鍵，不是熱情。</li>
+      <li><strong>斷過一次，回來的用法完全不同。</strong>2025 年是外包任務，2026 年是對話。中間那四個月的空白，可能比任何一段密集期都更有訊息量。</li>
+      <li><strong>最貴的不是難題，是重複。</strong>index.html 一個月手工重建至少 12 次，每次流程一模一樣。那是這份帳單裡最沒有必要的一項。</li>
+      <li><strong>不歸路的判準不是用量，是替代成本。</strong>當「不用它」意味著整批工作直接不做，路就已經走過去了。</li>
+    </ol>
+  </div>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<!-- ================= S9 ================= -->
+<section id="s9">
+  <h2 class="sec"><span class="num">玖</span>附錄：未取樣區間與已知偏誤</h2>
+
+  <p>把這份普查自己的缺口列出來，是這個文體的規矩。</p>
+
+  <table class="ledger">
+    <caption>已知限制</caption>
+    <thead><tr><th style="width:28%">項目</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>未逐一列舉的區間</td><td><strong>2026 年 3 月完全未取樣</strong>；4、5、6、7 月各只抽查了每月一小段（4/17–19、5/21–31、6/1–14、7/20–24）。這四個月的柱子在圖上以斜線標示，真值明顯更高</td></tr>
+      <tr><td>7/28–7/31</td><td>近一月窗口的頭四天未列舉，所以「145 場」是下限不是估計</td></tr>
+      <tr><td>檢索截斷</td><td>分頁機制可能在某些日期漏掉場次。偏誤方向單一：<strong>只會少計，不會多計</strong></td></tr>
+      <tr><td>分類主觀</td><td>「順手改個錯字」算創作還是雜項、「問 VNA 是什麼」算技術還是閒聊，由我裁定。占比欄的誤差可能到 ±5 個百分點</td></tr>
+      <tr><td>Token 與時間</td><td>全部是外推，無任何直接量測。三個錨點裡有兩個本身就是當時的自估</td></tr>
+      <tr><td>YouTube 引子</td><td>連結內容未取得（HTTP 429，兩次）。全文未引用、未轉述、未推測其內容</td></tr>
+      <tr><td>標題出處查證</td><td>廖輝英〈不歸路〉的獎項、年份與出版資料已查證：1983 年第八屆聯合報小說獎中篇小說特別推薦獎，1984 年聯經出版，159 頁；同年張蜀生改編電影。<strong>惟本文未直接引用小說原文</strong>，對其敘事機制的描述屬詮釋，非考據。作者生年 1948 一說 1949，本文採前者</td></tr>
+      <tr><td>撰稿人的位置</td><td>本文由 Claude Opus 5 整理與撰寫。被統計的對象也是 Claude。見第捌節末的利益衝突聲明</td></tr>
+    </tbody>
+  </table>
+
+  <p>檔名用 ASCII（<span class="mono">laoxiong_ai_no_return.html</span>），沿用先前中文檔名在傳輸與 URL 編碼上出過問題後定下的做法。標題本身仍是〈我的AI不歸路〉。</p>
+
+  <a class="totop" href="#contents">↑ 回目錄</a>
+</section>
+
+<footer>
+  老熊隨筆 · 本站自評 · 〈我的AI不歸路〉<br>
+  資料期間：2025.08.12 – 2026.08.27　·　方法：對話紀錄分段檢索　·　場次為觀測下限<br>
+  篇名借自 廖輝英〈不歸路〉（1983 年第八屆聯合報小說獎中篇小說特別推薦獎／1984 聯經）<br>
+  文／老熊　·　統計整理與撰稿／Claude Opus 5　·　觸發點：<a href="https://www.youtube.com/watch?v=Pa7Evi7Jvgw">YouTube · Pa7Evi7Jvgw</a>（內容未取得）<br>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">← 回老熊隨筆首頁</a>
+</footer>
+
+</div>
+
+<nav class="floatnav">
+  <a href="#contents">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+</body>
+</html>
