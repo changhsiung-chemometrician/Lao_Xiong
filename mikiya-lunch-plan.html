@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuesday noon at Mikiya — a three-person wagyu plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24211E;
+    --shiso:#EEF2EA;
+    --shiso-deep:#D8E1D2;
+    --beef:#C8434E;
+    --fat:#F4C9C4;
+    --dashi:#B8862B;
+    --paper:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--shiso);color:var(--ink);
+    font-family:"Fraunces",Georgia,"Times New Roman",serif;
+    font-weight:600;font-size:27px;line-height:1.55;
+  }
+  a{color:var(--beef);font-weight:700;text-decoration-thickness:3px;text-underline-offset:5px}
+  a:focus-visible{outline:4px solid var(--dashi);outline-offset:4px}
+  strong{font-weight:800}
+  .num{font-weight:800;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+
+  /* hero */
+  .hero{padding:80px 0 56px;border-bottom:6px solid var(--ink)}
+  .hero h1{font-size:88px;line-height:.98;font-weight:900;margin:0 0 28px;letter-spacing:-.02em}
+  .hero p{font-size:32px;max-width:26ch;margin:0}
+  .hero .when{display:inline-block;margin-top:34px;padding:12px 22px;background:var(--ink);color:var(--shiso);font-size:26px;font-weight:700}
+
+  /* story steps — a real sequence, so numbered */
+  .step{padding:64px 0;border-bottom:3px solid var(--shiso-deep)}
+  .step h2{font-size:56px;line-height:1.05;font-weight:800;margin:0 0 24px;letter-spacing:-.015em}
+  .step h2 span{display:block;font-size:26px;color:var(--beef);font-weight:700;margin-bottom:10px}
+  .step p{max-width:62ch;margin:0 0 20px}
+  .step ul{max-width:62ch;padding-left:1.1em;margin:0 0 20px}
+  .step li{margin:0 0 10px}
+
+  /* the cut ranking — the one bold element */
+  .cuts{list-style:none;padding:0;margin:8px 0 28px;max-width:none}
+  .cuts li{
+    display:grid;grid-template-columns:96px 240px 1fr;align-items:center;gap:24px;
+    padding:22px 0;border-top:3px solid var(--ink);margin:0
+  }
+  .cuts li:last-child{border-bottom:3px solid var(--ink)}
+  .cuts .rank{font-size:64px;font-weight:900;line-height:1;color:var(--beef)}
+  .cuts .name{font-size:36px;font-weight:800;line-height:1.1}
+  .cuts .why{font-size:24px;font-weight:600;margin-top:6px}
+  .cuts li.alt .rank{color:var(--dashi)}
+  .cuts .art{width:240px;height:160px;display:block;border:3px solid var(--ink);background:var(--paper);overflow:hidden}
+  .cuts .art img{width:100%;height:100%;object-fit:cover;display:block}
+  .cuts .art.missing{display:grid;place-items:center;font-size:22px;color:var(--dashi)}
+  .caption{font-size:22px;max-width:62ch;margin:0 0 8px}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:8px 0 24px}
+  .menu a{display:block}
+  .menu img{width:100%;height:auto;display:block;border:3px solid var(--ink);background:var(--paper)}
+  @media (max-width:700px){.menu{grid-template-columns:1fr}}
+
+  /* price table */
+  table{border-collapse:collapse;width:100%;max-width:900px;margin:8px 0 24px;font-size:26px}
+  th,td{text-align:left;padding:14px 12px;border-bottom:3px solid var(--shiso-deep);vertical-align:top}
+  th{font-weight:800;border-bottom:4px solid var(--ink)}
+  td:last-child,th:last-child{text-align:right;white-space:nowrap}
+  tfoot td{font-weight:800;border-bottom:none;border-top:4px solid var(--ink)}
+
+  .toc{padding:44px 0;border-bottom:3px solid var(--shiso-deep)}
+  .toc h2{font-size:30px;font-weight:800;margin:0 0 16px}
+  .toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:48px;font-size:26px}
+  .toc li{margin:0 0 10px;break-inside:avoid}
+  .toc a{color:var(--ink);text-decoration-color:var(--beef)}
+  .summary{padding:56px 0;border-bottom:6px solid var(--ink)}
+  .summary h2{font-size:56px;line-height:1.05;font-weight:800;margin:0 0 24px;letter-spacing:-.015em}
+  .summary p{max-width:62ch;margin:0 0 20px;font-size:29px}
+  .back{display:block;margin-top:28px;font-size:23px;color:var(--ink);text-decoration-color:var(--dashi)}
+  .home{padding:64px 0 24px}
+  .home h2{font-size:56px;line-height:1.05;font-weight:800;margin:0 0 24px;letter-spacing:-.015em}
+  .home ul{max-width:62ch;padding-left:1.1em;margin:0 0 20px;list-style:none}
+  .home li{margin:0 0 16px;padding-left:1.1em;text-indent:-1.1em}
+  .home li::before{content:"■ ";color:var(--beef);font-size:.75em}
+  @media (max-width:700px){.toc ol{columns:1}.summary h2,.home h2{font-size:40px}.summary p{font-size:24px}}
+  .note{background:var(--fat);padding:22px 26px;max-width:62ch;font-size:25px;margin:24px 0 0}
+  .foot{padding:56px 0 80px;font-size:23px;max-width:62ch}
+
+  @media (max-width:700px){
+    body{font-size:23px}
+    .hero{padding:52px 0 40px}
+    .hero h1{font-size:56px}
+    .hero p{font-size:26px}
+    .step h2{font-size:40px}
+    .cuts li{grid-template-columns:64px 1fr;grid-template-areas:"rank art" "text text"}
+    .cuts .rank{grid-area:rank}.cuts .art{grid-area:art;width:100%;max-width:240px}.cuts .txt{grid-area:text}
+    .cuts .rank{font-size:44px}
+    .cuts .name{font-size:28px}
+    table{font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Tuesday noon<br>at Mikiya.</h1>
+    <p>Three of us, walk-in, one pot of tomato broth, and twelve plates of the best beef on the happy-hour menu.</p>
+    <div class="when">Tuesday, September 15, 2026 · 12:00 noon</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <nav class="toc" id="contents" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#summary">Executive summary</a></li>
+      <li><a href="#where">Where it is</a></li>
+      <li><a href="#why">Why Tuesday at noon</a></li>
+      <li><a href="#order">What to order</a></li>
+      <li><a href="#cuts">The four plates that matter</a></li>
+      <li><a href="#pot">The pot</a></li>
+      <li><a href="#cost">What it costs</a></li>
+      <li><a href="#takehome">Take home</a></li>
+    </ol>
+  </nav>
+
+  <section class="summary" id="summary">
+    <h2>Executive summary</h2>
+    <p>Mikiya Wagyu Shabu House is walk-in only, so the plan substitutes timing for a booking: <strong>Tuesday, September 15 at noon</strong>, the quietest slot of the week and inside the Mon–Thu lunch happy hour.</p>
+    <p>Three people each take the <strong>Supreme Wagyu Set ($42.80)</strong> and choose the same four plates — the three Japanese A5 cuts plus the M9 chuck ribeye — with one shared seafood platter and a tomato broth. Expected cost is <span class="num">≈ $177</span> all in, or about $164 if one person drops to the Premium set.</p>
+    <p>It's on the upper level of Hillsdale's North Block, 50 m from the Apple store and a 5-minute walk from The Cheesecake Factory. Park off 31st Ave near Trader Joe's.</p>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="step" id="where">
+    <h2><span>1</span>Where it is</h2>
+    <p><strong>Mikiya Wagyu Shabu House</strong>, 68 Hillsdale Mall, San Mateo, CA 94403 — also written as 60 31st Ave #68. It sits on the <strong>upper level of the North Block</strong>, the open-air part of Hillsdale on the 31st Ave side.</p>
+    <p>Apple Hillsdale is on the ground floor of the same block, about 50 m away. The Cheesecake Factory is at the opposite end of the center, roughly <span class="num">0.2</span> mi south, at ground level near Macy's.</p>
+    <p>Park in the North Block lot off 31st Ave (near Trader Joe's) and you're one escalator ride from the door. Walking from Cheesecake Factory takes 4–5 minutes: <a href="https://www.google.com/maps/dir/?api=1&origin=The+Cheesecake+Factory+Hillsdale+Shopping+Center+San+Mateo&origin_place_id=ChIJgyRbEgOfj4AR8ilzv4qcOqA&destination=Mikiya+Wagyu+Shabu+House+San+Mateo&destination_place_id=ChIJx8042Qafj4ARPEMbdQDvnMM&travelmode=walking">open the walking route in Google Maps</a>.</p>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="step" id="why">
+    <h2><span>2</span>Why Tuesday at noon</h2>
+    <p>No reservations for the general public — Mikiya is walk-in only, and the priority-seating line is reserved for their NFT membership. So the timing is the reservation.</p>
+    <ul>
+      <li>A weekday lunch is the quiet slot; groups of six or seven have been seated at noon without a wait, so three is easy.</li>
+      <li>The <strong>lunch happy hour</strong> runs Mon–Thu 11:30 am–4:00 pm, which unlocks the cheaper set menus below.</li>
+      <li>The Apple store next door is calmer too, if there's an errand to fold in.</li>
+    </ul>
+    <p>If you want certainty, call <span class="num">(747) 286-7071</span> that morning. Hours that day: 11:30 am – 10:00 pm.</p>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="step" id="order">
+    <h2><span>3</span>What to order</h2>
+    <p>Happy-hour sets are four plates of wagyu per person plus the unlimited self-serve bar (vegetables, noodles, tofu, fruit, drinks, milk tea, soft serve). There's a <span class="num">90</span>-minute limit, and everyone at the table takes a set.</p>
+    <table>
+      <thead><tr><th>Set</th><th>What you pick from</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Premium Wagyu</strong></td><td>4 of 6: M9 chuck ribeye, M9 shoulder, Australian chuck ribeye, brisket, shoulder, Kurobuta pork</td><td class="num">$32.80</td></tr>
+        <tr><td><strong>Supreme Wagyu</strong></td><td>4 of 9: everything above plus Japanese A5 chuck ribeye, A5 brisket, A5 shoulder</td><td class="num">$42.80</td></tr>
+        <tr><td>Seafood platter (add-on)</td><td>Shrimp and shellfish for the pot; not included in the sets</td><td class="num">$9.99</td></tr>
+        <tr><td>Extra plate</td><td>Any meat within your set, or a specialty dish</td><td class="num">$6.00</td></tr>
+      </tbody>
+    </table>
+    <p>The unlimited tiers (Silver ~$55, Gold, Diamond $98) are available at lunch too, but only pay off if each of you will out-eat four plates. Members get $4 off each set; the annual membership is $28.</p>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="step" id="cuts">
+    <h2><span>4</span>The four plates that matter</h2>
+    <p>The extra ten dollars for the Supreme set buys access to the three Japanese A5 cuts. Take all three, then the best Australian cut as the fourth.</p>
+    <ol class="cuts">
+      <li><div class="rank">1</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Wagyu_beef_marbling_detail.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_beef_marbling_detail.jpg?width=900" alt="Close-up of wagyu marbling" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'photo'}))"></a><div class="txt"><div class="name">A5 chuck ribeye</div><div class="why">The most prized cut on the list — deepest marbling, done in a few seconds in the pot.</div></div></li>
+      <li><div class="rank">2</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Wagyu_Beef_for_Shabu-shabu.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_Beef_for_Shabu-shabu.jpg?width=900" alt="Wagyu slices plated for shabu-shabu" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'photo'}))"></a><div class="txt"><div class="name">A5 brisket</div><div class="why">Richer and fattier; swish briefly and eat immediately.</div></div></li>
+      <li><div class="rank">3</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Sliced_Matsusaka_wagyu_beef.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sliced_Matsusaka_wagyu_beef.jpg?width=900" alt="Sliced Matsusaka wagyu" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'photo'}))"></a><div class="txt"><div class="name">A5 shoulder</div><div class="why">The leaner A5 — more beef flavor, a little less butter.</div></div></li>
+      <li class="alt"><div class="rank">4</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Wagyu_meat_forjapanese_bbq.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_meat_forjapanese_bbq.jpg?width=900" alt="Sliced wagyu ready for the table" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'photo'}))"></a><div class="txt"><div class="name">M9 chuck ribeye</div><div class="why">Top of the Australian grading scale; the best non-Japanese plate on the menu.</div></div></li>
+    </ol>
+    <p class="caption">Photos are representative wagyu shabu slices from Wikimedia Commons (free-licensed; tap a photo for the file page and credit), not Mikiya's own plates — the marbling is what to look for on the day.</p>
+    <p>The ranking follows the market value of these grades and cuts, not Mikiya's own costing — but the A5 Japanese beef is unambiguously the premium ingredient.</p>
+    <p>Mikiya's own San Mateo menu boards, hosted on their site (tap to open full size):</p>
+    <div class="menu">
+      <a href="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-02-min-scaled.jpg"><img src="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-02-min-scaled.jpg" alt="Mikiya San Mateo menu board, page 1" loading="lazy" onerror="this.parentNode.textContent='Menu board 1 (open on mikiyashabu.com)'"></a>
+      <a href="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-03-min-scaled.jpg"><img src="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-03-min-scaled.jpg" alt="Mikiya San Mateo menu board, page 2" loading="lazy" onerror="this.parentNode.textContent='Menu board 2 (open on mikiyashabu.com)'"></a>
+    </div>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="step" id="pot">
+    <h2><span>5</span>The pot</h2>
+    <p>One broth per table, chosen together. <strong>Tomato</strong> is the regulars' favorite; spicy miso, ponzu, and sukiyaki are the other strong options. Ask whether a split pot is available if the table can't agree.</p>
+    <p>Load the vegetables and tofu first so the broth builds body, then cook the A5 last and only a few seconds at a time — it's already close to melting.</p>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="step" id="cost">
+    <h2><span>6</span>What it costs</h2>
+    <table>
+      <thead><tr><th>Everyone on Supreme</th><th></th><th>Estimate</th></tr></thead>
+      <tbody>
+        <tr><td>3 × Supreme set</td><td></td><td class="num">$128.40</td></tr>
+        <tr><td>1 seafood platter to share</td><td></td><td class="num">$9.99</td></tr>
+        <tr><td>Sales tax (~9.6%)</td><td></td><td class="num">≈ $13.30</td></tr>
+        <tr><td>Tip (18%)</td><td></td><td class="num">≈ $24.90</td></tr>
+      </tbody>
+      <tfoot><tr><td>All in</td><td></td><td class="num">≈ $177</td></tr></tfoot>
+    </table>
+    <p>If one of you takes the Premium set instead, the total drops to roughly <span class="num">$164</span>. Membership for one person would save another $12 on the table, so it pays for itself on the third visit.</p>
+    <div class="note">Set contents and prices were posted for the Bay Area stores in 2025 and can change. Confirm the lineup when you sit down.</div>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+  <section class="home" id="takehome">
+    <h2>Take home</h2>
+    <ul>
+      <li>No reservation exists for you — arrive at noon on a weekday and you won't need one.</li>
+      <li>Supreme, not Premium: the extra $10 is the only way onto the A5 Japanese beef.</li>
+      <li>Same four plates for everyone: A5 chuck ribeye, A5 brisket, A5 shoulder, M9 chuck ribeye.</li>
+      <li>One tomato broth, one $9.99 seafood platter, vegetables in first, A5 in last for seconds only.</li>
+      <li>Budget <span class="num">$165–180</span> for three, tax and tip included; 90 minutes on the clock.</li>
+      <li>Park at the North Block lot off 31st Ave; Mikiya is upstairs, Apple is downstairs.</li>
+    </ul>
+    <a class="back" href="#contents">↑ Contents</a>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <p>Plan assembled September 9, 2026, from Mikiya's San Mateo location page, the Hillsdale center listing, and recent diner reviews. Happy hour is sometimes suspended on holidays; September 15 isn't one.</p>
+</footer>
+
+
+
+</body>
+</html>
