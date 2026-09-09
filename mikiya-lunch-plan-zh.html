@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>週二中午的味喜屋——三人和牛涮涮鍋攻略</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;800;900&family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#24211E;
+    --shiso:#EEF2EA;
+    --shiso-deep:#D8E1D2;
+    --beef:#C8434E;
+    --fat:#F4C9C4;
+    --dashi:#B8862B;
+    --paper:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--shiso);color:var(--ink);
+    font-family:"Noto Serif TC","Fraunces","PingFang TC","Microsoft JhengHei",serif;
+    font-weight:700;font-size:27px;line-height:1.55;
+  }
+  a{color:var(--beef);font-weight:700;text-decoration-thickness:3px;text-underline-offset:5px}
+  a:focus-visible{outline:4px solid var(--dashi);outline-offset:4px}
+  strong{font-weight:800}
+  .num{font-weight:800;font-variant-numeric:tabular-nums}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+
+  /* hero */
+  .hero{padding:80px 0 56px;border-bottom:6px solid var(--ink)}
+  .hero h1{font-size:84px;line-height:1.12;font-weight:900;margin:0 0 28px;letter-spacing:.02em}
+  .hero p{font-size:32px;max-width:26ch;margin:0}
+  .hero .when{display:inline-block;margin-top:34px;padding:12px 22px;background:var(--ink);color:var(--shiso);font-size:26px;font-weight:700}
+
+  /* story steps — a real sequence, so numbered */
+  .step{padding:64px 0;border-bottom:3px solid var(--shiso-deep)}
+  .step h2{font-size:52px;line-height:1.15;font-weight:900;margin:0 0 24px}
+  .step h2 span{display:block;font-size:26px;color:var(--beef);font-weight:700;margin-bottom:10px}
+  .step p{max-width:40em;margin:0 0 20px}
+  .step ul{max-width:40em;padding-left:1.1em;margin:0 0 20px}
+  .step li{margin:0 0 10px}
+
+  /* the cut ranking — the one bold element */
+  .cuts{list-style:none;padding:0;margin:8px 0 28px;max-width:none}
+  .cuts li{
+    display:grid;grid-template-columns:96px 240px 1fr;align-items:center;gap:24px;
+    padding:22px 0;border-top:3px solid var(--ink);margin:0
+  }
+  .cuts li:last-child{border-bottom:3px solid var(--ink)}
+  .cuts .rank{font-size:64px;font-weight:900;line-height:1;color:var(--beef)}
+  .cuts .name{font-size:36px;font-weight:800;line-height:1.1}
+  .cuts .why{font-size:24px;font-weight:600;margin-top:6px}
+  .cuts li.alt .rank{color:var(--dashi)}
+  .cuts .art{width:240px;height:160px;display:block;border:3px solid var(--ink);background:var(--paper);overflow:hidden}
+  .cuts .art img{width:100%;height:100%;object-fit:cover;display:block}
+  .cuts .art.missing{display:grid;place-items:center;font-size:22px;color:var(--dashi)}
+  .caption{font-size:22px;max-width:40em;margin:0 0 8px}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:8px 0 24px}
+  .menu a{display:block}
+  .menu img{width:100%;height:auto;display:block;border:3px solid var(--ink);background:var(--paper)}
+  @media (max-width:700px){.menu{grid-template-columns:1fr}}
+
+  /* price table */
+  table{border-collapse:collapse;width:100%;max-width:900px;margin:8px 0 24px;font-size:26px}
+  th,td{text-align:left;padding:14px 12px;border-bottom:3px solid var(--shiso-deep);vertical-align:top}
+  th{font-weight:800;border-bottom:4px solid var(--ink)}
+  td:last-child,th:last-child{text-align:right;white-space:nowrap}
+  tfoot td{font-weight:800;border-bottom:none;border-top:4px solid var(--ink)}
+
+  .toc{padding:44px 0;border-bottom:3px solid var(--shiso-deep)}
+  .toc h2{font-size:30px;font-weight:800;margin:0 0 16px}
+  .toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:48px;font-size:26px}
+  .toc li{margin:0 0 10px;break-inside:avoid}
+  .toc a{color:var(--ink);text-decoration-color:var(--beef)}
+  .summary{padding:56px 0;border-bottom:6px solid var(--ink)}
+  .summary h2{font-size:52px;line-height:1.15;font-weight:900;margin:0 0 24px}
+  .summary p{max-width:40em;margin:0 0 20px;font-size:29px}
+  .back{display:block;margin-top:28px;font-size:23px;color:var(--ink);text-decoration-color:var(--dashi)}
+  .home{padding:64px 0 24px}
+  .home h2{font-size:52px;line-height:1.15;font-weight:900;margin:0 0 24px}
+  .home ul{max-width:40em;padding-left:1.1em;margin:0 0 20px;list-style:none}
+  .home li{margin:0 0 16px;padding-left:1.1em;text-indent:-1.1em}
+  .home li::before{content:"■ ";color:var(--beef);font-size:.75em}
+  @media (max-width:700px){.toc ol{columns:1}.summary h2,.home h2{font-size:40px}.summary p{font-size:24px}}
+  .note{background:var(--fat);padding:22px 26px;max-width:40em;font-size:25px;margin:24px 0 0}
+  .foot{padding:56px 0 80px;font-size:23px;max-width:40em}
+
+  @media (max-width:700px){
+    body{font-size:23px}
+    .hero{padding:52px 0 40px}
+    .hero h1{font-size:56px}
+    .hero p{font-size:26px}
+    .step h2{font-size:40px}
+    .cuts li{grid-template-columns:64px 1fr;grid-template-areas:"rank art" "text text"}
+    .cuts .rank{grid-area:rank}.cuts .art{grid-area:art;width:100%;max-width:240px}.cuts .txt{grid-area:text}
+    .cuts .rank{font-size:44px}
+    .cuts .name{font-size:28px}
+    table{font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>週二中午，<br>味喜屋。</h1>
+    <p>三個人，不訂位，一鍋番茄湯底，十二盤歡樂時段菜單上最好的牛肉。</p>
+    <div class="when">2026 年 9 月 15 日（週二）· 中午 12:00</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <nav class="toc" id="contents" aria-label="目錄">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#summary">摘要</a></li>
+      <li><a href="#where">餐廳在哪裡</a></li>
+      <li><a href="#why">為什麼選週二中午</a></li>
+      <li><a href="#order">點什麼</a></li>
+      <li><a href="#cuts">最關鍵的四盤肉</a></li>
+      <li><a href="#pot">那一鍋湯</a></li>
+      <li><a href="#rich">油到什麼程度算太油</a></li>
+      <li><a href="#cost">要花多少錢</a></li>
+      <li><a href="#takehome">帶回家的結論</a></li>
+    </ol>
+  </nav>
+
+  <section class="summary" id="summary">
+    <h2>摘要</h2>
+    <p>Mikiya 味喜屋和牛涮涮鍋（Mikiya Wagyu Shabu House）只收現場排隊客人，所以這份計畫用「時間」代替訂位：<strong>2026 年 9 月 15 日週二中午十二點</strong>——一週裡最清閒的時段，而且落在週一至週四的午間歡樂時段之內。</p>
+    <p>三個人各點一份 <strong>Supreme 和牛套餐（$42.80）</strong>，四盤肉全選同樣的組合——三種日本 A5 加一盤 M9 翼板——湯底選番茄，另可加點一份 <span class="num">$9.99</span> 海鮮拼盤共享，這是套餐之外唯一的費用。預估總花費約 <span class="num">$177</span>（含稅與小費）；若有一人改點 Premium 套餐，約 <span class="num">$164</span>。</p>
+    <p>餐廳位於 Hillsdale 購物中心北區（North Block）二樓，距離 Apple 專賣店約 50 公尺，從 The Cheesecake Factory 步行約 5 分鐘。停車請停 31st Ave 旁、Trader Joe's 附近的北區停車場。</p>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="where">
+    <h2><span>1</span>餐廳在哪裡</h2>
+    <p><strong>Mikiya Wagyu Shabu House</strong>，68 Hillsdale Mall, San Mateo, CA 94403，也寫作 60 31st Ave #68。位於 Hillsdale 的<strong>北區（North Block）二樓</strong>，也就是 31st Ave 那一側的露天新區。</p>
+    <p>Apple Hillsdale 在同一區的一樓，相距約 50 公尺。The Cheesecake Factory 則在購物中心的另一端，往南約 <span class="num">0.2</span> 英里，一樓、靠近 Macy's。</p>
+    <p>停在 31st Ave 旁的北區停車場（Trader Joe's 附近），搭一趟手扶梯就到門口。從 Cheesecake Factory 走過去 4–5 分鐘：<a href="https://www.google.com/maps/dir/?api=1&origin=The+Cheesecake+Factory+Hillsdale+Shopping+Center+San+Mateo&origin_place_id=ChIJgyRbEgOfj4AR8ilzv4qcOqA&destination=Mikiya+Wagyu+Shabu+House+San+Mateo&destination_place_id=ChIJx8042Qafj4ARPEMbdQDvnMM&travelmode=walking">在 Google 地圖開啟步行路線</a>。</p>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="why">
+    <h2><span>2</span>為什麼選週二中午</h2>
+    <p>一般客人無法訂位——味喜屋只接受現場排隊，優先入座只保留給他們的 NFT 會員。所以「時間」就是我們的訂位。</p>
+    <ul>
+      <li>平日午餐是最清閒的時段；曾有六、七人的團體在中午直接入座不用等，三個人更不成問題。</li>
+      <li><strong>午間歡樂時段</strong>為週一至週四 11:30 至 16:00，可以點下面較便宜的套餐。</li>
+      <li>隔壁的 Apple 專賣店這時也比較安靜，順路辦事正好。</li>
+    </ul>
+    <p>想確認當天狀況，早上打電話 <span class="num">(747) 286-7071</span>。當日營業時間 11:30 – 22:00。</p>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="order">
+    <h2><span>3</span>點什麼</h2>
+    <p>歡樂時段套餐每人四盤和牛，附無限自助吧（蔬菜、麵、豆腐、水果、飲料、奶茶、霜淇淋）。用餐限時 <span class="num">90</span> 分鐘，同桌每人都要點一份套餐。</p>
+    <table>
+      <thead><tr><th>套餐</th><th>可選內容</th><th>價格</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Premium 和牛</strong></td><td>六選四：M9 翼板、M9 肩肉、澳洲翼板、澳洲牛腩、澳洲肩肉、黑豚豬肉</td><td class="num">$32.80</td></tr>
+        <tr><td><strong>Supreme 和牛</strong></td><td>九選四：以上全部，再加日本 A5 翼板、A5 牛腩、A5 肩肉</td><td class="num">$42.80</td></tr>
+        <tr><td>海鮮拼盤（加點）</td><td>蝦與貝類下鍋用；套餐不含</td><td class="num">$9.99</td></tr>
+        <tr><td>加一盤</td><td>套餐範圍內的肉，或特色菜</td><td class="num">$6.00</td></tr>
+      </tbody>
+    </table>
+    <p>午餐時段也能點吃到飽方案（Silver 約 $55、Gold 居中、Diamond $98），但只有每個人都吃得超過四盤才划算。會員每份套餐折 $4，年費 $28。</p>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="cuts">
+    <h2><span>4</span>最關鍵的四盤肉</h2>
+    <p>Supreme 多付的十塊錢，買的就是三種日本 A5 的資格。三種全拿，第四盤選最好的澳洲肉。</p>
+    <ol class="cuts">
+      <li><div class="rank">1</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Wagyu_beef_marbling_detail.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_beef_marbling_detail.jpg?width=900" alt="和牛油花特寫" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'照片'}))"></a><div class="txt"><div class="name">A5 翼板（chuck ribeye）</div><div class="why">名單上最貴重的一盤——油花最密，下鍋幾秒就熟。</div></div></li>
+      <li><div class="rank">2</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Wagyu_Beef_for_Shabu-shabu.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_Beef_for_Shabu-shabu.jpg?width=900" alt="涮涮鍋用和牛肉片" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'照片'}))"></a><div class="txt"><div class="name">A5 牛腩（brisket）</div><div class="why">更油潤肥美；輕涮幾下立刻入口。</div></div></li>
+      <li><div class="rank">3</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Sliced_Matsusaka_wagyu_beef.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sliced_Matsusaka_wagyu_beef.jpg?width=900" alt="松阪和牛肉片" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'照片'}))"></a><div class="txt"><div class="name">A5 肩肉（shoulder）</div><div class="why">A5 三種裡較瘦的一款——牛味更足，奶油感稍少。</div></div></li>
+      <li class="alt"><div class="rank">4</div><a class="art" href="https://commons.wikimedia.org/wiki/File:Wagyu_meat_forjapanese_bbq.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_meat_forjapanese_bbq.jpg?width=900" alt="和牛肉片" loading="lazy" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'art missing',textContent:'照片'}))"></a><div class="txt"><div class="name">M9 翼板（chuck ribeye）</div><div class="why">澳洲評級的頂端；菜單上日本牛以外最好的一盤。</div></div></li>
+    </ol>
+    <p class="caption">照片取自維基共享資源（Wikimedia Commons）的自由授權和牛涮肉照片，僅供參考，並非味喜屋的實際餐盤；點照片可看檔案頁與出處。當天要看的就是這樣的油花。</p>
+    <p>排名依據這些等級與部位的市場價值，而非味喜屋的內部成本——但日本 A5 毫無疑問是名單上最高級的食材。</p>
+    <p>味喜屋聖馬刁店官方菜單看板，由店家網站提供（點開看大圖）：</p>
+    <div class="menu">
+      <a href="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-02-min-scaled.jpg"><img src="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-02-min-scaled.jpg" alt="味喜屋聖馬刁店菜單看板第一頁" loading="lazy" onerror="this.parentNode.textContent='菜單看板 1（請至 mikiyashabu.com 開啟）'"></a>
+      <a href="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-03-min-scaled.jpg"><img src="https://mikiyashabu.com/wp-content/uploads/2025/02/%E4%BA%8C%E5%BA%97%E8%8F%9C%E5%8D%95%E5%91%B3%E5%96%9C%E5%B1%8B-%E5%8E%BB38%E5%A5%97%E9%A4%90-%E8%BA%AB%E9%AB%98110-11.18.2024-03-min-scaled.jpg" alt="味喜屋聖馬刁店菜單看板第二頁" loading="lazy" onerror="this.parentNode.textContent='菜單看板 2（請至 mikiyashabu.com 開啟）'"></a>
+    </div>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="pot">
+    <h2><span>5</span>那一鍋湯</h2>
+    <p>一桌一鍋，湯底大家一起決定。<strong>番茄</strong>是常客最愛；辣味噌、柑橘醋（ponzu）、壽喜燒是另外三個好選擇。如果意見不合，問問能不能鴛鴦鍋。</p>
+    <p>下鍋順序，全都不另收費：先把自助吧的蔬菜、豆腐、菇類放進去讓湯底變濃；中段加麵；A5 最後才下，一次一片、只涮幾秒——涮久了油脂流失，肉片反而變得油膩。</p>
+    <p>桌上唯一的選擇性費用是 <span class="num">$9.99</span> 的海鮮拼盤，因為蝦與貝類不在歡樂時段套餐裡。不點就不會多花一毛錢。若要鴛鴦鍋，記得問是否有小額加價。</p>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="rich">
+    <h2><span>6</span>油到什麼程度算太油</h2>
+    <p>A5 的脂肪比重可達 <span class="num">40–50%</span>，一盤吃太快會很有負擔——通常的下場是很想躺下，有些人還會覺得胃裡油油的。成人紙尿褲倒是不用，但這個顧慮真實到值得規劃一下。</p>
+    <p>涮涮鍋是吃 A5 最溫和的方式：涮的過程中大量油脂會溶進湯裡，每片只有幾公克，四盤薄肉片分九十分鐘吃完，就是一頓正常的火鍋午餐。</p>
+    <ul>
+      <li>牛肉和蔬菜、豆腐、麵交替著吃，不要四盤連著吃完。</li>
+      <li>選番茄或柑橘醋湯底——酸味能解膩；壽喜燒在油脂之上還加了糖和醬油。</li>
+      <li>沾醬多用柑橘醋，少用芝麻醬。</li>
+      <li>配熱茶，吃到滿足就停；「自助吧無限」的心態比牛肉更容易讓人後悔。</li>
+      <li>偏好瘦一點的人，可以把一盤 A5 換成 M9 肩肉或澳洲肉，不另收費。</li>
+    </ul>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="step" id="cost">
+    <h2><span>7</span>要花多少錢</h2>
+    <table>
+      <thead><tr><th>三人都點 Supreme</th><th></th><th>估算</th></tr></thead>
+      <tbody>
+        <tr><td>3 × Supreme 套餐</td><td></td><td class="num">$128.40</td></tr>
+        <tr><td>1 份海鮮拼盤共享</td><td></td><td class="num">$9.99</td></tr>
+        <tr><td>營業稅（約 9.6%）</td><td></td><td class="num">≈ $13.30</td></tr>
+        <tr><td>小費（18%）</td><td></td><td class="num">≈ $24.90</td></tr>
+      </tbody>
+      <tfoot><tr><td>總計</td><td></td><td class="num">≈ $177</td></tr></tfoot>
+    </table>
+    <p>若有一人改點 Premium 套餐，總額約降至 <span class="num">$164</span>。一個人辦會員可再省 $12，第三次去就回本。</p>
+    <div class="note">套餐內容與價格是 2025 年灣區兩店公布的版本，隨時可能調整；入座時請再確認。</div>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+  <section class="home" id="takehome">
+    <h2>帶回家的結論</h2>
+    <ul>
+      <li>不用訂位，也訂不到——平日中午到場就是最好的訂位。</li>
+      <li>點 Supreme，不點 Premium：多的十塊錢是吃到日本 A5 的唯一途徑。</li>
+      <li>三個人四盤一樣：A5 翼板、A5 牛腩、A5 肩肉、M9 翼板。</li>
+      <li>番茄湯底（免費）；想吃蝦就加一份 $9.99 海鮮拼盤——帳單上唯一的額外費用。</li>
+      <li>蔬菜先下，A5 最後下、只涮幾秒；牛肉和自助吧交替吃，沾柑橘醋，油膩就壓得住。</li>
+      <li>三人預算 <span class="num">$165–180</span>（含稅與小費）；限時九十分鐘。</li>
+      <li>停 31st Ave 旁的北區停車場；味喜屋在樓上，Apple 在樓下。</li>
+    </ul>
+    <a class="back" href="#contents">↑ 回目錄</a>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <p>本計畫整理於 2026 年 9 月 9 日，資料來自味喜屋聖馬刁店官網、Hillsdale 購物中心店家資訊，以及近期食客評論。假日有時會暫停歡樂時段；9 月 15 日不是假日。</p>
+</footer>
+
+</body>
+</html>
