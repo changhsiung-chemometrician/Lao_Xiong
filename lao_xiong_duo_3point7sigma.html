@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用特殊材料做成的果粉 —— 三點七個西格瑪的復盤｜老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e4;
+    --ink:#1c1a17;
+    --rule:#7a6a4f;
+    --tail:#8c2f1f;
+    --note:#4f5d4a;
+    --grid:rgba(122,106,79,.14);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:48px 48px;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.85;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:64px 40px 200px}
+  header{border-bottom:6px double var(--rule);padding-bottom:40px;margin-bottom:48px}
+  .kicker{font-family:"Noto Sans TC",sans-serif;font-size:26px;color:var(--rule);margin:0 0 12px;letter-spacing:.08em}
+  h1{font-size:76px;line-height:1.15;margin:0 0 20px;font-weight:900;letter-spacing:.02em}
+  .deck{font-size:36px;line-height:1.6;margin:0 0 32px;color:var(--note)}
+  .byline{font-family:"Noto Sans TC",sans-serif;font-size:24px;color:var(--rule);margin:0}
+  .epigraph{
+    border-top:3px solid var(--rule);border-bottom:3px solid var(--rule);
+    padding:26px 0 22px;margin:0 0 32px;max-width:760px
+  }
+  .epigraph p{font-size:40px;line-height:1.5;font-weight:900;color:var(--tail);margin:0 0 12px}
+  .epigraph cite{display:block;font-family:"Noto Sans TC",sans-serif;font-style:normal;font-size:24px;color:var(--rule)}
+  .epigraph .gloss{font-size:27px;font-weight:700;color:var(--note);margin:20px 0 0}
+  figure.hero{margin:48px 0 0}
+  figure.hero svg{width:100%;height:auto;display:block}
+  figcaption{font-family:"Noto Sans TC",sans-serif;font-size:24px;color:var(--note);margin-top:12px}
+
+  nav.toc{border:3px solid var(--ink);padding:28px 36px;margin:0 0 64px;background:rgba(255,255,255,.35)}
+  nav.toc h2{margin:0 0 16px;font-size:34px}
+  nav.toc ol{margin:0;padding-left:1.4em}
+  nav.toc li{margin:6px 0}
+  a{color:var(--ink);text-decoration-thickness:3px;text-underline-offset:6px}
+  a:hover,a:focus-visible{color:var(--tail)}
+  :focus-visible{outline:4px solid var(--tail);outline-offset:4px}
+
+  section{margin:0 0 80px}
+  h2{font-size:52px;line-height:1.25;margin:0 0 28px;font-weight:900;border-left:14px solid var(--tail);padding-left:24px}
+  p{margin:0 0 30px}
+  .num{font-weight:800;font-variant-numeric:tabular-nums}
+  .ledger{
+    border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+    padding:20px 0;margin:36px 0 44px;
+    font-family:"Noto Sans TC",sans-serif;font-size:28px;line-height:1.7
+  }
+  .ledger div{display:flex;justify-content:space-between;gap:24px;padding:8px 0;border-bottom:1px dashed var(--rule)}
+  .ledger div:last-child{border-bottom:0}
+  .ledger .num{color:var(--tail)}
+  blockquote.pull{
+    margin:44px 0;padding:0 0 0 36px;border-left:6px solid var(--ink);
+    font-size:44px;line-height:1.5;font-weight:900;color:var(--tail)
+  }
+  .drop::first-letter{float:left;font-size:120px;line-height:.85;padding:10px 18px 0 0;font-weight:900;color:var(--tail)}
+  .back{display:block;margin-top:24px;font-family:"Noto Sans TC",sans-serif;font-size:24px;color:var(--rule)}
+
+  .chat{margin:0 0 44px;font-family:"Noto Sans TC",sans-serif}
+  .chat .stamp{text-align:center;font-size:22px;color:var(--rule);margin:18px 0 10px}
+  .chat .bubble{
+    max-width:78%;padding:20px 26px;font-size:28px;line-height:1.6;
+    border:3px solid var(--ink);background:#fff
+  }
+  .chat .card{margin-left:auto;background:#fff}
+  .chat .card .t{font-weight:700;font-size:30px;margin-bottom:8px}
+  .chat .card .m{font-size:22px;color:var(--note)}
+  .chat .mine{margin-left:auto;background:#dff0cf;font-weight:700}
+  .note{font-size:27px;color:var(--note);border-top:1px solid var(--rule);padding-top:20px;margin-top:40px}
+
+  .floatnav{
+    position:fixed;right:24px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:10
+  }
+  .floatnav a{
+    background:var(--ink);color:var(--paper);text-decoration:none;
+    font-family:"Noto Sans TC",sans-serif;font-size:22px;padding:12px 20px;
+    border:2px solid var(--paper);box-shadow:0 0 0 2px var(--ink)
+  }
+  .floatnav a:hover,.floatnav a:focus-visible{background:var(--tail);color:#fff}
+
+  @media (max-width:760px){
+    body{font-size:22px;line-height:1.8}
+    .wrap{padding:32px 20px 160px}
+    h1{font-size:44px}
+    .deck{font-size:26px}
+    h2{font-size:32px;padding-left:16px;border-left-width:10px}
+    blockquote.pull{font-size:28px;padding-left:20px}
+    .ledger{font-size:20px}
+    .ledger div{flex-direction:column;gap:2px}
+    .drop::first-letter{font-size:80px}
+    .kicker,.byline,figcaption,.back{font-size:18px}
+    .chat .bubble{max-width:88%;font-size:20px;padding:14px 18px}
+    .chat .card .t{font-size:22px}
+    .chat .card .m,.chat .stamp{font-size:17px}
+    .epigraph p{font-size:26px}
+    .epigraph .gloss{font-size:19px}
+    .epigraph cite{font-size:17px}
+    nav.toc h2{font-size:26px}
+    .floatnav a{font-size:18px;padding:10px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">老熊隨筆 ・ 復盤體 ・ 二〇二六年九月十一日</p>
+  <h1>用特殊材料做成的果粉</h1>
+  <p class="deck">一個笨蛋果粉的復盤：我先替全世界的果粉算了 p 值，然後發現訓練集裡有我。</p>
+
+  <div class="epigraph">
+    <p>共產黨員是特殊材料製成的。</p>
+    <cite>——列寧語，史達林《在列寧墓前的宣誓》轉述</cite>
+    <p class="gloss">本文借這句話，是要問一個統計問題：所謂「特殊材料」，換算成機率是多少？</p>
+  </div>
+
+  <p class="byline">老熊　撰於加州紅木岸</p>
+
+  <figure class="hero" aria-labelledby="hero-cap">
+    <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="常態分布曲線，右尾 3.7 個標準差處標示一個點，註記為老熊">
+      <defs>
+        <clipPath id="tail"><rect x="870" y="0" width="130" height="380"/></clipPath>
+      </defs>
+      <!-- baseline -->
+      <line x1="40" y1="320" x2="960" y2="320" stroke="#1c1a17" stroke-width="3"/>
+      <!-- sigma ticks -->
+      <g font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="700" fill="#7a6a4f" text-anchor="middle">
+        <line x1="500" y1="320" x2="500" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="500" y="362">0</text>
+        <line x1="600" y1="320" x2="600" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="600" y="362">1σ</text>
+        <line x1="700" y1="320" x2="700" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="700" y="362">2σ</text>
+        <line x1="800" y1="320" x2="800" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="800" y="362">3σ</text>
+        <line x1="400" y1="320" x2="400" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="400" y="362">−1σ</text>
+        <line x1="300" y1="320" x2="300" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="300" y="362">−2σ</text>
+        <line x1="200" y1="320" x2="200" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="200" y="362">−3σ</text>
+      </g>
+      <!-- bell curve (approx. gaussian, 100px per sigma, peak height 260) -->
+      <path id="bell" d="M 60 319.9 C 120 319.8 160 319 200 317 C 240 314 270 300 300 285 C 330 268 360 220 400 160 C 430 115 460 66 500 60 C 540 66 570 115 600 160 C 640 220 670 268 700 285 C 730 300 760 314 800 317 C 840 319 880 319.8 940 319.9"
+            fill="none" stroke="#1c1a17" stroke-width="4"/>
+      <!-- shaded tail beyond ~3.7σ -->
+      <path d="M 870 318.6 C 890 319.3 915 319.7 940 319.9 L 940 320 L 870 320 Z" fill="#8c2f1f"/>
+      <!-- the outlier -->
+      <circle cx="870" cy="318" r="11" fill="#8c2f1f" stroke="#f6f1e4" stroke-width="3"/>
+      <line x1="870" y1="305" x2="870" y2="140" stroke="#8c2f1f" stroke-width="3" stroke-dasharray="8 8"/>
+      <g font-family="Noto Serif TC, serif" font-weight="900" fill="#8c2f1f" text-anchor="end">
+        <text x="960" y="110" font-size="44">3.7σ</text>
+        <text x="960" y="150" font-size="26">p ≈ 1.1 × 10⁻⁴</text>
+        <text x="960" y="182" font-size="26">老熊在這裡</text>
+      </g>
+      <text x="500" y="40" font-family="Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#7a6a4f" text-anchor="middle">正常人</text>
+    </svg>
+    <figcaption id="hero-cap">圖一：以全球人口為母體，購買 1TB 版 Duo 的人落在單尾 3.7σ 之外。圖中座標為示意，並非精確面積。</figcaption>
+  </figure>
+</header>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s0">楔子：中午十二點二十五分</a></li>
+    <li><a href="#s1">原始資料</a></li>
+    <li><a href="#s2">第一次計算：果粉有多不正常</a></li>
+    <li><a href="#s3">第二次計算：分母的選擇</a></li>
+    <li><a href="#s4">第三次計算：1TB</a></li>
+    <li><a href="#s5">異常值：訓練集裡的那個人</a></li>
+    <li><a href="#s6">復盤：記憶不可靠，帳單可靠</a></li>
+    <li><a href="#s7">追記：果粉是特殊材料製成的</a></li>
+    <li><a href="#s8">信仰的結構：黨員與果粉的相通處</a></li>
+    <li><a href="#s9">再記：第二次翻蓋</a></li>
+  </ol>
+</nav>
+
+<section id="s0">
+  <h2>楔子：中午十二點二十五分</h2>
+  <div class="chat">
+    <div class="stamp">12:19 PM　舊東家的群組</div>
+    <div class="bubble card">
+      <div class="t">普通人真的需要折疊 iPhone 嗎</div>
+      <div class="m">小紅書．@VV 數碼　影片　11 次分享</div>
+    </div>
+    <div class="stamp">12:25 PM</div>
+    <div class="bubble mine">果粉是普通人嗎　哈哈</div>
+  </div>
+  <p>那支影片是我自己轉進群組的，六分鐘後我自己補了那句話。當時純粹是想抖個機靈。</p>
+  <p>現在回頭看，這句話已經替後面整篇文章把題目出好了：它預設了「普通人」和「果粉」是兩個互斥的集合，而且我站在普通人那一邊，隔著一條線嘲笑對面。</p>
+  <p>當天下午四點多，我告訴 AI 我打算花兩千六買 1TB 的 Duo。那條線的位置，就在這六個小時之間，悄悄移動了。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s1">
+  <h2>一、原始資料</h2>
+  <p class="drop">復盤第一步，先把資料攤開，註明哪些是查證過的，哪些是道聽塗說。</p>
+  <div class="ledger">
+    <div><span>日期</span><span class="num">2026 年 9 月 11 日（星期五）</span></div>
+    <div><span>事件</span><span>那家公司發表第一支摺疊手機，取名 Duo</span></div>
+    <div><span>美國起價（已查證）</span><span class="num">$1,999，256GB</span></div>
+    <div><span>預購／開賣（已查證）</span><span class="num">10 月 16 日／10 月 23 日</span></div>
+    <div><span>「預計賣六百萬支」</span><span>道聽塗說，未查證，出處不明</span></div>
+    <div><span>本人打算花的錢</span><span class="num">$2,600，1TB</span></div>
+  </div>
+  <p>請注意最後兩行的資料品質差距。「六百萬支」是我在哪裡聽來的，我已經想不起來；這正是復盤體要對付的東西——記憶會自動把來源抹掉，只留下數字。而「$2,600」這一行，是我自己說出口的，有對話紀錄為證，賴不掉。</p>
+  <p>那家公司，我在二〇一三年春天加入過，我一向叫它「那家笨公司」。這個稱呼也是原始資料的一部分，等一下會用到。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s2">
+  <h2>二、第一次計算：果粉有多不正常</h2>
+  <p>當天下午我問了一個我覺得很聰明的問題：如果全世界八十二億五千萬人裡有六百萬人去買這支手機，那這群笨蛋果粉的 p 值是多少？離正常人幾個西格瑪？</p>
+  <p>算式很簡單，簡單到我自己都覺得這個問題問得有點得意：</p>
+  <div class="ledger">
+    <div><span>p = 6,000,000 ÷ 8,250,000,000</span><span class="num">≈ 7.3 × 10⁻⁴</span></div>
+    <div><span>單尾 z 值</span><span class="num">≈ 3.18σ</span></div>
+    <div><span>雙尾 z 值（往哪邊偏都算不正常）</span><span class="num">≈ 3.38σ</span></div>
+  </div>
+  <p>三個多西格瑪。比六標準差品管裡的不良品還罕見，但離粒子物理宣稱「發現」所需的五個西格瑪還遠。我把這個結論當成一句笑話收下，心情很好。做了一輩子化學計量學，能把別人的消費行為換算成尾機率，是一種小小的職業樂趣。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s3">
+  <h2>三、第二次計算：分母的選擇</h2>
+  <p>任何做過校正模型的人都知道，答案往往不在分子，在分母。你選哪一群人當母體，決定了誰是異常值。</p>
+  <p>全球人口當分母，是最不誠實的一種選法，因為裡面包含了大量根本不在市場裡的人。換成全球大約十五億支還在使用中的 iPhone：</p>
+  <div class="ledger">
+    <div><span>p = 6,000,000 ÷ 1,500,000,000</span><span class="num">≈ 0.4%</span></div>
+    <div><span>單尾 z 值</span><span class="num">≈ 2.65σ</span></div>
+  </div>
+  <p>再換一個分母：拿得出兩千美金買手機、眼睛不會眨一下的那群人。在這個母體裡，買 Duo 的人大概離平均值不到一個西格瑪。那家笨公司在意的是這個數字，不是我的 p 值。</p>
+  <p>寫到這裡我還沒有察覺任何不對勁。這一點要老實記錄下來——復盤的價值，一半在於記錄當事人什麼時候還沒看見。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s4">
+  <h2>四、第三次計算：1TB</h2>
+  <p>接著我問了第二個問題，語氣一樣輕鬆：我打算花 2,600 美金買 1TB 的版本，像我這樣的人有多罕見？</p>
+  <p>這個問題需要一個額外假設：1TB 在所有 Duo 買家裡佔多少比例。沒有官方資料，只能借用歷年 Pro 機型的容量分布來估——256GB 約一半，512GB 約三成，1TB 約一成五，2TB 剩下的零頭。這個假設要標明是假設，不是資料。</p>
+  <div class="ledger">
+    <div><span>1TB 買家（假設 15%）</span><span class="num">≈ 900,000 人</span></div>
+    <div><span>p = 900,000 ÷ 8,250,000,000</span><span class="num">≈ 1.1 × 10⁻⁴</span></div>
+    <div><span>單尾 z 值（全球人口）</span><span class="num">≈ 3.7σ</span></div>
+    <div><span>單尾 z 值（iPhone 使用者）</span><span class="num">≈ 3.2σ</span></div>
+    <div><span>母體改為「灣區、退休、有專利的人」</span><span class="num">p 逼近 1</span></div>
+  </div>
+  <blockquote class="pull">大約是九千個人類裡才有一個。比我上一則訊息裡嘲笑的那群人，還要罕見。</blockquote>
+  <p>我看到「3.7σ」的時候，第一個反應仍然是高興：喔，我比他們更特別。這個反應也要如實記錄。人在看到自己是異常值的時候，通常會先感到光榮，然後才想到異常值在統計上的意思。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s5">
+  <h2>五、異常值：訓練集裡的那個人</h2>
+  <p>然後對方補了一句：「你先前定義的『笨蛋果粉』這個類別，現在訓練集裡至少有一個樣本了。」</p>
+  <p>我回了一句「那是誰？哈哈」。這是本次復盤最重要的一筆資料，因為它證明我在打出那三個字的當下，真的還沒有把兩件事接起來。不是裝的。分類器已經訓練好了，類別標籤是我自己貼的，判別函數是我自己算的，然後一個 3.7σ 的離群點穿著訓練資料走進來，我居然還問「那是誰」。</p>
+  <p>做分類演算法三十年，我最清楚一件事：模型最容易錯的，永遠不是遠處的點，是離決策邊界太近、又被貼錯標籤的那一個。這個點的標籤是「笨蛋果粉」，貼標籤的人是我，被貼的人也是我。這在化學計量學裡叫 label noise，在人生裡叫自知之明的延遲。</p>
+  <p>我一向嘲笑那家笨公司。我也一向嘲笑會排隊買它東西的人。這兩個「一向」都是真的，有二十年的聊天紀錄可以佐證。但「一向」是記憶給的，記憶會自動把不利的樣本剔除；帳單不會。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s6">
+  <h2>六、復盤：記憶不可靠，帳單可靠</h2>
+  <p>整理三條結論。</p>
+  <p><span class="num">第一，</span>「六百萬支」到現在還是道聽塗說。整篇文章的 p 值都建立在一個我查不到出處的數字上。這不妨礙它當笑話用，但它不能當資料用，這一點要寫清楚，免得幾年後我自己回來讀，把它當成真的。</p>
+  <p><span class="num">第二，</span>分母決定一切。以全球人口計，我是 3.7σ 的怪人；以灣區退休專利戶計，我是眾數。同一個人，換個母體，從離群點變成典型。這也是我這幾年寫復盤體最常碰到的事：回憶裡的「我很特別」，往往只是母體選錯了。</p>
+  <p><span class="num">第三，</span>也是最不舒服的一條：我對那家笨公司的意見，和我對它產品的需求，是兩個獨立變數。它們之間的相關係數，長期以來被我自己高估了。我以為討厭它就不會買它，資料顯示不是。</p>
+  <blockquote class="pull">十月二十三日開賣。到時候再補一筆資料：有沒有真的下單。這一行留白，是給未來的老熊查證用的。</blockquote>
+  <p class="note">校勘記：本文所有 z 值皆為單尾、常態近似，並取全球人口 82.5 億、使用中 iPhone 15 億、1TB 佔比 15% 為假設。凡標「道聽塗說」者，作者已盡力查證而未得，讀者請勿引用。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s7">
+  <h2>七、追記：果粉是特殊材料製成的</h2>
+  <p>文章寫完，我把首圖傳進群組。一位老同學回了一句：「果粉是用特殊材料做成的，哈哈。」</p>
+  <p>我第一時間讀成了材料科學。鈦金屬、陶瓷纖維、陶瓷盾玻璃——發表會上講了整場的東西，我以為他在調侃機身規格。回了一大段，還自作聰明地把離群點分成兩類。</p>
+  <p>他只好再給我一個提示：列寧。</p>
+  <p>也就是本文最前面那句題辭。標題是我自己下的，題辭是我自己抄的，而在那則訊息進來的當下，我完全沒把兩者接起來。</p>
+  <blockquote class="pull">共產黨員是特殊材料製成的。</blockquote>
+  <p>這句話出自《在列寧墓前的宣誓》，史達林轉述列寧的黨性論述，後來在對岸當了幾十年的套語，形容黨員意志如鋼、非常人可比。把它平移到肯花兩千六排隊買手機的人身上，兩邊同時垮掉：信仰被降格成排隊，排隊被抬舉成信仰。</p>
+  <p>我沒聽出來，這件事比文章本身更值得記。一個台灣出身、寫了幾十年兩岸題材、對黨話語一向自認敏感的人，把一句黨話當成了材料規格。語域判斷失敗，不是知識不足——那句話我當然知道——是我當下滿腦子都是自己的統計模型，把所有輸入都往那個方向解。這在建模裡叫過度擬合：模型一旦訓練好，看什麼都像它認得的東西。</p>
+  <p>但這句玩笑話其實幫我把最後一筆帳算完了。所謂「特殊材料」，在貝氏的講法裡就是條件機率。前面六節算的都是 P(買家｜全人類)，容易但沒意思；真正該算的是 P(下單｜嘲笑那家公司二十年)。</p>
+  <div class="ledger">
+    <div><span>公開嘲笑派（估 iPhone 使用者兩成）</span><span class="num">≈ 3 億人</span></div>
+    <div><span>其中真的下單者（估佔買家 2%）</span><span class="num">≈ 12 萬人</span></div>
+    <div><span>P(下單｜嘲笑派)</span><span class="num">≈ 4 × 10⁻⁴</span></div>
+    <div><span>基準率 P(下單)</span><span class="num">≈ 7.3 × 10⁻⁴</span></div>
+    <div><span>概似比</span><span class="num">≈ 0.55</span></div>
+  </div>
+  <p>嘲笑二十年，只把下單機率減半。不是零。第六節第三條我寫「相關係數被我自己高估了」，現在可以給個數字：大約是 −0.2，不是 −1。</p>
+  <p>所以特殊材料這個說法，統計上得打個折。材質沒變，只是產量減半——而我正好是那減半之後還漏出來的一個。</p>
+  <p class="note">追記校勘：本節「兩成」「2%」皆為作者自估，無資料來源；概似比僅供比例感，不可引用。首圖傳出時間 2026 年 9 月 11 日下午四時五十一分，提示「列寧」由同一位同學於數分鐘後補上。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s8">
+  <h2>八、信仰的結構：黨員與果粉的相通處</h2>
+  <p>題辭那句話之所以能無縫平移到果粉身上，不是因為它好笑，是因為兩邊共用同一套結構。那套結構叫信仰——往好處說是宗教（religion），往壞處說是邪教（cult，近年學界與脫離者社群多改用中性的 high-control group）。</p>
+  <p>把兩者並排列一次，相似度高得令人不安：</p>
+  <div class="ledger">
+    <div><span>入教儀式</span><span>入黨志願書、宣誓／發表會、排隊、開箱</span></div>
+    <div><span>代價訊號</span><span>黨費與紀律／$2,600 與等待</span></div>
+    <div><span>內部語言</span><span>同志、覺悟／生態、體驗、質感</span></div>
+    <div><span>異端</span><span>修正主義者／安卓黨</span></div>
+    <div><span>末世論</span><span>共產主義必然實現／下一代一定會更好</span></div>
+    <div><span>不可證偽</span><span>失敗是執行走樣／不好用是你不懂</span></div>
+  </div>
+  <p>最後一行是關鍵，也是我這行飯吃了一輩子最敏感的一行。做校正模型的人都知道，一個怎麼樣都推翻不了的模型，等於沒有預測力。你可以永遠替它找理由，代價是它從此不能告訴你任何事。信仰最舒服的地方，正是它把驗證集取消了。</p>
+  <blockquote class="pull">取消驗證集的信念，不是比較堅定，是比較沒用。</blockquote>
+  <p>那麼宗教和邪教的界線在哪裡？我的判準只有一條：<span class="num">退出成本</span>。宗教容得下懷疑，退出的人頂多被惋惜；邪教懲罰退出，離開的人要付出與信仰不成比例的代價。用這條線去分，果粉換到安卓，成本是兩千六和一點面子；另一邊的退出成本，歷史上是另一個數量級的東西。</p>
+  <p>所以這個類比只能走到這裡，不能再走。把兩者說成同一件事，是另一種偷懶的模型——結構相似不代表量級相同，把數量級抹掉的比喻，跟把分母選錯一樣不誠實。我在第三節罵過自己一次，這裡不想再犯。</p>
+  <p>真正刺人的是另一頭。楔子裡那句「果粉是普通人嗎」，語氣是站在世俗這一側，看對面那群信徒。可是同一天下午，那個決定花兩千六、還替自己算出 3.7σ 的人，也是我。信徒與觀察者之間那條線，我一直以為自己站在外面。資料顯示我在裡面，而且離邊界不遠。</p>
+  <p class="note">本節校勘：「政治宗教」之說源自二十世紀中葉的政治理論傳統（Voegelin、Aron 等以「世俗宗教」描述極權運動），此處僅取其結構比對，未採其全部論斷。退出成本之判準為作者自訂，非學界通說。譯名說明：本文「邪教」取 cult 之義；cult 在早期宗教社會學中原為中性分類，一九七〇年代後才轉為貶義，故學界另有 sect（教派）與 new religious movement（新興宗教運動）等不帶價值判斷的用語。中國官方英譯採 evil cult，屬官方定性口徑，本文不用。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s9">
+  <h2>九、再記：第二次翻蓋</h2>
+  <p>同一天傍晚六點五十，同一位同學又傳來一句，說是前一天在小紅書上看到的評論——果粉已經長到用回翻蓋的年齡了。</p>
+  <p>這一句我倒是立刻聽懂了，因為它打的是我這個人，不是我的手機。</p>
+  <p>翻蓋機屬於二〇〇〇年代初，摩托羅拉 V3 那一輩。當年掀蓋接聽的人，今天都五六十歲。所以這句話有兩層：表層是說果粉跟著產品一起老了，當年排隊的年輕人如今是中年人，繞一圈又繞回翻蓋；底層更狠——老人手機本來就流行大按鍵、掀開即通，所以折疊不是創新，是返老。</p>
+  <blockquote class="pull">這不是我第一次用翻蓋，是我第二次。</blockquote>
+  <p>而我正好是真的用過第一次的那一代。這一點無可辯駁，也不必辯駁。</p>
+  <p>但作為做了一輩子資料的人，我得指出這句俏皮話在方法上的問題：它把年齡效應和世代效應混為一談。果粉變老，是因為同一群人在變老（世代效應），還是因為每一代人到了某個年紀都會回頭找翻蓋（年齡效應）？兩者要用不同的資料才能分開。單看橫斷面，你永遠分不出來。</p>
+  <p>這正是第三節那個分母問題的另一種形式。第三節我發現「我很特別」只是母體選錯；這一節我發現「果粉變老」可能只是同一批人沒換過。三點七個西格瑪、特殊材料、返老還童——三句嘲笑，追到底都是同一個問題：你拿哪一群人跟我比。</p>
+  <p class="note">再記校勘：小紅書該則評論作者查證未果，係轉述之轉述，資料品質與第一節「六百萬支」同級。年齡／世代效應之分離需縱貫資料，本文無。</p>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+</div>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
