@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fans Made of Special Material — An Audited Memoir at 3.7 Sigma | Lao Xiong</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,600;0,700;0,800;1,600&family=IBM+Plex+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e4;
+    --ink:#1c1a17;
+    --rule:#7a6a4f;
+    --tail:#8c2f1f;
+    --note:#4f5d4a;
+    --grid:rgba(122,106,79,.14);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:48px 48px;
+    color:var(--ink);
+    font-family:"EB Garamond",Georgia,"Times New Roman",serif;
+    font-weight:600;
+    font-size:27px;
+    line-height:1.7;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:64px 40px 200px}
+  header{border-bottom:6px double var(--rule);padding-bottom:40px;margin-bottom:48px}
+  .kicker{font-family:"IBM Plex Sans",sans-serif;font-size:21px;font-weight:600;color:var(--rule);margin:0 0 12px;letter-spacing:.12em;text-transform:uppercase}
+  h1{font-size:68px;line-height:1.1;margin:0 0 20px;font-weight:800;letter-spacing:-.01em}
+  .deck{font-size:31px;line-height:1.5;margin:0 0 32px;color:var(--note)}
+  .byline{font-family:"IBM Plex Sans",sans-serif;font-size:20px;font-weight:600;color:var(--rule);margin:0}
+
+  .epigraph{
+    border-top:3px solid var(--rule);border-bottom:3px solid var(--rule);
+    padding:26px 0 22px;margin:0 0 32px;max-width:780px
+  }
+  .epigraph p{font-size:36px;line-height:1.4;font-weight:800;font-style:italic;color:var(--tail);margin:0 0 12px}
+  .epigraph cite{display:block;font-family:"IBM Plex Sans",sans-serif;font-style:normal;font-size:20px;font-weight:600;color:var(--rule)}
+  .epigraph .gloss{font-size:24px;font-style:normal;font-weight:700;color:var(--note);margin:20px 0 0}
+
+  figure.hero{margin:48px 0 0}
+  figure.hero svg{width:100%;height:auto;display:block}
+  figcaption{font-family:"IBM Plex Sans",sans-serif;font-size:20px;font-weight:600;color:var(--note);margin-top:12px}
+
+  nav.toc{border:3px solid var(--ink);padding:28px 36px;margin:0 0 64px;background:rgba(255,255,255,.35)}
+  nav.toc h2{margin:0 0 16px;font-size:30px;border:0;padding:0}
+  nav.toc ol{margin:0;padding-left:1.4em}
+  nav.toc li{margin:6px 0}
+  a{color:var(--ink);text-decoration-thickness:2px;text-underline-offset:5px}
+  a:hover,a:focus-visible{color:var(--tail)}
+  :focus-visible{outline:4px solid var(--tail);outline-offset:4px}
+
+  section{margin:0 0 80px}
+  h2{font-size:46px;line-height:1.2;margin:0 0 28px;font-weight:800;border-left:14px solid var(--tail);padding-left:24px}
+  p{margin:0 0 28px}
+  strong,.num{font-weight:800}
+  .num{font-variant-numeric:tabular-nums}
+  .ledger{
+    border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+    padding:20px 0;margin:36px 0 44px;
+    font-family:"IBM Plex Sans",sans-serif;font-size:22px;font-weight:600;line-height:1.6
+  }
+  .ledger div{display:flex;justify-content:space-between;gap:32px;padding:10px 0;border-bottom:1px dashed var(--rule)}
+  .ledger div:last-child{border-bottom:0}
+  .ledger span:last-child{text-align:right}
+  .ledger .num{color:var(--tail);font-weight:700}
+  blockquote.pull{
+    margin:44px 0;padding:0 0 0 36px;border-left:6px solid var(--ink);
+    font-size:38px;line-height:1.35;font-weight:800;color:var(--tail)
+  }
+  .drop::first-letter{float:left;font-size:104px;line-height:.8;padding:12px 16px 0 0;font-weight:800;color:var(--tail)}
+  .back{display:block;margin-top:24px;font-family:"IBM Plex Sans",sans-serif;font-size:20px;font-weight:600;color:var(--rule)}
+  .note{font-size:22px;color:var(--note);border-top:1px solid var(--rule);padding-top:20px;margin-top:40px}
+
+  .chat{margin:0 0 44px;font-family:"IBM Plex Sans",sans-serif}
+  .chat .stamp{text-align:center;font-size:19px;font-weight:600;color:var(--rule);margin:18px 0 10px}
+  .chat .bubble{
+    max-width:78%;padding:20px 26px;font-size:23px;font-weight:600;line-height:1.5;
+    border:3px solid var(--ink);background:#fff
+  }
+  .chat .card{margin-left:auto}
+  .chat .card .t{font-weight:700;font-size:26px;margin-bottom:8px}
+  .chat .card .m{font-size:19px;color:var(--note)}
+  .chat .mine{margin-left:auto;background:#dff0cf;font-weight:700}
+
+  .floatnav{position:fixed;right:24px;bottom:24px;display:flex;flex-direction:column;gap:10px;z-index:10}
+  .floatnav a{
+    background:var(--ink);color:var(--paper);text-decoration:none;
+    font-family:"IBM Plex Sans",sans-serif;font-size:18px;font-weight:600;padding:12px 20px;
+    border:2px solid var(--paper);box-shadow:0 0 0 2px var(--ink)
+  }
+  .floatnav a:hover,.floatnav a:focus-visible{background:var(--tail);color:#fff}
+
+  @media (max-width:760px){
+    body{font-size:19px;line-height:1.65}
+    .wrap{padding:32px 20px 160px}
+    h1{font-size:38px}
+    .deck{font-size:22px}
+    h2{font-size:28px;padding-left:16px;border-left-width:10px}
+    blockquote.pull{font-size:25px;padding-left:20px}
+    .ledger{font-size:17px}
+    .ledger div{flex-direction:column;gap:2px}
+    .ledger span:last-child{text-align:left}
+    .drop::first-letter{font-size:68px}
+    .epigraph p{font-size:25px}
+    .epigraph .gloss{font-size:18px}
+    .epigraph cite,.kicker,.byline,figcaption,.back,.note{font-size:16px}
+    .chat .bubble{max-width:88%;font-size:17px;padding:14px 18px}
+    .chat .card .t{font-size:19px}
+    .chat .card .m,.chat .stamp{font-size:15px}
+    nav.toc h2{font-size:23px}
+    .floatnav a{font-size:15px;padding:10px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">Lao Xiong · Audited Memoir · 11 September 2026</p>
+  <h1>Fans Made of Special Material</h1>
+  <p class="deck">An audited memoir: I calculated the p-value for every Apple fan on earth, and then discovered one of them was in my training set.</p>
+
+  <div class="epigraph">
+    <p>Communists are made of special material.</p>
+    <cite>— Attributed to Lenin, as relayed by Stalin in his oath at Lenin's bier</cite>
+    <p class="gloss">This essay borrows the line to ask a statistical question: what probability does "special material" actually correspond to?</p>
+  </div>
+
+  <p class="byline">Lao Xiong · written in Redwood Shores, California</p>
+
+  <figure class="hero" aria-labelledby="hero-cap">
+    <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A normal curve with a point marked at 3.7 standard deviations in the right tail, labelled Lao Xiong">
+      <line x1="40" y1="320" x2="960" y2="320" stroke="#1c1a17" stroke-width="3"/>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="20" font-weight="600" fill="#7a6a4f" text-anchor="middle">
+        <line x1="500" y1="320" x2="500" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="500" y="360">0</text>
+        <line x1="600" y1="320" x2="600" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="600" y="360">1σ</text>
+        <line x1="700" y1="320" x2="700" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="700" y="360">2σ</text>
+        <line x1="800" y1="320" x2="800" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="800" y="360">3σ</text>
+        <line x1="400" y1="320" x2="400" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="400" y="360">−1σ</text>
+        <line x1="300" y1="320" x2="300" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="300" y="360">−2σ</text>
+        <line x1="200" y1="320" x2="200" y2="334" stroke="#7a6a4f" stroke-width="3"/><text x="200" y="360">−3σ</text>
+      </g>
+      <path d="M 60 319.9 C 120 319.8 160 319 200 317 C 240 314 270 300 300 285 C 330 268 360 220 400 160 C 430 115 460 66 500 60 C 540 66 570 115 600 160 C 640 220 670 268 700 285 C 730 300 760 314 800 317 C 840 319 880 319.8 940 319.9"
+            fill="none" stroke="#1c1a17" stroke-width="4"/>
+      <path d="M 870 318.6 C 890 319.3 915 319.7 940 319.9 L 940 320 L 870 320 Z" fill="#8c2f1f"/>
+      <circle cx="870" cy="318" r="11" fill="#8c2f1f" stroke="#f6f1e4" stroke-width="3"/>
+      <line x1="870" y1="305" x2="870" y2="140" stroke="#8c2f1f" stroke-width="3" stroke-dasharray="8 8"/>
+      <g font-family="EB Garamond, serif" font-weight="800" fill="#8c2f1f" text-anchor="end">
+        <text x="960" y="110" font-size="40">3.7σ</text>
+        <text x="960" y="146" font-size="23">p ≈ 1.1 × 10⁻⁴</text>
+        <text x="960" y="176" font-size="23">Lao Xiong is here</text>
+      </g>
+      <text x="500" y="40" font-family="IBM Plex Sans, sans-serif" font-size="21" font-weight="600" fill="#7a6a4f" text-anchor="middle">Normal people</text>
+    </svg>
+    <figcaption id="hero-cap">Figure 1: Against world population, buyers of the 1TB Duo fall beyond 3.7σ in the one-sided tail. Coordinates are schematic, not exact areas.</figcaption>
+  </figure>
+</header>
+
+<nav class="toc" id="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s0">Prologue: 12:25 in the afternoon</a></li>
+    <li><a href="#s1">The raw data</a></li>
+    <li><a href="#s2">First calculation: how abnormal is a fan?</a></li>
+    <li><a href="#s3">Second calculation: choosing a denominator</a></li>
+    <li><a href="#s4">Third calculation: one terabyte</a></li>
+    <li><a href="#s5">The outlier in the training set</a></li>
+    <li><a href="#s6">Audit: memory is unreliable, receipts are not</a></li>
+    <li><a href="#s7">Addendum: made of special material</a></li>
+    <li><a href="#s8">The structure of faith: what the Party member and the fan share</a></li>
+    <li><a href="#s9">Second addendum: my second flip phone</a></li>
+  </ol>
+</nav>
+
+<section id="s0">
+  <h2>Prologue: 12:25 in the afternoon</h2>
+  <div class="chat">
+    <div class="stamp">12:19 PM — old employer's group chat</div>
+    <div class="bubble card">
+      <div class="t">Does a normal person really need a folding iPhone?</div>
+      <div class="m">RED / Xiaohongshu · @VV Digital · video · 11 shares</div>
+    </div>
+    <div class="stamp">12:25 PM</div>
+    <div class="bubble mine">Are Apple fans normal people? Ha</div>
+  </div>
+  <p>I forwarded that video into the group myself. Six minutes later I added the line myself. At the time it was nothing more than a wisecrack.</p>
+  <p>Looking back, the wisecrack had already set the question for everything that follows. It assumes "normal people" and "Apple fans" are two disjoint sets, and that I stand on the normal side of the line, laughing across it.</p>
+  <p>By four o'clock that afternoon I had told an AI that I planned to spend $2,600 on a 1TB Duo. Somewhere in those six hours, the line quietly moved.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s1">
+  <h2>1. The raw data</h2>
+  <p class="drop">The first step in any audit is to lay the data out and mark which parts have been verified and which are hearsay.</p>
+  <div class="ledger">
+    <div><span>Date</span><span class="num">Friday, 11 September 2026</span></div>
+    <div><span>Event</span><span>That company launched its first folding phone, the Duo</span></div>
+    <div><span>US starting price (verified)</span><span class="num">$1,999, 256GB</span></div>
+    <div><span>Pre-order / on sale (verified)</span><span class="num">16 October / 23 October</span></div>
+    <div><span>"They plan to sell six million"</span><span>Hearsay. Unverified. Source unknown.</span></div>
+    <div><span>What I intend to spend</span><span class="num">$2,600, 1TB</span></div>
+  </div>
+  <p>Note the gap in data quality between those last two lines. I can no longer recall where I picked up "six million" — which is exactly what the audited-memoir method exists to catch. Memory strips the provenance off a number and keeps only the number. The <strong>$2,600</strong> line, by contrast, came out of my own mouth, with a transcript to prove it. There is no getting out of that one.</p>
+  <p>The company in question is one I joined in the spring of 2013. I have always called it "that stupid company." That label is part of the raw data too, and it will matter later.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s2">
+  <h2>2. First calculation: how abnormal is a fan?</h2>
+  <p>That afternoon I asked what I thought was a very clever question. If six million people out of the world's 8.25 billion buy this phone, what is the p-value of those fans? How many sigma from a normal person?</p>
+  <div class="ledger">
+    <div><span>p = 6,000,000 ÷ 8,250,000,000</span><span class="num">≈ 7.3 × 10⁻⁴</span></div>
+    <div><span>One-sided z</span><span class="num">≈ 3.18σ</span></div>
+    <div><span>Two-sided z (abnormal in either direction)</span><span class="num">≈ 3.38σ</span></div>
+  </div>
+  <p>A little past three sigma. Rarer than a defect under Six Sigma quality control, nowhere near the five sigma that particle physics demands before it will say the word <em>discovery</em>. I took the result as a joke and felt pleased with myself. After a career in chemometrics, being able to convert other people's shopping into a tail probability is a small professional pleasure.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s3">
+  <h2>3. Second calculation: choosing a denominator</h2>
+  <p>Anyone who has built a calibration model knows the answer usually hides in the denominator, not the numerator. Which population you compare against decides who counts as an outlier.</p>
+  <p>World population is the least honest choice available, because most of it was never in the market. Swap in the roughly 1.5 billion iPhones in active use:</p>
+  <div class="ledger">
+    <div><span>p = 6,000,000 ÷ 1,500,000,000</span><span class="num">≈ 0.4%</span></div>
+    <div><span>One-sided z</span><span class="num">≈ 2.65σ</span></div>
+  </div>
+  <p>Change it once more, to people who can drop two thousand dollars on a phone without blinking. Inside that population, a Duo buyer sits less than one sigma from the mean. That is the number that stupid company cares about. Not my p-value.</p>
+  <p>At this point in the day I had still noticed nothing wrong. That belongs in the record. Half the value of an audit lies in marking the moment the subject still could not see it.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s4">
+  <h2>4. Third calculation: one terabyte</h2>
+  <p>Then I asked my second question, in the same light tone. I plan to spend $2,600 on the 1TB model — how rare are people like me?</p>
+  <p>This one needs an extra assumption: what fraction of Duo buyers take the 1TB tier. No official figures exist, so I borrowed the storage mix from past Pro models — roughly half at 256GB, thirty percent at 512GB, fifteen percent at 1TB, the remainder at 2TB. That is an assumption and must be labelled as one.</p>
+  <div class="ledger">
+    <div><span>1TB buyers (assuming 15%)</span><span class="num">≈ 900,000 people</span></div>
+    <div><span>p = 900,000 ÷ 8,250,000,000</span><span class="num">≈ 1.1 × 10⁻⁴</span></div>
+    <div><span>One-sided z (world population)</span><span class="num">≈ 3.7σ</span></div>
+    <div><span>One-sided z (iPhone users)</span><span class="num">≈ 3.2σ</span></div>
+    <div><span>Population: retired Bay Area patent holders</span><span class="num">p approaches 1</span></div>
+  </div>
+  <blockquote class="pull">About one human in nine thousand. Rarer than the crowd I had been mocking one message earlier.</blockquote>
+  <p>When I saw 3.7σ, my first reaction was still delight: <em>look, I'm even more special than they are.</em> That reaction goes in the record too. People who discover they are outliers generally feel honoured first and consider what the word means second.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s5">
+  <h2>5. The outlier in the training set</h2>
+  <p>Then came the reply: the "stupid fan" class I had defined now contained at least one sample.</p>
+  <p>I answered, "Who is it? Ha." That is the single most important datum in this audit, because it proves that at the moment I typed those words I genuinely had not connected the two things. I was not performing. The classifier was trained, the class label was mine, the discriminant was mine, and then a 3.7σ outlier walked in wearing the training data and I still asked who it was.</p>
+  <p>Thirty years of classification work taught me one thing above all: the points a model gets wrong are rarely the distant ones. They are the ones sitting near the decision boundary with the wrong label attached. This point is labelled "stupid fan." The person who attached the label and the person wearing it are the same. In chemometrics that is called label noise. In life it is called a delay in self-knowledge.</p>
+  <p>I have always mocked that stupid company, and I have always mocked the people who queue for its products. Both of those "always" statements are true, and twenty years of chat logs would back them. But "always" is supplied by memory, and memory quietly discards the inconvenient samples. A receipt does not.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s6">
+  <h2>6. Audit: memory is unreliable, receipts are not</h2>
+  <p>Three conclusions.</p>
+  <p><strong>First</strong>, "six million" remains hearsay. Every p-value in this essay rests on a number whose source I cannot find. That is fine for a joke and disqualifying as data, and it needs saying plainly, so that when I reread this in a few years I do not mistake it for fact.</p>
+  <p><strong>Second</strong>, the denominator decides everything. Against world population I am a 3.7σ curiosity. Against retired Bay Area patent holders I am the mode. Same man, different population, outlier to typical. This is the thing I keep running into in this genre: the "I was special" of memory is usually just a badly chosen denominator.</p>
+  <p><strong>Third</strong>, and least comfortable: my opinion of that stupid company and my appetite for its products are two independent variables. I had long overestimated the correlation between them. I assumed that disliking it meant I would not buy it. The data says otherwise.</p>
+  <blockquote class="pull">On sale 23 October. One more datum to add then: whether the order was actually placed. This blank is left for a future Lao Xiong to verify.</blockquote>
+  <p class="note">Notes on sources: all z values are one-sided normal approximations, assuming world population 8.25 billion, 1.5 billion iPhones in active use, and a 15% share for the 1TB tier. Anything marked hearsay resisted the author's attempts at verification and should not be quoted.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s7">
+  <h2>7. Addendum: made of special material</h2>
+  <p>With the essay finished, I sent the opening image into a group chat. An old classmate wrote back: <em>Apple fans are made of special material. Ha.</em></p>
+  <p>My first reading was materials science. Titanium, ceramic fibre, ceramic shield glass — the vocabulary of the keynote. I assumed he was needling the spec sheet. I sent a long reply and, being clever, sorted outliers into two categories for him.</p>
+  <p>He had to give me a hint: Lenin.</p>
+  <p>Which is to say, the epigraph at the top of this page. I chose the title. I copied out the epigraph. And in the moment that message arrived, I connected neither to the other.</p>
+  <blockquote class="pull">Communists are made of special material.</blockquote>
+  <p>The line comes from Stalin's oath at Lenin's bier, relaying Lenin's language about Party character, and it served for decades on the mainland as a stock phrase: the Party member's will is steel, unlike ordinary men. Transplanted onto someone who will pay $2,600 and stand in a queue, both halves collapse at once. Faith is demoted to queueing; queueing is promoted to faith.</p>
+  <p>That I missed it matters more than the essay does. A man from Taiwan who has written about cross-strait language for decades and considers himself attuned to Party rhetoric read a piece of Party rhetoric as a hardware spec. The failure was not knowledge — of course I know the line — it was register. My head was full of my own model, so every input got parsed toward it. In modelling we call that overfitting: once trained, the model sees everything as something it recognises.</p>
+  <p>The joke did, however, let me close the last account. "Special material," in Bayesian terms, is a conditional probability. The first six sections all computed P(buyer | humanity), which is easy and uninteresting. The question worth asking is P(orders one | has mocked the company for twenty years).</p>
+  <div class="ledger">
+    <div><span>Vocal mockers (est. 20% of iPhone users)</span><span class="num">≈ 300 million</span></div>
+    <div><span>Of whom actually order (est. 2% of buyers)</span><span class="num">≈ 120,000</span></div>
+    <div><span>P(orders | mocker)</span><span class="num">≈ 4 × 10⁻⁴</span></div>
+    <div><span>Base rate P(orders)</span><span class="num">≈ 7.3 × 10⁻⁴</span></div>
+    <div><span>Likelihood ratio</span><span class="num">≈ 0.55</span></div>
+  </div>
+  <p>Twenty years of mockery halves the probability of ordering. It does not zero it. Conclusion three above said the correlation had been overestimated; here is the figure: roughly −0.2, not −1.</p>
+  <p>So the special material claim needs a discount. The composition is unchanged. Only the yield is halved — and I happen to be one of the units that got through anyway.</p>
+  <p class="note">Notes on sources: the 20% and 2% figures are the author's own estimates with no underlying data; the likelihood ratio is offered for a sense of proportion and should not be quoted. The opening image was sent at 4:51 PM on 11 September 2026; the hint "Lenin" arrived from the same classmate a few minutes later.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s8">
+  <h2>8. The structure of faith: what the Party member and the fan share</h2>
+  <p>The epigraph transplants onto Apple fans without a seam, and not because it is funny. It works because both sides run on the same structure. That structure is faith — religion at its best, a cult at its worst (recent scholarship and the ex-member community increasingly prefer the neutral term <em>high-control group</em>).</p>
+  <p>Set them side by side and the resemblance is uncomfortable:</p>
+  <div class="ledger">
+    <div><span>Rite of entry</span><span>Party application and oath / keynote, queue, unboxing</span></div>
+    <div><span>Costly signal</span><span>Dues and discipline / $2,600 and the wait</span></div>
+    <div><span>In-group language</span><span>Comrade, consciousness / ecosystem, experience, feel</span></div>
+    <div><span>Heretics</span><span>Revisionists / Android users</span></div>
+    <div><span>Eschatology</span><span>Communism is inevitable / the next one will be better</span></div>
+    <div><span>Unfalsifiability</span><span>Failure was poor implementation / you're holding it wrong</span></div>
+  </div>
+  <p>That last row is the crux, and it is the row my whole working life has made me sensitive to. Anyone who builds calibration models knows that a model which cannot be overturned has no predictive power. You may always find it an excuse; the price is that it can never again tell you anything. The comfort of faith is precisely that it cancels the validation set.</p>
+  <blockquote class="pull">A belief that cancels its validation set is not stronger. It is less useful.</blockquote>
+  <p>So where does religion end and a cult begin? I use one criterion: <strong>exit cost</strong>. A religion can accommodate doubt, and those who leave are at most regretted. A cult punishes exit, charging the departing member a price out of all proportion to the belief. By that line, a fan switching to Android pays $2,600 and a little pride. The exit cost on the other side of the comparison has historically been of another order entirely.</p>
+  <p>Which is as far as the analogy goes. Calling the two the same thing would be its own lazy model: structural similarity does not imply comparable magnitude, and a metaphor that erases the order of magnitude is as dishonest as a badly chosen denominator. I criticised myself for that once in section three and would rather not repeat it.</p>
+  <p>The sharper edge points the other way. The prologue's "are Apple fans normal people?" is spoken from the secular side, looking across at the believers. Yet the man who decided that same afternoon to spend $2,600, and then worked out his own 3.7σ, is also me. I had assumed I stood outside the line between believer and observer. The data puts me inside it, and not far from the boundary.</p>
+  <p class="note">Notes on sources: the "political religion" framing descends from a mid-twentieth-century tradition in political theory (Voegelin, Aron and others describing totalitarian movements as secular religions); only the structural comparison is borrowed here, not the full thesis. The exit-cost criterion is the author's own, not a scholarly consensus. On terminology: <em>cult</em> began as a neutral category in the sociology of religion and only acquired its pejorative sense after the 1970s, which is why the field also uses <em>sect</em> and <em>new religious movement</em>. The official Chinese rendering, <em>evil cult</em>, carries a state designation and is not used here.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s9">
+  <h2>9. Second addendum: my second flip phone</h2>
+  <p>At ten to seven that same evening, the same classmate forwarded a comment he had seen the day before on Xiaohongshu: Apple fans have now reached the age where they go back to flip phones.</p>
+  <p>This one I understood immediately, because it is aimed at me rather than at my phone.</p>
+  <p>Flip phones belong to the early 2000s, the Motorola V3 generation. Anyone who was snapping one shut back then is in their fifties or sixties now. So the line works twice: on the surface, the fans have aged along with the product, and the kids who queued in 2007 are middle-aged men who have looped back around to a hinge. Underneath, it is harsher — phones for the elderly have always favoured big keys and flip-to-answer, so folding is not innovation but reversion.</p>
+  <blockquote class="pull">This is not my first flip phone. It is my second.</blockquote>
+  <p>And I am from the generation that had the first one. There is no arguing with that, and no point trying.</p>
+  <p>But as someone who spent a career with data, I should point out the methodological flaw in the wisecrack: it conflates an age effect with a cohort effect. Are fans getting older because the same group of people is ageing, or because every generation returns to a hinge at a certain age? Separating the two requires different data. From a cross-section alone, you can never tell.</p>
+  <p>Which is the denominator problem from section three in another costume. There I found that "I am special" was only a badly chosen population. Here I find that "the fans are getting old" may only mean the same batch never turned over. Three-point-seven sigma, special material, second childhood — three jokes, and chased far enough, all three are the same question: which group are you comparing me against?</p>
+  <p class="note">Notes on sources: the original Xiaohongshu comment could not be traced; it reaches this page as a report of a report, the same data quality as "six million" in section one. Separating age and cohort effects requires longitudinal data, which this essay does not have.</p>
+  <a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+</div>
+
+<nav class="floatnav" aria-label="Quick navigation">
+  <a href="#toc">Contents</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">Home</a>
+</nav>
+</body>
+</html>
