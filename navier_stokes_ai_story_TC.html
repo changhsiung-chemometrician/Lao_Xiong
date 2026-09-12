@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 解開納維－斯托克斯了嗎？——二〇二六年九月的宣稱、但書與反彈</title>
+<style>
+  :root{
+    --ink:#221c14;
+    --ink-soft:#4e4335;
+    --paper:#f6f1e4;
+    --paper-deep:#ede5d2;
+    --rule:#bfae8c;
+    --deep:#2d4a52;
+    --flag:#8e3b22;
+    --gold:#a8873f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU","Times New Roman",serif;
+    font-size:32px;
+    font-weight:700;
+    line-height:1.85;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 46px 180px;}
+
+  /* ---------- 報頭 ---------- */
+  header.masthead{
+    border-top:14px solid var(--deep);
+    border-bottom:7px double var(--deep);
+    padding:56px 0 46px;margin-bottom:62px;
+  }
+  .kicker{
+    font-size:26px;font-weight:700;letter-spacing:.14em;
+    color:var(--flag);margin:0 0 24px;
+  }
+  h1{
+    font-size:76px;line-height:1.2;font-weight:700;
+    margin:0 0 30px;letter-spacing:.01em;
+  }
+  .deck{
+    font-size:34px;font-weight:700;color:var(--ink-soft);
+    line-height:1.7;margin:0 0 32px;
+  }
+  .byline{
+    font-size:25px;font-weight:700;color:var(--ink-soft);
+    border-top:1px solid var(--rule);padding-top:20px;margin:0;
+  }
+
+  /* ---------- 目錄 ---------- */
+  nav.toc{
+    background:var(--paper-deep);
+    border:3px solid var(--rule);
+    border-left:14px solid var(--deep);
+    padding:38px 46px 42px;margin:0 0 76px;
+  }
+  nav.toc h2{font-size:36px;font-weight:700;margin:0 0 22px;}
+  nav.toc ol{margin:0;padding-right:0;padding-left:1.5em;}
+  nav.toc li{margin:0 0 14px;font-size:30px;font-weight:700;}
+  nav.toc a{color:var(--deep);text-decoration:none;border-bottom:2px solid var(--rule);}
+  nav.toc a:hover,nav.toc a:focus{color:var(--flag);border-bottom-color:var(--flag);}
+
+  /* ---------- 段落 ---------- */
+  section{margin:0 0 82px;scroll-margin-top:24px;}
+  h2.sec{font-size:48px;font-weight:700;line-height:1.35;margin:0 0 12px;}
+  .sec-rule{height:6px;background:var(--deep);width:132px;margin:0 0 34px;}
+  h3{font-size:36px;font-weight:700;margin:50px 0 16px;color:var(--deep);}
+  p{margin:0 0 28px;}
+  strong{font-weight:800;}
+  .num{font-weight:800;font-variant-numeric:tabular-nums;}
+  ul,ol{margin:0 0 30px;padding-left:1.6em;}
+  li{margin:0 0 16px;font-weight:700;}
+
+  .lede::first-letter{
+    float:left;font-size:120px;line-height:.86;font-weight:800;
+    color:var(--deep);padding:10px 18px 0 0;
+  }
+
+  blockquote.pull{
+    margin:54px 0;padding:8px 0 8px 38px;
+    border-left:10px solid var(--flag);
+    font-size:44px;font-weight:700;line-height:1.5;color:var(--deep);
+  }
+
+  .ledger{
+    background:var(--paper-deep);
+    border:3px solid var(--rule);
+    padding:34px 40px;margin:0 0 38px;
+  }
+  .ledger p:last-child{margin-bottom:0;}
+  .ledger h3{margin-top:0;}
+
+  /* 側欄版面 */
+  .withside{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;}
+  aside.margin-note{
+    width:340px;background:#fff;
+    border:2px solid var(--rule);border-top:8px solid var(--gold);
+    padding:26px 28px;font-size:26px;font-weight:700;line-height:1.7;
+    color:var(--ink-soft);
+  }
+  aside.margin-note h4{
+    font-size:28px;font-weight:800;margin:0 0 14px;color:var(--flag);
+  }
+  aside.margin-note p:last-child{margin-bottom:0;}
+  aside.margin-note p{margin:0 0 18px;}
+
+  table{width:100%;border-collapse:collapse;margin:0 0 38px;font-size:26px;}
+  th,td{border:2px solid var(--rule);padding:18px 20px;text-align:left;vertical-align:top;font-weight:700;}
+  th{background:var(--deep);color:#f6f1e4;font-weight:800;}
+  tbody tr:nth-child(even){background:var(--paper-deep);}
+
+  .timeline{border-left:6px solid var(--rule);padding-left:38px;margin:0 0 38px;}
+  .tl-item{margin:0 0 34px;}
+  .tl-date{display:block;font-size:30px;font-weight:800;color:var(--flag);margin-bottom:8px;font-variant-numeric:tabular-nums;}
+  .tl-item p{margin:0;}
+
+  .takehome{border:5px solid var(--deep);background:#fff;padding:38px 42px;}
+  .takehome ol{margin:0;padding-left:1.5em;}
+  .takehome li{margin:0 0 22px;}
+  .takehome li:last-child{margin-bottom:0;}
+
+  .backtotoc{
+    display:inline-block;margin:8px 0 0;
+    font-size:26px;font-weight:800;color:var(--deep);
+    text-decoration:none;border-bottom:2px solid var(--rule);
+  }
+  .backtotoc:hover,.backtotoc:focus{color:var(--flag);border-bottom-color:var(--flag);}
+
+  footer.endnote{
+    border-top:7px double var(--deep);padding-top:36px;
+    font-size:25px;font-weight:700;color:var(--ink-soft);
+  }
+
+  .floatnav{position:fixed;right:28px;bottom:28px;z-index:99;display:flex;flex-direction:column;gap:12px;}
+  .floatnav a{
+    background:var(--deep);color:#f6f1e4;text-decoration:none;
+    font-size:22px;font-weight:800;padding:15px 22px;text-align:center;
+    border:2px solid var(--deep);box-shadow:0 3px 0 rgba(45,74,82,.4);
+  }
+  .floatnav a:hover,.floatnav a:focus{background:var(--flag);border-color:var(--flag);}
+
+  @media (max-width:900px){
+    .withside{grid-template-columns:1fr;}
+    aside.margin-note{width:100%;}
+  }
+  @media (max-width:760px){
+    body{font-size:22px;}
+    .wrap{padding:0 20px 150px;}
+    h1{font-size:40px;}
+    .deck{font-size:25px;}
+    h2.sec{font-size:31px;}
+    h3{font-size:26px;}
+    blockquote.pull{font-size:28px;}
+    table{font-size:19px;}
+    .lede::first-letter{font-size:76px;}
+    nav.toc li{font-size:22px;}
+    .floatnav a{font-size:17px;padding:11px 15px;}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  a:focus-visible{outline:3px solid var(--flag);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">流體力學 · 人工智慧 · 二〇二六年九月</p>
+  <h1>AI 解開納維－斯托克斯了嗎？</h1>
+  <p class="deck">一台機器在八十八小時內宣稱拿下一道百萬美元難題。二十五位費爾茲獎得主回應說：這正是我們擔心的事。以下用白話把整件事講清楚。</p>
+  <p class="byline">白話復盤 · 二〇二六年九月十二日寫成</p>
+</header>
+
+<nav class="toc" id="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">摘要</a></li>
+    <li><a href="#s2">那條主宰水與空氣的方程式</a></li>
+    <li><a href="#s3">百萬美元的問題到底在問什麼</a></li>
+    <li><a href="#s4">四扇門，一次看清</a></li>
+    <li><a href="#s5">事件時序：這十一天怎麼走的</a></li>
+    <li><a href="#s6">所以，到底解開了沒有？</a></li>
+    <li><a href="#s7">誰先到？那場署名之爭</a></li>
+    <li><a href="#s8">二十五位費爾茲獎得主要大家慢下來</a></li>
+    <li><a href="#s9">對真實的水與空氣意味著什麼</a></li>
+    <li><a href="#s10">查核那篇瘋傳的貼文</a></li>
+    <li><a href="#s11">帶走的六件事</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec">摘要</h2>
+  <div class="sec-rule"></div>
+  <div class="ledger">
+    <p><strong>發生了什麼。</strong>二〇二六年<span class="num">九月八日</span>，OpenAI 宣布一個尚未公開的內部模型，以約<span class="num">一萬</span>個智能體並行、連續運行<span class="num">八十八</span>小時，產出一份<span class="num">一百六十六</span>頁的證明：納維－斯托克斯方程所描述的流體運動，可以在有限時間內崩潰。證明附帶一份可由機器檢查的 Lean 形式化文件。</p>
+    <p><strong>它解決了什麼、沒解決什麼。</strong>克雷數學研究所對這道題的官方表述，其實是一份四選一的菜單，證出任何一條都算贏得獎金。OpenAI 宣稱拿下其中兩條，正好是「允許你持續施力推流體」的那兩條。至於「完全不碰它」的那兩條，仍然懸而未決，而那才是物理學家真正在意的版本。</p>
+    <p><strong>目前狀態。</strong>克雷研究所在<span class="num">九月十一日</span>表示，這道題「看來已被解決」，同時強調評審會刻意放慢、絕不趕工。OpenAI 則表示不會去領那<span class="num">一百萬</span>美元。</p>
+    <p><strong>反彈。</strong>同樣在<span class="num">九月十一日</span>，以陶哲軒、鄧煜為首的<span class="num">二十五</span>位費爾茲獎得主聯名發表聲明，警告 AI 公司正把著名難題變成行銷用的評測指標，而代價是數學真正賴以運轉的「理解」。</p>
+  </div>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s2">
+  <h2 class="sec">那條主宰水與空氣的方程式</h2>
+  <div class="sec-rule"></div>
+  <div class="withside">
+    <div>
+      <p class="lede">每一份天氣預報、每一片機翼、每一次血流或室內煙霧的模擬，底下都是同一組方程式。它寫於一八四〇年代，名字來自納維（Navier）與斯托克斯（Stokes）。說穿了不過是牛頓第二定律用在流體上：質量乘加速度等於各項力的總和，而那些力就是壓力、內摩擦，以及你從外面推的那一下。</p>
+      <p>看起來樸素，其實不然。沒有人知道它是不是永遠管用。</p>
+      <p>麻煩出在三維的旋轉。想像一管旋轉的流體，一條渦管。如果有什麼把這管子拉細，它就轉得更快，道理和花式滑冰選手收臂加速一模一樣。轉得更快，它就更用力地拉扯旁邊的渦管，旁邊的又被拉細、又轉得更快。這是一個沒有明顯剎車的正回饋迴圈。</p>
+      <p>剎車其實有一個：黏滯性，那種把尖銳結構抹平的內部阻力。整道題目就是在問：黏滯性是不是永遠能贏過這個回饋迴圈。在二維，答案確定是贏。在三維，努力了九十年，正反兩面都沒有人證得出來。</p>
+      <p><span class="num">一九三四</span>年，勒雷（Leray）證明了一種粗糙的「弱解」永遠存在。但弱解允許有折角、允許行為不良，沒有人能證明它保持唯一，也沒有人能證明它保持光滑。</p>
+    </div>
+    <aside class="margin-note">
+      <h4>三個關鍵字</h4>
+      <p><strong>渦管拉伸：</strong>三維才有的放大機制，二維沒有。這是整個問題困難的根源。</p>
+      <p><strong>黏滯性：</strong>流體的內摩擦，負責把小尺度的尖銳結構抹掉。</p>
+      <p><strong>弱解：</strong>放寬要求後一定存在的解，代價是它可能不光滑、也可能不唯一。</p>
+    </aside>
+  </div>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s3">
+  <h2 class="sec">百萬美元的問題到底在問什麼</h2>
+  <div class="sec-rule"></div>
+  <p><span class="num">二〇〇〇</span>年，克雷數學研究所挑出七道題，每題懸賞<span class="num">一百萬</span>美元，納維－斯托克斯是其中之一。官方題目說明由費弗曼（Charles Fefferman）撰寫，而多數新聞報導漏掉的正是這一點：他並沒有提出一個是非題式的猜想，而是寫了一份<strong>四條敘述的菜單</strong>，證出其中任何一條都能拿走獎金。</p>
+
+  <h3>你需要的兩個詞</h3>
+  <p><strong>「整體存在」</strong>是說：解永遠有定義。你可以問流體在第一秒、第一年、第一百萬年在做什麼，永遠會有答案。相反的情況，像一條開到懸崖邊就斷掉的路：方程式跑了比方說<span class="num">三點七</span>秒，然後就再也說不出任何話。</p>
+  <p><strong>「光滑」</strong>是說：速度場一直保持溫和。沒有無窮大、沒有尖銳折角，想微分幾次就能微分幾次。這件事之所以要緊，是因為方程式本身就是用微分堆出來的。只要某處的速度梯度衝上無窮大，方程式在那一點就失去意義。所以「整體存在且光滑」其實只是一句話：<em>這個模型永遠不會自我毀滅。</em></p>
+  <p><strong>「零外力」</strong>是說：你在時間零把流體愛怎麼擺就怎麼擺，然後走開。沒有風扇、沒有幫浦、沒有人攪拌。從那之後它只做自己的動量、壓力與黏滯性要它做的事。這才是這道題誠實的版本——因為如果允許你一直推，能把它弄爆其實沒那麼令人意外。</p>
+
+  <h3>還有兩個容器</h3>
+  <p>四條敘述成雙成對，是因為有兩種標準場景。<strong>ℝ³</strong> 是無限大的空曠空間，流體佔據其中一塊，愈遠愈淡，所以總能量有限。比較貼近現實，但你得額外處理「無窮遠處怎麼樣」的帳。<strong>週期性環面</strong>則是一個六面都是蟲洞的立方體：流體從右面出去，就從左面回來；從頂面出去，就從底面回來，像老式電玩飛出螢幕一邊就從另一邊冒出來。沒有邊界、沒有無窮遠、不必寫牆上的條件。這是數學家的方便設定，也是幾乎所有湍流模擬實際採用的設定。</p>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s4">
+  <h2 class="sec">四扇門，一次看清</h2>
+  <div class="sec-rule"></div>
+  <table>
+    <thead>
+      <tr><th>門</th><th>有外力嗎</th><th>在哪裡</th><th>要證什麼</th><th>今天的狀態</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td>沒有</td><td>無限空間 ℝ³</td><td>永遠保持光滑</td><td><strong>未解</strong></td></tr>
+      <tr><td><strong>B</strong></td><td>沒有</td><td>週期性立方體</td><td>永遠保持光滑</td><td><strong>未解</strong></td></tr>
+      <tr><td><strong>C</strong></td><td>允許一個光滑、規矩、會衰減的推力</td><td>無限空間 ℝ³</td><td>至少存在一個例子會失去光滑</td><td><strong>OpenAI 宣稱拿下</strong></td></tr>
+      <tr><td><strong>D</strong></td><td>允許一個光滑、規矩、會衰減的推力</td><td>週期性立方體</td><td>至少存在一個例子會失去光滑</td><td><strong>OpenAI 宣稱拿下</strong></td></tr>
+    </tbody>
+  </table>
+  <p>最關鍵、卻經常被報導寫錯的一點是：<strong>C 並不是 A 的反面。</strong>A 說「不推它，一切永遠光滑」；C 說「允許推，就有東西會壞」。這兩句話可以同時為真，毫無矛盾。費弗曼是刻意這樣設計菜單的，為的是給解題者迴旋空間。四扇門加起來並沒有窮盡所有可能，而獎金對任何一扇門都算數。</p>
+  <blockquote class="pull">證出 C，說的是流體可以被弄壞；它沒有說，放著不管的流體會自己壞掉。</blockquote>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s5">
+  <h2 class="sec">事件時序：這十一天怎麼走的</h2>
+  <div class="sec-rule"></div>
+  <div class="timeline">
+    <div class="tl-item"><span class="tl-date">約一年，至八月中</span><p>紐約大學數學家巴克馬斯特（Tristan Buckmaster）與任職於 Anthropic 的阿爾佩格（Levent Alpöge），長期研究簡化流體模型的有限時間崩潰，過程中把 Claude 與 OpenAI 的 Codex 當助手使用。大半年進展緩慢。<span class="num">八月十五日</span>前後出現突破，<span class="num">八月二十二日</span>由電腦完成驗證。</p></div>
+    <div class="tl-item"><span class="tl-date">八月二十八日</span><p>OpenAI 一個尚未公開的新模型開始訓練。</p></div>
+    <div class="tl-item"><span class="tl-date">九月一日</span><p>OpenAI 聽到「千禧年難題被攻破」的傳聞，隨即把新模型指向整張未解清單。約<span class="num">一萬</span>個智能體同時投入納維－斯托克斯。</p></div>
+    <div class="tl-item"><span class="tl-date">九月五日</span><p>在任何公告之前，陶哲軒已在 Mathstodon 上發文，警告把長年孕育成果的公開難題變成一次性話題事件所付出的代價。</p></div>
+    <div class="tl-item"><span class="tl-date">九月七日</span><p>巴克馬斯特與阿爾佩格公開論文：在不可壓縮多孔介質、布西內斯克、以及三維歐拉方程上，證出帶光滑外力的有限時間崩潰，並附 Lean 形式化。陶哲軒稱之為卓越的成就，並寫道他看不出原理上有什麼阻礙能擋住這套方法一路推進到納維－斯托克斯本身。</p></div>
+    <div class="tl-item"><span class="tl-date">九月八日</span><p>經過<span class="num">八十八</span>小時運算，再加一份<span class="num">十七</span>小時的 Lean 轉譯工作，OpenAI 宣布完成三維納維－斯托克斯帶光滑外力的有限時間崩潰證明，共<span class="num">一百六十六</span>頁，宣稱拿下克雷表述的 C 與 D。同一份發布還宣稱了一件可能更驚人的結果：<em>無外力</em>歐拉方程的崩潰。</p></div>
+    <div class="tl-item"><span class="tl-date">九月九日至十日</span><p>署名爭議公開化，登上《金融時報》與《紐約時報》。</p></div>
+    <div class="tl-item"><span class="tl-date">九月十一日</span><p>克雷研究所表示問題「看來已被解決」，所長布里德森（Martin Bridson）強調評審刻意放慢、絕對嚴謹。同一天，<span class="num">二十五</span>位費爾茲獎得主發表聯合聲明。</p></div>
+  </div>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s6">
+  <h2 class="sec">所以，到底解開了沒有？</h2>
+  <div class="sec-rule"></div>
+  <p>按費弗曼那份菜單的字面，證出 C 與 D 確實可以領獎。但這句話上面壓著四條但書。</p>
+
+  <div class="withside">
+    <div>
+      <h3>一、有一半的問題完全沒動</h3>
+      <p>A 與 B 這兩扇無外力的門，今天和三週前一樣開著。一個完全不被打擾的流體，會不會靠渦管拉伸把自己撕裂，仍然沒有人知道。</p>
+
+      <h3>二、Lean 檢查的範圍比一般人想的窄</h3>
+      <p>形式化驗證器確認的是：這個敘述在邏輯上由那些定義推得出來。它無法判斷那些定義是不是符合費弗曼的要求——初始資料的衰減條件、外力的光滑等級、解所屬的函數空間。只要形式化和官方表述有一點點偏離，Lean 程式碼照樣漂亮地編譯通過，而千禧年難題依然開著。這是整件事裡最重要的一條技術但書。</p>
+
+      <h3>三、克雷沒有頒出任何東西</h3>
+      <p>「看來已被解決」不等於「已被解決」。研究所自家頁面上仍然掛著「未解」，而 OpenAI 表示不會去領那筆錢。</p>
+
+      <h3>四、這份證明還沒有被消化</h3>
+      <p><span class="num">八十八</span>小時生出的<span class="num">一百六十六</span>頁，還沒有被有資格讀它的人逐行讀過。那至少要好幾個月。</p>
+    </div>
+    <aside class="margin-note">
+      <h4>形式化驗證的兩層</h4>
+      <p>第一層：<strong>推理對不對</strong>。這一層 Lean 做得極好，幾乎不可能出錯。</p>
+      <p>第二層：<strong>你形式化的那句話，是不是原本要問的那句話</strong>。這一層完全靠人類判讀，機器無能為力。</p>
+      <p>爭議全部落在第二層。</p>
+    </aside>
+  </div>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s7">
+  <h2 class="sec">誰先到？那場署名之爭</h2>
+  <div class="sec-rule"></div>
+  <p>巴克馬斯特與阿爾佩格在這條路上投入將近一年。OpenAI 在<span class="num">九月一日</span>聽到傳聞後才開始，用的是一個訓練了四天的模型，然後趕在他們把自己的結果往前推之前完成。依巴克馬斯特的說法，OpenAI 走的技術路線與他和前人一直在推進的路徑高度重合。</p>
+  <p>有兩條線索讓這件事超出「運氣不好」的範圍。其一，OpenAI 自己的發布就寫著：聽到傳聞後主動聯繫兩人，提議共同發布並承認其優先權；巴克馬斯特則描述自己在<span class="num">九月六日</span>的通話中婉拒了兩項提案。其二，比較安靜但更值得所有研究者記住的一點：這兩人整整一年的工作過程中，一直在使用 OpenAI 的程式助手 Codex。OpenAI 否認取用過他們的資料。但即使否認成立，結構上的事實依然存在：<strong>把未發表的草稿放進某家公司的工具裡，那就是那家公司手上的日誌。</strong></p>
+  <p>巴克馬斯特本人很謹慎地聲明：他並未對任何人提出指控。</p>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s8">
+  <h2 class="sec">二十五位費爾茲獎得主要大家慢下來</h2>
+  <div class="sec-rule"></div>
+  <p><span class="num">九月十一日</span>，二十五位費爾茲獎得主發表《人工智慧在數學中的嚴重錯位》（A Severe Misalignment of AI in Mathematics），陶哲軒在自己的部落格貼出全文。首批連署人橫跨這個獎將近半世紀的名單，包括德利涅（Pierre Deligne）、舒爾茨（Peter Scholze）、維拉尼（Cédric Villani）、維亞佐夫斯卡（Maryna Viazovska）與鄧煜。陶哲軒說明，這份聲明源自一週之內的討論，因為判斷情勢緊迫而決定盡快公開，連署名單仍持續開放。</p>
+  <p>仔細讀會發現，這不是一份談「AI 能不能」的聲明。它開篇就承認語言模型的數學能力近來大幅提升，已經能解決若干重要的未決問題。他們反對的是誘因結構正在做的事：</p>
+  <ul>
+    <li><strong>難題正被當成計分板上的格子。</strong>AI 公司用「攻下幾道名題」來衡量模型，而數學社群真正的目標——理解——正在被那個比較容易計數的東西擠掉。</li>
+    <li><strong>答案從來不是重點。</strong>過去解開一道大題，意味著發明了一套方法；社群接著花上數年，透過研討、簡化與教學，把一份高度專業的論證轉化成大家都能用的知識。AI 最擅長的，恰恰是把這整段弧線壓縮成最後一步。</li>
+    <li><strong>這是對智力勞動的普遍威脅。</strong>多年訓練的意義在於培養提出新問題的能力，而不只是產出最終答案。當系統站在人類累積的全部知識之上、直接把答案吐出來，目標就錯位了。</li>
+    <li><strong>他們並不反對 AI。</strong>聲明明白寫著：AI 有潛力強化並加速真正的數學研究，這個行業也必須調整；真正未定的是這場變化最後會推進數學還是破壞數學，而那在很大程度上取決於掌握這項技術的人怎麼選。</li>
+  </ul>
+  <blockquote class="pull">這有點像去看電影，從開頭十分鐘直接跳到最後十分鐘。技術上每條線都收了，但體驗的價值大半沒了。</blockquote>
+  <p>這是陶哲軒自己的比喻，也是整份抗議最精煉的一句版本。</p>
+  <p>有一處需要更正，因為中文圈的報導把它搞混了：鄧煜<em>確實</em>是費爾茲獎得主，但他是在<span class="num">二〇二六</span>年七月費城國際數學家大會上獲獎，理由是偏微分方程方面的工作，包括從硬球動力學嚴格導出波茲曼方程。這與本次爭議毫無關係。同年獲獎的王虹是因為三維 Kakeya 問題，並不在首批二十五人名單之中。</p>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s9">
+  <h2 class="sec">對真實的水與空氣意味著什麼</h2>
+  <div class="sec-rule"></div>
+  <p>比標題暗示的少，但方向更有意思。</p>
+
+  <h3>帶外力的崩潰，不是在談水</h3>
+  <p>你被允許推。OpenAI 自己的說法是：困難之處在於讓崩潰來自流體自身的動力學，而不是靠人手加進一個無窮大的力——加速度、壓力梯度、動量輸運與黏滯項都必須變得巨大，卻又精確地互相抵消，使得外力在速度失控時仍然保持溫和。這是關於方程式的陳述，不是關於一個你做得出來的實驗。</p>
+
+  <h3>模型會先於物理崩潰</h3>
+  <p>納維－斯托克斯是分子世界的粗粒化摘要。有限時間奇點意味著速度梯度朝著遠小於平均自由程的尺度衝去——空氣中大約<span class="num">六十八</span>奈米——而在那個尺度，連續介質的圖像本來就不成立。真實流體的反應是：不再由納維－斯托克斯描述。動力學效應、可壓縮性、空化、相變會接手。實驗室裡不會出現無窮大。這和幾何光學裡的焦散奇點與真實光場的關係完全一樣，真實光場永遠有限。</p>
+
+  <div class="withside">
+    <div>
+      <h3>那麼哪裡真的會痛</h3>
+      <ul>
+        <li><strong>計算流體力學。</strong>如果光滑解可能不存在，那麼在極端條件下，數值格式可能根本沒有一個光滑解可以收斂過去。網格加密不再是收斂的故事，而變成隱式正則化的故事。湍流模型本來就是經驗性的；這件事讓「經驗性」從暫時狀態變成永久狀態。</li>
+        <li><strong>湍流理論。</strong>有限時間奇點正是「異常耗散」最乾淨的機制——那個頑固的觀測事實：把黏滯性推向零，能量耗散卻不跟著消失。它直接連到 Onsager 猜想，以及小尺度湍流那種尖刺狀的間歇統計。</li>
+        <li><strong>歐拉那一項可能才是更大的物理新聞。</strong>無外力的歐拉崩潰等於是說：光靠渦管拉伸，不需要黏滯性、不需要外推，流體就能把自己收縮成奇點。流體力學界從勒雷以來就在爭這件事。</li>
+        <li><strong>真正要緊的結果仍然缺席。</strong>證出 A 或 B，代表黏滯性永遠獲勝，模型永遠自洽；證出「<em>帶</em>黏滯性的無外力崩潰」，則代表支撐一世紀空氣動力學、氣象與氣候的方程式，內建了一個從尋常初始條件就到得了的失效模式。兩者都還沒有人做到。</li>
+      </ul>
+    </div>
+    <aside class="margin-note">
+      <h4>一句話版本</h4>
+      <p>奇點不代表水會噴出無窮大的速度，只代表<strong>我們用的模型跑出了它自己的有效範圍</strong>。</p>
+      <p>後果落在湍流理論與 CFD 的地基上，不會落在你家的水管上。</p>
+    </aside>
+  </div>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s10">
+  <h2 class="sec">查核那篇瘋傳的貼文</h2>
+  <div class="sec-rule"></div>
+  <p>社群上流傳著一篇談這件事的中文長文。它的事實骨幹沒有問題：<span class="num">二〇二六</span>年九月、OpenAI、Lean 驗證、陶哲軒與鄧煜領銜的聯合聲明。其餘部分則值得分開來看。</p>
+  <p>那篇文章夾進了一套作者自創的宇宙學框架，用語包括「右手螺旋拓撲基底單元」構成空間、「場突窄自鎖效應」終止坍縮並消除奇點之類。這些說法沒有出現在陶哲軒或鄧煜的任何聲明裡，這些名詞也不存在於物理文獻中。那是作者自己的理論嫁接在真實新聞上——這種模式並不罕見，而且特別難察覺，正因為它周圍的報導部分都查得到。</p>
+  <p>文章也誤述了那些數學家的立場。他們擔心的是評測競賽、署名，以及數學理解如何傳遞下去；他們並沒有提出「AI 在本質上不可能提出物理假設」這種哲學主張。</p>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s11">
+  <h2 class="sec">帶走的六件事</h2>
+  <div class="sec-rule"></div>
+  <div class="takehome">
+    <ol>
+      <li><strong>克雷這道題從來不是單一問題。</strong>它是一份四選一的菜單，證出任何一條都給獎。這個設計正是今天標題曖昧不清的根源。</li>
+      <li><strong>OpenAI 宣稱拿下的是「允許推流體」的那兩扇門。</strong>「放著不管」的那兩扇——物理上真正有意義的那兩扇——完全沒有被碰到。</li>
+      <li><strong>機器驗證的範圍比字面窄。</strong>Lean 證明的是：論證由所寫的定義推得出來；它無法保證所寫的定義就是費弗曼寫下的那些。</li>
+      <li><strong>沒有任何真實流體會產生無窮大。</strong>奇點代表連續介質模型跑出了自己的有效範圍，跑到了分子接手的尺度。後果在湍流理論與 CFD 的地基上。</li>
+      <li><strong>數學家的抗議是關於文化，不是關於能力。</strong>他們擔心的是：一個沒有可消化洞見、八十八小時生出、沒人讀過的答案，即使正確，也讓這個學科變窮。</li>
+      <li><strong>給每一位研究者的實務教訓。</strong>放在廠商工具裡的未發表工作，就是那家廠商手上的日誌。無論這次真相為何，這個結構性事實已經成為研究方式的一部分。</li>
+    </ol>
+  </div>
+  <a class="backtotoc" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer class="endnote">
+  <p>本文所據二〇二六年九月事件之來源：OpenAI 關於納維－斯托克斯千禧年大獎難題的發布及其附帶論文與 Lean 儲存庫；費弗曼撰寫的克雷官方題目說明；陶哲軒部落格 <em>What's new</em> 及其 Mathstodon 貼文；聯合聲明《人工智慧在數學中的嚴重錯位》；《金融時報》、《紐約時報》、CNN、《財星》等報導；以及克雷數學研究所<span class="num">二〇二六年九月十一日</span>的說明。狀態截至<span class="num">二〇二六年九月十二日</span>，審查程序仍在進行中。</p>
+</footer>
+
+</div>
+
+<div class="floatnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+</body>
+</html>

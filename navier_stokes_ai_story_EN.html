@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Did AI Solve Navier–Stokes? The September 2026 Claim, the Caveats, and the Backlash</title>
+<style>
+  :root{
+    --ink:#12202b;
+    --ink-soft:#3d5162;
+    --paper:#fbfaf7;
+    --panel:#eef2f4;
+    --rule:#c3cfd6;
+    --deep:#0f3b54;
+    --flag:#8c2f24;
+    --wash:#e3ecef;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    font-size:27px;
+    font-weight:600;
+    line-height:1.68;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 40px 160px;}
+
+  /* ---------- masthead ---------- */
+  header.masthead{
+    border-bottom:6px double var(--deep);
+    padding:70px 0 44px;
+    margin-bottom:58px;
+  }
+  .kicker{
+    font-size:22px;font-weight:800;letter-spacing:.06em;
+    color:var(--flag);margin:0 0 22px;
+  }
+  h1{
+    font-size:58px;line-height:1.16;font-weight:800;
+    margin:0 0 26px;letter-spacing:-.01em;
+  }
+  .deck{
+    font-size:29px;font-weight:600;color:var(--ink-soft);
+    line-height:1.55;margin:0 0 30px;max-width:26em;
+  }
+  .byline{
+    font-size:21px;font-weight:700;color:var(--ink-soft);
+    border-top:1px solid var(--rule);padding-top:18px;margin:0;
+  }
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    background:var(--panel);
+    border-left:10px solid var(--deep);
+    padding:34px 40px 38px;
+    margin:0 0 70px;
+  }
+  nav.toc h2{
+    font-size:28px;font-weight:800;margin:0 0 20px;
+    text-transform:none;letter-spacing:0;
+  }
+  nav.toc ol{margin:0;padding-left:1.4em;}
+  nav.toc li{margin:0 0 12px;font-size:25px;font-weight:700;}
+  nav.toc a{color:var(--deep);text-decoration:none;border-bottom:2px solid var(--rule);}
+  nav.toc a:hover,nav.toc a:focus{border-bottom-color:var(--flag);color:var(--flag);}
+
+  /* ---------- sections ---------- */
+  section{margin:0 0 72px;scroll-margin-top:24px;}
+  h2.sec{
+    font-size:40px;font-weight:800;line-height:1.25;
+    margin:0 0 10px;
+  }
+  .sec-rule{height:4px;background:var(--deep);width:110px;margin:0 0 30px;}
+  h3{font-size:30px;font-weight:800;margin:44px 0 14px;}
+  p{margin:0 0 24px;}
+  strong{font-weight:800;}
+  .num{font-weight:800;font-variant-numeric:tabular-nums;}
+  ul,ol{margin:0 0 26px;padding-left:1.5em;}
+  li{margin:0 0 14px;}
+
+  .lede::first-letter{
+    float:left;font-size:104px;line-height:.82;font-weight:800;
+    color:var(--deep);padding:6px 14px 0 0;
+  }
+
+  blockquote.pull{
+    margin:48px 0;padding:6px 0 6px 34px;
+    border-left:8px solid var(--flag);
+    font-size:33px;font-weight:700;line-height:1.45;color:var(--deep);
+  }
+
+  .ledger{
+    background:var(--wash);
+    border:2px solid var(--rule);
+    padding:30px 34px;margin:0 0 34px;
+  }
+  .ledger p:last-child{margin-bottom:0;}
+  .ledger h3{margin-top:0;}
+
+  table{
+    width:100%;border-collapse:collapse;margin:0 0 34px;
+    font-size:24px;
+  }
+  th,td{
+    border:1px solid var(--rule);padding:16px 18px;
+    text-align:left;vertical-align:top;
+  }
+  th{background:var(--deep);color:#fff;font-weight:800;}
+  tbody tr:nth-child(even){background:var(--panel);}
+  td strong{font-weight:800;}
+
+  /* timeline */
+  .timeline{border-left:5px solid var(--rule);padding-left:34px;margin:0 0 34px;}
+  .tl-item{margin:0 0 30px;}
+  .tl-date{font-weight:800;color:var(--flag);font-size:25px;display:block;margin-bottom:6px;font-variant-numeric:tabular-nums;}
+  .tl-item p{margin:0;}
+
+  .takehome{
+    border:4px solid var(--deep);padding:34px 38px;
+    background:#fff;
+  }
+  .takehome ol{margin:0;padding-left:1.4em;}
+  .takehome li{margin:0 0 18px;}
+  .takehome li:last-child{margin-bottom:0;}
+
+  .backtotoc{
+    display:inline-block;margin:6px 0 0;
+    font-size:22px;font-weight:800;color:var(--deep);
+    text-decoration:none;border-bottom:2px solid var(--rule);
+  }
+  .backtotoc:hover,.backtotoc:focus{color:var(--flag);border-bottom-color:var(--flag);}
+
+  footer.endnote{
+    border-top:6px double var(--deep);padding-top:34px;
+    font-size:21px;font-weight:600;color:var(--ink-soft);
+  }
+
+  /* floating nav */
+  .floatnav{
+    position:fixed;right:26px;bottom:26px;z-index:99;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .floatnav a{
+    background:var(--deep);color:#fff;text-decoration:none;
+    font-size:19px;font-weight:800;padding:14px 20px;
+    border:2px solid var(--deep);text-align:center;
+    box-shadow:0 3px 0 rgba(15,59,84,.35);
+  }
+  .floatnav a:hover,.floatnav a:focus{background:var(--flag);border-color:var(--flag);}
+
+  @media (max-width:760px){
+    body{font-size:21px;}
+    .wrap{padding:0 20px 140px;}
+    h1{font-size:36px;}
+    .deck{font-size:23px;}
+    h2.sec{font-size:29px;}
+    h3{font-size:24px;}
+    blockquote.pull{font-size:24px;}
+    table{font-size:18px;}
+    .lede::first-letter{font-size:70px;}
+    .floatnav a{font-size:16px;padding:11px 14px;}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  a:focus-visible{outline:3px solid var(--flag);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">Fluid mechanics · Artificial intelligence · September 2026</p>
+  <h1>Did AI Solve Navier–Stokes?</h1>
+  <p class="deck">A machine claimed a million-dollar problem in 88 hours. Twenty-five Fields medalists replied that this is exactly what worries them. Here is what actually happened, in plain language.</p>
+  <p class="byline">A plain-language reconstruction · written 12 September 2026</p>
+</header>
+
+<nav class="toc" id="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s1">Executive summary</a></li>
+    <li><a href="#s2">The equation that runs water and air</a></li>
+    <li><a href="#s3">What the million-dollar question actually asks</a></li>
+    <li><a href="#s4">The four doors, side by side</a></li>
+    <li><a href="#s5">Timeline: how the claim unfolded</a></li>
+    <li><a href="#s6">So is it solved?</a></li>
+    <li><a href="#s7">The fight over who got there first</a></li>
+    <li><a href="#s8">Twenty-five Fields medalists say slow down</a></li>
+    <li><a href="#s9">What it means for real water and real air</a></li>
+    <li><a href="#s10">Checking the viral post</a></li>
+    <li><a href="#s11">Take-home</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2 class="sec">Executive summary</h2>
+  <div class="sec-rule"></div>
+  <div class="ledger">
+    <p><strong>What happened.</strong> On <span class="num">8 September 2026</span>, OpenAI announced that an unreleased internal model, running roughly <span class="num">10,000</span> agents in parallel for <span class="num">88</span> hours, produced a <span class="num">166</span>-page proof that fluid flow described by the Navier–Stokes equations can break down in a finite amount of time. The proof came with a machine-checkable formalization in Lean.</p>
+    <p><strong>What it does and doesn't settle.</strong> The Clay Mathematics Institute's official write-up of the problem offers a menu of four statements; proving any one wins the prize. OpenAI claims two of them, the two that allow you to keep pushing the fluid with an external force. The two statements about a fluid left completely alone remain open, and those are the ones physicists care about.</p>
+    <p><strong>Where it stands.</strong> Clay said on <span class="num">11 September</span> that the problem has "apparently been settled" while stressing that its review will be deliberately unhurried. OpenAI has said it will not claim the <span class="num">$1</span> million.</p>
+    <p><strong>The backlash.</strong> Also on <span class="num">11 September</span>, <span class="num">25</span> Fields medalists, led by Terence Tao and Yu Deng, published a joint statement warning that AI companies are turning famous problems into marketing benchmarks at the expense of the understanding that mathematics actually runs on.</p>
+  </div>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s2">
+  <h2 class="sec">The equation that runs water and air</h2>
+  <div class="sec-rule"></div>
+  <p class="lede">Every weather forecast, every aircraft wing, every simulation of blood in an artery or smoke in a room rests on the same set of equations, written down in the 1840s and named after Claude-Louis Navier and George Stokes. They are just Newton's second law applied to a fluid: mass times acceleration equals the sum of the forces, where the forces are pressure, internal friction, and whatever you push with from outside.</p>
+  <p>They look modest. They are not. Nobody knows whether they always work.</p>
+  <p>The awkward part is three-dimensional swirling. Picture a tube of spinning fluid, a vortex. If something stretches that tube thinner, it spins faster, for the same reason a figure skater speeds up when she pulls her arms in. Spinning faster, it yanks harder on its neighbours, stretching them, so they spin faster too. That is a feedback loop with no obvious brake.</p>
+  <p>There is one brake: viscosity, the internal stickiness that smears sharp features out. The whole question is whether viscosity always wins the race against the feedback loop. In two dimensions it demonstrably does. In three dimensions, after ninety years of effort, nobody has been able to prove it either way.</p>
+  <p>In <span class="num">1934</span> Jean Leray showed that a rough, "weak" kind of solution always exists. But weak solutions are allowed to be kinked and badly behaved, and nobody could show they stay unique or stay smooth.</p>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s3">
+  <h2 class="sec">What the million-dollar question actually asks</h2>
+  <div class="sec-rule"></div>
+  <p>In <span class="num">2000</span> the Clay Mathematics Institute picked seven problems and attached <span class="num">$1</span> million to each. Navier–Stokes was one. Charles Fefferman wrote the official description, and here is the thing most news coverage skipped: he did not pose a single yes-or-no conjecture. He wrote a menu of four statements and said that proving any one of them collects the prize.</p>
+
+  <h3>The two vocabulary words you need</h3>
+  <p><strong>"Global existence"</strong> means the solution never stops being defined. You can ask what the fluid is doing at one second, one year, a million years, and there is always an answer. The opposite is a road that ends at a cliff: the equations run for, say, <span class="num">3.7</span> seconds and then simply have nothing further to say.</p>
+  <p><strong>"Smoothness"</strong> means the velocity field stays gentle. No infinities, no sharp kinks, differentiable as many times as you like. This matters because the equations are built out of derivatives. If a velocity gradient runs off to infinity somewhere, the equation itself becomes meaningless at that spot. So "global existence and smoothness" is really one claim: <em>the model never self-destructs.</em></p>
+  <p><strong>"Zero external forcing"</strong> means you set the fluid up however you like at time zero and then walk away. No fan, no pump, no stirring. From then on it only does what its own momentum, pressure and viscosity make it do. This is the honest version of the question, because if you are allowed to keep pushing, it is much less surprising that you can make something go haywire.</p>
+
+  <h3>And the two containers</h3>
+  <p>The statements come in pairs because there are two standard settings. <strong>ℝ³</strong> is infinite empty space, with the fluid occupying a patch that fades away far off so its total energy is finite. Realistic, but you take on extra bookkeeping about what happens out at infinity. <strong>The periodic torus</strong> is a cube whose walls are wormholes: fluid leaving the right face re-enters through the left, out the top comes back in the bottom, like an old arcade game where flying off one edge of the screen puts you on the other. No boundaries, no infinity, no wall conditions to write. It is the mathematician's convenience setting, and it is what nearly every turbulence simulation actually uses.</p>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s4">
+  <h2 class="sec">The four doors, side by side</h2>
+  <div class="sec-rule"></div>
+  <table>
+    <thead>
+      <tr><th>Door</th><th>Outside force?</th><th>Where</th><th>What you must prove</th><th>Status today</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td>None</td><td>Infinite space ℝ³</td><td>It always stays smooth, forever</td><td><strong>Open</strong></td></tr>
+      <tr><td><strong>B</strong></td><td>None</td><td>Periodic cube</td><td>It always stays smooth, forever</td><td><strong>Open</strong></td></tr>
+      <tr><td><strong>C</strong></td><td>A smooth, well-behaved, fading push is allowed</td><td>Infinite space ℝ³</td><td>There is at least one case where smoothness breaks</td><td><strong>Claimed by OpenAI</strong></td></tr>
+      <tr><td><strong>D</strong></td><td>A smooth, well-behaved, fading push is allowed</td><td>Periodic cube</td><td>There is at least one case where smoothness breaks</td><td><strong>Claimed by OpenAI</strong></td></tr>
+    </tbody>
+  </table>
+  <p>The crucial subtlety, and it is routinely reported wrong: <strong>C is not the opposite of A.</strong> A says "with no push, everything stays smooth." C says "with some push allowed, something breaks." Both can be true at the same time with no contradiction whatsoever. Fefferman built the menu this way on purpose, to give solvers room. The four doors do not between them exhaust the possibilities, and the prize is payable for any one of them.</p>
+  <blockquote class="pull">Proving C tells you that a fluid can be broken. It does not tell you that a fluid left alone will break itself.</blockquote>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s5">
+  <h2 class="sec">Timeline: how the claim unfolded</h2>
+  <div class="sec-rule"></div>
+  <div class="timeline">
+    <div class="tl-item"><span class="tl-date">Roughly a year, ending mid-August 2026</span><p>Tristan Buckmaster, a mathematician at NYU, and Levent Alpöge, at Anthropic, work on finite-time breakdown for simplified fluid models, using Claude and OpenAI's Codex as assistants. Progress is slow for most of it. Around <span class="num">15 August</span> they break through. By <span class="num">22 August</span> a computer has verified the argument.</p></div>
+    <div class="tl-item"><span class="tl-date">28 August</span><p>A new, unreleased OpenAI model begins training.</p></div>
+    <div class="tl-item"><span class="tl-date">1 September</span><p>OpenAI hears a rumour that Millennium problems have been cracked, and points the new model at the unsolved list. Roughly <span class="num">10,000</span> agents work on Navier–Stokes concurrently.</p></div>
+    <div class="tl-item"><span class="tl-date">5 September</span><p>Terence Tao, before any announcement, posts a warning on Mathstodon about the cost of turning historically productive open problems into viral benchmark moments.</p></div>
+    <div class="tl-item"><span class="tl-date">7 September</span><p>Buckmaster and Alpöge post their papers publicly: finite-time breakdown with smooth forcing for incompressible porous media, for Boussinesq, and for three-dimensional Euler, with a Lean formalization. Tao calls it a remarkable achievement and writes that he sees nothing in principle preventing the methods from reaching Navier–Stokes itself.</p></div>
+    <div class="tl-item"><span class="tl-date">8 September</span><p>After <span class="num">88</span> hours of running, plus a separate <span class="num">17</span>-hour job to translate everything into Lean, OpenAI announces a <span class="num">166</span>-page proof of finite-time breakdown for three-dimensional Navier–Stokes with smooth forcing, claiming Clay statements C and D. The same release also claims something arguably more striking: a breakdown for the <em>unforced</em> Euler equations.</p></div>
+    <div class="tl-item"><span class="tl-date">9–10 September</span><p>The priority dispute goes public and reaches the Financial Times and the New York Times.</p></div>
+    <div class="tl-item"><span class="tl-date">11 September</span><p>Clay says the problem has "apparently been settled," while its president, Martin Bridson, describes the evaluation as deliberately unhurried and absolutely rigorous. The same day, <span class="num">25</span> Fields medalists publish their joint statement.</p></div>
+  </div>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s6">
+  <h2 class="sec">So is it solved?</h2>
+  <div class="sec-rule"></div>
+  <p>By the letter of Fefferman's menu, proving C and D does collect the prize. But four qualifications sit on top of that sentence.</p>
+  <h3>1. Half the problem is untouched</h3>
+  <p>Doors A and B, the unforced versions, are exactly as open today as they were three weeks ago. Whether a fluid left entirely alone can tear itself apart through vortex stretching is still unknown.</p>
+  <h3>2. Lean checks less than people think</h3>
+  <p>A formal verifier confirms that the stated theorem follows logically from the stated definitions. It cannot judge whether those definitions match what Fefferman required: the decay conditions on the initial data, the smoothness class of the forcing, the function space the solution lives in. If the formalization drifts even slightly from the official statement, the Lean code compiles beautifully and the Millennium Problem is still open. This is the single most important technical caveat in the whole story.</p>
+  <h3>3. Clay has awarded nothing</h3>
+  <p>"Apparently settled" is not "settled." The institute's own page still carries the word unsolved, and OpenAI has said it will not claim the money.</p>
+  <h3>4. The proof has not been digested</h3>
+  <p><span class="num">166</span> pages generated in <span class="num">88</span> hours have not been read line by line by the people qualified to read them. That takes months at minimum.</p>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s7">
+  <h2 class="sec">The fight over who got there first</h2>
+  <div class="sec-rule"></div>
+  <p>Buckmaster and Alpöge had spent close to a year on the path. OpenAI started on <span class="num">1 September</span> after hearing a rumour, with a model that had been in training for four days, and finished before they could extend their own result. The technical route was, by Buckmaster's account, closely aligned with the approach he and others had been advancing.</p>
+  <p>Two threads make this more than ordinary bad luck. First, OpenAI's own release describes hearing the rumour and then contacting the pair, offering a joint announcement and recognition of priority; Buckmaster has described declining two proposals in calls on <span class="num">6 September</span>. Second, and quieter: the pair had been using Codex, OpenAI's coding assistant, during their year of work. OpenAI denies accessing their data. But the structural point survives the denial, and it is one every researcher should now absorb: <strong>unpublished drafts parked inside a company's tools are logs that company holds.</strong></p>
+  <p>Buckmaster has been careful to say he is making no accusation against anyone.</p>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s8">
+  <h2 class="sec">Twenty-five Fields medalists say slow down</h2>
+  <div class="sec-rule"></div>
+  <p>On <span class="num">11 September</span>, twenty-five Fields medalists published <em>A Severe Misalignment of AI in Mathematics</em>, with Tao posting the full text on his blog. The initial signatories span nearly half a century of the prize, including Pierre Deligne, Peter Scholze, Cédric Villani, Maryna Viazovska and Yu Deng. Tao noted the statement came out of a single week of discussion, released quickly because they judged the matter urgent, and the list remains open for further signatures.</p>
+  <p>Read carefully, it is not a statement about what AI can or cannot do. It opens by conceding that language models have improved sharply and can now settle significant open problems. The objection is about what the incentives are doing:</p>
+  <ul>
+    <li><strong>Problems are being treated as scoreboard entries.</strong> AI companies benchmark their models by how many famous problems fall, and the mathematical community's actual goal, understanding, is being displaced by the thing that is easier to count.</li>
+    <li><strong>The answer was never the point.</strong> Historically, solving a major problem meant inventing a method, and the community then spent years in seminars, simplifications and teaching turning that specialist argument into knowledge everyone could use. AI compresses that whole arc into its final step.</li>
+    <li><strong>It is a threat to intellectual work generally.</strong> Years of training exist to build the capacity to ask new questions, not only to emit final answers. When systems can produce the answers by standing on everything humans already built, the goals come apart.</li>
+    <li><strong>They are not against AI.</strong> The statement says explicitly that AI could strengthen and accelerate real mathematics, that the profession will have to adapt, and that whether this ends well depends on the choices of the people holding the technology.</li>
+  </ul>
+  <blockquote class="pull">It is a little like going to a film and jumping from the first ten minutes to the last ten. Technically every plot line is resolved, but most of the value of the experience is gone.</blockquote>
+  <p>That is Tao's own image, and it is the cleanest one-sentence version of the complaint.</p>
+  <p>One correction worth making, because the Chinese-language coverage garbled it: Yu Deng <em>is</em> a Fields medalist, but he won it in July <span class="num">2026</span> at the International Congress of Mathematicians in Philadelphia, for his work in partial differential equations including the rigorous derivation of the Boltzmann equation from hard-sphere dynamics. It has nothing to do with this dispute. Hong Wang won the same year for the three-dimensional Kakeya problem, and was not among the initial twenty-five.</p>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s9">
+  <h2 class="sec">What it means for real water and real air</h2>
+  <div class="sec-rule"></div>
+  <p>Less than the headlines suggest, and in a more interesting direction.</p>
+
+  <h3>A forced breakdown is not a claim about water</h3>
+  <p>You are allowed to push. OpenAI's own framing is that the difficulty is making the breakdown come from the fluid's internal dynamics rather than from an infinite force applied by hand: the acceleration, pressure gradient, momentum transfer and viscosity terms all have to grow enormous while cancelling precisely, so that the external force stays gentle even as the velocity runs away. That is a statement about the equations, not about an experiment you could run.</p>
+
+  <h3>The model breaks before physics does</h3>
+  <p>Navier–Stokes is a coarse-grained summary of molecules. A finite-time singularity means velocity gradients run away toward length scales far below the mean free path, about <span class="num">68</span> nanometres in air, where the continuum picture was never valid in the first place. Real fluid responds by ceasing to be described by Navier–Stokes at all: kinetic effects, compressibility, cavitation, phase change. No infinity shows up in the laboratory. It is the same relationship as between a caustic singularity in ray optics and a real light field, which is perfectly finite.</p>
+
+  <h3>Where it does bite</h3>
+  <ul>
+    <li><strong>Computational fluid dynamics.</strong> If smooth solutions can cease to exist, then at extreme conditions a numerical scheme may have no smooth solution to converge to. Grid refinement stops being a convergence story and becomes an implicit regularization story. Turbulence models were always empirical; this makes that permanent rather than provisional.</li>
+    <li><strong>Turbulence theory.</strong> Finite-time singularity is the clean mechanism behind anomalous dissipation, the stubborn observation that energy keeps being dissipated even as viscosity is taken to zero. It connects directly to Onsager's conjecture and to the intermittent, spiky statistics of small-scale turbulence.</li>
+    <li><strong>The Euler claim may be the bigger physics story.</strong> An unforced breakdown for Euler says that vortex stretching alone, with no viscosity and no external push, can concentrate a flow into a singularity. Fluid dynamicists have argued about that since Leray.</li>
+    <li><strong>The result that would really matter is still missing.</strong> Prove A or B and viscosity always wins: the model is self-consistent forever. Prove unforced breakdown <em>with</em> viscosity and the equations underpinning a century of aerodynamics, weather and climate have a built-in failure mode reachable from ordinary starting conditions. Neither has been shown.</li>
+  </ul>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s10">
+  <h2 class="sec">Checking the viral post</h2>
+  <div class="sec-rule"></div>
+  <p>A widely shared Chinese-language article about all this circulated on social media. Its factual spine is sound: September <span class="num">2026</span>, OpenAI, Lean verification, Tao and Deng leading a joint statement. Everything else deserves separating out.</p>
+  <p>The article splices in a private cosmological framework of its own invention, with vocabulary about right-hand-helical topological base units of space and a field self-locking effect that supposedly halts the collapse and eliminates the singularity. None of that appears in any statement by Tao or Deng, and none of those terms exist in the physics literature. It is the author's own theory grafted onto real news, which is a common enough pattern and easy to miss because the reporting around it checks out.</p>
+  <p>The article also misdescribes the medalists' position. They are worried about benchmark-chasing, credit and the transmission of mathematical understanding. They are not making the philosophical claim that AI is constitutionally incapable of proposing physical assumptions.</p>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="s11">
+  <h2 class="sec">Take-home</h2>
+  <div class="sec-rule"></div>
+  <div class="takehome">
+    <ol>
+      <li><strong>The Clay problem was never one question.</strong> It is a menu of four, and the prize pays for any one. That design choice is why the current headlines are ambiguous.</li>
+      <li><strong>OpenAI claims the two doors where you are allowed to push the fluid.</strong> The two where you leave it alone, the physically meaningful ones, are untouched.</li>
+      <li><strong>Machine verification is narrower than it sounds.</strong> Lean proves that the argument follows from the stated definitions. It cannot certify that the stated definitions are the ones Fefferman wrote.</li>
+      <li><strong>No real fluid will produce an infinity.</strong> A singularity means the continuum model has run off the edge of its own validity, at scales where molecules take over. The consequence is for turbulence theory and the foundations of CFD, not for your plumbing.</li>
+      <li><strong>The mathematicians' objection is about culture, not capability.</strong> Their worry is that an answer with no digestible insight, produced in <span class="num">88</span> hours and read by nobody, leaves the field poorer even when it is correct.</li>
+      <li><strong>One practical lesson for every researcher.</strong> Unpublished work left inside a vendor's tools is a log that vendor holds. Whatever happened here, that structural fact is now part of how research has to be conducted.</li>
+    </ol>
+  </div>
+  <a class="backtotoc" href="#toc">↑ Back to contents</a>
+</section>
+
+<footer class="endnote">
+  <p>Sources for the September <span class="num">2026</span> events: OpenAI's release on the Navier–Stokes Millennium Prize Problem and its accompanying manuscript and Lean repository; Charles Fefferman's official Clay problem description; Terence Tao's blog <em>What's new</em> and his Mathstodon posts; the joint statement <em>A Severe Misalignment of AI in Mathematics</em>; reporting by the Financial Times, the New York Times, CNN and Fortune; and the Clay Mathematics Institute's statement of <span class="num">11 September 2026</span>. Status as of <span class="num">12 September 2026</span>; the review process is ongoing.</p>
+</footer>
+
+</div>
+
+<div class="floatnav">
+  <a href="#toc">Contents</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">Home</a>
+</div>
+
+</body>
+</html>
