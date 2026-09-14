@@ -248,6 +248,28 @@
   .note b{display:block;color:var(--ink);margin-bottom:8px;font-weight:800;}
 
 
+
+  /* ---------- executive summary ---------- */
+  .exec{
+    border:3px double var(--ink);
+    background:var(--paper-deep);
+    padding:44px 48px;
+    margin:0 0 72px;
+  }
+  .exec h2{
+    font-size:34px;letter-spacing:.16em;color:var(--oxblood);
+    margin:0 0 30px;font-weight:800;
+  }
+  .exec ol{margin:0;padding-left:1.4em;}
+  .exec li{margin:0 0 26px;font-size:28px;line-height:1.72;}
+  .exec li:last-child{margin-bottom:0;}
+  .exec li b{color:var(--indigo);}
+  @media (max-width:760px){
+    .exec{padding:26px 22px;}
+    .exec h2{font-size:26px;}
+    .exec li{font-size:23px;}
+  }
+
   /* ---------- exhibits ---------- */
   .exhibit{margin:60px 0;}
   .exhibit .pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
@@ -336,7 +358,7 @@
     <h1>兩條 X 與一道海峽
       <span class="en">Two X's and One Strait</span>
     </h1>
-    <p class="deck">一則五年前的 Quora 回答，把女生不念理工歸因於染色體。拆開來看，機制的方向沒錯，量級錯了一個數量級——而真正的反證不在遺傳學裡——在地圖上、在作者自己的個人頁上，以及在我家的飯桌上。</p>
+    <p class="deck">一則五年前的 Quora 回答，把女生不念理工歸因於染色體。拆開來看，機制的方向沒錯，量級錯了一個數量級。而東亞那條缺口的真正主因叫滅絕師太效應——一個完全不需要染色體的機制。反證不在遺傳學裡，在地圖上、在作者自己的個人頁上，以及在我家的飯桌上。</p>
     <p class="byline">老熊　Lao Xiong</p>
   </header>
 
@@ -350,28 +372,44 @@
     <h2>目錄　CONTENTS</h2>
     <p class="grouphead">中文版</p>
     <ol>
+      <li><a href="#zh-body">摘要</a></li>
       <li><a href="#zh1">一、一張截圖</a></li>
       <li><a href="#zh2">二、兩條 X 的算術</a></li>
       <li><a href="#zh3">三、為什麼除以二會變成四分之一</a></li>
       <li><a href="#zh4">四、兩把不同的尺</a></li>
       <li><a href="#zh5">五、跨過海峽的反證</a></li>
-      <li><a href="#zh-home">六、家裡的反例</a></li>
-      <li><a href="#zh6">七、尾聲</a></li>
+      <li><a href="#zh-mjst">六、滅絕師太：一個不需要染色體的機制</a></li>
+      <li><a href="#zh-home">七、家裡的反例</a></li>
+      <li><a href="#zh6">八、尾聲</a></li>
     </ol>
     <p class="grouphead" style="margin-top:34px;">English Version</p>
     <ol class="en-list">
+      <li><a href="#en-body">Executive Summary</a></li>
       <li><a href="#en1">I. The Screenshot</a></li>
       <li><a href="#en2">II. The Arithmetic of Two X's</a></li>
       <li><a href="#en3">III. Why Halving Becomes Quartering</a></li>
       <li><a href="#en4">IV. Two Different Rulers</a></li>
       <li><a href="#en5">V. The Counter-Evidence Across the Strait</a></li>
-      <li><a href="#en-home">VI. The Counterexample at Home</a></li>
-      <li><a href="#en6">VII. Coda</a></li>
+      <li><a href="#en-mjst">VI. The Marriage Penalty: A Mechanism That Needs No Chromosome</a></li>
+      <li><a href="#en-home">VII. The Counterexample at Home</a></li>
+      <li><a href="#en6">VIII. Coda</a></li>
     </ol>
   </nav>
 
   <!-- ================= 中文版 ================= -->
   <div class="col lang-zh" id="zh-body">
+    <aside class="exec">
+      <h2>摘要　EXECUTIVE SUMMARY</h2>
+      <ol>
+        <li><b>X 連鎖機制的方向對，量級錯一個數量級。</b>男性一條 X 是單次抽樣，女性兩條近似兩次抽樣的平均，變異數減半、標準差縮為 1/√2。但 √2 是天花板，只在「全部變異都掛在 X 上」時成立。X 實際承載約 4–5% 的編碼基因，推得的變異比約 1.01；實測的男女標準差比是 1.05 到 1.15。要用 X 連鎖解釋 1.10，得假設近六成的加成遺傳變異住在 X 上。</li>
+        <li><b>尾端算術成立，但撐不起結論。</b>標準差差 5–10%，到正三、正四個標準差外會放大到 1.6:1 甚至 4:1。問題是當工程師不需要正四個標準差；在真正的門檻附近，預測比例約 1.1:1，離現實的參與率差距差得很遠。</li>
+        <li><b>中央與尾端要用兩把不同的尺。</b>中央極限定理解釋了智商為何近似常態，但它是關於分布中央的陳述。尾端得用極值理論；把常態一路外推到正四個標準差，本身就是未經檢驗的假設。</li>
+        <li><b>跨國數據與染色體無關。</b>日本工程類女性 16%（OECD 平均 26%），韓國工程系大學部約 20%，台灣主修 STEM 28.7%（低於二〇〇五年的 31.4%），美國工程系大學部 22%，大陸數學碩士班逾 60%。所謂「美國博士階段五成居冠」是組成效應——NSF 的實際數字是 S&amp;E 博士女性 41.2%，工程只有約四分之一。</li>
+        <li><b>滅絕師太效應才是東亞那條缺口的主因。</b>上嫁規範預設丈夫學歷、收入、年齡都高於妻子，於是女性學歷越高、合格集合越小，再被年齡梯度削一次。關鍵是：這個代價是<em>預期性</em>的——十八歲選系時就先付了。美國的漏點在博士之後（tenure clock 撞生育年齡），東亞的漏點在博士之前。</li>
+        <li><b>它解釋了數據裡那個翻轉。</b>大陸數學碩士女生逾六成，博士卻掉回 39%。污名掛在「女博士」而非女碩士，所以東亞的曲線不是「女生少進理工」，是女生停在懲罰生效的那一級。</li>
+      </ol>
+    </aside>
+
 
     <section id="zh1">
       <h2 class="sec"><span class="num">第一節</span>一張截圖</h2>
@@ -447,7 +485,9 @@
       </table>
 
       <p>日本是 OECD 的墊底，工程類 16% 對上 OECD 平均的 26%，理學數統類 27% 對上平均的 52%。台灣 2014 年的 28.7%，還低於 2005 年的 31.4%。</p>
-      <p>但排序會隨階段翻轉。博士階段，美國的科技領域女性比例 50.2% 反而最高，中國 39.3%、韓國 37.6%、日本 30.5%。而且聯合國教科文組織根本沒有收中國的 STEM 數據，中國自己的定義又比西方寬。</p>
+      <p>但排序會隨階段翻轉，而這裡要先擋掉一個常被引用的數字。流傳的版本說美國博士階段的科技領域女性比例達五成、居各國之冠。那個數字靠不住：美國國家科學基金會自己的統計是，二〇一八年全部科學與工程博士學位中女性佔 41.2%。要衝到五成以上，得把教育、健康科學、人文藝術一起算進籃子裡。</p>
+      <p>而且 S&amp;E 內部的離散大得驚人。心理學的女性學位比例約七成五，生物科學過半；電腦科學與工程最低。二〇二三年，心理學、健康科學、生物與生醫科學、農業科學、社會科學的博士女性都過半，而電腦與資訊科學、工程、數學與統計、物理科學只有 26% 到 45%。</p>
+      <p>所以「美國博士階段最高」主要是一個組成效應——美國的籃子裡裝了大量心理學與生命科學，把平均拉了上去。工程對工程，美國博士班女性約四分之一，一點也不高。附帶一提，聯合國教科文組織根本沒有收中國的 STEM 數據，中國自己的定義又比西方寬。跨國比較在這一層已經不太乾淨。</p>
 
       <ul class="reasons">
         <li><b>性別平等悖論。</b>越富裕、性別越平等的國家，女性 STEM 比例反而越低。希臘、冰島、波蘭超過 40%，瑞士與智利不到 25%，絕對差距最大的是芬蘭、德國、瑞典。諷刺的是，那篇 Quora 的作者正是芬蘭人。</li>
@@ -461,8 +501,33 @@
       <a class="backtotoc" href="#toc">↑ 回目錄</a>
     </section>
 
+    <section id="zh-mjst">
+      <h2 class="sec"><span class="num">第六節</span>滅絕師太：一個不需要染色體的機制</h2>
+      <p>第五節列的那幾條理由都是制度性的，但漏了一條最要命的。它在東亞有個現成的名字：滅絕師太效應。</p>
+      <p>指的是讀到博士的女人不好嫁，所以多數女生不敢冒這個險。</p>
+      <p>底下的機制叫上嫁規範。東亞婚配長期預設丈夫的學歷、收入、年齡都高於妻子；台灣與東亞其他地區一樣，有很強的教育上嫁傳統——男性娶學歷低於自己的女性。當女性的教育與職位提升，可匹配的對象池必然縮小：符合「地位相當」條件的男性數量本身就減少了。</p>
+      <p>博士這一級之所以是斷點，純粹是算術。女博士的合格集合被兩件事同時削：一是只剩學歷相當或更高的男性，二是那批男性在同一個市場裡傾向找更年輕的。三十歲拿到學位的人，同時面對一個被規範限制住、又正在被年齡梯度抽走的池子。</p>
+      <p class="pull">這不是她找不到。是合格的集合被規範定義掉了。</p>
+      <p>而且規範必須雙方都持有才成立：男方不願娶學歷更高的，女方也不願嫁學歷更低的。那是一個協調均衡，不是一種性格。</p>
+
+      <h3 style="font-size:34px;font-weight:800;margin:56px 0 24px;color:var(--indigo);">漏點的位置不一樣</h3>
+      <p>美國的漏點在博士之後：六年的 tenure clock 壓在三十到三十六歲，博士後合約短、要搬家，聯邦沒有給薪育嬰假。那是時程表製造出來的二選一。</p>
+      <p>東亞的漏點在博士之前，而且是預期性的。十八歲選系的女生，是在替十二年後的婚配市場先付代價。</p>
+      <p>這一點反而比第二節的變異數算術更徹底地打掉那篇 Quora 的論證。上嫁規範可以在男女智力分布完全相同的前提下，精準產生我們看到的每一個數字。不需要染色體，一條都不需要。</p>
+
+      <h3 style="font-size:34px;font-weight:800;margin:56px 0 24px;color:var(--indigo);">它解釋了那個翻轉</h3>
+      <p>大陸的數學碩士班女生超過六成，博士階段卻掉回三成九。台灣、日本、韓國是同一個形狀。</p>
+      <p>因為污名掛在「女博士」那三個字上，不掛在女碩士。東亞的曲線不是「女生比較少進理工」，而是女生停在懲罰開始生效的那一級。碩士安全，博士不安全，於是就停在碩士。</p>
+
+      <h3 style="font-size:34px;font-weight:800;margin:56px 0 24px;color:var(--indigo);">兩個但書</h3>
+      <p>一，懲罰在弱化，但信念還在。日本的研究顯示，女性婚配的負教育梯度到二〇〇五年已經消失，二〇〇九年後甚至轉正。實際的懲罰在鬆動，但十八歲時所依據的預期仍然是舊的。決策發生在信念上，不發生在統計上。</p>
+      <p>二，這是個會移動的東西。新加坡因為女性大學畢業率高於男性，同一套規範撞上不同的供給，結果變成大量高學歷女性與低學歷男性同時單身。規範會隨供給、政策與世代改變。</p>
+      <p>染色體不會。</p>
+      <a class="backtotoc" href="#toc">↑ 回目錄</a>
+    </section>
+
     <section id="zh-home">
-      <h2 class="sec"><span class="num">第六節</span>家裡的反例</h2>
+      <h2 class="sec"><span class="num">第七節</span>家裡的反例</h2>
       <p>該說清楚這篇文章是怎麼開始的。</p>
       <p>前面那四個問題——染色體、變異數、兩把尺、跨國比例——看起來像一串技術性的好奇心。其實不是。它們是同一個問題的四種問法，而那個問題我早就有答案了，只是想看看數據會不會同意。</p>
       <p>田總來自中國大陸。一九八二年高考，上海考區第五名，進上海交通大學，一九八六屆。畢業之後一路做工程，三十多年沒離開過這一行，現在在一家工程顧問公司。</p>
@@ -476,7 +541,7 @@
     </section>
 
     <section id="zh6">
-      <h2 class="sec"><span class="num">第七節</span>尾聲</h2>
+      <h2 class="sec"><span class="num">第八節</span>尾聲</h2>
       <p>回頭看那張截圖。然後往上拉，看作者的個人頁。</p>
 
       <figure class="exhibit">
@@ -514,6 +579,18 @@
 
   <!-- ================= English ================= -->
   <div class="col lang-en hidden" id="en-body">
+    <aside class="exec">
+      <h2>EXECUTIVE SUMMARY</h2>
+      <ol>
+        <li><b>The X-linked mechanism points the right way and is wrong by an order of magnitude.</b> One X is a single draw; two X's with random inactivation behave like the average of two, halving the variance and shrinking the standard deviation by 1/√2. But √2 is a ceiling, true only if all variance sat on the X. The X carries roughly 4–5% of coding genes, implying a variance ratio near 1.01, against an observed male/female SD ratio of 1.05–1.15. Explaining 1.10 by X-linkage would require nearly 60% of additive genetic variance to live on one chromosome.</li>
+        <li><b>The tail arithmetic is sound but cannot carry the conclusion.</b> A 5–10% SD gap widens to 1.6:1 or 4:1 past three or four standard deviations. But engineering does not require four standard deviations; at the real threshold the predicted ratio is about 1.1:1, nowhere near observed participation gaps.</li>
+        <li><b>The centre and the tails need different rulers.</b> The central limit theorem explains why IQ-like traits are approximately normal, but it is a statement about the centre. Tails need extreme value theory; extrapolating normality out to +4 SD is itself an untested assumption.</li>
+        <li><b>The cross-national data has nothing to do with chromosomes.</b> Japan: 16% women in engineering against an OECD average of 26%. Korea: about 20% of undergraduate engineering. Taiwan: 28.7% of STEM majors, down from 31.4% in 2005. US: 22% of undergraduate engineering. Mainland China: over 60% of mathematics master's students. The widely quoted "US leads with just over half of S&amp;T doctorates" is a composition effect — NSF's actual figure is 41.2% of S&amp;E doctorates, and about a quarter in engineering.</li>
+        <li><b>The marriage penalty is the main driver of the East Asian gap.</b> The hypergamy norm assumes the husband outranks the wife in education, income, and age, so a woman's eligible set shrinks as her credentials rise, then shrinks again under the age gradient. Crucially the cost is <em>anticipatory</em> — paid at eighteen, when the major is chosen. America's leak comes after the doctorate (tenure clock against childbearing years); East Asia's comes before it.</li>
+        <li><b>It explains the flip in the data.</b> Mainland mathematics master's programmes are over 60% women, yet the doctoral share falls to 39%. The stigma attaches to the doctorate, not the master's. The East Asian curve is not "fewer women entering STEM" but women stopping exactly where the penalty begins.</li>
+      </ol>
+    </aside>
+
 
     <section id="en1">
       <h2 class="sec"><span class="num">PART ONE</span>The Screenshot</h2>
@@ -589,7 +666,9 @@
       </table>
 
       <p>Japan sits at the bottom of the OECD: 16% against an OECD average of 26% in engineering, 27% against 52% in science and mathematics. Taiwan's 28.7% in 2014 was lower than its own 31.4% in 2005.</p>
-      <p>The ranking flips by stage, though. At doctoral level the US leads with 50.2% of science and technology PhDs going to women, ahead of China at 39.3%, Korea at 37.6%, and Japan at 30.5%. And UNESCO publishes no STEM figures for China at all, while China's own definition of the category runs broader than Western ones.</p>
+      <p>The ranking flips by stage — but one widely circulated figure has to be blocked first. The version in circulation says American women take just over half of all doctorates in science and technology, the highest of any country. That number does not hold up. The National Science Foundation's own count is that women earned 41.2% of all science and engineering doctorates in 2018. Getting above half requires putting education, health sciences, and the humanities into the same basket.</p>
+      <p>And the spread inside S&amp;E is enormous. Women take about three quarters of psychology degrees and more than half in the biological sciences; computer science and engineering are the lowest. In 2023, women earned more than half of the doctorates in psychology, health sciences, biological and biomedical sciences, agricultural sciences, and the social sciences, but only 26% to 45% in computer and information sciences, engineering, mathematics and statistics, and the physical sciences.</p>
+      <p>So the American lead at doctoral level is mostly a composition effect: the American basket is full of psychology and life science, which pulls the average up. Engineering against engineering, American doctoral programmes are about one quarter women, which is not high at all. Note also that UNESCO publishes no STEM figures for China, and China's own definition of the category runs broader than Western ones. Cross-national comparison is already unclean at this level.</p>
 
       <ul class="reasons">
         <li><b>The gender-equality paradox.</b> Richer and more gender-egalitarian countries have lower female STEM shares. Greece, Iceland, and Poland exceed 40%; Switzerland and Chile fall below 25%; the widest absolute gaps include Finland, Germany, and Sweden. The irony is that the Quora author is Finnish.</li>
@@ -603,8 +682,33 @@
       <a class="backtotoc" href="#toc">↑ Back to contents</a>
     </section>
 
+    <section id="en-mjst">
+      <h2 class="sec"><span class="num">PART SIX</span>The Marriage Penalty: A Mechanism That Needs No Chromosome</h2>
+      <p>The reasons in Part Five are all institutional, but they leave out the one that bites hardest. In East Asia it already has a name — the 滅絕師太 effect, after the fierce celibate abbess in the martial-arts novels.</p>
+      <p>It means this: a woman who takes a doctorate becomes hard to marry, so most women do not risk it.</p>
+      <p>The mechanism underneath is the hypergamy norm. East Asian marriage has long assumed that the husband outranks the wife in education, income, and age. Taiwan, like the rest of the region, has a strong tradition of educational hypergamy — men marrying women with less education than themselves. As women's education and occupational standing rise, the pool of eligible partners necessarily shrinks, because the number of men meeting the "adequate status" condition falls.</p>
+      <p>The doctorate is the breaking point for a purely arithmetic reason. A woman's eligible set gets cut twice: once down to men of equal or higher credentials, and again by the fact that those men, in the same market, tend to look younger. A woman finishing at thirty faces a pool that is both restricted by the norm and being drained by the age gradient.</p>
+      <p class="pull">It is not that she cannot find anyone. It is that the eligible set has been defined away by a norm.</p>
+      <p>And the norm requires both sides to hold it: men unwilling to marry up, women unwilling to marry down. That is a coordination equilibrium, not a personality type.</p>
+
+      <h3 style="font-size:34px;font-weight:800;margin:56px 0 24px;color:var(--indigo);">The leak sits in a different place</h3>
+      <p>The American leak comes after the doctorate: a six-year tenure clock landing squarely on ages thirty to thirty-six, short postdoc contracts that require moving, and no federal paid parental leave. That is a dilemma manufactured by a schedule.</p>
+      <p>The East Asian leak comes before the doctorate, and it is anticipatory. An eighteen-year-old choosing her major is pre-paying a cost in a marriage market twelve years away.</p>
+      <p>This demolishes the Quora argument more completely than the variance arithmetic in Part Two ever could. The hypergamy norm can produce every number we observe while male and female ability distributions remain exactly identical. No chromosome required. Not one.</p>
+
+      <h3 style="font-size:34px;font-weight:800;margin:56px 0 24px;color:var(--indigo);">It explains the flip</h3>
+      <p>Mainland mathematics master's programmes are over 60% women, yet the doctoral share falls back to 39%. Taiwan, Japan, and Korea show the same shape.</p>
+      <p>Because the stigma attaches to the word "doctorate," not to the master's. The East Asian curve is not "fewer women entering STEM." It is women stopping at exactly the level where the penalty begins. The master's is safe; the doctorate is not; so they stop at the master's.</p>
+
+      <h3 style="font-size:34px;font-weight:800;margin:56px 0 24px;color:var(--indigo);">Two caveats</h3>
+      <p>First, the penalty is weakening but the belief is not. Japanese research finds that the negative educational gradient in women's marriage had disappeared by 2005 and turned positive by 2009. The actual penalty is loosening, but the expectation an eighteen-year-old acts on is still the old one. The decision runs on belief, not on the statistics.</p>
+      <p>Second, this thing moves. In Singapore, where women now graduate from university at higher rates than men, the same norm meets a different supply and produces large numbers of highly educated women and less educated men single at the same time. Norms shift with supply, policy, and generation.</p>
+      <p>Chromosomes do not.</p>
+      <a class="backtotoc" href="#toc">↑ Back to contents</a>
+    </section>
+
     <section id="en-home">
-      <h2 class="sec"><span class="num">PART SIX</span>The Counterexample at Home</h2>
+      <h2 class="sec"><span class="num">PART SEVEN</span>The Counterexample at Home</h2>
       <p>It is worth saying plainly how this piece started.</p>
       <p>The four questions above — chromosomes, variance, the two rulers, the cross-national shares — look like a string of technical curiosity. They are not. They are four ways of asking the same question, and I already had the answer. I only wanted to see whether the data would agree.</p>
       <p>田總 is from mainland China. In the 1982 gaokao she placed fifth in the entire Shanghai examination district, went to Shanghai Jiao Tong University, and graduated in 1986. She went straight into engineering and has stayed in it for more than thirty years; she works at an engineering consulting firm now.</p>
@@ -618,7 +722,7 @@
     </section>
 
     <section id="en6">
-      <h2 class="sec"><span class="num">PART SEVEN</span>Coda</h2>
+      <h2 class="sec"><span class="num">PART EIGHT</span>Coda</h2>
       <p>Back to the screenshot. Then scroll up, to the author's own profile.</p>
 
       <figure class="exhibit">
