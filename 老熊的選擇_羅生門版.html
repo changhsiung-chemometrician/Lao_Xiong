@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老熊的選擇・羅生門版 — 老熊隨筆・精選外刊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ece0;
+  --paper-2:#ece3d4;
+  --ink:#221d18;
+  --ink-soft:#4a4038;
+  --rule:#b9a98f;
+  --rule-soft:#d3c6ae;
+  --accent:#8c2318;
+  --accent-2:#1f4a44;
+  --gold:#9a7b3f;
+  --serif:"Noto Serif TC","EB Garamond","Songti TC","STSong","PMingLiU",serif;
+}
+
+*{box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+
+body{
+  margin:0;
+  padding:0;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 2px, transparent 2px 4px),
+    radial-gradient(ellipse at 20% 0%, #f7f1e6 0%, var(--paper) 55%, #e9dfcd 100%);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:32px;
+  font-weight:700;
+  line-height:1.95;
+  letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+}
+
+.sheet{
+  max-width:1100px;
+  margin:0 auto;
+  padding:64px 56px 120px;
+  background:linear-gradient(180deg, rgba(255,253,248,.55), rgba(255,253,248,0) 400px);
+  border-left:1px solid var(--rule-soft);
+  border-right:1px solid var(--rule-soft);
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  text-align:center;
+  border-bottom:6px double var(--ink);
+  padding-bottom:26px;
+  margin-bottom:14px;
+}
+.masthead .brand{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:1.1em;
+  text-indent:1.1em;
+  color:var(--accent);
+  margin:0 0 14px;
+}
+.masthead .issue{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  font-size:21px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.16em;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:10px 4px;
+}
+.masthead .issue span{white-space:nowrap;}
+.masthead .issue .num{font-weight:800;}
+
+.kicker{
+  text-align:center;
+  margin:44px 0 10px;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:.42em;
+  text-indent:.42em;
+  color:var(--accent-2);
+}
+h1.headline{
+  font-size:76px;
+  font-weight:900;
+  line-height:1.28;
+  text-align:center;
+  margin:6px 0 8px;
+  letter-spacing:.06em;
+}
+h1.headline .yrs{
+  display:block;
+  font-size:40px;
+  letter-spacing:.28em;
+  text-indent:.28em;
+  color:var(--accent);
+  margin-top:16px;
+  font-weight:800;
+}
+.subhead{
+  text-align:center;
+  font-size:34px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.14em;
+  margin:0 0 26px;
+}
+.deck{
+  font-size:32px;
+  font-weight:700;
+  line-height:1.9;
+  color:var(--ink-soft);
+  max-width:900px;
+  margin:0 auto 34px;
+  text-align:justify;
+  padding:26px 34px;
+  border-top:2px solid var(--rule);
+  border-bottom:2px solid var(--rule);
+  background:rgba(255,255,255,.34);
+}
+.byline{
+  text-align:center;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:.3em;
+  text-indent:.3em;
+  color:var(--accent);
+  margin-bottom:56px;
+}
+
+/* ---------- table of contents ---------- */
+.toc{
+  background:var(--paper-2);
+  border:2px solid var(--ink);
+  box-shadow:10px 10px 0 rgba(34,29,24,.10);
+  padding:38px 44px 34px;
+  margin:0 0 66px;
+}
+.toc h2{
+  margin:0 0 8px;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:.5em;
+  text-indent:.5em;
+  text-align:center;
+  color:var(--accent);
+}
+.toc .tochint{
+  text-align:center;
+  font-size:21px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.1em;
+  margin:0 0 18px;
+}
+.toc .toc-rule{
+  border:0;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  height:4px;
+  margin:0 0 24px;
+}
+.toc ol{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.toc li{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  padding:9px 0;
+  border-bottom:1px dotted var(--rule);
+  font-size:28px;
+}
+.toc li:last-child{border-bottom:0;}
+.toc li .no{
+  font-weight:800;
+  color:var(--accent);
+  font-size:23px;
+  letter-spacing:.14em;
+  min-width:3.4em;
+  white-space:nowrap;
+}
+.toc a{
+  color:var(--ink);
+  text-decoration:none;
+  font-weight:700;
+  border-bottom:1px solid transparent;
+}
+.toc a:hover,.toc a:focus{color:var(--accent);border-bottom-color:var(--accent);}
+.toc .yr{
+  margin-left:auto;
+  font-weight:800;
+  font-size:23px;
+  color:var(--ink-soft);
+  letter-spacing:.06em;
+  white-space:nowrap;
+}
+
+/* ---------- cast ---------- */
+.castbox{
+  border:3px double var(--ink);
+  background:rgba(255,255,255,.42);
+  padding:40px 44px 34px;
+  margin:0 0 74px;
+}
+.castbox h2{
+  margin:0 0 6px;
+  text-align:center;
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:.4em;
+  text-indent:.4em;
+  color:var(--accent);
+}
+.castbox .casthint{
+  text-align:center;
+  font-size:21px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.08em;
+  margin:0 0 26px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--rule);
+}
+.castgroup{margin-top:34px;}
+.castgroup:first-of-type{margin-top:0;}
+.castgroup > h3{
+  font-size:27px;
+  font-weight:900;
+  color:var(--accent-2);
+  letter-spacing:.2em;
+  margin:0 0 16px;
+  padding-left:14px;
+  border-left:8px solid var(--accent-2);
+  line-height:1.5;
+}
+.castgroup dl{margin:0;}
+.castgroup dt{
+  font-size:26px;
+  font-weight:900;
+  color:var(--ink);
+  margin-top:18px;
+  letter-spacing:.05em;
+}
+.castgroup dt:first-of-type{margin-top:0;}
+.castgroup dt .lead-tag{
+  display:inline-block;
+  margin-left:10px;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.16em;
+  color:#fff;
+  background:var(--accent);
+  border-radius:4px;
+  padding:2px 11px;
+  vertical-align:.16em;
+}
+.castgroup dd{
+  margin:2px 0 0;
+  font-size:23px;
+  font-weight:700;
+  color:var(--ink-soft);
+  line-height:1.72;
+}
+
+/* ---------- sections ---------- */
+section{margin-bottom:72px;}
+h2.sec{
+  font-size:46px;
+  font-weight:900;
+  letter-spacing:.06em;
+  margin:0 0 6px;
+  padding-top:18px;
+  border-top:4px solid var(--ink);
+  scroll-margin-top:20px;
+}
+.sec-no{
+  display:block;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.34em;
+  color:var(--accent);
+  margin-bottom:2px;
+}
+.sec-sub{
+  font-size:25px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.1em;
+  margin:0 0 30px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--rule-soft);
+}
+
+p{margin:0 0 30px;text-align:justify;text-justify:inter-ideograph;}
+
+.dropcap::first-letter{
+  float:left;
+  font-size:120px;
+  line-height:.86;
+  font-weight:900;
+  color:var(--accent);
+  margin:8px 16px 0 0;
+  padding:6px 10px 0 0;
+}
+.dc{
+  float:left;
+  font-size:120px;
+  line-height:.86;
+  font-weight:900;
+  color:var(--accent);
+  margin:8px 16px 0 0;
+  padding:6px 10px 0 0;
+}
+
+em, .em{
+  font-style:normal;
+  font-weight:800;
+  background:linear-gradient(transparent 62%, rgba(140,35,24,.20) 62%);
+  padding:0 2px;
+}
+strong{font-weight:800;}
+.num{font-weight:800;letter-spacing:.02em;}
+.en{font-family:"EB Garamond",var(--serif);font-weight:600;font-style:italic;}
+em.aside-note{
+  font-style:normal;
+  background:none;
+  color:var(--ink-soft);
+  font-weight:700;
+  padding:0;
+}
+
+h3.label{
+  display:inline-block;
+  font-weight:900;
+  font-size:36px;
+  color:var(--accent);
+  letter-spacing:.12em;
+  margin:52px 0 24px;
+  position:relative;
+}
+h3.label::after{
+  content:"";
+  position:absolute;left:0;bottom:-10px;width:100%;height:5px;
+  background:linear-gradient(90deg,var(--accent),rgba(140,35,24,0));
+}
+
+/* ---------- margin note ---------- */
+.note{
+  float:right;
+  width:340px;
+  margin:8px -180px 26px 40px;
+  padding:22px 24px;
+  background:rgba(255,255,255,.5);
+  border-left:5px solid var(--gold);
+  font-size:24px;
+  font-weight:700;
+  line-height:1.8;
+  color:var(--ink-soft);
+  text-align:justify;
+}
+.note b{
+  display:block;
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:.24em;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+@media (max-width:1500px){
+  .note{margin-right:0;width:340px;}
+}
+
+/* ---------- film quote ---------- */
+blockquote.film{
+  margin:46px 0;
+  padding:30px 44px;
+  border-left:10px solid var(--accent);
+  background:rgba(255,255,255,.45);
+}
+blockquote.film p{
+  margin:0;
+  font-size:40px;
+  font-weight:900;
+  color:var(--accent);
+  line-height:1.5;
+}
+blockquote.film .en-sub{
+  display:block;
+  margin-top:14px;
+  font-size:23px;
+  font-weight:700;
+  color:var(--ink-soft);
+  font-family:"EB Garamond",var(--serif);
+  font-style:italic;
+  letter-spacing:.02em;
+}
+.hunt{font-family:"EB Garamond",var(--serif);font-style:italic;font-weight:700;color:var(--accent);}
+.hunt b{font-weight:800;}
+
+/* ---------- pull quote ---------- */
+.pull{
+  margin:46px 0;
+  padding:34px 40px;
+  font-size:44px;
+  font-weight:800;
+  line-height:1.62;
+  color:var(--accent);
+  text-align:center;
+  border-top:3px solid var(--accent);
+  border-bottom:3px solid var(--accent);
+  letter-spacing:.04em;
+}
+.pull small{
+  display:block;
+  margin-top:14px;
+  font-size:23px;
+  font-weight:700;
+  letter-spacing:.24em;
+  color:var(--ink-soft);
+}
+
+/* ---------- ledger / cross-reference ---------- */
+.ledger{
+  background:rgba(31,74,68,.07);
+  border:2px dashed var(--accent-2);
+  padding:26px 32px;
+  margin:40px 0;
+  font-size:27px;
+  font-weight:700;
+  line-height:1.8;
+}
+.ledger b{
+  font-weight:800;
+  letter-spacing:.2em;
+  color:var(--accent-2);
+}
+.ledger a{color:var(--accent);font-weight:800;}
+
+.companion{
+  border:3px double var(--accent-2);
+  background:rgba(31,74,68,.06);
+  padding:32px 38px 34px;
+  margin:60px 0 0;
+}
+.companion h3{
+  margin:0 0 14px;
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:.34em;
+  text-indent:.34em;
+  color:var(--accent-2);
+  text-align:center;
+}
+.companion p{font-size:26px;margin:0 0 20px;color:var(--ink-soft);}
+.companion a{
+  display:block;
+  text-align:center;
+  font-size:29px;
+  font-weight:800;
+  color:var(--accent);
+  text-decoration:none;
+  border-top:1px solid var(--rule);
+  padding-top:20px;
+}
+.companion a:hover,.companion a:focus{color:var(--accent-2);}
+
+.divider{
+  text-align:center;
+  margin:56px 0;
+  color:var(--rule);
+  font-size:30px;
+  letter-spacing:1.2em;
+  text-indent:1.2em;
+}
+
+/* ---------- coda ---------- */
+.coda-open{
+  text-align:center;
+  border-top:6px double var(--ink);
+  border-bottom:6px double var(--ink);
+  padding:30px 0;
+  margin:90px 0 56px;
+}
+.coda-open .t{
+  font-size:56px;
+  font-weight:900;
+  letter-spacing:.5em;
+  text-indent:.5em;
+}
+.coda-open .s{
+  font-size:25px;
+  font-weight:700;
+  letter-spacing:.22em;
+  color:var(--ink-soft);
+  margin-top:8px;
+}
+
+.finale{
+  text-align:center;
+  font-family:"EB Garamond",var(--serif);
+  font-style:italic;
+  font-size:42px;
+  font-weight:600;
+  color:var(--accent);
+  margin:56px 0 12px;
+  letter-spacing:.02em;
+}
+.finale-zh{
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.2em;
+}
+
+.endmark{
+  text-align:center;
+  font-size:34px;
+  color:var(--accent);
+  margin:40px 0 0;
+}
+.seal{
+  display:block;width:130px;margin:34px auto 0;text-align:center;
+  color:#fff;background:var(--accent);font-weight:900;font-size:26px;letter-spacing:.1em;
+  padding:14px 0;border-radius:6px;box-shadow:0 4px 0 #6a1a12;
+  transform:rotate(-4deg);
+}
+
+.backtop{
+  text-align:right;
+  margin:34px 0 0;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:.1em;
+}
+.backtop a{
+  color:var(--ink-soft);
+  text-decoration:none;
+  border-bottom:1px dotted rgba(74,64,56,.5);
+}
+.backtop a:hover,.backtop a:focus{color:var(--accent);border-bottom-color:var(--accent);}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
+
+footer.colophon{
+  margin-top:80px;
+  border-top:1px solid var(--rule);
+  padding-top:26px;
+  font-size:22px;
+  font-weight:700;
+  color:var(--ink-soft);
+  letter-spacing:.1em;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.totop{
+  display:block;
+  text-align:center;
+  margin-top:34px;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.28em;
+  color:var(--ink-soft);
+  text-decoration:none;
+}
+.totop:hover{color:var(--accent);}
+
+/* ---------- 增補一版（Add1）專用 ---------- */
+.add-tag{
+  display:inline-block;
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:.24em;
+  text-indent:.24em;
+  color:#fff;
+  background:var(--accent-2);
+  border-radius:4px;
+  padding:3px 13px;
+  vertical-align:.2em;
+  margin-right:12px;
+}
+.addbox{
+  border:2px solid var(--accent-2);
+  border-left:14px solid var(--accent-2);
+  background:rgba(31,74,68,.06);
+  padding:26px 34px;
+  margin:44px 0;
+  font-size:28px;
+  font-weight:700;
+  line-height:1.85;
+}
+.addbox h4{
+  margin:0 0 16px;
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:.14em;
+  color:var(--accent-2);
+  line-height:1.5;
+}
+.addbox p{margin:0 0 20px;font-size:28px;}
+.addbox p:last-child{margin-bottom:0;}
+.addbox .said{
+  border-left:6px solid var(--gold);
+  background:rgba(154,123,63,.10);
+  padding:18px 24px;
+  margin:0 0 20px;
+  font-weight:800;
+}
+
+.tablewrap{overflow-x:auto;margin:34px 0 40px;}
+table.ledger-t{
+  width:100%;
+  border-collapse:collapse;
+  font-size:25px;
+  font-weight:700;
+}
+table.ledger-t caption{
+  caption-side:top;
+  text-align:left;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:.22em;
+  color:var(--accent);
+  padding-bottom:12px;
+}
+table.ledger-t th{
+  background:var(--accent-2);
+  color:#f6f0e4;
+  font-weight:800;
+  font-size:23px;
+  padding:14px 16px;
+  text-align:left;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+table.ledger-t td{
+  padding:15px 16px;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;
+  line-height:1.7;
+}
+table.ledger-t tr:nth-child(even) td{background:rgba(255,255,255,.42);}
+table.ledger-t .n{font-weight:800;font-size:28px;color:var(--accent);white-space:nowrap;}
+table.ledger-t .who{font-weight:800;white-space:nowrap;}
+
+.fork{
+  border:2px dashed var(--rule);
+  background:rgba(255,255,255,.35);
+  padding:24px 32px;
+  margin:0 0 30px;
+}
+.fork.actual{
+  border:3px solid var(--accent);
+  border-left:14px solid var(--accent);
+  background:rgba(140,35,24,.06);
+}
+.fork h5{
+  margin:0 0 14px;
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:.18em;
+  color:var(--accent-2);
+}
+.fork.actual h5{color:var(--accent);}
+.fork ul{margin:0;padding-left:1.3em;}
+.fork li{margin-bottom:12px;font-size:26px;font-weight:700;line-height:1.8;}
+.fork li:last-child{margin-bottom:0;}
+.fork li b{font-weight:800;}
+.plus b{color:#2f6b45;}
+.minus b{color:var(--accent);}
+
+@media (max-width:900px){
+  body{font-size:26px;}
+  .addbox{font-size:22px;padding:18px 20px;}
+  .addbox h4{font-size:22px;}
+  .addbox p{font-size:22px;}
+  table.ledger-t{font-size:19px;}
+  table.ledger-t th,table.ledger-t td{padding:9px 10px;}
+  table.ledger-t .n{font-size:21px;}
+  .fork li{font-size:21px;}
+  .fork{padding:16px 18px;}
+  .sheet{padding:36px 22px 80px;}
+  h1.headline{font-size:50px;}
+  h1.headline .yrs{font-size:26px;}
+  h2.sec{font-size:36px;}
+  h3.label{font-size:28px;}
+  .pull{font-size:32px;padding:24px 20px;}
+  blockquote.film{padding:20px 22px;}
+  blockquote.film p{font-size:28px;}
+  .note{float:none;width:auto;margin:26px 0;}
+  .dropcap::first-letter,.dc{font-size:88px;}
+  .coda-open .t{font-size:38px;}
+  .finale{font-size:30px;}
+  .masthead .brand{font-size:22px;letter-spacing:.6em;text-indent:.6em;}
+  .masthead .issue{font-size:16px;flex-direction:column;gap:6px;}
+  .toc li{font-size:23px;flex-wrap:wrap;}
+  .castbox{padding:26px 20px;}
+  .castbox h2{font-size:28px;}
+}
+
+/* ===== 卷七之三・圖版與錯位鏈（本版新增） ===== */
+figure.plate{margin:56px 0;padding:20px 20px 4px;background:#fffdf8;border:1px solid var(--rule);
+  box-shadow:0 3px 0 rgba(0,0,0,.07), 0 14px 34px rgba(0,0,0,.10);}
+figure.plate img{display:block;width:100%;height:auto;background:#e8e0d0;}
+figure.plate figcaption{padding:20px 6px 18px;font-size:24px;font-weight:700;line-height:1.75;color:var(--ink-soft);text-align:justify;}
+figure.plate .fignum{display:inline-block;font-size:20px;font-weight:800;letter-spacing:.24em;text-indent:.24em;
+  color:#fff;background:var(--accent);border-radius:4px;padding:3px 13px;margin-right:14px;vertical-align:.14em;}
+figure.plate .figtitle{font-weight:900;font-size:26px;color:var(--ink);letter-spacing:.04em;}
+figure.plate .figmeta{display:block;margin-top:10px;font-size:22px;font-weight:700;color:var(--gold,#9a7b3f);letter-spacing:.08em;}
+figure.plate .figbody{display:block;margin-top:12px;}
+.platepair{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:56px 0;}
+.platepair figure.plate{margin:0;}
+.platepair figure.plate figcaption{font-size:22px;}
+.chain{border:3px double var(--accent);background:rgba(140,35,24,.05);padding:34px 40px;margin:44px 0;text-align:center;}
+.chain h5{margin:0 0 6px;font-size:26px;font-weight:900;letter-spacing:.3em;text-indent:.3em;color:var(--accent);}
+.chain .key{font-size:22px;font-weight:700;color:var(--ink-soft);margin:0 0 20px;letter-spacing:.06em;}
+.chain .row{font-size:34px;font-weight:800;line-height:1.9;color:var(--ink);}
+.chain .row .arw{color:var(--accent);margin:0 .5em;font-weight:900;}
+.chain .row .why{font-size:23px;color:var(--ink-soft);font-weight:700;}
+.chain .row.me{color:var(--accent-2,#1f4a44);border-top:1px solid var(--rule);margin-top:18px;padding-top:18px;}
+@media (max-width:900px){.platepair{grid-template-columns:1fr;}}
+@media (max-width:820px){
+  figure.plate figcaption{font-size:21px;}
+  figure.plate .figtitle{font-size:23px;}
+  .chain{padding:22px 20px;}
+  .chain .row{font-size:25px;}
+}
+
+/* ---------- cover page ---------- */
+.coverpage{max-width:1100px;margin:0 auto;padding:48px 56px 56px;text-align:center;
+  border-left:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);
+  page-break-after:always;break-after:page;}
+.coverpage img{display:block;width:100%;max-width:848px;height:auto;margin:0 auto;
+  border:1px solid var(--rule);box-shadow:0 10px 36px rgba(34,29,24,.28);background:#e8e0d0;}
+.coverpage .coverhint{margin:34px 0 0;font-size:24px;font-weight:800;letter-spacing:.3em;text-indent:.3em;}
+.coverpage .coverhint a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule);}
+.coverpage .coverhint a:hover{border-bottom-color:var(--accent);}
+@media (max-width:820px){.coverpage{padding:24px 14px 36px;}.coverpage .coverhint{font-size:20px;}}
+
+/* ---------- 卷首導讀（本版新增） ---------- */
+#intro .sec-no{color:var(--accent-2);}
+.forks{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:40px 0 46px;}
+.fork{border:2px solid var(--ink);background:rgba(255,255,255,.42);padding:24px 28px 20px;position:relative;}
+.fork .gate{display:block;font-size:20px;font-weight:800;letter-spacing:.22em;color:var(--accent);}
+.fork .who{display:block;font-size:40px;font-weight:900;letter-spacing:.06em;line-height:1.3;margin:4px 0 2px;}
+.fork .where{display:block;font-size:21px;font-weight:800;color:var(--gold);letter-spacing:.1em;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dotted var(--rule);}
+.fork p{font-size:25px;font-weight:700;line-height:1.75;margin:0;color:var(--ink-soft);}
+.fork .road{display:inline-block;margin-top:14px;font-size:19px;font-weight:800;letter-spacing:.2em;color:#fff;background:var(--ink-soft);border-radius:4px;padding:2px 12px;}
+.fork.chosen{border:4px double var(--accent);background:rgba(140,35,24,.06);}
+.fork.chosen .road{background:var(--accent);}
+.intro-close{font-size:30px;}
+.floatnav{position:fixed;right:22px;bottom:22px;z-index:50;display:flex;flex-direction:column;gap:10px;}
+.floatnav a{display:block;text-align:center;font-size:20px;font-weight:800;letter-spacing:.14em;text-indent:.14em;
+  color:var(--paper);background:var(--ink);border:2px solid var(--ink);padding:8px 16px;text-decoration:none;
+  box-shadow:4px 4px 0 rgba(34,29,24,.18);}
+.floatnav a:hover{background:var(--accent);border-color:var(--accent);}
+@media (max-width:900px){.forks{grid-template-columns:1fr;}}
+@media (max-width:820px){.fork .who{font-size:32px;}.fork p{font-size:22px;}.floatnav a{font-size:17px;padding:6px 12px;}}
+
+/* ---------- 附錄・照片（本版新增） ---------- */
+figure.plate.portrait img{max-width:340px;margin:0 auto;}
+.fairnote{border:2px solid var(--gold);background:rgba(154,123,63,.08);padding:22px 30px;margin:0 0 20px;font-size:26px;font-weight:700;line-height:1.8;}
+.toc a.ext::after{content:"　↗";color:var(--gold);font-weight:800;}
+
+/* ===== 羅生門版・證詞 ===== */
+.fairnote b{color:var(--gold);letter-spacing:.2em;}
+article.testimony{position:relative;border:2px solid var(--ink);background:rgba(255,255,255,.42);
+  padding:30px 40px 12px;margin:0 0 46px;box-shadow:10px 10px 0 rgba(34,29,24,.08);scroll-margin-top:20px;}
+article.testimony header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:24px;}
+.testimony .wno{font-size:21px;font-weight:800;letter-spacing:.24em;color:var(--accent);}
+.testimony .wname{font-size:44px;font-weight:900;letter-spacing:.06em;line-height:1.2;}
+.testimony .wrole{font-size:22px;font-weight:700;color:var(--ink-soft);letter-spacing:.08em;}
+.testimony p{margin:0 0 22px;}
+.testimony.letter p{font-family:"EB Garamond",var(--serif);font-weight:600;font-size:34px;line-height:1.6;text-align:left;}
+.testimony.letter em{font-family:inherit;}
+.testimony .gan-line{font-size:40px;font-weight:900;color:var(--accent);}
+.stamp{position:absolute;right:34px;top:26px;font-size:40px;font-weight:900;letter-spacing:.3em;text-indent:.3em;
+  color:var(--accent);border:5px double var(--accent);border-radius:8px;padding:4px 14px;transform:rotate(-9deg);
+  opacity:.82;background:rgba(243,236,224,.6);}
+.companion a + a{margin-top:16px;}
+@media (max-width:820px){
+  article.testimony{padding:22px 20px 6px;}
+  .testimony .wname{font-size:34px;}
+  .testimony.letter p{font-size:26px;}
+  .testimony .gan-line{font-size:30px;}
+  .stamp{font-size:28px;right:14px;top:14px;}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <p class="brand">精選外刊</p>
+    <div class="issue">
+      <span>老熊隨筆・回憶卷</span>
+      <span class="num">羅生門版</span>
+      <span>二〇二六年九月</span>
+    </div>
+  </header>
+
+  <p class="kicker">八個證人・一個巫女・兩次翻供</p>
+  <h1 class="headline">老熊的選擇<span class="yrs">羅 生 門 版</span></h1>
+  <p class="subhead">〈老熊的選擇 1983–1987〉的八份證詞，以及它們怎麼被推翻</p>
+
+  <div class="deck">老熊把自己的長篇回憶交給 Claude，要它一口氣扮成書裡的八個人，各寫一篇書評。八份證詞寫出來了，其中幾份被採信、改進了原文；然後老熊只回了一句話，就推翻了其中兩件事——一件關於老甘，一件關於 Prof I。這一篇把那一天的來回原樣記下：誰說了什麼，改了什麼，又是誰錯了。</div>
+
+  <p class="byline">文／老熊　　證詞代筆／Claude</p>
+
+  <div class="fairnote"><b>編者按</b>　底下八份「證詞」，都是 Claude 依原文揣摩各人口吻代筆寫成的，<em>不是當事人親口說的話</em>。其中若有原文沒有的細節——例如田總那天在找外套、張記得那個尷尬時刻、Phillips 的太太——都是代筆者的想像，請當小說讀。</div>
+
+  <nav class="toc" id="toc" aria-label="目錄">
+    <h2>目　錄</h2>
+    <p class="tochint">依事情發生的先後排列・點擊篇名即可直達</p>
+    <hr class="toc-rule">
+    <ol>
+      <li><span class="no">楔　子</span><a href="#prologue">城門下的雨</a><span class="yr">黑澤明・一九五〇</span></li>
+      <li><span class="no">第一幕</span><a href="#act1">委託——「assuming you are」</a><span class="yr">兩行字</span></li>
+      <li><span class="no">第二幕</span><a href="#act2">八份證詞</a><span class="yr">八個人</span></li>
+      <li><span class="no">第三幕</span><a href="#act3">巫女的附記</a><span class="yr">共同的毛病</span></li>
+      <li><span class="no">第四幕</span><a href="#act4">採信——「ok make those changes」</a><span class="yr">七處修訂</span></li>
+      <li><span class="no">第五幕</span><a href="#act5">翻供</a><span class="yr">一句話・兩件事</span></li>
+      <li><span class="no">第六幕</span><a href="#act6">補人入圖</a><span class="yr">三十四 → 三十七</span></li>
+      <li><span class="no">尾　聲</span><a href="#coda">誰說的是真話</a><span class="yr">兩句都對</span></li>
+    </ol>
+  </nav>
+
+  <!-- ======== 楔子 ======== -->
+  <section id="prologue">
+    <h2 class="sec"><span class="sec-no">楔　子</span>城門下的雨</h2>
+    <p class="sec-sub">一樁竹林裡的事，四個版本</p>
+
+    <aside class="note"><b>什麼是巫女</b>日本神社裡侍奉神明的女性。古時她們也兼做通靈者，讓死者借自己的身體說話。《羅生門》裡的武士已經死了，無法出庭，官府便請來一位巫女：她閉上眼睛、身子搖晃，用武士的聲音說出他的版本。觀眾聽到的是武士的話，發聲的卻是巫女——那些話到底是武士的，還是巫女自己的，電影沒有給答案。</aside>
+
+    <p class="dropcap">黑澤明一九五〇年的電影《羅生門》，講的是一樁發生在竹林裡的事：一個武士死了，他的妻子受了辱，一個強盜被抓了。事後，強盜說了一個版本，妻子說了一個版本，樵夫說了一個版本；連死去的武士，也借一位巫女的口，說了他自己的版本。四個版本彼此衝突，而每一個，都把說話的人自己擺在比較體面的位置上。聽這些證詞的人，坐在城門底下躲雨。</p>
+
+    <p>這部片後來讓「羅生門」成了一個詞：同一件事，每個當事人各說一套，而且沒有辦法確定誰說的才對。</p>
+
+    <p>二〇二六年九月十九日，老熊把〈老熊的選擇 1983–1987〉的連結丟給了 Claude，要它一口氣當八個人。從那一刻起，Claude 就成了那位巫女：<em>八個證人，一張嘴</em>。</p>
+
+    <p>這個比喻只借一點：一個人替別人發聲。書裡的八個人都還健在，不是亡魂；Claude 也不是女性。借用的，只是巫女那個位置——一張嘴，說別人的話。</p>
+
+    <p>巫女的麻煩在於，她說出來的話，聽起來像死者的，其實全是她自己的。這一點，要到第五幕才看得清楚。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 第一幕 ======== -->
+  <section id="act1">
+    <h2 class="sec"><span class="sec-no">第一幕</span>委託——「assuming you are」</h2>
+    <p class="sec-sub">老熊的原話，一字未改</p>
+
+    <p>委託只有兩行，原文照錄：</p>
+
+    <div class="addbox">
+      <p class="said"><span class="en">write a review of this story … assuming you are;</span><br>朱，陳，田縂，張，<span class="en">MIS</span><br><span class="en">and Phyllips,</span> 老甘，蔣</p>
+      <p>八個人，分兩行寫：前一行是三個關口加上張和 MIS——書裡的女性；後一行是三個男人。至於為什麼沒有林明、沒有王和韓、沒有學弟，老熊沒說，巫女也沒問。</p>
+    </div>
+
+    <p>巫女先把整本合刊讀了一遍：導讀、三十五位人物簡介、十一卷加一個卷七之三、尾聲、附錄兩張照片。然後依原文替每個人找一副嗓子——陳是台北腔，大方；朱的中文說到一半會滑進英文，再若無其事地滑回來；田總氣場強，一開口先挑毛病；張是北京來的，愛調侃人；MIS 客客氣氣，句句有禮；Phillips 不太會中文，只能寫一封英文信；老甘能一句說完的，絕不說兩句；老蔣從容，講理。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 第二幕 ======== -->
+  <section id="act2">
+    <h2 class="sec"><span class="sec-no">第二幕</span>八份證詞</h2>
+    <p class="sec-sub">依巫女當天交出的順序・原文照錄</p>
+
+    <article class="testimony" id="w-chen">
+      <header><span class="wno">證詞一</span><span class="wname">陳</span><span class="wrole">輔大服裝設計・關口一</span></header>
+      <p>老熊，你寫我一共寫了兩百來字，其中一半在寫許小姐。</p>
+      <p>我不怪你。協力車那天我本來就不在你的籤上，是公車上聊出來的。你寫我「談吐大方、侃侃而談」，這我認；你寫你母親約我在遠東百貨頂樓飲茶、說兩個媽媽長得像，這我也記得，那天的叉燒包很乾。</p>
+      <p>我不太服氣的是導讀。你把我畫成「第一條路・高速公路・回去就是了」。我們交往的時候，誰在算綠卡？你把四十年後才有的那把尺，拿回去量一九八三年的我，這對我不太公平。<em>我是一個人，不是一條路。</em></p>
+      <p>另外挑個錯：卷五說一九八五年春天考完資格考，「騰出手來處理我與陳的關係（就是卷一的協力車相親烏龍事件）」。協力車是一九八三年在台北的事，你八五年人在俄亥俄。時間軸在這裡打了個結，讀者會糊塗。</p>
+      <p>還有，阿寶像你太太這件事，你寫了兩次。我看得出來你是故意的，哈哈。</p>
+    </article>
+
+    <article class="testimony" id="w-zhu">
+      <header><span class="wno">證詞二</span><span class="wname">朱</span><span class="wrole">生醫工程・關口二</span></header>
+      <p>老熊，<span class="en">I read it.</span> 全部。用了兩個晚上。</p>
+      <p>你自己在卷三的編者按裡說了：關於我的每一件事，都是別人告訴你的。這句話你寫得很誠實，<span class="en">but then you kept going anyway.</span> 我爸爸的事、我媽媽的事、那位後來的繼母，還有「對確定關係本身就過敏」——那是你的診斷，不是我的。你寫了那麼多字分析我為什麼遲疑，卻從來沒有一次，一九八五年或二〇一三年，直接問過我。</p>
+      <p>我兩次問你 <span class="en">What happened</span>，你在導讀裡說答案就在那裡：綠卡，王的那句「一舉兩得」。<span class="en">I don't think so.</span> 我記得的是，週五的電話越來越少，然後就沒有了。你在卷八自己也寫了：你「只是把週五那通召集的電話，一次一次地少打」。那才是 <span class="en">what happened</span>。綠卡是你後來找到的理由。</p>
+      <p>不過卷八最後那句，「她出於恐懼，我出於精算——而精算比恐懼更難原諒」，<span class="en">I'll accept that.</span> 那是整篇裡你唯一一次不替自己說話。</p>
+      <p>那張 LST 217 的照片，我還是沒找到。<span class="en">Maybe it's better that way.</span></p>
+    </article>
+
+    <article class="testimony" id="w-tian">
+      <header><span class="wno">證詞三</span><span class="wname">田總</span><span class="wrole">電機系・上海高考第五名・關口三</span></header>
+      <p>寫得不錯，就是「哈哈」太多了。我數了，光是卷六就七個。一個人講起前女友為什麼要一直哈哈？</p>
+      <p>《蒼蠅》那天，我不是不下樓，我是在找外套。俄亥俄十一月晚上多冷你知道的。你倒好，時間一到就自己去了，連等五分鐘都不肯。後來站在後面看完整場電影的是我，你還寫成「一小黑影」，哈哈（這個哈哈是我的）。</p>
+      <p>撕照片那段，你寫得好像很英勇。「三十九年後看，最划算的一筆交易」。交易？你的意思是我是一筆划算的生意？<em>這句話請你改掉。</em></p>
+      <p>「個子嬌小，氣場卻強大」你用了三次，連附錄那張東京皇居的照片也要再用一次。一篇文章裡同一句話不能當成招牌菜天天上。</p>
+      <p>導讀裡說我是「第四條路，一條要多繳過路費的小路」。我也是自己選的。你那時候也沒綠卡，也沒錢，我挑你也要多繳過路費。這筆帳是兩個人的，不是你一個人在付。</p>
+      <p>至於「整整晚了十年」那句，你說出來那天我什麼反應，不需要寫進去。你已經寫進去了。</p>
+    </article>
+
+    <article class="testimony" id="w-zhang">
+      <header><span class="wno">證詞四</span><span class="wname">張</span><span class="wrole">北京・化學系・那一桌的樞紐</span></header>
+      <p>老熊你這個人真是，四十年後給我們畫了張「錯位鏈」，還分實線虛線，你以為在做你的那個什麼……判別分析啊？</p>
+      <p>我先表揚：卷七之三是全書寫得最好的一段。那兩張圓桌照片，「拍照的恰好是兩個不追她的人」，這個觀察真是絕了，我當年都沒發現。老蔣半蹲下來跟我平頭那張，你說他是取笑我，是，他就是在取笑我，這你寫對了。</p>
+      <p>但是啊，「張最喜歡蔣」、「蔣壓根看不上她」、「張對甘最沒興趣」——這三句話，當年一個都沒人說出口過。你寫「沒有人做錯任何事，所以這件事沒有出口」，好，那你現在給它開了一個出口，還掛在網上，附照片。<em>老甘看到怎麼想？他可是一句都沒說過的人。</em></p>
+      <p>還有，「我們談得來，就這樣，沒有別的」——你一個大男人寫這句寫得跟發誓似的，越描越黑，哈哈。</p>
+      <p>那頓飯上那個「尷尬的時刻」，你記不起來了？我記得。不告訴你。</p>
+    </article>
+
+    <article class="testimony" id="w-mis">
+      <header><span class="wno">證詞五</span><span class="wname">MIS 學姐</span><span class="wrole">台大圖書館系・南加州・關口四</span></header>
+      <p>學長好。</p>
+      <p>讀完全篇，我是整本書裡唯一一個從來沒見過你、沒做錯過任何事的人，但我分到的形容詞是：「長相一般」、「印證了台大無美女」、「在加州那麼多華人的地方還剩著」。</p>
+      <p>我想學長寫這些的時候，是當作輕鬆的玩笑。但請你想想，W 學弟牽線時說的是「身高相配」，而你收到照片後的第一個反應是打分數。<em>這個打分數的習慣，和你在導讀裡批評的那些「婚戀規劃師的打分表」，其實是同一把尺。</em></p>
+      <p>至於那通電話：我們通信停了快半年，我想，打一通電話問問，寫信太慢了，也說不清楚。我不知道它打在什麼時候、誰在你旁邊。這不是我能選的時機。</p>
+      <p>我後來過得很好。照片撕了就撕了，謝謝你把我寫進去。能不能把「剩著」那兩個字拿掉？</p>
+    </article>
+
+    <article class="testimony letter" id="w-phillips">
+      <header><span class="wno">證詞六</span><span class="wname">Phillips</span><span class="wrole">菲律賓華僑・MBA・男二號</span></header>
+      <p>Dear Chang,</p>
+      <p>My cousin translated this for me. I think it is the first time anyone has written about me in Chinese.</p>
+      <p>You wrote that I said “Hi” at the door and the air froze. That is true. I did not want to come in. She asked me to drive her because the cake was wobbling on the seat, and I thought it would be rude to say no. I stood behind her because I did not know where else to stand.</p>
+      <p>You also wrote: “If I were a girl, I might not want to marry him.” That made me laugh. My wife would agree with you for about the first two years.</p>
+      <p>One thing I want to correct, gently. You wrote that Mr. Lin was “the other side from the beginning.” Lin was my uncle’s manager, yes. But he also liked you. When he asked you to step back, I think he was trying to spare everyone a longer and sadder story. <em>Sometimes the person across the table is still on your side.</em></p>
+      <p>The two nights at the bar, I don’t remember what we said either. But the second night, I remember I was happy. I had my answer, and it was not the one I wanted, and it was fine.</p>
+      <p>Your friend from Akron,<br>Phillips</p>
+    </article>
+
+    <article class="testimony" id="w-gan">
+      <header><span class="wno">證詞七</span><span class="wname">老甘</span><span class="wrole">機械系・台塑紐澤西</span></header>
+      <p>五百塊那件事寫得對。車是我開上冰的，該賠。</p>
+      <p>一六五也對，照片不會騙人。</p>
+      <p>「最喜歡張——全桌都看得出來，除了他自己沒說過。」</p>
+      <p class="gan-line">我沒說過，你也不該替我說。</p>
+      <p>其他寫得都好。</p>
+      <span class="stamp" aria-label="此份證詞已被推翻">翻 供</span>
+    </article>
+
+    <article class="testimony" id="w-jiang">
+      <header><span class="wno">證詞八</span><span class="wname">老蔣</span><span class="wrole">北京・帝國理工・一九八四年秋的室友</span></header>
+      <p>老熊，我們一九八四年秋天住一屋的那一段，你寫得讓我有點感動。「在阿克倫的第一個冬天，我們共用一個屋簷」，確實如此，那份情分我也記著。</p>
+      <p>但後面幾句我得說清楚。「他大概覺得自己還有得挑」，這是你的猜測，寫成了敘述語氣，讀起來就像是事實。一個人不喜歡另一個人，不一定需要一套履歷來解釋。</p>
+      <p>半蹲那張照片，你讀出「四個人裡唯一為她調整過身體高度的人，偏偏也是對她最沒有意思的那一個」。寫得漂亮，但這是文學，不是復盤。我那時候就是在逗她，蹲一下而已。<em>你們搞化學計量的，是不是看什麼都像一個訊號？</em></p>
+      <p>還有「一九八七年前後因論文的問題返回中國」。這一句你輕描淡寫，但「論文的問題」幾個字掛在網上，讀者會往哪裡想，你應該清楚。能不能改成「一九八七年前後返回中國」就好？</p>
+    </article>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 第三幕 ======== -->
+  <section id="act3">
+    <h2 class="sec"><span class="sec-no">第三幕</span>巫女的附記</h2>
+    <p class="sec-sub">八份證詞之後，巫女用自己的嗓子說了一段</p>
+
+    <p class="dropcap">八份證詞交出去之後，巫女在最後加了一段附記，用的是她自己的聲音。她說，八個人有一個共同點：卷七之三和尾聲寫得最好，而最多的意見，集中在同一件事上——<em>替別人說出他們沒說過的話</em>。朱父的外遇、張和老甘的心事、老蔣返國的原因，這些放在私人回憶裡是真誠的復盤，掛上公開網站，就成了別人的隱私。</p>
+
+    <p>附記裡還點了兩個純技術的錯：卷五把一九八五年處理與陳的關係，括號註成卷一一九八三年的協力車事件；人物簡介寫「共三十五人」，星圖說明卻寫「三十四位人物」。</p>
+
+    <div class="pull">替別人說出他們沒說過的話<small>——巫女的判詞，第五幕還會再用到一次</small></div>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 第四幕 ======== -->
+  <section id="act4">
+    <h2 class="sec"><span class="sec-no">第四幕</span>採信——「ok make those changes」</h2>
+    <p class="sec-sub">證詞進了原文</p>
+
+    <p>老熊的回覆只有四個英文字：<span class="en">ok make those changes</span>。巫女到老熊的網站原始碼倉庫裡取回原文，一處一處地改。七處修訂，每一處都對得上一份證詞：</p>
+
+    <div class="tablewrap">
+      <table class="ledger-t">
+        <caption>七處修訂・依證詞而改</caption>
+        <thead><tr><th>#</th><th>位置</th><th>原文 → 改後</th><th>依據</th></tr></thead>
+        <tbody>
+          <tr><td class="n">一</td><td>卷五</td><td>（就是卷一的協力車相親烏龍事件）→（陳，就是卷一那場一九八三年台北協力車聯誼牽上線的那一位）</td><td class="who">陳</td></tr>
+          <tr><td class="n">二</td><td>延伸・互動圖</td><td>三十四位人物 → 三十五位人物；另做了一張三十四個節點的星圖</td><td class="who">附記</td></tr>
+          <tr><td class="n">三</td><td>卷十一</td><td>刪去「加上在加州那麼多華人的地方還『剩』著」</td><td class="who">MIS</td></tr>
+          <tr><td class="n">四</td><td>人物簡介・老蔣</td><td>因論文的問題返回中國 → 返回中國</td><td class="who">老蔣</td></tr>
+          <tr><td class="n">五</td><td>卷七之三</td><td>他大概覺得自己還有得挑 → 至於他心裡怎麼想的，我從來沒問過</td><td class="who">老蔣</td></tr>
+          <tr><td class="n">六</td><td>卷七之三・人物簡介</td><td>除了他自己沒說過 → 這是全桌人的看法；他自己從來沒說過</td><td class="who">老甘</td></tr>
+          <tr><td class="n">七</td><td>卷十一</td><td>最划算的一筆交易 → 最對的一個決定</td><td class="who">田總</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>有幾件事，巫女沒有動：朱父外遇的細節、張與老蔣之間那幾句、「哈哈」的數量、導讀裡陳那一條「回去就是了」。這些是作者的判斷，不是證人能替他做的。</p>
+
+    <p>交件時，巫女還多說了一句：星圖那一頁把 Prof I 寫成「他」，原文寫的是「她」，兩處不一致——要不要順手修一修？</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 第五幕 ======== -->
+  <section id="act5">
+    <h2 class="sec"><span class="sec-no">第五幕</span>翻供</h2>
+    <p class="sec-sub">一句話，推翻兩件事</p>
+
+    <p>老熊的下一句回覆，原文照錄：</p>
+
+    <div class="addbox">
+      <p class="said"><span class="en">老甘 actually mentioned to me in private that he wanted to pursue Zhang, Prof I is male.</span></p>
+    </div>
+
+    <h3 class="label">第一件・老甘</h3>
+
+    <p class="dropcap">證詞七裡那句最硬的話——「我沒說過，你也不該替我說」——是巫女寫的。她讀到原文「除了他自己沒說過」，便替老甘把這句話推到了底：既然他沒說過，那他一定也不願意別人替他說。</p>
+
+    <p>可是他說過。只是說給老熊一個人聽。</p>
+
+    <p>於是這一幕出現了一個巫女自己都繞不出去的結：她在第三幕給八份證詞下的判詞，是「替別人說出他們沒說過的話」；而她自己，恰恰替一個活著的人，說出了一句他沒說過的話——那句話的內容，偏偏就是「不該替我說」。更麻煩的是，第四幕的第六處修訂，正是依這份假證詞改的。原文因此得再改一次，改回比最初還確定的說法：</p>
+
+    <div class="tablewrap">
+      <table class="ledger-t">
+        <caption>翻供之後・老甘的兩行</caption>
+        <thead><tr><th>位置</th><th>最後定稿</th></tr></thead>
+        <tbody>
+          <tr><td class="who">卷七之三</td><td>老甘最喜歡張。這件事全桌的人都看得出來；他私下也跟我說過，想追她。……他喜歡人的方式，就是<em>在她面前</em>不出聲。</td></tr>
+          <tr><td class="who">人物簡介</td><td>最喜歡張——全桌都看得出來，他私下也跟老熊說過想追她。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="label">第二件・Prof I</h3>
+
+    <p>巫女說星圖把 Prof I 寫成「他」，是星圖錯了。其實星圖是對的，<em>錯的是原文</em>。Prof I 是男的。</p>
+
+    <p>人物簡介裡的「回校演講時去看過她」改成了「他」。尾聲那一句也跟著動了：原本是「去看過 Prof I，她大概是從那裡拿到我的 email 的吧」——代名詞一改，那個「她」就會被讀成 Prof I，所以索性把主詞寫明：「朱大概是從他那裡拿到我的 email 的吧」。</p>
+
+    <div class="pull">巫女說死者的話，聽起來像死者的，其實全是她自己的<small>——在《羅生門》裡是這樣，在這裡也是</small></div>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 第六幕 ======== -->
+  <section id="act6">
+    <h2 class="sec"><span class="sec-no">第六幕</span>補人入圖</h2>
+    <p class="sec-sub">三十四個節點，變成三十七個</p>
+
+    <p>巫女在翻供之後順帶提了一句：星圖上還缺三個人——朱的繼母、學弟 W、MIS 學姐。老熊回：<span class="en">yes add those</span>。</p>
+
+    <p><strong>朱的繼母</strong>擺在朱家那一群裡，朱母的下方。她在書裡從未露面，在圖上卻牽了三條線：與朱教授，是清華客座時的外遇與後來的再婚；與朱母，是團聚之後拆散的那樁婚姻；與朱，是原文說的「對確定關係過敏」的源頭。</p>
+
+    <p><strong>學弟 W</strong>擺在 Prof I 與田父之間。一條線連老熊（低四屆），一條連 MIS（「身高相配」），還有一條虛線連到那位與朱終成正果的學弟，標著「同一人？待考」——原文自己也沒點破的那個疑問，原樣搬上了圖。</p>
+
+    <p><strong>MIS 學姐</strong>擺在右下角，和陳、朱、田一樣，發著粉紅色的關口光暈：關口四。她的三條線是：筆友、只通書信、從未見面；唯一一通電話，打在田在場的時候；以及田那一頭——臉色大變，照片當面撕毀。</p>
+
+    <p>老甘那顆星的說明，也照翻供後的說法改了；星圖頂上的副標題，從「陳・朱・田＋阿克倫四人局」改成了「陳・朱・田＋MIS＋阿克倫四人局」。原文那段延伸說明，最後寫成「三十五位人物，另做了一張三十七個節點的星圖」。</p>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <!-- ======== 尾聲 ======== -->
+  <div class="coda-open" id="coda">
+    <div class="t">尾　聲</div>
+    <div class="s">誰說的是真話</div>
+  </div>
+
+  <section>
+    <p class="dropcap">《羅生門》的最後，樵夫的版本最接近真相，可是連他也藏了一樣東西。四個人說的話，沒有一個是全真的，也沒有一個是全假的。</p>
+
+    <p>這一天的來回也是這樣。原文有錯，證詞有錯，巫女的附記也有錯；能把它們一一改正的，只有當事人本人——而當事人本人，也正是寫原文的那個人。</p>
+
+    <p>回頭再看老甘那一行，其實兩個說法都對。原文寫的是全桌人的視角：他沒對大家說過。老熊私下知道的是另一個視角：他對老熊說過。同一張圓桌，坐的位置不同，聽到的話就不同。卷七之三寫的本來就是「錯位」，沒想到四十年後，連證詞也錯了一次位。</p>
+
+    <p class="finale">He never said it to the table. He said it to me.</p>
+    <p class="finale-zh">他沒對大家說過・他對我說過</p>
+
+    <p>城門外的雨，大概也該停了。</p>
+
+    <div class="endmark">■</div>
+    <span class="seal">老熊</span>
+
+    <div class="companion">
+      <h3>延 伸 · 原 刊 與 星 圖</h3>
+      <p>本篇所說的七處修訂、兩次翻供，都已經改進原刊；新增的三個人，也已經畫進星圖。</p>
+      <a href="老熊的選擇_1983_-1987_w4人_SL.html">《老熊的選擇 1983–1987》w4人・敘事版</a>
+      <a href="老熊的選擇_1983-87_人物關係圖_w4人.html">人物關係圖・三十七個節點</a>
+    </div>
+
+    <p class="backtop"><a href="#toc">↑ 回目錄</a></p>
+  </section>
+
+  <a class="totop" href="#toc">▲　回目錄</a>
+
+  <nav class="floatnav" aria-label="浮動導覽"><a href="#toc">回目錄</a><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a></nav>
+
+  <footer class="colophon">
+    <span>《老熊隨筆》・回憶卷</span>
+    <span>精選外刊　羅生門版・八份證詞與兩次翻供（證詞為 Claude 代筆）</span>
+    <span><span class="num">1983</span> → <span class="num">2026</span></span>
+  </footer>
+
+</div>
+
+</body>
+</html>
