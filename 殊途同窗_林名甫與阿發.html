@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>殊途同窗——林名甫與阿發｜老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ECE3CF; --paper2:#E3D8BF; --ink:#241B12; --soft:#56483A;
+  --ox:#7A1F1F; --gold:#8C6D24; --rule:#2F2419;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","MingLiU",serif;
+  font-size:32px;font-weight:700;line-height:1.85;
+  background-image:radial-gradient(rgba(90,60,20,.06) 1px,transparent 1px);background-size:5px 5px}
+.wrap{max-width:1100px;margin:0 auto;padding:60px 44px 140px}
+a{color:var(--ox)}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* masthead */
+.mast{border-top:6px double var(--rule);border-bottom:2px solid var(--rule);padding:22px 0 14px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+.mast .site{font-size:34px;font-weight:900;letter-spacing:.3em}
+.mast .issue{font-size:24px;color:var(--soft)}
+.hero{padding:70px 0 40px;border-bottom:1px solid var(--rule)}
+.kicker{font-size:28px;color:var(--ox);font-weight:900;letter-spacing:.15em;margin:0 0 10px}
+h1{font-size:76px;line-height:1.2;font-weight:900;margin:0 0 30px;letter-spacing:.06em}
+h1 small{display:block;font-size:40px;font-weight:700;color:var(--soft);letter-spacing:.1em;margin-top:14px}
+.deck{font-size:34px;line-height:1.75;color:var(--soft);margin:0 0 26px;max-width:30em}
+.byline{font-size:26px;color:var(--soft)}
+
+/* toc */
+.toc{margin:50px 0 30px;border:2px solid var(--rule);background:var(--paper2);padding:30px 40px}
+.toc h2{font-size:36px;margin:0 0 12px;border:0;padding:0;letter-spacing:.3em}
+.toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:50px}
+.toc li{break-inside:avoid;padding:4px 0;font-size:28px}
+.toc a{text-decoration:none;color:var(--ink);border-bottom:1px dotted var(--soft)}
+.toc a:hover{color:var(--ox)}
+.toc .n{color:var(--ox);display:inline-block;min-width:2.4em}
+
+/* sections */
+section{padding-top:30px}
+h2{font-size:52px;line-height:1.3;font-weight:900;margin:70px 0 30px;padding-bottom:14px;border-bottom:3px double var(--rule)}
+h2 .n{color:var(--ox);margin-right:.5em}
+p{margin:0 0 1.1em;text-align:justify}
+.drop::first-letter{float:left;font-size:120px;line-height:.9;padding:10px 16px 0 0;color:var(--ox);font-weight:900}
+blockquote.memo{margin:1.2em 0 1.4em;padding:18px 0 18px 34px;border-left:6px solid var(--gold);color:var(--soft)}
+blockquote.memo cite{display:block;font-style:normal;font-size:24px;margin-top:8px;color:var(--gold)}
+.pull{font-size:44px;line-height:1.55;font-weight:900;color:var(--ox);text-align:center;margin:1.4em 0;padding:26px 10px;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule)}
+aside.note{float:right;width:340px;margin:10px 0 24px 40px;padding:22px 24px;background:var(--paper2);border:2px solid var(--rule);font-size:24px;line-height:1.7;font-weight:700}
+aside.note b{display:block;color:var(--ox);font-weight:900;font-size:26px;margin-bottom:6px}
+.clear{clear:both}
+.back{display:block;text-align:right;font-size:24px;margin:10px 0 0;clear:both}
+.back a{text-decoration:none;border:1px solid var(--ox);padding:4px 16px}
+
+/* verse */
+.verse{background:var(--ink);color:var(--paper);padding:34px 44px;margin:1.2em 0 1.4em;font-size:30px;line-height:1.95}
+.verse p{text-align:left;margin:0}
+
+/* figure */
+figure{margin:1.4em 0;overflow-x:auto}
+figure svg{width:100%;min-width:640px;height:auto;display:block}
+figcaption{font-size:24px;color:var(--soft);margin-top:10px}
+.edge{stroke:var(--rule);stroke-width:3}
+.edge.dash{stroke-dasharray:10 8}
+.node{fill:var(--paper2);stroke:var(--rule);stroke-width:3}
+.node.me{fill:var(--ink)}
+.lbl{font:900 34px "Noto Serif TC",serif;fill:var(--ink)}
+.lbl.me{fill:var(--paper)}
+.elbl{font:700 24px "Noto Serif TC",serif;fill:var(--ox)}
+
+/* ledger */
+.tbl{overflow-x:auto;margin:1.2em 0}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:26px;line-height:1.55}
+th,td{border-bottom:1px solid var(--rule);padding:14px 12px;vertical-align:top;text-align:left}
+thead th{border-top:3px double var(--rule);border-bottom:2px solid var(--rule);font-weight:900;font-size:28px}
+tbody th{color:var(--ox);font-weight:900;white-space:nowrap}
+td.q{color:var(--soft)}
+.sign{text-align:right;margin-top:60px;font-size:28px;color:var(--soft)}
+
+/* floating nav */
+.fnav{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:9}
+.fnav a{background:var(--ink);color:var(--paper);text-decoration:none;font-size:22px;font-weight:900;padding:10px 18px;border:2px solid var(--gold);text-align:center}
+.fnav a:hover{background:var(--ox)}
+
+@media (max-width:900px){
+  aside.note{float:none;width:auto;margin:1em 0}
+  .toc ol{columns:1}
+}
+@media (max-width:600px){
+  body{font-size:24px}
+  .wrap{padding:30px 18px 130px}
+  h1{font-size:48px} h1 small{font-size:28px}
+  h2{font-size:36px} .deck{font-size:26px}
+  .pull{font-size:30px} .drop::first-letter{font-size:80px}
+  .verse{padding:22px 20px;font-size:22px}
+  table{font-size:20px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast"><span class="site">老熊隨筆</span><span class="issue">復盤體・同學錄　二〇二六年九月</span></header>
+
+<div class="hero">
+  <p class="kicker">一張翻拍的釣魚照，三個人，五十年</p>
+  <h1>殊途同窗<small>林名甫與阿發</small></h1>
+  <p class="deck">一個上得起補習班，一個上不起；一個北上考進建中，一個寄居嘉義圓福寺掃庭院。兩雙不方便的腿，走了兩條完全不同的路，最後在東海工業工程系的同一張點名簿上，坐了四年。</p>
+  <p class="byline">文／老熊</p>
+</div>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s0"><span class="n">楔子</span>一張翻拍的釣魚照</a></li>
+    <li><a href="#s1"><span class="n">一</span>三個節點</a></li>
+    <li><a href="#s2"><span class="n">二</span>補習班門內</a></li>
+    <li><a href="#s3"><span class="n">三</span>補習班門外</a></li>
+    <li><a href="#s4"><span class="n">四</span>同一張錄取單，兩種讀法</a></li>
+    <li><a href="#s5"><span class="n">五</span>大度山上的四年</a></li>
+    <li><a href="#s6"><span class="n">六</span>太平洋兩岸</a></li>
+    <li><a href="#s7"><span class="n">七</span>兩部改裝車</a></li>
+    <li><a href="#s8"><span class="n">八</span>復盤表</a></li>
+    <li><a href="#s9"><span class="n">尾聲</span>分兩種</a></li>
+  </ol>
+</nav>
+
+<!-- 楔子 -->
+<section id="s0">
+<h2><span class="n">楔子</span>一張翻拍的釣魚照</h2>
+<p class="drop">前幾天，朋友在 LINE 上轉來一段流傳已久的軍中順口溜：「當兵分兩種：上戰場和不上戰場。不上戰場不用怕；上戰場又分兩種：受傷和沒受傷……」一路分下去，分到最後一句：「死了……人都死了，你還怕什麼？」她說昨天剛聽到，覺得很多事情照這樣一層一層分析下去，天下本無事，庸人自擾之。</p>
+<p>同一個晚上，我傳了一張照片給她。她先猜是另一位舊識，我說不是，是國中同學；她又問：「你不覺得蠻像的？」</p>
+<p>的確，胖一點。</p>
+<p>照片是他 LINE 的背景圖，一張翻拍的舊相片：一位戴眼鏡、壓著藍色帽舌的中年人，酒紅襯衫，黑色吊帶，兩支腋下拐杖撐在身側，一手提一條大魚——身上一道一道黑色縱紋的條紋鱸，從他的手一直垂到膝蓋底下。背後是棕櫚樹、水面和乾黃的山。拐杖和魚擺在同一個畫面裡，他笑得很開心。</p>
+<p>照片上疊著他現在的大頭貼：一頭白髮，黑框眼鏡。帳號叫 Jerry Tofucius Lin——豆腐加孔夫子。這份幽默感，我猜不是老了才長出來的。</p>
+<p>他叫林名甫。那套「分兩種」的順口溜，我後來拿去套在他和阿發身上，竟然一格一格都套得進去。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 一 -->
+<section id="s1">
+<h2><span class="n">一</span>三個節點</h2>
+<p>先把關係理清楚。這是做了一輩子化學計量學的老毛病：資料還沒畫成圖，心裡就不踏實。</p>
+<p><strong>林名甫</strong>，是我國中時的補習班同學。他念北興國中，我們在同一位數學老師家的課後補習班同班。他兩條腿都是小兒麻痺。他小學跟吳志成同桌——吳志成，就是後來嘉中甲組第一名、跟我同一年進台大化工的那一位。</p>
+<p><strong>阿發</strong>，本名林進發，是我嘉中三年十二班的同學，雲林崙背人。他的腳，是還不會走路時腳踝受了傷，家裡沒有及時醫治；等發現走路不對勁再送醫，醫生說已經錯過了治療時機。</p>
+<p>而林名甫和阿發，是東海大學工業工程學系的同班同學，同窗四年。</p>
+
+<figure>
+<svg viewBox="0 0 1000 640" role="img" aria-label="老熊、林名甫、阿發、吳志成四人的關係圖">
+  <line class="edge" x1="500" y1="110" x2="190" y2="500"/>
+  <line class="edge" x1="500" y1="110" x2="810" y2="500"/>
+  <line class="edge" x1="190" y1="500" x2="810" y2="500"/>
+  <line class="edge dash" x1="150" y1="130" x2="190" y2="500"/>
+  <line class="edge dash" x1="150" y1="130" x2="500" y2="110"/>
+  <rect class="node me" x="400" y="70" width="200" height="80" rx="4"/>
+  <text class="lbl me" x="500" y="123" text-anchor="middle">老熊</text>
+  <rect class="node" x="70" y="460" width="240" height="80" rx="4"/>
+  <text class="lbl" x="190" y="513" text-anchor="middle">林名甫</text>
+  <rect class="node" x="690" y="460" width="240" height="80" rx="4"/>
+  <text class="lbl" x="810" y="513" text-anchor="middle">阿發</text>
+  <rect class="node" x="40" y="95" width="220" height="70" rx="4"/>
+  <text class="lbl" x="150" y="142" text-anchor="middle" style="font-size:30px">吳志成</text>
+  <text class="elbl" x="300" y="310" text-anchor="middle">國中數學補習班</text>
+  <text class="elbl" x="720" y="310" text-anchor="middle">嘉中三年十二班</text>
+  <text class="elbl" x="500" y="585" text-anchor="middle">東海工業工程　同窗四年</text>
+  <text class="elbl" x="120" y="330" text-anchor="middle">小學同桌</text>
+  <text class="elbl" x="300" y="58" text-anchor="middle">嘉中・台大化工</text>
+</svg>
+<figcaption>圖・三人一三角，外加兩條虛線。老熊站在其中兩條邊的交點上；第三條邊，他們兩人自己走了四年。</figcaption>
+</figure>
+
+<p>三個人，三條邊。這張圖畫出來，我才發現一件事：我認識他們兩個，都是在「補習」這兩個字的附近——一個在補習班裡面，一個在補習班外面。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 二 -->
+<section id="s2">
+<h2><span class="n">二</span>補習班門內</h2>
+<aside class="note"><b>復盤註・記憶的不對稱</b>阿發書裡，國中廖老師在寒冬裡替他買了一件夾克。五十年後老師說，想不起夾克的顏色，也記不起花了多少錢；阿發卻記了一輩子。給的人忘了，受的人記得——但我想不起曾經給過林名甫什麼。這一條，列為待查。</aside>
+<p>那是一九七〇年代初的嘉義。國中生下了課，家裡環境許可的，就往老師家裡的補習班跑。數學老師家的客廳擺滿課桌椅，一堂課塞進十幾二十個孩子——這是那個年代的通例；至於我們那一間的細節，我記得的已經稀薄到只剩一個輪廓。</p>
+<p>林名甫在那間補習班裡，拄著兩支拐杖。這一點我不會記錯，因為那個年代的小兒麻痺孩子，在教室裡是很醒目的。</p>
+<p>有意思的是後來的事。前幾週，我幾位台大化工的建中同學，其中一位去參加南加州建中校友會的畢業五十週年活動，在會場碰上了林名甫。林名甫說，他認得吳志成，也認得我。</p>
+<p>認得吳志成我不意外，小學同桌嘛。可是他為什麼記得我？我到現在還想不明白。哈哈。</p>
+<p>回頭想，也許答案不在我身上。一個拄著雙拐的孩子，坐在一屋子跑跳自如的同學中間，他看別人，大概比別人看他，看得更仔細。這只是一個猜測，不是結論——下次見面，當面問他。</p>
+<div class="clear"></div>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 三 -->
+<section id="s3">
+<h2><span class="n">三</span>補習班門外</h2>
+<p>同一個年代，往北五十公里的雲林崙背，阿發家九個兄弟姊妹，半碗米分十一口人。那種補習班，阿發是沒有錢上的。</p>
+<p>他在回憶錄裡寫得很直：</p>
+<blockquote class="memo">有些同學放學後去補習；有些人一本接一本讀英文課外書……我沒有補習。家裡也沒有能力讓我補習。唯一能做的，就是比別人更早起，更晚睡。<cite>——林進發《走過的路，都是恩》・高二</cite></blockquote>
+<p>他考進嘉中，住不起宿舍，寄居在嘉義公園旁的圓福寺，三年替寺裡打掃庭院、割草除枝。家裡為了他的學費吵過不只一次，有親戚勸父母讓他休學去學手藝。父親只回了一句：</p>
+<p class="pull">「他走路不方便，不能做粗重工作。<br>他想讀，就讓他讀。」</p>
+<p>那隻腳替他關過好幾扇門。小學畢業，因為身體的限制，不能報考師專；大學聯考，體檢列為丁等體位，連填師範院校的資格都沒有。他後來寫：「命運早已替我關上不少門，如果眼前這扇門再親手關上，我不知道未來還能往哪裡走。」</p>
+<p>我們嘉中同班三年。他在教室裡一跛一跛走進走出的樣子，全班都看了三年；當時誰也沒有想到，那個背影後來會走那麼遠。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 四 -->
+<section id="s4">
+<h2><span class="n">四</span>同一張錄取單，兩種讀法</h2>
+<p>國中畢業，林名甫北上，考進了建中——全台最好的高中。從補習班門內一路往上，這條路看起來是鋪好的。</p>
+<p>然後是一九七六年那個夏天的大學聯考。考前，他發了高燒。</p>
+<p>聯考只有一次，發燒不會因為你是建中生就退得快一點。放榜，他考進東海大學工業工程學系。以建中的標準，這叫「失常」。</p>
+<p>同一年，同一張榜單。阿發沒有去看榜，是同學振安從嘉中把成績單帶回崙背的。總分比他自己估計的多了二十幾分——錄取東海大學工業工程學系。在他的書裡，這一篇的篇名叫〈大學夢想終成真〉。</p>
+<p class="pull">同一個系，同一年。<br>一個是從高處跌下來的，一個是從低處爬上去的。</p>
+<p>拿到同一張錄取通知單，一個人心裡大概在嘆氣，另一個人心裡在想的是「真正的考驗不是考上，而是讀得起」。統計上這兩筆資料落在同一個點；可是如果你把時間軸拉出來看，兩條軌跡的斜率一正一負，方向剛好相反。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 五 -->
+<section id="s5">
+<h2><span class="n">五</span>大度山上的四年</h2>
+<p>東海建在大度山的坡地上，校園大、坡道多。一個拄著雙拐，一個一跛一跛，兩個腿不方便的年輕人，在同一班上了四年課。</p>
+<p>這四年他們彼此怎麼看對方，我不知道，兩個人都沒跟我說過。</p>
+<p>我去翻了阿發的書。他記下了很多東海同學：室友馬屁、傑西、美金、劉偉，陪他南下高雄找工作的樹盛和大鳥，引薦他進美商的陳弘毅，隔壁寢室陪他下圍棋的林敏雅。林名甫的名字，我在書裡沒有找到。</p>
+<p>這不奇怪。回憶錄寫的是作者自己的路，同班四年、不同寢室的同學，本來就可能只是背景裡的一張臉。但做復盤的人要誠實：書裡沒有的，我不能替它補上。他們兩人在大度山上有沒有交集、交情深淺，這一欄，我留白。</p>
+<p>我只知道一件事。阿發在書裡寫過一段寢室裡的體會：年輕人喜歡互相開玩笑，玩笑像一把刀，拿捏得好是幽默，拿捏不好便可能傷人，「人的自尊，其實比想像中脆弱」。一個腳不好的人寫出這句話，是有來歷的。班上另一個腳更不好的人，大概也懂。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 六 -->
+<section id="s6">
+<h2><span class="n">六</span>太平洋兩岸</h2>
+<p>畢業之後，兩條路分開了，而且分得很遠。</p>
+<p><strong>阿發留在台灣。</strong>第一份工作在彰化溪湖的橡膠公司，當工業工程師，租五百元的雅房，晚上兼家教。接著在台中大雅的網球拍廠一待九年，從生管組長做到高級專員。三十五歲那年，公務期間公司配的車失竊，按規定要賠；他向親友借錢一次還清，然後離開。</p>
+<p>之後是一段他自己說「雨多淋了幾場」的日子：廚具廠、吊車公司被資遣、美商試用期沒過、回鍋老東家、婉拒隨總經理西進大陸。四十多歲，他在眷村市場擺過水果攤，在二姊家四樓開過國小課輔班。然後有人請他去崙背國中代課——粉筆一拿起來，他才發現自己是真的喜歡教書。</p>
+<p>他週末北上淡江補教育學分，同學們湊了五十多萬元借他周轉，讓他辭掉家教專心備考；一年之內考上教育特考和政大教育學程，最後在溪崑國中教到退休。多年後，一個九年級的學生投稿校刊，寫一位提著黑色手提包、衣冠整齊、一跛一跛走在走廊上的老師，說那是他三年裡最難忘的背影。</p>
+<aside class="note"><b>復盤註・資料缺口</b>阿發的路有一本書可以逐篇查對；林名甫的路，我手上只有三個點：人在南加州、做工程顧問、會釣條紋鱸。中間四十多年，等他自己說。</aside>
+<p><strong>林名甫去了加州。</strong>他現在住在南加州，做一些工程顧問的工作。他什麼時候出國、走過哪些公司，我都還不知道；我知道的，是那張照片——拄著雙拐站在水邊，一手一條大魚，笑得很開心。能把兩條那麼大的魚提起來給人拍照的人，手上是有力氣的，心裡也是。</p>
+<p>還有那場南加州建中校友會的五十週年聚會。一個考前發燒、從建中落到東海的人，五十年後照樣回去參加建中的同學會，在會場上認出台大化工的老同學，報出吳志成和我的名字。這說明一件事：那場高燒，並沒有燒掉他對自己來處的認同。</p>
+<div class="clear"></div>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 七 -->
+<section id="s7">
+<h2><span class="n">七</span>兩部改裝車</h2>
+<p>最近在 LINE 上跟林名甫聊車。他說：</p>
+<blockquote class="memo">我因為腿的關係，需要開改裝車，目前油電混合版才剛出來。我的 TOYOTA Sienna 也是健康得不得了，不太想換。不過如若繼續開車，油電混合恐怕是避免不了。<cite>——林名甫，LINE 訊息</cite></blockquote>
+<p>我回了他一個老故事。當年在爾灣，我老婆有位同事，也是雙職工家庭，看著周圍的朋友一個個換了豪車，她也想換，有一回跟我老婆抱怨：她那部 Toyota Corolla 開了十幾年，硬是沒有一絲毛病，害她都下不了手。</p>
+<p>這段對話，讓我想起阿發書裡學開車的那一篇。他上完駕訓班，卡在監理站的體檢表：醫師看了他的肢體狀況，說不能考一般駕照，只能使用特製車輛。他去跟醫師說：「如果您不放心，現在找一部車，我開給您看。」醫師苦笑：</p>
+<p class="pull">「不是我不相信你，<br>是制度未必相信。」</p>
+<p>兩個人，一個在台灣，一個在加州，都得開「特別的車」。差別在於：一個當年要先說服制度讓他上路；另一個如今煩惱的，是車子太健康，換不下手。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 八 -->
+<section id="s8">
+<h2><span class="n">八</span>復盤表</h2>
+<p>照老熊的規矩，故事講完，資料要攤開。灰字是我目前還不知道、待補的欄位。</p>
+<div class="tbl">
+<table>
+<thead><tr><th scope="col">項目</th><th scope="col">林名甫</th><th scope="col">阿發（林進發）</th></tr></thead>
+<tbody>
+<tr><th scope="row">腿</th><td>小兒麻痺，雙腳；拄雙拐</td><td>幼時腳踝受傷未及時醫治；一跛一跛</td></tr>
+<tr><th scope="row">國中</th><td>嘉義北興國中；數學老師家補習班</td><td>崙背國中</td></tr>
+<tr><th scope="row">高中</th><td>北上，建中</td><td>嘉中，寄居圓福寺三年；沒有補習</td></tr>
+<tr><th scope="row">一九七六聯考</th><td>考前發高燒，失常</td><td>比自估多二十幾分</td></tr>
+<tr><th scope="row">大學</th><td colspan="2" style="text-align:center">東海大學工業工程學系，同班四年</td></tr>
+<tr><th scope="row">職涯</th><td>工程顧問（南加州）<br><span style="color:var(--soft)">中間四十年待補</span></td><td>生管十幾年→三十五歲離職→水果攤、課輔班→四十多歲代課→教職至退休</td></tr>
+<tr><th scope="row">現居</th><td>南加州</td><td>台灣</td></tr>
+<tr><th scope="row">車</th><td>Toyota Sienna 改裝車，健康得不得了</td><td>監理站：只能使用特製車輛</td></tr>
+<tr><th scope="row">怎麼認識老熊</th><td>國中補習班同班</td><td>嘉中三年十二班</td></tr>
+<tr><th scope="row">兩人交情</th><td colspan="2" class="q" style="text-align:center">待查</td></tr>
+</tbody>
+</table>
+</div>
+<p>表一攤開，就看得出來：起點最不一樣的兩列——補習和高中——到了第五列就收斂成同一格。後面又散開，散到太平洋兩岸。人生的軌跡大概就是這樣，一會兒散、一會兒聚，沒有哪一格是終點。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<!-- 尾聲 -->
+<section id="s9">
+<h2><span class="n">尾聲</span>分兩種</h2>
+<p>回到朋友轉來的那段順口溜。我照它的格式，替這兩位老同學也分一分：</p>
+<div class="verse">
+<p>腿不方便的孩子分兩種：上得起補習班的，和上不起的。</p>
+<p>上不起的不用怕——早起晚睡，圓福寺的掃帚也能掃出一條路。</p>
+<p>上得起的又分兩種：聯考正常的，和考前發高燒的。</p>
+<p>正常的不用怕；發燒的也不用怕——他會在東海工工，遇見那個沒補過習的。</p>
+<p>畢了業又分兩種：留在台灣的，和去了加州的。</p>
+<p>留在台灣的，站上講台，被學生寫進校刊；</p>
+<p>去了加州的，拄著拐杖，一手提起一條大魚。</p>
+<p>到了這把年紀，只剩一種煩惱：車子太健康，換不下手。</p>
+<p>……你還怕什麼？</p>
+</div>
+<p>朋友說得對，天下本無事。只是這句話，要走過那麼多「分兩種」才說得出口。在第一個分岔口上，誰也不知道自己會被分到哪一邊；等到回頭看，才發現每一條枝子都長到了有陽光的地方。</p>
+<p>下次見到林名甫，我要問他三件事：當年為什麼記得我；大度山上那四年，他跟阿發說過些什麼話；還有，照片裡那兩條魚，是在哪裡釣的。</p>
+<p class="sign">老熊　謹識<br>二〇二六年九月　於加州紅木岸</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
