@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、職涯軌跡、名冊、現場誌、本站自評，共 74 篇，另收 MATLAB 檔案 101 個。">
+<meta name="description" content="老熊隨筆 — 精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、職涯軌跡、名冊、現場誌、本站自評，共 75 篇，另收 MATLAB 檔案 101 個、Python 檔案 2 個。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -167,7 +167,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 74 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 101 個</span><span class="dot">·</span><span>十三個分區</span><span class="dot">·</span><span>最近更新 2026.09.22</span></p>
+<p class="toolbar"><span>全 75 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 101 個、Python 檔案 2 個</span><span class="dot">·</span><span>十三個分區</span><span class="dot">·</span><span>最近更新 2026.09.23</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
 <summary>精選外刊<span class="n">13</span><span class="caret" aria-hidden="true">▾</span></summary>
@@ -214,9 +214,10 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </div>
 </details>
 <details class="lxsec">
-<summary>技術檔案<span class="en2">Technical Reports</span><span class="n">6</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>技術檔案<span class="en2">Technical Reports</span><span class="n">7</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#jishu">前往本區　↓</a>
+<a href="election_poll_tool_guide.html">一票之差 — 民調領先多少，才敢喊當選<span class="lab">EN・新</span></a>
 <a href="built_in_abstention_three_patents_LaoXiong.html">內建的棄權 — 三件專利，教分類器說「我沒見過」<span class="lab">EN</span></a>
 <a href="Fable_enhances_contrast_of_idws_vs_idcn_algorithms.html">idws 與 idcn 的分野 — 一場現場故障的重演<span class="lab">EN</span></a>
 <a href="Balanced_Bagging_PLS-DA_Report.html">極端類別不平衡下的 Balanced Bagging<span class="lab">EN</span></a>
@@ -619,8 +620,21 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 
 <p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
 
-<h2 class="section" id="jishu">技術檔案<span class="en">（Technical Reports）</span><span class="count">6 篇</span></h2>
+<h2 class="section" id="jishu">技術檔案<span class="en">（Technical Reports）</span><span class="count">7 篇</span></h2>
 <p class="section-note">化學計量學與機器學習的實作紀錄 · 英文原件</p>
+
+<article class="entry">
+<h3 class="headline"><a href="election_poll_tool_guide.html">一票之差 — 民調領先多少，才敢喊當選 <span class="tag">EN</span></a></h3>
+<p class="meta"><time class="date">2026.09.23</time><span class="chip">貝氏統計</span><span class="chip">Beta-Binomial</span><span class="chip">Python ＋ GUI</span><span class="chip">新</span></p>
+<p class="srcline">單檔 HTML · 約 940 KB · 內嵌 GUI 截圖、六張後驗分布圖與一張樣本數曲線 · 附 Python 原始碼兩支</p>
+<p class="deck">Election Poll Beta-Binomial Analyzer — How It Works。起點是一支舊的 MATLAB 小函式 analyzeElectionPoll_beta.m：均勻先驗 Beta(1,1) 加上兩人對決的民調票數，取 95% 可信區間的下緣，過了 50% 才喊當選，沒過就倒算還差幾票。改寫成 Python、加上一個 Tkinter GUI 之後，寫成這份說明書，每一步都「白話」與「專業」兩欄並陳。三組例子各差一票，也各自卡在分界上：10 人要 9 票（8 比 2 不算）、100 人要 60 票（59 比 41 不算）、1,000 人要 531 票——531 比 469 的下緣是 0.500002，只贏百萬分之二。專章談樣本數 n：需要的領先幅度約為 98/√n 個百分點，人數翻四倍、門檻才減半；n 很小時常態近似失靈，n = 10 估 81%，實算 90%。另附一個容易看漏的但書：雙尾 95% 的判準等於單尾 97.5%，所以 59 比 41 明明有 96.4% 的機率領先，工具仍然不喊。</p>
+<div class="tools">
+<a class="read" href="election_poll_tool_guide.html">閱讀</a>
+<a class="ghlink" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/analyze_election_poll_beta.py" title="分析與繪圖，7.9 KB">analyze_election_poll_beta.py</a>
+<a class="ghlink" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/election_poll_gui.py" title="Tkinter GUI，5.7 KB，須與分析檔同目錄">election_poll_gui.py</a>
+<button class="copy" data-file="election_poll_tool_guide.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="built_in_abstention_three_patents_LaoXiong.html">內建的棄權 — 三件專利，教分類器說「我沒見過」 <span class="tag">EN</span></a></h3>
@@ -1328,7 +1342,7 @@ Run_AQP.m 的標頭把這件事寫成第一項外部相依，六支閉包函式�
 
 <footer>
 <p>老熊 · 加州紅木灘 ｜ 作者簡歷見 <a href="README.md">README</a>。</p>
-<p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.09.22</p>
+<p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.09.23</p>
 </footer>
 
 </div>
