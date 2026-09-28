@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老熊與電腦系的前世今緣</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ecdc;
+    --paper-deep:#ebe0c8;
+    --ink:#231c14;
+    --ink-soft:#4a3e30;
+    --rule:#8a6f4c;
+    --accent:#8c2f1c;
+    --accent-soft:#b5563d;
+    --gold:#9a7b3f;
+    --note-bg:#efe4cc;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(255,255,255,.35), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(120,90,50,.10), transparent 60%);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.75;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:56px 32px 140px;}
+
+  /* masthead */
+  .masthead{
+    border-top:6px double var(--ink);
+    border-bottom:2px solid var(--ink);
+    padding:14px 0 10px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:22px;letter-spacing:.18em;color:var(--ink-soft);
+  }
+  .masthead .brand{font-weight:900;color:var(--ink);font-size:26px;}
+  .kicker{
+    margin:48px 0 8px;
+    font-size:24px;letter-spacing:.3em;color:var(--accent);font-weight:900;
+  }
+  h1{
+    font-size:76px;line-height:1.25;margin:0 0 24px;font-weight:900;
+    letter-spacing:.04em;
+  }
+  .deck{
+    font-size:34px;line-height:1.65;color:var(--ink-soft);font-weight:700;
+    border-left:6px solid var(--accent);padding-left:24px;margin:0 0 28px;
+  }
+  .byline{
+    font-size:22px;letter-spacing:.12em;color:var(--ink-soft);
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding:10px 0;margin-bottom:44px;
+  }
+
+  /* TOC */
+  #toc{
+    background:var(--paper-deep);
+    border:2px solid var(--ink);
+    padding:26px 34px;margin-bottom:56px;
+  }
+  #toc h2{margin:0 0 12px;font-size:32px;letter-spacing:.3em;border:none;padding:0;}
+  #toc ol{margin:0;padding-left:1.6em;}
+  #toc li{margin:4px 0;font-size:28px;}
+  #toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--rule);}
+  #toc a:hover{color:var(--accent);}
+
+  /* layout */
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:52px;}
+  aside{font-size:24px;line-height:1.7;}
+  aside .box{
+    position:sticky;top:28px;
+    background:var(--note-bg);border-top:5px solid var(--accent);
+    padding:22px 24px;
+  }
+  aside h3{margin:0 0 12px;font-size:28px;letter-spacing:.2em;color:var(--accent);font-weight:900;}
+  aside ul{margin:0;padding-left:1.2em;}
+  aside li{margin-bottom:12px;}
+  aside .tag{
+    display:inline-block;font-size:18px;padding:0 8px;margin-right:6px;
+    border:1.5px solid var(--accent);color:var(--accent);
+  }
+
+  section{margin-bottom:64px;}
+  h2{
+    font-size:46px;font-weight:900;line-height:1.35;
+    margin:0 0 22px;padding-bottom:10px;
+    border-bottom:3px solid var(--ink);
+  }
+  h2 .num{color:var(--accent);margin-right:14px;}
+  p{margin:0 0 26px;text-align:justify;}
+  strong{font-weight:900;color:var(--accent);}
+  .dropcap::first-letter{
+    float:left;font-size:120px;line-height:.9;
+    padding:10px 16px 0 0;color:var(--accent);font-weight:900;
+  }
+
+  .pull{
+    font-size:44px;line-height:1.5;font-weight:900;
+    margin:40px 0;padding:24px 0;
+    border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+    text-align:center;color:var(--ink);
+  }
+  .pull small{display:block;font-size:22px;color:var(--ink-soft);margin-top:10px;letter-spacing:.1em;}
+
+  /* dialogue */
+  .talk{margin:30px 0;padding:0;}
+  .talk .who{font-size:22px;letter-spacing:.2em;font-weight:900;margin-bottom:4px;}
+  .talk .line{padding:16px 22px;margin-bottom:22px;border-left:5px solid;}
+  .talk.lx .who{color:var(--accent);}
+  .talk.lx .line{border-color:var(--accent);background:rgba(140,47,28,.06);}
+  .talk.cl .who{color:var(--gold);}
+  .talk.cl .line{border-color:var(--gold);background:rgba(154,123,63,.08);}
+
+  /* ledger */
+  .ledger{width:100%;border-collapse:collapse;margin:14px 0 30px;font-size:27px;}
+  .ledger th,.ledger td{padding:12px 14px;vertical-align:top;border-bottom:1px solid var(--rule);}
+  .ledger th{
+    text-align:left;border-bottom:3px solid var(--ink);border-top:3px solid var(--ink);
+    font-size:22px;letter-spacing:.2em;font-weight:900;
+  }
+  .ledger td.yr{font-weight:800;color:var(--accent);white-space:nowrap;width:5.5em;}
+  .ledger td.n{font-weight:800;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .ledger tr.hl td{background:rgba(140,47,28,.08);}
+  .caption{font-size:22px;color:var(--ink-soft);margin:-18px 0 30px;}
+
+  .verdict{
+    background:var(--ink);color:var(--paper);
+    padding:26px 30px;margin:30px 0;
+  }
+  .verdict .lbl{font-size:22px;letter-spacing:.3em;color:#e8c79a;margin-bottom:8px;font-weight:900;}
+  .verdict p{margin:0;}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:34px 0;border:3px solid var(--ink);}
+  .score div{padding:20px 14px;text-align:center;border-right:1px solid var(--rule);}
+  .score div:last-child{border-right:none;}
+  .score .k{font-size:22px;letter-spacing:.15em;color:var(--ink-soft);}
+  .score .v{font-size:36px;font-weight:900;color:var(--accent);}
+
+  .back{display:inline-block;margin-top:6px;font-size:22px;color:var(--rule);text-decoration:none;letter-spacing:.1em;}
+  .back:hover{color:var(--accent);}
+
+  .sources{font-size:22px;line-height:1.7;border-top:3px double var(--ink);padding-top:22px;}
+  .sources h2{font-size:30px;border:none;padding:0;margin-bottom:8px;}
+  .sources a{color:var(--ink-soft);word-break:break-all;}
+
+  /* floating nav */
+  .fnav{
+    position:fixed;right:22px;bottom:22px;z-index:50;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .fnav a{
+    display:block;text-align:center;
+    background:var(--ink);color:var(--paper);text-decoration:none;
+    font-size:20px;font-weight:900;letter-spacing:.12em;
+    padding:10px 16px;box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
+  .fnav a:hover{background:var(--accent);}
+
+  @media (max-width:980px){
+    .grid{grid-template-columns:1fr;}
+    aside .box{position:static;}
+  }
+  @media (max-width:700px){
+    body{font-size:21px;}
+    .wrap{padding:28px 16px 120px;}
+    .masthead{font-size:15px;} .masthead .brand{font-size:18px;}
+    .kicker{font-size:16px;margin-top:28px;}
+    h1{font-size:40px;}
+    .deck{font-size:22px;padding-left:14px;}
+    .byline{font-size:15px;}
+    #toc{padding:18px 18px;} #toc h2{font-size:22px;} #toc li{font-size:19px;}
+    h2{font-size:28px;}
+    .dropcap::first-letter{font-size:72px;}
+    .pull{font-size:27px;}
+    .pull small,.caption,.talk .who,.back,.sources{font-size:16px;}
+    .ledger{font-size:18px;} .ledger th{font-size:15px;}
+    .ledger th,.ledger td{padding:8px 6px;}
+    aside{font-size:18px;} aside h3{font-size:21px;}
+    .score .k{font-size:15px;} .score .v{font-size:22px;}
+    .verdict .lbl{font-size:15px;}
+    .fnav{right:12px;bottom:12px;} .fnav a{font-size:15px;padding:8px 12px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="brand">老熊隨筆</span>
+    <span>復盤體 · 聯考篇</span>
+  </div>
+
+  <div class="kicker">復盤體 · 一分之差與一年之差</div>
+  <h1>老熊與電腦系的前世今緣</h1>
+  <p class="deck">一段LINE群組的閒聊，牽出1976年大學聯考的一分之差、一年之差，以及一個從來不喜歡化學的人，如何被分進化工系，又繞了半生，回到電腦的地盤。</p>
+  <div class="byline">老熊（熊章民）　·　2026年9月27日夜　·　與 Claude 對談整理</div>
+
+  <nav id="toc">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#s1">引子：12宿舍的名字</a></li>
+      <li><a href="#s2">拜碼頭：學長的預言</a></li>
+      <li><a href="#s3">時間線核對</a></li>
+      <li><a href="#s4">資訊系是第幾志願</a></li>
+      <li><a href="#s5">差不到一分，早了一年</a></li>
+      <li><a href="#s6">從來就不喜歡化學</a></li>
+      <li><a href="#s7">繞了半生，扳回一局</a></li>
+      <li><a href="#sources">資料來源</a></li>
+    </ol>
+  </nav>
+
+  <div class="grid">
+    <main>
+
+      <section id="s1">
+        <h2><span class="num">一</span>引子：12宿舍的名字</h2>
+        <p class="dropcap">2026年9月27日晚上，我在一個LINE群組裡提起化工系高我們兩屆、同樣是嘉中出身的學長<strong>李秋土</strong>。吳紀聖接話：他和李秋土曾經在12宿舍同住過。</p>
+        <p>這一來一往，勾起我一段四十多年沒動過的記憶。我接著回了一句：李秋土是不是有個弟弟叫<strong>李秋山</strong>？機械系，高我們一屆。</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s2">
+        <h2><span class="num">二</span>拜碼頭：學長的預言</h2>
+        <p>1976年秋天，新生入學後，我到同系、同是嘉中出身的李秋土學長寢室去拜碼頭。他開口第一句話就是：</p>
+        <div class="talk lx">
+          <div class="who">李秋土學長（據老熊回憶）</div>
+          <div class="line">你們這屆的化工錄取分數線與電機只差八分，是最接近的一年了，明年應該就可以超過。</div>
+        </div>
+        <p>他說的是我們1976這屆化工的分數。「八分」這個數字，我自己在群組裡也打了個問號。沒想到第二年，資訊系橫空出世，化工跌成第三。</p>
+        <div class="pull">「明年應該就可以超過。」<small>—— 結果明年來的，是資訊系。</small></div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s3">
+        <h2><span class="num">三</span>時間線核對</h2>
+        <p>我是1976年入學台大化工。把幾個人的入學年份排在一起，時間線對得上：</p>
+        <table class="ledger">
+          <thead><tr><th>年份</th><th>事件</th></tr></thead>
+          <tbody>
+            <tr><td class="yr">1974</td><td>李秋土入學台大化工（高我們兩屆）</td></tr>
+            <tr><td class="yr">1975</td><td>李秋山入學台大機械（高一屆）</td></tr>
+            <tr class="hl"><td class="yr">1976</td><td>老熊入學台大化工。這一屆化工與電機的錄取線只差約八分，是歷來最接近的一年；秋天拜碼頭，聽到「明年超過」的預言</td></tr>
+            <tr><td class="yr">1977</td><td>台大資訊工程學系成立，首屆招收40名新生，李學養教授任首任系主任，是台灣第一個以「資訊」命名的系所</td></tr>
+          </tbody>
+        </table>
+        <p>學長口中的「明年」就是1977年，而資訊系恰恰在這一年登場，時間點精準得有點諷刺。</p>
+        <div class="verdict">
+          <div class="lbl">復盤</div>
+          <p>學長的推論有它的道理：1976年化工與電機只差約八分，是歷來最接近的一年，差距一路在縮小，照趨勢外推，1977年反超並非空想。他算準了趨勢，卻算不到1977年多出一個新系。資訊系一登場，化工追的就不再只是電機。</p>
+        </div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s4">
+        <h2><span class="num">四</span>資訊系是第幾志願</h2>
+        <p>1977年資訊系首屆的榜單，網上找不到。但幾年後的甲組最低錄取分數很清楚：資訊系穩居<strong>甲組第二志願</strong>，夾在電機和化工中間。</p>
+        <table class="ledger">
+          <thead><tr><th>系別</th><th style="text-align:right">民國70年（1981）</th><th style="text-align:right">民國71年（1982）</th></tr></thead>
+          <tbody>
+            <tr><td>台大電機</td><td class="n">454.34</td><td class="n">438.84</td></tr>
+            <tr class="hl"><td>台大資工</td><td class="n">448.63</td><td class="n">433.22</td></tr>
+            <tr><td>台大化工</td><td class="n">431.07</td><td class="n">414.78</td></tr>
+            <tr><td>台大機械</td><td class="n">426.43</td><td class="n">414.20</td></tr>
+          </tbody>
+        </table>
+        <p class="caption">甲組最低錄取總分，PTT網友整理，非官方資料。</p>
+        <p>值得復盤的是差距的大小。到了1981和1982年，化工落後電機約<strong>23–24分</strong>，是1976年「只差八分」的近三倍；資工則緊貼電機，只差5–6分。所以化工的問題不只是被資訊擠下一名，而是和龍頭的距離整個拉開了。</p>
+        <p>當年有網友的解釋是：資訊月剛辦沒幾屆，系名帶「資訊」的都熱門，叫「電算」或「計算機」的反而冷門。不過資訊系的排名並非從此一直第二——台大資工系史記載，2010年8月，資訊系指考志願才由第五名升為第四，可見中間也曾下滑過。</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s5">
+        <h2><span class="num">五</span>差不到一分，早了一年</h2>
+        <div class="talk lx">
+          <div class="who">老熊</div>
+          <div class="line">我聯考時，離電機系的分數線不到一分。我其實是早讀一年（九月中出生），如果我沒有早讀，大概率1977年才參加聯考，我就進了資訊系？哈哈。</div>
+        </div>
+        <p>把兩個數字放在一起：若1976年化工與電機真的只差八分，我的分數就比化工錄取線高出七分多，卻離電機不到一分。</p>
+        <p>這個反事實推演站得住。九月中出生，正好卡在入學年齡的切線後面；不早讀，就晚一屆，1977年才上考場。多了一年，分數大概率不會比1976年低。而當年離電機只差不到一分，1977年多半落在電機或剛成立的資訊之間。</p>
+        <div class="talk cl">
+          <div class="who">Claude</div>
+          <div class="line">但有兩個變量。第一，資訊系是新系，首屆的錄取線未必一開始就排第二。第二，就算分數夠，你當年會不會把一個沒人聽過的新系填在化工前面，也難說。</div>
+        </div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s6">
+        <h2><span class="num">六</span>從來就不喜歡化學</h2>
+        <p>第二個變量，被我當場推翻：</p>
+        <div class="talk lx">
+          <div class="who">老熊</div>
+          <div class="line">我從來就不喜歡化學，哈哈。我們那時候聯考是先填志願。我考前覺得自己頂多考上清華或台灣交大，所以台大的部分只照著前一年的志願填了三個，後面的志願我都沒填與化學相關的。所以我如果1977年參加聯考，不可能把化工填在資訊之前。</div>
+        </div>
+        <p>於是反事實收斂成：1977年應考、分數與1976年相當，結果會是<strong>電機或資訊</strong>，不會是化工。</p>
+        <p>唯一剩下的小問題，是我自己的填法。「照前一年排名抄三個」這套方法，對1977年新成立的資訊系給不出任何訊號——它沒有「前一年」可抄，得主動把它插進去。以一個後面志願刻意避開化學的人來說，這一步應該不難。</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s7">
+        <h2><span class="num">七</span>繞了半生，扳回一局</h2>
+        <p>回頭看1976年那一局，其實頗有戲劇性：一個從來不喜歡化學的人，靠抄一份排名表、離電機差不到一分，被分進了化工。</p>
+        <p>後來的路是化工、高分子、Akron博士、博士後，然後轉進化學計量學。而在化學計量學裡，我挑的恰恰是數學和演算法那一半：多變量校正、SVM分類、MATLAB演算法開發。繞了一大圈，還是走進了資訊的地盤。</p>
+        <p>還有一局。30歲那年，我娶了<strong>上海交大計算機系</strong>的田總。</p>
+        <div class="pull">填錯的志願，<br>最後被自己改回了原本的方向。</div>
+        <div class="score">
+          <div><div class="k">1976 聯考</div><div class="v">一分落後</div></div>
+          <div><div class="k">30歲 成家</div><div class="v">扳回一局</div></div>
+          <div><div class="k">半生職涯</div><div class="v">算法收復</div></div>
+        </div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="sources" class="sources">
+        <h2>資料來源</h2>
+        <ul>
+          <li><a href="https://www.csie.ntu.edu.tw/zh_tw/AboutUs/About_Us/intro_5">國立臺灣大學資訊工程學系 · 重要紀事（編年史）</a></li>
+          <li><a href="https://www.csie.ntu.edu.tw/zh_tw/AboutUs/About_Us/intro_0">國立臺灣大學資訊工程學系 · 概況</a></li>
+          <li><a href="https://www.csie.ntu.edu.tw/zh_tw/AboutUs/About_Us/intro_4">國立臺灣大學資訊工程學系 · 系史（斷代史）</a></li>
+          <li><a href="https://www.ptt.cc/bbs/SENIORHIGH/M.1341297526.A.5E8.html">PTT SENIORHIGH · 民國71年大學科系最低錄取分數（甲組）</a></li>
+        </ul>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+    </main>
+
+    <aside>
+      <div class="box">
+        <h3>復盤備註</h3>
+        <ul>
+          <li><span class="tag">待查</span>1976年化工與電機「只差八分」，需以當年放榜分數核對。</li>
+          <li><span class="tag">待查</span>1977年資訊系首屆的錄取分數與實際志願排名。</li>
+          <li><span class="tag">線索</span>可請教1977年入學資訊系的首屆40位學長。</li>
+          <li><span class="tag">註</span>民國70、71年分數為網友整理，非官方統計。</li>
+          <li><span class="tag">已證</span>台大資訊系1977年成立，首屆40人。</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+</div>
+
+<div class="fnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+</body>
+</html>
