@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世間所有的相遇，都是久別重逢</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ecdc;
+    --paper-deep:#ebe0c8;
+    --ink:#231c14;
+    --ink-soft:#4a3e30;
+    --rule:#8a6f4c;
+    --accent:#8c2f1c;
+    --accent-soft:#b5563d;
+    --gold:#9a7b3f;
+    --note-bg:#efe4cc;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(255,255,255,.35), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(120,90,50,.10), transparent 60%);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.75;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:56px 32px 140px;}
+
+  /* masthead */
+  .masthead{
+    border-top:6px double var(--ink);
+    border-bottom:2px solid var(--ink);
+    padding:14px 0 10px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:22px;letter-spacing:.18em;color:var(--ink-soft);
+  }
+  .masthead .brand{font-weight:900;color:var(--ink);font-size:26px;}
+  .kicker{
+    margin:48px 0 8px;
+    font-size:24px;letter-spacing:.3em;color:var(--accent);font-weight:900;
+  }
+  h1{
+    font-size:76px;line-height:1.25;margin:0 0 24px;font-weight:900;
+    letter-spacing:.04em;
+  }
+  .deck{
+    font-size:34px;line-height:1.65;color:var(--ink-soft);font-weight:700;
+    border-left:6px solid var(--accent);padding-left:24px;margin:0 0 28px;
+  }
+  .byline{
+    font-size:22px;letter-spacing:.12em;color:var(--ink-soft);
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding:10px 0;margin-bottom:44px;
+  }
+
+  /* TOC */
+  #toc{
+    background:var(--paper-deep);
+    border:2px solid var(--ink);
+    padding:26px 34px;margin-bottom:56px;
+  }
+  #toc h2{margin:0 0 12px;font-size:32px;letter-spacing:.3em;border:none;padding:0;}
+  #toc ol{margin:0;padding-left:1.6em;}
+  #toc li{margin:4px 0;font-size:28px;}
+  #toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--rule);}
+  #toc a:hover{color:var(--accent);}
+
+  /* layout */
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:52px;}
+  aside{font-size:24px;line-height:1.7;}
+  aside .box{
+    position:sticky;top:28px;
+    background:var(--note-bg);border-top:5px solid var(--accent);
+    padding:22px 24px;
+  }
+  aside h3{margin:0 0 12px;font-size:28px;letter-spacing:.2em;color:var(--accent);font-weight:900;}
+  aside ul{margin:0;padding-left:1.2em;}
+  aside li{margin-bottom:12px;}
+  aside .tag{
+    display:inline-block;font-size:18px;padding:0 8px;margin-right:6px;
+    border:1.5px solid var(--accent);color:var(--accent);
+  }
+
+  section{margin-bottom:64px;}
+  h2{
+    font-size:46px;font-weight:900;line-height:1.35;
+    margin:0 0 22px;padding-bottom:10px;
+    border-bottom:3px solid var(--ink);
+  }
+  h2 .num{color:var(--accent);margin-right:14px;}
+  p{margin:0 0 26px;text-align:justify;}
+  strong{font-weight:900;color:var(--accent);}
+  .dropcap::first-letter{
+    float:left;font-size:120px;line-height:.9;
+    padding:10px 16px 0 0;color:var(--accent);font-weight:900;
+  }
+
+  .pull{
+    font-size:44px;line-height:1.5;font-weight:900;
+    margin:40px 0;padding:24px 0;
+    border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+    text-align:center;color:var(--ink);
+  }
+  .pull small{display:block;font-size:22px;color:var(--ink-soft);margin-top:10px;letter-spacing:.1em;}
+
+  /* dialogue */
+  .talk{margin:30px 0;padding:0;}
+  .talk .who{font-size:22px;letter-spacing:.2em;font-weight:900;margin-bottom:4px;}
+  .talk .line{padding:16px 22px;margin-bottom:22px;border-left:5px solid;}
+  .talk.lx .who{color:var(--accent);}
+  .talk.lx .line{border-color:var(--accent);background:rgba(140,47,28,.06);}
+  .talk.cl .who{color:var(--gold);}
+  .talk.cl .line{border-color:var(--gold);background:rgba(154,123,63,.08);}
+
+  /* ledger */
+  .ledger{width:100%;border-collapse:collapse;margin:14px 0 30px;font-size:27px;}
+  .ledger th,.ledger td{padding:12px 14px;vertical-align:top;border-bottom:1px solid var(--rule);}
+  .ledger th{
+    text-align:left;border-bottom:3px solid var(--ink);border-top:3px solid var(--ink);
+    font-size:22px;letter-spacing:.2em;font-weight:900;
+  }
+  .ledger td.yr{font-weight:800;color:var(--accent);white-space:nowrap;width:5.5em;}
+  .ledger td.n{font-weight:800;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .ledger tr.hl td{background:rgba(140,47,28,.08);}
+  .caption{font-size:22px;color:var(--ink-soft);margin:-18px 0 30px;}
+
+  .verdict{
+    background:var(--ink);color:var(--paper);
+    padding:26px 30px;margin:30px 0;
+  }
+  .verdict .lbl{font-size:22px;letter-spacing:.3em;color:#e8c79a;margin-bottom:8px;font-weight:900;}
+  .verdict p{margin:0;}
+
+  .score{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:34px 0;border:3px solid var(--ink);}
+  .score div{padding:20px 14px;text-align:center;border-right:1px solid var(--rule);}
+  .score div:last-child{border-right:none;}
+  .score .k{font-size:22px;letter-spacing:.15em;color:var(--ink-soft);}
+  .score .v{font-size:36px;font-weight:900;color:var(--accent);}
+
+  .back{display:inline-block;margin-top:6px;font-size:22px;color:var(--rule);text-decoration:none;letter-spacing:.1em;}
+  .back:hover{color:var(--accent);}
+
+  .sources{font-size:22px;line-height:1.7;border-top:3px double var(--ink);padding-top:22px;}
+  .sources h2{font-size:30px;border:none;padding:0;margin-bottom:8px;}
+  .sources a{color:var(--ink-soft);word-break:break-all;}
+
+  /* floating nav */
+  .fnav{
+    position:fixed;right:22px;bottom:22px;z-index:50;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .fnav a{
+    display:block;text-align:center;
+    background:var(--ink);color:var(--paper);text-decoration:none;
+    font-size:20px;font-weight:900;letter-spacing:.12em;
+    padding:10px 16px;box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
+  .fnav a:hover{background:var(--accent);}
+
+  @media (max-width:980px){
+    .grid{grid-template-columns:1fr;}
+    aside .box{position:static;}
+  }
+  @media (max-width:700px){
+    body{font-size:21px;}
+    .wrap{padding:28px 16px 120px;}
+    .masthead{font-size:15px;} .masthead .brand{font-size:18px;}
+    .kicker{font-size:16px;margin-top:28px;}
+    h1{font-size:40px;}
+    .deck{font-size:22px;padding-left:14px;}
+    .byline{font-size:15px;}
+    #toc{padding:18px 18px;} #toc h2{font-size:22px;} #toc li{font-size:19px;}
+    h2{font-size:28px;}
+    .dropcap::first-letter{font-size:72px;}
+    .pull{font-size:27px;}
+    .pull small,.caption,.talk .who,.back,.sources{font-size:16px;}
+    .ledger{font-size:18px;} .ledger th{font-size:15px;}
+    .ledger th,.ledger td{padding:8px 6px;}
+    aside{font-size:18px;} aside h3{font-size:21px;}
+    .score .k{font-size:15px;} .score .v{font-size:22px;}
+    .verdict .lbl{font-size:15px;}
+    .fnav{right:12px;bottom:12px;} .fnav a{font-size:15px;padding:8px 12px;}
+  }
+  .subtitle{font-size:40px;font-weight:900;color:var(--ink-soft);margin:-8px 0 26px;letter-spacing:.04em;}
+  .quote{margin:26px 0 30px;padding:18px 26px;border-left:6px solid var(--rule);background:var(--note-bg);font-size:30px;}
+  .quote small{display:block;font-size:22px;color:var(--ink-soft);margin-top:6px;}
+  a.inl{color:var(--accent);text-decoration:none;border-bottom:2px dotted var(--accent);}
+  @media (max-width:700px){
+    .subtitle{font-size:24px;}
+    .quote{font-size:20px;padding:12px 16px;} .quote small{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="brand">老熊隨筆</span>
+    <span>復盤體 · 點評篇</span>
+  </div>
+
+  <div class="kicker">復盤體 · 換一副眼鏡重讀</div>
+  <h1>世間所有的相遇，<br>都是久別重逢</h1>
+  <div class="subtitle">點評《老熊與電腦系的前世今生》</div>
+  <p class="deck">昨天寫完電腦系那一篇，結尾用的是「扳回一局」。今天換一句話重讀：世間所有的相遇，都是久別重逢。這樣一讀，輸贏的帳不見了，剩下的是與電腦的重逢，還有一個從那條路上走過來的人。</p>
+  <div class="byline">老熊（熊章民）　·　2026年9月28日　·　與 Claude 對談整理</div>
+
+  <nav id="toc">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#s1">那句話的出處</a></li>
+      <li><a href="#s2">與電腦的重逢：不是錯過，是暫別</a></li>
+      <li><a href="#s3">不是扳回，是本來沒離開</a></li>
+      <li><a href="#s4">那條路，親自走過來</a></li>
+      <li><a href="#s5">重新計分</a></li>
+      <li><a href="#sources">資料來源</a></li>
+    </ol>
+  </nav>
+
+  <div class="grid">
+    <main>
+
+      <section id="s1">
+        <h2><span class="num">一</span>那句話的出處</h2>
+        <p class="dropcap">昨天夜裡（2026年9月27日），我整理了一篇<a class="inl" href="LaoXiong_CS_Fate.html">《老熊與電腦系的前世今生》</a>。起因是一次LINE群組閒聊，牽出1976年的大學聯考：我離電機不到一分，又是早讀一年，一個從來不喜歡化學的人就這樣被分進了化工系。文章最後，我把這半生寫成了「扳回一局」。</p>
+        <p>今天拿一句流傳很廣的話，把它重讀一遍：</p>
+        <div class="pull">世間所有的相遇，都是久別重逢。</div>
+        <p>復盤體的規矩，先查出處。這句話在網上流傳極廣，常被安在張愛玲名下，也有人說出自王家衛的電影《一代宗師》，或是白落梅的散文。幾種說法各有人引，卻很少有人拿得出原文段落。它本身就是一則值得復盤的「集體記憶」：人人都記得，沒人查證過。</p>
+        <p>出處說不清，不妨礙它好用。這句話換掉的是框架：「扳回一局」是一張記分牌，有輸有贏；「久別重逢」講的是相認，只問你認不認得出對方。換這副眼鏡重讀，昨天那篇文章的主線就不再是一場輸贏，而是一次重逢。</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s2">
+        <h2><span class="num">二</span>與電腦的重逢：不是錯過，是暫別</h2>
+        <p>這是全文的主線。</p>
+        <p>1976年我離電機不到一分。照「扳回一局」的讀法，那是一次錯過。可是把證據攤開來看，「錯過」兩個字站不住：</p>
+        <table class="ledger">
+          <thead><tr><th>證據</th><th>說明</th></tr></thead>
+          <tbody>
+            <tr><td class="yr">偏好</td><td>從來就不喜歡化學。這不是事後補的說法，當年填志願的行為就能作證</td></tr>
+            <tr><td class="yr">填法</td><td>台大只照前一年的排名抄了三個，後面的志願刻意避開化學相關科系</td></tr>
+            <tr class="hl"><td class="yr">結果</td><td>化工是那張排名表分配給我的，不是我選的</td></tr>
+          </tbody>
+        </table>
+        <p>換句話說，1976年那一刻，我本來就站在電機、電腦那一邊。那不到一分的差距，與其說是錯過，不如說是<strong>暫別</strong>。</p>
+        <p>後來的路是化工、高分子、Akron博士、博士後，然後轉進化學計量學。進了化學計量學，我挑的偏偏是數學和演算法那一半：多變量校正、支援向量機（Support Vector Machine／SVM）分類、MATLAB演算法開發。2013年，我又進了 Apple。</p>
+        <p>這幾步回頭看都不像初次見面，倒像在人群裡認出一個老熟人：咦，這不是當年那個嗎？</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s3">
+        <h2><span class="num">三</span>不是扳回，是本來沒離開</h2>
+        <p>昨天那篇的結尾是這麼寫的：</p>
+        <div class="quote">填錯的志願，最後被自己改回了原本的方向。<small>——《老熊與電腦系的前世今生》</small></div>
+        <p>這句已經很接近了，只差一步。</p>
+        <p>「扳回一局」是輸贏的框架：1976年輸了一局，後來贏了回來。可是文章自己的證據，撐不起那個「輸」字。一個人被分到不喜歡的系，偏好卻從頭到尾沒變，他其實沒輸掉什麼，只是和原本的方向分開走了一段路。</p>
+        <p>所以不是「改回」，而是<strong>本來就沒離開</strong>。</p>
+        <div class="pull">填錯的志願，沒有改變我要去的方向；<br>它只讓我繞了一段路，<br>才和原本的方向重逢。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s4">
+        <h2><span class="num">四</span>那條路，親自走過來</h2>
+        <p>從「久別重逢」的角度看，昨天那篇寫得最單薄、卻最有重逢味道的一筆，只有一行：30歲那年，我娶了上海交大計算機系的田總。</p>
+        <p>那一行被我當成收尾的笑點。Claude 點評時追問了兩個問題，答案補在這裡。</p>
+        <div class="talk cl">
+          <div class="who">Claude</div>
+          <div class="line">你們認識的時候，她在做什麼？</div>
+        </div>
+        <div class="talk lx">
+          <div class="who">老熊</div>
+          <div class="line">她在同校讀電機／電腦碩士。</div>
+        </div>
+        <p>她是1982年高考上海考區第五名，進了上海交大計算機系，1986年畢業。我在台灣差不到一分沒進電機；她在上海以考區前五的成績走進計算機。兩條路在海峽兩岸各自出發，後來在美國同一所學校交會：我讀高分子博士，她讀電機／電腦碩士。</p>
+        <div class="talk cl">
+          <div class="who">Claude</div>
+          <div class="line">你後來轉向演算法、進 Apple，跟家裡有一位計算機出身的人有沒有關係？</div>
+        </div>
+        <div class="talk lx">
+          <div class="who">老熊</div>
+          <div class="line">有關係，尤其在編程時 tool chain set up 方面，她的點撥居功至偉。</div>
+        </div>
+        <p>這個答案很工程師，也很真實。寫過程式的人都知道，最先擋住人的往往不是演算法本身，而是 tool chain：編譯器、函式庫、環境設定、路徑，那些沒人教、書上也寫得含糊的東西。卡在這一關，再好的想法也跑不起來。一個從高分子半路轉過來的人，最容易卡的正是這一塊，而家裡剛好有一位科班出身的人在旁邊點撥。</p>
+        <div class="pull">如果電腦是我1976年錯過的那條路，<br>田總就是那條路親自走過來找我。</div>
+        <p>這一段補上，故事就從「分數與排名」變成了「人與人」。而久別重逢，說的本來就是人。</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="s5">
+        <h2><span class="num">五</span>重新計分</h2>
+        <p>昨天的記分牌是「一分落後、扳回一局、算法收復」，全是輸贏。換一副眼鏡，重新計分：</p>
+        <div class="score">
+          <div><div class="k">1976 聯考</div><div class="v">暫別</div></div>
+          <div><div class="k">30歲 成家</div><div class="v">迎面相逢</div></div>
+          <div><div class="k">半生職涯</div><div class="v">從未離開</div></div>
+        </div>
+        <div class="pull">世間所有的相遇，都是久別重逢。<br>我和電腦，只是走散了一段路。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <section id="sources" class="sources">
+        <h2>資料來源</h2>
+        <ul>
+          <li><a href="LaoXiong_CS_Fate.html">老熊隨筆 · 《老熊與電腦系的前世今生》（2026年9月27日）</a></li>
+          <li><a href="https://www.csie.ntu.edu.tw/zh_tw/AboutUs/About_Us/intro_5">國立臺灣大學資訊工程學系 · 重要紀事（編年史）</a></li>
+          <li><a href="https://www.wazaiii.com/articles?id=people-movie-kar-wai-wong">哇賽心理學 · 王家衛電影金句（將此句歸於《一代宗師》）</a></li>
+          <li><a href="https://yuhao168.pixnet.net/blog/posts/5049481964-%E3%80%8A%E4%B8%80%E4%BB%A3%E5%AE%97%E5%B8%AB%E3%80%8B%EF%BC%9A%E4%B8%96%E9%96%93%E6%89%80%E6%9C%89%E7%9A%84%E7%9B%B8%E9%81%87%EF%BC%8C%E9%83%BD%E6%98%AF%E4%B9%85%E5%88%A5%E9%87%8D">痞客邦 · 《一代宗師》：世間所有的相遇，都是久別重逢</a></li>
+          <li><a href="https://ppfocus.com/0/cu2ffe9e5.html">人人焦點 · 白落梅經典語錄：世間所有的相遇，都是久別重逢</a></li>
+        </ul>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+    </main>
+
+    <aside>
+      <div class="box">
+        <h3>復盤備註</h3>
+        <ul>
+          <li><span class="tag">已證</span>與田總相識時，她在同校讀電機／電腦碩士（本人口述，2026.9.28）。</li>
+          <li><span class="tag">已證</span>轉向演算法、編程 tool chain 建置，得田總點撥（本人口述）。</li>
+          <li><span class="tag">已證</span>台大資訊系1977年成立，首屆40人。</li>
+          <li><span class="tag">待查</span>名句出處：張愛玲、王家衛《一代宗師》、白落梅三說並存，均未見原文段落。</li>
+          <li><span class="tag">待查</span>沿用前篇：1976年化工與電機「只差八分」，仍待放榜分數核對。</li>
+          <li><span class="tag">前篇</span><a class="inl" href="LaoXiong_CS_Fate.html">《老熊與電腦系的前世今生》</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+</div>
+
+<div class="fnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+</body>
+</html>
