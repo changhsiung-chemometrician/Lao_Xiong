@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>On-site Visits or Offers thru Gmail or Yahoo</title>
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf9; --ink:#15171a; --ink2:#43464c; --muted:#6c6f75; --rule:#ddd6c8; --rule2:#ece6da;
+  --accent:#8a5a1f; --accent2:#1f4e79; --tint:#f3ecdf; --tint2:#eef3f8;
+  --good:#0b7a0b; --goodbg:#e4f3e4; --bad:#b32d2d; --badbg:#f8e5e5; --neu:#5b5e64; --neubg:#eceae5;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s0:#b3b1aa;
+  --navbg:#15171a; --navink:#fffdf9;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161616; --paper:#1d1d1c; --ink:#f3f1ec; --ink2:#cfccc4; --muted:#a3a098; --rule:#3a3935; --rule2:#2c2b28;
+    --accent:#e0a860; --accent2:#8cb8e6; --tint:#272420; --tint2:#1f2630;
+    --good:#5fd35f; --goodbg:#1d3320; --bad:#ff8a8a; --badbg:#3a2020; --neu:#c3c2b7; --neubg:#2c2b28;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s0:#6b6a64; --navbg:#f3f1ec; --navink:#161616; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#161616; --paper:#1d1d1c; --ink:#f3f1ec; --ink2:#cfccc4; --muted:#a3a098; --rule:#3a3935; --rule2:#2c2b28;
+    --accent:#e0a860; --accent2:#8cb8e6; --tint:#272420; --tint2:#1f2630;
+    --good:#5fd35f; --goodbg:#1d3320; --bad:#ff8a8a; --badbg:#3a2020; --neu:#c3c2b7; --neubg:#2c2b28;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s0:#6b6a64; --navbg:#f3f1ec; --navink:#161616; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Source Serif 4","Times New Roman",serif;
+  font-size:27px;line-height:1.62;font-weight:600;-webkit-text-size-adjust:100%}
+.wrap{max-width:1320px;margin:0 auto;padding:40px 40px 140px}
+.sans,table,.pill,.stat,.backnav,.floatnav,.legend,figcaption,.facts,.season,nav.toc,.chips,.meta,small{font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif}
+h1,h2,h3,h4{font-weight:700;line-height:1.2;color:var(--ink)}
+strong,b{font-weight:800}
+a{color:var(--accent2);text-decoration-thickness:2px;text-underline-offset:3px}
+header.mast{border-bottom:4px double var(--rule);padding-bottom:28px;margin-bottom:32px}
+.kicker{font-family:"Helvetica Neue",Arial,sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.62em;color:var(--accent);font-weight:800}
+h1{font-size:2.7em;margin:.15em 0 .2em;letter-spacing:-.01em}
+.deck{font-size:1.12em;color:var(--ink2);font-style:italic;margin:.2em 0 .6em;max-width:48ch}
+.meta{font-size:.66em;color:var(--muted);font-weight:600}
+h2{font-size:1.85em;margin:2.4em 0 .6em;padding-top:.5em;border-top:3px solid var(--ink);display:flex;gap:.5em;align-items:baseline}
+h3{font-size:1.3em;margin:1.8em 0 .5em;display:flex;gap:.5em;align-items:baseline}
+h4{font-size:1.15em;margin:.2em 0 .5em}
+.secno{font-family:"Helvetica Neue",Arial,sans-serif;color:var(--accent);font-weight:800;font-size:.8em}
+.secno.s{font-size:.75em}
+p{margin:.6em 0 .9em}
+.lede{font-size:1.08em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.stat{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.stat b{display:block;font-size:1.75em;font-weight:800;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.6em;color:var(--ink2);font-weight:600;display:block;margin-top:6px;line-height:1.35}
+.stat.hl{border-color:var(--accent);box-shadow:inset 4px 0 0 var(--accent)}
+nav.toc{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:22px 30px;font-size:.78em}
+nav.toc ol{margin:.3em 0;padding-left:1.4em;list-style:none;counter-reset:item}
+nav.toc li::before{content:counters(item,".") "  ";counter-increment:item;color:var(--accent);font-weight:800;margin-right:.35em}
+nav.toc li.app::before{content:"A";counter-increment:none}
+nav.toc>ol>li{margin:.45em 0;font-weight:800}
+nav.toc ol ol{font-weight:600;font-size:.92em}
+nav.toc ol ol li{margin:.2em 0}
+.callout{background:var(--tint);border-left:6px solid var(--accent);padding:18px 24px;border-radius:0 10px 10px 0;margin:22px 0}
+.callout.blue{background:var(--tint2);border-left-color:var(--accent2)}
+.callout p:first-child{margin-top:0}.callout p:last-child{margin-bottom:0}
+ul.keys{padding-left:1.1em}ul.keys li{margin:.5em 0}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 22px;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:.66em;font-weight:600}
+th,td{padding:10px 12px;border-bottom:1px solid var(--rule2);text-align:left;vertical-align:top}
+th{background:var(--tint);font-weight:800;position:sticky;top:0;white-space:nowrap}
+td.num,th.num{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.nowrap{white-space:nowrap}
+td small{color:var(--muted);font-weight:600}
+tr.r-dup td{color:var(--muted)}
+tr:target td{background:var(--tint2);outline:2px solid var(--accent2)}
+.pill{display:inline-block;font-size:.9em;font-weight:800;padding:2px 10px;border-radius:12px;background:var(--neubg);color:var(--neu);line-height:1.5}
+.pill.good{background:var(--goodbg);color:var(--good)}.pill.bad{background:var(--badbg);color:var(--bad)}
+.pill.conf{background:var(--goodbg);color:var(--good)}.pill.prob{background:var(--tint);color:var(--accent)}
+.pill.c-offer{background:var(--goodbg);color:var(--good)}.pill.c-onsite{background:var(--tint2);color:var(--accent2)}
+.pill.c-req{background:var(--tint);color:var(--accent)}.pill.c-dup{opacity:.75}
+.pill.src-y{background:var(--tint2);color:var(--accent2)}.pill.src-g{background:var(--neubg);color:var(--neu)}.pill.src-b{background:var(--goodbg);color:var(--good)}
+.fig{margin:26px 0;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:20px 22px}
+figcaption{font-weight:800;font-size:.72em;margin-bottom:8px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.6em;font-weight:700;color:var(--ink2);margin-bottom:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:7px;vertical-align:-2px}
+svg.chart{width:100%;height:auto;display:block}
+svg .grid{stroke:var(--rule2);stroke-width:1}
+svg .ax{fill:var(--muted);font-size:17px;font-family:"Helvetica Neue",Arial,sans-serif;font-weight:700}
+svg .val{fill:var(--ink);font-size:17px;font-family:"Helvetica Neue",Arial,sans-serif;font-weight:800}
+svg rect:hover{opacity:.8}
+details.tview{margin-top:10px;font-size:.8em}
+details summary{cursor:pointer;font-weight:800;color:var(--accent2)}
+.dossier{background:var(--paper);border:1px solid var(--rule);border-left:6px solid var(--good);border-radius:10px;padding:22px 28px;margin:26px 0}
+.dossier.proc{border-left-color:var(--accent2)}
+dl.facts{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font-size:.7em;margin:10px 0 16px;padding:14px 16px;background:var(--tint);border-radius:8px}
+dl.facts dt{font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:.85em;padding-top:2px}
+dl.facts dd{margin:0}
+.srcline{font-size:.68em;color:var(--muted)}
+ol.season{list-style:none;padding:0;margin:18px 0;border-left:4px solid var(--rule);font-size:.68em}
+ol.season li{position:relative;padding:8px 0 8px 26px;display:grid;grid-template-columns:130px 190px 1fr;gap:12px;align-items:baseline;border-bottom:1px dashed var(--rule2)}
+ol.season li::before{content:"";position:absolute;left:-11px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--s0);border:3px solid var(--paper)}
+ol.season time{font-weight:800;font-variant-numeric:tabular-nums}
+ol.season .who{font-weight:800}
+ol.season li.t-Y::before{background:var(--accent2)}
+ol.season li.t-Y .what{font-weight:800}
+ol.season li.t-K::before{background:var(--good)}ol.season li.t-K .what{font-weight:800}
+ol.season li.t-G{color:var(--ink2)}
+.backnav{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;margin:18px 0 6px;font-size:.58em;font-weight:800}
+.backnav a{text-decoration:none;border:2px solid var(--rule);border-radius:999px;padding:4px 14px;background:var(--paper)}
+.backnav a:hover{border-color:var(--accent2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;font-size:.62em;font-weight:800}
+.chips a{text-decoration:none;border:2px solid var(--rule);border-radius:8px;padding:4px 12px;background:var(--paper)}
+.floatnav{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:800}
+.floatnav a{background:var(--navbg);color:var(--navink);text-decoration:none;padding:9px 16px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.22);text-align:center}
+.floatnav a:hover{opacity:.88}
+.q{counter-reset:q;list-style:none;padding:0}
+.q li{counter-increment:q;position:relative;padding:12px 0 12px 64px;border-bottom:1px solid var(--rule2)}
+.q li::before{content:counter(q);position:absolute;left:0;top:12px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:"Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:.8em}
+blockquote.take{font-size:1.25em;font-style:italic;border-left:6px solid var(--accent);margin:24px 0;padding:6px 0 6px 26px}
+footer{margin-top:60px;border-top:3px double var(--rule);padding-top:18px;font-size:.62em;color:var(--muted)}
+code{font-size:.85em}
+@media (min-width:901px) and (max-width:1700px){.wrap{padding-right:170px}}
+@media (max-width:900px){
+  body{font-size:19px}
+  .wrap{padding:22px 16px 120px}
+  h1{font-size:2em}
+  .stats{grid-template-columns:1fr 1fr}
+  ol.season li{grid-template-columns:1fr;gap:2px}
+  dl.facts{grid-template-columns:1fr}
+  table{font-size:.78em;min-width:780px}
+  .floatnav a.opt{display:none}
+  .floatnav{right:10px;bottom:10px;font-size:13px;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 20px)}
+  .floatnav a{padding:7px 11px}
+  svg .ax,svg .val{font-size:22px}
+}
+@media print{.floatnav,.backnav{display:none}body{font-size:13pt;background:#fff}}
+
+.pill.cat-a{background:var(--goodbg);color:var(--good)}
+.pill.cat-b{background:var(--tint2);color:var(--accent2)}
+.pill.cat-c{background:var(--tint);color:var(--accent)}
+tr.row-c td{background:var(--tint)}
+.glance{margin:26px 0 10px}
+.glance h3{margin:0 0 .4em;font-size:1.05em}
+.glance .sub{font-size:.62em;color:var(--muted);margin:0 0 10px;font-family:"Helvetica Neue",Arial,sans-serif}
+table.xt{font-size:.72em;table-layout:fixed}
+table.xt th,table.xt td{border:1px solid var(--rule);padding:14px 16px;vertical-align:top}
+table.xt th{position:static;white-space:normal;text-align:center}
+table.xt th.rowh{text-align:left;width:19%}
+table.xt col.cell{width:33%}
+table.xt td.c{text-align:left}
+table.xt .n{display:block;font-size:2.3em;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;margin-bottom:4px}
+table.xt .lab{display:block;text-decoration:none;font-weight:800;margin-bottom:6px}
+table.xt .who{display:block;font-size:.86em;font-weight:600;color:var(--ink2);line-height:1.45}
+table.xt td.a{background:var(--goodbg)} table.xt td.a .n,table.xt td.a .lab{color:var(--good)}
+table.xt td.b{background:var(--tint2)} table.xt td.b .n,table.xt td.b .lab{color:var(--accent2)}
+table.xt td.cc{background:var(--tint)} table.xt td.cc .n,table.xt td.cc .lab{color:var(--accent)}
+table.xt td.na{background:var(--paper);color:var(--muted)}
+table.xt td.tot,table.xt th.tot{background:var(--neubg);text-align:center}
+table.xt td.tot .n{font-size:1.9em}
+table.xt td.grand{background:var(--ink);color:var(--paper);text-align:center}
+table.xt td.grand .n{color:var(--paper)}
+ol.checks{font-size:.7em;font-family:"Helvetica Neue",Arial,sans-serif;margin:12px 0 0;padding-left:1.4em}
+ol.checks li{margin:.25em 0}
+@media (max-width:900px){table.xt{min-width:680px}}
+</style>
+</head>
+<body id="top">
+<nav class="floatnav" aria-label="Quick navigation">
+  <a href="#contents">☰ 回目錄</a>
+  <a href="#s3">Register</a>
+  <a class="opt" href="#s4">No-on-site offers</a>
+  <a class="opt" href="#s6">By place</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">⌂ 回首頁</a>
+  <a href="#top">↑ Top</a>
+</nav>
+<div class="wrap">
+<header class="mast">
+  <div class="kicker">Career archive · combined edition · Gmail + Yahoo</div>
+  <h1>On-site Visits or Offers thru Gmail or Yahoo</h1>
+  <p class="deck">Every in-person interview and every offer found in either mailbox, 2012–2018 — where it was, how it ended, and the four offers that came without a visit at all.</p>
+  <div class="meta">Prepared for Chang Hsiung · September 30, 2026 · Built from the audited Gmail report (job-interviews-report_Gmail-Only.html) and the audited Yahoo report (job-interviews-report_Yahoo-Only.html)</div>
+</header>
+
+<section class="glance" aria-label="The record at a glance">
+<h3>The record at a glance — every number adds up</h3>
+<p class="sub">Rows: was there an on-site visit? Columns: was an offer received? Each company appears in exactly one coloured cell; rows and columns add to the totals. Click a number to open that group in the register.</p>
+<div class="tablewrap"><table class="xt">
+<colgroup><col style="width:19%"><col class="cell"><col class="cell"><col style="width:15%"></colgroup>
+<tr><th class="rowh"></th><th>Offer received</th><th>No offer received</th><th class="tot">Total</th></tr>
+<tr><th class="rowh">On-site visit</th>
+ <td class="c a"><a href="#s3-1" style="text-decoration:none"><span class="n">7</span></a><a class="lab" href="#s3-1">On-site → offer ›</a><span class="who">Goodyear Tire &amp; Rubber, BD Biosciences, Leads360, Intel Labs, Polaris Wireless, JDSU, 1st Detect</span></td>
+ <td class="c b"><a href="#s3-2" style="text-decoration:none"><span class="n">15</span></a><a class="lab" href="#s3-2">On-site, no offer ›</a><span class="who">HRL Laboratories, KPMG, Amazon, Beckman Coulter, Macys.com, Guardian Analytics, Rearden Commerce / Deem, Impermium, H2Scan, Scanadu, TruTouch Technologies, Alakai Defense Systems, DuPont Pioneer, Konica Minolta Laboratory, Smiths Detection</span></td>
+ <td class="tot"><span class="n">22</span>on-site visits<br><small>7 + 15</small></td></tr>
+<tr><th class="rowh">No on-site visit</th>
+ <td class="c cc"><a href="#s3-3" style="text-decoration:none"><span class="n">4</span></a><a class="lab" href="#s3-3">Offer without on-site ›</a><span class="who">Apple, Wipro, ELORET, BP</span></td>
+ <td class="c na"><span class="lab">— not counted</span><span class="who">Phone-only processes that ended without an offer are outside this report (see the Gmail and Yahoo reports).</span></td>
+ <td class="tot"><span class="n">4</span>offers without a visit</td></tr>
+<tr><th class="rowh tot">Total</th>
+ <td class="tot"><span class="n">11</span>offers<br><small>7 + 4</small></td>
+ <td class="tot"><span class="n">15</span>visits without an offer</td>
+ <td class="grand"><span class="n">26</span>entries<br><small>7 + 15 + 4</small></td></tr>
+</table></div>
+<ol class="checks">
+ <li><b>22 on-site visits</b> = 7 with an offer + 15 without = 21 from the Gmail report + 1 (1st Detect) from the Yahoo evidence.</li>
+ <li><b>11 offers</b> = 7 after a visit + 4 without one = 8 from the Gmail report + 2 found only in Yahoo (1st Detect, ELORET) + 1 confirmed by Chang (BP, 2017).</li>
+ <li><b>26 entries</b> = 22 visits + 4 offers without a visit = the 26 numbered rows of the full register (<a href="#s3-4">§3.4</a>).</li>
+ <li><b>3 offers became jobs</b> — BD Biosciences and JDSU (both after a visit) and Apple (no visit) — all in the Bay Area.</li>
+</ol>
+</section>
+
+<h2 id="contents"><span class="secno">§</span>Contents · 目錄</h2>
+<nav class="toc" aria-label="Table of contents">
+<ol>
+ <li><a href="#s1">Summary</a></li>
+ <li><a href="#s2">Sources and method</a>
+   <ol><li><a href="#s2-1">Two mailboxes, one list</a></li><li><a href="#s2-2">What counts as an entry</a></li><li><a href="#s2-3">How the locations were found</a></li></ol></li>
+ <li><a href="#s3">The register — 26 entries</a>
+   <ol><li><a href="#s3-1">On-site visit → offer received (7)</a></li><li><a href="#s3-2">On-site visit, no offer (15)</a></li><li><a href="#s3-3">Offer without an on-site visit (4)</a></li><li><a href="#s3-4">All 26 entries in date order</a></li></ol></li>
+ <li><a href="#s4">Offers without an on-site visit</a>
+   <ol><li><a href="#s4-1">Apple (via Red Oak), 2013</a></li><li><a href="#s4-2">Wipro (via ReqRoute), 2013</a></li><li><a href="#s4-3">ELORET, 2014</a></li><li><a href="#s4-4">BP, Naperville, 2017</a></li></ol></li>
+ <li><a href="#s5">By year</a></li>
+ <li><a href="#s6">By place</a></li>
+ <li><a href="#s7">Discussion</a>
+   <ol><li><a href="#s7-1">The conversion window</a></li><li><a href="#s7-2">Place decided the outcome</a></li><li><a href="#s7-3">Why four offers needed no visit</a></li><li><a href="#s7-4">Limitations</a></li></ol></li>
+ <li><a href="#s8">Take-home message</a></li>
+ <li><a href="#s9">Open questions for the author to verify</a></li>
+</ol>
+</nav>
+
+<!-- ============================================================ 1 -->
+<h2 id="s1"><span class="secno">1</span>Summary</h2>
+<p class="lede">Across both mailboxes there are <b>22 on-site visits</b> and <b>11 offers</b>. Seven offers followed a visit; <b>four came without one</b>. Put together, they make 26 entries — the complete record of every time an employer met Chang in person or said yes in writing.</p>
+<ul class="keys">
+ <li><b>Four offers with no on-site.</b> Apple (February 2013, via Red Oak) hired him on a recruiter’s negotiation alone; Wipro (June–July 2013) made its offer after phone-bridge rounds; ELORET (November 2014) sent a draft and a formal letter with no visit on record; and <b>BP</b> (mid-2017) made a verbal offer for a Research and Chemometrics Scientist role in Naperville, Illinois, after a phone and video-panel process — which Chang turned down over pay. Apple is the only one of the four that became a job.</li>
+ <li><b>Ten of eleven offers fell inside 23 months.</b> Nine date from 2013 and one from November 2014 (ELORET); the eleventh, BP in mid-2017, is the only offer of the whole JDSU/Viavi decade after ELORET.</li>
+ <li><b>On-sites converted only while the search was hot.</b> Of the 15 visits up to July 2013, seven produced offers. Of the seven visits from December 2013 onwards, none did.</li>
+ <li><b>Place decided the outcome.</b> Every offer outside California — Goodyear (Ohio), Intel (Oregon), 1st Detect (Texas) and BP (Illinois) — was turned down. All three offers that became jobs were in the Bay Area: BD Biosciences in San Jose, Apple in Sunnyvale and JDSU in Santa Rosa.</li>
+ <li><b>A city for 24 of the 26 entries.</b> Six come straight from the emails, one (BP) from Chang himself, the rest from public records of the company’s site at the time or from clues in the emails. KPMG’s office and the Wipro role’s location are not recorded.</li>
+</ul>
+<div class="backnav"><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 2 -->
+<h2 id="s2"><span class="secno">2</span>Sources and method</h2>
+<h3 id="s2-1"><span class="secno s">2.1</span>Two mailboxes, one list</h3>
+<div class="callout blue"><p><b>Note — this report combines Gmail and Yahoo.</b> The 21 on-site visits verified in the Gmail report (its §5.1) are all here. One more is added: <b>1st Detect, June 2013</b>. The Gmail report filed the June 2013 Astrotech hotel reservation as “invited, not held” because no interview was attached to it; the Yahoo mailbox shows 1st Detect (an Astrotech company) making an offer on July 9, which makes a visit the most likely reading. That is an inference, so the visit is marked <i>probable</i>. The Gmail report itself still says 21.</p></div>
+<p>Offers come from the eight in the Gmail report, the two found only in Yahoo (1st Detect and ELORET), and <b>BP</b>, whose offer is not in the surviving emails but was <b>confirmed by Chang (September 2026)</b>. The BP process is in Gmail (thread #173, 24 emails, June–September 2017), but the archive kept only its first eight messages, all from June 26–28 — so the interview itself, the verbal offer and the decline fall in the part that was never captured. The <b>Mailbox</b> column shows where each entry is documented: <span class="pill src-g">Gmail</span>, <span class="pill src-y">Yahoo</span>, or <span class="pill src-b">Both</span> when each mailbox holds part of the story.</p>
+<div class="backnav"><a href="#s2">↑ Section 2</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s2-2"><span class="secno s">2.2</span>What counts as an entry</h3>
+<div class="tablewrap"><table>
+<tr><th>Category</th><th>Meaning</th><th class="num">Entries</th></tr>
+<tr><td><span class="pill cat-a">On-site → offer</span></td><td>An in-person visit, followed by a written or verbal offer</td><td class="num">7</td></tr>
+<tr><td><span class="pill cat-b">On-site, no offer</span></td><td>An in-person visit with a rejection or no recorded outcome</td><td class="num">15</td></tr>
+<tr><td><span class="pill cat-c">Offer without on-site</span></td><td>An offer made after phone or video rounds only, or with no interview visit on record</td><td class="num">4</td></tr>
+<tr><td colspan="2"><b>Total</b></td><td class="num">26</td></tr>
+</table></div>
+<p>In the <b>On-site</b> column, <span class="pill conf">Confirmed</span> means the emails show the visit happened (a thank-you note, an expense voucher, a reference to “last week’s onsite”); <span class="pill prob">Probable</span> means it was booked, often with travel arranged, but the emails stop before the day; <span class="pill">None</span> means no visit took place or none is recorded.</p>
+<p>Invitations that never became visits — PacBio’s on-site turned into Skype, Bayer’s trip cancelled, Block Engineering postponed, and the others in the Gmail report’s §5.3 — are not included, because they produced neither a visit nor an offer.</p>
+<div class="backnav"><a href="#s2">↑ Section 2</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s2-3"><span class="secno s">2.3</span>How the locations were found</h3>
+<ul class="keys">
+ <li><span class="pill good">Emails</span> the city is written in the correspondence — 6 entries (Malibu, San Jose, Sunnyvale, Mountain View for Polaris, Johnston/Des Moines, Edgewood).</li>
+ <li><span class="pill src-g">Researched</span> the emails do not name the city, so the company’s site at the time was looked up in public sources: company pages, an SEC filing, news reports and business directories — 12 entries.</li>
+ <li><span class="pill prob">Inferred</span> the city follows from clues in the emails — travel, time zones, a folder name, where he later worked — but is not stated outright — 5 entries (Amazon, Beckman Coulter, Intel, JDSU, ELORET).</li>
+ <li><span class="pill src-y">Confirmed by Chang</span> the location was supplied by Chang (September 2026) — 1 entry (BP, Naperville, IL).</li>
+ <li><span class="pill">Unknown</span> no location could be found — 2 entries (KPMG, Wipro).</li>
+</ul>
+<p>One identification came out of the location search: the 2014 sender “TTT Inc.” wrote from <i>tttinc.com</i>, the domain of <b>TruTouch Technologies</b>, an optical alcohol-sensing company in Riverside, California, founded by the contact in that thread, Ben Ver Steeg.</p>
+<div class="backnav"><a href="#s2">↑ Section 2</a><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 3 -->
+<h2 id="s3"><span class="secno">3</span>The register — 26 entries</h2>
+<p>The register is split into the same three groups as the summary table at the top of the page — click any number there, or a heading below, to jump to a group. Each group is in date order and numbered from 1, so its last row number is its count. Section 3.4 repeats all 26 entries in one date-ordered list as a cross-check.</p>
+<div class="tablewrap"><table>
+<tr><th>Group</th><th class="num">Entries</th><th>Running check</th></tr>
+<tr><td><a href="#s3-1"><span class="pill cat-a">3.1 On-site visit → offer received</span></a></td><td class="num">7</td><td>7 offers after a visit</td></tr>
+<tr><td><a href="#s3-2"><span class="pill cat-b">3.2 On-site visit, no offer</span></a></td><td class="num">15</td><td>7 + 15 = 22 on-site visits</td></tr>
+<tr><td><a href="#s3-3"><span class="pill cat-c">3.3 Offer without an on-site visit</span></a></td><td class="num">4</td><td>7 + 4 = 11 offers</td></tr>
+<tr><td><a href="#s3-4"><b>3.4 All entries in date order</b></a></td><td class="num">26</td><td>7 + 15 + 4 = 26</td></tr>
+</table></div>
+<div class="backnav"><a href="#s3">↑ Register</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s3-1"><span class="secno s">3.1</span>On-site visit → offer received <span class="pill cat-a">7 companies</span></h3>
+<p>Seven in-person visits ended in a written or verbal offer — all between January and July 2013. Two of these offers became jobs: BD Biosciences and JDSU.</p>
+<div class="tablewrap"><table><tr><th>#</th><th>Date</th><th>Employer / evidence</th><th>Location</th><th>On-site</th><th>Offer / outcome</th><th>Mailbox</th></tr><tr><td class="num">1</td><td class="nowrap">2013-01</td><td><b>Goodyear Tire &amp; Rubber</b><br><small>On-site after the Jan 3–4 Webex panel; offer included relocation</small></td><td><b>Akron, OH</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer Jan 25 — signed, then declined</span></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">2</td><td class="nowrap">2013-01 (≈Jan 18–22)</td><td><b>BD Biosciences (via Spectraforce)</b><br><small>In-person interview “San Jose CA 95132”</small></td><td><b>San Jose, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer Jan 24 — accepted; worked ≈2 weeks</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">3</td><td class="nowrap">2013-04</td><td><b>Leads360 (via Technical Connections)</b><br><small>Phone Mar 21, Skype Mar 26, then in-person</small></td><td><b>El Segundo, CA (Los Angeles area)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer May 7 — no acceptance recorded</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">4</td><td class="nowrap">2013-05-10</td><td><b>Intel Labs (Graph Analytics)</b><br><small>Full-day schedule; Chang “on my way to airport” that afternoon</small></td><td><b>Oregon — Hillsboro area (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer Jun 12 — declined Jun 26</span></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">5</td><td class="nowrap">2013-05-21</td><td><b>Polaris Wireless (via Akraya)</b><br><small>On-site confirmation “Mountain View, CA”</small></td><td><b>Mountain View, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Verbal offer May 22–24 — no letter</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">6</td><td class="nowrap">2013-06</td><td><b>JDSU</b><br><small>“Interview Schedule and Technical Presentation”; NIR group at JDSU’s Santa Rosa site</small></td><td><b>Santa Rosa, CA (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill good">Offer Jul 18 — accepted; 2013–2024</span></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">7</td><td class="nowrap">2013-06</td><td><b>1st Detect (Astrotech)</b><br><small>Astrotech hotel reservation (Gmail); offer thread (Yahoo). Visit inferred from the two</small></td><td><b>Webster, TX (likely)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill good">Offer Jul 9 — not taken</span></td><td><span class="pill src-b">Both</span></td></tr></table></div>
+<div class="backnav"><a href="#s3">↑ Register</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s3-2"><span class="secno s">3.2</span>On-site visit, no offer <span class="pill cat-b">15 companies</span></h3>
+<p>Fifteen in-person visits ended without an offer: four with a recorded rejection (KPMG, Macys.com, Rearden/Deem, Impermium) and eleven with no recorded outcome. Eight of the fifteen took place before August 2013; the other seven came after Chang joined JDSU.</p>
+<div class="tablewrap"><table><tr><th>#</th><th>Date</th><th>Employer / evidence</th><th>Location</th><th>On-site</th><th>Offer / outcome</th><th>Mailbox</th></tr><tr><td class="num">1</td><td class="nowrap">2012-07-16</td><td><b>HRL Laboratories</b><br><small>“just came back from an on-site interview with HRL (at Malibu)”</small></td><td><b>Malibu, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">2</td><td class="nowrap">2012-09-18</td><td><b>KPMG</b><br><small>In-office interviews 11 am–2:30 pm; office not named</small></td><td><b>Not stated</b><br><span class="pill">Unknown</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill bad">Rejection recorded</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">3</td><td class="nowrap">2012-11-09</td><td><b>Amazon</b><br><small>Interview loop held for Nov 9; that day Chang wrote he had been “travelling yesterday and today”</small></td><td><b>Seattle, WA (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">4</td><td class="nowrap">2012-11-12</td><td><b>Beckman Coulter</b><br><small>Flew out Sunday, interviewed Monday; scheduler wrote in Eastern Time</small></td><td><b>Eastern-time site — Miami, FL or Indianapolis, IN</b><br><span class="pill prob">Inferred</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">5</td><td class="nowrap">2013-01-09</td><td><b>Macys.com (via Experis)</b><br><small>“I had a wonderful trip”</small></td><td><b>San Francisco, CA (likely)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill bad">Rejection recorded</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">6</td><td class="nowrap">2013-03 (late)</td><td><b>Guardian Analytics</b><br><small>Lunch-hour office visit near Apple Sunnyvale</small></td><td><b>Mountain View, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">7</td><td class="nowrap">2013-06 (late)</td><td><b>Rearden Commerce / Deem</b><br><small>Status update refers to “feedback received following your onsite interview”</small></td><td><b>Foster City, CA (likely)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill bad">Rejection recorded</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">8</td><td class="nowrap">2013-07-30</td><td><b>Impermium (via Xcreek)</b><br><small>Arrival 12:30 pm; vegetarian lunch arranged</small></td><td><b>Redwood City, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill bad">Rejection recorded</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">9</td><td class="nowrap">2013-12-20</td><td><b>H2Scan (via Tower H)</b><br><small>“confirmed for your onsite interview at H2Scan”, 10:30–4:30</small></td><td><b>Valencia, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">10</td><td class="nowrap">2014-04-02</td><td><b>Scanadu (via Tower H)</b><br><small>“confirmed to meet the team at Scanadu”</small></td><td><b>NASA Ames Research Park, Moffett Field / Mountain View, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">11</td><td class="nowrap">2014-08-12</td><td><b>TruTouch Technologies (“TTT Inc.”)</b><br><small>Sender domain tttinc.com; planned Southern California visit with rental car</small></td><td><b>Riverside, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">12</td><td class="nowrap">2014-08 (wk of Aug 18)</td><td><b>Alakai Defense Systems</b><br><small>“Follow-up from onsite meeting last week”</small></td><td><b>Largo, FL (Tampa Bay)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">13</td><td class="nowrap">2017-03</td><td><b>DuPont Pioneer</b><br><small>Flights SFO → Des Moines booked by Pioneer</small></td><td><b>Johnston, IA (near Des Moines)</b><br><span class="pill good">Emails</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">14</td><td class="nowrap">2018-01-26</td><td><b>Konica Minolta Laboratory (via CyberCoders)</b><br><small>In-person interview booked, 4:00 PM</small></td><td><b>San Mateo, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">15</td><td class="nowrap">2018-04-25</td><td><b>Smiths Detection</b><br><small>“your interview at our Edgewood, MD site will be a 1 hour panel interview”</small></td><td><b>Edgewood, MD</b><br><span class="pill good">Emails</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><span class="pill src-b">Both</span></td></tr></table></div>
+<div class="backnav"><a href="#s3">↑ Register</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s3-3"><span class="secno s">3.3</span>Offer without an on-site visit <span class="pill cat-c">4 companies</span></h3>
+<p>Four offers came with no in-person visit at all. Each has a short dossier in section <a href="#s4">4</a>; Apple is the only one that became a job. BP’s offer is known from Chang’s own account; the emails that would record it were not captured.</p>
+<div class="tablewrap"><table><tr><th>#</th><th>Date</th><th>Employer / evidence</th><th>Location</th><th>On-site</th><th>Offer / outcome</th><th>Mailbox</th></tr><tr><td class="num">1</td><td class="nowrap">2013-02-13</td><td><b>Apple (via Red Oak Technologies)</b><br><small>Terms agreed with Red Oak: $60/hr, contract-to-hire in 3 months. No on-site — Chang later remarked he never even went there for an on-site interview</small></td><td><b>Sunnyvale, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill">None</span></td><td><span class="pill good">Accepted — worked Mar 4 – May 15, 2013</span></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">2</td><td class="nowrap">2013-06 → 07</td><td><b>Wipro (via ReqRoute)</b><br><small>Phone-bridge rounds Jun 11–25 only. Verbal offer ≈late June, letter signed Jul 15</small></td><td><b>Not stated</b><br><span class="pill">Unknown</span></td><td><span class="pill">None</span></td><td><span class="pill good">Signed Jul 15 — withdrawn Jul 24</span></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">3</td><td class="nowrap">2014-11-17</td><td><b>ELORET</b><br><small>Missed call Sep 9 (“I may or may not move”), draft letter, offer letter Nov 17. No visit recorded</small></td><td><b>NASA Ames, Moffett Field, CA (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill">None</span></td><td><span class="pill good">Offer letter — not taken; stayed at JDSU</span></td><td><span class="pill src-y">Yahoo</span></td></tr><tr><td class="num">4</td><td class="nowrap">2017-06 → 09</td><td><b>BP (Research &amp; Chemometrics Scientist)</b><br><small>Phone interview booked for Jul 5, then switched to a video panel (Skype test Jun 29). Verbal offer mid-2017, declined over pay — confirmed by Chang; the later emails were not captured</small></td><td><b>Naperville, IL</b><br><span class="pill src-y">Confirmed by Chang</span></td><td><span class="pill">None</span></td><td><span class="pill good">Verbal offer mid-2017 — declined over pay</span></td><td><span class="pill src-g">Gmail</span></td></tr></table></div>
+<div class="backnav"><a href="#s3">↑ Register</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s3-4"><span class="secno s">3.4</span>All 26 entries in date order</h3>
+<p>The three groups merged into one timeline. The <b>Category</b> column links each row back to its group; the four offers made without a visit are shaded.</p>
+<div class="tablewrap"><table><tr><th>#</th><th>Date</th><th>Employer / evidence</th><th>Location</th><th>On-site</th><th>Offer / outcome</th><th>Category</th><th>Mailbox</th></tr><tr><td class="num">1</td><td class="nowrap">2012-07-16</td><td><b>HRL Laboratories</b><br><small>“just came back from an on-site interview with HRL (at Malibu)”</small></td><td><b>Malibu, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">2</td><td class="nowrap">2012-09-18</td><td><b>KPMG</b><br><small>In-office interviews 11 am–2:30 pm; office not named</small></td><td><b>Not stated</b><br><span class="pill">Unknown</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill bad">Rejection recorded</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">3</td><td class="nowrap">2012-11-09</td><td><b>Amazon</b><br><small>Interview loop held for Nov 9; that day Chang wrote he had been “travelling yesterday and today”</small></td><td><b>Seattle, WA (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">4</td><td class="nowrap">2012-11-12</td><td><b>Beckman Coulter</b><br><small>Flew out Sunday, interviewed Monday; scheduler wrote in Eastern Time</small></td><td><b>Eastern-time site — Miami, FL or Indianapolis, IN</b><br><span class="pill prob">Inferred</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">5</td><td class="nowrap">2013-01</td><td><b>Goodyear Tire &amp; Rubber</b><br><small>On-site after the Jan 3–4 Webex panel; offer included relocation</small></td><td><b>Akron, OH</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer Jan 25 — signed, then declined</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">6</td><td class="nowrap">2013-01-09</td><td><b>Macys.com (via Experis)</b><br><small>“I had a wonderful trip”</small></td><td><b>San Francisco, CA (likely)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill bad">Rejection recorded</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">7</td><td class="nowrap">2013-01 (≈Jan 18–22)</td><td><b>BD Biosciences (via Spectraforce)</b><br><small>In-person interview “San Jose CA 95132”</small></td><td><b>San Jose, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer Jan 24 — accepted; worked ≈2 weeks</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr class="row-c"><td class="num">8</td><td class="nowrap">2013-02-13</td><td><b>Apple (via Red Oak Technologies)</b><br><small>Terms agreed with Red Oak: $60/hr, contract-to-hire in 3 months. No on-site — Chang later remarked he never even went there for an on-site interview</small></td><td><b>Sunnyvale, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill">None</span></td><td><span class="pill good">Accepted — worked Mar 4 – May 15, 2013</span></td><td><a href="#s3-3"><span class="pill cat-c">Offer without on-site</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">9</td><td class="nowrap">2013-03 (late)</td><td><b>Guardian Analytics</b><br><small>Lunch-hour office visit near Apple Sunnyvale</small></td><td><b>Mountain View, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">10</td><td class="nowrap">2013-04</td><td><b>Leads360 (via Technical Connections)</b><br><small>Phone Mar 21, Skype Mar 26, then in-person</small></td><td><b>El Segundo, CA (Los Angeles area)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer May 7 — no acceptance recorded</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">11</td><td class="nowrap">2013-05-10</td><td><b>Intel Labs (Graph Analytics)</b><br><small>Full-day schedule; Chang “on my way to airport” that afternoon</small></td><td><b>Oregon — Hillsboro area (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Offer Jun 12 — declined Jun 26</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">12</td><td class="nowrap">2013-05-21</td><td><b>Polaris Wireless (via Akraya)</b><br><small>On-site confirmation “Mountain View, CA”</small></td><td><b>Mountain View, CA</b><br><span class="pill good">Emails</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill good">Verbal offer May 22–24 — no letter</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">13</td><td class="nowrap">2013-06</td><td><b>JDSU</b><br><small>“Interview Schedule and Technical Presentation”; NIR group at JDSU’s Santa Rosa site</small></td><td><b>Santa Rosa, CA (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill good">Offer Jul 18 — accepted; 2013–2024</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">14</td><td class="nowrap">2013-06</td><td><b>1st Detect (Astrotech)</b><br><small>Astrotech hotel reservation (Gmail); offer thread (Yahoo). Visit inferred from the two</small></td><td><b>Webster, TX (likely)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill good">Offer Jul 9 — not taken</span></td><td><a href="#s3-1"><span class="pill cat-a">On-site → offer</span></a></td><td><span class="pill src-b">Both</span></td></tr><tr class="row-c"><td class="num">15</td><td class="nowrap">2013-06 → 07</td><td><b>Wipro (via ReqRoute)</b><br><small>Phone-bridge rounds Jun 11–25 only. Verbal offer ≈late June, letter signed Jul 15</small></td><td><b>Not stated</b><br><span class="pill">Unknown</span></td><td><span class="pill">None</span></td><td><span class="pill good">Signed Jul 15 — withdrawn Jul 24</span></td><td><a href="#s3-3"><span class="pill cat-c">Offer without on-site</span></a></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">16</td><td class="nowrap">2013-06 (late)</td><td><b>Rearden Commerce / Deem</b><br><small>Status update refers to “feedback received following your onsite interview”</small></td><td><b>Foster City, CA (likely)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill bad">Rejection recorded</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">17</td><td class="nowrap">2013-07-30</td><td><b>Impermium (via Xcreek)</b><br><small>Arrival 12:30 pm; vegetarian lunch arranged</small></td><td><b>Redwood City, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill bad">Rejection recorded</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">18</td><td class="nowrap">2013-12-20</td><td><b>H2Scan (via Tower H)</b><br><small>“confirmed for your onsite interview at H2Scan”, 10:30–4:30</small></td><td><b>Valencia, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">19</td><td class="nowrap">2014-04-02</td><td><b>Scanadu (via Tower H)</b><br><small>“confirmed to meet the team at Scanadu”</small></td><td><b>NASA Ames Research Park, Moffett Field / Mountain View, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">20</td><td class="nowrap">2014-08-12</td><td><b>TruTouch Technologies (“TTT Inc.”)</b><br><small>Sender domain tttinc.com; planned Southern California visit with rental car</small></td><td><b>Riverside, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">21</td><td class="nowrap">2014-08 (wk of Aug 18)</td><td><b>Alakai Defense Systems</b><br><small>“Follow-up from onsite meeting last week”</small></td><td><b>Largo, FL (Tampa Bay)</b><br><span class="pill src-g">Researched</span></td><td><span class="pill conf">Confirmed</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr class="row-c"><td class="num">22</td><td class="nowrap">2014-11-17</td><td><b>ELORET</b><br><small>Missed call Sep 9 (“I may or may not move”), draft letter, offer letter Nov 17. No visit recorded</small></td><td><b>NASA Ames, Moffett Field, CA (likely)</b><br><span class="pill prob">Inferred</span></td><td><span class="pill">None</span></td><td><span class="pill good">Offer letter — not taken; stayed at JDSU</span></td><td><a href="#s3-3"><span class="pill cat-c">Offer without on-site</span></a></td><td><span class="pill src-y">Yahoo</span></td></tr><tr><td class="num">23</td><td class="nowrap">2017-03</td><td><b>DuPont Pioneer</b><br><small>Flights SFO → Des Moines booked by Pioneer</small></td><td><b>Johnston, IA (near Des Moines)</b><br><span class="pill good">Emails</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr class="row-c"><td class="num">24</td><td class="nowrap">2017-06 → 09</td><td><b>BP (Research &amp; Chemometrics Scientist)</b><br><small>Phone interview booked for Jul 5, then switched to a video panel (Skype test Jun 29). Verbal offer mid-2017, declined over pay — confirmed by Chang; the later emails were not captured</small></td><td><b>Naperville, IL</b><br><span class="pill src-y">Confirmed by Chang</span></td><td><span class="pill">None</span></td><td><span class="pill good">Verbal offer mid-2017 — declined over pay</span></td><td><a href="#s3-3"><span class="pill cat-c">Offer without on-site</span></a></td><td><span class="pill src-g">Gmail</span></td></tr><tr><td class="num">25</td><td class="nowrap">2018-01-26</td><td><b>Konica Minolta Laboratory (via CyberCoders)</b><br><small>In-person interview booked, 4:00 PM</small></td><td><b>San Mateo, CA</b><br><span class="pill src-g">Researched</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-b">Both</span></td></tr><tr><td class="num">26</td><td class="nowrap">2018-04-25</td><td><b>Smiths Detection</b><br><small>“your interview at our Edgewood, MD site will be a 1 hour panel interview”</small></td><td><b>Edgewood, MD</b><br><span class="pill good">Emails</span></td><td><span class="pill prob">Probable</span></td><td><span class="pill">No recorded outcome</span></td><td><a href="#s3-2"><span class="pill cat-b">On-site, no offer</span></a></td><td><span class="pill src-b">Both</span></td></tr></table></div>
+<div class="backnav"><a href="#s3">↑ Register</a><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 4 -->
+<h2 id="s4"><span class="secno">4</span>Offers without an on-site visit</h2>
+<p>Eleven offers are on record. Seven followed a visit. The other four did not — and each skipped the visit for a different reason.</p>
+
+<article class="dossier" id="s4-1">
+<h4>Apple (via Red Oak Technologies), 2013</h4>
+<dl class="facts"><dt>Role</dt><dd>Contract role at Apple, Sunnyvale</dd><dt>Location</dt><dd>Sunnyvale, CA — from the emails (“I am working in Apple’s Sunnyvale site”)</dd><dt>Key dates</dt><dd>Terms agreed Feb 12–13 · started Mar 4 · access ended May 15, 2013</dd><dt>Terms</dt><dd>$60/hr, contract-to-hire after three months</dd><dt>On-site</dt><dd><b>None</b> — Chang later remarked that he never even went there for an on-site interview</dd><dt>Outcome</dt><dd><b>Accepted — worked about ten weeks</b></dd><dt>Mailbox</dt><dd>Gmail</dd></dl>
+<p>This is the clearest case of an offer with no visit, and the only one of the four that became a job. The recruiter, Red Oak, negotiated the rate and the conversion clause with Apple directly; the only open question was the start date, settled as March 4 to “meet in the middle” of his notice period at BD Biosciences. It was also decisive for the rest of 2013: the day Apple came through, Chang told Goodyear — a signed, full-time offer with relocation to Ohio — that he might not start.</p>
+<div class="backnav"><a href="#s4">↑ Section 4</a><a href="#contents">↑ 回目錄</a></div></article>
+
+<article class="dossier" id="s4-2">
+<h4>Wipro (via ReqRoute), 2013</h4>
+<dl class="facts"><dt>Role</dt><dd>Intelligent Augmentation Architect — full-time</dd><dt>Location</dt><dd><b>Not recorded.</b> The complications that followed — a non-compete with Red Oak and the involvement of his Apple manager — suggest the role would have placed him back at Apple through a different vendor (Gmail report, inference)</dd><dt>Key dates</dt><dd>Phone-bridge rounds Jun 11–25 · verbal offer ≈late June (Yahoo) · benefits overview Jul 11 (Yahoo) · signed Jul 15 · withdrawn Jul 24, 2013</dd><dt>On-site</dt><dd><b>None</b> — phone and conference-bridge rounds only, including two missed calls he rescheduled</dd><dt>Outcome</dt><dd><b>Signed, then withdrawn by Chang</b></dd><dt>Mailbox</dt><dd>Both</dd></dl>
+<p>Wipro is the large-firm version of the Apple pattern: a staffing intermediary, several phone rounds, an offer without anyone meeting him. He signed it the day it arrived. Nine days later he withdrew — after the Red Oak non-compete surfaced, and six days after JDSU’s offer of July 18 arrived.</p>
+<div class="backnav"><a href="#s4">↑ Section 4</a><a href="#contents">↑ 回目錄</a></div></article>
+
+<article class="dossier" id="s4-3">
+<h4>ELORET, 2014</h4>
+<dl class="facts"><dt>Role</dt><dd>Not stated in the extracted messages; filed in a “NASA-Eloret” folder</dd><dt>Location</dt><dd>NASA Ames Research Center, Moffett Field, CA — <b>likely</b>, inferred from the folder name and ELORET’s work as a NASA Ames contractor; not stated in the emails</dd><dt>Key dates</dt><dd>“Re: missed call” Sep 9 · draft offer letter · offer letter Nov 17, 2014</dd><dt>On-site</dt><dd><b>None recorded.</b> The threads extracted are a phone call, a draft letter and the offer; the full messages were not opened, so a meeting cannot be ruled out</dd><dt>Outcome</dt><dd><b>Not taken</b> — Chang stayed at JDSU until 2024</dd><dt>Mailbox</dt><dd>Yahoo</dd></dl>
+<p>ELORET is the only offer that reached Chang while he held a permanent job, and the only one after 2013. His September note sums up the position he was in: “No, I have not received offer yet. Besides, I may or may not move.” He did not move.</p>
+<div class="backnav"><a href="#s4">↑ Section 4</a><a href="#contents">↑ 回目錄</a></div></article>
+
+<article class="dossier" id="s4-4">
+<h4>BP, Naperville, Illinois, 2017</h4>
+<dl class="facts"><dt>Role</dt><dd>Research and Chemometrics Scientist — full-time</dd><dt>Location</dt><dd>Naperville, IL — confirmed by Chang (September 2026); the recruiter scheduled in Central Time, consistent with it</dd><dt>Recruiter</dt><dd>Catherine Ian, BP</dd><dt>Key dates (emails)</dt><dd>Jun 26, 2017: phone interview confirmed for Jul 5, 1:30 pm Pacific · Jun 28: the panel asked to make it a video interview instead; an 8 am Central slot (6 am Pacific) was proposed and Chang asked for later · Skype test call set for Jun 29 · thread continues to September 2017</dd><dt>Key dates (Chang)</dt><dd>A thorough teleconference / video-panel interview; <b>verbal offer, mid-2017</b>; declined because the pay was not acceptable</dd><dt>On-site</dt><dd><b>None</b> — interviewed remotely</dd><dt>Outcome</dt><dd><b>Verbal offer — declined over pay</b></dd><dt>Mailbox</dt><dd>Gmail (thread #173, 24 emails; only the first 8, all Jun 26–28, survive in the archive)</dd></dl>
+<p>BP is the only offer in the record after ELORET, and the only one made to Chang in the whole 2015–2019 period, which the Gmail report had described as producing none. It is also the only offer known from memory rather than the emails: the archive preserved the scheduling messages but not the sixteen later ones, from July to September, where the interview, the offer and the decline would be. It is the one offer in the record turned down explicitly over money.</p>
+<p>It fits the pattern of the other declined offers too. Like Goodyear (Ohio), Intel (Oregon) and 1st Detect (Texas), BP would have meant leaving California — here, for the Chicago suburbs — and, like them, it was turned down.</p>
+<div class="backnav"><a href="#s4">↑ Section 4</a><a href="#contents">↑ 回目錄</a></div></article>
+
+
+<!-- ============================================================ 5 -->
+<h2 id="s5"><span class="secno">5</span>By year</h2>
+<figure class="fig"><figcaption>Figure 1 — On-site visits and offers per year, by outcome</figcaption><div class="legend"><span><i style="background:var(--good)"></i>On-site → offer</span><span><i style="background:var(--s1)"></i>On-site, no offer</span><span><i style="background:var(--accent)"></i>Offer without on-site</span></div><svg viewBox="0 0 1000 440" role="img" aria-labelledby="c1-t" class="chart"><title id="c1-t">Figure 1 — On-site visits and offers per year</title><line x1="60" x2="990" y1="390.0" y2="390.0" class="grid"/><text x="50" y="396.0" class="ax" text-anchor="end">0</text><line x1="60" x2="990" y1="337.1" y2="337.1" class="grid"/><text x="50" y="343.1" class="ax" text-anchor="end">2</text><line x1="60" x2="990" y1="284.3" y2="284.3" class="grid"/><text x="50" y="290.3" class="ax" text-anchor="end">4</text><line x1="60" x2="990" y1="231.4" y2="231.4" class="grid"/><text x="50" y="237.4" class="ax" text-anchor="end">6</text><line x1="60" x2="990" y1="178.6" y2="178.6" class="grid"/><text x="50" y="184.6" class="ax" text-anchor="end">8</text><line x1="60" x2="990" y1="125.7" y2="125.7" class="grid"/><text x="50" y="131.7" class="ax" text-anchor="end">10</text><line x1="60" x2="990" y1="72.9" y2="72.9" class="grid"/><text x="50" y="78.9" class="ax" text-anchor="end">12</text><line x1="60" x2="990" y1="20.0" y2="20.0" class="grid"/><text x="50" y="26.0" class="ax" text-anchor="end">14</text><rect x="89.9" y="285.3" width="73.1" height="103.7" rx="3" style="fill:var(--s1)"><title>2012 — On-site, no offer: 4</title></rect><text x="126.4" y="276.3" class="val" text-anchor="middle">4</text><text x="126.4" y="416" class="ax" text-anchor="middle">2012</text><rect x="222.8" y="206.0" width="73.1" height="183.0" rx="3" style="fill:var(--good)"><title>2013 — On-site → offer: 7</title></rect><rect x="222.8" y="73.9" width="73.1" height="130.1" rx="3" style="fill:var(--s1)"><title>2013 — On-site, no offer: 5</title></rect><rect x="222.8" y="21.0" width="73.1" height="50.9" rx="3" style="fill:var(--accent)"><title>2013 — Offer without on-site: 2</title></rect><text x="259.3" y="12.0" class="val" text-anchor="middle">14</text><text x="259.3" y="416" class="ax" text-anchor="middle">2013</text><rect x="355.6" y="311.7" width="73.1" height="77.3" rx="3" style="fill:var(--s1)"><title>2014 — On-site, no offer: 3</title></rect><rect x="355.6" y="285.3" width="73.1" height="24.4" rx="3" style="fill:var(--accent)"><title>2014 — Offer without on-site: 1</title></rect><text x="392.1" y="276.3" class="val" text-anchor="middle">4</text><text x="392.1" y="416" class="ax" text-anchor="middle">2014</text><text x="525.0" y="382.0" class="val" text-anchor="middle">0</text><text x="525.0" y="416" class="ax" text-anchor="middle">2015</text><text x="657.9" y="382.0" class="val" text-anchor="middle">0</text><text x="657.9" y="416" class="ax" text-anchor="middle">2016</text><rect x="754.2" y="364.6" width="73.1" height="24.4" rx="3" style="fill:var(--s1)"><title>2017 — On-site, no offer: 1</title></rect><rect x="754.2" y="338.1" width="73.1" height="24.4" rx="3" style="fill:var(--accent)"><title>2017 — Offer without on-site: 1</title></rect><text x="790.7" y="329.1" class="val" text-anchor="middle">2</text><text x="790.7" y="416" class="ax" text-anchor="middle">2017</text><rect x="887.0" y="338.1" width="73.1" height="50.9" rx="3" style="fill:var(--s1)"><title>2018 — On-site, no offer: 2</title></rect><text x="923.6" y="329.1" class="val" text-anchor="middle">2</text><text x="923.6" y="416" class="ax" text-anchor="middle">2018</text><text x="60" y="432" class="ax">entries per year (on-site visits plus offers made without one)</text></svg><details class="tview"><summary>Table view</summary><table><tr><th>Year</th><th>On-site → offer</th><th>On-site, no offer</th><th>Offer without on-site</th><th>Total</th></tr><tr><td>2012</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num">4</td></tr><tr><td>2013</td><td class="num">7</td><td class="num">5</td><td class="num">2</td><td class="num">14</td></tr><tr><td>2014</td><td class="num">0</td><td class="num">3</td><td class="num">1</td><td class="num">4</td></tr><tr><td>2015</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td>2016</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td>2017</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">2</td></tr><tr><td>2018</td><td class="num">0</td><td class="num">2</td><td class="num">0</td><td class="num">2</td></tr></table></details></figure>
+<p>2013 holds 14 of the 26 entries: twelve visits and both of that year’s offers without a visit. The record then thins quickly — four entries in 2014, none in 2015 or 2016, two in 2017 (DuPont Pioneer’s visit and BP’s offer) and two in 2018 — and there are no in-person interviews at all after April 2018, when remote interviewing took over. BP shows that remote interviewing was already able to produce an offer in 2017.</p>
+<div class="backnav"><a href="#s5">↑ Section 5</a><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 6 -->
+<h2 id="s6"><span class="secno">6</span>By place</h2>
+<div class="tablewrap"><table><tr><th>Region</th><th class="num">On-site visits</th><th class="num">Offers after on-site</th><th class="num">Offers without on-site</th><th class="num">All offers</th></tr><tr><td><b>San Francisco Bay Area</b><br><small>Macys.com, BD Biosciences, Apple, Guardian Analytics, Polaris Wireless, JDSU, Rearden Commerce / Deem, Impermium, Scanadu, ELORET, Konica Minolta Laboratory</small></td><td class="num">9</td><td class="num">3</td><td class="num">2</td><td class="num">5</td></tr><tr><td><b>Southern California</b><br><small>HRL Laboratories, Leads360, H2Scan, TruTouch Technologies</small></td><td class="num">4</td><td class="num">1</td><td class="num">0</td><td class="num">1</td></tr><tr><td><b>Outside California</b><br><small>Amazon, Beckman Coulter, Goodyear Tire &amp; Rubber, Intel Labs, 1st Detect, Alakai Defense Systems, DuPont Pioneer, BP, Smiths Detection</small></td><td class="num">8</td><td class="num">3</td><td class="num">1</td><td class="num">4</td></tr><tr><td><b>Not recorded</b><br><small>KPMG, Wipro</small></td><td class="num">1</td><td class="num">0</td><td class="num">1</td><td class="num">1</td></tr><tr><td><b>Total</b></td><td class="num">22</td><td class="num">7</td><td class="num">4</td><td class="num">11</td></tr></table></div>
+<p>The Bay Area accounts for nine of the 22 visits and five of the eleven offers — including all three that became jobs. Southern California, where Chang had lived for a decade before, produced four visits and one offer (Leads360). The eight visits outside California produced three offers, and BP in Illinois added a fourth out-of-state offer without a visit; none of the four was accepted.</p>
+<div class="backnav"><a href="#s6">↑ Section 6</a><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 7 -->
+<h2 id="s7"><span class="secno">7</span>Discussion</h2>
+
+<h3 id="s7-1"><span class="secno s">7.1</span>The conversion window</h3>
+<p>Up to July 2013, seven of fifteen on-site visits ended in offers — nearly one in two, far above typical final-round conversion. From December 2013 onwards, none of seven did. The break coincides with joining JDSU in early September 2013: every later visit was made by an employed candidate weighing a move against a good job, and several were followed by his own withdrawals or postponements (recorded in the Gmail report). ELORET (2014) and BP (2017) show the market had not closed — offers still came — but both came without a visit, and no later on-site produced one.</p>
+<div class="backnav"><a href="#s7">↑ Discussion</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s7-2"><span class="secno s">7.2</span>Place decided the outcome</h3>
+<p>Laid out by location, the eleven offers sort cleanly:</p>
+<div class="tablewrap"><table>
+<tr><th>Offer</th><th>Location</th><th>Outcome</th></tr>
+<tr><td><b>BD Biosciences</b></td><td>San Jose, CA</td><td><span class="pill good">Taken (≈2 weeks)</span></td></tr>
+<tr><td><b>Apple</b></td><td>Sunnyvale, CA</td><td><span class="pill good">Taken (10 weeks)</span></td></tr>
+<tr><td><b>JDSU</b></td><td>Santa Rosa, CA</td><td><span class="pill good">Taken (2013–2024)</span></td></tr>
+<tr><td>Polaris Wireless</td><td>Mountain View, CA</td><td>Verbal; overtaken</td></tr>
+<tr><td>ELORET</td><td>NASA Ames, CA (likely)</td><td>Not taken — already at JDSU</td></tr>
+<tr><td>Leads360</td><td>El Segundo, CA</td><td>Lapsed</td></tr>
+<tr><td>Wipro</td><td>Not recorded</td><td>Signed, then withdrawn</td></tr>
+<tr><td>Goodyear</td><td>Akron, OH</td><td>Signed, then declined</td></tr>
+<tr><td>Intel Labs</td><td>Oregon</td><td>Declined</td></tr>
+<tr><td>1st Detect</td><td>Webster, TX</td><td>Not taken</td></tr>
+<tr><td>BP</td><td>Naperville, IL</td><td>Declined — pay (2017)</td></tr>
+</table></div>
+<p>Every offer that would have meant leaving California was turned down, including the one he had signed (Goodyear), the one he seriously negotiated (Intel), and BP, where pay was the stated reason. Leads360 in Southern California — where, he told them, he and his wife “both still very much like” living — was allowed to lapse too. The jobs he took were the three in the Bay Area. Of everything the record shows about the eleven offers, location is the one variable that cleanly separates the offers he took from those he did not.</p>
+<div class="backnav"><a href="#s7">↑ Discussion</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s7-3"><span class="secno s">7.3</span>Why four offers needed no visit</h3>
+<p>Three of the four offers without an on-site share a route: an intermediary or an existing relationship carried the trust that a visit usually supplies. Apple and Wipro both came through staffing vendors (Red Oak and ReqRoute) and were effectively contract-placement decisions, where a résumé and phone rounds were enough. ELORET worked through a single named contact who sent a draft letter before the formal one — a direct approach rather than an open hiring round. <b>BP is the exception</b>: a large company’s own recruiter, a full-time scientist role, and a formal panel — held by video instead of on site. Of the four, it is the one that shows where hiring was heading: by 2017 a thorough remote panel could replace the visit entirely.</p>
+<div class="backnav"><a href="#s7">↑ Discussion</a><a href="#contents">↑ 回目錄</a></div>
+
+<h3 id="s7-4"><span class="secno s">7.4</span>Limitations</h3>
+<ul class="keys">
+ <li>“Probable” visits were booked, often with travel arranged, but the emails stop before the day; eleven of the 22 are probable.</li>
+ <li>The 1st Detect visit and the ELORET location are inferences linking the two mailboxes; they are labelled as such.</li>
+ <li>Researched locations give the company’s site at the time, not necessarily the building where the interview happened; companies with several sites (Beckman Coulter, Intel) are the least certain.</li>
+ <li>Interviews arranged only by phone, through another address, or through a former employer’s systems would not appear in either mailbox — which may explain why almost nothing survives from before 2012.</li>
+</ul>
+<div class="backnav"><a href="#s7">↑ Discussion</a><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 8 -->
+<h2 id="s8"><span class="secno">8</span>Take-home message</h2>
+<blockquote class="take">Twenty-two visits and eleven offers — and the three he took were the three that kept him in the Bay Area.</blockquote>
+<p>Read as one list, the in-person record has a simple shape. It is concentrated in eighteen months from mid-2012 to the end of 2013, when on-sites converted at close to one in two; after Chang joined JDSU, visits continued for five more years but no longer led to offers. Four offers needed no visit at all — three carried by an intermediary or a personal contact, and BP’s by a remote panel in 2017 — and one of them, Apple, briefly became his job. Across all eleven offers, the deciding factor was not salary or title but place: everything outside California was declined, and every job he took was in the Bay Area.</p>
+<div class="backnav"><a href="#contents">↑ 回目錄</a></div>
+
+<!-- ============================================================ 9 -->
+<h2 id="s9"><span class="secno">9</span>Open questions for the author to verify</h2>
+<ol class="q">
+ <li><b>KPMG, September 2012:</b> which office did you visit?</li>
+ <li><b>Beckman Coulter, November 2012:</b> which city did you fly to — Miami, Indianapolis, or elsewhere?</li>
+ <li><b>Amazon, November 2012:</b> was the November 9 loop in Seattle, and did it take place?</li>
+ <li><b>1st Detect, June 2013:</b> did you visit Webster, Texas before the July 9 offer?</li>
+ <li><b>Wipro, 2013:</b> where would the role have been based — at Apple in Sunnyvale?</li>
+ <li><b>ELORET, 2014:</b> was the role at NASA Ames, and did you meet anyone in person before the offer?</li>
+ <li><b>BP, 2017:</b> when exactly was the verbal offer, and what was the pay gap that decided it?</li>
+ <li><b>Konica Minolta, January 2018:</b> did the San Mateo interview take place?</li>
+</ol>
+<div class="backnav"><a href="#contents">↑ 回目錄</a></div>
+
+<footer>
+<p><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">⌂ 老熊隨筆 — 回首頁</a> · filed under 職涯軌跡＋求職面試 · companion to the Gmail and Yahoo audited reports.</p>
+<p>Built from the audited Gmail report (350 threads) and the audited Yahoo report (36 processes). Locations marked “Researched” come from public sources on each company’s site at the time; “Inferred” locations rest on clues in the emails. Outcomes are stated only where the correspondence records them.</p>
+</footer>
+
+</div>
+</body>
+</html>
