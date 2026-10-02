@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老熊日記的下落</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ecd8;
+    --paper-2:#ebe0c4;
+    --ink:#2a2118;
+    --ink-soft:#5a4a38;
+    --rule:#8a7456;
+    --accent:#8b2a1a;
+    --accent-soft:#b5654a;
+    --note:#e6d8b6;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:radial-gradient(circle at 20% 10%, rgba(255,255,255,.35), transparent 60%),
+                     radial-gradient(circle at 80% 90%, rgba(120,90,50,.08), transparent 60%);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.85;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:56px 40px 140px}
+
+  /* masthead */
+  .masthead{border-top:6px double var(--ink);border-bottom:2px solid var(--ink);padding:14px 0 10px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;
+    font-size:22px;letter-spacing:.25em;color:var(--ink-soft)}
+  .masthead b{color:var(--ink);font-weight:900;letter-spacing:.4em}
+  h1{font-size:76px;line-height:1.25;font-weight:900;margin:48px 0 18px;letter-spacing:.04em}
+  h1 small{display:block;font-size:34px;font-weight:700;color:var(--accent);letter-spacing:.15em;margin-bottom:12px}
+  .deck{font-size:34px;color:var(--ink-soft);border-left:6px solid var(--accent);padding-left:24px;margin:0 0 30px}
+  .byline{font-size:24px;color:var(--ink-soft);letter-spacing:.12em;border-bottom:1px solid var(--rule);padding-bottom:20px;margin-bottom:40px}
+
+  /* TOC */
+  nav.toc{background:var(--paper-2);border:2px solid var(--rule);padding:26px 36px;margin:0 0 56px}
+  nav.toc h2{font-size:30px;margin:0 0 10px;letter-spacing:.3em;border:none;padding:0}
+  nav.toc ol{margin:0;padding-left:1.4em;font-size:28px;line-height:1.9}
+  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--rule)}
+  nav.toc a:hover{color:var(--accent)}
+
+  h2{font-size:48px;font-weight:900;margin:72px 0 24px;padding-bottom:10px;border-bottom:3px solid var(--ink);letter-spacing:.06em}
+  h2 .no{color:var(--accent);margin-right:.4em}
+  p{margin:0 0 1.1em;text-align:justify}
+  strong{font-weight:900;color:var(--accent)}
+  .dropcap::first-letter{float:left;font-size:120px;line-height:1;font-weight:900;margin:10px 18px 0 0;color:var(--accent)}
+
+  .pullquote{font-size:44px;line-height:1.55;font-weight:900;text-align:center;color:var(--accent);
+    border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);padding:28px 20px;margin:48px 40px}
+  .pullquote cite{display:block;font-size:24px;font-style:normal;color:var(--ink-soft);margin-top:12px;letter-spacing:.15em}
+
+  .original{background:var(--note);border:2px dashed var(--rule);padding:28px 34px;margin:30px 0 40px;font-size:28px;line-height:1.8}
+  .original .label{font-size:22px;letter-spacing:.3em;color:var(--ink-soft);display:block;margin-bottom:8px}
+
+  /* ledger */
+  table.ledger{width:100%;border-collapse:collapse;margin:24px 0 40px;font-size:26px;line-height:1.6}
+  .ledger th{font-weight:900;text-align:left;border-bottom:3px solid var(--ink);padding:10px 12px;letter-spacing:.1em}
+  .ledger td{border-bottom:1px solid var(--rule);padding:14px 12px;vertical-align:top}
+  .ledger td.yr{font-weight:800;white-space:nowrap;color:var(--accent)}
+  .ledger .fate{font-weight:800}
+  .ledger tr.lost .fate{color:#7a1d10}
+  .ledger tr.maybe .fate{color:#2f5a2f}
+  .ledger-note{font-size:22px;color:var(--ink-soft);margin-top:-26px;margin-bottom:40px}
+
+  .back{display:block;text-align:right;font-size:22px;margin-top:10px}
+  .back a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted var(--rule)}
+
+  /* appendix */
+  .appendix{margin-top:90px;border-top:6px double var(--ink);padding-top:10px}
+  .appendix h2{border-bottom:none}
+  .appendix .meta{font-size:24px;color:var(--ink-soft);margin:-10px 0 30px;letter-spacing:.1em}
+  .appendix h3{font-size:44px;text-align:center;font-weight:900;margin:20px 0 34px;letter-spacing:.1em}
+  .appendix .essay{background:rgba(255,255,255,.25);border:1px solid var(--rule);padding:40px 48px}
+  .appendix .essay p{text-indent:2em}
+
+  .end{text-align:center;font-size:28px;letter-spacing:1em;color:var(--rule);margin:60px 0 0}
+
+  /* floating nav */
+  .floatnav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:99}
+  .floatnav a{background:var(--ink);color:var(--paper);text-decoration:none;font-size:20px;font-weight:800;
+    padding:10px 18px;border-radius:4px;box-shadow:0 3px 10px rgba(0,0,0,.25);text-align:center;letter-spacing:.1em}
+  .floatnav a:hover{background:var(--accent)}
+
+  @media (max-width:720px){
+    body{font-size:21px}
+    .wrap{padding:28px 16px 110px}
+    .masthead{font-size:15px}
+    h1{font-size:42px}
+    h1 small{font-size:22px}
+    .deck{font-size:22px}
+    .byline{font-size:16px}
+    nav.toc{padding:18px 20px}
+    nav.toc h2{font-size:22px}
+    nav.toc ol{font-size:19px}
+    h2{font-size:30px}
+    .dropcap::first-letter{font-size:72px}
+    .pullquote{font-size:26px;margin:32px 0}
+    .pullquote cite{font-size:16px}
+    .original{font-size:19px;padding:18px}
+    .original .label{font-size:15px}
+    table.ledger{font-size:17px}
+    .ledger td,.ledger th{padding:10px 6px}
+    .ledger td.yr{white-space:normal}
+    .ledger-note{font-size:15px}
+    .back{font-size:16px}
+    .appendix .meta{font-size:16px}
+    .appendix h3{font-size:28px}
+    .appendix .essay{padding:20px 18px}
+    .floatnav a{font-size:15px;padding:8px 12px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead"><b>老熊隨筆</b><span>復盤體・往事卷</span><span>二〇二六年十月</span></div>
+
+  <h1><small>一潮、一火、一紙箱</small>老熊日記的下落</h1>
+  <p class="deck">阿發在回憶錄裡寫道：年紀大了再翻日記，「好像在看一個不太熟悉的自己」。這句話讓我想起——我那個不太熟悉的自己，大部分已經不在了。</p>
+  <div class="byline">文／老熊（熊章民）　｜　由阿發〈拿起筆來，跟自己過日子〉引出</div>
+
+  <nav class="toc" id="toc">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#s1">緣起：阿發提筆寫回憶錄</a></li>
+      <li><a href="#s2">老熊原話：一段隨手的回覆</a></li>
+      <li><a href="#s3">日記帳本：寫了什麼，去了哪裡</a></li>
+      <li><a href="#s4">不太負責任的保管員</a></li>
+      <li><a href="#s5">車庫裡的那只紙箱</a></li>
+      <li><a href="#appendix">附錄：阿發〈拿起筆來，跟自己過日子〉全文</a></li>
+    </ol>
+  </nav>
+
+  <section id="s1">
+    <h2><span class="no">一</span>緣起：阿發提筆寫回憶錄</h2>
+    <p class="dropcap">阿發是我嘉中的老同學，工作了將近四十年。女兒離開台北回台中上班之後，他一個人在台北，上完課，剩下的時間忽然多了起來。他跟學校同事學著寫詩，寫著寫著，翻出了年輕時留下的兩三本日記——於是從求學時代開始，一篇一篇往下寫，後來還打算寫職場、教學、親情、旅遊，以及退休後的生活。</p>
+    <p>這些文章後來結集成書，最新的版本由他自己定名為<strong>《走過的路，都是恩——阿發的人生故事》</strong>，一冊八輯，前頭還有幾位同學和老師寫的序。我有幸幫忙編輯，算是第一批讀者。</p>
+    <p>阿發說他寫回憶錄「沒有想成名」，只是腳步慢了，正好坐下來看看沿途風景。他那篇談自己為什麼提筆的短文〈拿起筆來，跟自己過日子〉，我放在本文最後當附錄。讀到其中一段，我停了下來：</p>
+    <div class="pullquote">年輕時寫日記，只是在記日子；<br>年紀大了再看，卻好像在看一個不太熟悉的自己。<cite>——阿發〈拿起筆來，跟自己過日子〉</cite></div>
+    <p>阿發手邊還留著兩三本日記。我呢？我也寫了大半輩子的日記，可是這時候才認真去想：<strong>它們現在在哪裡？</strong></p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <section id="s2">
+    <h2><span class="no">二</span>老熊原話：一段隨手的回覆</h2>
+    <p>讀完阿發的文章，我隨手回了一段話。照復盤體的規矩，先把原始資料攤出來，再來分析：</p>
+    <div class="original">
+      <span class="label">原始留言（略作繁體轉寫）</span>
+      我小學二年級左右，有一天聽老師說大家該寫日記，我就開始很老實地每天都寫了（我一直到高中都是特別聽老師的話的，哈哈）。不過記的都是標準的流水帳，一直到高中課業太忙才很少寫。大學四年及當兵兩年倒是又寫了不少，那時候就寫很多比較文青的東西了。很可惜的是，高中以前的日記，我出國後留在嘉義的舊房子裡，後來發潮全爛掉了；大學到服完役的那一段，在我入讀研究所、提早偷住進台大助教宿舍的暑假，被一把火燒得精光——我只穿了個睡褲逃出來，哈哈。台大讀研兩年，及來美國後的前四年，我又寫了很多。那一段時間碰上「求偶期」，所以產量特別多，而且特別文藝腔。到了 1988 年秋末我結婚了之後，就很少很少寫了（汗）。不過最後的那六年的日記，應該還在我們家車庫的某一個紙箱子裡？原來打算退休後找找看的，不過卻一直沒有動作，哈哈。
+    </div>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <section id="s3">
+    <h2><span class="no">三</span>日記帳本：寫了什麼，去了哪裡</h2>
+    <p>把這段話拆成一本帳，大概是這樣：</p>
+    <table class="ledger">
+      <thead><tr><th>時期</th><th>寫作狀態</th><th>文風</th><th>下落</th></tr></thead>
+      <tbody>
+        <tr class="lost"><td class="yr">小學二年級起</td><td>老師一句話，便每天老實寫</td><td>標準流水帳</td><td class="fate">留在嘉義舊屋，受潮爛光</td></tr>
+        <tr class="lost"><td class="yr">高中</td><td>課業太忙，很少寫</td><td>（存量稀少）</td><td class="fate">同上，嘉義舊屋</td></tr>
+        <tr class="lost"><td class="yr">1976–1982<br>大學四年＋兵役兩年</td><td>又寫了不少</td><td>文青</td><td class="fate">1982 年暑假，台大助教宿舍一把火燒光</td></tr>
+        <tr class="maybe"><td class="yr">1982–1988<br>台大研究所兩年＋來美前四年</td><td>產量最高</td><td>「求偶期」文藝腔</td><td class="fate">也許還在自家車庫某個紙箱（待查）</td></tr>
+        <tr><td class="yr">1988 秋末以後</td><td>結婚，幾乎停筆</td><td>—</td><td class="fate">—</td></tr>
+      </tbody>
+    </table>
+    <p class="ledger-note">註：1982 年的年份由「1976 年進台大、四年大學加兩年兵役、1984 年拿到碩士」推得，與原話的「讀研兩年」互相吻合。</p>
+    <p>算一算，從小學二年級到 1988 年，前後二十多年的日記裡，<strong>能確定已經沒了的，是前面的一大半；可能還在的，只有最後六年。</strong>而那六年，偏偏是寫得最多、也最不好意思給人看的一段。</p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <section id="s4">
+    <h2><span class="no">四</span>不太負責任的保管員</h2>
+    <p>阿發說，人的腦子裡好像住著一位「不太負責任的編輯」，該記的常常忘掉，不該記的偏偏牢牢記著。我的日記則是遇上了三位不太負責任的保管員。</p>
+    <p><strong>第一位是嘉義的濕氣。</strong>出國的人，總以為老家會一直替你守著東西。舊房子不會說話，紙箱也不會喊救命，等到想起來，小學那一本本工工整整的流水帳，已經跟南台灣的梅雨融為一體了。說來也不算太可惜——小學生的日記，大概不外乎「今天天氣很好，我和同學去玩」——可是那是我第一次學會「每天記一點」的證據，就這樣沒了。</p>
+    <p><strong>第二位是一把火。</strong>1982 年夏天，研究所還沒開學，我就提早「偷住」進了台大助教宿舍。一場火燒起來，我只穿著一條睡褲逃出來，大學四年和當兵兩年的日記，連同那一大疊文青腔的東西，燒得乾乾淨淨。人沒事，就是最好的結局；只是那六年的自己，從此只能靠記憶去重建，而記憶這位編輯，阿發已經說過了，並不可靠。</p>
+    <p><strong>第三位，就是我自己。</strong>研究所兩年加上來美國的頭四年，是我寫日記的高峰期。原因很單純：那幾年正好是「求偶期」，心事多，字也多，文藝腔更是收不住。1988 年秋末結了婚，這股寫作動力立刻消失大半——心事有人聽了，日記本也就失業了。</p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <section id="s5">
+    <h2><span class="no">五</span>車庫裡的那只紙箱</h2>
+    <p>最後那六年的日記，照我的印象，應該躺在家裡車庫的某一個紙箱裡。注意，我在原話裡用的是問號。以一個做了一輩子數據分析的人來說，這筆資料的狀態只能標記為<strong>「未驗證」</strong>：它可能在，也可能早在哪一次搬家時被當成雜物處理掉了。</p>
+    <p>原本的計畫很簡單：退休之後，找個時間把它翻出來。結果退休了，時間也有了，紙箱卻一直沒有打開。說穿了，有點像薛丁格的日記——只要不開箱，它就同時「還在」又「不在」；同時是一份珍貴的青春檔案，又是一疊會讓自己臉紅的文藝腔。</p>
+    <div class="pullquote">想得起來就寫，想不起來就喝杯茶。<cite>——阿發</cite></div>
+    <p>阿發的態度比我瀟灑：往事想不起來，也不必勉強。這話我很受用，不過套在我身上，大概可以改成：<strong>找得到就讀，找不到就喝杯茶。</strong>至於什麼時候真的去車庫開箱——這件事，就像阿發說的成不成為作家一樣，先不必急著決定。</p>
+    <p>只是阿發的文章，確實讓我又想起了那只紙箱。光是這一點，這篇回憶錄就已經做了一件好事。</p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <section class="appendix" id="appendix">
+    <h2><span class="no">附錄</span>阿發原文</h2>
+    <p class="meta">作者：阿發　｜　收錄於《走過的路，都是恩——阿發的人生故事》系列文章</p>
+    <h3>拿起筆來，跟自己過日子</h3>
+    <div class="essay">
+      <p>人的一生，角色很多，而且都是輪流上場的。小時候是人子，進了學校便成了學生，結了婚升格為人夫，有了孩子又當起人父。這些職位都是終身制，沒有退休金，也沒有年終獎金，做得不好還不能辭職。等到孩子長大，自己也老了，忽然發現人生的職稱又悄悄改了——退休人士。</p>
+      <p>工作了將近四十年，能給的也給得差不多了。年紀大了，體力不比從前，生活自然也要跟著調整。年輕時喜歡熱鬧，老了倒喜歡安靜。下下棋，聽聽音樂，寫寫文章，都是花費不多的消遣。這幾樣東西有一個共同的好處：不必排隊，也不必買票，更不怕塞車。寫作，其實是偶然闖進我生活裡的。</p>
+      <p>那時候女兒離開台北回台中工作，平常上完課，剩下的時間忽然多了起來。一個人在台北，日子長得很，窗外的車子比熟人還多。後來跟學校同事學著寫詩，寫著寫著，又想起年輕時寫過的日記。手邊還留著兩三本，翻開來看，真是有趣。年輕時寫日記，只是在記日子；年紀大了再看，卻好像在看一個不太熟悉的自己。有些事情早已忘了，日記倒記得清清楚楚。人的記憶很奇怪，該記的常常忘掉，不該記的偏偏牢牢記著，彷彿腦子裡也有一位不太負責任的編輯。</p>
+      <p>於是我突發奇想：既然閒著也是閒著，何不把過去重新整理一番？就這樣，從求學時代開始，一篇一篇慢慢寫。以後還想寫職場、教學、親情、旅遊，以及退休後的生活。沒有什麼偉大的計畫，更談不上要成為作家。說穿了，不過是給自己的腦袋找點事情做，免得它退休得比我還早。</p>
+      <p>至於文章寫得好不好，我自己心裡有數。句法、章法，我是一知半解，有時候甚至連自己寫完了都不敢大聲朗讀。還在學習，難免有跌跌撞撞的地方。孩子學走路需要鼓勵，老人拿筆，大概也差不多。寫得不好，朋友可以批評；哪裡不妥，可以修改。自己關起門來寫，總不能連朋友的意見也一起關在門外。有人把寫作看得很嚴肅，彷彿一拿起筆，頭頂就要出現一圈光環。其實不必如此。</p>
+      <p>作家也是人，不是偉人；會寫文章，也不表示已經修成正果。作家可以修道，修道人也可以寫作；可以讀書充實自己，也可以做些有益於人的事。這些事情並不衝突。若連寫幾篇文章都能把人的德行寫壞，那麼問題恐怕不在筆，而在握筆的那隻手。</p>
+      <p>我寫回憶錄，沒有想成名，也沒有想成為什麼了不起的人。只是走了一輩子的路，如今腳步慢了，正好坐下來看看沿途風景。年輕時只顧著趕路，哪有工夫回頭？到了晚年，才知道原來路旁有不少風景，甚至還有一些笑話，是當年自己走得太急，沒有看見的。所以，拿起筆來，不是為了證明自己還能做什麼。只是退休以後，日子總得過。</p>
+      <p>下棋輸了，可以再來一盤；文章寫壞了，可以重寫；往事想不起來，也不必勉強。想得起來就寫，想不起來就喝杯茶。如此而已。人生走到後半段，能有一件自己喜歡做的事，安安靜靜地做著，其實已經是很大的福氣。至於能不能成為作家——這件事，先不必急著決定。反正我還在學走路。</p>
+    </div>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <p class="end">— 完 —</p>
+</div>
+
+<div class="floatnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+</body>
+</html>
