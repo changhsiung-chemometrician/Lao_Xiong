@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>發牌與出牌｜老熊隨筆</title>
+<style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;max-width:1250px;margin:0 auto;padding:32px 28px 120px;background:#fafafa;color:#222;line-height:1.8;font-size:27px;font-weight:600}
+h1{font-size:2.0em;line-height:1.35;font-weight:700;margin:.4em 0}
+h2{font-size:1.4em;margin-top:2.2em;color:#111;border-bottom:3px solid #0068b5;padding-bottom:8px;font-weight:700}
+h3{font-size:1.15em;margin-top:1.6em;font-weight:700}
+b,strong{font-weight:800}
+.deck{color:#555;font-size:.92em}
+.toc{background:#fff;border:1px solid #ddd;border-radius:10px;padding:20px 28px;margin:1.5em 0}
+.toc ol{margin:10px 0;padding-left:30px}.toc li{margin:8px 0}
+.summary{background:#eef5fc;border-left:6px solid #0068b5;padding:18px 24px;margin:1.5em 0;border-radius:0 10px 10px 0}
+blockquote{background:#fff;border-left:6px solid #bbb;margin:1em 0;padding:12px 22px;border-radius:0 8px 8px 0;color:#444}
+.tw{overflow-x:auto;margin:1.2em 0}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:.8em}
+th,td{border:1px solid #ccc;padding:10px 14px;vertical-align:top;text-align:left}
+th{background:#f0f0f0;font-weight:800}
+td.k{font-weight:800;white-space:nowrap;background:#fafafa}
+.li{color:#0b7a85}.zh{color:#7a4a9c}.lx{color:#b8730a}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:1.4em 0}
+.card{background:#fff;border:1px solid #ddd;border-top:8px solid #999;border-radius:10px;padding:14px 18px;font-size:.78em}
+.card.li{border-top-color:#0b7a85}.card.zh{border-top-color:#7a4a9c}.card.lx{border-top-color:#b8730a}
+.card h4{margin:.2em 0 .6em;font-size:1.25em}
+.node{border-left:4px solid #ddd;padding:4px 0 4px 12px;margin:12px 0;color:#222}
+.node .yr{font-weight:800}
+.node .pick{display:block}
+.node .skip{display:block;color:#8a8a8a;font-size:.92em}.node .skip::before{content:"沒走：";font-weight:800}.node .pick::before{content:"走了：";font-weight:800;color:#555}
+.verdict{background:#fff8e6;border:1px solid #ecd98a;border-radius:10px;padding:16px 24px;margin:1.4em 0}
+.memo{background:#f6f2f9;border:1px solid #d7c8e3;border-radius:10px;padding:16px 24px;margin:1.5em 0;font-size:.92em}
+.back{display:block;text-align:right;font-size:.75em;margin-top:1em}
+.footer{margin-top:3em;padding-top:14px;border-top:1px solid #ccc;font-size:.8em;color:#666}
+a{color:#0068b5}
+.fnav{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:9}
+.fnav a{background:#0068b5;color:#fff;text-decoration:none;padding:8px 16px;border-radius:24px;font-size:20px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.25);text-align:center}
+@media (max-width:900px){.cards{grid-template-columns:1fr}}
+@media (max-width:760px){body{font-size:19px;padding:16px 16px 110px}.fnav a{font-size:15px;padding:6px 12px}}
+</style></head><body>
+
+<h1>發牌與出牌——家底、天份、運氣，與關鍵時刻的選擇：李飛飛、張首晟、老熊</h1>
+<p class="deck"><i>老熊隨筆 · 2026 年 10 月 2 日 · 〈李飛飛的開挂人生可以被複製嗎？〉的續篇</i></p>
+
+<div class="summary"><b>一句話：</b>一個人的職涯，由四個變量決定：<b>家底、天份、運氣，和關鍵時刻的選擇</b>。前三個是老天發的牌，複製不了；只有第四個是自己出的牌。李飛飛、張首晟和我，三個人拿到的牌各不相同，可是真正把三條路分開的，是出牌。李飛飛一路守著初心，用技術解決真實世界的難題；我這輩子做的事，說穿了也是同一件——讓量測給出可信的答案。張首晟手上的牌最好，到了最後一個關鍵節點，他選擇去當幣圈的布道者。在我看來，這是三個人最大的不同。</div>
+
+<div class="toc" id="toc"><b>目錄</b><ol>
+<li><a href="#s1">四個變量：三張發牌，一張出牌</a></li>
+<li><a href="#s2">家底：三個人都不是含著金湯匙</a></li>
+<li><a href="#s3">天份：張首晟最高，我最普通</a></li>
+<li><a href="#s4">運氣：三個人都有貴人，也都有時機</a></li>
+<li><a href="#s5">選擇：三條岔路</a></li>
+<li><a href="#s6">最大的不同：初心</a></li>
+<li><a href="#s7">回到李飛飛：唯一「可操作」的那一張牌</a></li>
+<li><a href="#takehome">Take-home message</a></li>
+<li><a href="#sources">來源</a></li>
+</ol></div>
+
+<h2 id="s1">一　四個變量：三張發牌，一張出牌</h2>
+<p>早上那篇我笑人家「可操作、可複製」，說那是倖存者偏差。下午想了想，光是笑還不夠，得說清楚：<b>那到底什麼是可以學的？</b></p>
+<p>我把一個人的職涯拆成四個變量：</p>
+<div class="tw"><table>
+<tr><th>變量</th><th>誰決定</th><th>能不能複製</th></tr>
+<tr><td class="k">家底</td><td>出生那天就定了</td><td>不能</td></tr>
+<tr><td class="k">天份</td><td>基因加上童年</td><td>不能</td></tr>
+<tr><td class="k">運氣</td><td>老天爺</td><td>不能</td></tr>
+<tr><td class="k">關鍵時刻的選擇</td><td><b>自己</b></td><td><b>學得到</b></td></tr>
+</table></div>
+<p>前三個是發牌，第四個是出牌。打過橋牌的人都知道，牌爛也能打出好結果，好牌也能打輸。下面一個一個來比。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="s2">二　家底：三個人都不是含著金湯匙</h2>
+<div class="tw"><table>
+<tr><th class="li">李飛飛</th><th class="zh">張首晟</th><th class="lx">老熊</th></tr>
+<tr>
+<td>父母在國內是讀書人。1992 年 16 歲到新澤西，一家人從零開始：父親修照相機，母親當收銀員。她在普林斯頓念書時四處借錢——連高中數學老師都借了——盤下一家干洗店讓父母經營，週末自己也去顧店。讀博士期間，母親得了癌症，又中風。</td>
+<td>上海書香門第，祖父張一是復旦 1906 年的第二屆學生，家裡藏書多。文革那些年，他躲在自家閣樓裡讀書，從康德、黑格爾讀到達文西、羅丹。<b>錢未必多，但文化資本是三人裡最厚的。</b></td>
+<td>父親是國軍體育教官，1948 年隨部隊來台「看一看」，從此回不去；退伍後在新化高中、嘉義農專教書。母親是彰化人。一個外省加本省的普通公教家庭，在台南新化、嘉義長大。</td>
+</tr></table></div>
+<p><b>小結：</b>三個人都沒有錢可以靠。如果硬要排，張首晟的家學最深；李飛飛的處境最難，移民後等於從社會底層重新爬起；我在中間，平平凡凡，不愁吃穿，也沒有什麼可以依靠的。<b>家底沒有決定誰走得遠。</b></p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="s3">三　天份：張首晟最高，我最普通</h2>
+<div class="tw"><table>
+<tr><th class="li">李飛飛</th><th class="zh">張首晟</th><th class="lx">老熊</th></tr>
+<tr>
+<td>剛到美國時英文不通，高中成績並不突出，但數理底子好，最後拿獎學金進普林斯頓物理系，再到加州理工讀博士。<b>頂尖。</b></td>
+<td>沒念高中，15 歲考進復旦。2006 年預言碲化汞量子阱裡的量子自旋霍爾效應，2007 年就被實驗證實。Buckley 獎、Dirac 獎章、富蘭克林獎章；楊振寧說他拿諾貝爾獎只是時間問題。<b>天才。</b></td>
+<td>提早一年上學，嘉中、台大化工——1976 年聯考差台大電機不到一分。從來不喜歡化學，念到博士還是念了高分子。<b>好學生，不是天才。</b></td>
+</tr></table></div>
+<p><b>小結：</b>論天份，張首晟遙遙領先，李飛飛次之，我最普通。可是天份最高的那一位，沒有走得最穩。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="s4">四　運氣：三個人都有貴人，也都有時機</h2>
+<div class="tw"><table>
+<tr><th class="li">李飛飛</th><th class="zh">張首晟</th><th class="lx">老熊</th></tr>
+<tr>
+<td><b>貴人：</b>高中數學老師 Bob Sabella，不但提攜她，還借錢給她家開干洗店。<br><b>時機：</b>2007–2012 年，網路上有了海量圖片，GPU 也便宜了，深度學習正要起爆。ImageNet 押在這個時間窗上。</td>
+<td><b>貴人：</b>楊振寧。他第一次見張首晟就勸他放下愛因斯坦的大統一夢，說「物理學是一門寬泛的學科，隨處可以找到有趣的問題」，把他推向凝聚態。<br><b>時機：</b>1978 年恢復高考；拓撲物理的黃金十年。</td>
+<td><b>貴人：</b>老婆。1997 年她先去了北加的 Intel，把家往西拉。<br><b>時機：</b>1998 年五月出門赴 TRI 面試那天早上，Cyrano 的 FedEx 就躺在門口屋簷下。</td>
+</tr></table></div>
+<p><b>小結：</b>運氣三個人都有，誰也不比誰少。早上那篇說「貴人是抽獎抽中的」，這裡再加一句：<b>抽中了，還得接得住。</b></p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="s5">五　選擇：三條岔路</h2>
+<p>前三個變量比完，三個人差得並不多——各有長短。真正把三條路拉開的，是下面這些岔路口。每個節點上，「走了」是他實際選的那條，「沒走」是擺在面前、他放下的那條：</p>
+
+<div class="cards">
+<div class="card li"><h4 class="li">李飛飛</h4>
+<div class="node"><span class="yr">1999 普林斯頓畢業</span><span class="pick">去西藏研究一年藏藥，回來讀博，做 AI 與計算神經科學</span><span class="skip">華爾街、顧問公司的高薪 offer</span></div>
+<div class="node"><span class="yr">2007 ImageNet</span><span class="pick">靠網路眾包標註上千萬張圖；當時同行都問「連一個物體都算不好，收集幾萬類幹嘛？」</span><span class="skip">安全、好發論文的小題目</span></div>
+<div class="node"><span class="yr">2018 離開 Google</span><span class="pick">回 Stanford 創辦「以人為本」的 HAI；用 AI 在醫院監測洗手、照看 ICU 病人和獨居老人</span><span class="skip">留在大公司</span></div>
+<div class="node"><span class="yr">2024 World Labs</span><span class="pick">創業做「空間智能」，回到自己的老本行：視覺</span></div>
+</div>
+
+<div class="card lx"><h4 class="lx">老熊</h4>
+<div class="node"><span class="yr">1998 離開路州</span><span class="pick">進一家成立才 13 個月的新創 Cyrano，做電子鼻</span><span class="skip">TRI：繼續寫計畫書向軍方要錢</span></div>
+<div class="node"><span class="yr">2008–2012</span><span class="pick">Optiscan 做 ICU 床邊血糖監測，NASA Ames 做 Cell-All——讓手機聞得到有毒氣體</span></div>
+<div class="node"><span class="yr">2013</span><span class="pick">JDSU（Viavi）：掌上型近紅外光譜儀的演算法</span><span class="skip">Goodyear（家人得分隔兩地）、Intel 合約工（舉家北遷）</span></div>
+<div class="node"><span class="yr">2017</span><span class="pick">留在灣區，留在家</span><span class="skip">BP：Naperville 的化學計量科學家</span></div>
+</div>
+
+<div class="card zh"><h4 class="zh">張首晟</h4>
+<div class="node"><span class="yr">1987 前後</span><span class="pick">聽楊振寧的話，從超引力轉進凝聚態</span><span class="skip">愛因斯坦的大統一夢</span></div>
+<div class="node"><span class="yr">2006</span><span class="pick">提出可以被實驗驗證的預言，一年後就被證實</span></div>
+<div class="node"><span class="yr">2013</span><span class="pick">創辦丹華資本，從追求真理轉向經營資本</span><span class="skip">專心物理，等諾貝爾獎</span></div>
+<div class="node"><span class="yr">2017–2018</span><span class="pick">成為區塊鏈最熱情的布道者：「區塊鏈產業至少比互聯網大十倍」；丹華 2018 年一年投了 34 個區塊鏈項目</span><span class="skip">回到實驗室和學生身邊</span></div>
+</div>
+</div>
+<p>張首晟前兩個節點選得漂亮極了——從大統一夢轉到凝聚態，再挑一個可以被實驗驗證的預言，這是第一流科學家的選擇。分歧出在 2013 年之後。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="s6">六　最大的不同：初心</h2>
+<p>把三張卡片並排一看，答案就在那裡。</p>
+<h3 class="li">李飛飛：守著初心</h3>
+<p>她每一個節點的選擇，都指向同一個方向：<b>用技術去解決真實世界的難題，讓人類活得更好。</b>普林斯頓畢業時，華爾街的錢就擺在桌上，她轉身去了西藏。ImageNet 沒人看好，她押了下去，最後證明是整個深度學習時代的地基——而且是開放給全世界用的。從 Google 回到 Stanford，她的研究走進醫院和老人的家裡，HAI 的名字就叫「以人為本」。她在回憶錄裡反覆講「北極星」，講的就是這個方向。</p>
+<h3 class="lx">老熊：同一個方向，小一號的版本</h3>
+<p>我不敢跟李飛飛比成就，但回頭看自己這二十六年，方向其實是一樣的。電子鼻、ICU 床邊的血糖監測、讓手機聞得到毒氣、掌上型的近紅外光譜儀——每一份工作都在做同一件事：<b>讓量測給出可信的答案。</b>我那幾項關於「拒判」的專利，說白了就是教儀器在自己不確定的時候閉嘴，不要給使用者一個錯的答案。這些東西不會讓人一夜致富，但每天都有人在用。</p>
+<p>我這一生最重要的幾個「不」——不去 Goodyear、不去 Intel、不去 BP——都不是為了錢，是為了家。這是同一種初心的另一面：知道自己要什麼，就不會被更大的數字牽著走。</p>
+<h3 class="zh">張首晟：離開了初心</h3>
+<p>張首晟的前半生，是一個為真理工作的人。2013 年轉做創投，還可以說是想把科學帶進產業；但到了 2017、2018 年，他把一位諾獎級物理學家的全部名望，押在當時最狂熱的幣圈上，去當它的布道者。</p>
+<div class="verdict">那一波幣圈，主旋律是 ICO、代幣和一夜暴富的神話。他用熵、共識、“In Math We Trust” 把它講得很浪漫，丹華也確實同時投資 AI、大數據等領域，我不懷疑他相信自己說的話。但在我看來，<b>這個選擇已經離開了「解決真實世界的難題」那條路，走進了一個以投機為主的場子</b>。這是三個人在關鍵時刻的選擇上，最大的不同。</div>
+<p>關於他的結局，我只說一句：家屬說他長期與抑鬱症搏鬥，我不把它算在任何一個選擇的帳上。<b>我比較的是選擇，不是結局。</b>選擇可以評論，一個人的病痛不該拿來做文章。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="s7">七　回到李飛飛：唯一「可操作」的那一張牌</h2>
+<p>早上我在小紅書留言「可操作 可复制 就算了吧」。現在可以把話說完整了：</p>
+<blockquote>李飛飛的家底、天份、運氣，一樣都複製不了；但她在每個岔路口怎麼選，是可以學的。</blockquote>
+<p>前三張牌是發的，第四張牌是自己出的。所謂「可操作」，如果真有的話，只有這一張：<b>在關鍵時刻，問自己這件事是在解決真實的問題，還是在追一個暴富的故事。</b>張首晟的天份是我們這一代華人科學家裡數一數二的，連他都會在這張牌上打偏，可見這張牌一點也不好打。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="takehome">Take-home message</h2>
+<p>家底、天份、運氣，決定你上桌時手上有什麼牌；<b>關鍵時刻的選擇，決定你怎麼打完這一局。</b>好牌也會打輸，普通的牌也能打出一個踏實的人生。判斷一個選擇，問一個問題就夠了：<b>這是在解決真實世界的問題，還是在追一夜暴富？</b></p>
+
+<div class="memo"><b>附記：</b>張首晟教授走的時候才 55 歲。我對他後來的選擇不以為然，但他在物理上留下的東西，會比任何一則關於他的傳言都長久。抑鬱是病，可以治療；如果讀這篇的朋友，或你身邊的人，正在撐一段很難的日子，美國可以撥打或傳訊 988，台灣可以撥 1925。</div>
+<a class="back" href="#toc">↑ 回目錄</a>
+
+<h2 id="sources">來源</h2>
+<ul style="font-size:.8em">
+<li>本站〈李飛飛的開挂人生可以被複製嗎？〉、〈兩個八年抗戰才完成的職業轉型〉。</li>
+<li><a href="https://en.wikipedia.org/wiki/Fei-Fei_Li">Wikipedia: Fei-Fei Li</a>；<a href="https://www.jiemian.com/article/1844743.html">界面新聞：移民李飛飛</a>（父母職業、干洗店、母親病情、畢業後去西藏、ImageNet 初期反應）。</li>
+<li><a href="https://www.nature.com/articles/s41586-020-2669-y">Haque, Milstein &amp; Li, Nature 2020: Illuminating the dark spaces of healthcare with ambient intelligence</a>。</li>
+<li><a href="https://tim.blog/2025/12/10/dr-fei-fei-li-the-godmother-of-ai-transcript/">Tim Ferriss Show #839: Dr. Fei-Fei Li … Finding Your North Star</a>。</li>
+<li><a href="https://en.wikipedia.org/wiki/Shoucheng_Zhang">Wikipedia: Shoucheng Zhang</a>；<a href="https://zh.wikipedia.org/wiki/%E5%BC%A0%E9%A6%96%E6%99%9F">維基百科：張首晟</a>。</li>
+<li><a href="https://www.thepaper.cn/newsDetail_forward_2724324">澎湃新聞：楊振寧首度發聲憶愛徒</a>（勸他轉向凝聚態）。</li>
+<li><a href="https://www.pencilnews.cn/p/23787.html">鉛筆道：消逝在 2018 年尾的那道星光</a>（家學、閣樓讀書、丹華 2018 年投資 34 個區塊鏈項目、「比互聯網大十倍」）。</li>
+<li><a href="https://www.scmp.com/tech/article/2176729/zhang-shoucheng-stanford-physicist-and-tech-venture-capitalist-dies-after">SCMP</a>、<a href="https://stanforddaily.com/2018/12/30/following-stanford-physics-professors-passing-rumors-of-ties-to-chinese-government-emerge/">Stanford Daily</a>（家屬聲明）。</li>
+</ul>
+<div class="footer">老熊隨筆 · 初稿由 Muse 整理，作者修訂後發布。文中對張首晟後期選擇的評論，是作者個人觀點。</div>
+
+<nav class="fnav"><a href="#toc">回目錄</a><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a></nav>
+</body></html>
