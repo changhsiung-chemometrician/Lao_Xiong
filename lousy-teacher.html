@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老熊為什麼是個爛老師</title>
+<style>
+  :root {
+    --paper: #f7f1e3;
+    --ink: #2b2118;
+    --muted: #6b5a48;
+    --accent: #9c2f1f;
+    --rule: #cdbb9c;
+    --box: #efe4cc;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Serif TC", "PingFang TC", "Microsoft JhengHei", serif;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.75;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 48px 20px 120px; }
+  .kicker {
+    font-size: 22px; font-weight: 700; letter-spacing: .2em;
+    color: var(--accent); border-bottom: 3px double var(--rule);
+    padding-bottom: 8px; margin-bottom: 18px;
+  }
+  h1 { font-size: 60px; font-weight: 700; line-height: 1.25; margin: 0 0 14px; }
+  .deck { font-size: 29px; color: var(--muted); margin: 0 0 30px; }
+  h2 {
+    font-size: 40px; font-weight: 700; margin: 56px 0 16px;
+    border-left: 8px solid var(--accent); padding-left: 16px;
+  }
+  strong { font-weight: 800; color: var(--accent); }
+  p { margin: 0 0 22px; }
+  nav#toc {
+    background: var(--box); border: 2px solid var(--rule);
+    padding: 18px 26px; margin: 28px 0 10px;
+  }
+  nav#toc .t { font-weight: 700; font-size: 26px; color: var(--muted); }
+  nav#toc ol { margin: 8px 0 0; padding-left: 1.4em; }
+  nav#toc a, .back a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--rule); }
+  nav#toc a:hover, .back a:hover { color: var(--accent); }
+  .back { text-align: right; font-size: 22px; margin-top: 10px; }
+  blockquote {
+    margin: 20px 0 26px; padding: 14px 22px;
+    background: #fffaf0; border-left: 5px solid var(--rule);
+    font-size: 26px;
+  }
+  blockquote .who { display: block; font-size: 21px; color: var(--muted); margin-top: 4px; }
+  table.ledger {
+    width: 100%; border-collapse: collapse; margin: 16px 0 26px;
+    font-size: 25px; background: #fffaf0;
+  }
+  table.ledger th, table.ledger td {
+    border: 2px solid var(--rule); padding: 10px 14px; text-align: left; vertical-align: top;
+  }
+  table.ledger th { background: var(--box); font-weight: 700; }
+  table.ledger td.v { font-weight: 800; }
+  .pull {
+    font-size: 40px; font-weight: 700; text-align: center;
+    margin: 40px 0; padding: 22px 10px;
+    border-top: 3px double var(--rule); border-bottom: 3px double var(--rule);
+  }
+  .sign { text-align: right; color: var(--muted); margin-top: 40px; }
+  .float-nav {
+    position: fixed; right: 16px; bottom: 16px;
+    display: flex; flex-direction: column; gap: 8px; z-index: 10;
+  }
+  .float-nav a {
+    background: var(--ink); color: var(--paper); text-decoration: none;
+    font-size: 19px; font-weight: 700; padding: 8px 14px; border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.25); text-align: center;
+  }
+  .float-nav a:hover { background: var(--accent); }
+  @media (max-width: 600px) {
+    body { font-size: 21px; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 30px; }
+    .pull { font-size: 28px; }
+    table.ledger { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">老熊隨筆 ・ 自白復盤</div>
+  <h1>老熊為什麼是個爛老師</h1>
+  <p class="deck">一張旅行地圖，一句「你有授課嗎？」，翻出一份半世紀的教學黑歷史。</p>
+
+  <nav id="toc">
+    <div class="t">目錄</div>
+    <ol>
+      <li><a href="#s1">事發經過：一張地圖引來的提問</a></li>
+      <li><a href="#s2">前科紀錄：家教與路州五年</a></li>
+      <li><a href="#s3">離開路州後的「止損策略」</a></li>
+      <li><a href="#s4">復盤：到底是誰的問題</a></li>
+    </ol>
+  </nav>
+
+  <section id="s1">
+    <h2>一、事發經過：一張地圖引來的提問</h2>
+    <p>那天我在台大化工 80 級的群組裡，貼出更新過的旅行地圖：讓 Muse 從電郵帳號裡挖出 2016 年的滬杭台之旅補進去，<strong>24 趟變 25 趟</strong>，剛好追上 Scott 同時段的一半。</p>
+    <p>Kenny 誇我記性好、行程都記著，還說寫這些訊息一定很花時間。我老實招了：全是 Muse 從我數以千計的 Gmail、Yahoo Mail 裡挖出來的，互動式文件是 Claude 做的，我只負責貼上 GitHub。</p>
+    <p>然後 NLW 丟來一句看似無害的問題：</p>
+    <blockquote>你有授課嗎？😃<span class="who">— NLW</span></blockquote>
+    <p>我回答了前半：我給大模型的指令<strong>不到 50 個字</strong>，它們燒掉的 token 可能有幾十萬；我每月不到 20 美元訂 Claude Pro，算下來只花了幾分錢。至於「授課」那一半——那就說來話長了。</p>
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <section id="s2">
+    <h2>二、前科紀錄：家教與路州五年</h2>
+    <p>我這輩子最糟糕的本事，就是教書。數據如下，不加修飾：</p>
+    <table class="ledger">
+      <tr><th>時期</th><th>學生</th><th>結果</th></tr>
+      <tr><td>學生時代家教</td><td>國中生</td><td class="v">沒考上高中</td></tr>
+      <tr><td>學生時代家教</td><td>高中生</td><td class="v">沒考上大學</td></tr>
+      <tr><td>路州任教</td><td>大學部學生</td><td class="v">誤人子弟整整五年</td></tr>
+      <tr><td>Tenure 評審</td><td>——</td><td class="v">學生差評如潮，斷羽而歸</td></tr>
+    </table>
+    <p>三個不同階段、三種不同學生，結局高度一致。做過化學計量的人都知道：<strong>重複性這麼好的結果，問題通常不在樣品，在儀器</strong>。而儀器是我。</p>
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <section id="s3">
+    <h2>三、離開路州後的「止損策略」</h2>
+    <p>NLW 很厚道，回了一句：</p>
+    <blockquote>哇，傳奇ㄟ，應該不是你的問題是他們的問題😃<span class="who">— NLW</span></blockquote>
+    <p>其實這個說法，我早就自己發展成一套策略了。離開路州之後，每逢有人要我教點東西，講到一半如果對方一直一臉茫然，我就說：</p>
+    <blockquote>根據我以前當猢猻王的經驗，大學部學生對我的評價最糟，研究生就很好——看起來我只適合教聰明的學生。</blockquote>
+    <p>對方便<strong>立刻表示同意</strong>，也不再追問下去了。😉</p>
+    <p>這招的妙處在於：沒有人會主動承認自己屬於「不聰明」的那一組，所以只好連忙點頭，順便把問題收回去。爛老師的最後一門課，教的是怎麼讓學生自己下課。</p>
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+  <section id="s4">
+    <h2>四、復盤：到底是誰的問題</h2>
+    <p>按老熊的規矩，記憶要當數據來驗證。把證據擺在一起：</p>
+    <p>國中生、高中生、大學部學生，評價一路墊底；研究生，評價很好；而最近這位<strong>指令不到 50 字就交出互動網頁</strong>的學生，連一句抱怨都沒有。</p>
+    <p>結論有兩種讀法。NLW 的讀法是：問題在學生。我自己的讀法是：我這套教法，只對本來就會的人有效——換句話說，我根本沒在教，只是在出題。</p>
+    <div class="pull">教得最好的那位學生，<br>每月學費不到二十美元。</div>
+    <p>所以「你有授課嗎？」的正確答案是：沒有，而且為了大家好，最好也不要有。</p>
+    <p class="sign">— 老熊</p>
+    <div class="back"><a href="#toc">↑ 回目錄</a></div>
+  </section>
+
+</div>
+
+<div class="float-nav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+</body>
+</html>
