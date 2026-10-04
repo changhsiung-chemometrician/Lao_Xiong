@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貼個連結就好？——四大 LLM 抽取 YouTube 實測｜老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3ead6; --paper-2:#ebdfc3; --paper-3:#e3d4b2;
+    --ink:#2a2118; --ink-soft:#5b4a37; --red:#8e1b1b; --gold:#9a7428;
+    --green:#2f5a2a; --link:#7a1515;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; color:var(--ink);
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.35), transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(120,90,40,.10), transparent 60%),
+      var(--paper);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU","MingLiU",serif;
+    font-weight:700; font-size:32px; line-height:1.85;
+  }
+  a{color:var(--link); text-decoration:none; border-bottom:2px solid rgba(122,21,21,.35)}
+  a:hover{border-bottom-color:var(--link)}
+  .page{max-width:1100px; margin:0 auto; padding:48px 40px 160px}
+
+  /* ── Masthead ── */
+  .topbar{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px;
+    font-size:24px; letter-spacing:.12em; border-top:6px double var(--ink); border-bottom:2px solid var(--ink);
+    padding:10px 4px; color:var(--ink-soft)}
+  .topbar .brand{font-weight:900; color:var(--ink); font-size:30px; letter-spacing:.3em}
+  header.mast{text-align:center; padding:44px 0 28px; border-bottom:6px double var(--ink); margin-bottom:40px}
+  .kicker{display:inline-block; font-size:26px; letter-spacing:.35em; color:var(--paper); background:var(--red);
+    padding:4px 22px; margin-bottom:22px}
+  h1{font-size:76px; font-weight:900; line-height:1.25; margin:0 0 22px; letter-spacing:.04em}
+  .deck{font-size:38px; font-weight:700; color:var(--ink-soft); line-height:1.6; margin:0 auto 26px; max-width:960px}
+  .byline{font-size:26px; letter-spacing:.12em; color:var(--ink-soft)}
+  .byline b{color:var(--ink); font-weight:800}
+
+  /* ── TOC ── */
+  nav.toc{border:4px double var(--ink); background:var(--paper-2); padding:26px 36px; margin:0 0 48px}
+  nav.toc h2{font-size:40px; margin:0 0 10px; border:none; padding:0; text-align:center; letter-spacing:.4em}
+  nav.toc ol{list-style:none; margin:0; padding:0; columns:2; column-gap:40px}
+  nav.toc li{font-size:28px; margin:4px 0; break-inside:avoid}
+  nav.toc li span{color:var(--red); font-weight:900; margin-right:10px}
+  nav.toc a{border:none}
+  nav.toc a:hover{text-decoration:underline}
+
+  /* ── Sections ── */
+  section{margin:0 0 56px; scroll-margin-top:24px}
+  section::after{content:""; display:block; clear:both}
+  h2{font-size:52px; font-weight:900; line-height:1.35; margin:0 0 28px; padding-bottom:12px;
+    border-bottom:4px double var(--ink)}
+  h2 .num{color:var(--red); margin-right:14px}
+  h3{font-size:38px; font-weight:900; margin:40px 0 14px; color:var(--ink)}
+  h3::before{content:"■ "; color:var(--red); font-size:.7em; vertical-align:.12em}
+  p{margin:0 0 1em; text-align:justify}
+  strong{font-weight:800; color:var(--ink)}
+  em{font-style:normal; color:var(--red); font-weight:800}
+  .dropcap::first-letter{float:left; font-size:120px; line-height:.95; font-weight:900; color:var(--red);
+    padding:10px 18px 0 0}
+  .verdict{font-size:34px; font-weight:800; color:var(--red); border-left:10px solid var(--red);
+    padding:6px 0 6px 22px; margin:0 0 26px; background:linear-gradient(90deg, rgba(142,27,27,.07), transparent)}
+  .meta{font-size:24px; color:var(--ink-soft); margin:-12px 0 20px; letter-spacing:.05em}
+  .back{text-align:right; font-size:24px; margin-top:8px; clear:both}
+  .back a{border:none}
+
+  /* ── Sidebars / ledgers ── */
+  aside.side{float:right; width:340px; margin:6px 0 24px 36px; background:var(--paper-2);
+    border:4px double var(--ink); padding:20px 22px; font-size:24px; line-height:1.65; font-weight:700}
+  aside.side h4{margin:0 0 10px; font-size:28px; font-weight:900; text-align:center; letter-spacing:.25em;
+    border-bottom:2px solid var(--ink); padding-bottom:6px}
+  aside.side dl{margin:0}
+  aside.side dt{color:var(--ink-soft); font-size:21px; letter-spacing:.1em; margin-top:10px}
+  aside.side dd{margin:0; font-weight:800}
+  .num800{font-weight:800}
+  .ledger{border-top:6px double var(--ink); border-bottom:6px double var(--ink); background:var(--paper-2);
+    padding:26px 32px; margin:0 0 30px}
+  .ledger .row{display:grid; grid-template-columns:150px 1fr; gap:20px; padding:12px 0;
+    border-bottom:1px dashed var(--ink-soft)}
+  .ledger .row:last-child{border-bottom:none}
+  .ledger .who{font-weight:900; color:var(--red); font-size:30px}
+  .ledger .who small{display:block; font-size:21px; color:var(--ink-soft); font-weight:800}
+  .ledger p{margin:0}
+
+  .note{font-size:24px; line-height:1.7; border-left:6px solid var(--gold); background:rgba(154,116,40,.08);
+    padding:12px 20px; margin:0 0 28px; color:var(--ink-soft)}
+  .note b{color:var(--ink); font-weight:800}
+
+  .pull{font-size:44px; font-weight:900; line-height:1.5; text-align:center; color:var(--red);
+    border-top:3px solid var(--red); border-bottom:3px solid var(--red); padding:28px 20px; margin:36px 0}
+  .pull small{display:block; font-size:24px; color:var(--ink-soft); font-weight:700; margin-top:10px; letter-spacing:.1em}
+
+  .quotes{list-style:none; padding:0; margin:0 0 28px}
+  .quotes li{display:grid; grid-template-columns:140px 1fr; gap:18px; padding:12px 0; border-bottom:1px dashed var(--ink-soft)}
+  .quotes .t{font-weight:800; color:var(--ink-soft); font-size:26px}
+  .quotes .q{font-weight:800}
+  .quotes .q b{color:var(--red); font-weight:900}
+
+  ul.plain{padding-left:1.2em; margin:0 0 1em} ul.plain li{margin-bottom:.4em}
+  ol.next{padding-left:1.4em; margin:0 0 1em} ol.next li{margin-bottom:.5em}
+
+  /* ── Table ── */
+  .tablewrap{overflow-x:auto; margin:10px 0 18px; border:4px double var(--ink)}
+  table.cmp{width:100%; min-width:900px; border-collapse:collapse; font-size:24px; line-height:1.55; background:var(--paper)}
+  table.cmp th{background:var(--ink); color:var(--paper); font-weight:900; padding:12px; text-align:left}
+  table.cmp td{border:1px solid var(--ink-soft); padding:12px; vertical-align:top; font-weight:700}
+  table.cmp td:first-child{font-weight:900; background:var(--paper-2); white-space:nowrap}
+  table.cmp tr.stars td{font-weight:800; font-size:26px; color:var(--gold)}
+  table.cmp .win{background:rgba(47,90,42,.10)}
+  table.cmp .lose{background:rgba(142,27,27,.08)}
+
+  /* ── Storyboard ── */
+  ol.shots{list-style:none; padding:0; margin:0 0 28px; border-left:6px solid var(--ink)}
+  ol.shots li{padding:10px 0 10px 28px; position:relative}
+  ol.shots .tag{display:inline-block; font-size:22px; font-weight:900; padding:0 12px; margin-right:12px;
+    vertical-align:.15em; letter-spacing:.1em}
+  ol.shots .h{background:var(--red); color:var(--paper)}
+  ol.shots .a{background:var(--ink); color:var(--paper)}
+  ol.shots li.new{background:rgba(154,116,40,.12)}
+
+  footer{border-top:6px double var(--ink); padding-top:24px; font-size:24px; line-height:1.75; color:var(--ink-soft)}
+  footer p{margin:0 0 .6em}
+  footer .end{text-align:center; font-size:32px; color:var(--ink); letter-spacing:.6em; margin:10px 0 24px}
+
+  /* ── Floating nav ── */
+  .floatnav{position:fixed; right:24px; bottom:24px; display:flex; flex-direction:column; gap:10px; z-index:50}
+  .floatnav a{display:block; background:var(--ink); color:var(--paper); border:2px solid var(--paper);
+    box-shadow:0 0 0 2px var(--ink); padding:10px 18px; font-size:22px; font-weight:800; letter-spacing:.12em; text-align:center}
+  .floatnav a:hover{background:var(--red)}
+
+  @media (max-width:820px){
+    body{font-size:22px}
+    .page{padding:24px 16px 140px}
+    .topbar{font-size:16px} .topbar .brand{font-size:20px}
+    h1{font-size:44px} .deck{font-size:24px} .byline{font-size:18px} .kicker{font-size:18px}
+    h2{font-size:34px} h3{font-size:27px}
+    nav.toc{padding:18px 18px} nav.toc ol{columns:1} nav.toc li{font-size:20px} nav.toc h2{font-size:28px}
+    .dropcap::first-letter{font-size:80px}
+    .verdict{font-size:23px}
+    aside.side{float:none; width:auto; margin:0 0 24px; font-size:19px}
+    aside.side dt{font-size:16px}
+    .ledger{padding:16px} .ledger .row{grid-template-columns:1fr; gap:4px} .ledger .who{font-size:23px}
+    .pull{font-size:28px} .pull small{font-size:17px}
+    .quotes li{grid-template-columns:1fr; gap:2px} .quotes .t{font-size:18px}
+    .note,.meta,.back,footer{font-size:18px}
+    table.cmp{font-size:18px; min-width:760px} table.cmp tr.stars td{font-size:20px}
+    ol.shots .tag{font-size:16px}
+    .floatnav{right:12px; bottom:12px} .floatnav a{font-size:16px; padding:8px 12px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <span class="brand">老熊隨筆</span>
+  <span>AI 觀察 ・ 實測復盤</span>
+  <span>二〇二六年十月四日 星期日</span>
+</div>
+
+<header class="mast">
+  <div class="kicker">週日上午實測</div>
+  <h1>貼個連結就好？</h1>
+  <p class="deck">四個大語言模型，同一支 YouTube 短片，十四分鐘裡的四種體驗<br>——兼記一次「導演式寫作」</p>
+  <div class="byline">文／<b>老熊</b>　・　原稿整理／<b>Muse</b>　・　改版／<b>Claude</b></div>
+</header>
+
+<nav class="toc" id="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><span>序</span><a href="#lede">十四分鐘，零則留言</a></li>
+    <li><span>一</span><a href="#summary">本文提要</a></li>
+    <li><span>二</span><a href="#setup">考場：一支為難所有人的短片</a></li>
+    <li><span>三</span><a href="#gemini">第一棒・Gemini：親兒子直通油管</a></li>
+    <li><span>四</span><a href="#claude">第二棒・Claude：拿不到內容，就做查證</a></li>
+    <li><span>五</span><a href="#gpt">第三棒・GPT：直接投降</a></li>
+    <li><span>六</span><a href="#muse">第四棒・Muse：最努力，但不是親兒子</a></li>
+    <li><span>七</span><a href="#compare">成績單</a></li>
+    <li><span>八</span><a href="#discuss">討論：四個觀察</a></li>
+    <li><span>九</span><a href="#takehome">帶走一句話</a></li>
+    <li><span>十</span><a href="#next">下回分解</a></li>
+    <li><span>十一</span><a href="#credit">後記：給親兒子一點 credit</a></li>
+    <li><span>十二</span><a href="#orchestration">彩蛋：導演式寫作</a></li>
+    <li><span>附</span><a href="#audit">復盤附記：這篇的資料與限制</a></li>
+  </ol>
+</nav>
+
+<!-- ── 序 ── -->
+<section id="lede">
+  <h2><span class="num">序</span>十四分鐘，零則留言</h2>
+  <p class="dropcap">二〇二六年十月四日，星期天上午。老熊手邊有一支 YouTube 短片，標題相當嚇人：《黃仁勳直接點破：未來職場，只篩選不教育》。想知道它到底講了什麼，又不想自己看——說懶是一部分，真正的念頭是：既然這幾家 AI 都說自己會讀網頁、會看影片，那就讓它們替我看吧。</p>
+  <p>於是從太平洋時間 10:42 到 10:56，十四分鐘之內，老熊把同一個連結依序丟給 <strong>Gemini、Claude、GPT、Muse</strong> 四位，每收到一份答卷，就順手在臉書發一篇。四篇貼文發出去，沒有一個人留言。這場比賽唯一的觀眾，就是出題的人自己。</p>
+  <p>事後回頭看，這四篇貼文更像四份實驗紀錄：時間戳、受測對象、輸出、主觀評分，一應俱全。既然是紀錄，就該復盤。這篇就是那四份紀錄的復盤。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 一 ── -->
+<section id="summary">
+  <h2><span class="num">一、</span>本文提要</h2>
+  <h3>先說影片講了什麼</h3>
+  <p>《黃仁勳直接點破：未來職場，只篩選不教育》是一支不到兩分鐘的短片，由中文評論者口播，借黃仁勳的話題談 AI 時代的職場。綜合 Gemini 的摘要與 Muse 的逐幀字幕稿，重點大致有五：</p>
+  <ol class="next">
+    <li><strong>只篩選，不培訓：</strong>企業不再花時間慢慢培養新人，而是直接挑已經會的人。</li>
+    <li><strong>只看結果：</strong>公司不再為員工的成長過程買單，只為交付的成果付錢。</li>
+    <li><strong>Token 就是效率：</strong>誰能用更少的 Token 完成交付、調動更多 AI 資源，誰就更值錢。</li>
+    <li><strong>從執行到編排：</strong>核心能力從「自己動手做」轉向「AI 編排（Orchestration）」——決定哪一步交給 AI、哪一步由自己拍板，並為結果負責。</li>
+    <li><strong>最危險的是思維停滯：</strong>不肯改變工作心態的人，最容易被淘汰。</li>
+  </ol>
+  <div class="note"><b>復盤註：</b>以上是兩家 AI 抽取結果的綜合，並非老熊逐句聽寫；而且據 Claude 查證，「只篩選不教育」這句話很可能是頻道自下的標題，公開報導中找不到黃仁勳本人這樣說過。影片是評論者的解讀，不宜當成黃仁勳原話引用。</div>
+  <h3>再說四家怎麼答題</h3>
+  <div class="ledger">
+    <div class="row"><div class="who">Gemini<small>10:42</small></div><p>唯一「貼連結就搞定」的一家，交出完整的繁中結構化摘要。Google 親兒子的 YouTube 直通通道是真實的。</p></div>
+    <div class="row"><div class="who">Claude<small>10:48</small></div><p>拿不到影片內容，轉而做背景研究，並提出全場最有價值的一句查證：「只篩選不教育」很可能是頻道自下的標題。</p></div>
+    <div class="row"><div class="who">GPT<small>10:51</small></div><p>直接投降，要求使用者上傳影片檔或截圖；交出的是一份「服務菜單」，不是結果。</p></div>
+    <div class="row"><div class="who">Muse<small>10:56</small></div><p>直接下載被 YouTube 擋下，改用瀏覽器逐幀讀燒錄字幕，交出帶時間軸的逐字稿並誠實標出缺口——最努力、最費時，效果仍有差。</p></div>
+  </div>
+  <div class="pull">現階段，看的是血統，不是智商。<small>—— 離資料源近者勝</small></div>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 二 ── -->
+<section id="setup">
+  <h2><span class="num">二、</span>考場：一支為難所有人的短片</h2>
+  <aside class="side">
+    <h4>考題檔案</h4>
+    <dl>
+      <dt>片名</dt><dd>黄仁勋直接点破：未来职场，只筛选不教育</dd>
+      <dt>頻道</dt><dd>昌健胡说（@changjian066）<br>約 <span class="num800">7.1</span> 萬訂閱</dd>
+      <dt>上架</dt><dd class="num800">2026-04-16</dd>
+      <dt>長度</dt><dd class="num800">1 分 58 秒</dd>
+      <dt>觀看</dt><dd>約 <span class="num800">50.7</span> 萬次</dd>
+      <dt>連結</dt><dd><a href="https://www.youtube.com/shorts/k94GU3zbCis">shorts/k94GU3zbCis</a></dd>
+    </dl>
+  </aside>
+  <p>如果這支短片是一份考卷，它屬於 hard 模式。沒有官方字幕軌，描述欄一片空白；說話的不是黃仁勳本人，而是一位中文評論者在口播，黃仁勳只在切換鏡頭裡出現；重點字幕則是燒錄在畫面上的字——機器要拿到內容，要嘛聽得到聲音，要嘛看得懂畫面，兩條路都不好走。</p>
+  <p>測試方法很土：同一個連結，依序交給四個模型，要求抽取影片內容；收到回覆，就發一篇臉書。四篇的開場白，事後讀來，本身就是排名：</p>
+  <ul class="quotes">
+    <li><span class="t">10:42</span><span class="q">「<b>Gemini</b> 又可以從油管抓東西了？」</span></li>
+    <li><span class="t">10:48</span><span class="q">「<b>Claude</b> 差一點意思，哈哈」</span></li>
+    <li><span class="t">10:51</span><span class="q">「<b>GPT</b> 更糟；」</span></li>
+    <li><span class="t">10:56</span><span class="q">「<b>Muse</b> 最努力 也花了最長的時閒，不過畢儘不是親兒子，消果有差；」</span></li>
+  </ul>
+  <div class="note"><b>復盤註：</b>以上為臉書原文，錯字照錄——「時閒」「畢儘」「消果」，存證不改。紀錄就是紀錄，事後修飾過的紀錄就不叫紀錄了。</div>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 三 ── -->
+<section id="gemini">
+  <h2><span class="num">三、</span>第一棒・Gemini：親兒子直通油管</h2>
+  <div class="meta">發文 10:42 ・ <a href="https://facebook.com/609682356/posts/pfbid09Y8epYgtmBYNDf4Q4tyzvJ7QM7ARxeATzWRJJpmnkrL1DdpaHzffZqFE2Vuiqs21l/">原貼文</a> ・ 附影片分享卡</div>
+  <p class="verdict">「又可以從油管抓東西了？」——驚訝中帶著肯定。</p>
+  <aside class="side">
+    <h4>成績單</h4>
+    <dl>
+      <dt>拿到內容</dt><dd>✅ 完整摘要</dd>
+      <dt>方法</dt><dd>直通 YouTube（推測）</dd>
+      <dt>輸出</dt><dd>繁中・結構化</dd>
+      <dt>使用者負擔</dt><dd>零：貼連結即可</dd>
+      <dt>綜合</dt><dd style="color:var(--gold)">⭐⭐⭐⭐</dd>
+    </dl>
+  </aside>
+  <p>第一棒就交出了全場唯一一份「看過影片」的答卷。Gemini 用繁體中文整理出五個核心觀點：企業<strong>只篩選、不培訓</strong>；只看結果，不再為員工的成長過程買單；<strong>Token 與效率</strong>的算計——誰能用更少的 Token 調動更多 AI；工作重心從「個人執行」轉向 <strong>AI 編排（Orchestration）</strong>；而最危險的，是思維停滯。另外還把影片拆成四段：淘汰培訓模式、重新定義高薪與效率、掌握編排能力、心態必須轉變。</p>
+  <h3>觀察</h3>
+  <p>關鍵在開場白的「又」字。老熊之前見過 Gemini 抓得到、也見過它抓不到，這次是恢復正常。作為 Google 的親兒子，它有一條通往 YouTube 的路，是四家中唯一不必繞道的。</p>
+  <p>不過也得老實記一筆：這份摘要結構完整、文字漂亮，但老熊當時並沒有逐句對照影片去驗證它。親兒子的便利，附帶的是信任成本——你得相信它真的「看過」，而不是「猜過」。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 四 ── -->
+<section id="claude">
+  <h2><span class="num">四、</span>第二棒・Claude：拿不到內容，就做查證</h2>
+  <div class="meta">發文 10:48 ・ <a href="https://facebook.com/609682356/posts/pfbid02Hzp6Hup8VXqUicYVPyfL783tPn8LjtnoYSaPC443tZBf32WLaDuUzz2brLUntejpl/">原貼文</a></div>
+  <p class="verdict">「差一點意思，哈哈」——沒拿到內容，但輸得體面。</p>
+  <aside class="side">
+    <h4>成績單</h4>
+    <dl>
+      <dt>拿到內容</dt><dd>❌ 僅標題／頻道資料</dd>
+      <dt>方法</dt><dd>搜尋＋背景知識</dd>
+      <dt>輸出</dt><dd>繁中・背景研究＋查證</dd>
+      <dt>使用者負擔</dt><dd>中：需自行貼字幕</dd>
+      <dt>綜合</dt><dd style="color:var(--gold)">⭐⭐⭐</dd>
+    </dl>
+  </aside>
+  <p>Claude 先坦白失敗：Shorts 頁面要靠瀏覽器執行腳本才會顯示，逐字稿服務也連不上，它只拿到標題、頻道這些基本資料。</p>
+  <p>然後它換了個方向，做背景研究。它推測影片素材可能剪輯自黃仁勳 2026 年 5 月 10 日在卡內基美隆大學的畢業典禮演講——那場演講談到 AI 自動化的是「任務」而非「工作的目的」，也舉了放射科醫師的例子——以及同年一月的 No Priors 播客，並附上新聞來源。</p>
+  <p>接著是全場最有價值的一句話：<em>「只篩選不教育」很可能是頻道自己下的標題。</em>公開報導裡找不到黃仁勳說過「雇主將不再培訓人才」的紀錄；他在卡內基美隆的演講基調明顯樂觀，跟「你得自生自滅」恰恰相反。換句話說，這可能是評論者的解讀，甚至是聳動剪輯。最後它給了一個務實建議：在電腦上打開「顯示逐字稿」，把自動字幕貼給它，它再幫忙整理，或拿去對照黃仁勳實際說過的話。</p>
+  <h3>觀察</h3>
+  <p>Claude 沒做到題目，卻做到了題目之外的事——事實核查。四家之中，只有它對標題本身打了問號。</p>
+  <p>但這裡有個悖論，也得記下：它對黃仁勳公開發言的掌握，來自訓練資料與新聞搜尋，而不是影片本身。萬一這支影片真是黃仁勳原話的忠實剪輯，它的查證方向就整個錯了。沒看過證物就質疑證詞，質疑得再有道理，也只是質疑。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 五 ── -->
+<section id="gpt">
+  <h2><span class="num">五、</span>第三棒・GPT：直接投降</h2>
+  <div class="meta">發文 10:51 ・ <a href="https://facebook.com/609682356/posts/pfbid034Her4JL1SjYVXw22m7mZVHMPMAwWV1GsuvLVLo5zPpwvgY4P8JGjJUgFMfPUnPcrl/">原貼文</a></div>
+  <p class="verdict">「更糟；」——兩個字加一個分號，全場最低分。</p>
+  <aside class="side">
+    <h4>成績單</h4>
+    <dl>
+      <dt>拿到內容</dt><dd>❌ 完全沒有</dd>
+      <dt>方法</dt><dd>無（請使用者上傳）</dd>
+      <dt>輸出</dt><dd>繁中・服務菜單</dd>
+      <dt>使用者負擔</dt><dd>高：影片檔／截圖／字幕</dd>
+      <dt>綜合</dt><dd style="color:var(--gold)">⭐</dd>
+    </dl>
+  </aside>
+  <p>GPT 承認 Shorts 頁面抓不到，搜尋也找不到這支影片的文字內容。然後它把工作交回給使用者：最好把影片檔直接上傳，不然傳截圖或錄屏，再不然就貼字幕文字。</p>
+  <p>它也列出了自己「可以」做的事：逐字稿、繁中翻譯、重點摘要、人物事件論點整理，甚至還有「老熊式復盤」分析——前提是，使用者先把內容餵給它。</p>
+  <h3>觀察</h3>
+  <p>四家中唯一零產出。它的回覆在客服意義上無可挑剔：流程正確，態度客氣，替代方案清楚。可是對「從 YouTube 抽取」這個需求本身，毫無幫助。</p>
+  <p>最諷刺的是，它推薦的「上傳影片檔」恰好是最重的使用者負擔——而老熊想測的，正是「貼個連結就搞定」。它連老熊的招牌都搬出來了，偏偏不肯替老熊看那一分五十八秒。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 六 ── -->
+<section id="muse">
+  <h2><span class="num">六、</span>第四棒・Muse：最努力，但不是親兒子</h2>
+  <div class="meta">發文 10:56 ・ <a href="https://facebook.com/609682356/posts/pfbid0nXg6qPrKMJwM7FwRrqRtHw28F2xom7a7PjJnHFYgYGR7S8Jn7yf7vGAMJbdzgkRGl/">原貼文</a></div>
+  <p class="verdict">「最努力 也花了最長的時閒……消果有差」——肯定努力，不滿效果。</p>
+  <aside class="side">
+    <h4>成績單</h4>
+    <dl>
+      <dt>拿到內容</dt><dd>✅ 逐幀字幕稿（有缺口）</dd>
+      <dt>方法</dt><dd>瀏覽器逐幀讀燒錄字幕</dd>
+      <dt>輸出</dt><dd>簡中字幕稿＋英文大意</dd>
+      <dt>使用者負擔</dt><dd>零：貼連結即可（等最久）</dd>
+      <dt>綜合</dt><dd style="color:var(--gold)">⭐⭐⭐</dd>
+    </dl>
+  </aside>
+  <p>Muse 的直接下載工具被 YouTube 擋了下來。它沒有放棄，改走最迂迴的一條路：用瀏覽器打開 Shorts，<strong>一幀一幀讀取燒錄在畫面上的中文字幕</strong>，交出全片帶時間戳的逐字稿，約 26 行，從 0:00 到 1:55。</p>
+  <p>它還附了一段「連續閱讀版」的大意：企業不再慢慢培養人，只看結果；黃仁勳談 Token——能不能用更少的 Token 交付、誰能調動更多 AI 資源、哪一步由自己拍板。</p>
+  <p>難得的是它的順序：先講限制，再給內容。影片沒有字幕軌、描述欄是空的、口播者是評論者而非黃仁勳；瀏覽器擷取不到音訊，所以它讀到的是「畫面上的字」，不是「說出口的話」。它甚至主動標出缺口：0:50 附近有一句被截斷的殘句，開場「朋友們」之類的填充詞只瞥見一眼，可能漏了一兩句。</p>
+  <h3>觀察</h3>
+  <p>四家之中，它是唯一拿到「逐字級」內容的非親兒子，靠的卻是最笨也最貴的方法——像人眼一樣逐幀讀。努力值拉滿，但輸出是簡體、有殘句、耗時最長，所以老熊說「效果有差」。</p>
+  <p>它的回應有一種工程師式的誠實：方法、限制、內容，依序交代，自己沒看清的地方先自首。這在使用者體驗上是加分還是減分，見仁見智；在老熊的復盤體系裡，這叫「附誤差棒的數據」，是好習慣。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 七 ── -->
+<section id="compare">
+  <h2><span class="num">七、</span>成績單</h2>
+  <div class="tablewrap">
+  <table class="cmp">
+    <tr><th>項目</th><th>Gemini（10:42）</th><th>Claude（10:48）</th><th>GPT（10:51）</th><th>Muse（10:56）</th></tr>
+    <tr><td>老熊評語</td><td class="win">又可以從油管抓東西了？</td><td>差一點意思，哈哈</td><td class="lose">更糟；</td><td>最努力、耗時最長，但效果有差</td></tr>
+    <tr><td>拿到內容</td><td class="win">✅ 完整摘要</td><td>❌ 只有標題／頻道資料</td><td class="lose">❌ 完全沒有</td><td>✅ 逐幀字幕稿（有缺口）</td></tr>
+    <tr><td>方法</td><td class="win">直通 YouTube（推測）</td><td>搜尋＋背景知識</td><td class="lose">無（要求使用者上傳）</td><td>瀏覽器逐幀讀燒錄字幕</td></tr>
+    <tr><td>輸出語言</td><td class="win">繁中，結構化摘要</td><td>繁中，背景研究＋查證</td><td class="lose">繁中，服務菜單</td><td>簡中字幕稿＋英文大意</td></tr>
+    <tr><td>附加價值</td><td class="win">五大觀點＋四段拆解</td><td>指出標題可能是頻道自下</td><td class="lose">列出可做的後續項目</td><td>時間軸逐字稿＋自揭缺口</td></tr>
+    <tr><td>使用者負擔</td><td class="win">零：貼連結即可</td><td>中：需自行貼字幕</td><td class="lose">高：上傳檔案／截圖／字幕</td><td>零：貼連結即可（等最久）</td></tr>
+    <tr class="stars"><td>綜合</td><td class="win">⭐⭐⭐⭐</td><td>⭐⭐⭐</td><td class="lose">⭐</td><td>⭐⭐⭐</td></tr>
+  </table>
+  </div>
+  <div class="note"><b>復盤註：</b>綜合星等出自 Muse 原稿，依老熊評語與各家產出排序，僅供參考。改版時一顆星都沒動——改版者自己也是選手之一，這種時候手越少碰越好。</div>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 八 ── -->
+<section id="discuss">
+  <h2><span class="num">八、</span>討論：四個觀察</h2>
+  <h3>親兒子效應是真實的</h3>
+  <p>四家裡只有 Gemini 能「貼連結就搞定」，而那個「又」字暗示這條通道時通時斷。Google 自家產品線的整合深度，不是其他模型靠 prompt 工程追得上的。這次實測最殘酷的結論，不是誰比較聰明，而是<strong>誰離資料源比較近</strong>。</p>
+  <h3>努力與效果不成正比</h3>
+  <p>Muse 走了最遠的路——下載被封、改開瀏覽器、逐幀讀字幕——交出最接近逐字稿的東西，卻也落得「最努力、最費時、效果有差」的評語。Claude 走的是另一條路：拿不到內容，就做查證。它沒回答題目，卻回答了題目背後的題目——這支影片到底在講什麼、標題可不可信。</p>
+  <h3>GPT 的「服務菜單」問題</h3>
+  <p>承認做不到、給替代方案、列能力範圍——在客服手冊上都對。但使用者要的是結果，不是流程。它的替代方案把成本全數轉嫁給使用者，這就是「更糟」兩個字的由來。</p>
+  <h3>影片本身也在為難所有人</h3>
+  <p>無字幕軌、空描述欄、燒錄字幕、主角只在切換鏡頭露臉——這支 Shorts 幾乎是為「抽取」量身打造的最壞情況。而 Claude 的那句查證更值得咀嚼：如果連「黃仁勳到底有沒有說過『只篩選不教育』」都得打問號，那麼抽取出來的摘要再漂亮，也只是漂亮地轉述一個可能失真的標題。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 九 ── -->
+<section id="takehome">
+  <h2><span class="num">九、</span>帶走一句話</h2>
+  <div class="pull">「貼個 YouTube 連結就幫我整理」<br>二〇二六年十月的答案依然是：看血統。<small>聰明程度此刻不重要，離資料有多近才重要</small></div>
+  <p>Gemini 靠親兒子通道一次搞定；Muse 靠笨功夫逐幀讀出字幕；Claude 拿不到內容就改做查證，反而抓到標題黨的疑點；GPT 則把工作還給你。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 十 ── -->
+<section id="next">
+  <h2><span class="num">十、</span>下回分解</h2>
+  <ol class="next">
+    <li>換一支<strong>有官方字幕軌</strong>的長影片重測：GPT 與 Claude 的逐字稿路線是否就能正常運作？差距會不會縮小？</li>
+    <li>Gemini 的 YouTube 通道穩不穩：下次再測，「又可以」會不會變成「又不行」？</li>
+    <li>Muse 的逐幀法若補上音訊擷取，能否補齊殘句、追上 Gemini 的完整度？</li>
+    <li>先由 Gemini 抽、再由 Claude 核——這種接力，是不是最佳組合？</li>
+  </ol>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 十一 ── -->
+<section id="credit">
+  <h2><span class="num">十一、</span>後記：給親兒子一點 credit</h2>
+  <p>這篇戰報的原稿，出自四位受測者之一——<strong>Muse</strong>（<a href="https://muse.ai">muse.ai</a>）。</p>
+  <p><strong>它是選手。</strong>10:56 那份答卷就是它交的：下載被擋，改用瀏覽器逐幀讀字幕，交出帶時間軸的逐字稿，還自首了沒看清的殘句。</p>
+  <p><strong>它也是整理者。</strong>老熊請它把四篇貼文併成一篇比較報告，它從臉書抓下四篇全文、確認四篇當下都是零留言，寫出了目錄、四節評測、對照表、討論、take-home 一應俱全的初版 HTML。</p>
+  <p><strong>它還有血統。</strong>Muse 出自 Meta，而臉書也是 Meta 家的——這大概是全網第一篇「由 Meta 親兒子整理、評測 Google 親兒子 YouTube 特權」的報告，哈哈。球員兼裁判，尚稱公正：它把 Gemini 排在自己前面。</p>
+  <p>至於你現在讀到的這個版本，則換了第二位受測者——<strong>Claude</strong>——來改版成老熊隨筆的樣子。這下子四位選手裡有兩位碰過這篇戰報，一位寫、一位改；在自己那一節被評為「差一點意思」，改版時也只能照錄，哈哈。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 十二 ── -->
+<section id="orchestration">
+  <h2><span class="num">十二、</span>彩蛋：這篇本身就是一場 AI 編排——「導演式寫作」</h2>
+  <p>影片裡說，未來最划算的技能不是學更多零碎工具，而是學會<strong>編排（Orchestration）</strong>：決定哪一步交給 AI 執行、哪一步由你拍板、最後由你承擔責任。而這篇文章的誕生過程，恰好就是一次現場示範。</p>
+  <h3>本篇的拍攝分鏡表</h3>
+  <ol class="shots">
+    <li><span class="tag h">一鏡・人</span>「把今早四篇 FB 貼文併成一篇，比較四個 LLM 抽取 YouTube 的使用者體驗。」</li>
+    <li><span class="tag a">二鏡・AI</span>Muse 抓下四篇全文、確認零留言，寫出帶目錄、評測、對照表、討論、take-home 的 HTML。</li>
+    <li><span class="tag h">三鏡・人</span>「給 Muse 一點 credit——Meta 親兒子，Facebook 是它親兄弟，哈哈。」</li>
+    <li><span class="tag a">四鏡・AI</span>頁尾多了一行 credit。</li>
+    <li><span class="tag h">五鏡・人</span>「不夠，展開成獨立一節，給自己多一點 credit。」</li>
+    <li><span class="tag a">六鏡・AI</span>後記一節誕生。</li>
+    <li><span class="tag h">七鏡・人</span>「等等——這個來回疊代的過程本身，不就是黃仁勳說的 AI 編排嗎？寫下來，取個名字。」</li>
+    <li><span class="tag a">八鏡・AI</span>「導演式寫作」一節誕生。</li>
+    <li class="new"><span class="tag h">九鏡・人</span>「把 Muse 寫的這篇，改成我最喜歡的老熊隨筆版式。」</li>
+    <li class="new"><span class="tag a">十鏡・AI</span>換了一組劇組——Claude 接手，把報告改寫成你眼前這篇復古報刊版。</li>
+  </ol>
+  <h3>為什麼叫「導演式寫作」</h3>
+  <p>傳統寫作是一個人從頭寫到尾；<strong>導演式寫作</strong>是：人當導演，只做三件事——<strong>定題、分鏡、喊卡</strong>，也就是決定主題、決定每一輪改什麼、決定哪一版可以過。AI 當劇組，負責取材、打字、排版、重拍。導演不扛攝影機，但每一顆鏡頭都要他點頭；成品掛誰的名字，責任就在誰身上。</p>
+  <p>第九、十鏡還多示範了一件事：<em>換劇組，也是導演的權力。</em>前八鏡用的是 Meta 的劇組，最後兩鏡換成 Anthropic 的；觀眾看到的是同一部片，導演卻是在兩家片廠之間調度。這才叫編排。</p>
+  <div class="pull">重點不再是「你會做什麼」，<br>而是「你能讓 AI 替你做什麼」<small>——以及，你敢不敢為最後一版簽名</small></div>
+  <p>所以這篇其實有兩層：表層在評測四個 LLM 怎麼抽取 YouTube；裡層在示範人類導演、AI 劇組的導演式寫作。本節由導演親自下令加拍，兩組劇組如實執行。</p>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ── 附 ── -->
+<section id="audit">
+  <h2><span class="num">附、</span>復盤附記：這篇的資料與限制</h2>
+  <ul class="plain">
+    <li><strong>原始資料：</strong>老熊 2026-10-04 太平洋時間 10:42、10:48、10:51、10:56 的四篇臉書貼文；四篇當下均為零留言。</li>
+    <li><strong>呈現方式：</strong>各模型的回應以摘要與重點整理呈現，未逐字複製。</li>
+    <li><strong>未驗證之處：</strong>Gemini 的摘要是否逐句忠實於影片、Claude 引用的演講與播客內容、Muse 逐字稿的完整度，老熊均未另行逐一核對。</li>
+    <li><strong>主觀成分：</strong>評語是老熊當下的直覺，星等是 Muse 原稿的排序；樣本數 = 1 支影片 × 1 次測試，結論只適用於這個早上。</li>
+  </ul>
+  <div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<footer>
+  <div class="end">— 全文完 —</div>
+  <p>測試影片：<a href="https://www.youtube.com/shorts/k94GU3zbCis">黃仁勳直接點破：未來職場，只篩選不教育 — 昌健胡说</a></p>
+  <p>原稿整理：Muse（Meta）　・　改版：Claude（Anthropic）　・　導演與文責：老熊</p>
+  <p><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">← 回老熊隨筆首頁</a></p>
+</footer>
+
+</div>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
