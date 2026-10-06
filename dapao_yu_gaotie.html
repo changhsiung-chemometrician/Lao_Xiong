@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大砲與高鐵：兩大強權的 25 年抉擇 · 精選外刊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ead6;
+  --paper-deep:#e9dcc0;
+  --card:#f8f2e4;
+  --ink:#1e1a15;
+  --ink-soft:#3a332a;
+  --muted:#6e604c;
+  --vermilion:#b0301c;
+  --brass:#9a7b3c;
+  --rule:#2a241c;
+  --us:#24476f;
+  --cn:#b0301c;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.85;
+  background-image:radial-gradient(rgba(120,90,40,.05) 1px,transparent 1px);
+  background-size:4px 4px;
+}
+a{color:var(--vermilion)}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 28px 120px}
+
+/* ---------- masthead ---------- */
+.masthead{border-top:6px double var(--rule);border-bottom:6px double var(--rule);padding:14px 0 10px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+  font-family:var(--sans);font-size:24px;font-weight:800;letter-spacing:.12em}
+.masthead .brand{font-family:var(--serif);font-size:40px;font-weight:900;letter-spacing:.2em}
+.masthead .brand span{color:var(--vermilion)}
+.masthead .meta{color:var(--muted);white-space:nowrap}
+
+.kicker{margin:46px 0 10px;font-family:var(--sans);font-size:24px;font-weight:800;letter-spacing:.3em;color:var(--vermilion)}
+h1{font-size:76px;line-height:1.2;margin:0 0 6px;font-weight:900;letter-spacing:.04em}
+.subtitle{font-size:40px;font-weight:800;color:var(--ink-soft);margin:0 0 26px}
+.deck{font-size:34px;font-weight:700;color:var(--ink-soft);border-left:8px solid var(--brass);padding:4px 0 4px 26px;margin:0 0 26px}
+.byline{font-family:var(--sans);font-size:22px;font-weight:700;color:var(--muted);letter-spacing:.08em;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 0;margin-bottom:40px}
+.byline b{color:var(--ink);font-weight:800}
+
+/* ---------- TOC ---------- */
+#toc{background:var(--card);border:2px solid var(--rule);outline:1px solid var(--rule);outline-offset:5px;
+  padding:26px 34px;margin:0 0 56px}
+#toc h2{font-family:var(--sans);font-size:26px;letter-spacing:.4em;margin:0 0 12px;color:var(--vermilion);font-weight:900}
+#toc ol{list-style:none;margin:0;padding:0}
+#toc li{display:flex;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px dotted var(--muted)}
+#toc li:last-child{border-bottom:none}
+#toc .n{font-weight:900;color:var(--vermilion);min-width:1.6em}
+#toc a{color:var(--ink);text-decoration:none;font-weight:700}
+#toc a:hover{color:var(--vermilion)}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:start}
+article section{margin-bottom:64px;scroll-margin-top:24px}
+.sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:3px solid var(--rule);padding-bottom:8px;margin:0 0 26px}
+.sec-head .num{font-size:56px;font-weight:900;color:var(--vermilion);line-height:1}
+.sec-head h2{font-size:46px;font-weight:900;margin:0;line-height:1.3}
+.tag{font-family:var(--sans);font-size:20px;font-weight:800;padding:4px 14px;border:2px solid currentColor;margin-left:auto;white-space:nowrap;letter-spacing:.06em}
+.tag.us{color:var(--us)} .tag.cn{color:var(--cn)} .tag.sum{color:var(--brass)}
+p{margin:0 0 26px;text-align:justify}
+strong{font-weight:800}
+.dropcap::first-letter{float:left;font-size:120px;line-height:.9;font-weight:900;color:var(--vermilion);margin:10px 18px 0 0}
+
+/* ledger of figures */
+.ledger{border-top:3px double var(--rule);border-bottom:3px double var(--rule);margin:8px 0 34px;padding:6px 0}
+.ledger .row{display:flex;align-items:baseline;gap:14px;padding:10px 0;border-bottom:1px dotted var(--muted)}
+.ledger .row:last-child{border-bottom:none}
+.ledger .lbl{flex:0 1 auto}
+.ledger .dots{flex:1;border-bottom:3px dotted var(--muted);transform:translateY(-8px)}
+.ledger .val{font-weight:800;white-space:nowrap}
+.ledger.us .val{color:var(--us)} .ledger.cn .val{color:var(--cn)}
+.ledger .total{font-weight:900}
+.ledger .total .val{font-size:38px}
+
+.item{padding-left:26px;border-left:4px solid var(--paper-deep);margin-bottom:24px}
+.item b{font-weight:800}
+.item.us b{color:var(--us)} .item.cn b{color:var(--cn)}
+
+.pullquote{font-size:44px;font-weight:900;line-height:1.5;text-align:center;margin:44px 0;padding:26px 10px;
+  border-top:3px solid var(--rule);border-bottom:3px solid var(--rule);color:var(--ink)}
+.pullquote em{font-style:normal;color:var(--vermilion)}
+
+/* GDP chart */
+.gdp{background:var(--card);border:2px solid var(--rule);padding:26px 30px;margin:10px 0 34px}
+.gdp h3{font-family:var(--sans);font-size:24px;font-weight:900;letter-spacing:.2em;margin:0 0 18px;color:var(--muted)}
+.gdp .bar-row{margin-bottom:22px}
+.gdp .bar-lbl{display:flex;justify-content:space-between;font-size:26px;font-weight:800}
+.gdp .track{height:30px;background:var(--paper-deep);position:relative;margin-top:6px}
+.gdp .fill{position:absolute;left:0;top:0;bottom:0}
+.gdp .fill.us{background:var(--us)} .gdp .fill.cn{background:var(--cn)}
+.gdp .fill.ghost{opacity:.35}
+.gdp .note{font-family:var(--sans);font-size:20px;font-weight:700;color:var(--muted);margin:6px 0 0}
+
+.back{display:inline-block;font-family:var(--sans);font-size:20px;font-weight:800;text-decoration:none;
+  color:var(--muted);border-bottom:2px solid var(--muted);margin-top:4px}
+.back:hover{color:var(--vermilion);border-color:var(--vermilion)}
+
+.audit{background:var(--card);border:2px dashed var(--brass);padding:30px 34px}
+.audit .row{display:flex;gap:16px;margin-bottom:20px}
+.audit .mark{font-weight:900;color:var(--brass);flex:0 0 auto}
+
+/* ---------- sidebar ---------- */
+aside{position:sticky;top:24px;display:flex;flex-direction:column;gap:30px}
+.box{background:var(--card);border:2px solid var(--rule);padding:22px 24px;font-size:24px;line-height:1.75}
+.box h4{font-family:var(--sans);font-size:22px;font-weight:900;letter-spacing:.3em;margin:0 0 12px;
+  padding-bottom:8px;border-bottom:3px double var(--rule);color:var(--vermilion)}
+.box p{text-align:left;margin:0 0 12px}
+.box p:last-child{margin-bottom:0}
+.box dl{margin:0}
+.box dt{font-weight:900;margin-top:10px}
+.box dd{margin:0 0 4px;color:var(--ink-soft)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.vs div{padding:10px 4px;border:2px solid currentColor}
+.vs .u{color:var(--us)} .vs .c{color:var(--cn)}
+.vs .big{display:block;font-size:34px;font-weight:900}
+.vs small{font-family:var(--sans);font-size:18px;font-weight:700}
+
+/* ---------- colophon ---------- */
+.colophon{margin-top:40px;border-top:6px double var(--rule);padding-top:20px;font-family:var(--sans);
+  font-size:20px;font-weight:700;color:var(--muted);text-align:center;line-height:1.8}
+
+/* ---------- floating nav ---------- */
+.float-nav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:50}
+.float-nav a{font-family:var(--sans);font-size:20px;font-weight:900;text-decoration:none;color:var(--paper);
+  background:var(--rule);padding:10px 18px;letter-spacing:.1em;box-shadow:3px 3px 0 var(--vermilion);text-align:center}
+.float-nav a:hover{background:var(--vermilion);box-shadow:3px 3px 0 var(--rule)}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr}
+  aside{position:static}
+}
+@media (max-width:640px){
+  body{font-size:21px}
+  .wrap{padding:24px 16px 110px}
+  .masthead{font-size:15px}.masthead .brand{font-size:24px}
+  .kicker{font-size:15px;margin-top:28px}
+  h1{font-size:42px}.subtitle{font-size:24px}.deck{font-size:22px;padding-left:16px}
+  .byline{font-size:15px}
+  #toc{padding:18px 18px}#toc h2{font-size:18px}
+  .sec-head{flex-wrap:wrap}.sec-head .num{font-size:36px}.sec-head h2{font-size:28px}
+  .tag{font-size:14px;margin-left:0}
+  .dropcap::first-letter{font-size:72px;margin-right:10px}
+  .ledger .total .val{font-size:24px}
+  .pullquote{font-size:27px}
+  .gdp{padding:18px}.gdp h3{font-size:16px}.gdp .bar-lbl{font-size:17px}.gdp .note{font-size:14px}
+  .box{font-size:18px}.box h4{font-size:16px}.vs .big{font-size:24px}.vs small{font-size:13px}
+  .audit{padding:20px}
+  .back,.colophon{font-size:15px}
+  .float-nav a{font-size:14px;padding:8px 12px}
+}
+@media print{
+  .float-nav{display:none}
+  aside{position:static}
+  section,.ledger,.gdp,.pullquote,.box{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="brand">精選外刊 <span>·</span> 老熊隨筆</div>
+    <div class="meta">時論縱橫 ｜ 二〇二六年十月五日</div>
+  </header>
+
+  <div class="kicker">地緣經濟 · 世紀帳本</div>
+  <h1>大砲與高鐵</h1>
+  <div class="subtitle">兩大強權的 25 年抉擇</div>
+  <p class="deck">美中兩國在 21 世紀初面臨了前所未有的資金配置抉擇，這場高達數兆美元的戰略賭局，正深刻塑造世界的未來。</p>
+  <div class="byline"><b>老熊</b> 編譯 ｜ 改編自 Equity Mates Explains 專題報導《Why the US is Losing the Infrastructure War》</div>
+
+  <nav id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><span class="n">壹</span><a href="#s1">序幕：世紀初的分水嶺</a></li>
+      <li><span class="n">貳</span><a href="#s2">美國：跨國反恐與軍事霸權</a></li>
+      <li><span class="n">參</span><a href="#s3">中國：基礎建設與產業崛起</a></li>
+      <li><span class="n">肆</span><a href="#s4">賽局結果：25 年後的經濟體變革</a></li>
+      <li><span class="n">伍</span><a href="#s5">結語</a></li>
+      <li><span class="n">附</span><a href="#s6">老熊對帳：數字對一對</a></li>
+    </ol>
+  </nav>
+
+  <div class="layout">
+    <article>
+
+      <!-- 壹 -->
+      <section id="s1">
+        <div class="sec-head"><span class="num">壹</span><h2>序幕：世紀初的分水嶺</h2></div>
+        <p class="dropcap">2001 年，全球兩個頂級強權同時展開了規模前所未見的國家級支出。美國選擇將數兆美元傾注於海外戰爭與軍事機器；中國則選擇將等量的資本投入國內基礎建設與產業轉型。</p>
+        <p>25 年後，帳單終究到期，這兩條截然不同的戰略路徑展現出了震撼的成果差距。</p>
+        <div class="pullquote">一邊是<em>大砲</em>，一邊是<em>高鐵</em>；<br>同一筆數兆美元，兩種世紀走法。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <!-- 貳 -->
+      <section id="s2">
+        <div class="sec-head"><span class="num">貳</span><h2>美國：跨國反恐與軍事霸權</h2><span class="tag us">約 4.8 兆美元＋</span></div>
+        <p>911 事件後，美國開啟了全球反恐戰爭，資金源源不絕地流向海外戰場與後勤維持。</p>
+
+        <div class="ledger us">
+          <div class="row"><span class="lbl">直接軍事行動</span><span class="dots"></span><span class="val">1.74 兆美元</span></div>
+          <div class="row"><span class="lbl">國防部後勤與備戰</span><span class="dots"></span><span class="val">8,840 億美元</span></div>
+          <div class="row"><span class="lbl">退伍軍人長期照顧（至 2050）</span><span class="dots"></span><span class="val">2.2 兆美元</span></div>
+          <div class="row total"><span class="lbl">合計</span><span class="dots"></span><span class="val">約 4.8 兆美元</span></div>
+        </div>
+
+        <div class="item us"><b>海外戰場的沉重代價：</b>阿富汗戰爭消耗約 8,950 億美元；伊拉克與敘利亞戰爭累計支出達 8,500 億美元。</div>
+        <div class="item us"><b>國防維持費用：</b>為維持全球基地運作與戰備狀態，防務預算外額外追加了近 9,000 億美元。</div>
+        <div class="item us"><b>長期的社會承諾：</b>傷殘軍人醫療與心理照護費用將延續數十年，預計至 2050 年支出將高達 2.2 兆美元。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <!-- 參 -->
+      <section id="s3">
+        <div class="sec-head"><span class="num">參</span><h2>中國：基礎建設與產業崛起</h2><span class="tag cn">約 4.5 兆美元＋</span></div>
+        <p>在同一時期，中國致力於連接國內城市、建立獨立能源網，並鋪陳下一代全球貿易與科技供應鏈。</p>
+
+        <div class="ledger cn">
+          <div class="row"><span class="lbl">交通與超大型工程</span><span class="dots"></span><span class="val">1.8 兆美元</span></div>
+          <div class="row"><span class="lbl">能源與特高壓電網</span><span class="dots"></span><span class="val">6,170 億美元</span></div>
+          <div class="row"><span class="lbl">一帶一路全球倡議</span><span class="dots"></span><span class="val">1.4 兆美元</span></div>
+          <div class="row total"><span class="lbl">原報導標示總額</span><span class="dots"></span><span class="val">約 4.5 兆美元</span></div>
+        </div>
+
+        <div class="item cn"><b>交通網絡再造：</b>鋪設 50,000 公里高鐵（占全球 70%）、19.1 萬公里高速公路，並推動南水北調（800 億美元）等三大超級工程。</div>
+        <div class="item cn"><b>能源與科技轉型：</b>建造全球最大的特高壓電網、投資 2,300 億美元發展電動車與電池產業，並興建超越全球總和的 5G 基地台。</div>
+        <div class="item cn"><b>重塑全球貿易：</b>透過「一帶一路」倡議在 150 個國家投資上千項計畫，打造屬於中國產品的現代貿易通道。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <!-- 肆 -->
+      <section id="s4">
+        <div class="sec-head"><span class="num">肆</span><h2>賽局結果：25 年後的經濟體變革</h2><span class="tag sum">世紀結算</span></div>
+        <p>兩種資本配置策略，帶來了截然不同的經濟成長與競爭姿態：</p>
+
+        <div class="gdp">
+          <h3>經濟體量　2001 → 25 年後</h3>
+          <div class="bar-row">
+            <div class="bar-lbl"><span style="color:var(--us)">美國</span><span>11 → 32 兆美元（約 3 倍）</span></div>
+            <div class="track"><div class="fill us" style="width:100%"></div><div class="fill us ghost" style="width:34.4%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-lbl"><span style="color:var(--cn)">中國</span><span>1.3 → 19 兆美元（近 15 倍）</span></div>
+            <div class="track"><div class="fill cn" style="width:59.4%"></div><div class="fill cn ghost" style="width:4.1%"></div></div>
+          </div>
+          <p class="note">深色為 25 年後規模，淺色疊加為 2001 年起點；以美國 32 兆美元為滿格。</p>
+        </div>
+
+        <div class="item us"><b>美國的局勢：</b>成功構建了人類歷史上最強大的軍事力量，鞏固了絕對的全球安全霸權。經濟體量由 2001 年的 11 兆美元成長至 <strong>32 兆美元（約 3 倍成長）</strong>。</div>
+        <div class="item cn"><b>中國的局勢：</b>成為全球最大製造業、出口國，以及太陽能、電池、電動車與鋼鐵的生產龍頭。經濟體量由 2001 年的 1.3 兆美元暴增至 <strong>19 兆美元（近 15 倍成長）</strong>。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <!-- 伍 -->
+      <section id="s5">
+        <div class="sec-head"><span class="num">伍</span><h2>結語</h2></div>
+        <p class="dropcap">這場資本運用的歷史性對比，不僅重新定義了兩國的國力版圖，也將持續主導 21 世紀接下來的全球地緣政治競逐。</p>
+        <div class="pullquote">帳單終究到期——<br>花在哪裡，<em>國力就長在哪裡</em>。</div>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+      <!-- 附 -->
+      <section id="s6">
+        <div class="sec-head"><span class="num">附</span><h2>老熊對帳：數字對一對</h2><span class="tag sum">編按</span></div>
+        <p>依老熊的老習慣，故事好聽，帳也得對。以下只用原報導自己的數字做加減，不另引資料：</p>
+        <div class="audit">
+          <div class="row"><span class="mark">✓</span><div><strong>美國帳對得上。</strong>阿富汗 8,950 億＋伊拉克／敘利亞 8,500 億＝約 1.745 兆，正是「直接軍事行動 1.74 兆」；再加 8,840 億與 2.2 兆，合計約 4.82 兆，與標題 4.8 兆相符。</div></div>
+          <div class="row"><span class="mark">？</span><div><strong>中國帳差一截。</strong>三大項 1.8 兆＋6,170 億＋1.4 兆＝約 3.82 兆；即使再加電動車與電池 2,300 億，也只約 4.05 兆，距標題「4.5 兆」尚差約 0.45 兆，原報導沒列出差額落在哪。</div></div>
+          <div class="row"><span class="mark">？</span><div><strong>「國內」與「海外」。</strong>序幕說中國把錢投入「國內基礎建設」，但帳本裡 1.4 兆的一帶一路是海外項目，占中方總額近三成。</div></div>
+          <div class="row"><span class="mark">△</span><div><strong>倍數的底數。</strong>3 倍對 15 倍，看的是名目美元 GDP；從 1.3 兆起跳與從 11 兆起跳，成長倍數本就不在同一量級。絕對增量其實是美國 21 兆、中國約 17.7 兆。</div></div>
+          <div class="row"><span class="mark">△</span><div><strong>對比的框法。</strong>原報導拿美國的「戰爭帳」對中國的「建設帳」；同期美國也有基建、中國也有軍費，兩邊各只取一面。故事有力，讀者心裡留個底即可。</div></div>
+        </div>
+        <p style="margin-top:26px">以上不推翻原文的大方向，只是把帳本攤開，讓數字自己說話。</p>
+        <a class="back" href="#toc">↑ 回目錄</a>
+      </section>
+
+    </article>
+
+    <aside>
+      <div class="box">
+        <h4>編者按</h4>
+        <p>本篇改編自 Equity Mates Explains 的專題節目，原作以「大砲 vs. 高鐵」為主軸，比較美中兩國自 2001 年起各自數兆美元的國家級支出去向。</p>
+        <p>正文照原報導數字重排；文末「老熊對帳」為編者加注。</p>
+      </div>
+
+      <div class="box">
+        <h4>帳本速覽</h4>
+        <div class="vs">
+          <div class="u"><span class="big">4.8 兆</span><small>美國・戰爭與軍事</small></div>
+          <div class="c"><span class="big">4.5 兆</span><small>中國・建設與產業</small></div>
+          <div class="u"><span class="big">×3</span><small>GDP 11→32 兆</small></div>
+          <div class="c"><span class="big">×15</span><small>GDP 1.3→19 兆</small></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h4>名詞小注</h4>
+        <dl>
+          <dt>特高壓電網</dt><dd>以極高電壓長距離輸電，把西部的電送到東部用電大省。</dd>
+          <dt>南水北調</dt><dd>將長江流域水源引往華北的跨流域調水工程。</dd>
+          <dt>一帶一路</dt><dd>中國倡議的跨國基建與貿易通道計畫，涵蓋陸上與海上路線。</dd>
+          <dt>退伍軍人照顧</dt><dd>傷殘醫療與心理照護屬長期給付，費用延續至 2050 年。</dd>
+        </dl>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="colophon">
+    故事改編自 Equity Mates Explains 專題報導《Why the US is Losing the Infrastructure War》<br>
+    精選外刊 · 老熊隨筆　｜　時論縱橫
+  </footer>
+</div>
+
+<nav class="float-nav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
