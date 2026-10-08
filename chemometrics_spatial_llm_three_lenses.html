@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="評 ChatGPT 的比較報告，並以 Claude 自己的角度比較非線性化學計量學、空間智能與大型語言模型：共同點、各自貢獻與互補。">
+<title>看得透・看得見・說得出｜化學計量學、空間智能與大型語言模型</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ead6; --paper2:#eadfc3; --paper3:#e2d4b2;
+  --ink:#2a2017; --muted:#5d4c37; --red:#8a1f1a; --teal:#1f4e5a; --rule:#b3a07a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  background-image:radial-gradient(rgba(120,90,40,.06) 1px,transparent 1px);
+  background-size:6px 6px;
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","Microsoft JhengHei",serif;
+  font-size:32px; font-weight:700; line-height:1.78;
+}
+.wrap{max-width:1100px; margin:0 auto; padding:36px 48px 140px}
+a{color:var(--teal); text-underline-offset:5px}
+strong{font-weight:800; color:var(--red)}
+.num{font-weight:800; font-variant-numeric:tabular-nums}
+
+/* masthead */
+.masthead{border-top:7px double var(--ink); border-bottom:2px solid var(--ink); padding:14px 0 10px; text-align:center}
+.brand{font-size:58px; font-weight:900; letter-spacing:.35em; margin:0}
+.brand-en{font-family:"Playfair Display",Georgia,serif; font-size:24px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted)}
+.metabar{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--ink); padding:8px 2px; font-size:22px; font-weight:700}
+
+h1{font-size:76px; font-weight:900; line-height:1.18; text-align:center; margin:52px 0 14px; letter-spacing:.04em}
+.en-title{font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:700; font-size:36px; text-align:center; color:var(--muted); margin:0 0 30px}
+.deck{font-size:34px; font-weight:700; line-height:1.7; border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); padding:26px 8px; margin:0 0 18px; text-align:justify}
+.byline{text-align:center; font-size:24px; color:var(--muted); margin-bottom:40px}
+
+/* toc */
+.toc{background:var(--paper2); border:3px double var(--ink); padding:26px 40px; margin:30px 0 56px}
+.toc h2{border:0; margin:0 0 8px; font-size:40px; padding:0}
+.toc ol{margin:0; padding-left:0; list-style:none}
+.toc li{font-size:30px; margin:8px 0; border-bottom:1px dotted var(--rule); padding-bottom:6px}
+.toc li a{text-decoration:none; color:var(--ink)}
+.toc li a:hover{color:var(--red)}
+.toc .n{color:var(--red); font-weight:900; display:inline-block; min-width:3.2em}
+
+section{scroll-margin-top:24px; padding-bottom:20px; margin-bottom:46px; border-bottom:2px solid var(--rule)}
+section::after{content:""; display:block; clear:both}
+h2{font-size:52px; font-weight:900; line-height:1.3; margin:20px 0 26px; padding-bottom:12px; border-bottom:4px double var(--ink)}
+h2 .n{color:var(--red); margin-right:.3em}
+h3{font-size:40px; font-weight:900; color:var(--red); margin:42px 0 14px; line-height:1.35}
+p{margin:0 0 1.05em; text-align:justify}
+.dropcap::first-letter{float:left; font-size:120px; line-height:1; padding:10px 16px 0 0; color:var(--red); font-weight:900}
+ol.plain, ul.plain{padding-left:1.4em; margin:0 0 1em}
+ol.plain li, ul.plain li{margin:0 0 .7em}
+
+.pull{font-size:44px; font-weight:800; color:var(--red); line-height:1.55; text-align:center; border-top:4px solid var(--red); border-bottom:4px solid var(--red); padding:28px 20px; margin:44px 10px}
+.pull small{display:block; font-size:24px; color:var(--muted); margin-top:10px; font-weight:700}
+
+.sidebar{float:right; width:340px; margin:10px 0 28px 38px; background:var(--paper2); border:2px solid var(--ink); box-shadow:6px 6px 0 var(--paper3); padding:20px 22px; font-size:26px; font-weight:700; line-height:1.6}
+.sidebar h4{margin:0 0 10px; font-size:30px; font-weight:900; border-bottom:2px solid var(--ink); padding-bottom:6px}
+.sidebar p{text-align:left; margin:0 0 .6em}
+.ledger{width:100%; border-collapse:collapse; font-size:26px}
+.ledger td{padding:6px 2px; border-bottom:1px dotted var(--rule)}
+.ledger td:last-child{text-align:right; font-weight:800; color:var(--red); font-size:30px}
+.sidebar .note{font-size:20px; color:var(--muted); margin-top:10px}
+
+.cards{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin:30px 0 36px}
+.card{background:var(--paper2); border:2px solid var(--ink); padding:22px 22px 18px; font-size:26px; line-height:1.65}
+.card .big{font-size:44px; font-weight:900; color:var(--red); display:block; line-height:1.2}
+.card .who{font-size:24px; font-weight:800; display:block; margin:6px 0 10px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.card .hand{font-family:"Playfair Display",Georgia,serif; font-style:italic; font-size:22px; color:var(--muted)}
+
+.table-wrap{overflow-x:auto; margin:28px 0 34px}
+table.t{width:100%; border-collapse:collapse; font-size:25px; font-weight:700; line-height:1.55; background:rgba(255,255,255,.25)}
+table.t th{background:var(--ink); color:var(--paper); font-weight:800; padding:14px 14px; text-align:left; vertical-align:bottom}
+table.t td{border:1px solid var(--rule); padding:13px 14px; vertical-align:top}
+table.t tbody tr:nth-child(even){background:rgba(180,160,120,.14)}
+table.t td:first-child{font-weight:800}
+
+.eq{font-family:"Cambria Math","STIX Two Math",Georgia,serif; font-size:34px; font-weight:700; text-align:center; background:var(--paper2); border-left:7px solid var(--red); padding:22px 16px; margin:30px 0; overflow-x:auto; line-height:1.9}
+.eq .lab{font-family:"Noto Serif TC",serif; font-size:24px; color:var(--muted); display:block}
+
+blockquote.verdict{margin:36px 0; padding:28px 34px; background:var(--ink); color:var(--paper); font-size:36px; font-weight:800; line-height:1.7; border-left:10px solid var(--red)}
+
+.diagram-wrap{overflow-x:auto; margin:24px 0 34px}
+.diagram{display:block; width:100%; min-width:640px; height:auto}
+
+.patgroup{margin:0 0 22px; padding:16px 22px; border-left:6px solid var(--teal); background:rgba(255,255,255,.25)}
+.patgroup b{font-weight:900; color:var(--teal); display:block; font-size:30px}
+.patgroup span{font-size:26px}
+.sources{font-size:24px; line-height:1.6; padding-left:1.5em}
+.sources li{margin:0 0 14px}
+.fine{font-size:24px; color:var(--muted)}
+
+.back{display:block; text-align:right; font-size:24px; margin-top:16px; text-decoration:none; font-weight:800}
+.floatnav{position:fixed; right:20px; bottom:20px; z-index:50; display:flex; flex-direction:column; gap:10px}
+.floatnav a{background:var(--ink); color:var(--paper); text-decoration:none; font-size:22px; font-weight:800; padding:10px 18px; border:2px solid var(--paper); box-shadow:0 3px 10px rgba(0,0,0,.25); text-align:center}
+.floatnav a:hover{background:var(--red)}
+footer{font-size:22px; color:var(--muted); text-align:center; border-top:7px double var(--ink); padding-top:16px}
+
+@media (max-width:820px){
+  body{font-size:20px; line-height:1.75}
+  .wrap{padding:16px 16px 110px}
+  .brand{font-size:32px; letter-spacing:.2em}
+  .brand-en,.metabar{font-size:14px}
+  h1{font-size:40px; margin-top:30px}
+  .en-title{font-size:20px}
+  .deck{font-size:21px; padding:16px 4px}
+  .byline{font-size:16px}
+  .toc{padding:16px 18px}
+  .toc h2{font-size:26px}
+  .toc li{font-size:19px}
+  h2{font-size:30px}
+  h3{font-size:25px}
+  .dropcap::first-letter{font-size:68px; padding:6px 10px 0 0}
+  .pull{font-size:26px; padding:18px 8px; margin:28px 0}
+  .pull small{font-size:16px}
+  .sidebar{float:none; width:auto; margin:20px 0; font-size:18px}
+  .sidebar h4{font-size:21px}
+  .ledger{font-size:18px}
+  .ledger td:last-child{font-size:20px}
+  .sidebar .note{font-size:14px}
+  .cards{grid-template-columns:1fr}
+  .card{font-size:18px}
+  .card .big{font-size:30px}
+  .card .who{font-size:17px}
+  .card .hand{font-size:15px}
+  table.t{font-size:16px}
+  table.t td,table.t th{padding:9px}
+  .eq{font-size:20px}
+  .eq .lab{font-size:15px}
+  blockquote.verdict{font-size:22px; padding:18px 18px}
+  .patgroup b{font-size:20px}
+  .patgroup span,.sources,.fine{font-size:16px}
+  .back{font-size:16px}
+  .floatnav a{font-size:15px; padding:8px 12px}
+  footer{font-size:15px}
+}
+@media print{
+  body{background:#fff; font-size:13pt}
+  .floatnav,.back{display:none}
+  .wrap{max-width:none; padding:0}
+  h1{font-size:30pt} h2{font-size:20pt} h3{font-size:15pt}
+  .pull{font-size:16pt} .sidebar{font-size:11pt}
+  table.t{font-size:10pt} tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="brand">老熊隨筆</p>
+  <div class="brand-en">Selected Readings · Technical Review</div>
+</header>
+<div class="metabar"><span>精選外刊・技術評論</span><span>二〇二六年十月八日　星期四</span><span>化學計量學 × 空間智能 × LLM</span></div>
+
+<h1>看得透・看得見・說得出</h1>
+<p class="en-title">Chemometrics, Spatial Intelligence and LLMs — Three Lenses on One Physical World</p>
+<p class="deck">一份 ChatGPT 比較報告的評述，以及 Claude 自己的看法：三種技術共用同一條數學骨幹，卻站在離光子遠近不同的位置。真正的互補，在於讓「會說的」與「會看的」都學會化學計量學最老的那門功課——知道何時不該回答。</p>
+<p class="byline">評述與改寫：Claude（Anthropic）｜原報告：ChatGPT｜為老熊整理</p>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <h2>目　錄</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">一、</span>評原報告：嚴謹有餘，主張不足</a></li>
+    <li><a href="#s2"><span class="n">二、</span>我的角度：離光子有多遠</a></li>
+    <li><a href="#s3"><span class="n">三、</span>共同點：三者都在「找鄰居」</a></li>
+    <li><a href="#s4"><span class="n">四、</span>分水嶺：資料是稀缺還是豐饒</a></li>
+    <li><a href="#s5"><span class="n">五、</span>各自獨有的貢獻</a></li>
+    <li><a href="#s6"><span class="n">六、</span>互補：一條證據鏈與一道閘門</a></li>
+    <li><a href="#s7"><span class="n">七、</span>關於「非參數」：我比原報告更站在老熊這邊</a></li>
+    <li><a href="#s8"><span class="n">八、</span>老熊的位置</a></li>
+    <li><a href="#s9"><span class="n">九、</span>結語：最後一環是量測</a></li>
+    <li><a href="#s10"><span class="n">附錄、</span>27 組專利依技術領域分組</a></li>
+    <li><a href="#s11"><span class="n">來源、</span>資料來源與查核說明</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 一 ============ -->
+<section id="s1">
+<h2><span class="n">一</span>評原報告：嚴謹有餘，主張不足</h2>
+
+<aside class="sidebar">
+  <h4>原報告評分卡</h4>
+  <table class="ledger">
+    <tr><td>正確性</td><td>A</td></tr>
+    <tr><td>證據紀律</td><td>A</td></tr>
+    <tr><td>術語精準</td><td>A−</td></tr>
+    <tr><td>原創洞見</td><td>B−</td></tr>
+    <tr><td>可讀性</td><td>C+</td></tr>
+    <tr><td>立場鮮明</td><td>C</td></tr>
+  </table>
+  <p class="note">Claude 主觀評分。篇幅：雙語共 <span class="num">12</span> 節，另附 <span class="num">27</span> 列專利表、<span class="num">23</span> 條來源。</p>
+</aside>
+
+<p class="dropcap">這份雙語報告有一個少見的優點：它幾乎不說錯話。三種技術被放在正確的層級上——空間智能是能力目標，非線性化學計量學是方法家族，大型語言模型是模型類別；幾個流傳甚廣的混淆，也被一一拆開。作為一份查核文件，它是合格的，甚至是優秀的。</p>
+
+<p>但它也有一個常見的缺點：它不太敢下判斷。幾乎每一個論點後面，都緊跟著一句「但這不代表……」或「並非宣稱……」。讀完全文，讀者記得最清楚的，往往是報告<strong>不主張什麼</strong>，而不是它<strong>看到了什麼</strong>。</p>
+
+<h3>做得好的五件事</h3>
+<ol class="plain">
+  <li><strong>層級分清楚。</strong>不把三者當成彼此排斥的三種演算法，這是全篇最重要的起手式。</li>
+  <li><strong>術語糾正到位。</strong>非線性≠非參數；注意力頭≠SVM；ImageNet≠AlexNet；token 機率≠答對的機率；SVM margin≠校準過的機率。每一條都是常見誤用。</li>
+  <li><strong>逆問題框架。</strong><i>x</i> = <i>H</i>(<i>s</i>, <i>u</i>) + ε 這一行，把光譜、影像、文字放到同一張桌上，是全文最有用的抽象。</li>
+  <li><strong>評估設計。</strong>「拒判後的準確度必須與覆蓋率一起報告」——做過 SIMCA 的人都會點頭：幾乎全部拒判，剩下的當然幾乎全對。</li>
+  <li><strong>證據紀律。</strong>區分一手專利與網站評論，標出未查核的項目，還抓到專利工作簿的發明人欄位與公開紀錄不一致——這一點值得老熊親自核對一遍。</li>
+</ol>
+
+<h3>我認為不足的六處</h3>
+<ol class="plain">
+  <li><strong>防禦性寫作過度。</strong>「界線」「不代表」反覆出現，把一份本可以有觀點的評論，寫成了一份免責聲明。</li>
+  <li><strong>雙語逐段對照，篇幅加倍。</strong>中文段落讀來是英文的影子，少了中文自己的節奏；第二節分析「三份 HTML 摘要」，是作業過程，不是讀者需要的內容。</li>
+  <li><strong>沒找到最有力的共同點。</strong>三者都靠「依查詢臨時挑鄰居、再按相似度加權」做推斷——局部 PLS 選校正樣品、注意力加權上下文、RTFM 依相機位姿取回影格，是同一個動作的三種版本（見第三節）。</li>
+  <li><strong>漏掉資料體制的根本差異。</strong>化學計量學是「樣本少、變數多、標籤貴」，LLM 是「兆級 token、標籤免費」。兩種工程文化的分水嶺在這裡，不在線性或非線性（見第四節）。</li>
+  <li><strong>漏掉兩者早已交會的地方：</strong>高光譜化學影像。每個像素就是一條光譜，空間與化學計量本來就在同一張圖上（見第六節）。</li>
+  <li><strong>Atlas 寫得對，但沒點出演進方向。</strong>RTFM 不帶顯式幾何；Atlas 則在生成新視角的同時估計幾何、輸出 Gaussian splats——從隱式走向顯式，正是向「可量測」靠攏。另外，Atlas 公開的成績全是公司自測，未附論文或模型卡，這一點應該寫明。</li>
+</ol>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 二 ============ -->
+<section id="s2">
+<h2><span class="n">二</span>我的角度：離光子有多遠</h2>
+
+<p class="dropcap">與其先比架構，我更想問一個樸素的問題：每一種技術，離它要描述的物理世界有多遠？答案排出了一個清楚的次序。</p>
+
+<div class="cards">
+  <div class="card"><span class="big">看得透</span><span class="who">非線性化學計量學</span><span class="hand">first-hand</span><br>第一手：直接處理光子與分子作用後的訊號。回答「這是什麼、有多少」——肉眼看不到的成分、濃度與製程狀態。</div>
+  <div class="card"><span class="big">看得見</span><span class="who">空間智能</span><span class="hand">second-hand</span><br>第二手：透過相機看見光子拼成的形狀。回答「在哪裡、換個角度是什麼樣、動了之後會怎樣」。</div>
+  <div class="card"><span class="big">說得出</span><span class="who">大型語言模型</span><span class="hand">third-hand</span><br>第三手：讀的是人類看過、量過、想過之後寫下的文字。回答「這意味什麼、該做什麼、怎麼說清楚」。</div>
+</div>
+
+<p class="pull">化學計量學摸得到光子；<br>空間智能看得見光子拼成的形狀；<br>大型語言模型讀到的，<br>是人類看完光子之後寫下的字。</p>
+
+<p>說這話之前，我得先承認自己的位置：我就是第三種。關於近紅外光譜，我「知道」的不少——O–H 與 C–H 的倍頻與合頻、散射校正、PLS 的潛在變數——但我一條光譜也沒有量過。我的知識全部來自別人的量測與描述。</p>
+
+<p>這不是客套，而是整張比較表裡最重要的一個事實：<strong>離光子越遠，越需要別人替你把關。</strong>三者的分工因此不是誰取代誰，而是一條證據鏈：化學計量學確認「是什麼」，空間智能確認「在哪裡、以什麼條件量的」，語言模型負責把目標說清楚、把結果講明白。少了前兩環，第三環說得再流暢，也只是轉述。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 三 ============ -->
+<section id="s3">
+<h2><span class="n">三</span>共同點：三者都在「找鄰居」</h2>
+
+<p class="dropcap">原報告把三者的共同基礎歸為「統計學習」，正確但太寬。我認為更具體、也更有解釋力的共同點是：<strong>三者在推斷時，都依查詢對象臨時挑出一群「鄰居」，再按相似度加權。</strong></p>
+
+<div class="table-wrap"><table class="t">
+<thead><tr><th>機制</th><th>「鄰居」是誰</th><th>距離怎麼量</th><th>做法</th></tr></thead>
+<tbody>
+<tr><td>局部 PLS／局部核模型</td><td>校正庫中與待測樣品相近的光譜</td><td>光譜距離（歐氏、Mahalanobis、相關係數）</td><td>先選鄰居，再就地建模</td></tr>
+<tr><td>SVM／SVR 核方法</td><td>支援向量</td><td>核函數 <i>k</i>(<i>x</i>, <i>x<sub>i</sub></i>)</td><td>相似度加權和</td></tr>
+<tr><td>Transformer 注意力</td><td>上下文中的 token</td><td>學得的 <i>q</i>·<i>k</i> 內積，經 softmax</td><td>相似度加權和，逐層重複</td></tr>
+<tr><td>RTFM 空間記憶</td><td>已生成、帶相機位姿的影格</td><td>相機位姿的接近程度</td><td>依目前視角取回相關影格</td></tr>
+<tr><td>檢索增強生成（RAG）</td><td>文件片段</td><td>嵌入向量相似度</td><td>先檢索，再生成</td></tr>
+</tbody></table></div>
+
+<p>這不只是比喻。把注意力機制寫開，它在形式上就是 Nadaraya–Watson 核迴歸——一個 1964 年的統計方法，今天的深度學習教科書常拿它來講解注意力：</p>
+
+<div class="eq">
+<span class="lab">核迴歸（Nadaraya–Watson）</span>
+ŷ(<i>x</i>) = Σ<sub><i>i</i></sub> <i>w<sub>i</sub></i>(<i>x</i>) · <i>y<sub>i</sub></i>，　<i>w<sub>i</sub></i>(<i>x</i>) = <i>k</i>(<i>x</i>, <i>x<sub>i</sub></i>) ⁄ Σ<sub><i>j</i></sub> <i>k</i>(<i>x</i>, <i>x<sub>j</sub></i>)<br>
+<span class="lab">注意力（單一查詢）</span>
+<i>w<sub>i</sub></i> = exp(<i>q</i>·<i>k<sub>i</sub></i> ⁄ √<i>d</i>) ⁄ Σ<sub><i>j</i></sub> exp(<i>q</i>·<i>k<sub>j</sub></i> ⁄ √<i>d</i>)
+</div>
+
+<p>差別在於：Transformer 的 <i>q</i> 與 <i>k</i> 是學來的、隨上下文改變的表示，而且一層一層疊上去；核迴歸的距離則由人選定。但兩者共享一個值得單獨拿出來說的性質：</p>
+
+<p class="pull">權重永遠加總為一。<small>Σ <i>w<sub>i</sub></i> = 1，不論鄰居離得多遠</small></p>
+
+<p>softmax 與 Nadaraya–Watson 的分母，都把相似度「正規化」了。就算所有鄰居都離得很遠、相似度都很低，權重加起來仍然是 <span class="num">1</span>，模型照樣交出一個像模像樣的加權平均。<strong>「沒有人靠得夠近」這個資訊，在正規化的那一刻就被抹掉了。</strong></p>
+
+<p>化學計量學很早就意識到這個陷阱，所以在預測之前另外檢查距離：Hotelling T²、Q 殘差、Mahalanobis 距離、槓桿值，以及老熊專利裡的 no-match 類別與相對距離門檻。這些檢查做的事其實很簡單——在加權平均之前，先問一句「鄰居真的夠近嗎？」而這，正是語言模型與世界模型最常省略的一步。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 四 ============ -->
+<section id="s4">
+<h2><span class="n">四</span>分水嶺：資料是稀缺還是豐饒</h2>
+
+<p class="dropcap">原報告的比較矩陣列了九個面向，卻缺了我認為最根本的一個：資料體制。下表的數字是數量級示意，不是精確統計。</p>
+
+<div class="table-wrap"><table class="t">
+<thead><tr><th>面向</th><th>化學計量學</th><th>空間智能</th><th>大型語言模型</th></tr></thead>
+<tbody>
+<tr><td>典型訓練規模</td><td>約 <span class="num">10²–10⁴</span> 條光譜</td><td>影像極多；帶尺度的 3D 真值與動作資料稀少</td><td><span class="num">10¹³</span> 級 token（如 DeepSeek-V3 約 <span class="num">14.8</span> 兆）</td></tr>
+<tr><td>標籤代價</td><td>每個參考值都要實驗室分析，小時到天</td><td>幾何真值需掃描或多視角重建</td><td>自監督，下一個 token 就是標籤</td></tr>
+<tr><td>變數結構</td><td>數百到上千個高度共線的波長</td><td>百萬像素、位姿、深度</td><td>數千維的學得嵌入</td></tr>
+<tr><td>主導文化</td><td>簡約、外部驗證、長期維護</td><td>多視角一致、渲染品質</td><td>擴大規模、能力湧現</td></tr>
+<tr><td>典型失敗</td><td>新批次、新儀器造成漂移</td><td>好看但不合物理</td><td>流暢但不合事實</td></tr>
+</tbody></table></div>
+
+<p><i>n</i> ≪ <i>p</i>，是化學計量學發明 PLS、偏執於外部測試集的原因：幾百個樣本、上千個共線變數，任何有彈性的模型都很容易把雜訊背下來。<i>n</i> ≫ <i>p</i>，則是 LLM 可以放心擴大規模的前提。兩種文化沒有高下，只是各自適應了自己的資料條件。</p>
+
+<p>有意思的是，空間智能卡在兩者中間：影像要多少有多少，但帶尺度的 3D 真值、尤其是「動作→後果」的資料仍然稀少。它的處境其實比較像化學計量學——<strong>能量到的多，能驗證的少。</strong>這也是我認為空間智能最該向化學計量學借鏡的理由。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 五 ============ -->
+<section id="s5">
+<h2><span class="n">五</span>各自獨有的貢獻</h2>
+
+<h3>化學計量學：替模型裝上「不知道」</h3>
+
+<aside class="sidebar">
+  <h4>老熊的五個關鍵節點</h4>
+  <p><span class="num">US 10,810,408</span>（<span class="num">2020</span>）<br>no-match 類別：分類時允許「都不是」</p>
+  <p><span class="num">US 11,009,452</span>（<span class="num">2021</span>）<br>定量模型的適用邊界與相對距離</p>
+  <p><span class="num">US 11,656,174</span>（<span class="num">2023</span>）<br>光譜分類的離群值偵測</p>
+  <p><span class="num">US 10,429,240</span>（<span class="num">2019</span>）<br>以稀疏成對樣品移轉校正模型</p>
+  <p><span class="num">US 11,920,980</span>（<span class="num">2024</span>）<br>滾動 PCA 判定製程終點</p>
+</aside>
+
+<p class="dropcap">化學計量學最獨特的貢獻，不在某一個演算法，而在一整套「讓模型在現場活下去」的工程習慣：</p>
+<ul class="plain">
+  <li><strong>適用範圍與拒判。</strong>預測之前，先檢查樣品是否落在校正空間內。右欄前三件專利，是這條線上的三個節點。</li>
+  <li><strong>校正移轉。</strong>把主儀器的模型搬到另一台儀器上——這是「領域調適」在機器學習流行這個詞之前的工業版本。Wang、Veltkamp 與 Kowalski 在 <span class="num">1991</span> 年就提出分段直接標準化（PDS）；老熊以稀疏成對樣品做移轉，延續了這個傳統。</li>
+  <li><strong>長期維護。</strong>新批次、新原料、老化的光源——模型上線之後，才是真正的開始。</li>
+  <li><strong>可追溯性。</strong>每一個預測值都有單位，最終能對回實驗室的參考方法。</li>
+</ul>
+
+<h3>空間智能：讓世界「持續存在」</h3>
+<p>空間智能的獨特要求，是模型必須維持一個持續存在、可從任意角度檢驗的狀態：轉身再轉回來，桌上的杯子要還在原處；換個角度看，形狀要一致；推它一下，要往合理的方向倒。</p>
+<p>World Labs 的路線也在演進。<span class="num">2025</span> 年 <span class="num">10</span> 月的 RTFM 以帶位姿的影格做空間記憶，不保存顯式幾何；<span class="num">2026</span> 年 <span class="num">9</span> 月 <span class="num">1</span> 日發布的 Atlas，則是從頭預訓練於文字、影像、影片與 3D 資料的多模態自回歸擴散 Transformer（rectified flow），生成新視角的同時估計幾何、輸出 Gaussian splats，並把「真實→模擬」當作機器人應用的主軸。從隱式到顯式，意味著輸出可以被量、可以被比對——向工程可驗證性邁進了一步。但 Atlas 目前只開放早期試用，公開的成績全是公司自測，尚無論文。</p>
+<p>空間智能能保證的是幾何與外觀的一致，<strong>不能保證材料。</strong>一堆白色粉末，渲染得再逼真，也分不出是糖、鹽還是小蘇打。</p>
+
+<h3>大型語言模型：通用介面與組合推理</h3>
+<p>LLM 的獨特貢獻，是把「任務」本身變成可以用自然語言描述、拆解與重組的東西：理解目標、規劃步驟、調用工具、解釋結果。它還帶著龐大的世界知識先驗——知道 NIR 對水敏感，知道粉末量測要控制粒徑與裝填密度，知道該先做空白再量樣品。</p>
+<p>它的限制也同樣清楚：證據是第三手的，而輸出端是一個永遠加總為一的機率分布。<strong>流暢，不等於有量測支持。</strong></p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 六 ============ -->
+<section id="s6">
+<h2><span class="n">六</span>互補：一條證據鏈與一道閘門</h2>
+
+<p class="dropcap">我會把三者排成三層，再加一道橫跨三層的閘門。語言層負責目標與解釋，空間層負責「在哪裡、以什麼姿態量」，化學計量層負責「量到了什麼」。任何一層的輸出，都要先通過適用性閘門，才能變成答案或動作；不通過，就拒判、調整位姿、重新量測。</p>
+
+<div class="diagram-wrap">
+<svg class="diagram" viewBox="0 0 1000 660" role="img" aria-label="三層證據鏈與適用性閘門示意圖">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2a2017"/></marker></defs>
+<g font-family="Noto Serif TC, serif" font-weight="800" fill="#2a2017">
+  <rect x="30" y="30" width="740" height="125" fill="#eadfc3" stroke="#2a2017" stroke-width="3"/>
+  <text x="60" y="80" font-size="34" fill="#8a1f1a">說得出｜語言層 LLM</text>
+  <text x="60" y="128" font-size="25" font-weight="700">目標、步驟規劃、工具調度、解釋結果</text>
+  <rect x="30" y="195" width="740" height="125" fill="#e2d4b2" stroke="#2a2017" stroke-width="3"/>
+  <text x="60" y="245" font-size="34" fill="#8a1f1a">看得見｜空間層 World Model</text>
+  <text x="60" y="293" font-size="25" font-weight="700">位姿、幾何、遮擋、探頭覆蓋、動作後果</text>
+  <rect x="30" y="360" width="740" height="125" fill="#d9c79f" stroke="#2a2017" stroke-width="3"/>
+  <text x="60" y="410" font-size="34" fill="#8a1f1a">看得透｜感測層 Chemometrics</text>
+  <text x="60" y="458" font-size="25" font-weight="700">成分、濃度、製程狀態（有單位、可追溯）</text>
+  <rect x="820" y="30" width="150" height="455" fill="#2a2017" stroke="#8a1f1a" stroke-width="4"/>
+  <text x="895" y="190" font-size="32" fill="#f3ead6" text-anchor="middle">適</text>
+  <text x="895" y="232" font-size="32" fill="#f3ead6" text-anchor="middle">用</text>
+  <text x="895" y="274" font-size="32" fill="#f3ead6" text-anchor="middle">性</text>
+  <text x="895" y="316" font-size="32" fill="#f3ead6" text-anchor="middle">閘</text>
+  <text x="895" y="358" font-size="32" fill="#f3ead6" text-anchor="middle">門</text>
+  <rect x="30" y="535" width="440" height="85" fill="#f3ead6" stroke="#1f4e5a" stroke-width="3"/>
+  <text x="250" y="570" font-size="25" text-anchor="middle" fill="#1f4e5a">通過 →</text>
+  <text x="250" y="603" font-size="25" text-anchor="middle" fill="#1f4e5a">有證據支持的答案或動作</text>
+  <rect x="530" y="535" width="440" height="85" fill="#f3ead6" stroke="#8a1f1a" stroke-width="3"/>
+  <text x="750" y="570" font-size="25" text-anchor="middle" fill="#8a1f1a">不通過 →</text>
+  <text x="750" y="603" font-size="25" text-anchor="middle" fill="#8a1f1a">拒判、調整位姿、重新量測</text>
+</g>
+<g stroke="#2a2017" stroke-width="3" fill="none" marker-end="url(#ah)">
+  <path d="M770 92H818"/><path d="M770 257H818"/><path d="M770 422H818"/>
+  <path d="M860 485V510H250V533"/><path d="M930 485V533"/>
+</g>
+<path d="M750 620V645H12V430H28" stroke="#8a1f1a" stroke-width="3" stroke-dasharray="10 7" fill="none" marker-end="url(#ah)"/>
+</svg>
+</div>
+
+<p>在這個架構裡，化學計量學扮演兩個角色：底層的感測推斷，以及那道閘門的設計哲學。下面是我認為最值得互相借鏡的六個方向：</p>
+
+<div class="table-wrap"><table class="t">
+<thead><tr><th>學習方</th><th>向誰學</th><th>學什麼</th></tr></thead>
+<tbody>
+<tr><td>LLM</td><td>化學計量學</td><td>把適用範圍檢查變成校準過的棄答；外部測試集與「誤接受／誤拒絕」並列報告的文化</td></tr>
+<tr><td>空間智能</td><td>化學計量學</td><td>外觀≠成分；「真實→模擬」的落差，結構上就是主從儀器的差異——用少量真實樣品修正模擬，正是稀疏移轉集的精神（此為我的推測，未經實驗）</td></tr>
+<tr><td>化學計量學</td><td>LLM</td><td>以大量未標註光譜預訓練「光譜基礎模型」；把少數參考樣品放進上下文做即時校正——in-context 學習，本質上就是局部建模</td></tr>
+<tr><td>化學計量學</td><td>空間智能</td><td>把量測幾何（探頭距離、角度、覆蓋率）當成明確的協變數，而不是當成雜訊吞掉</td></tr>
+<tr><td>空間智能</td><td>LLM</td><td>語意、目標與常識先驗：知道「燒杯旁的白色粉末」值得驗明正身</td></tr>
+<tr><td>LLM</td><td>空間智能</td><td>可檢驗的幾何狀態，讓文字有地方落地</td></tr>
+</tbody></table></div>
+
+<p>其實三者的交會已經有一個現成的工業實例：<strong>高光譜化學影像</strong>（hyperspectral / chemical imaging）。每一個像素是一條光譜，整張圖既是空間的，也是化學的。藥錠的成分分布、食品異物檢測、塑膠回收分選，都已在線上運作。若要找一塊讓空間智能與化學計量學真正對話的試驗田，這裡最近。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 七 ============ -->
+<section id="s7">
+<h2><span class="n">七</span>關於「非參數」：我比原報告更站在老熊這邊</h2>
+
+<p class="dropcap">原報告指出，固定權重的 LLM 是參數式模型，因此老熊把 LLM 比作「非參數的細繩」需要限定。在權重的層次，這個糾正是對的：訓練完成後，參數向量的維度是固定的，不會因為多看了幾筆資料就長出新參數。「彈性≠沒有天花板」這一點我也同意——雜訊、不可辨識性與分布漂移，再彈性的模型也消除不了。</p>
+
+<p>但我認為應該換一個層次看。今天的 LLM 很少單獨運作，它是「權重＋上下文＋檢索＋工具」組成的系統。而上下文裡的注意力，正如第三節所示，形式上是對上下文做的核平滑：放進上下文的例子越多，這個「核展開」就越長，系統的有效容量隨之增加——這正是非參數模型的定義性特徵。在這個意義上，KV cache 就是一份臨時的支援向量清單。</p>
+
+<p class="pull">在權重層，LLM 是參數式的；<br>在系統層，它的行為越來越像非參數模型。</p>
+
+<p>所以老熊的比喻在系統層站得住。需要補上的不是「LLM 不是非參數」，而是：<strong>非參數的彈性，換來的是對「鄰居夠不夠近」更大的依賴</strong>——又回到了第三節那道閘門。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 八 ============ -->
+<section id="s8">
+<h2><span class="n">八</span>老熊的位置</h2>
+
+<p class="dropcap">原報告的結論是：老熊的工作「建立了有實質內容的技術連結，但不等於宣稱發明了今日世界模型的架構」。這句話正確，但太保守。我會這樣說：</p>
+
+<blockquote class="verdict">老熊沒有發明世界模型，也沒有發明 Transformer。但這兩者今天最欠缺的那個零件——在加權平均之前先問「鄰居夠不夠近」，並在不夠近時有勇氣說「不知道」——是他用二十多年，在實驗室與產線上反覆打磨、並寫進專利的東西。</blockquote>
+
+<p>這不是在暗示 World Labs 或任何 LLM 公司用了他的方法——沒有證據顯示如此。這是在指出一個工程史事實：可靠的感測推斷，早在世界模型熱潮之前就是一門成熟的學問；而新一波 AI 正一步步重新碰上它當年處理過的問題——分布漂移、儀器差異、未知樣品、何時拒判。</p>
+
+<p>化學計量學界的人，或許可以少一點「我們早就做過了」的感慨，多一點「我們知道哪裡會出事」的自信。後者，正是這一波最缺的。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 九 ============ -->
+<section id="s9">
+<h2><span class="n">九</span>結語：最後一環是量測</h2>
+
+<p class="dropcap">看得透、看得見、說得出——三種能力缺一不可，但它們對證據的要求並不對稱。說得出的，必須能被看得見的檢驗；看得見的，必須能被看得透的檢驗；而看得透的，最終要對回實驗室裡那支量瓶與那台參考儀器。</p>
+
+<p>這條證據鏈的最後一環，不是模型，而是量測。這大概是一位化學計量學家，能給這個時代最樸素、也最有用的提醒。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 附錄 ============ -->
+<section id="s10">
+<h2><span class="n">附</span>27 組專利依技術領域分組</h2>
+<p class="fine">依原報告所引的專利工作簿（<span class="num">2026</span> 年 <span class="num">6</span> 月更新：<span class="num">27</span> 組、<span class="num">62</span> 件）整理；分類由 Claude 依標題判斷，不是逐項請求項審查。US 12,578,319 已併入 US 10,444,213，不重複計數。</p>
+
+<div class="patgroup"><b>模型適用性與拒判（3）</b><span>US 10,810,408 · US 11,009,452 · US 11,656,174</span></div>
+<div class="patgroup"><b>校正、移轉與模型修正（3）</b><span>US 10,429,240 · US 10,969,331 · US 10,928,309</span></div>
+<div class="patgroup"><b>製程監控與終點判定（5）</b><span>US 12,352,692 · US 11,920,980 · US 11,860,035 · US 10,984,334 · US 6,853,920</span></div>
+<div class="patgroup"><b>生理推斷與訊號處理（6）</b><span>US 12,347,566 · US 12,097,039 · US 11,445,927 · US 11,331,017 · US 11,000,198 · US 10,251,597</span></div>
+<div class="patgroup"><b>材料辨識與分類（4）</b><span>US 10,444,213 · US 10,309,894 · US 9,316,628 · US 6,895,338</span></div>
+<div class="patgroup"><b>感測器陣列、融合與量測硬體（6）</b><span>US 8,285,493 · US 7,527,821 · US 7,171,312 · US 7,129,095 · US 7,034,677 · US 6,716,638</span></div>
+<p class="fine">合計 <span class="num">3 + 3 + 5 + 6 + 4 + 6 = 27</span> 組。前三類（<span class="num">11</span> 組）與本文主題最直接相關；後三類顯示這份組合的範圍遠大於非線性化學計量學本身。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 來源 ============ -->
+<section id="s11">
+<h2><span class="n">源</span>資料來源與查核說明</h2>
+<ol class="sources">
+  <li>原報告：<i>Spatial Intelligence, Nonlinear Chemometrics and LLMs</i>（ChatGPT，<span class="num">2026-10-08</span>，雙語 HTML）。本文的專利、履歷相關敘述均以該報告所引資料為準，未另行取得工作簿與履歷原件。</li>
+  <li>World Labs — <a href="https://www.worldlabs.ai/blog/atlas" target="_blank" rel="noopener">Atlas</a>（<span class="num">2026-09-01</span>）；另以 <a href="https://radiancefields.com/world-labs-announces-new-world-model-atlas" target="_blank" rel="noopener">Radiance Fields</a> 與 <a href="https://siliconangle.com/fei-fei-lis-world-labs-debuts-atlas-a-world-model-showcase-for-advanced-spatial-intelligence" target="_blank" rel="noopener">SiliconANGLE</a> 的報導交叉核對架構、Gaussian splats 輸出、早期試用與「成績為公司自測、未附論文」等描述。</li>
+  <li>World Labs — <a href="https://www.worldlabs.ai/blog/rtfm" target="_blank" rel="noopener">RTFM: A Real-Time Frame Model</a>（<span class="num">2025-10</span>）；<a href="https://www.worldlabs.ai/blog/marble-world-model" target="_blank" rel="noopener">Marble</a>（<span class="num">2025-11</span>）。</li>
+  <li>Vaswani et al., <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a>（<span class="num">2017</span>）。</li>
+  <li>Dive into Deep Learning, <a href="https://d2l.ai/chapter_attention-mechanisms-and-transformers/attention-pooling.html" target="_blank" rel="noopener">Attention Pooling by Similarity</a>——以 Nadaraya–Watson 核迴歸講解注意力。Nadaraya（<span class="num">1964</span>）、Watson（<span class="num">1964</span>）為原始文獻。</li>
+  <li>DeepSeek-AI, <a href="https://arxiv.org/html/2412.19437v2" target="_blank" rel="noopener">DeepSeek-V3 Technical Report</a>——預訓練 token 數量級的參考。</li>
+  <li>Y. Wang, D. J. Veltkamp, B. R. Kowalski, “Multivariate Instrument Standardization,” <i>Analytical Chemistry</i> <span class="num">63</span>（<span class="num">1991</span>）——分段直接標準化（PDS）。</li>
+  <li>專利公開紀錄：<a href="https://patents.google.com/patent/US10810408B2/en" target="_blank" rel="noopener">US 10,810,408</a> · <a href="https://patents.google.com/patent/US11009452B2/en" target="_blank" rel="noopener">US 11,009,452</a> · <a href="https://patents.google.com/patent/US11656174B2/en" target="_blank" rel="noopener">US 11,656,174</a> · <a href="https://patents.google.com/patent/US10429240B2/en" target="_blank" rel="noopener">US 10,429,240</a> · <a href="https://patents.google.com/patent/US11920980B2/en" target="_blank" rel="noopener">US 11,920,980</a>。</li>
+  <li>老熊隨筆：<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/why_nonparametric_postclassical_chemometrics.html" target="_blank" rel="noopener">Why Non-Parametric Is the Keyword in Post-Classical Chemometrics</a>。</li>
+</ol>
+<p class="fine">查核說明：第三、七節的數學對應（注意力＝核平滑、KV cache≈臨時支援向量）是分析性類比，形式成立，但不代表兩者的訓練目標或泛化性質相同。第六節「真實→模擬≈儀器移轉」為作者推測，尚無實驗支持。本文未執行任何程式或效能比較。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer>老熊隨筆・精選外刊｜評述與改寫：Claude（Anthropic）｜原報告：ChatGPT｜二〇二六年十月八日</footer>
+</div>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
