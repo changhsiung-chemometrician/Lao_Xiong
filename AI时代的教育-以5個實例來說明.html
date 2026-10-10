@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI时代的教育-以5個實例來說明</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ead6; --paper2:#ebdfc3; --card:#faf4e4;
+  --ink:#2a2017; --muted:#6a5842; --red:#8a1c1c; --rule:#b8a37b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","MingLiU",serif;
+  font-weight:700; font-size:32px; line-height:1.75;
+  -webkit-text-size-adjust:100%;
+}
+a{color:var(--red)}
+.wrap{max-width:1100px; margin:0 auto; padding:48px 40px 160px}
+
+/* ---------- masthead ---------- */
+.mast{
+  text-align:center; border-top:6px double var(--ink); border-bottom:2px solid var(--ink);
+  padding:12px 0; font-size:22px; letter-spacing:.35em; color:var(--muted);
+}
+.mast b{color:var(--red); font-weight:900}
+h1{font-size:76px; line-height:1.22; font-weight:900; text-align:center; margin:48px 0 24px; letter-spacing:.02em}
+.deck{font-size:36px; text-align:center; color:var(--muted); margin:0 auto 32px; max-width:920px; line-height:1.6}
+.ledger{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:6px 28px;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  padding:12px 0; font-size:22px; color:var(--muted); margin-bottom:44px;
+}
+
+/* ---------- TOC ---------- */
+.toc{background:var(--paper2); border:2px solid var(--ink); padding:28px 40px; margin:0 0 56px}
+.toc h2{border:none; margin:0 0 12px; padding:0; font-size:40px}
+.toc ol{list-style:none; margin:0; padding:0; font-size:30px}
+.toc li{padding:8px 0; border-bottom:1px dashed var(--rule)}
+.toc li:last-child{border-bottom:none}
+.toc a{text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* ---------- body ---------- */
+section{margin:0 0 72px}
+h2{
+  font-size:52px; font-weight:900; color:var(--red); line-height:1.3;
+  border-bottom:3px solid var(--ink); padding-bottom:10px; margin:0 0 32px;
+}
+h3{font-size:38px; font-weight:900; margin:36px 0 12px}
+p{margin:0 0 26px; text-align:justify}
+strong{font-weight:800}
+.num{font-weight:800}
+.lead::first-letter{
+  float:left; font-size:120px; line-height:.95; padding:10px 18px 0 0;
+  color:var(--red); font-weight:900;
+}
+.pull{
+  font-size:44px; font-weight:800; color:var(--red); text-align:center; line-height:1.5;
+  border-top:3px double var(--ink); border-bottom:3px double var(--ink);
+  padding:26px 20px; margin:40px 0;
+}
+.note{font-size:24px; color:var(--muted); border-left:6px solid var(--rule); padding:6px 0 6px 18px; margin:0 0 26px}
+
+.cols{display:grid; grid-template-columns:1fr 340px; gap:48px; align-items:start}
+aside{
+  background:var(--card); border:2px solid var(--ink); padding:22px 24px;
+  font-size:26px; line-height:1.65; position:sticky; top:24px;
+}
+aside h4{font-size:28px; font-weight:900; color:var(--red); margin:0 0 10px; border-bottom:1px solid var(--rule); padding-bottom:6px}
+aside p{margin:0 0 14px; text-align:left}
+aside ul{margin:0 0 14px; padding-left:1.1em}
+aside li{margin-bottom:8px}
+aside .num{font-size:28px}
+
+figure{margin:8px 0 34px}
+figure img{width:100%; display:block; border:2px solid var(--ink); filter:sepia(.18) contrast(1.03)}
+figcaption{font-size:22px; color:var(--muted); text-align:center; margin-top:8px}
+
+/* ---------- example cards ---------- */
+.principle{background:var(--paper2); border:2px dashed var(--ink); padding:24px 30px; margin:0 0 40px}
+.principle p{margin:0}
+.ex{background:var(--card); border:2px solid var(--ink); padding:30px 38px 22px; margin:0 0 36px; box-shadow:6px 6px 0 var(--rule)}
+.ex-head{display:flex; align-items:baseline; gap:20px; border-bottom:1px solid var(--rule); margin-bottom:18px; padding-bottom:8px}
+.ex-no{font-size:96px; font-weight:900; color:var(--red); line-height:1}
+.ex-title{font-size:42px; font-weight:900; line-height:1.3}
+.ex-title small{display:block; font-size:24px; color:var(--muted); font-weight:700}
+.row{display:grid; grid-template-columns:150px 1fr; gap:16px; margin-bottom:16px}
+.tag{font-size:24px; font-weight:900; text-align:center; padding:6px 0; height:fit-content; border:2px solid var(--ink)}
+.tag.old{color:var(--muted); background:transparent; text-decoration:line-through}
+.tag.new{background:var(--ink); color:var(--paper)}
+.tag.key{background:var(--red); color:#fff; border-color:var(--red)}
+.row p{margin:0; text-align:left}
+
+.summary{width:100%; border-collapse:collapse; font-size:26px; margin:16px 0 30px}
+.summary th,.summary td{border:1px solid var(--ink); padding:12px 14px; text-align:left; vertical-align:top}
+.summary th{background:var(--ink); color:var(--paper); font-weight:900}
+.summary tr:nth-child(even) td{background:var(--card)}
+
+blockquote{margin:30px 0; padding:22px 30px; border-left:10px solid var(--red); background:var(--card)}
+blockquote p:last-child{margin-bottom:0}
+.comment{font-size:26px; color:var(--muted)}
+ul.plain{padding-left:1.2em; margin:0 0 26px}
+ul.plain li{margin-bottom:10px}
+
+.back{display:block; text-align:right; font-size:22px; margin-top:20px; text-decoration:none}
+.back:hover{text-decoration:underline}
+footer{border-top:6px double var(--ink); padding-top:16px; font-size:22px; color:var(--muted); text-align:center}
+
+/* ---------- floating nav ---------- */
+.fnav{position:fixed; right:22px; bottom:22px; display:flex; flex-direction:column; gap:10px; z-index:99}
+.fnav a{
+  background:var(--ink); color:var(--paper); text-decoration:none; font-size:20px; font-weight:800;
+  padding:10px 18px; border-radius:4px; text-align:center; box-shadow:3px 3px 0 var(--rule);
+}
+.fnav a:hover{background:var(--red)}
+
+@media (max-width:860px){
+  body{font-size:21px}
+  .wrap{padding:22px 16px 140px}
+  .mast{font-size:14px; letter-spacing:.2em}
+  h1{font-size:40px; margin:28px 0 16px}
+  .deck{font-size:22px}
+  .ledger{font-size:15px}
+  .toc{padding:18px 20px} .toc h2{font-size:26px} .toc ol{font-size:20px}
+  h2{font-size:30px} h3{font-size:24px}
+  .lead::first-letter{font-size:72px}
+  .pull{font-size:26px; padding:18px 8px}
+  .note{font-size:17px}
+  .cols{grid-template-columns:1fr; gap:24px}
+  aside{position:static; font-size:18px} aside h4{font-size:20px} aside .num{font-size:19px}
+  figcaption{font-size:15px}
+  .ex{padding:20px 18px 12px} .ex-no{font-size:56px} .ex-title{font-size:26px} .ex-title small{font-size:16px}
+  .row{grid-template-columns:1fr; gap:6px} .tag{font-size:16px; width:110px}
+  .summary{font-size:15px} .summary th,.summary td{padding:7px 6px}
+  .comment{font-size:18px}
+  .back{font-size:16px} footer{font-size:15px}
+  .fnav a{font-size:15px; padding:8px 12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast"><b>老熊隨筆</b> · 精選外刊 · 教育與 AI</div>
+
+<h1>AI时代的教育<br>-以5個實例來說明</h1>
+<p class="deck">奧特曼承認在教育上看走了眼，黃仁勳反問「基礎數學變差，重要嗎？」——兩位最懂 AI 的人，指向同一個問題：量孩子的那把尺子，已經量不準了。</p>
+<div class="ledger">
+  <span>素材｜小红书「斯坦福蒋里博士」口播影片〈奧特曼認錯，AI時代的教育！〉</span>
+  <span>2026-10-09 發佈 · 4 分 58 秒</span>
+  <span>改寫整理｜2026-10-10</span>
+</div>
+
+<nav class="toc" id="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">一、作業越來越漂亮，考試越來越差</a></li>
+    <li><a href="#s2">二、奧特曼：我最大的誤判是教育</a></li>
+    <li><a href="#s3">三、黃仁勳：基礎數學變差，重要嗎？</a></li>
+    <li><a href="#s4">四、問題不在孩子，在尺子</a></li>
+    <li><a href="#s5">五、新尺子長什麼樣：五個考法實例</a></li>
+    <li><a href="#s6">六、結語：該換的是尺子</a></li>
+    <li><a href="#s7">附記：查證與來源</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== 一 ===================== -->
+<section id="s1">
+<h2>一、作業越來越漂亮，考試越來越差</h2>
+<p class="lead">一項追蹤兩萬七千名中國中學生的研究發現：用上 AI 之後，作業分數漲了近兩成，閉卷月考卻掉了兩成。作業越交越漂亮，考試越考越差——這個矛盾，正是斯坦福蔣里博士這支五分鐘影片的起點。</p>
+<p>他把兩個看似無關的故事擺在一起：一個是 OpenAI 的奧特曼，一個是英偉達的黃仁勳。單看各自只是一則新聞，合起來看，卻指向當前教育最根本的一個問題。本文把影片的論證理順，再用<strong>五個具體的考法</strong>說明「新的尺子」應該長什麼樣。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ===================== 二 ===================== -->
+<section id="s2">
+<h2>二、奧特曼：我最大的誤判是教育</h2>
+<div class="cols">
+<div>
+<p>2026 年 5 月，奧特曼回到斯坦福大學，在計算機系的一堂課上，有學生問他怎麼看現在的教育。他停了一下說：<strong>「我很擔心，我以為到現在它早就該變了。」</strong></p>
+<p>他原本的劇本是這樣的：2022 年 11 月 ChatGPT 發佈後，頭一年學生會拿它作弊、學不到東西；但很快，整個教育系統就會被逼著重新設計自己——老師會佈置<strong>非用 AI 不可</strong>的專案，學生從啃書本轉向解決真實問題，在做事的過程中學會駕馭 AI。</p>
+<p>三年半過去，AI 從只會寫文案，進化到能挑戰數學家幾十年沒解決的難題；學校這邊，<strong>作業、考試、論文，一切照舊</strong>。他翻遍整個教育體系，找不到一處真正的結構性改變。</p>
+</div>
+<aside>
+<h4>今天到底在考什麼？</h4>
+<ul>
+<li>背得多不多</li>
+<li>答案標不標準</li>
+<li>能不能一個人閉卷做對</li>
+</ul>
+<p>偏偏這三件事，AI 做得比誰都好。孩子把題丟給 AI，作業就交得漂漂亮亮。</p>
+<p>照老辦法教、老辦法考，孩子不但學不到東西，獨立思考還會像長期不用的肌肉一樣<strong>慢慢萎縮</strong>。</p>
+</aside>
+</div>
+<p class="pull">一個在 AI 上幾乎壓對所有方向的人，<br>偏偏在教育上看走了眼。</p>
+<p class="note">註：本節奧特曼言論均據蔣里轉述，未找到獨立報導逐字核實，詳見〈附記〉。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ===================== 三 ===================== -->
+<section id="s3">
+<h2>三、黃仁勳：基礎數學變差，重要嗎？</h2>
+<div class="cols">
+<div>
+<p>2026 年 9 月，黃仁勳接受《紐約時報》採訪。主持人拋出開頭那項研究：學生用了 AI，作業更快、分數更高，閉卷考試卻往下掉。主持人問：這難道不讓人擔心嗎？</p>
+<p>黃仁勳的回答出乎所有人意料。他承認孩子的基礎數學好像變差了，卻反問一句：<strong>這重要嗎？</strong>他的答案是——不重要，一點都不重要。他還自嘲，自己家的地址、郵編、甚至電話號碼都記不太清楚，但無所謂。</p>
+<p>他拿老本行打了個比方：早年設計晶片，每一個電晶體放在哪裡，他心裡清清楚楚；今天一顆晶片上有上千億個電晶體，他不可能、也不需要知道每一個在哪——軟體替他管著。人不再盯著每一個電晶體，而是<strong>站到更高的地方看整個系統</strong>。</p>
+<p class="pull">「AI 會讓我們成為<br>更好的系統性思考者。」</p>
+<p class="note">註：黃仁勳言論同樣據蔣里轉述。</p>
+</div>
+<aside>
+<h4>研究檔案（已查證）</h4>
+<p>港大吳延暉團隊，2026 年 6 月工作論文《生成式人工智能的學習懲罰》。</p>
+<ul>
+<li>中部某縣 9 所中學、<span class="num">26,811</span> 名初一至高三學生，追蹤最長 <span class="num">30</span> 個月</li>
+<li>用 AI 6–10 個月後：作業分數 <span class="num">＋18%</span>，作業時間 64→45 分鐘；閉卷月考 <span class="num">−20%</span></li>
+<li>用滿兩年：中考約 <span class="num">−24%</span>、高考約 <span class="num">−18%</span>（樣本少，證據較弱）</li>
+<li>原本成績前 1/3 的學生跌得更多</li>
+</ul>
+<p><strong>關鍵發現：</strong>損失集中在把作業「外包」給 AI 的學生；用了 AI、但作業時間和不用者差不多的學生，幾乎沒有損失。</p>
+<p style="color:var(--muted)">保留：學生自行決定何時用 AI，並非隨機實驗，可能混入學習動力下降等因素，論文自己也承認。</p>
+</aside>
+</div>
+<p>研究的細節，其實比黃仁勳的回答更值得玩味：問題不在「用不用 AI」，而在<strong>有沒有把思考過程外包出去</strong>。這恰好為下一節的結論鋪了路。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ===================== 四 ===================== -->
+<section id="s4">
+<h2>四、問題不在孩子，在尺子</h2>
+<p>把兩件事放在一起看：奧特曼說「教育沒變」是他最大的誤判；黃仁勳說孩子分數掉了，未必是孩子的問題。兩人指向同一個地方——<strong>我們考核孩子的那把尺子，已經量不準這個時代的能力了。</strong></p>
+<p>整條論證其實很乾淨：</p>
+<blockquote>
+<p><strong>作業漂亮 ＋ 考試下滑 → 測量工具失效 → 換尺子</strong></p>
+</blockquote>
+<p>蔣里打了個比方：汽車都已經開上高速公路了，我們還在考孩子怎麼餵馬、怎麼套馬車；考不好，就說孩子能力不行。閉卷背誦是前 AI 時代的遺產，今天該考的，是那些<strong>不帶著 AI 就做不出來的、解決真實問題的能力</strong>。</p>
+<p class="pull">考試的重點，<br>該從「會不會背」<br>換成「會不會帶著 AI 把事情做成」。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ===================== 五 ===================== -->
+<section id="s5">
+<h2>五、新尺子長什麼樣：五個考法實例</h2>
+<div class="principle">
+<p><strong>共同原則：</strong>考試從「閉卷做對」，變成「開著 AI，把真問題做成，並為每一個關鍵判斷辯護」。<br><strong>AI 負責算、查、跑模型；學生負責每一個「為什麼」。</strong></p>
+</div>
+
+<div class="ex">
+  <div class="ex-head"><span class="ex-no">1</span><span class="ex-title">微積分<small>從手算積分 → 用數學描述真實世界</small></span></div>
+  <div class="row"><span class="tag old">舊考法</span><p>手算一串積分、微分題。</p></div>
+  <div class="row"><span class="tag new">新考法</span><p>給一段水庫水位變化的真實數據，AI 隨便用，算多少都行。</p></div>
+  <div class="row"><span class="tag key">評分看</span><p>為什麼選這個模型？微分方程在哪裡會失效？預測的可信區間在哪？——建模的每一個「為什麼」。</p></div>
+</div>
+
+<div class="ex">
+  <div class="ex-head"><span class="ex-no">2</span><span class="ex-title">初中物理<small>從背公式 → 自己設計實驗</small></span></div>
+  <div class="row"><span class="tag old">舊考法</span><p>背公式、代數字。</p></div>
+  <div class="row"><span class="tag new">新考法</span><p>用手機慢動作拍一顆球落地，量反彈高度，自己設計實驗估算能量損失。AI 可以幫忙算、幫忙畫圖。</p></div>
+  <div class="row"><span class="tag key">評分看</span><p>實驗怎麼設計、誤差從哪來、結論站不站得住——還要上台答辯三分鐘。</p></div>
+</div>
+
+<div class="ex">
+  <div class="ex-head"><span class="ex-no">3</span><span class="ex-title">化學<small>從配平方程式 → 搭一條推理鏈</small></span></div>
+  <div class="row"><span class="tag old">舊考法</span><p>配平化學方程式。</p></div>
+  <div class="row"><span class="tag new">新考法</span><p>給一包「未知白色粉末」，設計整套鑑別方案：查什麼文獻、做哪幾個測試、每一步排除了什麼。AI 當助手查反應。</p></div>
+  <div class="row"><span class="tag key">評分看</span><p>從假設到排除的邏輯鏈，必須是學生自己搭的。</p></div>
+</div>
+
+<div class="ex">
+  <div class="ex-head"><span class="ex-no">4</span><span class="ex-title">化學計量學（研究生）<small>從推導算法 → 為每個建模決策負責</small></span></div>
+  <div class="row"><span class="tag old">舊考法</span><p>推導 PLS 演算法。</p></div>
+  <div class="row"><span class="tag new">新考法</span><p>丟一組帶干擾、有缺失值的 NIR 光譜，任務是建出能用的定量模型。PLS、PCR、SVM，AI 隨便跑。</p></div>
+  <div class="row"><span class="tag key">評分看</span><p>預處理選 SNV 還是導數？主成分取幾個？怎麼證明沒過擬合？換一台儀器，模型怎麼遷移？每個決定都要答辯。</p></div>
+</div>
+
+<div class="ex">
+  <div class="ex-head"><span class="ex-no">5</span><span class="ex-title">統計：做一份民調<small>從套公式 → 判斷「這份數據值不值得信」</small></span></div>
+  <div class="row"><span class="tag old">舊考法</span><p>套公式算信賴區間。</p></div>
+  <div class="row"><span class="tag new">新考法</span><p>從零做一份民調：抽樣框怎麼定、收多少樣本、無回應偏差怎麼處理、要不要加權，最後給出預判及其可信度。AI 幫忙跑迴歸、算區間。</p></div>
+  <div class="row"><span class="tag key">評分看</span><p>「這份民調值不值得信」的判斷，必須是學生自己的。可信度本身，就是一把尺子。</p></div>
+</div>
+
+<h3>一表看懂</h3>
+<table class="summary">
+<tr><th>科目</th><th>AI 負責</th><th>學生負責</th></tr>
+<tr><td>微積分</td><td>計算、求解</td><td>選模型、判斷失效點與可信區間</td></tr>
+<tr><td>初中物理</td><td>運算、繪圖</td><td>實驗設計、誤差分析、答辯</td></tr>
+<tr><td>化學</td><td>查反應、查文獻</td><td>鑑別方案的推理鏈</td></tr>
+<tr><td>化學計量學</td><td>跑 PLS／PCR／SVM</td><td>預處理、維度、驗證、模型遷移</td></tr>
+<tr><td>統計民調</td><td>迴歸、信賴區間</td><td>抽樣設計、偏差處理、可信度判斷</td></tr>
+</table>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ===================== 六 ===================== -->
+<section id="s6">
+<h2>六、結語：該換的是尺子</h2>
+<blockquote>
+<p><strong>作業交得漂亮 ≠ 學會了；考試考的，恰恰是 AI 做得最好的事。</strong></p>
+<p>當「背得多、答案標準、閉卷做對」這三件事 AI 全包了，繼續用這把尺子，就是在獎勵「外包思考」。該換的不是孩子的腦子，是尺子。</p>
+</blockquote>
+<p>當然，船大難掉頭。影片評論區有位上海網友說得實在：</p>
+<p class="comment">「AI 突飛猛進，可教育體系船大難掉頭，不論是學校還是家長，這種慣性太大了。讓孩子鍛鍊好身體，多多閱讀，這是我唯一能確定的方向。」</p>
+<p>在尺子換掉之前，值得持續留意的幾個檢查點：</p>
+<ul class="plain">
+<li>吳延暉團隊的論文能否通過同行評審正式發表，結論是否修正</li>
+<li>教育部門或學校是否出台學生用 AI 做作業的指引</li>
+<li>奧特曼、黃仁勳的相關言論是否有完整原文可查</li>
+<li>「AI 學習懲罰」能否在其他國家、其他學段被重複驗證</li>
+</ul>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ===================== 附記 ===================== -->
+<section id="s7">
+<h2>附記：查證與來源</h2>
+<ul class="plain">
+<li><strong>已查證：</strong>「兩萬七千名中學生」研究確有其事，即港大吳延暉團隊 2026 年 6 月工作論文《生成式人工智能的學習懲罰》（26,811 人，追蹤 30 個月）。屬工作論文，尚非正式發表；為觀察性研究，非隨機實驗。</li>
+<li><strong>未獨立核實：</strong>奧特曼 2026 年 5 月斯坦福課堂談話、黃仁勳 2026 年 9 月《紐約時報》訪談，均為影片作者轉述；文中引語應讀作「據蔣里轉述」。文中所說「AI 推翻數學難題」亦未指明是哪一道。</li>
+<li><strong>素材：</strong>小红书筆記 <code>6ac9a15c0000000014003604</code>（原連結 xhslink.com/o/1zen3zdBPbF），作者「斯坦福蒋里博士」；影片燒錄字幕與官方簡中／英文字幕一致。</li>
+<li><strong>說明：</strong>第五節五個考法為延伸舉例，非影片原有內容。</li>
+</ul>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer>老熊隨筆 · 2026-10-10</footer>
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
