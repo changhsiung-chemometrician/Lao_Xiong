@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="一支小紅書影片說李飛飛認為 AI 只在語言維度突破。老熊從非線性化學計量學的角度補上一層：人眼看不見、只能靠儀器加模型才看得透的微觀世界。">
+<title>AI 教母的格局還是差點意思｜老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ead6; --paper2:#eadfc3; --paper3:#e2d4b2;
+  --ink:#2a2017; --muted:#5d4c37; --red:#8a1f1a; --teal:#1f4e5a; --rule:#b3a07a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  background-image:radial-gradient(rgba(120,90,40,.06) 1px,transparent 1px);
+  background-size:6px 6px;
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","Microsoft JhengHei",serif;
+  font-size:32px; font-weight:700; line-height:1.78;
+}
+.wrap{max-width:1100px; margin:0 auto; padding:36px 48px 140px}
+a{color:var(--teal); text-underline-offset:5px}
+strong{font-weight:800; color:var(--red)}
+.num{font-weight:800; font-variant-numeric:tabular-nums}
+
+.masthead{border-top:7px double var(--ink); border-bottom:2px solid var(--ink); padding:14px 0 10px; text-align:center}
+.brand{font-size:58px; font-weight:900; letter-spacing:.35em; margin:0}
+.brand-en{font-family:"Playfair Display",Georgia,serif; font-size:24px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted)}
+.metabar{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--ink); padding:8px 2px; font-size:22px; font-weight:700}
+
+h1{font-size:76px; font-weight:900; line-height:1.18; text-align:center; margin:52px 0 14px; letter-spacing:.04em}
+.en-title{font-family:"Playfair Display",Georgia,serif; font-style:italic; font-weight:700; font-size:36px; text-align:center; color:var(--muted); margin:0 0 30px}
+.deck{font-size:34px; font-weight:700; line-height:1.7; border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); padding:26px 8px; margin:0 0 18px; text-align:justify}
+.byline{text-align:center; font-size:24px; color:var(--muted); margin-bottom:40px}
+
+.toc{background:var(--paper2); border:3px double var(--ink); padding:26px 40px; margin:30px 0 56px}
+.toc h2{border:0; margin:0 0 8px; font-size:40px; padding:0}
+.toc ol{margin:0; padding-left:0; list-style:none}
+.toc li{font-size:30px; margin:8px 0; border-bottom:1px dotted var(--rule); padding-bottom:6px}
+.toc li a{text-decoration:none; color:var(--ink)}
+.toc li a:hover{color:var(--red)}
+.toc .n{color:var(--red); font-weight:900; display:inline-block; min-width:3.2em}
+
+section{scroll-margin-top:24px; padding-bottom:20px; margin-bottom:46px; border-bottom:2px solid var(--rule)}
+section::after{content:""; display:block; clear:both}
+h2{font-size:52px; font-weight:900; line-height:1.3; margin:20px 0 26px; padding-bottom:12px; border-bottom:4px double var(--ink)}
+h2 .n{color:var(--red); margin-right:.3em}
+h3{font-size:40px; font-weight:900; color:var(--red); margin:42px 0 14px; line-height:1.35}
+p{margin:0 0 1.05em; text-align:justify}
+.dropcap::first-letter{float:left; font-size:120px; line-height:1; padding:10px 16px 0 0; color:var(--red); font-weight:900}
+ol.plain, ul.plain{padding-left:1.4em; margin:0 0 1em}
+ol.plain li, ul.plain li{margin:0 0 .7em}
+
+.pull{font-size:44px; font-weight:800; color:var(--red); line-height:1.55; text-align:center; border-top:4px solid var(--red); border-bottom:4px solid var(--red); padding:28px 20px; margin:44px 10px}
+.pull small{display:block; font-size:24px; color:var(--muted); margin-top:10px; font-weight:700}
+
+/* the original prompt, shown as a raw record */
+.prompt{background:#fbf6ea; border:2px solid var(--ink); box-shadow:8px 8px 0 var(--paper3); margin:34px 0 40px; padding:0}
+.prompt .tag{background:var(--ink); color:var(--paper); font-size:22px; font-weight:800; padding:8px 18px; letter-spacing:.08em; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+.prompt .body{padding:24px 30px 26px; font-family:"Noto Serif TC",Georgia,serif; font-size:29px; font-weight:700; line-height:1.75}
+.prompt .body .quoted{display:block; border-left:5px solid var(--rule); padding-left:18px; margin:14px 0 18px; color:var(--muted)}
+.prompt .body .mine{display:block; border-left:7px solid var(--red); padding-left:18px; color:var(--ink)}
+.translation{font-size:28px; background:var(--paper2); border-left:7px solid var(--teal); padding:18px 24px; margin:0 0 30px}
+.translation b{color:var(--teal); font-weight:900}
+
+.sidebar{float:right; width:340px; margin:10px 0 28px 38px; background:var(--paper2); border:2px solid var(--ink); box-shadow:6px 6px 0 var(--paper3); padding:20px 22px; font-size:26px; font-weight:700; line-height:1.6}
+.sidebar h4{margin:0 0 10px; font-size:30px; font-weight:900; border-bottom:2px solid var(--ink); padding-bottom:6px}
+.sidebar p{text-align:left; margin:0 0 .6em}
+.ledger{width:100%; border-collapse:collapse; font-size:25px}
+.ledger td{padding:6px 2px; border-bottom:1px dotted var(--rule); vertical-align:top}
+.ledger td:last-child{text-align:right; font-weight:800; color:var(--red); font-size:27px; white-space:nowrap; padding-left:8px}
+.sidebar .note{font-size:20px; color:var(--muted); margin-top:10px}
+
+.table-wrap{overflow-x:auto; margin:28px 0 34px}
+table.t{width:100%; border-collapse:collapse; font-size:25px; font-weight:700; line-height:1.55; background:rgba(255,255,255,.25)}
+table.t th{background:var(--ink); color:var(--paper); font-weight:800; padding:14px 14px; text-align:left; vertical-align:bottom}
+table.t td{border:1px solid var(--rule); padding:13px 14px; vertical-align:top}
+table.t tbody tr:nth-child(even){background:rgba(180,160,120,.14)}
+table.t td:first-child{font-weight:800}
+.ok{color:var(--teal); font-weight:900}
+.no{color:var(--red); font-weight:900}
+
+blockquote.verdict{margin:36px 0; padding:28px 34px; background:var(--ink); color:var(--paper); font-size:36px; font-weight:800; line-height:1.7; border-left:10px solid var(--red)}
+
+.diagram-wrap{overflow-x:auto; margin:24px 0 14px}
+.diagram{display:block; width:100%; min-width:640px; height:auto}
+.caption{font-size:23px; color:var(--muted); text-align:center; margin:0 0 34px}
+
+.sources{font-size:24px; line-height:1.6; padding-left:1.5em}
+.sources li{margin:0 0 14px}
+.fine{font-size:24px; color:var(--muted)}
+
+.back{display:block; text-align:right; font-size:24px; margin-top:16px; text-decoration:none; font-weight:800}
+.floatnav{position:fixed; right:20px; bottom:20px; z-index:50; display:flex; flex-direction:column; gap:10px}
+.floatnav a{background:var(--ink); color:var(--paper); text-decoration:none; font-size:22px; font-weight:800; padding:10px 18px; border:2px solid var(--paper); box-shadow:0 3px 10px rgba(0,0,0,.25); text-align:center}
+.floatnav a:hover{background:var(--red)}
+footer{font-size:22px; color:var(--muted); text-align:center; border-top:7px double var(--ink); padding-top:16px}
+
+@media (max-width:820px){
+  body{font-size:20px; line-height:1.75}
+  .wrap{padding:16px 16px 110px}
+  .brand{font-size:32px; letter-spacing:.2em}
+  .brand-en,.metabar{font-size:14px}
+  h1{font-size:40px; margin-top:30px}
+  .en-title{font-size:20px}
+  .deck{font-size:21px; padding:16px 4px}
+  .byline{font-size:16px}
+  .toc{padding:16px 18px}
+  .toc h2{font-size:26px}
+  .toc li{font-size:19px}
+  h2{font-size:30px}
+  h3{font-size:25px}
+  .dropcap::first-letter{font-size:68px; padding:6px 10px 0 0}
+  .pull{font-size:26px; padding:18px 8px; margin:28px 0}
+  .pull small{font-size:16px}
+  .prompt .tag{font-size:14px}
+  .prompt .body{font-size:18px; padding:16px 16px}
+  .translation{font-size:18px; padding:14px 16px}
+  .sidebar{float:none; width:auto; margin:20px 0; font-size:18px}
+  .sidebar h4{font-size:21px}
+  .ledger{font-size:17px}
+  .ledger td:last-child{font-size:18px}
+  .sidebar .note{font-size:14px}
+  table.t{font-size:16px}
+  table.t td,table.t th{padding:9px}
+  blockquote.verdict{font-size:22px; padding:18px 18px}
+  .caption,.sources,.fine{font-size:16px}
+  .back{font-size:16px}
+  .floatnav a{font-size:15px; padding:8px 12px}
+  footer{font-size:15px}
+}
+@media print{
+  body{background:#fff; font-size:13pt}
+  .floatnav,.back{display:none}
+  .wrap{max-width:none; padding:0}
+  h1{font-size:30pt} h2{font-size:20pt} h3{font-size:15pt}
+  .pull{font-size:16pt} .sidebar{font-size:11pt}
+  table.t{font-size:10pt} tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="brand">老熊隨筆</p>
+  <div class="brand-en">Selected Readings · Commentary</div>
+</header>
+<div class="metabar"><span>精選外刊・隨筆評論</span><span>二〇二六年十月十日　星期六</span><span>化學計量學 × 空間智能</span></div>
+
+<h1>AI 教母的格局<br>還是差點意思</h1>
+<p class="en-title">The Godmother’s Map Stops Where the Eye Stops</p>
+<p class="deck">一支小紅書解說影片說，李飛飛反駁「智能成本趨向於零」，理由是 AI 只在語言這個維度有了突破，空間智能、身體智能還差得遠。我看完的第一個反應是：她的地圖少了一層。那一層在 0.1 毫米以下，人眼看不見，卻是我們做化學計量學的人吃了一輩子飯的地方。</p>
+<p class="byline">文：老熊｜與 Claude 對談後整理成篇</p>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <h2>目　錄</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">一、</span>起因：一支四分半鐘的小紅書影片</a></li>
+    <li><a href="#s2"><span class="n">二、</span>觸發點：我的原話</a></li>
+    <li><a href="#s3"><span class="n">三、</span>第一層：她列的是「人有的感官」</a></li>
+    <li><a href="#s4"><span class="n">四、</span>第二層：是尺度，還是模態？</a></li>
+    <li><a href="#s5"><span class="n">五、</span>第三層：物理不會等比縮小</a></li>
+    <li><a href="#s6"><span class="n">六、</span>反方：替李飛飛說句公道話</a></li>
+    <li><a href="#s7"><span class="n">七、</span>復盤：格局差在哪一點</a></li>
+    <li><a href="#s8"><span class="n">來源、</span>資料來源與查核帳</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 一 ============ -->
+<section id="s1">
+<h2><span class="n">一</span>起因：一支四分半鐘的小紅書影片</h2>
+
+<p class="dropcap">十月十日，滑小紅書滑到一支影片，標題是〈AI 教母李飛飛：未來只有 2 種工作〉，作者「不晚悟」，片長四分三十六秒，真人出鏡口播。主軸是時下流行的「槓鈴職場」：十年後只剩頂級專家與高主動性的通才，中間那批「還湊合」的人會被 AI 擠出去。</p>
+
+<p>槓鈴這套說法我不想多談，各家媒體已經嚼過好幾輪。讓我停下來的，是片子第二分四十一秒之後的一小段。博主說，李飛飛專門反駁了「智能成本正在趨向於零」：人類的智能有語言、感知、空間、身體、情感等好幾個維度，AI 目前只在語言上有了突破，空間和身體智能還差得很遠。</p>
+
+<p>這段話本身沒有錯，甚至可以說是清醒的。但我在那份維度清單上看了很久，總覺得少了什麼。少的那一塊，正好是我這輩子工作的地方。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 二 ============ -->
+<section id="s2">
+<h2><span class="n">二</span>觸發點：我的原話</h2>
+
+<p class="dropcap">復盤的規矩是：原始資料不修飾。下面是我當晚隨手丟給 Claude 的那段話，英文文法不講究，夾了幾個中文詞，一字不改照錄。這篇文章，就是從這幾行開始的。</p>
+
+<div class="prompt">
+  <div class="tag"><span>原始提問・照錄</span><span>2026-10-10　19:43（太平洋時間）</span></div>
+  <div class="body">
+    based on info uploaded, when Li said :
+    <span class="quoted">這裡還有一個很多人忽略的事實：AI 沒有大家想的那麼強。博主說，李飛飛專門反駁了「智能成本正在趨向於零」的說法——人類的智能包含語言、感知、空間、身體、情感等多個維度，AI 目前只在語言這個維度上有了突破，空間智能、身體智能還差得很遠。</span>
+    <span class="mine">I think (from my background in nonlinear Chemometrics) she missed one very important 維度 i.e. microscopic world, the world that measured by micro (or nano-meter), what her spatial intelligence typically are dealing with human's 直觀世界 （measured by mm or cm to meters). Does my narrative make sense ?</span>
+  </div>
+</div>
+
+<div class="translation"><b>中譯：</b>從我做非線性化學計量學的背景看，她漏掉了一個非常重要的維度：微觀世界，也就是以微米、甚至奈米來量的世界。她的空間智能，處理的通常是人類的直觀世界，量度單位是毫米、公分到公尺。我這樣說，站得住嗎？</div>
+
+<p>Claude 的回答是：站得住，但要磨。光說「尺度」不夠準。下面三節，是那場對談磨出來的三層。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 三 ============ -->
+<section id="s3">
+<h2><span class="n">三</span>第一層：她列的是「人有的感官」</h2>
+
+<p class="dropcap">先看清單本身。語言、感知、空間、身體、情感，這五個維度有一個共同點：<strong>都是人天生就有的能力。</strong>小孩不用上學就會說話、會認臉、會判斷杯子離手多遠、會走路、會察言觀色。AI 在這幾個維度上追趕的，是一條人類早就畫好的基準線。</p>
+
+<p>可是沒有人天生能感覺到分子。我做了二十多年化學計量學，一個 O–H 鍵也沒有「看見」過。我知道它在那裡，是因為近紅外光譜在某個波長上多吸收了一點光，而模型把那一點點吸收，對回了實驗室裡用參考方法量出來的含水量。這整條路，靠的是<strong>儀器加推斷</strong>，從頭到尾沒有用到人類的哪一種感官直覺。</p>
+
+<p>所以嚴格說，微觀世界不是她漏掉的「第六種人類智能」，而是一整塊<strong>在人類直覺之外</strong>的領域。這反而讓論點更有分量：</p>
+
+<p class="pull">在直觀世界，AI 在追趕人類；<br>在儀器世界，根本沒有人類的基準線可追。</p>
+
+<p>我的 NIR 模型，本來就在「看」人眼看不到的東西。在那個世界裡，問 AI「什麼時候能追上人」，是一個問錯了的問題。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 四 ============ -->
+<section id="s4">
+<h2><span class="n">四</span>第二層：是尺度，還是模態？</h2>
+
+<aside class="sidebar">
+  <h4>看得多細？</h4>
+  <table class="ledger">
+    <tr><td>人眼（明視距離）</td><td>≈ 0.1 mm</td></tr>
+    <tr><td>光學顯微鏡</td><td>≈ 200 nm</td></tr>
+    <tr><td>電子顯微鏡</td><td>&lt; 1 nm</td></tr>
+    <tr><td>近紅外光譜</td><td>不量位置</td></tr>
+  </table>
+  <p class="note">前三者回答「在哪裡、長什麼樣」；NIR 回答「是什麼鍵、有多少」。數字為數量級。</p>
+</aside>
+
+<p class="dropcap">復盤自己的話，最不能放過的是用詞。我原話寫的是 micro、nano-meter，是「尺度」。磨了一輪之後發現，這個說法只對了一半。「微觀」其實要拆成兩件不同的事。</p>
+
+<h3>其一：換一把更小的尺，模態不變</h3>
+<p>顯微鏡（光學、SEM、AFM）給的是微米到奈米尺度的<strong>空間影像</strong>：細胞長什麼樣、粉末顆粒多大、晶界怎麼走。這仍然是「看得見」，只是換了尺。今天的視覺模型處理顯微影像已經相當不錯，AlphaFold 預測的蛋白質結構，說到底也是分子尺度的幾何。這一半，空間智能伸手就搆得到。</p>
+
+<h3>其二：根本是另一種模態</h3>
+<p>近紅外光譜並不是把微觀世界「照」出來。它量的是分子振動，O–H、C–H、N–H 的倍頻與合頻，而且是在一個好幾立方毫米、甚至更大的取樣體積上做平均。它不告訴你分子在哪裡，只告訴你<strong>有哪些鍵、各有多少</strong>。輸出是成分，不是幾何。</p>
+
+<p>這才是空間智能框架真正的缺口。舉個最笨的例子：桌上一堆白色粉末。世界模型可以把它渲染得維妙維肖，轉個角度、推它一下，形狀與塌落都合乎物理，但它<strong>分不出那是糖、鹽還是小蘇打</strong>。一台手持 NIR，幾秒鐘就分得出來。</p>
+
+<div class="diagram-wrap">
+<svg class="diagram" viewBox="0 0 1000 720" role="img" aria-label="尺度與模態二維地圖：空間智能、顯微影像、光譜化學計量學、高光譜化學影像四個區塊">
+<g font-family="Noto Serif TC, serif" font-weight="800" fill="#2a2017">
+  <!-- axes labels -->
+  <text x="500" y="40" font-size="26" text-anchor="middle" fill="#5d4c37">資訊來源的尺度 →（公尺 ……… 奈米）</text>
+  <text x="40" y="190" font-size="25" fill="#5d4c37" transform="rotate(-90 40 190)" text-anchor="middle">幾何・外觀</text>
+  <text x="40" y="500" font-size="25" fill="#5d4c37" transform="rotate(-90 40 500)" text-anchor="middle">成分・化學</text>
+
+  <!-- quadrants -->
+  <rect x="70" y="70" width="355" height="245" fill="#eadfc3" stroke="#2a2017" stroke-width="3"/>
+  <text x="95" y="120" font-size="31" fill="#1f4e5a">空間智能／世界模型</text>
+  <text x="95" y="166" font-size="24" font-weight="700">在哪裡、換角度什麼樣、</text>
+  <text x="95" y="200" font-size="24" font-weight="700">推一下會怎樣</text>
+  <text x="95" y="285" font-size="26" fill="#1f4e5a">← 李飛飛的主場</text>
+
+  <rect x="505" y="70" width="440" height="245" fill="#e2d4b2" stroke="#2a2017" stroke-width="3"/>
+  <text x="530" y="120" font-size="31">顯微影像・分子結構</text>
+  <text x="530" y="166" font-size="24" font-weight="700">SEM、AFM、AlphaFold</text>
+  <text x="530" y="200" font-size="24" font-weight="700">換一把更小的尺，仍是幾何</text>
+
+  <rect x="70" y="395" width="355" height="245" fill="#e2d4b2" stroke="#2a2017" stroke-width="3" stroke-dasharray="12 8"/>
+  <text x="95" y="445" font-size="31">高光譜化學影像</text>
+  <text x="95" y="491" font-size="24" font-weight="700">每個像素一條光譜：</text>
+  <text x="95" y="525" font-size="24" font-weight="700">空間與化學同在一張圖</text>
+  <text x="95" y="610" font-size="26" fill="#5d4c37">（兩個世界的橋）</text>
+
+  <rect x="505" y="395" width="440" height="245" fill="#d9c79f" stroke="#8a1f1a" stroke-width="5"/>
+  <text x="530" y="445" font-size="31" fill="#8a1f1a">光譜＋化學計量學</text>
+  <text x="530" y="491" font-size="24" font-weight="700">NIR、拉曼：量鍵的振動，</text>
+  <text x="530" y="525" font-size="24" font-weight="700">回答「是什麼、有多少」</text>
+  <text x="530" y="610" font-size="26" fill="#8a1f1a">← 老熊的主場</text>
+
+  <!-- eye limit -->
+  <line x1="465" y1="58" x2="465" y2="690" stroke="#8a1f1a" stroke-width="3" stroke-dasharray="6 6"/>
+  <text x="465" y="712" font-size="23" text-anchor="middle" fill="#8a1f1a">人眼極限 ≈ 0.1 mm</text>
+  <text x="300" y="370" font-size="24" text-anchor="middle" fill="#5d4c37">直觀世界</text>
+  <text x="725" y="370" font-size="24" text-anchor="middle" fill="#5d4c37">儀器世界</text>
+</g>
+</svg>
+</div>
+<p class="caption">尺度（左右）與模態（上下）是兩條軸。我原話只看見左右那一條；真正的缺口在下半部。</p>
+
+<p>換句話說，問題不在李飛飛的世界模型尺度太大，而在於<strong>幾何與外觀，決定不了材料是什麼</strong>。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 五 ============ -->
+<section id="s5">
+<h2><span class="n">五</span>第三層：物理不會等比縮小</h2>
+
+<p class="dropcap">就算只看左右那條軸，「把直觀世界的模型縮小一點」也行不通。從日常影片學來的世界模型，學到的是重力、慣性、遮擋這類直覺。尺度往下走，主導的物理就換人了：</p>
+
+<div class="table-wrap"><table class="t">
+<thead><tr><th>尺度</th><th>主導的物理</th><th>人的直覺管用嗎</th></tr></thead>
+<tbody>
+<tr><td>公尺</td><td>重力、慣性、摩擦</td><td><span class="ok">管用</span>：丟球、倒水、搬桌子</td></tr>
+<tr><td>毫米</td><td>表面張力開始顯著</td><td>半管用：水黽站得住，水珠不攤平</td></tr>
+<tr><td>微米</td><td>黏滯力壓過慣性、布朗運動</td><td><span class="no">不管用</span>：細菌「游泳」像在蜂蜜裡划槳，一停就停</td></tr>
+<tr><td>奈米</td><td>分子振動、量子效應；可見光的繞射極限約 200 nm</td><td><span class="no">不管用</span>：連「看」這個動作都失效</td></tr>
+</tbody></table></div>
+
+<p>這張表支持我的原意：人尺度的直覺沒辦法往下移植。一個在 YouTube 影片上學會「杯子推一下會倒」的模型，不會因此懂得一顆奈米粒子在水裡怎麼抖。要進那個世界，得換感測器、換物理、換模型，而那正是化學計量學做了幾十年的事：在人沒有直覺的地方，靠校正、驗證、適用範圍檢查，一步一步把訊號對回事實。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 六 ============ -->
+<section id="s6">
+<h2><span class="n">六</span>反方：替李飛飛說句公道話</h2>
+
+<p class="dropcap">標題說她「格局差點意思」，這是我的立場，但復盤不能只收對自己有利的證據。至少有三件事要記在帳上：</p>
+
+<ol class="plain">
+  <li><strong>那段話是博主的轉述。</strong>李飛飛與 MasterClass 執行長 David Rogier 在 <i>Silicon Valley Girl</i> 播客的對談確有其事，約在今年七月播出；但「五個維度」這份清單、「專門反駁智能成本趨零」這個說法，我手上只有博主的二手版本。所以「她漏掉了」，也可能其實是「博主的清單漏掉了」。</li>
+  <li><strong>World Labs 鎖定人尺度，是產品選擇。</strong>她的公司做的是給機器人、遊戲、模擬用的世界模型，本來就該在公分到公尺之間打轉。一家公司選擇不做什麼，不等於創辦人看不見。</li>
+  <li><strong>「AI 只在語言突破」這句話，放到分子尺度本身就站不太穩。</strong>AlphaFold 拿了 2024 年的諾貝爾化學獎；機器學習原子間位能、材料模型，也都算得上真正的突破。</li>
+</ol>
+
+<p>有意思的是，第三點反過來又幫了我。AI 進展最快的地方，恰恰可能是<strong>人類沒有直覺可以競爭的地方</strong>。在直觀世界，AI 要跟幾百萬年演化出來的眼睛與手比；在儀器世界，它的對手只是另一個模型。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 七 ============ -->
+<section id="s7">
+<h2><span class="n">七</span>復盤：格局差在哪一點</h2>
+
+<p class="dropcap">所謂格局，說穿了就是你站在哪裡畫地圖。視覺科學家的地圖，以眼睛為原點：看得見的，才在圖上。化學計量學家的地圖，以儀器為原點：量得到、驗得過的，才在圖上。兩張圖都沒錯，只是邊界畫在不同的地方。</p>
+
+<p>所以我說「差點意思」，不是差很多。她說語言之外還有空間、身體，這是對的，而且比「智能成本趨零」那派清醒得多。她的地圖只是停在了人眼停下來的地方。</p>
+
+<blockquote class="verdict">李飛飛列的是「人有的感官」；化學計量學面對的，是人沒有、只能靠儀器加模型才看得透的那一層世界。差別不在尺度，而在模態。</blockquote>
+
+<p>最後回到那支影片本身。博主說，未來只剩兩種人：頂級專家，和高主動性的通才；頂級專家之所以不怕 AI，是因為手上有 AI 重做一遍也追不上的那一成功夫。我想補一句：<strong>那一成功夫，很多時候就藏在人眼看不見的那一層。</strong></p>
+
+<p>AI 教母的格局差的那一點意思，正好是我們這行人最值錢的地方。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<!-- ============ 來源 ============ -->
+<section id="s8">
+<h2><span class="n">源</span>資料來源與查核帳</h2>
+
+<div class="table-wrap"><table class="t">
+<thead><tr><th>說法</th><th>狀態</th><th>依據</th></tr></thead>
+<tbody>
+<tr><td>李飛飛與 David Rogier 的播客對談存在</td><td><span class="ok">已核</span></td><td>影片整理頁所列多渠道佐證，約 2026 年 7 月播出</td></tr>
+<tr><td>「五個維度」清單與「反駁智能成本趨零」</td><td><span class="no">未核</span></td><td>僅有博主轉述，未比對播客原片</td></tr>
+<tr><td>AlphaFold 獲 2024 年諾貝爾化學獎</td><td><span class="ok">已核</span></td><td>公開紀錄（Hassabis、Jumper，與 Baker 共同獲獎）</td></tr>
+<tr><td>各尺度的解析極限與主導物理</td><td><span class="ok">教科書常識</span></td><td>數字為數量級，非精確值</td></tr>
+<tr><td>「微觀是另一種模態」的論點</td><td>作者觀點</td><td>老熊原始提問，經對談修正</td></tr>
+</tbody></table></div>
+
+<ol class="sources">
+  <li>不晚悟，〈AI 教母李飛飛：未來只有 2 種工作〉，小紅書，<span class="num">2026-10-10</span>，筆記 ID <code>6ac993740000000018006a52</code>。內容依老熊自行提取的整理頁。</li>
+  <li>Li Fei-Fei × David Rogier，<i>Silicon Valley Girl</i> 播客，約 <span class="num">2026</span> 年 <span class="num">7</span> 月。</li>
+  <li>老熊隨筆前文〈看得透・看得見・說得出：化學計量學、空間智能與大型語言模型〉，<span class="num">2026-10-08</span>，「白色粉末」一例與「看得透／看得見」的分法出自該文。</li>
+</ol>
+<p class="fine">本文起於老熊的一段即興提問，由 Claude 協助拆解論點、補上反方與查核，再由老熊定稿。引用影片內容皆為轉述，未逐字轉載。</p>
+<a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer>老熊隨筆・精選外刊｜文：老熊｜二〇二六年十月十日</footer>
+</div>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
