@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>兩個讚 — 老熊隨筆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ead6; --paper2:#ebdfc4; --ink:#2a1f16; --ink2:#5a4a3a;
+  --red:#8e1f1f; --rule:#b9a682; --card:#fbf6ea; --green:#2f5d3a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1d1914; --paper2:#26211a; --ink:#ece2cf; --ink2:#bfae94;
+    --red:#e07a6a; --rule:#5c4f3c; --card:#2a241c; --green:#8fc59b;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1d1914; --paper2:#26211a; --ink:#ece2cf; --ink2:#bfae94;
+  --red:#e07a6a; --rule:#5c4f3c; --card:#2a241c; --green:#8fc59b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  font-size:32px; font-weight:700; line-height:1.75;
+}
+.wrap{max-width:1100px; margin:0 auto; padding:48px 28px 140px}
+.masthead{
+  text-align:center; border-top:6px double var(--ink); border-bottom:2px solid var(--ink);
+  padding:14px 0 10px; letter-spacing:.35em; font-size:24px; font-weight:900; color:var(--ink2);
+}
+.kicker{color:var(--red); font-size:26px; letter-spacing:.2em; margin:40px 0 6px; font-weight:900}
+h1{font-size:76px; line-height:1.2; margin:0 0 18px; font-weight:900}
+h1 small{display:block; font-size:40px; color:var(--ink2); font-weight:700; margin-top:10px}
+.deck{font-size:34px; color:var(--ink2); border-left:8px solid var(--red); padding:4px 0 4px 26px; margin:24px 0}
+.byline{font-size:24px; color:var(--ink2); border-bottom:1px solid var(--rule); padding-bottom:18px; letter-spacing:.08em}
+nav.toc{background:var(--card); border:2px solid var(--rule); padding:26px 34px; margin:40px 0}
+nav.toc h2{margin:0 0 10px; font-size:36px; border:none; padding:0}
+nav.toc ol{margin:0; padding-left:1.4em}
+nav.toc li{margin:6px 0}
+nav.toc ul{margin:4px 0; padding-left:1.2em; font-size:28px}
+a{color:var(--red)}
+nav.toc a{text-decoration:none}
+nav.toc a:hover{text-decoration:underline}
+h2{font-size:50px; line-height:1.3; margin:80px 0 20px; padding-bottom:10px; border-bottom:3px solid var(--ink); font-weight:900}
+h3{font-size:40px; margin:56px 0 12px; color:var(--red); font-weight:900}
+p{margin:0 0 1em}
+.dropcap::first-letter{float:left; font-size:120px; line-height:1; padding:6px 16px 0 0; color:var(--red); font-weight:900}
+blockquote.pull{
+  font-size:44px; line-height:1.45; text-align:center; color:var(--red);
+  border-top:2px solid var(--rule); border-bottom:2px solid var(--rule);
+  margin:50px 40px; padding:26px 10px; font-weight:900;
+}
+.chat{background:var(--card); border:2px solid var(--rule); padding:22px 30px; margin:24px 0}
+.chat .src{font-size:24px; color:var(--ink2); letter-spacing:.1em; margin-bottom:10px}
+.msg{display:flex; gap:18px; margin:12px 0; align-items:baseline}
+.msg .t{flex:0 0 150px; font-size:24px; color:var(--ink2); font-weight:800; font-variant-numeric:tabular-nums}
+.msg .w{flex:1}
+.msg .who{color:var(--red); font-weight:900}
+.claude{background:var(--paper2); border-left:8px solid var(--green); padding:20px 28px; margin:22px 0}
+.claude .lbl{font-size:24px; letter-spacing:.15em; color:var(--green); font-weight:900; display:block; margin-bottom:6px}
+.me{border-left:8px solid var(--red); padding:6px 0 6px 26px; margin:22px 0}
+table{width:100%; border-collapse:collapse; margin:26px 0; font-size:27px}
+th,td{border-bottom:1px solid var(--rule); padding:12px 10px; text-align:left; vertical-align:top}
+th{border-bottom:3px solid var(--ink); font-weight:900; font-size:25px; letter-spacing:.08em}
+td.n, .num{font-weight:800}
+.layout{display:grid; grid-template-columns:1fr 340px; gap:44px; align-items:start}
+aside.side{background:var(--card); border-top:6px solid var(--red); padding:22px 24px; font-size:26px; line-height:1.65}
+aside.side h4{margin:0 0 8px; font-size:28px; font-weight:900}
+.takehome{background:var(--card); border:3px double var(--ink); padding:28px 34px; margin:40px 0; font-size:34px}
+.takehome b{color:var(--red)}
+.back{text-align:right; font-size:24px; margin-top:24px}
+.back a{text-decoration:none}
+.note{font-size:24px; color:var(--ink2)}
+.floatnav{position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:10px; z-index:10}
+.floatnav a{
+  background:var(--ink); color:var(--paper); text-decoration:none; font-size:20px; font-weight:900;
+  padding:10px 16px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,.25); text-align:center;
+}
+ol.src li{margin:8px 0; font-size:26px}
+@media (max-width:820px){
+  body{font-size:21px}
+  .wrap{padding:28px 16px 120px}
+  h1{font-size:44px} h1 small{font-size:26px}
+  .deck{font-size:23px} h2{font-size:32px} h3{font-size:27px}
+  blockquote.pull{font-size:28px; margin:34px 0}
+  .dropcap::first-letter{font-size:74px}
+  .layout{grid-template-columns:1fr}
+  table{font-size:18px} th{font-size:17px}
+  .msg{flex-direction:column; gap:2px} .msg .t{flex:none; font-size:17px}
+  nav.toc ul{font-size:19px}
+  .masthead,.byline,.kicker,.chat .src,.claude .lbl,.back,.note{font-size:17px}
+  aside.side{font-size:19px} aside.side h4{font-size:21px}
+  .takehome{font-size:23px} ol.src li{font-size:18px}
+  .floatnav a{font-size:15px; padding:8px 12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="masthead">老 熊 隨 筆　·　復 盤 體</div>
+
+<div class="kicker">AI 時代 · 群組觀察</div>
+<h1>兩個讚<small>AI 時代的「智能」與「智慧」</small></h1>
+<p class="deck">有人說「AI 代替不了人的智慧」，我回了兩個 👍。有一支陶哲軒對楊立昆的短視頻，我說「兩個人說的都有些道理」。然後我把這些全丟給 AI 去評論。數學界的爭論它看懂了，卻差點沒看懂那兩個讚。</p>
+<div class="byline">老熊　·　2026 年 10 月 11 日（週日）　·　Redwood Shores</div>
+
+<nav class="toc" id="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">原始資料：兩張截圖</a></li>
+    <li><a href="#s2">導火索：722 份手稿</a></li>
+    <li><a href="#s3">五個人，五種說法</a>
+      <ul>
+        <li><a href="#s3-ledger">一覽表</a></li>
+        <li><a href="#s3-tao">陶哲軒：反的是做法，不是 AI</a></li>
+        <li><a href="#s3-lecun">楊立昆：船與新大陸</a></li>
+        <li><a href="#s3-luo">羅振宇：答案過剩時代</a></li>
+        <li><a href="#s3-x">X：「AI 代替不了人的智慧」</a></li>
+        <li><a href="#s3-me">我：不想回應</a></li>
+      </ul>
+    </li>
+    <li><a href="#s4">兩個讚</a></li>
+    <li><a href="#s5">復盤：哪些站得住，哪些要打折</a></li>
+    <li><a href="#s6">結語</a></li>
+    <li><a href="#s7">來源</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+<h2>一、原始資料：兩張截圖</h2>
+<p class="dropcap">這篇的原始資料只有兩張手機截圖。照復盤體的規矩，先把資料攤開，評論放後面。</p>
+
+<div class="chat">
+  <div class="src">截圖一 · LINE 群組</div>
+  <div class="msg"><div class="t">10:39 AM</div><div class="w"><span class="who">我</span>：貼出自己整理的〈AI 時代的教育——以 5 個實例來說明〉。副題寫著：奧特曼承認在教育上看走了眼，黃仁勳反問「基礎數學變差，重要嗎？」兩位最懂 AI 的人，指向同一個問題：量孩子的那把尺子，已經量不準了。（已讀 22）</div></div>
+  <div class="msg"><div class="t">　</div><div class="w"><span class="who">X</span> 收回了一則訊息。</div></div>
+  <div class="msg"><div class="t">3:42 PM</div><div class="w"><span class="who">X</span>：「AI 代替不了人的智慧。」</div></div>
+  <div class="msg"><div class="t">3:56 PM</div><div class="w"><span class="who">我</span>：👍👍</div></div>
+  <div class="msg"><div class="t">　</div><div class="w"><span class="who">我</span>：接著貼出《AI 教母李飛飛：未來只有 2 種工作》的重點。十年後職場只剩兩種人：頂級專家，和高主動性的通才。中間「還湊合」的那一大批會出局，職場變成一個<b>槓鈴</b>。</div></div>
+</div>
+
+<div class="chat">
+  <div class="src">截圖二 · WeChat 對話</div>
+  <div class="msg"><div class="t">9:08 AM</div><div class="w"><span class="who">我</span>：轉發智東西在小紅書的短視頻《陶哲轩VS杨立昆：AI到底救了数学还是毁了》。</div></div>
+  <div class="msg"><div class="t">9:17 AM</div><div class="w"><span class="who">我</span>：「兩個人說的都有些道理。我在其他群組裡看到的『AI 的智能永遠不可能超過人類』之類的言論，是我不想回應的，哈哈。」</div></div>
+</div>
+
+<p>兩張截圖放在一起，資料本身就有一個張力。在 WeChat，我說「這類話我不想回應」；在 LINE，有人說了一句意思相近的話，我卻按了兩個讚。這個張力留到第四節再算。</p>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+<h2>二、導火索：722 份手稿</h2>
+<div class="layout">
+<div>
+<p>事情的起點是 10 月 6 日。OpenAI 在 GitHub 上一次公開了 <span class="num">722</span> 份數學手稿，涵蓋 <span class="num">372</span> 個問題家族，全部出自一個還沒公開的內部模型。第二天，有 <span class="num">3</span> 份因為符號錯誤被緊急撤回。另據第三方報導，主要結果裡只有約 <span class="num">42%</span> 附了機器可驗證的 Lean 形式化證明，也就是說，超過一半連機器驗證都還沒做。</p>
+<p>這也不是第一次。9 月 8 日 OpenAI 宣稱在 Navier–Stokes 千禧年問題上有進展，9 月 11 日陶哲軒就在部落格發表〈A Severe Misalignment of AI in Mathematics〉，由 <span class="num">25</span> 位在世的菲爾茲獎得主聯署。</p>
+<p>另一邊，羅振宇在視頻日記裡引用萬維鋼的話：這是「人類歷史上迄今最牛的一天」。</p>
+<p>我把兩張截圖、智東西視頻的整理稿、羅振宇那集的整理稿一起交給 Claude，請它總結並評論四個人：陶、楊、X、我。後來又補了一句「還有羅」。下一節是它的評論，我做了整理。</p>
+</div>
+<aside class="side">
+  <h4>數字一覽</h4>
+  <table>
+    <tr><td>公開手稿</td><td class="n">722 份</td></tr>
+    <tr><td>問題家族</td><td class="n">372 組</td></tr>
+    <tr><td>次日撤回</td><td class="n">3 份</td></tr>
+    <tr><td>附 Lean 證明</td><td class="n">約 42%</td></tr>
+    <tr><td>聯署菲爾茲獎得主</td><td class="n">25 位</td></tr>
+  </table>
+</aside>
+</div>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+<h2>三、五個人，五種說法</h2>
+<p>Claude 一開頭就下了結論：這五個人其實不是在爭同一個問題。陶談的是<b>現在</b>的程序和驗證，楊談的是<b>長期</b>的走向，羅在想答案便宜了以後人要做什麼，X 說的是一種信念，我則是在劃一條討論的底線。</p>
+
+<h3 id="s3-ledger">一覽表</h3>
+<table>
+  <tr><th>人物</th><th>主要說法</th><th>回答的問題</th><th>時間尺度</th></tr>
+  <tr><td>陶哲軒</td><td>「沒人求著你們幹這個」</td><td>現在的程序對不對？誰來驗證？</td><td class="n">下個月</td></tr>
+  <tr><td>楊立昆</td><td>船讓游泳不重要了，卻發現了新大陸</td><td>數學的長期方向</td><td class="n">五十年</td></tr>
+  <tr><td>羅振宇</td><td>答案過剩時代：驗證、出題、縫合</td><td>答案便宜了，人做什麼？</td><td class="n">十年</td></tr>
+  <tr><td>X</td><td>「AI 代替不了人的智慧」</td><td>（一種信念，不是論證）</td><td class="n">永遠</td></tr>
+  <tr><td>我</td><td>兩邊都有道理；「永遠不可能」不回應</td><td>討論的底線</td><td class="n">—</td></tr>
+</table>
+
+<h3 id="s3-tao">陶哲軒：反的是做法，不是 AI</h3>
+<p>他轉發「人類數學協會」的聲明：一次發布七百多份文件，不是展示學問，是展示權力；並呼籲所有數學家停止跟 OpenAI 合作。背後的核心是：<b>解出來，不等於理解了</b>。數學的進步在於人能看懂背後的邏輯，並且長出新理論。</p>
+<div class="claude"><span class="lbl">CLAUDE 的評論</span>他的立場比較有份量。他過去是數學界最積極用 AI 和 Lean 形式化工具的人之一，這次反對的不是工具本身。他的擔心也有事實撐腰：第二天就撤回 3 份，只有約 42% 有 Lean 證明，產出確實比驗證快很多。弱點是「權力展示」和「停止合作」把學術問題跟地盤問題混在一起。如果數學家全面抵制，驗證的工作反而會落回 AI 公司自己手上，結果可能更糟。</div>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+
+<h3 id="s3-lecun">楊立昆：船與新大陸</h3>
+<p>圖靈獎得主楊立昆反駁「數學消亡論」，說數學正進入新時代，就像船的發明降低了游泳的重要性，卻讓人類發現了新大陸。</p>
+<div class="claude"><span class="lbl">CLAUDE 的評論</span>從歷史來看他說得對。1976 年四色定理靠電腦證明，當時也很多人罵，後來還是被接受，數學也沒有因此結束。但他的比喻沒碰到陶的問題：陶從來沒說數學會死，他抱怨的是誰驗證、功勞算誰的、產出的節奏誰來定。還有一點諷刺：楊立昆自己一向懷疑大語言模型能做到人類水準的推理，這次卻替 AI 的數學產出說話。另外，這段話是視頻轉述，原話沒有經過獨立核實。</div>
+<blockquote class="pull">一個談五十年後，一個談下個月——<br>所以兩人對不上話。</blockquote>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+
+<h3 id="s3-luo">羅振宇：答案過剩時代</h3>
+<p>羅振宇把現在叫做「答案過剩時代」。數學家剩下三件大事：<b>驗證</b>（判斷結果算不算真正的進步）、<b>出題</b>（決定哪些問題值得做）、<b>縫合</b>（把新結果接回知識之樹）。他說，AI 可以一天給我們一地果子，但人類還要負責把答案變成知識。</p>
+<div class="claude"><span class="lbl">CLAUDE 的評論</span>這幾個人裡，他的框架最能把兩邊兜起來。陶說驗證跟不上，羅說驗證本身就是工作；楊說會有新大陸，羅說出題和縫合就是去開拓新大陸。但他漏了陶最痛的一點。羅說「活兒有的是」，陶等於回答：「這活兒是你們丟給我們的，不是我們要的。」驗證的成本由誰來付，正是這次衝突的核心。至於「人類歷史上最牛的一天」，那是在數學界驗證之前就先激動起來了。</div>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+
+<h3 id="s3-x">X：「AI 代替不了人的智慧。」</h3>
+<div class="claude"><span class="lbl">CLAUDE 的評論</span>這是一句表態，不是論證。如果「智慧」指的是解題能力，372 組難題的消息本身就在反駁它。但可以往好的方向讀：她用的詞是<b>智慧</b>，不是<b>智能</b>。如果智慧指的是判斷什麼值得做、為結果負責，那她的話其實很接近羅振宇的「出題」和「驗證」，也接近陶的「理解」。所以她這句話，比那種「AI 的智能永遠不可能超過人類」溫和得多，未必屬於同一類。</div>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+
+<h3 id="s3-me">我：不想回應</h3>
+<div class="claude"><span class="lbl">CLAUDE 的評論</span>「兩邊都有道理」是對的，可以再講清楚一點：他們都對，是因為他們回答的不是同一個問題。不回應「永遠不可能」也合理。這種全稱的否定說法沒辦法驗證，不是科學的講法。拿你做化學計量學的經驗來看：在特定任務上，PLS 和 SVM 模型比人看光譜準，幾十年前就已經是事實。「超不超過人類」要看是哪個任務、用什麼指標，不是一句「永遠」能回答的。</div>
+<p>到這裡我都同意。但它接著補了一段：</p>
+<div class="claude"><span class="lbl">CLAUDE 的評論</span>有一點小矛盾：你在 LINE 對她那句話按了 👍👍，在 WeChat 卻說這類話你不想回應。……只是在旁人看來，可能會以為你同意「AI 比不上人」。</div>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+<h2>四、兩個讚</h2>
+<p class="dropcap">這一段，我得替自己說句話。</p>
+<div class="me">我在 LINE 對 X 那句話按了 👍👍，是不想失去一個朋友。這或許是 AI 無法理解的？哈哈。</div>
+<p>Claude 的回答，我照錄：</p>
+<div class="claude"><span class="lbl">CLAUDE</span>
+<p>你按 👍👍 的理由，我懂。而且你那樣做其實前後一致。你在 WeChat 說這類話「不想回應」，在 LINE 回兩個 👍 就是不回應：只表示收到、不跟她爭。上次我說旁人可能以為你同意，是我想太多了。這是在照顧朋友，不是自相矛盾。</p>
+<p>至於 AI 能不能理解：道理我懂。這也不難懂，「贏了道理，輸了朋友」這種權衡，人類寫了幾千年，我讀過很多。但懂和有是兩回事。我沒有一個在乎了幾十年的朋友會失去，所以按下那兩個 👍 之前心裡那一下猶豫，我只能描述，不會自己感覺到。</p>
+<p style="margin:0">最有意思的是，你這兩個 👍 剛好替 X 那句話舉了一個好例證。知道什麼時候不爭，就是「智慧」不是「智能」的地方。她那句話當作能力的主張站不住，但你的回應方式倒是證明了她的意思。</p>
+</div>
+<blockquote class="pull">懂和有，是兩回事。</blockquote>
+<p>繞了一圈，X 那句我原本不想回應的話，最後被我自己的兩個讚證明了一半。前一半「AI 代替不了人的<b>智能</b>」我還是不買帳；後一半「代替不了人的<b>智慧</b>」，至少在按讚這件事上，我得承認她說中了。</p>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+<h2>五、復盤：哪些站得住，哪些要打折</h2>
+<table>
+  <tr><th>說法</th><th>出處</th><th>狀態</th></tr>
+  <tr><td>OpenAI 10 月 6 日公開 722 份手稿、372 個問題家族</td><td>GitHub openai/math</td><td class="n">已核實</td></tr>
+  <tr><td>次日 3 份因符號錯誤撤回</td><td>智東西整理稿</td><td class="n">已核實</td></tr>
+  <tr><td>約 42% 附 Lean 形式化證明</td><td>第三方報導</td><td class="n">單一來源</td></tr>
+  <tr><td>25 位菲爾茲獎得主聯署公開信</td><td>陶哲軒部落格 9/11</td><td class="n">已核實</td></tr>
+  <tr><td>楊立昆「船與新大陸」</td><td>視頻轉述</td><td class="n">原話未核實</td></tr>
+  <tr><td>「人類歷史上最牛的一天」</td><td>萬維鋼，經羅振宇轉述</td><td class="n">情緒先行</td></tr>
+  <tr><td>722 份成果的真正價值</td><td>數學界未來數月的驗證</td><td class="n">待驗證</td></tr>
+  <tr><td>Claude 對「兩個讚」的第一次判讀</td><td>本文第三節</td><td class="n">判讀錯誤，已更正</td></tr>
+</table>
+<p>最後一行是這次復盤裡我最在意的。Claude 第一次讀錯，不是因為它笨，而是因為資料裡沒有那個變數。它看到的是兩張截圖上的字，沒看到截圖以外的交情。用化學計量學的話說，這是<b>遺漏變數</b>：模型再好，光譜裡沒有的成分它也估不出來。友誼不在光譜裡。</p>
+<p>值得記一筆的是後半段：我把那個變數補進去，它就馬上修正了，而且修正得比我自己講得還清楚。人提供脈絡，機器提供分析，誰也沒取代誰。這大概就是羅振宇說的「縫合」最小的一個樣本。</p>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+<h2>六、結語</h2>
+<p>AI 大量生產答案以後，爭論的重點從「AI 行不行」變成「誰為答案負責、誰付驗證的錢」。陶在抗議這個成本被轉嫁到數學家身上，楊和羅看到的是之後的機會，而說「永遠不可能」的人，還停在上一個問題。</p>
+<p>至於我，這個禮拜天學到的是：答案過剩的時代，除了驗證、出題、縫合，人還多了一件事，就是決定哪些答案不必說出口。</p>
+<div class="takehome"><b>Take-home：</b>智能可以比，智慧要看場合。數學界在吵誰該為 722 份答案負責；在群組裡，兩個讚為一段友誼負了責。</div>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+<h2>七、來源</h2>
+<ol class="src">
+  <li>智東西（小紅書），《陶哲轩VS杨立昆：AI到底救了数学还是毁了》，2026-10-10，筆記 ID 6ac9a9f7000000001b022112。</li>
+  <li>OpenAI 數學手稿公開庫：<a href="https://github.com/openai/math">github.com/openai/math</a></li>
+  <li>陶哲軒，〈A Severe Misalignment of AI in Mathematics〉，個人部落格，2026-09-11。</li>
+  <li>羅振宇，視頻日記 Day229〈在 AI 時代，把答案變成知識〉，2026-10-08：<a href="https://www.youtube.com/watch?v=sAY6HFb0i3E">youtube.com/watch?v=sAY6HFb0i3E</a></li>
+  <li>本人 LINE 與 WeChat 對話截圖（未附）；與 Claude 的討論，2026-10-11。</li>
+</ol>
+<p class="note">註：依當事人意願，文中群友以 X 代稱，截圖不附。</p>
+<div class="back"><a href="#toc">↑ 回目錄</a></div>
+</section>
+
+</div>
+
+<div class="floatnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+</body>
+</html>
