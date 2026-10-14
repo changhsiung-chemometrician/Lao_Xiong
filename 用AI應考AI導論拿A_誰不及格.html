@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用 AI 應考 AI 導論拿了 A，到底誰不及格？</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@500;700;900&display=swap');
+
+  :root {
+    --paper: #f4ecd8;
+    --paper-dark: #ead9b8;
+    --ink: #2b2118;
+    --ink-soft: #4a3a2a;
+    --accent: #8b2f1c;
+    --accent-deep: #5c1f12;
+    --rule: #6b5335;
+    --gold: #a97c2f;
+    --green: #3f5d2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(169,124,47,0.10), transparent 55%),
+      radial-gradient(ellipse at 85% 90%, rgba(139,47,28,0.08), transparent 50%),
+      repeating-linear-gradient(0deg, transparent 0 3px, rgba(107,83,53,0.025) 3px 4px);
+    color: var(--ink);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.85;
+    padding: 40px 20px 80px;
+  }
+
+  .sheet {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255,252,243,0.55);
+    border: 3px double var(--rule);
+    box-shadow: 0 6px 40px rgba(43,33,24,0.22);
+    padding: 56px 64px 72px;
+  }
+
+  /* ============ 報頭 ============ */
+  .masthead {
+    text-align: center;
+    border-bottom: 5px solid var(--ink);
+    padding-bottom: 26px;
+    margin-bottom: 10px;
+  }
+  .masthead .series {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: 0.55em;
+    text-indent: 0.55em;
+    color: var(--accent-deep);
+    margin-bottom: 14px;
+  }
+  .masthead .brand {
+    font-weight: 900;
+    font-size: 58px;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+  }
+  .masthead .brand .en {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    margin-top: 8px;
+  }
+  .dateline {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--ink-soft);
+    border-bottom: 2px solid var(--rule);
+    padding: 12px 4px 12px;
+    margin-bottom: 54px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ============ 標題區 ============ */
+  .headline {
+    font-weight: 900;
+    font-size: 76px;
+    line-height: 1.25;
+    text-align: center;
+    letter-spacing: 0.06em;
+    margin-bottom: 30px;
+  }
+  .headline .thin { color: var(--accent); }
+  .headline .small { display: block; font-size: 0.62em; margin-bottom: 6px; }
+  .deck {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.8;
+    text-align: center;
+    color: var(--ink-soft);
+    max-width: 900px;
+    margin: 0 auto 26px;
+  }
+  .byline {
+    text-align: center;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: 0.3em;
+    color: var(--accent-deep);
+    margin-bottom: 58px;
+  }
+  .byline::before, .byline::after {
+    content: "❦";
+    color: var(--gold);
+    margin: 0 22px;
+    font-size: 22px;
+  }
+
+  /* ============ 章節標題 ============ */
+  .sec-title {
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1.35;
+    letter-spacing: 0.05em;
+    border-bottom: 4px solid var(--ink);
+    padding-bottom: 14px;
+    margin: 30px 0 40px;
+  }
+  .sec-title .no {
+    display: inline-block;
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--accent-deep);
+    color: var(--paper);
+    font-size: 30px;
+    padding: 2px 16px;
+    margin-right: 18px;
+    vertical-align: middle;
+    letter-spacing: 0.1em;
+  }
+
+  /* ============ 正文 ============ */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 52px;
+    align-items: start;
+  }
+  .article p, .prose p {
+    margin-bottom: 40px;
+    text-align: justify;
+  }
+  .drop::first-letter {
+    font-size: 120px;
+    font-weight: 900;
+    float: left;
+    line-height: 0.82;
+    padding: 10px 20px 0 0;
+    color: var(--accent);
+  }
+  .num { font-weight: 800; color: var(--accent-deep); }
+  .en-term { font-weight: 700; letter-spacing: 0.01em; }
+  strong { font-weight: 800; color: var(--accent-deep); }
+  sup.fn { font-size: 0.55em; color: var(--accent); font-weight: 800; }
+
+  ul.marks { list-style: none; margin: 0 0 44px; }
+  ul.marks li {
+    position: relative;
+    padding-left: 1.4em;
+    margin-bottom: 22px;
+    text-align: justify;
+  }
+  ul.marks li::before {
+    content: "✦";
+    position: absolute; left: 0; top: 0;
+    color: var(--accent);
+  }
+
+  /* ============ 五步 ============ */
+  .steps { list-style: none; margin: 0 0 48px; counter-reset: st; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 24px;
+    border-bottom: 2px dashed var(--rule);
+    padding: 22px 0;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps .st-no {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 54px;
+    line-height: 1;
+    color: var(--accent);
+    text-align: center;
+    padding-top: 6px;
+  }
+  .steps .st-name { font-weight: 900; font-size: 34px; display: block; }
+  .steps .st-desc { display: block; }
+
+  .chip {
+    display: inline-block;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 21px;
+    letter-spacing: 0.08em;
+    padding: 0 12px;
+    border: 3px solid currentColor;
+    margin-left: 10px;
+    vertical-align: middle;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+  .chip.done { color: var(--green); }
+  .chip.wait { color: var(--gold); }
+  .chip.todo { color: var(--ink-soft); }
+  .chip.q { color: var(--accent); }
+
+  /* ============ 引言 ============ */
+  .pullquote {
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1.65;
+    color: var(--accent-deep);
+    border-top: 4px solid var(--ink);
+    border-bottom: 4px solid var(--ink);
+    padding: 36px 10px;
+    margin: 20px 0 56px;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+  .pullquote .mark { color: var(--gold); font-size: 56px; }
+
+  /* ============ 側欄 ============ */
+  .sidebar {
+    background: var(--paper-dark);
+    border: 2px solid var(--rule);
+    padding: 34px 30px;
+    font-size: 25px;
+    line-height: 1.8;
+    font-weight: 700;
+  }
+  .sidebar h3 {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 27px;
+    letter-spacing: 0.25em;
+    text-align: center;
+    color: var(--accent-deep);
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .sidebar dt {
+    font-weight: 900;
+    color: var(--accent);
+    margin-top: 20px;
+    font-size: 26px;
+  }
+  .sidebar dd { margin-bottom: 8px; }
+  .sidebar .rule-mini {
+    border: none;
+    border-top: 2px dashed var(--rule);
+    margin: 24px 0;
+  }
+
+  /* ============ 照片 ============ */
+  .photo-block { margin: 30px 0 60px; }
+  .photo-block img {
+    width: 100%;
+    display: block;
+    border: 3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--paper-dark), 8px 8px 0 2px var(--rule);
+    background: #fff;
+  }
+  .photo-block.narrow { max-width: 460px; margin-left: auto; margin-right: auto; }
+  .photo-block.mid { max-width: 640px; margin-left: auto; margin-right: auto; }
+  .photo-block figcaption {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-top: 22px;
+    padding-left: 20px;
+    border-left: 6px solid var(--accent);
+    text-align: justify;
+  }
+  .photo-block figcaption .cap-tag {
+    font-weight: 900;
+    color: var(--accent-deep);
+    letter-spacing: 0.15em;
+    margin-right: 10px;
+  }
+
+  /* ============ 復盤檔案卡 ============ */
+  .audit {
+    border: 3px solid var(--ink);
+    background: rgba(255,252,243,0.7);
+    padding: 30px 34px 10px;
+    margin: 10px 0 52px;
+  }
+  .audit h4 {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 27px;
+    letter-spacing: 0.25em;
+    color: var(--accent-deep);
+    margin-bottom: 18px;
+  }
+  .audit .item { margin-bottom: 26px; text-align: justify; }
+  .audit .tag {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    color: var(--paper);
+    background: var(--accent);
+    font-size: 22px;
+    padding: 2px 10px;
+    margin-right: 10px;
+    letter-spacing: 0.08em;
+  }
+  .audit q { font-family: Georgia, 'Noto Serif TC', serif; font-weight: 800; color: var(--accent-deep); }
+
+  /* ============ 總帳表 ============ */
+  .tablewrap { overflow-x: auto; margin: 0 0 50px; }
+  table.ledger {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 25px;
+    line-height: 1.6;
+    min-width: 760px;
+  }
+  .ledger th {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 14px;
+    text-align: left;
+    letter-spacing: 0.1em;
+  }
+  .ledger td {
+    border-bottom: 2px solid var(--rule);
+    padding: 16px 14px;
+    vertical-align: top;
+    font-weight: 700;
+  }
+  .ledger tr:nth-child(even) td { background: rgba(234,217,184,0.45); }
+  .ledger td:first-child { font-weight: 900; color: var(--accent); font-size: 30px; text-align: center; }
+  .ledger .chip { margin-left: 0; }
+
+  /* ============ 註腳 ============ */
+  .footnotes {
+    margin-top: 66px;
+    border-top: 5px solid var(--ink);
+    padding-top: 36px;
+  }
+  .footnotes h2 {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 0.35em;
+    color: var(--accent-deep);
+    margin-bottom: 28px;
+  }
+  .footnotes p {
+    font-size: 27px;
+    line-height: 1.85;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: justify;
+  }
+  .footnotes .fn-mark {
+    font-weight: 900;
+    color: var(--accent);
+    font-size: 30px;
+    margin-right: 6px;
+  }
+
+  /* ============ 尾飾 ============ */
+  .colophon {
+    text-align: center;
+    margin-top: 64px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+  .colophon::before {
+    content: "◆ ◆ ◆";
+    display: block;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: 0.8em;
+    text-indent: 0.8em;
+  }
+
+  /* ============ 目錄 / 導覽 ============ */
+  .toc {
+    border: 2px solid var(--rule);
+    background: var(--paper-dark);
+    padding: 26px 34px;
+    margin: 0 auto 56px;
+    max-width: 760px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+  }
+  .toc h2 {
+    font-weight: 900; font-size: 27px; letter-spacing: 0.3em;
+    color: var(--accent-deep); margin-bottom: 12px;
+  }
+  .toc ol { margin-left: 1.4em; line-height: 1.9; }
+  .toc a, .back-toc a { color: var(--accent-deep); text-decoration: none; border-bottom: 2px dotted var(--gold); }
+  .back-toc {
+    text-align: right;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 800; font-size: 22px;
+    margin: -24px 0 48px;
+  }
+  .float-nav {
+    position: fixed; right: 18px; bottom: 18px; z-index: 50;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .float-nav a {
+    font-family: 'Noto Sans TC', sans-serif; font-weight: 900; font-size: 18px;
+    background: var(--accent-deep); color: var(--paper);
+    padding: 10px 16px; border-radius: 6px; text-decoration: none;
+    box-shadow: 0 3px 10px rgba(43,33,24,0.3); text-align: center;
+  }
+  html { scroll-behavior: smooth; }
+  [id] { scroll-margin-top: 20px; }
+
+  @media (max-width: 900px) {
+    body { font-size: 26px; padding: 16px 8px 48px; }
+    .sheet { padding: 30px 20px 44px; }
+    .masthead .brand { font-size: 42px; }
+    .headline { font-size: 50px; }
+    .deck { font-size: 27px; }
+    .sec-title { font-size: 36px; }
+    .pullquote { font-size: 33px; }
+    .body-grid { grid-template-columns: 1fr; }
+    .drop::first-letter { font-size: 84px; }
+    .steps li { grid-template-columns: 64px 1fr; gap: 14px; }
+    .steps .st-no { font-size: 40px; }
+    .audit { padding: 24px 20px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="series">精 選 外 刊 ・ 復 盤 專 欄</div>
+    <div class="brand">老 熊 隨 筆<span class="en">LAO XIONG ESSAYS ・ WHO FAILED?</span></div>
+  </header>
+  <div class="dateline">
+    <span>二〇二六 ・ 秋 季 號</span>
+    <span>十月十三日 ・ 晚間續篇</span>
+    <span>學生 ・ 教授 ・ AI</span>
+  </div>
+
+  <h1 class="headline"><span class="small">用 AI 應考「AI 導論」拿了 A</span>到底<span class="thin">誰</span>不及格？</h1>
+  <p class="deck">教學大綱寫著：不准用 AI。可是，沒有任何機制去檢查。一門教 AI 的課，禁用 AI，卻無從得知誰用了 AI——三個角色、兩場考試、一個不用考試的工具，一筆一筆算帳。</p>
+  <div class="byline">老 熊 ・ 執 筆</div>
+
+  <nav class="toc" id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#sec-q">問題：一個大 A 引出來的疑問</a></li>
+      <li><a href="#sec-premise">前提：大綱說不准，卻沒人查</a></li>
+      <li><a href="#sec-irony">反諷：用 AI 應考 AI 導論</a></li>
+      <li><a href="#sec-student">學生：誠信這場考試</a></li>
+      <li><a href="#sec-prof">教授：量測這場考試</a></li>
+      <li><a href="#sec-ai">AI：不用考試的那一個</a></li>
+      <li><a href="#sec-chemo">化學計量學的眼光：看不見的變數</a></li>
+      <li><a href="#sec-ledger">總帳與結論</a></li>
+      <li><a href="#sec-notes">編者註</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 一 ============ -->
+  <h2 class="sec-title" id="sec-q"><span class="no">一</span>問題：一個大 A 引出來的疑問</h2>
+
+  <div class="body-grid">
+    <article class="article">
+      <p class="drop">今天上午，我才寫完〈為了上一門「AI 導論」，老熊先當了一回新生〉。那篇裡，CSM 的新生導覽期末考是 AI 陪我考的，十題全對；文末還貼了一張成績單，CIS 400 機率課，一個大大的 A。</p>
+      <p>晚上閒下來，腦子裡冒出一個問題：要是明年春天，有人在「AI 導論」這門課裡，讓 AI 替他把每一份作業、每一場考試都做完，最後拿了一百分、一個 A——<strong>那麼，到底是誰不及格？</strong>是教授？是學生？是 AI？還是三個一起？</p>
+      <p>更妙的是這類課的教學大綱：上面白紙黑字寫著<strong>不准用 AI</strong>，可是，<strong>沒有任何機制去檢查</strong>。</p>
+      <p>我把這個問題丟給 AI。它的第一個回答，把責任主要放在學生身上。我不服氣，追問了一句：「為什麼不是教授不及格？」它想了想，承認自己前面講得太輕：教授也可能不及格——只是不及格的，是另一場考試。</p>
+      <p>這篇就把這段問答，整理成一條容易跟的推理線。</p>
+    </article>
+
+    <aside class="sidebar">
+      <h3>案 情 摘 要</h3>
+      <dl>
+        <dt>課程</dt>
+        <dd>AI 導論 ・ 線上 ・ <span class="num">4</span> 學分</dd>
+        <dt>一學期時數</dt>
+        <dd>約 <span class="num">192–216</span> 小時</dd>
+        <hr class="rule-mini">
+        <dt>大綱規定</dt>
+        <dd>不准用 AI</dd>
+        <dt>檢查機制</dt>
+        <dd>無</dd>
+        <dt>能不能用 AI 拿 A</dt>
+        <dd>能</dd>
+        <hr class="rule-mini">
+        <dt>學生</dt>
+        <dd>想學 AI 的人</dd>
+        <dt>教授</dt>
+        <dd>教 AI、替成績簽名的人</dd>
+        <dt>AI</dt>
+        <dd>做題最快的那一位</dd>
+      </dl>
+    </aside>
+  </div>
+  <p class="back-toc" style="margin-top:24px"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 二 ============ -->
+  <h2 class="sec-title" id="sec-premise"><span class="no">二</span>前提：大綱說不准，卻沒人查</h2>
+
+  <div class="prose">
+    <p class="drop">「誰不及格」沒辦法一口氣回答，因為答案取決於課程的規定。一般來說，有三種情況：</p>
+  </div>
+
+  <ol class="steps">
+    <li><span class="st-no">甲</span><span><span class="st-name">准用 AI，而且真的學會了 <span class="chip done">沒人不及格</span></span><span class="st-desc">有些 AI 課程允許、甚至要求學生用 AI。合規地用、也學懂了，這叫上課，不叫作弊。</span></span></li>
+    <li><span class="st-no">乙</span><span><span class="st-name">准用 AI，但其實沒學會 <span class="chip wait">虧待了自己</span></span><span class="st-desc">沒犯規，可是兩百小時的課，只換回一個字母。</span></span></li>
+    <li><span class="st-no">丙</span><span><span class="st-name">不准用 AI，卻偷偷用了 <span class="chip q">本案</span></span><span class="st-desc">這就是學術不誠信。CSM 新生導覽裡的學生行為守則，白紙黑字寫著禁止作弊。</span></span></li>
+  </ol>
+
+  <div class="prose">
+    <p>本案的規定很清楚：<strong>大綱不准用 AI</strong>。所以不必猜，直接落在情況丙。</p>
+    <p>問題出在規定的後半段——它是空的。沒有監考、沒有口試、沒有偵測，也沒有任何一道程序去確認學生到底用了沒有。這樣的規定，其實是一種<strong>榮譽制</strong><sup class="fn">†</sup>：學校把「有沒有作弊」這個問題，原封不動交還給學生的良心。</p>
+  </div>
+
+  <blockquote class="pullquote"><span class="mark">「</span>只有規定、沒有檢查，<br>規定就成了一塊「請勿作弊」的告示牌<span class="mark">」</span></blockquote>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 三 ============ -->
+  <h2 class="sec-title" id="sec-irony"><span class="no">三</span>反諷：用 AI 應考 AI 導論</h2>
+
+  <div class="prose">
+    <p class="drop">在別的課上用 AI 作弊，只是作弊；在「AI 導論」上用 AI 作弊，卻是一齣層層疊疊的反諷劇。至少有四層：</p>
+  </div>
+
+  <div class="audit">
+    <h4>反 諷 四 層</h4>
+    <p class="item"><span class="tag">第一層</span><strong>教的就是它，禁的也是它。</strong>這門課要學生學會 AI 能做什麼；大綱卻規定學生不准用 AI 做任何事。學期結束時，最會用 AI 的學生，可能恰恰是違規的那一個。</p>
+    <p class="item"><span class="tag">第二層</span><strong>最懂 AI 的人，最該知道這條規定擋不住。</strong>如果世上有誰清楚 AI 對一份不監考的線上作業能做什麼，那個人就是教 AI 導論的教授。一位 AI 教授立下一條不查的「禁用 AI」規定，就像化學系教授在實驗室門口貼一張「請勿偷溶劑」，然後不鎖門。</p>
+    <p class="item"><span class="tag">第三層</span><strong>課程大綱裡就有答案，教授自己卻解不了。</strong>這門課的主題之一，是「不確定性下的推理」。可是「這份作業是不是 AI 寫的」，正是一個教授無法觀測、只能猜的問題。偵測工具準確度有限、誤判不少，靠它定罪，冤枉的可能是老實的學生。</p>
+    <p class="item"><span class="tag">第四層</span><strong>作弊的人，用的正是這門課要教的能力。</strong>會挑工具、會下指令、會檢查輸出，這些都是「應用 AI」的真功夫。偏偏這門課要考的，是搜尋、規劃、推論這些底層原理——作弊的人展示了應用，卻正好跳過了原理。</p>
+  </div>
+
+  <blockquote class="pullquote"><span class="mark">「</span>教 AI 的課，禁用 AI，<br>卻沒法知道誰用了 AI<span class="mark">」</span></blockquote>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 四 ============ -->
+  <h2 class="sec-title" id="sec-student"><span class="no">四</span>學生：誠信這場考試</h2>
+
+  <div class="prose">
+    <p class="drop">在本案裡，違規用 AI 的學生不及格，而且沒有灰色地帶。</p>
+    <p>常聽到的辯解是：「規定根本沒人查，是教授自己沒防好。」這句話也許是事實，可是它只解釋了作弊<strong>怎麼發生</strong>，並不能替作弊<strong>開脫</strong>。</p>
+    <p>打個比方：一家店的門鎖很爛，店主確實太大意；可是從店裡把東西拿走的那個人，仍然是小偷。<strong>沒人查，不等於准了。</strong>榮譽制之所以叫榮譽制，正是因為它只考一件事：沒人看著的時候，你做什麼。</p>
+    <p>還有一筆更實在的帳。一個人去社區大學修 AI 導論，圖的是那兩百小時裡真正學到的東西。用 AI 繞過這兩百小時，等於花了學費，親手把唯一想買的那樣東西扔掉。</p>
+  </div>
+
+  <blockquote class="pullquote"><span class="mark">「</span>沒人查，不等於准了<span class="mark">」</span></blockquote>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 五 ============ -->
+  <h2 class="sec-title" id="sec-prof"><span class="no">五</span>教授：量測這場考試</h2>
+
+  <div class="prose">
+    <p class="drop">這是我追問之後，AI 才補上的那一半。</p>
+    <p>教授的工作不只是教書，還有<strong>認證</strong>。成績單上那個 A，等於教授簽名背書：「這個人懂這門課的內容。」如果一個什麼都沒學會的人，靠 AI 就能拿到這個 A，那這個簽名就失去了意義。這是教授的失職——不是誠信上的失職，而是<strong>量測上的失職</strong>。</p>
+    <p>經濟學裡有個古德哈特定律<sup class="fn">＊</sup>：一個量測指標一旦變成大家追逐的目標，它就不再是好的量測指標。分數本來是用來測「學會了沒有」；當分數可以不經學習就直接拿到，它測的就只剩「敢不敢叫 AI 做題」。</p>
+    <p>「不准用 AI，但不檢查」，更讓這筆帳多了一層：<strong>教授把量測外包給了學生的良心。</strong>結果是，同一個 A 可能代表兩件完全不同的事——一個是學會了，一個是 AI 做完了——而成績單上看不出差別。</p>
+    <p>代價也不是平均分攤的。如果有人偷用 AI，而成績又是彼此比較的，<strong>吃虧的是守規矩的學生</strong>：他們老老實實自己寫，卻和 AI 寫的作業放在同一把尺上比。一條不執行的規定，懲罰的不是違規的人，而是遵守的人。</p>
+    <p>不過，對教授我還是想留點情面，因為設計「AI 防不了」的評量，眼下真的很難，尤其是線上課。行得通的辦法大致有四種：</p>
+  </div>
+
+  <ul class="marks">
+    <li><strong>口試</strong>：當面問，答不出來就是答不出來。</li>
+    <li><strong>現場監考</strong>：回到教室，紙筆作答。</li>
+    <li><strong>專題報告</strong>：要學生解釋自己為什麼這樣做，而不只是交出結果。</li>
+    <li><strong>公開用 AI</strong>：乾脆讓學生用，改評他們判斷 AI 輸出對錯的能力——在 AI 導論這門課上，這或許才是最誠實的做法。</li>
+  </ul>
+
+  <div class="prose">
+    <p>四種都很花教師的時間，而社區大學不少課是由按課計酬的兼任教師在教。所以這筆失職是真的，但有一部分要記在整個制度頭上：一套還在用「前 AI 時代」工具、大量評分的系統。</p>
+  </div>
+
+  <blockquote class="pullquote"><span class="mark">「</span>一條不執行的規定，懲罰的不是違規的人，<br>而是遵守的人<span class="mark">」</span></blockquote>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 六 ============ -->
+  <h2 class="sec-title" id="sec-ai"><span class="no">六</span>AI：不用考試的那一個</h2>
+
+  <div class="prose">
+    <p class="drop">三個角色裡，AI 最好判：它沒有不及格，因為它根本沒在考試。</p>
+    <p>它做的，正是別人要它做的事。它不知道大綱寫了什麼，也不知道那份作業是要交給誰的。就像有人把計算機偷帶進考場，計算機不會因此「不及格」；工具可以被誤用，但工具不能被追究。</p>
+    <p>換成我熟悉的東西：近紅外光譜儀不會違反學術倫理。它量出來的光譜，拿去做正經研究還是拿去造假，帳都算在拿它的人頭上。<strong>AI 是儀器，不是考生。</strong></p>
+  </div>
+
+  <blockquote class="pullquote"><span class="mark">「</span>光譜儀不會違反學術倫理；<br>AI 是儀器，不是考生<span class="mark">」</span></blockquote>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 七 ============ -->
+  <h2 class="sec-title" id="sec-chemo"><span class="no">七</span>化學計量學的眼光：看不見的變數</h2>
+
+  <div class="prose">
+    <p class="drop">做了大半輩子校正模型的人，看這件事有一個現成的框架。</p>
+    <p>建模的人都知道：模型在<strong>訓練集</strong>上的表現，說明不了什麼；真正要看的，是它在<strong>從沒見過的樣品</strong>上預測得準不準。訓練誤差可以壓到零，預測誤差卻可能一塌糊塗——這就是<strong>過度擬合</strong><sup class="fn">＃</sup>。</p>
+    <p>「有沒有用 AI」在這裡是一個<strong>看不見的變數</strong>：它實實在在影響結果，卻沒有被量測。做過校正的人都知道，沒被量到的干擾因子，模型是校正不掉的——它只會悄悄混進每一個預測值裡。</p>
+    <p>把這套語言搬到教室裡，三個角色的帳就一目了然：</p>
+  </div>
+
+  <div class="tablewrap">
+    <table class="ledger">
+      <thead>
+        <tr><th>代號</th><th>教室裡的事</th><th>建模裡的對應</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>分</td><td>考試的一百分</td><td>＝ 訓練誤差。AI 可以把它壓到零。</td></tr>
+        <tr><td>懂</td><td>真正學會</td><td>＝ 預測誤差。遇到沒看過的問題，答不答得出來。</td></tr>
+        <tr><td>生</td><td>靠 AI 拿分卻沒學會</td><td>＝ 過度擬合。訓練集完美，模型沒學到底層結構。</td></tr>
+        <tr><td>師</td><td>考題能被 AI 直接破解</td><td>＝ 驗證集外洩。一直拿模型「已經看過」的樣品來驗證。</td></tr>
+        <tr><td>隱</td><td>有沒有用 AI，沒人查</td><td>＝ 未量測的干擾因子。影響每一個結果，卻校正不掉。</td></tr>
+        <tr><td>器</td><td>AI</td><td>＝ 儀器。量得準不準是它的事，資料怎麼用是人的事。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <p>用這張表來看：學生的錯，是讓自己的模型過度擬合；教授的錯，是驗證集外洩，又把最關鍵的那個變數留在量測之外。兩個都是真實的錯，但<strong>不是同一個錯</strong>，也不能互相抵銷。而最後拿著一個沒用的模型上路的，是學生自己。</p>
+  </div>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 八 ============ -->
+  <h2 class="sec-title" id="sec-ledger"><span class="no">八</span>總帳與結論</h2>
+
+  <div class="tablewrap">
+    <table class="ledger">
+      <thead>
+        <tr><th>情況</th><th>學生</th><th>教授</th><th>AI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>甲</td><td><span class="chip done">及格</span><br>准用，也學會了</td><td><span class="chip done">及格</span></td><td><span class="chip todo">不用考</span></td></tr>
+        <tr><td>乙</td><td><span class="chip wait">虧待自己</span><br>准用，卻沒學會</td><td><span class="chip wait">沒測出來</span><br>評量失靈</td><td><span class="chip todo">不用考</span></td></tr>
+        <tr><td>丙</td><td><span class="chip q">不及格</span><br>大綱禁用，偷偷用了</td><td><span class="chip q">不及格</span><br>有規定、沒檢查</td><td><span class="chip todo">不用考</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="audit">
+    <h4>本 案 判 決 ・ 情 況 丙</h4>
+    <p class="item"><span class="tag">學生</span>考的是<strong>誠信</strong>。大綱寫明不准，偷用就是不及格；沒人查，不等於准了。</p>
+    <p class="item"><span class="tag">教授</span>考的是<strong>量測</strong>。立了規定卻不設檢查，簽下的 A 就分不清是誰學會的；在 AI 導論這門課上，這個失職尤其難看，也尤其諷刺。</p>
+    <p class="item"><span class="tag">AI</span><strong>不用考試</strong>。它是儀器，帳永遠算在用它的人頭上。</p>
+  </div>
+
+  <div class="prose">
+    <p>所以，回到題目：用 AI 應考「AI 導論」拿了 A，誰不及格？答案是：<strong>學生和教授，各自不及格了一場不同的考試；AI 是唯一沒有應考的那一個。</strong></p>
+    <p>回到今天上午那場新生導覽的期末考。那是一份開卷、低風險、只確認你「讀過了」的測驗，我也確實一頁一頁讀過了；它跟一門正式課程的評分，不是同一回事。</p>
+    <p>真正的考驗在明年春天。大綱已經寫明了不准用 AI；既然沒有人查，能查的就只剩我自己——<strong>自己當自己的驗證集</strong>。那兩百小時，是我自己想買的東西，不該讓任何人，包括 AI，替我花掉。</p>
+  </div>
+
+  <blockquote class="pullquote"><span class="mark">「</span>分數可以外包，<br>學會不能<span class="mark">」</span></blockquote>
+  <p class="back-toc"><a href="#toc">↑ 回目錄</a></p>
+
+  <!-- ============ 註 ============ -->
+  <section class="footnotes" id="sec-notes">
+    <h2>編 者 註</h2>
+    <p><span class="fn-mark">＊</span><strong>古德哈特定律（Goodhart's Law）</strong>：英國經濟學家古德哈特在 <span class="num">1975</span> 年提出的觀察，後人常把它簡化成一句話：「一個量測指標一旦成為目標，就不再是好的量測指標。」考試分數、論文引用數、KPI，都是常見的例子。</p>
+    <p><span class="fn-mark">＃</span><strong>過度擬合（Overfitting）</strong>：模型把訓練資料裡的雜訊和巧合也一起「背」了下來，所以在訓練集上表現完美，遇到新樣品卻預測失準。化學計量學用交叉驗證、獨立的驗證集來抓它——前提是驗證集真的沒被模型看過。</p>
+    <p><span class="fn-mark">†</span><strong>榮譽制（Honor System）</strong>：不靠監督、只靠當事人自律來執行規則的制度。它不是沒有規則，而是把「有沒有遵守」的判斷交給當事人自己。它能不能運作，取決於群體裡守規矩的人夠不夠多。</p>
+    <p><span class="fn-mark">◇</span><strong>本文緣起</strong>：同日稍早的〈<a href="%E7%82%BA%E4%BA%86%E4%B8%8AAI%E5%B0%8E%E8%AB%96%E5%85%88%E7%95%B6%E4%B8%80%E5%9B%9E%E6%96%B0%E7%94%9F_CSM_CIS402.html">為了上一門「AI 導論」，老熊先當了一回新生</a>〉。本文的推理線，整理自當晚老熊與 AI 助手的一段問答，包括那句追問：「為什麼不是教授不及格？」</p>
+  </section>
+  <p class="back-toc" style="margin-top:8px"><a href="#toc">↑ 回目錄</a></p>
+
+  <div class="colophon">老 熊 隨 筆 ・ 復 盤 專 欄 ・ AI 導 論 系 列 之 二</div>
+
+</div>
+<nav class="float-nav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
