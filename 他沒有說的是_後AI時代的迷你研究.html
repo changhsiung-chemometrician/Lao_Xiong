@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>他沒有說的是：後 AI 時代的迷你研究</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600;700;800;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF8F1;
+    --ink: #1A1A1A;
+    --ink-soft: #3A342B;
+    --accent: #A15C00;
+    --accent-line: #B8730F;
+    --rule: #D9C9A8;
+    --box-bg: #FFFFFF;
+    --box-border: #C9B28A;
+    --hl: #FBE7B5;
+    --warn-bg: #FFF6F4;
+    --warn-border: #D9A39E;
+    --warn-bar: #A3221A;
+    --warn-ink: #8A1A12;
+    --cool-bg: #F3F6FA;
+    --cool-border: #A9B8C8;
+    --cool-bar: #2F4F6F;
+    --cool-ink: #1F3A57;
+    --green-bg: #F2F8F1;
+    --green-border: #A9C7A3;
+    --green-bar: #3E7A35;
+    --green-ink: #2C5A25;
+    --link: #1F4E8C;
+    --line-bg: #8FA7D4;
+    --line-me: #8DE08A;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.85;
+  }
+  main { max-width: 1040px; margin: 0 auto; padding: 56px 32px 140px; }
+  .serif { font-family: "Noto Serif TC", "PMingLiU", serif; }
+  strong { font-weight: 800; color: #000; background: var(--hl); padding: 0 0.12em; border-radius: 3px; }
+  em { font-style: normal; font-weight: 800; color: var(--accent); }
+  a { color: var(--link); text-underline-offset: 4px; }
+
+  .kicker {
+    display: inline-block; font-size: 21px; font-weight: 700; color: #7A4A00;
+    border: 2px solid var(--accent-line); border-radius: 10px;
+    padding: 4px 16px; margin-bottom: 20px;
+  }
+  h1 { font-size: 58px; font-weight: 900; line-height: 1.3; margin: 0 0 12px; }
+  .subtitle { font-size: 32px; font-weight: 700; color: var(--ink-soft); margin: 0 0 20px; line-height: 1.5; }
+  .byline { font-size: 22px; font-weight: 700; color: #7A6A50; margin: 0 0 20px; }
+  .lede {
+    font-size: 29px; font-weight: 700; color: var(--ink-soft);
+    border-bottom: 4px solid var(--accent-line);
+    padding-bottom: 28px; margin: 0 0 24px;
+  }
+
+  /* TOC */
+  nav.toc {
+    background: #fff; border: 2px solid var(--box-border); border-radius: 10px;
+    padding: 20px 32px 18px; margin: 8px 0 32px;
+  }
+  nav.toc .toc-title { font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.1em; }
+  nav.toc ol { margin: 0; padding-left: 1.6em; font-size: 24px; line-height: 1.9; }
+  nav.toc a { text-decoration: none; font-weight: 700; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  .chap-num {
+    font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: 0.12em;
+    margin: 56px 0 4px; border-top: 2px solid var(--rule); padding-top: 18px;
+  }
+  h2 { font-size: 40px; font-weight: 900; line-height: 1.4; margin: 0 0 22px; }
+  h3 { font-size: 30px; font-weight: 800; color: #7A4A00; margin: 0 0 10px; line-height: 1.4; }
+  p { margin: 0 0 24px; text-align: justify; }
+  .back { text-align: right; margin: 4px 0 0; font-size: 21px; }
+  .back a { text-decoration: none; font-weight: 700; }
+
+  .box {
+    background: var(--box-bg); border: 2px solid var(--box-border);
+    border-left: 12px solid var(--accent-line); border-radius: 8px;
+    padding: 22px 28px 4px; margin: 8px 0 28px;
+  }
+  .box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 18px; }
+  .box ul, .box ol { margin: 0 0 18px; padding-left: 1.4em; }
+  .box li { margin-bottom: 8px; }
+  .box.warn { background: var(--warn-bg); border-color: var(--warn-border); border-left-color: var(--warn-bar); }
+  .box.warn h3 { color: var(--warn-ink); }
+  .box.cool { background: var(--cool-bg); border-color: var(--cool-border); border-left-color: var(--cool-bar); }
+  .box.cool h3 { color: var(--cool-ink); }
+  .box.green { background: var(--green-bg); border-color: var(--green-border); border-left-color: var(--green-bar); }
+  .box.green h3 { color: var(--green-ink); }
+
+  .pull {
+    font-family: "Noto Serif TC", serif; font-size: 40px; font-weight: 900;
+    line-height: 1.5; color: var(--accent); text-align: center;
+    border-top: 3px solid var(--accent-line); border-bottom: 3px solid var(--accent-line);
+    padding: 26px 12px; margin: 36px 0;
+  }
+
+  /* LINE-style chat */
+  .chat {
+    background: var(--line-bg); border-radius: 14px;
+    padding: 24px 22px 10px; margin: 10px 0 30px;
+  }
+  .msg { display: flex; margin-bottom: 16px; align-items: flex-end; gap: 10px; }
+  .msg.me { justify-content: flex-end; }
+  .msg .who { font-size: 18px; font-weight: 800; color: #1E2B45; margin-bottom: 4px; }
+  .bubble {
+    max-width: 78%; padding: 14px 20px; border-radius: 22px;
+    font-size: 24px; line-height: 1.6; font-weight: 700; background: #fff; color: #111;
+  }
+  .msg.me .bubble { background: var(--line-me); }
+  .time { font-size: 16px; color: #2A3550; font-weight: 700; white-space: nowrap; }
+  .chat-note { font-size: 19px; color: #ECF1FA; text-align: center; margin: 4px 0 8px; font-weight: 700; }
+
+  /* table */
+  .tbl-wrap { overflow-x: auto; margin: 6px 0 28px; }
+  table { width: 100%; border-collapse: collapse; font-size: 23px; background: #fff; min-width: 640px; }
+  th, td { border: 2px solid var(--box-border); padding: 12px 14px; text-align: left; vertical-align: top; }
+  th { background: #F3E6C9; font-weight: 800; }
+  td { font-weight: 600; }
+
+  figure { margin: 10px 0 30px; }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 21px; color: var(--ink-soft); text-align: center; margin-top: 8px; font-weight: 700; }
+
+  .source {
+    margin-top: 48px; padding-top: 20px; border-top: 2px solid var(--rule);
+    font-size: 22px; font-weight: 700; color: var(--ink-soft);
+  }
+  .source ol { padding-left: 1.4em; }
+  .source li { margin-bottom: 8px; }
+  .source a { word-break: break-all; }
+
+  .float-nav {
+    position: fixed; right: 18px; bottom: 18px; z-index: 50;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .float-nav a {
+    background: #2F2A22; color: #FBF1DC; text-decoration: none;
+    font-size: 19px; font-weight: 800; padding: 10px 16px; border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.25); text-align: center;
+  }
+  .float-nav a:hover { background: var(--accent); }
+
+  @media (max-width: 640px) {
+    body { font-size: 21px; line-height: 1.8; }
+    main { padding: 32px 16px 120px; }
+    h1 { font-size: 36px; }
+    .subtitle { font-size: 23px; }
+    .lede { font-size: 22px; }
+    h2 { font-size: 29px; }
+    h3 { font-size: 24px; }
+    .chap-num { font-size: 19px; }
+    .kicker, .byline { font-size: 17px; }
+    nav.toc { padding: 16px 18px; }
+    nav.toc ol { font-size: 20px; }
+    .box { padding: 16px 16px 2px; border-left-width: 8px; }
+    .pull { font-size: 28px; }
+    .bubble { font-size: 19px; max-width: 88%; }
+    table { font-size: 18px; }
+    .source { font-size: 18px; }
+    .float-nav a { font-size: 16px; padding: 8px 12px; }
+  }
+  @media print {
+    body { font-size: 18pt; }
+    .box, .chat, figure { break-inside: avoid; }
+    .float-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<div class="kicker">後 AI 時代 · 老熊隨筆</div>
+<h1 class="serif">他沒有說的是</h1>
+<p class="subtitle">一部四十一分鐘的影片、一份 AI 排版的文檔、一句老同學的補刀——後 AI 時代的迷你研究與「智慧討論」</p>
+<p class="byline">老熊 ／ 2026 年 10 月 15 日</p>
+<p class="lede">AI 讓「抓重點」變得廉價，十分鐘就能對一門陌生的學問有個粗略概念。但真正有價值的那一步，往往發生在文檔丟進群組之後——有人回了一句：「他沒有說的是……」</p>
+
+<nav class="toc" id="toc">
+  <div class="toc-title">目　錄</div>
+  <ol>
+    <li><a href="#s1">四十一分鐘與十分鐘</a></li>
+    <li><a href="#s2">為什麼要寫成文檔</a></li>
+    <li><a href="#s3">「他沒有說的是」</a></li>
+    <li><a href="#s4">兩種漏洞：壓縮損失與原始缺漏</a></li>
+    <li><a href="#s5">核對大卞：真相比補刀更有層次</a></li>
+    <li><a href="#s6">老熊的復盤：文檔裡的一個化工錯誤</a></li>
+    <li><a href="#s7">迷你研究五步法</a></li>
+    <li><a href="#s8">看熱鬧與看門道</a></li>
+    <li><a href="#s9">結語：文檔是會議桌，不是終點</a></li>
+    <li><a href="#refs">參考來源</a></li>
+  </ol>
+</nav>
+
+<!-- ===== 1 ===== -->
+<section id="s1">
+  <div class="chap-num">第 一 章</div>
+  <h2 class="serif">四十一分鐘與十分鐘</h2>
+  <p>事情的起點很平常。經濟史學者 Adam Tooze 有一段談柴油經濟的 YouTube 影片，四十一分鐘。內容扎實，但對一個退休的化學計量學老頭來說，四十一分鐘「長了一點」。</p>
+  <p>於是老熊用了一套這兩年慣用的流程：先請<em>油管的親兒子</em>（Google 的 Gemini，自家人看自家影片，最順手）把內容抓出來；再交給<em>排版高手</em> Claude，做成一份可以存檔、可以轉傳的 HTML 文檔——《黑色命脈：柴油經濟學與全球連鎖危機》。</p>
+  <p>文檔分三章：歐洲長年推廣柴油車、本土產能不足、仰賴進口的脆弱性；美國經濟骨幹（重卡、農機、貨運鐵路）對柴油的依賴；以及最有意思的一段——為什麼美國不能一紙命令「禁止柴油出口」：煉油是<strong>聯產品</strong>過程，儲槽有限，柴油滿倉就只能整廠降載，結果是汽油與航空燃油跟著短缺，<strong>事與願違</strong>。</p>
+  <div class="box">
+    <h3>時間帳</h3>
+    <p>原影片：41 分鐘。<br>
+    AI 抓取 + 排版：幾分鐘。<br>
+    老熊讀完文檔，對當今世界的柴油經濟有個粗略概念：<strong>不到十分鐘</strong>。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 2 ===== -->
+<section id="s2">
+  <div class="chap-num">第 二 章</div>
+  <h2 class="serif">為什麼要寫成文檔</h2>
+  <p>很多人用 AI 看影片，止於「叫它摘要一下」，看完就散。老熊堅持多走一步：把摘要<strong>寫成文檔</strong>。在群組裡，老熊自己是這樣說的——寫成文檔有三個好處：</p>
+  <div class="box green">
+    <h3>文檔的三個好處</h3>
+    <ol>
+      <li><strong>一分鐘 get it</strong>：比較聰明的人掃一眼標題、框框、粗體，不到一分鐘就抓到骨架。</li>
+      <li><strong>隨時調出來看</strong>：聊天紀錄會沉底，文檔不會。半年後柴油又上新聞，翻出來就能接著想。</li>
+      <li><strong>當成對話素材</strong>：拿它和其他文章對照，或丟給別的大模型對談、腦力激盪。</li>
+    </ol>
+  </div>
+  <p>當時寫下第三點，多少帶點「哈哈」的玩笑口吻。沒想到七分鐘後，第三點就被現場驗證了——只不過對談的對象不是大模型，而是一位老同學。</p>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 3 ===== -->
+<section id="s3">
+  <div class="chap-num">第 三 章</div>
+  <h2 class="serif">「他沒有說的是」</h2>
+  <p>文檔丟進同學群組。下午 4:57，大卞回了一段話。以下是那十分鐘的對話原貌（老熊在 LINE 上打的是簡體，照錄）：</p>
+
+  <div class="chat">
+    <div class="msg me">
+      <span class="time">4:57 PM</span>
+      <div class="bubble">41分锺长了一点 不过有大模型来帮忙 先用油管的亲儿子来抓内容 再由排版高手的 Claude 来制作，写成文档的好处是 比较聪明的人 不到一分钟就能 get it, 以后也可以随时調出来看，也可以拿它来与其他文章或大模型对谈 或脑力激荡 哈哈</div>
+    </div>
+    <div class="msg">
+      <div>
+        <div class="who">大卞</div>
+        <div class="bubble">他沒有說的是，美國目前所生產的原油有六成以上是頁岩油，主要是輕餾份，適合提煉汽油，但無法供應足夠的柴油。<br>俄羅斯與中東原油，加拿大的油沙，都有相當高的柴油產出比，但是這兩年供應受損嚴重，所以就算美國頁岩油生產再多，全球柴油還是缺貨。</div>
+      </div>
+      <span class="time">4:57 PM</span>
+    </div>
+    <div class="msg me">
+      <span class="time">5:02 PM</span>
+      <div class="bubble">的确 抓重点的坏处 是会漏掉细节 这对大卞来说很重要 对于看热闹的我来说 还好 对我而言 在短短十分钟之内 我对当今世界的柴油经济已有一个粗略的概念 哈哈</div>
+    </div>
+    <div class="msg">
+      <div>
+        <div class="who">大卞</div>
+        <div class="bubble">是 Adam Tooze 沒有說。所以重點抓不到。</div>
+      </div>
+      <span class="time">5:04 PM</span>
+    </div>
+    <div class="msg me">
+      <span class="time">5:06 PM</span>
+      <div class="bubble">I see, 这个就用得到我刚提到的 用文档当素材来与各方面大神互动 哈哈 👍👍</div>
+    </div>
+    <div class="chat-note">— 十分鐘，三個回合 —</div>
+  </div>
+
+  <p>這段對話裡藏著一個很容易被忽略的轉折。老熊第一反應是：「抓重點的壞處是會漏掉細節」——意思是 AI 摘要壓縮時丟了東西。大卞立刻糾正：<strong>不是摘要漏掉，是 Adam Tooze 本人就沒說</strong>。原始材料裡沒有的東西，再好的摘要也抓不出來。</p>
+  <div class="pull">「重點抓不到」<br>不等於「重點被漏掉」</div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 4 ===== -->
+<section id="s4">
+  <div class="chap-num">第 四 章</div>
+  <h2 class="serif">兩種漏洞：壓縮損失與原始缺漏</h2>
+  <p>幹了一輩子化學計量學，老熊對這個區別特別有感。拿主成分分析（PCA）來比喻最貼切：</p>
+  <div class="box cool">
+    <h3>化學計量學的比喻</h3>
+    <ul>
+      <li><strong>摘要像 PCA 只留前幾個主成分</strong>：骨架保住了，但細節進了殘差。這是<em>壓縮損失</em>——資訊原本在資料裡，只是被丟掉了。回頭多看幾個主成分（多看原片幾段），就找得回來。</li>
+      <li><strong>原講者沒談的變量，是根本沒量測的變量</strong>：如果光譜儀從頭就沒掃那段波長，再多主成分、再高明的演算法也重建不出來。這是<em>原始缺漏</em>——校正集外的盲區。</li>
+    </ul>
+  </div>
+  <p>兩種漏洞的補救方法完全不同：</p>
+  <div class="tbl-wrap">
+  <table>
+    <tr><th></th><th>壓縮損失</th><th>原始缺漏</th></tr>
+    <tr><td><strong>病灶</strong></td><td>AI 摘要時丟了細節</td><td>原始材料本身就沒涵蓋</td></tr>
+    <tr><td><strong>例子</strong></td><td>影片提到的某個數字沒進文檔</td><td>Tooze 沒談頁岩油的體質</td></tr>
+    <tr><td><strong>怎麼發現</strong></td><td>回看原片、要 AI 列出「省略了什麼」</td><td>需要<strong>懂行的外部視角</strong></td></tr>
+    <tr><td><strong>誰來補</strong></td><td>AI 自己就能補</td><td>同行、專家、其他來源</td></tr>
+  </table>
+  </div>
+  <p>AI 很擅長處理第一種，對第二種卻天生有盲點：<strong>你叫它摘要哪份材料，它就忠於哪份材料</strong>。越忠實，越不會跳出來說「原作者這裡少講了一塊」。這正是群組裡那位「大神」不可取代的地方。</p>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 5 ===== -->
+<section id="s5">
+  <div class="chap-num">第 五 章</div>
+  <h2 class="serif">核對大卞：真相比補刀更有層次</h2>
+  <p>復盤體的規矩是：記憶要核對，補刀也要核對。老熊回頭查了資料，大卞的大方向站得住，而且細看下去，機制比一句「輕餾份」更有意思。</p>
+  <div class="box">
+    <h3>一、頁岩油佔比：屬實</h3>
+    <p>美國能源資訊署（EIA）的數據顯示，緻密油（俗稱頁岩油）在 2017 年已佔美國原油產量的 54%，2018 年約六成，此後仍是最大來源。大卞說「六成以上」，與這個趨勢吻合。</p>
+  </div>
+  <div class="box">
+    <h3>二、「輕」的真正麻煩：缺的是重尾巴</h3>
+    <p>能源顧問公司 Wood Mackenzie 的分析點出一個細節：頁岩油的中間餾份（煤油、柴油）比例其實和一般原油差不多，<strong>真正少的是重油與渣油</strong>——而渣油正是複雜煉廠裡焦化、加氫裂化等轉化裝置的進料，這些裝置會把重成分「再造」出大量柴油。原料太輕，這些昂貴的轉化設備就吃不飽，整廠的柴油產量跟著打折。</p>
+    <p>加上美國墨西哥灣沿岸的許多大型煉廠，當年是為了處理中東、委內瑞拉、加拿大的重質含硫原油而設計的。原油的「體質」與煉廠的「胃口」對不上，才是更完整的故事。</p>
+  </div>
+  <div class="box">
+    <h3>三、重質原油斷供：衝擊柴油特別重</h3>
+    <p>路透社的市場評論早在 2023 年就指出，中東產油國減產對柴油市場的衝擊不成比例，因為他們的較重原油本來就產出更高比例的中間餾份。產業分析也提到，煉廠若只能跑輕甜原油，即使加大處理量，柴油產出反而減少。這和大卞說的「俄羅斯、中東、加拿大油沙柴油產出比高，但供應受損」是同一條邏輯。</p>
+  </div>
+  <div class="box warn">
+    <h3>四、2026 年的現況印證</h3>
+    <p>今年夏天的美國週報數據顯示：煉廠開工率高達 97% 上下，汽油產量增加，餾份油產量反而下降，餾份油庫存比五年均值低了一成三到一成四；與此同時原油庫存卻高於均值。換句話說——<strong>原油不缺，缺的是柴油</strong>。分析師甚至直言，就算霍爾木茲海峽恢復通航，若煉廠的經濟誘因不轉向餾份油，柴油缺口也不會自動消失。</p>
+  </div>
+  <p>所以大卞的補刀，是那份文檔缺的<strong>上游一塊拼圖</strong>：Tooze 談的是煉油廠下游的聯產品困局，大卞補的是進料端的原油體質。兩塊拼起來，「美國原油自給、柴油卻還是緊」這個看似矛盾的現象，就說通了。</p>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 6 ===== -->
+<section id="s6">
+  <div class="chap-num">第 六 章</div>
+  <h2 class="serif">老熊的復盤：文檔裡的一個化工錯誤</h2>
+  <p>核對大卞的同時，老熊順手把自己那份文檔也重讀了一遍——結果抓到一個<strong>自家的錯</strong>。這個錯，一個台大化工畢業生（雖然從來不喜歡化學）本該第一眼就看出來。</p>
+  <div class="box warn">
+    <h3>原文：「煉油塔是熱裂解過程，每提煉一桶原油，必定按固定比例同時吐出汽油、柴油、航空燃油與重油。」</h3>
+    <ul>
+      <li><strong>蒸餾不是裂解</strong>：常壓蒸餾塔是按沸點<em>物理分離</em>，分子不變；熱裂解、催化裂化、加氫裂化才是把大分子<em>化學打斷</em>，是下游另外的轉化裝置。</li>
+      <li><strong>比例不是死的</strong>：正因為有那些轉化裝置，煉廠可以在一定範圍內調整產品結構——拉高柴油模式或拉高汽油模式，視利潤而定。上一章 2026 年的數據就是活例子：同樣滿載運轉，煉廠讓汽油增產、柴油減產。</li>
+      <li><strong>大方向仍然正確</strong>：調整空間有限，不可能「只產柴油」，聯產品約束確實存在。文檔的核心論證成立，只是把「彈性有限」寫成了「固定比例」，程度說過頭了。</li>
+    </ul>
+  </div>
+  <p>這個錯是從哪一層來的？是 Tooze 口語簡化、Gemini 摘要轉述、還是 Claude 排版時潤飾，老熊沒有回頭逐秒核對原片，不敢妄斷。但這恰恰是重點：<strong>經過兩個模型、一次翻譯、一次排版的二手知識，每一層都可能悄悄加一點「確定性」</strong>。看起來越工整的文檔，越要提防這種被修飾掉的模糊。</p>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 7 ===== -->
+<section id="s7">
+  <div class="chap-num">第 七 章</div>
+  <h2 class="serif">迷你研究五步法</h2>
+  <p>把這十分鐘的經過抽象一下，就是一套後 AI 時代、一般人也能用的<strong>迷你研究循環</strong>：</p>
+
+  <figure>
+    <svg viewBox="0 0 960 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="迷你研究五步循環：抓、排、傳、問、補，再回到新版文檔">
+      <defs>
+        <marker id="arr" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+          <path d="M0,0 L12,6 L0,12 z" fill="#A15C00"/>
+        </marker>
+      </defs>
+      <g font-family="Noto Sans TC, sans-serif" text-anchor="middle">
+        <g>
+          <rect x="10" y="40" width="160" height="130" rx="16" fill="#FFFFFF" stroke="#B8730F" stroke-width="4"/>
+          <text x="90" y="105" font-size="52" font-weight="900" fill="#A15C00">抓</text>
+          <text x="90" y="148" font-size="20" font-weight="700" fill="#3A342B">AI 擷取原材料</text>
+        </g>
+        <g>
+          <rect x="207" y="40" width="160" height="130" rx="16" fill="#FFFFFF" stroke="#B8730F" stroke-width="4"/>
+          <text x="287" y="105" font-size="52" font-weight="900" fill="#A15C00">排</text>
+          <text x="287" y="148" font-size="20" font-weight="700" fill="#3A342B">整理成文檔</text>
+        </g>
+        <g>
+          <rect x="404" y="40" width="160" height="130" rx="16" fill="#FFFFFF" stroke="#B8730F" stroke-width="4"/>
+          <text x="484" y="105" font-size="52" font-weight="900" fill="#A15C00">傳</text>
+          <text x="484" y="148" font-size="20" font-weight="700" fill="#3A342B">丟給懂行的人</text>
+        </g>
+        <g>
+          <rect x="601" y="40" width="160" height="130" rx="16" fill="#FFF6F4" stroke="#A3221A" stroke-width="4"/>
+          <text x="681" y="105" font-size="52" font-weight="900" fill="#8A1A12">問</text>
+          <text x="681" y="148" font-size="20" font-weight="700" fill="#3A342B">他沒說的是？</text>
+        </g>
+        <g>
+          <rect x="798" y="40" width="152" height="130" rx="16" fill="#F2F8F1" stroke="#3E7A35" stroke-width="4"/>
+          <text x="874" y="105" font-size="52" font-weight="900" fill="#2C5A25">補</text>
+          <text x="874" y="148" font-size="20" font-weight="700" fill="#3A342B">核對、改版</text>
+        </g>
+        <line x1="172" y1="105" x2="203" y2="105" stroke="#A15C00" stroke-width="4" marker-end="url(#arr)"/>
+        <line x1="369" y1="105" x2="400" y2="105" stroke="#A15C00" stroke-width="4" marker-end="url(#arr)"/>
+        <line x1="566" y1="105" x2="597" y2="105" stroke="#A15C00" stroke-width="4" marker-end="url(#arr)"/>
+        <line x1="763" y1="105" x2="794" y2="105" stroke="#A15C00" stroke-width="4" marker-end="url(#arr)"/>
+        <path d="M874,172 L874,240 L90,240 L90,176" fill="none" stroke="#A15C00" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#arr)"/>
+        <rect x="372" y="222" width="216" height="38" rx="8" fill="#FBF8F1"/>
+        <text x="480" y="250" font-size="24" font-weight="800" fill="#A15C00">v2 文檔，再一輪</text>
+      </g>
+    </svg>
+    <figcaption>迷你研究循環：前兩步交給 AI，後三步需要人</figcaption>
+  </figure>
+
+  <div class="box">
+    <h3>① 抓：讓最適合的模型讀原材料</h3>
+    <p>影片給 Gemini，長 PDF 給長上下文的模型，各取所長。這一步只求<strong>快而全</strong>，不求判斷。</p>
+  </div>
+  <div class="box">
+    <h3>② 排：寫成一份可以被反駁的文檔</h3>
+    <p>文檔的價值不在漂亮，而在<strong>把論點攤平</strong>：有章節、有粗體、有框框，別人一眼就能指著某一段說「這裡不對」。口頭摘要無法被指著反駁，文檔可以。</p>
+  </div>
+  <div class="box">
+    <h3>③ 傳：丟給背景不同的人</h3>
+    <p>群組裡有懂能源的、懂金融的、懂化工的。每個人等於一台掃描不同波段的光譜儀。<strong>讀者越多元，盲區越少</strong>。</p>
+  </div>
+  <div class="box warn">
+    <h3>④ 問：把「他沒有說的是」變成固定提問</h3>
+    <p>大卞那句話，其實可以變成每份文檔的標準檢查題。問人，也問 AI：</p>
+    <ul>
+      <li>「這份材料的講者<strong>沒有談到</strong>哪些重要變量？」</li>
+      <li>「哪些說法被<strong>簡化成了絕對</strong>？原本應該是程度問題的？」</li>
+      <li>「站在反方或另一個產業的角度，會先挑哪一段？」</li>
+    </ul>
+    <p>注意：問 AI 時要<strong>換一個模型</strong>或<strong>換一個角色</strong>，別讓寫文檔的那位自己挑自己的毛病。</p>
+  </div>
+  <div class="box green">
+    <h3>⑤ 補：核對之後改版</h3>
+    <p>補刀也要查證——大卞的「六成」、「輕餾份」都經得起查，還查出了更細的機制。查完把新知補回文檔，出 v2。這一步做完，文檔就從「Tooze 怎麼說」升級成「我們目前怎麼理解」。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 8 ===== -->
+<section id="s8">
+  <div class="chap-num">第 八 章</div>
+  <h2 class="serif">看熱鬧與看門道</h2>
+  <p>對話裡老熊自稱「看熱鬧的」，說漏掉細節「對大卞很重要，對我還好」。這不是客套，而是一個值得認真看待的分工。</p>
+  <p>後 AI 時代，<strong>看熱鬧的門檻被 AI 大幅降低</strong>：十分鐘建立一門學問的粗略概念，在過去要讀一本書。但<strong>看門道的天花板，仍然是人撐起來的</strong>：知道哪裡缺了一塊，需要多年浸淫的直覺。</p>
+  <div class="box cool">
+    <h3>群組就是一個集成模型</h3>
+    <p>化學計量學裡有個老道理：單一模型再好，也比不上幾個<strong>誤差不相關</strong>的模型投票。AI 摘要是一個模型，大卞是另一個，老熊回頭查資料又是第三個。三者的盲區各不相同，疊在一起，才把柴油這件事拼得比較完整。</p>
+    <p>智慧討論的要訣，不是每個人都要懂門道，而是<strong>看熱鬧的人負責把材料端上桌，看門道的人負責指出缺口</strong>，雙方都知道自己在扮演哪個角色。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== 9 ===== -->
+<section id="s9">
+  <div class="chap-num">第 九 章</div>
+  <h2 class="serif">結語：文檔是會議桌，不是終點</h2>
+  <p>AI 出現之前，迷你研究的瓶頸在「讀」：時間不夠，材料太長。AI 出現之後，讀變得幾乎免費，瓶頸移到了「問」：<strong>誰能看出材料沒說的東西？</strong></p>
+  <p>那天下午的十分鐘，老熊用 AI 解決了讀，用文檔搭了一張會議桌，大卞坐上來，指出了桌上缺的那一盤菜。事後一查，那盤菜比想像中更豐盛。</p>
+  <div class="pull">AI 負責把材料端上桌<br>人負責說出「他沒有說的是」</div>
+  <p>這大概就是後 AI 時代「智慧討論」最樸素的樣子：不是人跟 AI 比誰懂得多，而是讓 AI 把每個人的起跑線拉齊，然後把時間留給真正需要人腦的那一句話。</p>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- ===== refs ===== -->
+<section id="refs" class="source">
+  <h3>參考來源</h3>
+  <ol>
+    <li>Adam Tooze 柴油經濟影片（YouTube）：<a href="https://youtu.be/rEqv4nIaoSs" target="_blank" rel="noopener noreferrer">https://youtu.be/rEqv4nIaoSs</a></li>
+    <li>老熊（Gemini 抓取、Claude 排版）：《黑色命脈：柴油經濟學與全球連鎖危機》（本站前文）</li>
+    <li>EIA, Tight oil remains the leading source of future U.S. crude oil production：<a href="https://www.eia.gov/todayinenergy/detail.php?id=35052" target="_blank" rel="noopener noreferrer">eia.gov</a></li>
+    <li>Enerdata, US crude oil production increased by 17% in 2018 thanks to tight oil：<a href="https://www.enerdata.net/publications/daily-energy-news/us-crude-oil-production-increased-17-2018-thanks-tight-oil.html" target="_blank" rel="noopener noreferrer">enerdata.net</a></li>
+    <li>Wood Mackenzie, US tight oil piles pressure on refiners：<a href="https://www.woodmac.com/news/opinion/us-tight-oil-piles-pressure-on-refiners/" target="_blank" rel="noopener noreferrer">woodmac.com</a></li>
+    <li>Hydrocarbon Processing / Reuters, Global diesel shortage boosts prices (2023)：<a href="https://hydrocarbonprocessing.com/news/2023/09/global-diesel-shortage-boosts-prices/" target="_blank" rel="noopener noreferrer">hydrocarbonprocessing.com</a></li>
+    <li>CCJ, Will there be a diesel fuel shortage? (2023)：<a href="https://www.ccjdigital.com/economic-trends/article/15634628/will-there-be-a-diesel-fuel-shortage-in-2023" target="_blank" rel="noopener noreferrer">ccjdigital.com</a></li>
+    <li>Crux Investor, 97.2% Refinery Runs Leave Diesel Tight as Brent Hits $93 (2026)：<a href="https://www.cruxinvestor.com/posts/97-2-refinery-runs-leave-diesel-tight-as-brent-hits-93" target="_blank" rel="noopener noreferrer">cruxinvestor.com</a></li>
+    <li>Crux Investor, 14% Distillate Deficit Keeps Diesel Tight Despite Ample Crude Supply (2026)：<a href="https://www.cruxinvestor.com/posts/14-distillate-deficit-keeps-diesel-tight-despite-ample-crude-supply" target="_blank" rel="noopener noreferrer">cruxinvestor.com</a></li>
+  </ol>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+</main>
+
+<div class="float-nav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+</body>
+</html>

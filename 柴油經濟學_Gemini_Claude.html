@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑色命脈：柴油經濟學與全球連鎖危機</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF8F1;
+    --ink: #1A1A1A;
+    --ink-soft: #3A342B;
+    --accent: #A15C00;
+    --accent-line: #B8730F;
+    --rule: #D9C9A8;
+    --box-bg: #FFFFFF;
+    --box-border: #C9B28A;
+    --hl: #FBE7B5;
+    --warn-bg: #FFF6F4;
+    --warn-border: #D9A39E;
+    --warn-bar: #A3221A;
+    --warn-ink: #8A1A12;
+    --end-bg: #F3F6FA;
+    --end-border: #A9B8C8;
+    --end-bar: #2F4F6F;
+    --end-ink: #1F3A57;
+    --link: #1F4E8C;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.8;
+  }
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+  }
+  .serif { font-family: "Noto Serif TC", "PMingLiU", serif; }
+  strong {
+    font-weight: 800;
+    color: #000;
+    background: var(--hl);
+    padding: 0 0.12em;
+    border-radius: 3px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 21px; font-weight: 700;
+    color: #7A4A00;
+    border: 2px solid var(--accent-line);
+    border-radius: 10px;
+    padding: 4px 16px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 52px; font-weight: 900; line-height: 1.35;
+    margin: 0 0 20px;
+  }
+  .lede {
+    font-size: 28px; font-weight: 700; color: var(--ink-soft);
+    border-bottom: 4px solid var(--accent-line);
+    padding-bottom: 28px; margin: 0 0 16px;
+  }
+  .chap-num {
+    font-size: 24px; font-weight: 800; color: var(--accent);
+    letter-spacing: 0.12em;
+    margin: 48px 0 4px;
+    border-top: 2px solid var(--rule);
+    padding-top: 16px;
+  }
+  h2 {
+    font-size: 38px; font-weight: 900; line-height: 1.4;
+    margin: 0 0 20px;
+  }
+  h3 {
+    font-size: 30px; font-weight: 800; color: #7A4A00;
+    margin: 0 0 10px; line-height: 1.4;
+  }
+  p { margin: 0 0 24px; text-align: justify; }
+  .box {
+    background: var(--box-bg);
+    border: 2px solid var(--box-border);
+    border-left: 12px solid var(--accent-line);
+    border-radius: 8px;
+    padding: 22px 28px 4px;
+    margin: 8px 0 28px;
+  }
+  .box p:last-child { margin-bottom: 18px; }
+  .box.warn { background: var(--warn-bg); border-color: var(--warn-border); border-left-color: var(--warn-bar); }
+  .box.warn h3 { color: var(--warn-ink); }
+  .box.end { background: var(--end-bg); border-color: var(--end-border); border-left-color: var(--end-bar); margin-top: 48px; }
+  .box.end h3 { color: var(--end-ink); }
+  .source {
+    margin-top: 40px; padding-top: 20px;
+    border-top: 2px solid var(--rule);
+    font-size: 23px; font-weight: 700; color: var(--ink-soft);
+  }
+  .source a { color: var(--link); text-decoration: underline; text-underline-offset: 4px; word-break: break-all; }
+  .source a:hover { color: #0F2F5C; }
+
+  @media (max-width: 640px) {
+    body { font-size: 21px; line-height: 1.75; }
+    main { padding: 32px 16px 64px; }
+    h1 { font-size: 34px; }
+    .lede { font-size: 22px; }
+    h2 { font-size: 28px; }
+    h3 { font-size: 24px; }
+    .chap-num { font-size: 19px; }
+    .kicker { font-size: 17px; }
+    .box { padding: 16px 16px 2px; border-left-width: 8px; }
+    .source { font-size: 18px; }
+  }
+  @media print {
+    body { font-size: 20pt; }
+    .box { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<div class="kicker">經濟學家 Adam Tooze 深度解析</div>
+<h1 class="serif">黑色命脈：柴油經濟學與全球連鎖危機</h1>
+<p class="lede">這不是單純的原油短缺，而是一場關於煉油設施、聯產品物理限制，以及保護主義政策失靈的結構性風暴。</p>
+
+<section>
+  <div class="chap-num">第 一 章</div>
+  <h2 class="serif">風暴的前夕：全球結構失衡與地緣政治</h2>
+  <p>當大眾將注意力集中在原油價格的波動時，經濟學家指出，真正牽動全球經濟命脈的隱形危機正悄然發生在「煉油廠」之中。這場柴油危機的本質，是全球煉油與燃料產品的<strong>結構性失衡</strong>。</p>
+
+  <div class="box">
+    <h3>歐洲的脆弱性</h3>
+    <p>數十年來，歐洲各國政府大力推廣柴油乘用車，導致本土煉油設施的柴油產能遠遠跟不上龐大的消費需求。歐洲極度依賴中東、印度以及俄羅斯的進口柴油來維持體系運作，這使其全球供應鏈變得極其脆弱且缺乏應變韌性。</p>
+  </div>
+
+  <p>隨後，地緣政治的重錘落下。烏克蘭無人機對俄羅斯大型煉油廠的精準打擊，加上中東霍爾木茲海峽航運連年受阻，精密的全球煉油網路瞬間遭受不可逆的破壞。柴油作為現代農業機械、灌溉設施、物流重卡與貨輪的血液，其價格飆升迅速轉化為糧食與各類終端消費品的全面通膨。</p>
+</section>
+
+<section>
+  <div class="chap-num">第 二 章</div>
+  <h2 class="serif">美國特質：重型運輸命脈與儲存悖論</h2>
+  <p>跨越大西洋，美洲大陸的情勢同樣嚴峻。雖然美國普通家庭的乘用車多數使用汽油，但柴油卻是整個美國經濟的骨幹。從跨州運送物資的重型卡車、中西部農場的拖拉機與收割機，到貫穿東西海岸的貨運火車，無一不仰賴柴油運轉。</p>
+  <p>當美國本土柴油均價創下歷史新高時，實體供應鏈感受到了無比真實的陣痛。然而，當政客們高喊「美國優先」，試圖透過政治手段解決問題時，卻碰上了嚴重的結構性障礙。</p>
+</section>
+
+<section>
+  <div class="chap-num">第 三 章</div>
+  <h2 class="serif">石化工程的硬約束：聯產品與連鎖倒塌效應</h2>
+  <p>為什麼美國不能直接宣佈「禁止柴油出口」，把所有柴油留在國內以壓低物價？經濟學家指出，這是因為政治語言無法踰越物理規律與石化工程的客觀限制：</p>
+
+  <div class="box">
+    <h3>一、聯產品特性</h3>
+    <p>煉油塔是熱裂解過程，每提煉一桶原油，必定按固定比例同時吐出汽油、柴油、航空燃油與重油。<strong>煉油廠無法選擇「只生產柴油」</strong>。</p>
+  </div>
+  <div class="box">
+    <h3>二、儲存空間極限</h3>
+    <p>美國供應鏈長年以「即時生產（Just-in-Time）」並輸出全球為導向，<strong>本土並未建置龐大的長期柴油儲存庫</strong>。</p>
+  </div>
+  <div class="box">
+    <h3>三、速率限制瓶頸</h3>
+    <p>當出口被禁止，多餘柴油會迅速填滿全美有限的儲槽。無法單獨停產柴油的煉油廠，只能選擇<strong>被迫全面減產</strong>。</p>
+  </div>
+
+  <p>這便引發了荒謬且危險的<strong>事與願違效應（Paradoxical Price Spike）</strong>：</p>
+
+  <div class="box warn">
+    <h3>連鎖副作用</h3>
+    <p>出口禁令雖然可能短期微幅壓低國內柴油價格，但煉油廠因柴油滿倉而被迫降載減產時，蒸餾塔產出的<strong>普通汽油與航空燃油供應量會同步暴跌</strong>。結果，全美的汽油價格將迎來災難性的飆漲，對消費者造成二次傷害。</p>
+  </div>
+</section>
+
+<section class="box end">
+  <h3 class="serif">結語：保護主義的極限</h3>
+  <p>柴油危機展現了全球化高度交織的本質。在全球化的石化供應鏈中，實體設施、化學規律與商業模式相互鎖定。簡單的政令宣示或行政干預，往往無法繞過客觀的物理限制，反倒可能在別處引發更大的經濟風暴。</p>
+</section>
+
+<div class="source">
+  參考來源與影片討論（YouTube）：<br>
+  <a href="https://youtu.be/rEqv4nIaoSs" target="_blank" rel="noopener noreferrer">https://youtu.be/rEqv4nIaoSs</a>
+</div>
+
+</main>
+</body>
+</html>
