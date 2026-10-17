@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>凌晨五點的摺疊機</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ead6;
+  --paper-2:#ebe0c6;
+  --ink:#241b13;
+  --ink-soft:#4a3b2c;
+  --rule:#8a7558;
+  --accent:#8b1e1e;
+  --accent-2:#2f4a3a;
+  --green:#1f7a32;
+  --line-green:#8de08a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image:radial-gradient(rgba(120,90,50,.06) 1px, transparent 1px);
+  background-size:4px 4px;
+  color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC",serif;
+  font-weight:700;
+  font-size:32px;
+  line-height:1.75;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:48px 32px 140px}
+
+/* masthead */
+.masthead{border-top:6px double var(--ink);border-bottom:2px solid var(--ink);padding:18px 0 10px;text-align:center}
+.masthead .name{font-size:64px;font-weight:900;letter-spacing:.3em;line-height:1.2}
+.masthead .sub{font-family:"Playfair Display",serif;font-style:italic;font-size:26px;color:var(--ink-soft);letter-spacing:.08em}
+.issue{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--rule);padding:8px 0;font-size:22px;color:var(--ink-soft)}
+
+/* headline block */
+.kicker{margin-top:44px;color:var(--accent);font-size:26px;letter-spacing:.25em}
+h1{font-size:76px;font-weight:900;line-height:1.2;margin:10px 0 18px}
+.deck{font-size:34px;font-weight:700;color:var(--ink-soft);border-left:8px solid var(--accent);padding-left:22px;margin:0 0 20px}
+.byline{font-size:24px;color:var(--ink-soft);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 0;margin-bottom:36px}
+
+/* toc */
+.toc{background:var(--paper-2);border:2px solid var(--ink);padding:24px 32px;margin:0 0 48px}
+.toc h2{margin:0 0 8px;font-size:34px;letter-spacing:.2em;border:none;padding:0}
+.toc ol{margin:0;padding-left:1.6em}
+.toc li{margin:4px 0}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--rule)}
+.toc a:hover{color:var(--accent)}
+
+h2{font-size:48px;font-weight:900;line-height:1.3;margin:64px 0 20px;padding-bottom:8px;border-bottom:3px solid var(--ink)}
+h2 .num{color:var(--accent);margin-right:.4em}
+h3.sub{font-size:36px;font-weight:900;margin:36px 0 12px}
+p{margin:0 0 1em;text-align:justify}
+strong,em{font-weight:800;font-style:normal}
+em{color:var(--accent)}
+.num-big,.mono{font-weight:800;font-variant-numeric:tabular-nums}
+
+.dropcap::first-letter{float:left;font-size:120px;line-height:1;font-weight:900;color:var(--accent);margin:8px 16px 0 0}
+
+.pullquote{font-size:44px;font-weight:900;line-height:1.5;text-align:center;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:28px 20px;margin:48px 0;color:var(--accent-2)}
+
+.back{display:block;text-align:right;font-size:22px;margin-top:12px}
+.back a{color:var(--accent);text-decoration:none}
+
+/* timeline */
+.timeline{list-style:none;margin:24px 0 32px;padding:0;border-left:4px solid var(--ink)}
+.timeline li{position:relative;padding:0 0 18px 32px}
+.timeline li::before{content:"";position:absolute;left:-14px;top:14px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:4px solid var(--accent)}
+.timeline li.me::before{background:var(--accent)}
+.timeline .t{font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;margin-right:.5em}
+
+/* two-col with sidebar */
+.with-side{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+aside.side{background:var(--paper-2);border:2px solid var(--ink);padding:20px 22px;font-size:24px;line-height:1.6}
+aside.side h3{margin:0 0 10px;font-size:28px;letter-spacing:.15em;border-bottom:2px solid var(--ink);padding-bottom:6px}
+aside.side dl{margin:0}
+aside.side dt{color:var(--ink-soft);font-weight:700;margin-top:10px}
+aside.side dd{margin:0;font-weight:800;font-size:28px}
+aside.side .note{font-size:20px;color:var(--ink-soft);margin-top:12px}
+
+.margin-note{font-size:24px;color:var(--ink-soft);border-left:4px solid var(--rule);padding:4px 0 4px 16px;margin:0 0 28px}
+
+/* redrawn cards */
+.order{background:#fff;color:#1d1d1f;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:32px 36px;margin:28px 0 12px;font-family:-apple-system,"Helvetica Neue","PingFang TC",sans-serif}
+.order .prod{font-size:26px;font-weight:600;color:#333}
+.order .eta{font-size:52px;font-weight:800;line-height:1.2;margin:10px 0 24px}
+.bar{height:14px;background:#d2d2d7;border-radius:7px;overflow:hidden}
+.bar span{display:block;width:10%;height:100%;background:var(--green)}
+.steps{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:21px;color:#6e6e73;margin-top:10px}
+.steps .on{color:#1d1d1f;font-weight:800}
+.order .msg{font-size:24px;margin-top:22px;font-weight:600}
+.order .from{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #d2d2d7;padding-bottom:12px;font-size:24px;font-weight:700}
+.order .from .stamp{color:#fff;background:var(--accent);padding:2px 12px;font-weight:800}
+.order .lbl{font-weight:800}
+.order hr{border:none;border-top:1px solid #d2d2d7;margin:22px 0}
+.caption{font-size:22px;color:var(--ink-soft);text-align:center;margin-bottom:32px}
+
+/* LINE chat (redrawn) */
+.chat{background:#93a9d6;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:24px 20px;margin:28px 0 12px;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif;font-size:24px;line-height:1.5}
+.chat .row{display:flex;align-items:flex-end;gap:10px;margin:12px 0}
+.chat .row.me{justify-content:flex-end}
+.chat .b{max-width:78%;padding:12px 18px;border-radius:22px;font-weight:600;color:#111}
+.chat .row.me .b{background:var(--line-green)}
+.chat .row.them .b{background:#fff}
+.chat .ts{font-size:17px;color:#2b2b45;white-space:nowrap;font-weight:600}
+.chat .who{font-size:18px;color:#1f2340;margin:16px 0 -6px 6px;font-weight:700}
+
+/* WeChat chat (redrawn) */
+.wechat{background:#ededed;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:0 0 18px;margin:28px 0 12px;font-family:-apple-system,"PingFang SC","PingFang TC","Noto Sans SC",sans-serif;font-size:24px;line-height:1.5}
+.wechat .hd{text-align:center;font-weight:800;font-size:24px;padding:14px;border-bottom:1px solid #d6d6d6;background:#f5f5f5;color:#111}
+.wechat .row{display:flex;align-items:flex-start;gap:12px;margin:16px 18px}
+.wechat .row.me{flex-direction:row-reverse}
+.wechat .av{width:56px;height:56px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:24px}
+.wechat .av.j{background:#b5653a}
+.wechat .av.x{background:#3a6ea5}
+.wechat .body{max-width:76%}
+.wechat .name{font-size:17px;color:#888;margin-bottom:4px;font-weight:600}
+.wechat .b{padding:12px 18px;border-radius:8px;font-weight:600;color:#111;background:#fff}
+.wechat .row.me .b{background:#95ec69}
+.wechat .quote{margin-top:6px;background:#e0e0e0;color:#666;font-size:19px;padding:8px 14px;border-radius:6px;font-weight:600}
+.wechat .tsc{text-align:center;font-size:17px;color:#999;margin:18px 0 4px;font-weight:600}
+
+/* ledger table */
+table{width:100%;border-collapse:collapse;font-size:26px;margin:20px 0 28px}
+th,td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top}
+th{border-bottom:3px solid var(--ink);font-weight:900}
+td.d{font-weight:800;font-variant-numeric:tabular-nums}
+tr.me td{background:rgba(139,30,30,.10);font-weight:800}
+tr.me td.d{color:var(--accent)}
+tr.aux td{color:var(--ink-soft);font-style:normal}
+
+/* cost-of-delay figure */
+.delay{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.delay div{border:2px solid var(--ink);background:var(--paper-2);padding:16px;text-align:center}
+.delay .k{font-size:22px;color:var(--ink-soft)}
+.delay .v{font-size:52px;font-weight:800;color:var(--accent);line-height:1.2;font-variant-numeric:tabular-nums}
+.delay .u{font-size:22px}
+
+/* deadline track */
+.track-box{border:2px solid var(--ink);background:var(--paper-2);padding:24px 28px 20px;margin:28px 0 12px}
+.track-box .ttl{font-size:26px;font-weight:900;margin-bottom:8px}
+.track{position:relative;height:200px;margin:0 8px}
+.track .axis{position:absolute;left:0;right:0;top:96px;height:8px;background:var(--rule);border-radius:4px}
+.track .win{position:absolute;top:84px;height:32px;background:var(--green);border:2px solid var(--ink)}
+.track .trip{position:absolute;top:22px;bottom:12px;border-left:5px dashed var(--accent)}
+.track .dot{position:absolute;top:88px;width:24px;height:24px;margin-left:-12px;border-radius:50%;border:4px solid var(--ink);background:var(--paper)}
+.track .dot.miss{background:#9a9a9a}
+.track .lab{position:absolute;font-size:20px;font-weight:800;line-height:1.3;white-space:nowrap;transform:translateX(-50%);text-align:center}
+.track .lab.up{top:20px}
+.track .lab.dn{top:128px}
+.track .lab.red{color:var(--accent)}
+.track .lab.grn{color:var(--green)}
+.track-legend{font-size:20px;color:var(--ink-soft);margin-top:4px}
+
+.verdict{border:3px solid var(--accent);padding:22px 28px;margin:28px 0}
+.verdict .v{font-size:40px;font-weight:900;color:var(--accent)}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+.compare div{border:2px solid var(--ink);padding:18px 22px;background:var(--paper-2)}
+.compare h4{margin:0 0 8px;font-size:28px;font-weight:900;color:var(--accent)}
+.compare p{font-size:24px;margin:0 0 .4em;text-align:left}
+
+.sources{font-size:22px;line-height:1.6;border-top:6px double var(--ink);margin-top:72px;padding-top:16px}
+.sources h2{font-size:30px;margin:0 0 10px;border:none;padding:0}
+.sources a{color:var(--accent-2);word-break:break-all}
+.end{text-align:center;font-size:30px;margin:40px 0 0;letter-spacing:.6em}
+
+/* floating nav */
+.fnav{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:10}
+.fnav a{background:var(--ink);color:var(--paper);text-decoration:none;font-size:20px;font-weight:800;padding:10px 16px;border:2px solid var(--paper);box-shadow:3px 3px 0 rgba(0,0,0,.35);text-align:center}
+.fnav a:hover{background:var(--accent)}
+
+@media (max-width:900px){
+  body{font-size:22px}
+  .wrap{padding:28px 16px 120px}
+  .masthead .name{font-size:40px}
+  h1{font-size:46px}
+  .deck{font-size:24px}
+  h2{font-size:32px}
+  h3.sub{font-size:26px}
+  .pullquote{font-size:30px}
+  .dropcap::first-letter{font-size:80px}
+  .with-side{grid-template-columns:1fr}
+  .order{padding:22px 18px}
+  .order .eta{font-size:34px}
+  .chat{font-size:19px;padding:16px 10px}
+  .wechat{font-size:19px}
+  .wechat .row{margin:14px 10px;gap:8px}
+  .wechat .av{width:40px;height:40px;font-size:18px}
+  .wechat .body{max-width:80%}
+  table{font-size:19px}
+  th,td{padding:8px 6px}
+  .delay{grid-template-columns:1fr}
+  .delay .v{font-size:40px}
+  .verdict .v{font-size:28px}
+  .compare{grid-template-columns:1fr}
+  .track-box{padding:18px 10px}
+  .track .lab{font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="name">老熊隨筆</div>
+  <div class="sub">Lao Xiong · Field Notes &amp; Audited Memoirs</div>
+</header>
+<div class="issue"><span>精選外刊 · 生活復盤</span><span>2026 年 10 月 16 日 · 星期五</span><span>加州 · 紅木岸</span></div>
+
+<div class="kicker">復盤體 ・ 消費紀實</div>
+<h1>凌晨五點的摺疊機</h1>
+<p class="deck">一個退休的化學計量學者,在七分鐘的倒數裡搶 iPhone Duo。五點零六分下單——只晚了六分鐘,到貨日就從十月二十三日滑到十一月二十三日,整整一個月。但這一次的早起,也確保了十二月中旬的歐洲之行,口袋裡會是那支新的摺疊機。六分鐘究竟值多少?把資料攤開來,一筆一筆對。到了下午,前同事一句「旅遊得配 18 Pro」,又逼出這支哀瘋真正的定位:不是相機,是情緒價值。</p>
+<div class="byline">文/老熊</div>
+
+<nav class="toc" id="toc">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#s1">凌晨四點五十三分</a></li>
+    <li><a href="#s2">倒數七分鐘</a></li>
+    <li><a href="#s3">五點整:門關了,又開了</a></li>
+    <li><a href="#s4">五點零六分:一封確認信</a></li>
+    <li><a href="#s5">五點三十五分:整個灣區,沒有一間店</a></li>
+    <li><a href="#s6">五點四十四分:兩個對照組</a></li>
+    <li><a href="#s7">五點五十九分:歐洲之行的截止線</a></li>
+    <li><a href="#s8">復盤:六分鐘值多少?</a></li>
+    <li><a href="#s9">八點三十三分:七、八年前的那個中午</a></li>
+    <li><a href="#s10">下午五點三十三分:哀瘋的情緒價值</a></li>
+    <li><a href="#s11">尾聲:早起還是值得的</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+<h2><span class="num">一</span>凌晨四點五十三分</h2>
+<p class="dropcap">十月十六日,星期五,清晨四點五十三分。紅木岸的天還黑著,我已經坐在螢幕前,打下一行字:<em>get ready for iPhone Duo preorder</em>。離蘋果開放預購,還有七分鐘。</p>
+<p>iPhone Duo 是蘋果第一支摺疊 iPhone。九月九日發表,同場的 18 Pro 與 Pro Max 九月十八日就上市了,Duo 卻被單獨拖到十月:預購訂在太平洋時間十月十六日清晨五點,十月二十三日到貨上市。</p>
+<p>為什麼拖?業界說得很直白——產量不足。分析師估計,2026 全年蘋果只能交出大約 <span class="num-big">600 萬</span>支 Duo。對照同期 18 Pro 系列加 Duo 合計約八千萬支的預估產量,這是一個母體很小的抽樣。</p>
+<p>而我心裡還有一條看不見的截止線:<strong>我們家十二月中旬要去歐洲。</strong>這支摺疊機,能不能趕在出發前到手?</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s2">
+<h2><span class="num">二</span>倒數七分鐘</h2>
+<p>AI 助手給我的清單很短,短到像一份實驗前的檢核表:</p>
+<ul class="timeline">
+  <li><span class="t">01</span>用 Apple Store app,不用網頁;若「Get ready」按鈕還在,先把顏色、容量、電信、付款全部設好。</li>
+  <li><span class="t">02</span>確認信用卡沒過期、帳單地址與銀行紀錄一致、送貨地址正確——一個錯字就會被踢出隊伍。</li>
+  <li><span class="t">03</span>五點一到,下拉刷新,不要再改規格,直接結帳。</li>
+  <li><span class="t">04</span>送貨日期太遠,就改選附近門市取貨:Stanford、Burlingame。</li>
+  <li><span class="t">05</span>手機開 app、電腦開網頁,兩邊同時進攻,哪邊先開就用哪邊。</li>
+</ul>
+<p>四點五十九分,我又問了一句:現在幾點?</p>
+<p>回答是:<span class="mono">4:59:54 AM</span>。還有六秒。</p>
+<div class="pullquote">「還有六秒。」<br>這六秒,比任何一次儀器暖機都長。</div>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s3">
+<h2><span class="num">三</span>五點整:門關了,又開了</h2>
+<p>蘋果照例在預購前把線上商店整個關掉,掛出一段歡迎早起顧客的俏皮話。這次還多了一道新關卡:排隊機制。頁面請你留在原地,等系統把你叫進去。AppleInsider 提醒過,各地進入商店的時間會因伺服器分流而不同,有人早、有人晚;Macworld 那一頭,則要到太平洋時間五點零七分才看到頁面打開。</p>
+<p>接下來的事,快得像一條衰減曲線:</p>
+<ul class="timeline">
+  <li><span class="t">開賣片刻</span>首發十月二十三日的到貨日開始後退,先滑到 <strong>11 月 16 日</strong>,再滑到 <strong>11 月 23 日</strong>(AppleInsider)。</li>
+  <li class="me"><span class="t">5:06</span>老熊下單成功。到貨:<strong>11 月 23 日 – 12 月 1 日</strong>(Apple 確認信)。</li>
+  <li><span class="t">不到 15 分鐘</span>部分規格的首日到貨已經消失(The Apple Post)。</li>
+  <li><span class="t">隨後</span>未鎖版 256GB 兩種顏色,一度顯示 <strong>12 月 1–8 日</strong>(Macworld)。</li>
+  <li><span class="t">約半小時</span>所有訂單一律顯示 <strong>2027 年 1 月 25 日</strong>(Macworld)。</li>
+</ul>
+<p>半小時,從十月推到明年一月。這不是銷售曲線,這是懸崖。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s4">
+<h2><span class="num">四</span>五點零六分:一封確認信</h2>
+<p>那天早上真正的關鍵時刻,不在螢幕上,在信箱裡。等我事後打開郵件,才看清楚自己究竟是幾點進場的:</p>
+<div class="order" role="img" aria-label="Apple Store 訂單確認信:上午 5:06 寄出,訂購日期 2026 年 10 月 16 日,iPhone Duo 1TB 星白,預計 11 月 23 日至 12 月 1 日快遞送達">
+  <div class="from"><span>Apple Store ✓</span><span class="stamp">5:06 AM</span></div>
+  <div class="eta" style="margin-top:22px">Thank you for your order.</div>
+  <div class="msg" style="margin-top:0">We'll let you know when your items are on their way.</div>
+  <div class="msg"><span class="lbl">Order Number:</span> ●●●●●●●●●(已遮蔽)<br><span class="lbl">Ordered on:</span> Oct 16, 2026</div>
+  <hr>
+  <div class="msg" style="margin-top:0;font-size:30px;font-weight:800">Items to Be Shipped</div>
+  <div class="msg"><span class="lbl">Shipment 1</span><br><span class="lbl">Delivers:</span> Nov 23 – Dec 1 by Express Delivery</div>
+  <div class="msg"><span class="lbl">iPhone Duo 1TB Star White</span></div>
+</div>
+<p class="caption">▲ Apple Store 訂單確認信(依原截圖重繪,訂單號碼已遮蔽)</p>
+<p>確認信的時間戳是 <strong>上午 5:06</strong>。規格是 <strong>iPhone Duo 1TB、星白</strong>。預計到貨:<strong>十一月二十三日到十二月一日</strong>,快遞。</p>
+<p>換句話說:<em>我只比開賣晚了六分鐘。</em>而這六分鐘,已經足夠讓首發十月二十三日那一批從我面前消失,讓到貨日往後推了整整一個月。</p>
+<div class="pullquote">晚了六分鐘,<br>差了一個月。</div>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s5">
+<h2><span class="num">五</span>五點三十五分:整個灣區,沒有一間店</h2>
+<p>訂單其實早已落袋,但我還是不死心,回頭去看門市取貨——如果附近哪間店還有首發日的名額,也許能把一個月的等待縮回一週。結果,整個灣區沒有一間 Apple Store 有取貨時段。</p>
+<p>五點三十五分,我把訂單狀態頁截圖傳到 LINE,給朋友 Erhhsuan,順手抱怨了一句:</p>
+<div class="chat" role="img" aria-label="LINE 對話重繪:5:35 老熊說五點整開賣結果還是沒有門市取貨">
+  <div class="row me"><span class="ts">5:35 AM</span><div class="b">5 點整開賣 結果還是沒有 in store pickup(似乎整個灣區都沒有)</div></div>
+</div>
+<p class="caption">▲ LINE 對話(依原截圖重繪)</p>
+<p>那張一起傳出去的截圖,就是這個畫面:</p>
+<div class="order" role="img" aria-label="iPhone Duo 訂單狀態:預計 11 月 23 日至 12 月 1 日快遞送達,目前進度為訂單已成立">
+  <div class="prod">iPhone Duo</div>
+  <div class="eta">Arrives Nov 23 – Dec 1<br>by Express Delivery</div>
+  <div class="bar"><span></span></div>
+  <div class="steps"><span class="on">Order Placed</span><span>Processing</span><span>Preparing to Ship</span><span>Shipped</span><span>Delivered</span></div>
+  <div class="msg">We've received your payment information and are preparing your order.</div>
+</div>
+<p class="caption">▲ 老熊的訂單狀態(依原截圖重繪)</p>
+<p>綠色進度條只走到第一格:<strong>訂單已成立</strong>。到貨區間,和五點零六分那封信一字不差。</p>
+<p>取貨名額是最先蒸發的那一層。MacRumors 論壇上,早在預購前三天就有人預言:預購一開,取貨時段會在你「選好」與「付款」之間消失,然後系統只丟給你一句「出了點問題」。</p>
+<p class="margin-note">旁註:Macworld 的直播稿提到,同一時間 Best Buy 頁面上還掛著十月二十三日的取貨日。那是另一條通路、另一份庫存——但對一個已經下單的人來說,這條線索可以留著,不必追了。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s6">
+<h2><span class="num">六</span>五點四十四分:兩個對照組</h2>
+<p>五點四十四分,我回到商店頁面,把<strong>同一款</strong> iPhone Duo——<strong>1TB、星白</strong>,也就是我五點零六分下單的那一支——重新放進設定器,看看「此刻才下單的人」會拿到什麼。</p>
+<div class="order" role="img" aria-label="iPhone Duo 1TB 星白商店頁面:售價 2,599 美元,送貨至 94102 為 1 月 25 日星期一,門市取貨請於 10 月 24 日再查詢">
+  <div class="prod">iPhone Duo 1TB Star White</div>
+  <div class="eta">$2,599.00</div>
+  <div class="msg" style="margin-top:0">One-time payment</div>
+  <div class="msg">🚚 Delivers to 94102<br><strong>Mon, Jan 25 — Free</strong></div>
+  <div class="msg">🛍 Pickup:<br>Check back for availability on 10.24</div>
+</div>
+<p class="caption">▲ 五點四十四分的商店頁面(依原截圖重繪)</p>
+<p>這是<strong>第一個對照組</strong>,而且規格完全相同。同一款機器、同一個早上,五點零六分下單是十一月二十三日起;五點四十四分再下單,已經是 <strong>2027 年 1 月 25 日(星期一)</strong>。這和 Macworld 回報「開賣約半小時後,所有訂單一律一月二十五日」的觀察完全吻合——第三方報導,得到了第一手資料的獨立驗證。</p>
+<p>同一分鐘,LINE 那頭的 Erhhsuan 回了一個字。再過一分鐘,<strong>第二個對照組</strong>自己送上門來:</p>
+<div class="chat" role="img" aria-label="LINE 對話重繪:5:44 Erhhsuan 回哇;5:45 說試著訂看匹茲堡,門市取貨看起來要 10 月 24 日之後才有">
+  <div class="who">Erhhsuan</div>
+  <div class="row them"><div class="b">哇</div><span class="ts">5:44 AM</span></div>
+  <div class="row them"><div class="b">哈哈 剛剛試著訂看匹茲堡有沒有那麼搶手 不過看起來 in store pickup availability 要 10/24 之後才有?</div><span class="ts">5:45 AM</span></div>
+</div>
+<p class="caption">▲ LINE 對話(依原截圖重繪)</p>
+<p>匹茲堡,在美國大陸的另一端。那裡的門市取貨,同樣要等到 <strong>10 月 24 日</strong>之後才開放查詢——和我頁面上那句「請於 10.24 再回來查」一模一樣。兩個相隔兩千多英里的獨立觀測點,給出同一個結果:<em>這不是灣區缺貨,是全國性的取貨閘門,在首發隔天之前一律關閉。</em></p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s7">
+<h2><span class="num">七</span>五點五十九分:歐洲之行的截止線</h2>
+<p>五點五十四分,我把這篇稿子的第一版轉成 PDF 傳給 Erhhsuan,附上一句:「看起來我算是很早的了,哈哈。」五分鐘後,我把真正在意的那件事說了出來:</p>
+<div class="chat" role="img" aria-label="LINE 對話重繪:5:54 老熊傳出 PDF 並說看起來算很早;5:59 說各家店會留現貨給 10 月 23 或 24 日排隊搶購,但十二月中旬才去歐洲,所以 11 月 23 日到 12 月 1 日應該來得及">
+  <div class="row me"><span class="ts">5:54 AM</span><div class="b">📄 凌晨五點的摺疊機.pdf</div></div>
+  <div class="row me"><span class="ts">5:54 AM</span><div class="b">看起來我算是很早的了 哈哈</div></div>
+  <div class="row me"><span class="ts">5:59 AM</span><div class="b">對 各家店會有一些留在店裡在 10 月 23 或 24 讓大家去排隊搶購的 我屆時如果願意也可以去 不保證有 我們要 12 月中旬才去歐洲 所以 我訂到的 11 月 23–12 月 1 號 應該是來得及的</div></div>
+</div>
+<p class="caption">▲ LINE 對話(依原截圖重繪)</p>
+<p>這才是整件事的真正分母。一個月的延遲,本身不算什麼;重要的是,它落在截止線的哪一邊。把幾個日期畫在同一條時間軸上:</p>
+
+<div class="track-box" role="img" aria-label="時間軸:10/23 首發;老熊到貨區間 11/23 至 12/1;12 月中旬歐洲之行;5:44 對照組 1/25 到貨,錯過行程">
+  <div class="ttl">到貨日 vs. 歐洲之行(2026/10/16 – 2027/1/31)</div>
+  <div class="track">
+    <div class="axis"></div>
+    <div class="win" style="left:35.5%;width:7.5%"></div>
+    <div class="trip" style="left:56.1%"></div>
+    <div class="dot" style="left:6.5%"></div>
+    <div class="dot miss" style="left:94.4%"></div>
+    <div class="lab up" style="left:6.5%">10/23<br>首發</div>
+    <div class="lab dn grn" style="left:39.3%">11/23–12/1<br>我的 Duo</div>
+    <div class="lab up red" style="left:56.1%">12 月中旬<br>出發去歐洲</div>
+    <div class="lab dn" style="left:90%">1/25<br>5:44 下單者</div>
+  </div>
+  <div class="track-legend">綠色區塊=老熊的預計到貨區間;紅色虛線=歐洲之行出發(十二月中旬,約略位置);灰點=同規格晚 38 分鐘下單的到貨日。</div>
+</div>
+<p class="caption">▲ 截止線示意圖(依日期比例繪製)</p>
+<p>我的到貨區間,最晚的一天是十二月一日——離十二月中旬出發,還留有大約<strong>兩週的緩衝</strong>。就算蘋果的預估再晚個幾天,也還在安全範圍內。</p>
+<p>反過來看:如果我是五點四十四分才下單,到貨日是一月二十五日,那時我們早已從歐洲回來了。<em>晚三十八分鐘,錯過的不只是兩個月,而是一整趟旅程。</em></p>
+<div class="pullquote">六分鐘,輸掉了首發;<br>但早起,贏回了歐洲。</div>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s8">
+<h2><span class="num">八</span>復盤:六分鐘值多少?</h2>
+<div class="with-side">
+<div>
+<p>復盤體的規矩是:記憶要當成資料,資料要拿去對帳。把當天各家媒體回報的到貨日,和我自己的第一手資料,依時間排在同一張表上:</p>
+<table>
+  <thead><tr><th>時點</th><th>預計到貨</th><th>來源</th></tr></thead>
+  <tbody>
+    <tr><td>5:00 開賣</td><td class="d">10/23(首發)</td><td>官方</td></tr>
+    <tr><td>開賣片刻</td><td class="d">11/16</td><td>AppleInsider</td></tr>
+    <tr><td>隨後</td><td class="d">11/23</td><td>AppleInsider</td></tr>
+    <tr class="me"><td>5:06 老熊下單</td><td class="d">11/23 – 12/1</td><td>確認信 ✓</td></tr>
+    <tr><td>某時段</td><td class="d">12/1 – 12/8</td><td>Macworld</td></tr>
+    <tr><td>約 5:30</td><td class="d">2027/1/25</td><td>Macworld</td></tr>
+    <tr><td>5:44(同規格)</td><td class="d">2027/1/25(一)</td><td>本人截圖 ✓</td></tr>
+    <tr class="aux"><td>5:45 匹茲堡</td><td class="d">取貨:10/24 後</td><td>Erhhsuan ✓</td></tr>
+  </tbody>
+</table>
+<p>把第一手資料抽出來,算一下延遲的「放大倍率」:</p>
+</div>
+<aside class="side">
+  <h3>數據帳本</h3>
+  <dl>
+    <dt>起售價(256GB)</dt><dd>US$1,999</dd>
+    <dt>老熊這支(1TB)</dt><dd>US$2,599</dd>
+    <dt>頂配(2TB)</dt><dd>US$3,199</dd>
+    <dt>內螢幕</dt><dd>7.6 吋 · 2180×2460</dd>
+    <dt>記憶體 / 電池</dt><dd>12GB · 4,700 mAh</dd>
+    <dt>後鏡頭</dt><dd>雙 48MP · 固定 ƒ/1.6</dd>
+    <dt>顏色</dt><dd>星白 · 夜空</dd>
+    <dt>2026 預估產量</dt><dd>約 600 萬支</dd>
+    <dt>上市日</dt><dd>10/23(第二波國家 10/30)</dd>
+    <dt>到貨緩衝</dt><dd>距歐洲行約 2 週</dd>
+  </dl>
+  <div class="note">數據取自 PhoneArena、MacRumors、Khaleej Times 等報導與本人截圖;產量為分析師估計。</div>
+</aside>
+</div>
+
+<div class="delay">
+  <div><div class="k">晚了</div><div class="v">6</div><div class="u">分鐘(5:00 → 5:06)</div></div>
+  <div><div class="k">到貨延後</div><div class="v">31</div><div class="u">天(10/23 → 11/23)</div></div>
+  <div><div class="k">放大倍率</div><div class="v">≈7,440×</div><div class="u">每晚 1 分鐘 ≈ 多等 5 天</div></div>
+</div>
+<p>再看五點四十四分的對照組:比我晚了三十八分鐘下單,到貨日又往後推了 <strong>63 天</strong>(11/23 → 1/25)。從開賣算起,四十四分鐘換來九十四天的延遲。</p>
+<p>結論分三層:</p>
+<p><strong>第一層,首發批(10/23):沒搶到。</strong>六分鐘就足以錯過。</p>
+<p><strong>第二層,第一次滑落(11/16):也沒搶到。</strong>那一階在開賣片刻就被吃掉了。</p>
+<p><strong>第三層,第二階(11/23):搶到了。</strong>我的區間起點,正好對上 AppleInsider 回報的第二個滑落點;比 Macworld 看到的 12 月 1–8 日早了大約一週,比半小時後那批「明年一月二十五日」早了整整兩個月——那個「一月二十五日」,我用同一款機器親眼核實過。</p>
+<div class="verdict"><div class="v">判定:晚了六分鐘,差了一個月;<br>但它落在截止線的正確一邊。</div>首發沒搶到,歐洲之行卻穩了。在半小時內從十月滑到明年一月的佇列裡,這是最要緊的那一條線。</div>
+
+<h3 class="sub">資料稽核:四個缺口,補上了一個</h3>
+<p><strong>其一,資料點不能嚴格對齊。</strong>各家媒體回報的時點各不相同,規格、電信方案也未必一致。表上的媒體資料是「大致落點」,不是同一把尺量出來的。真正可靠的,是我自己的第一手資料:五點零六分與五點四十四分,同一款機器,同一個帳號;再加上 Erhhsuan 從匹茲堡傳來的取貨觀測。</p>
+<p><strong>其二,送出訂單的確切時間——這個缺口補上了。</strong>原本我只能用對照組推出一個「大約五點半以前」的上界。後來那封確認信把答案直接攤在桌上:<strong>上午 5:06</strong>。推論方向是對的,但實測值比推論早了二十多分鐘。有趣的是,這比 Macworld 看到頁面打開的五點零七分還早了一分鐘——伺服器分流,讓每個人的「五點整」都不一樣。</p>
+<p><strong>其三,「十二月中旬」不是一個精確日期。</strong>示意圖上的紅線取的是約略位置;實際緩衝是兩週左右,不是精算值。</p>
+<p><strong>其四,預估只是預估。</strong>蘋果的到貨區間可能提前,也可能延後。進度條目前只走到第一格,真正的資料要等「Shipped」那一格亮起來才算數。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s9">
+<h2><span class="num">九</span>八點三十三分:七、八年前的那個中午</h2>
+<p>早上七點多,我把確認信轉給 Erhhsuan,說我其實只晚了六分鐘,到貨就推遲了一個月。八點二十五分,Erhhsuan 回:</p>
+<div class="chat" role="img" aria-label="LINE 對話重繪:8:25 Erhhsuan 說好像還有要等到 2027 的,看來早起還是值得的;8:33 老熊說七八年前有過一次,開放預訂那天中午才上網,出貨已到 12 月中旬,後來等到第二年春天才買;8:37 Erhhsuan 說這次有經驗了">
+  <div class="row me"><span class="ts">7:28 AM</span><div class="b">我事實上是 只晚了六分鐘下單而已 出貨或郵寄到家時間就從 10 月 23 號 推遲了一個月 到了最早 11 月 23 號 哈哈</div></div>
+  <div class="who">Erhhsuan</div>
+  <div class="row them"><div class="b">哈哈 對啊!我看好像還有要等到 2027 的<br>看來早起還是值得的</div><span class="ts">8:25 AM</span></div>
+  <div class="row me"><span class="ts">8:33 AM</span><div class="b">的確 我們家在 7–8 年前有過一次 也是想在年底出遊前拿到新手機 後來慢悠悠的在開放預訂那天的中午?才上網,結果出貨已經到了 12 月中旬? 後來似乎等到了第二年春天?才買 哈哈</div></div>
+  <div class="row them"><div class="b">哈哈 這次有經驗了 👍</div><span class="ts">8:37 AM</span></div>
+  <div class="row me"><span class="ts">9:03 AM</span><div class="b">哈哈 的確</div></div>
+</div>
+<p class="caption">▲ LINE 對話(依原截圖重繪)</p>
+<p>這段對話裡藏著整篇文章的前傳。七、八年前,同樣是年底出遊,同樣想帶新手機上路;那一次我慢悠悠地,到開放預訂當天中午才上網,出貨日已經排到十二月中旬,趕不上出發。最後,那支手機等到第二年春天才買。</p>
+<p>這次我在凌晨四點五十三分就坐到螢幕前,不是偶然。是前車之鑑。</p>
+
+<h3 class="sub">記憶的資料品質</h3>
+<p>照復盤體的規矩,這段記憶也得拿去對帳。我自己的原話裡,就帶著三個問號:「中午?」「12 月中旬?」「第二年春天?」——這是一筆<strong>自帶不確定度標記</strong>的資料,我當時打字就知道它不牢靠。</p>
+<p>拿蘋果的預購史去比對,最吻合的候選是 <strong>2017 年的 iPhone X</strong>:那年預購在十月二十七日凌晨十二點零一分開放,首批不到半小時就賣完;到了當天,美國所有型號的出貨預估都已滑到五至六週,也就是十二月初,和「十二月中旬?」大致對得上。當年的分析師還預測,供需要到 2018 年才會平衡——這也和「等到第二年春天才買」的走向一致。</p>
+<p>但這只是<strong>假說,不是結論</strong>。若真是 iPhone X,那就不是七、八年前,而是<strong>九年前</strong>;而且「中午才上網」,相當於比開賣晚了將近十二個小時。如果假說成立,兩次的對照就很漂亮:</p>
+<div class="compare">
+  <div><h4>那一次(約 2017?)</h4><p>晚了:約 12 小時</p><p>出貨:12 月中旬?</p><p>年底出遊:趕不上</p><p>結局:隔年春天才買</p></div>
+  <div><h4>這一次(2026)</h4><p>晚了:6 分鐘</p><p>出貨:11/23–12/1</p><p>歐洲之行:來得及</p><p>結局:帶著 Duo 上路</p></div>
+</div>
+<p class="margin-note">旁註:要驗證這個假說,只要翻出當年的訂單紀錄或購機收據,看一眼型號與日期即可。這筆資料,留給下一篇復盤。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s10">
+<h2><span class="num">十</span>下午五點三十三分:哀瘋的情緒價值</h2>
+<p>訂單落袋的消息,當然也要在 Viavi 前同事的微信群裡報一下。群裡十二個人,都是跟儀器、光譜、演算法打了半輩子交道的。Jinhui 一開口,就戳在最痛的地方:</p>
+<div class="wechat" role="img" aria-label="微信群 Viavi 對話重繪:Jinhui 說出去旅遊得配 18 Pro 的可變光圈相機;12:45 老熊承認 Duo 的相機是硬傷,但有兩個不花錢的補救方法:帶上自己的 16 Pro Max,或用老婆的 16 Pro Max,並說 Duo 的主要功能是付錢時把折疊屏慢慢打開;1:10 Jinhui 說得請老婆把這個過程拍下來;5:33 老熊說那是必須的,這東西提供的情緒價值僅次於她">
+  <div class="hd">Viavi (12)</div>
+  <div class="row them"><div class="av j">J</div><div class="body"><div class="name">Jinhui</div><div class="b">出去旅游得要配18Pro,variable aperture 相机😁</div></div></div>
+  <div class="tsc">12:45 PM</div>
+  <div class="row me"><div class="av x">熊</div><div class="body"><div class="b">哈哈😂 duo 的摄象机的确是个硬伤,不过我有两个不花一分钱的补救方法; 1 是把我现在的 16 pro max 也带上,2 是用老婆的 16 pro max</div></div></div>
+  <div class="row me"><div class="av x">熊</div><div class="body"><div class="b">这台 duo 的主要功能就是 在付钱的过程中把折叠屏 慢慢的打开 😁</div></div></div>
+  <div class="tsc">1:10 PM</div>
+  <div class="row them"><div class="av j">J</div><div class="body"><div class="name">Jinhui</div><div class="b">可得请你老婆拍下来这个过程</div><div class="quote">熊:这台 duo 的主要功能就是 在付钱的过程中把折叠屏 慢慢的打开 😁</div></div></div>
+  <div class="tsc">5:33 PM</div>
+  <div class="row me"><div class="av x">熊</div><div class="body"><div class="b">那是必须的 哈哈,这个东西 提供的 情绪价值 仅次于她 😁</div></div></div>
+</div>
+<p class="caption">▲ 微信群「Viavi」對話(依原截圖重繪,文字照錄原文)</p>
+
+<h3 class="sub">硬傷:先對帳</h3>
+<p>Jinhui 說的是事實,不是抬槓。把兩支機器的相機規格攤開:</p>
+<table>
+  <thead><tr><th>項目</th><th>iPhone Duo</th><th>iPhone 18 Pro / Pro Max</th></tr></thead>
+  <tbody>
+    <tr><td>後鏡頭</td><td class="d">2 顆 48MP(主鏡+超廣角)</td><td class="d">3 顆 48MP(加長焦)</td></tr>
+    <tr><td>主鏡光圈</td><td class="d">固定 ƒ/1.6</td><td class="d">可變 ƒ/1.48 – ƒ/4,四段</td></tr>
+    <tr><td>最大光學品質變焦</td><td class="d">2×(無長焦)</td><td class="d">8×(4× 長焦裁切)</td></tr>
+  </tbody>
+</table>
+<p>可變光圈是 18 Pro 這一代的招牌,iPhone 史上第一次;Duo 沒有,連長焦也一併省了。起售價比 18 Pro 貴了一大截,相機卻退了一步——評測界的說法很一致:Duo 拿的是比較大膽的機身設計,18 Pro 拿的是比較大膽的相機。我這支 1TB 花了兩千五百九十九美元,買的顯然不是鏡頭。</p>
+
+<h3 class="sub">零成本補救:兩支 16 Pro Max</h3>
+<p>我的補救方法,說穿了就是<strong>不換儀器,用現有的儀器組陣列</strong>:我自己的 16 Pro Max 帶上,老婆的 16 Pro Max 也在旅途中。一支管摺疊,兩支管拍照。邊際成本是零。</p>
+<p>但復盤體不能只報喜。拿 16 Pro Max 去補 Duo 的缺口,補回了一部分,也留下了一部分:</p>
+<p><strong>補回的:長焦。</strong>16 Pro Max 有 5 倍長焦,遠勝 Duo 的 2 倍,在歐洲拍教堂尖頂、廣場遠景,這個缺口算是填上了。</p>
+<p><strong>補不回的:可變光圈。</strong>那是 18 Pro 才有的東西,家裡兩支 16 Pro Max 都沒有。Jinhui 點名的那一項,其實一分錢也沒補到。好在手機感光元件小,景深本來就深,可變光圈在日常旅拍裡的實際差別,本來就不大——這筆缺口,我認了。</p>
+
+<h3 class="sub">主要功能:付錢時,慢慢打開</h3>
+<p>真正的答案,我在十二點四十五分就自己招了:<em>這台 Duo 的主要功能,就是在付錢的過程中,把摺疊屏慢慢地打開。</em></p>
+<p>Jinhui 一點十分接得漂亮:那可得請你老婆把這個過程拍下來。這裡有個巧妙的閉環——負責掌鏡的,正是補救方法二裡那支「老婆的 16 Pro Max」。Duo 的相機短板,由它自己最重要的一幕來補。</p>
+<p>下午五點三十三分,我給了這筆帳一個最終排序:</p>
+<div class="pullquote">「這個東西提供的情緒價值,<br>僅次於她。」</div>
+<p>做了一輩子的分類器,這是我少數不需要交叉驗證的排序:第一名老婆,第二名摺疊機,中間的差距,不在同一個數量級。至於相機那一欄——在情緒價值這個目標函數裡,權重本來就不高。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s11">
+<h2><span class="num">十一</span>尾聲:早起還是值得的</h2>
+<p>接下來是一個多月的等待。十月二十三日首發那天,門市仍會留一些現貨給現場排隊的人;十月二十四日,線上的門市取貨也會重新開放查詢。如果那兩天想去 Stanford 碰碰運氣,這張十一月底的訂單就是退路,而不是唯一的路——但我其實已經不需要了。</p>
+<p>做了一輩子的資料,最後發現,搶手機跟建校正模型其實很像:你控制不了母體的大小,也控制不了別人什麼時候進場;你唯一能控制的,是自己的前處理做得夠不夠乾淨,以及按下按鈕的那一刻。</p>
+<p>Erhhsuan 說得好:「這次有經驗了。」七、八年前那個慢悠悠的中午,是一筆失敗的實驗;今天凌晨的五點零六分,是修正過後的重複實驗。六分鐘的落差,讓我錯過了首發;但早起本身,已經確保了一件更重要的事——</p>
+<div class="pullquote">十二月中旬,<br>我會帶著這支摺疊機,去歐洲。</div>
+<p>還有一個鏡頭要拍:在歐洲某個收銀台前,把它慢慢打開。掌鏡的是老婆,用的是她的 16 Pro Max。</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section class="sources">
+<h2>資料來源</h2>
+<ol>
+  <li>第一手資料:Apple Store 訂單確認信(2026/10/16 上午 5:06)、訂單狀態頁截圖、商店頁面截圖(5:44)、與 Erhhsuan 的 LINE 對話(5:35–9:03)、微信群「Viavi」與 Jinhui 的對話(12:45–5:33 PM)</li>
+  <li><a href="https://engadget.com/2282217/iphone-duo-vs-iphone-18-pro-camera-differences/">Engadget:How the iPhone Duo's camera is different from the iPhone 18 Pro's</a></li>
+  <li><a href="https://www.tomsguide.com/phones/iphones/iphone-duo-vs-iphone-18-pro-5-biggest-things-you-dont-get-on-apples-foldable">Tom's Guide:iPhone Duo vs iPhone 18 Pro — 5 things you don't get</a></li>
+  <li><a href="https://www.digitec.ch/en/page/apple-praesentiert-faltbares-iphone-duo-und-iphone-18-pro-43764">Digitec:Apple presents foldable iPhone Duo and iPhone 18 Pro</a></li>
+  <li><a href="https://www.digitalcameraworld.com/tech/iphones/the-iphone-18-pro-has-a-variable-aperture-camera-lens-why-dont-all-phones">Digital Camera World:Why the iPhone 18 Pro has a variable aperture</a></li>
+  <li><a href="https://forums.appleinsider.com/discussion/246126">AppleInsider:iPhone Duo sells out moments after pre-orders begin</a></li>
+  <li><a href="https://appleinsider.com/articles/26/10/16/preorders-for-the-iphone-duo-are-now-live">AppleInsider:Preorders for the iPhone Duo are now live</a></li>
+  <li><a href="https://www.macworld.com/article/3262078/iphone-duo-pre-order-live-blog-how-quickly-will-apples-folding-phone-sell-out.html">Macworld:iPhone Duo pre-order live blog</a></li>
+  <li><a href="https://www.theapplepost.com/2026/10/16/73329/iphone-duo-launch-day-delivery-is-already-gone-less-than-15-minutes-after-pre-orders-open/">The Apple Post:Launch-day delivery gone in under 15 minutes</a></li>
+  <li><a href="https://www.macrumors.com/2026/10/16/apple-store-down-ahead-of-iphone-duo-pre-orders/">MacRumors:Apple Store Down Ahead of iPhone Duo Pre-Orders</a></li>
+  <li><a href="https://forums.macrumors.com/threads/you-can-now-set-up-your-iphone-duo-pre-order-do-it-before-friday.2491532/page-11">MacRumors 論壇:預購前的取貨討論</a></li>
+  <li><a href="https://www.phonearena.com/news/with-limited-supply-of-iphone-duo-at-launch-apple-makes-it-easier-to-pre-order_id183719">PhoneArena:Limited supply of iPhone Duo at launch</a></li>
+  <li><a href="https://www.phonearena.com/news/pre-register-your-iphone-duo-pre-order-now_id184016">PhoneArena:Pre-register your iPhone Duo pre-order</a></li>
+  <li><a href="https://www.tomsguide.com/phones/iphones/planning-to-buy-apples-foldable-iphone-duo-heres-how-to-get-one-on-launch-day">Tom's Guide:How to pre-order the iPhone Duo</a></li>
+  <li><a href="https://www.mactrast.com/2017/10/iphone-x-pre-order-delivery-quickly-slips-5-6-weeks/amp/">MacTrast(2017):iPhone X Pre-Order Delivery Quickly Slips to 5-6 Weeks</a></li>
+  <li><a href="https://9to5mac.com/2017/10/27/some-iphone-x-pre-order-customers-seeing-delivery-date-improvements/">9to5Mac(2017):iPhone X pre-order delivery dates</a></li>
+  <li><a href="https://www.idownloadblog.com/2017/10/27/iphone-x-shipments-slip-to-5-6-weeks/">iDownloadBlog(2017):iPhone X shipping estimates slip to 5-6 weeks</a></li>
+</ol>
+<p class="end">— 完 —</p>
+</section>
+
+</div>
+
+<nav class="fnav" aria-label="頁面導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
