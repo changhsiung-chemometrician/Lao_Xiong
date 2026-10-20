@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>紀錄第一次過億詞元的修改舊碼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=LXGW+WenKai+TC:wght@400;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: 夜墨底色沿用前篇；開頭是數字與花費，接著一張 AQP 流程圖，再依時間順序白話敘事，帳目放在後段。 */
+:root{
+  --bg:#0e131d; --surface:#151c2a; --ink:#ebe4d2; --muted:#a3abba; --rule:#2a3446;
+  --gold:#dcb65c; --cinnabar:#e5573f; --jade:#73b89d; --seal-ink:#fff4ea; --track:#2f3a4f;
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"LXGW WenKai TC","Kaiti TC","DFKai-SB","PingFang TC",serif;
+  --f-mono:"IBM Plex Mono",Consolas,monospace;
+  --fs:clamp(22px, 0.95rem + 1vw, 29px);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#eceee9; --surface:#fafaf6; --ink:#1a2130; --muted:#525c6c; --rule:#ccd2cc;
+  --gold:#8a670c; --cinnabar:#b4311d; --jade:#2c765c; --seal-ink:#fff8f2; --track:#c6ccc6;
+  color-scheme:light; } }
+:root[data-theme="light"]{
+  --bg:#eceee9; --surface:#fafaf6; --ink:#1a2130; --muted:#525c6c; --rule:#ccd2cc;
+  --gold:#8a670c; --cinnabar:#b4311d; --jade:#2c765c; --seal-ink:#fff8f2; --track:#c6ccc6;
+  color-scheme:light; }
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--fs);font-weight:700;line-height:1.85;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 6rem}
+.wrap{max-width:1100px;margin:0 auto}
+.prose{max-width:34em}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;line-height:1.3;margin:0;text-wrap:balance}
+p{margin:0.85em 0}
+a{color:var(--gold);text-underline-offset:4px}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+code{font-family:var(--f-mono);font-weight:700;font-size:0.8em;background:var(--surface);border:1px solid var(--rule);padding:0.05em 0.35em;border-radius:4px;overflow-wrap:anywhere}
+.num{font-family:var(--f-mono);font-weight:700;font-variant-numeric:tabular-nums}
+.note{font-size:0.7em;color:var(--muted)}
+
+/* hero */
+header.hero{padding-block:3rem 2.2rem;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--f-mono);font-size:0.55em;letter-spacing:0.14em;color:var(--muted)}
+h1{font-size:clamp(2.1rem, 1.3rem + 4.2vw, 4.4rem);letter-spacing:0.04em;margin-top:0.5rem}
+h1 em{font-style:normal;color:var(--gold)}
+.dek{color:var(--muted);margin-top:0.7rem;max-width:34em}
+.tally{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-top:2rem}
+.tally div{background:var(--surface);padding:1rem 1.2rem;min-width:0;display:flex;flex-direction:column;gap:0.3rem}
+.tally .k{font-size:0.55em;color:var(--muted);letter-spacing:0.08em}
+.tally .big{font-family:var(--f-mono);font-weight:700;font-variant-numeric:tabular-nums;font-size:clamp(1.5rem, 1rem + 2vw, 2.4rem);line-height:1.1;color:var(--gold)}
+.tally .big.ok{color:var(--jade)}
+.tally .sub{font-size:0.55em;color:var(--muted)}
+
+/* toc */
+nav.toc{padding-block:2.2rem 0.6rem}
+nav.toc h2{font-size:0.75em;letter-spacing:0.3em;color:var(--muted)}
+nav.toc ol{list-style:none;padding:0;margin:0.8rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:0.1rem 2rem}
+nav.toc a{display:flex;gap:0.7em;align-items:baseline;padding:0.4em 0;border-bottom:1px dashed var(--rule);text-decoration:none;color:var(--ink)}
+nav.toc a span{font-family:var(--f-mono);color:var(--cinnabar);font-size:0.75em;white-space:nowrap}
+nav.toc a:hover{color:var(--gold)}
+
+/* sections */
+section.ch{padding-block:3rem 0.8rem;border-bottom:1px solid var(--rule);scroll-margin-top:1rem}
+.ch-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:0.2rem 1rem}
+.ch-head .no{font-family:var(--f-mono);color:var(--cinnabar);font-size:0.7em;letter-spacing:0.1em}
+.ch-head h2{font-size:clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem)}
+h3{font-size:1.05em;margin-top:2rem;color:var(--gold)}
+.back{display:inline-block;margin-top:1.4rem;font-size:0.6em;text-decoration:none}
+.pull{font-family:var(--f-display);font-weight:900;font-size:1.25em;color:var(--gold);margin:1.4rem 0;line-height:1.5}
+
+blockquote.prompt{margin:1.4rem 0;padding:1.1rem 1.4rem;background:var(--surface);border:1px solid var(--rule);border-radius:8px;
+  font-family:var(--f-mono);font-weight:500;font-size:0.62em;line-height:1.7;max-width:46em;overflow-wrap:anywhere}
+blockquote.prompt .stamp{display:block;font-family:var(--f-body);font-weight:700;color:var(--muted);margin-bottom:0.5em;font-size:1.15em}
+
+/* AQP pipeline */
+ol.pipe{list-style:none;padding:0;margin:1.6rem 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:1rem;counter-reset:st}
+ol.pipe li{counter-increment:st;background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--gold);border-radius:6px;padding:0.9rem 1.1rem;min-width:0}
+ol.pipe li::before{content:"步驟 " counter(st);display:block;font-family:var(--f-mono);font-size:0.5em;letter-spacing:0.12em;color:var(--cinnabar)}
+ol.pipe b{display:block;font-family:var(--f-display);font-weight:900;font-size:1em;margin-top:0.15rem}
+ol.pipe span{display:block;font-size:0.62em;line-height:1.65;color:var(--muted);margin-top:0.35rem}
+ul.extras{margin:0.6rem 0 0;padding-left:1.2em;font-size:0.8em}
+ul.extras li{margin:0.35em 0}
+
+/* data handoff before/after */
+.flow{display:grid;gap:0.9rem;margin:1.4rem 0;font-size:0.62em}
+.flow .row{display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem}
+.flow .lab{min-width:4.5em;color:var(--muted);font-family:var(--f-display);font-weight:900}
+.flow .chip{background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:0.3em 0.9em}
+.flow .chip.disk{border-color:var(--cinnabar);color:var(--cinnabar)}
+.flow .chip.mem{border-color:var(--jade);color:var(--jade)}
+.flow .ar{color:var(--muted)}
+
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:1.4rem 0}
+.ledger div{background:var(--surface);padding:0.8rem 1rem;min-width:0;display:flex;flex-direction:column;gap:0.1rem}
+.ledger .k{font-size:0.55em;color:var(--muted);letter-spacing:0.08em}
+.ledger .v{font-family:var(--f-mono);font-weight:700;font-variant-numeric:tabular-nums;font-size:0.9em}
+.ledger .v b{color:var(--gold)}
+.ledger .v.ok{color:var(--jade)}
+
+.tbl{overflow-x:auto;margin:1.2rem 0;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:0.62em}
+th,td{text-align:left;padding:0.6em 0.9em;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--f-display);font-weight:900;white-space:nowrap;color:var(--muted)}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{border-top:2px solid var(--gold);color:var(--gold)}
+tr:last-child td{border-bottom:none}
+
+.bars{display:grid;gap:0.7rem;margin:1.2rem 0;font-size:0.62em}
+.bar{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr) auto;gap:0.9rem;align-items:center}
+.bar .t{background:var(--track);height:1.1em;border-radius:3px;overflow:hidden}
+.bar .t i{display:block;height:100%;background:linear-gradient(90deg,var(--cinnabar),var(--gold))}
+.bar .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:600px){.bar{grid-template-columns:1fr auto}.bar .l{grid-column:1/-1}}
+
+.verdict{margin:2rem 0;padding:1.2rem 1.5rem;border:2px solid var(--cinnabar);border-radius:6px;font-family:var(--f-display);font-weight:900;font-size:1.1em;letter-spacing:0.08em;text-align:center}
+footer{font-size:0.55em;color:var(--muted);padding-top:2.2rem;line-height:1.7}
+
+.floatnav{position:fixed;right:calc(14px + env(safe-area-inset-right, 0px));bottom:calc(14px + env(safe-area-inset-bottom, 0px));display:flex;gap:0.5rem;z-index:20}
+.floatnav a{font-family:var(--f-body);font-weight:700;font-size:16px;text-decoration:none;background:var(--ink);color:var(--bg);padding:0.5em 0.95em;border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.floatnav a:hover{background:var(--gold)}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero" id="top">
+  <div class="eyebrow">老熊隨筆 · 2026.10.20</div>
+  <h1>紀錄第一次<em>過億詞元</em>的修改舊碼</h1>
+  <p class="dek">一段七十來字的英文指令，讓 Claude 把我的 AQP 程式從七萬多行精簡到兩萬多行，前後用掉一億一千八百多萬個詞元。之後我自己在 MATLAB 上實測，結果基本上全部正確。這篇用白話記下做了什麼、怎麼驗證、花了多少錢。</p>
+  <div class="tally">
+    <div><span class="k">這一場用掉的詞元</span><span class="big">118,256,149</span><span class="sub">第一次單場過億</span></div>
+    <div><span class="k">若照 API 牌價付費</span><span class="big">≈ US$43</span><span class="sub">Opus 5.5 定價估算</span></div>
+    <div><span class="k">我用 Pro 訂閱實際多付</span><span class="big ok">US$0</span><span class="sub">包在每月 US$20 月費裡</span></div>
+  </div>
+</header>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <h2>目錄</h2>
+  <ol>
+    <li><a href="#qianyan"><span>01</span>前言</a></li>
+    <li><a href="#aqp"><span>02</span>AQP 是做什麼的</a></li>
+    <li><a href="#wenti"><span>03</span>改之前的毛病</a></li>
+    <li><a href="#zhiling"><span>04</span>我下的指令</a></li>
+    <li><a href="#gaifa"><span>05</span>改了哪三件事</a></li>
+    <li><a href="#yanzheng"><span>06</span>怎麼證明沒改壞</a></li>
+    <li><a href="#yongliang"><span>07</span>詞元用在哪裡</a></li>
+    <li><a href="#feiyong"><span>08</span>用 Pro 訂閱花了多少錢</a></li>
+    <li><a href="#weiwan"><span>09</span>MATLAB 實測</a></li>
+  </ol>
+</nav>
+
+<section class="ch" id="qianyan">
+  <div class="ch-head"><span class="no">01</span><h2>前言</h2></div>
+  <div class="prose">
+    <p>2026 年 10 月 19 日上午 10 點 16 分，我請 Claude 幫我整理一個老程式。中午 12 點 09 分，它交回修改好的程式和驗證結果。之後又請它寫成紀錄、收進老熊隨筆的目錄、再報一次帳，全部加起來大約兩個鐘頭。</p>
+    <p>用量報告最後一行寫著 <span class="num">118,256,149</span>。這是我第一次在一場對話裡用掉超過一億個詞元（token）。</p>
+    <p>照我的習慣，先查帳，再下結論。前一篇〈打通任督兩脈〉是用武俠的比喻寫的，這一篇改用白話，並補上兩件前篇沒寫的事：AQP 到底是做什麼的，以及這一場實際花了多少錢。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="aqp">
+  <div class="ch-head"><span class="no">02</span><h2>AQP 是做什麼的</h2></div>
+  <div class="prose">
+    <p>AQP 是我用 MATLAB 寫的近紅外光譜（NIR）自動定量程式。簡單說，它把光譜和實驗室量到的數值配對起來，建立一個預測模型，以後只要量光譜，就能估出成分含量。它有一個圖形介面 <code>AQP_gui</code>，也可以用 <code>Run_AQP</code> 整批執行。主要流程是這幾步：</p>
+  </div>
+  <ol class="pipe">
+    <li><b>載入資料</b><span>從 Excel 活頁簿讀入光譜和參考值，分成校正集、驗證集、轉移集。</span></li>
+    <li><b>波長對齊</b><span>不同儀器量的波長點不一樣，先統一到共同的波長格點上。</span></li>
+    <li><b>儀器間校正轉移</b><span>用 MDC、PDS 等方法，讓在一台儀器上建的模型，也能用在另一台儀器量的光譜上。</span></li>
+    <li><b>光譜前處理</b><span>對光譜做各種前處理，可以一次跑好幾套組合來比較。</span></li>
+    <li><b>PLS 建模</b><span>用偏最小平方法建定量模型，以交叉驗證決定模型大小。</span></li>
+    <li><b>預測、比較、作圖</b><span>用驗證集算預測誤差；<code>Cmp_Results</code> 比較各組結果，<code>StepbyStep_plots</code> 把每一步畫出來。</span></li>
+  </ol>
+  <div class="prose">
+    <p>另外還有幾個分支功能：</p>
+    <ul class="extras">
+      <li>平均光譜：把同一樣品的多次掃描平均後再建模。</li>
+      <li>Scan Thru、UDM、多資料集一起處理。</li>
+      <li>SVR（支持向量迴歸），作為 PLS 之外的另一種建模方法。</li>
+    </ul>
+    <p>每一步做完的資料，都包成同一種標準格式 <code>Atrainpketc_*.mat</code>，交給下一步使用。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="wenti">
+  <div class="ch-head"><span class="no">03</span><h2>改之前的毛病</h2></div>
+  <div class="prose">
+    <p>今年八月，我把 <code>Run_AQP.m</code>、<code>Cmp_Results.m</code>、<code>StepbyStep_plots.m</code>、<code>Load_DS.m</code> 等幾個檔案合併成一個大檔，總共 <span class="num">73,824</span> 行、<span class="num">925</span> 個函式。</p>
+    <p>合併是合併了，但每個原來的檔案都帶著自己的一套小工具進來，所以同一個函式常常重複好幾份。最誇張的 <code>saConc2XY</code>，在檔裡有十份。</p>
+    <p>另一個毛病是資料的傳法。每一步做完，結果不是直接交給下一步，而是先寫成 <code>.mat</code> 檔存到硬碟的 TMP 資料夾，下一步再去資料夾把它讀回來。跑一次，要寫了又讀的暫存檔有 12 到 25 個。</p>
+  </div>
+  <div class="flow" aria-label="改前改後的資料傳遞方式">
+    <div class="row"><span class="lab">改之前</span><span class="chip">上一步</span><span class="ar">→</span><span class="chip disk">寫入硬碟 TMP</span><span class="ar">→</span><span class="chip disk">從硬碟讀回</span><span class="ar">→</span><span class="chip">下一步</span></div>
+    <div class="row"><span class="lab">改之後</span><span class="chip">上一步</span><span class="ar">→</span><span class="chip mem">留在記憶體 AQP_mem</span><span class="ar">→</span><span class="chip">下一步</span></div>
+  </div>
+  <div class="prose">
+    <p class="pull">資料不在程式裡流動，而是繞到硬碟去一趟。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="zhiling">
+  <div class="ch-head"><span class="no">04</span><h2>我下的指令</h2></div>
+  <div class="prose"><p>全部指令就是下面這一段，原文照錄：</p></div>
+  <blockquote class="prompt">
+    <span class="stamp">2026 年 10 月 19 日 10:16</span>
+    stream line the AQP program;<br>
+    stream line this AQP program, remove clotting and redundant and inefficient parts, there are many places, the program transfer data/info thru writing them to local drive and later read them back, see if you can make those transfering thru output and input of various functions or use something similar to Matlab app's "app" or GUIDE era's "handles" ? etc, try to run as much validation as possible before you show me the finished/modified codes
+  </blockquote>
+  <div class="prose">
+    <p>七十來個英文字，沒有規格書，也沒有流程圖。</p>
+    <p>事後重看，我寫的是 <i>clotting</i>（凝塊），本來大概想寫 <i>clutter</i>（雜亂）。不過寫錯的這個字反而更貼切：這個程式的問題主要是堵，而不是亂。</p>
+    <p>指令裡最要緊的一句，是提到 App Designer 的 <code>app</code> 和 GUIDE 時代的 <code>handles</code>。意思是：資料應該留在程式內部傳，不要寫到硬碟再讀回來。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="gaifa">
+  <div class="ch-head"><span class="no">05</span><h2>改了哪三件事</h2></div>
+  <div class="prose">
+    <p>Claude 先把七萬多行從頭讀過一遍，然後分三步動手。</p>
+
+    <h3 id="quchong">第一步：合併重複的函式</h3>
+    <p>它把每個函式的內容拿出來比對，註解和空白不算，函式改過的名字也先還原，一輪一輪比到沒有新的重複為止。</p>
+    <p>結果是 <span class="num">334</span> 個函式名有不只一份，總共 <span class="num">659</span> 份，合併成 <span class="num">302</span> 份，省掉 <span class="num">26,892</span> 行。只有一組不是完全相同：<code>tmp_folder_rm_mk__fdir_wildcard</code> 其中一份多了八月二十日加上的 <code>onCleanup</code> 保護，留下的是有保護的那一份。</p>
+
+    <h3 id="sima">第二步：刪掉永遠不會執行的程式碼</h3>
+    <p>一類是 <span class="num">302</span> 段 <code>if false … end</code> 包起來的範例和草稿，共 <span class="num">7,268</span> 行。另一類是 <span class="num">203</span> 個函式，不管從主程式、開啟函式或 .fig 介面上的任何按鈕出發，都呼叫不到，共 <span class="num">18,510</span> 行。</p>
+    <p>判斷「用不用得到」時，標準放得很寬：只要還在用的程式碼裡任何地方提到它的名字，連寫在字串裡、透過 <code>feval</code> 或 <code>str2func</code> 間接呼叫的都算，就保留。刪完再檢查一次，剩下的 <span class="num">392</span> 個函式全部都呼叫得到。</p>
+
+    <h3 id="neicun">第三步：暫存檔改放記憶體</h3>
+    <p>這一步最難。四十多個函式、幾十條分支，都是用「資料夾路徑加檔名」去找資料。如果每一處都改成函式直接傳參數，等於要改遍每一條分支，包括測試資料根本跑不到的那些，風險太大。</p>
+    <p>所以換個做法：程式的寫法不動，只改資料實際放的地方。新增一個只在單次執行期間存在的記憶體倉庫 <code>AQP_mem</code>，作用類似 GUIDE 的 <code>handles</code>。各步驟照舊用原來的路徑存檔、列目錄、讀檔，但凡是 TMP 底下的東西都留在記憶體裡，不寫到硬碟；要給人看的最後結果，照舊寫到硬碟。</p>
+    <p>總共接上了 <span class="num">57</span> 處讀檔、<span class="num">26</span> 處存檔，以及大約 <span class="num">60</span> 處複製、搬移、刪除。</p>
+    <p class="pull">跑一次產生的 TMP 暫存檔，從 12 到 25 個變成 0 個。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="yanzheng">
+  <div class="ch-head"><span class="no">06</span><h2>怎麼證明沒改壞</h2></div>
+  <div class="prose">
+    <p>Claude 工作的雲端環境沒有 MATLAB，所以改用免費的 GNU Octave 8.4.0 來跑。Octave 和 Windows 上的 MATLAB 有些地方不一樣，例如 Windows 路徑、檔名裡的方括號和大括號、<code>string</code> 型別、各種對話框，所以它另外寫了一批替代函式補上這些差異。新舊兩個版本用的是同一批替代函式，比較才公平。</p>
+    <p>測試資料是甘蔗：FOSS 儀器的校正集，MicroNIR 儀器的驗證集和轉移集，要預測的是糖度 Brix。一共跑七個場景，涵蓋以下幾類：</p>
+    <ul class="extras">
+      <li>MDC 校正轉移</li>
+      <li>PDS99[w5] 校正轉移</li>
+      <li>不做校正轉移</li>
+      <li>四套前處理一起跑</li>
+      <li>平均光譜</li>
+      <li>從載入、執行兩次、比較結果到逐步作圖的完整流程</li>
+    </ul>
+    <p>新舊兩版產生的每一個輸出檔，都用 <code>isequaln</code> 逐欄逐值比對，不允許任何誤差。</p>
+    <p class="pull">七個場景，新舊結果完全相同。</p>
+    <p>其中第六個場景，新舊兩版都在同一行出錯：<code>PLS_Tcv_P_Avg_All</code> 呼叫 <code>RMS_error_woNaN_N</code> 時，兩個向量長度不一樣。這是原本程式就有的老毛病，不是這次改出來的。這次的原則是先保持原樣，所以沒有去修，只記錄下來留待以後處理。</p>
+    <p>另外還開了一個「鏡像模式」，讓新版在途中照樣把每個 Atrainpketc 暫存檔寫到硬碟，再和舊版一個一個比對。<span class="num">17</span> 個中間檔，內容完全一樣。這表示不只最後結果相同，連中間每一步都相同。</p>
+  </div>
+  <div class="ledger" aria-label="改前改後對照">
+    <div><span class="k">行數</span><span class="v">73,824 → <b>24,374</b></span></div>
+    <div><span class="k">函式數</span><span class="v">925 → <b>392</b></span></div>
+    <div><span class="k">檔案大小</span><span class="v">3.08 → <b>0.95</b> MB</span></div>
+    <div><span class="k">每次執行的 TMP 暫存檔</span><span class="v">12–25 → <b>0</b></span></div>
+    <div><span class="k">每次執行時間（Octave）</span><span class="v">30–41 → <b>20–31</b> 秒</span></div>
+    <div><span class="k">驗證結果</span><span class="v ok">7 / 7 完全相同</span></div>
+  </div>
+  <div class="prose"><p>介面檔 .fig 完全沒動，裡面登記的 14 個按鈕回呼函式都還在。</p></div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="yongliang">
+  <div class="ch-head"><span class="no">07</span><h2>詞元用在哪裡</h2></div>
+  <div class="prose">
+    <p>一億一千八百多萬個詞元，分成四段。光是修改程式加驗證，就用了九千五百萬；後面寫紀錄、收進目錄、報帳，又用了兩千三百多萬。</p>
+  </div>
+  <div class="bars" aria-label="各段工作的詞元用量">
+    <div class="bar"><span class="l">修改＋驗證</span><span class="t"><i style="width:100%"></i></span><span class="v">95,023,918 · 113 分鐘</span></div>
+    <div class="bar"><span class="l">寫成紀錄</span><span class="t"><i style="width:5.42%"></i></span><span class="v">5,146,248 · 5.6 分鐘</span></div>
+    <div class="bar"><span class="l">收進目錄</span><span class="t"><i style="width:15.12%"></i></span><span class="v">14,369,710 · 4.8 分鐘</span></div>
+    <div class="bar"><span class="l">報帳</span><span class="t"><i style="width:3.91%"></i></span><span class="v">3,716,273 · 2.2 分鐘</span></div>
+  </div>
+  <div class="prose">
+    <p>按種類分，絕大部分是「重讀快取」：Claude 每做一步，都要把前面所有的對話和檔案內容重新讀一遍，這部分有快取，價錢很便宜。真正由 Claude 寫出來的內容只有 24 萬個詞元，不到總數的千分之二。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="feiyong">
+  <div class="ch-head"><span class="no">08</span><h2>用 Pro 訂閱花了多少錢</h2></div>
+  <div class="prose">
+    <p>先算如果這一場是照 API 牌價付費，要花多少。這場用的是 Claude Opus 5.5，目前的牌價是：一般輸入每百萬詞元 4 美元，輸出 20 美元，重讀快取 0.20 美元，寫入一小時快取 8 美元（用量報告上寫入快取的折算倍數是 2 倍，對應的就是一小時快取）。</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>種類</th><th class="n">詞元數</th><th class="n">單價（美元／百萬）</th><th class="n">金額（美元）</th></tr></thead>
+    <tbody>
+      <tr><td>重讀快取（cache read）</td><td class="n">116,126,336</td><td class="n">0.20</td><td class="n">23.23</td></tr>
+      <tr><td>寫入快取（cache write）</td><td class="n">1,890,153</td><td class="n">8.00</td><td class="n">15.12</td></tr>
+      <tr><td>輸出（output）</td><td class="n">239,094</td><td class="n">20.00</td><td class="n">4.78</td></tr>
+      <tr><td>一般輸入（input）</td><td class="n">566</td><td class="n">4.00</td><td class="n">0.00</td></tr>
+      <tr class="tot"><td>合計</td><td class="n">118,256,149</td><td class="n"></td><td class="n">43.13</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <p class="note">若寫入快取算五分鐘快取（每百萬 5 美元），合計約 37.46 美元。若照上一代 Opus 5 的價錢（輸入 5、輸出 25、重讀快取 0.50 美元），合計約 82.94 美元，也就是前篇「折算實耗 16,588,976」乘上每百萬 5 美元。</p>
+    <p>但我不是用 API，是用每月 20 美元的 Pro 訂閱（年繳的話是每月 17 美元）。Pro 是固定月費，在用量額度之內，用多用少都是同一個價錢。所以：</p>
+  </div>
+  <div class="ledger" aria-label="Pro 訂閱下的花費">
+    <div><span class="k">這一場實際多付的錢</span><span class="v ok">US$0</span></div>
+    <div><span class="k">把月費按天攤（20 ÷ 31 天）</span><span class="v">≈ <b>US$0.65</b> / 天</span></div>
+    <div><span class="k">同樣用量照 API 牌價</span><span class="v">≈ <b>US$43</b></span></div>
+    <div><span class="k">相當於幾個月的 Pro 月費</span><span class="v">≈ <b>2.2</b> 個月</span></div>
+  </div>
+  <div class="prose">
+    <p>換句話說，這一場在 Pro 底下用掉的是「額度」，不是額外的錢。如果硬要給它一個價錢，按天攤是六毛五美金；按 API 牌價算，是四十三美金左右，等於兩個多月的月費一次用掉。前提是當天沒有超出額度、也沒有開啟另外計費的加購用量。</p>
+    <p>再換一種算法：指令七十來個字，平均每個字換來一百五十萬以上個詞元，或者大約六毛錢美金的 API 價值。</p>
+  </div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section class="ch" id="weiwan">
+  <div class="ch-head"><span class="no">09</span><h2>MATLAB 實測</h2></div>
+  <div class="prose">
+    <p>Claude 的驗證都是在 Octave 上做的，真正要用的是 Windows 上的 MATLAB。所以拿到新版之後，我自己在 MATLAB 上跑了一次驗證。</p>
+    <p class="pull">結果基本上全部正確。</p>
+    <p>也就是說，Octave 上的七個場景比對過關之後，換到實際使用的 MATLAB 環境，新版一樣跑得出正確結果。</p>
+    <p>拍電影的時候，有些演技很好的演員，一個鏡頭第一次拍就過，不用重來。演員孫儷就因為這樣，被大家叫做「孫一條」。這次七萬多行的舊程式，一個指令下去，改完拿到 MATLAB 上一跑就對，我想 Claude 也可以叫做「克一條」了，哈哈。</p>
+    <p>剩下要記一筆的是第六個場景那個長度不合的老毛病。它是原本程式就有的，這次刻意沒動，以後再另外處理。</p>
+  </div>
+  <div class="verdict">程式已精簡　Octave 驗證通過　MATLAB 實測正確</div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer>老熊隨筆 · 2026 年 10 月 20 日 · 程式與用量數字取自 10 月 19 日的《AQP Streamlining Record》與《AQP Session Usage Report》；執行時間為 Octave 測試環境的數字；MATLAB 實測由作者自行完成。費用依 2026 年 10 月 Claude Opus 5.5 API 牌價與 Claude Pro 月費（US$20／月，年繳 US$17／月）估算，僅供參考。改寫自前篇〈打通任督兩脈〉。</footer>
+</div>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+</body>
+</html>
