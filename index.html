@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 後 AI 時代、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 121 篇，另收 MATLAB 檔案 101 個、Python 檔案 2 個。">
+<meta name="description" content="老熊隨筆 — 後 AI 時代、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 123 篇，另收 MATLAB 檔案 101 個、Python 檔案 2 個。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -167,12 +167,13 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 122 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 2 個</span><span class="dot">·</span><span>十四個分區</span><span class="dot">·</span><span>最近更新 2026.10.19</span></p>
+<p class="toolbar"><span>全 123 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 2 個</span><span class="dot">·</span><span>十四個分區</span><span class="dot">·</span><span>最近更新 2026.10.20</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
-<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">15</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">16</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#houai">前往本區　↓</a>
+<a href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">紀錄第一次過億詞元的修改舊碼 — AQP 瘦身、MATLAB 實測、Pro 帳單<span class="lab">新</span></a>
 <a href="%E4%BB%96%E6%B2%92%E6%9C%89%E8%AA%AA%E7%9A%84%E6%98%AF_%E5%BE%8CAI%E6%99%82%E4%BB%A3%E7%9A%84%E8%BF%B7%E4%BD%A0%E7%A0%94%E7%A9%B6.html">他沒有說的是 — 後 AI 時代的迷你研究<span class="lab">新</span></a>
 <a href="university-after-ai_LaoXiong.html">問題夠大，就會自己找到解法？— AI 之後的大學<span class="lab">新</span></a>
 <a href="%E7%94%A8AI%E6%87%89%E8%80%83AI%E5%B0%8E%E8%AB%96%E6%8B%BFA_%E8%AA%B0%E4%B8%8D%E5%8F%8A%E6%A0%BC.html">用 AI 應考「AI 導論」拿了 A，到底誰不及格？— 學生、教授、AI 的兩場考試<span class="lab">新</span></a>
@@ -395,8 +396,18 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </nav>
 </header>
 
-<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">15 篇</span></h2>
+<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">16 篇</span></h2>
 <p class="section-note">答案變便宜之後：教育、數學、政策，以及人還剩下什麼</p>
+
+<article class="entry">
+<h3 class="headline"><a href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">紀錄第一次過億詞元的修改舊碼 <span class="tag">新</span></a></h3>
+<p class="meta"><time class="date">2026.10.20</time><span class="chip">AI</span><span class="chip">程式</span><span class="chip">復盤</span><span class="chip">用量帳</span></p>
+<p class="deck">一段七十來字的英文指令，Claude 把 AQP 從七萬三千行精簡到兩萬四千行，TMP 暫存檔歸零，Octave 七案逐值相同，拿到 MATLAB 一跑就對——從此人稱「克一條」。單場用掉 118,256,149 個詞元，照 API 牌價約 43 美元，用 Pro 訂閱實付零元。</p>
+<div class="tools">
+<a class="read" href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">閱讀</a>
+<button class="copy" data-file="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="%E4%BB%96%E6%B2%92%E6%9C%89%E8%AA%AA%E7%9A%84%E6%98%AF_%E5%BE%8CAI%E6%99%82%E4%BB%A3%E7%9A%84%E8%BF%B7%E4%BD%A0%E7%A0%94%E7%A9%B6.html">他沒有說的是 — 一部四十一分鐘的影片、一份 AI 排版的文檔、一句老同學的補刀 <span class="tag">新</span></a></h3>
@@ -1038,6 +1049,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <a class="ghlink" href="https://github.com/changhsiung-chemometrician/Lao_Xiong/blob/main/AQP_gui_merged.m">GitHub</a>
 <a class="ghlink figlink" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui_merged.fig" title="GUIDE 版面檔，18.3 KB 二進位，與 AQP_gui_cln_merged/ 裡那支同一份，須與 AQP_gui_merged.m 同目錄">.fig 版面檔</a>
 <a class="ghlink" href="AQP_streamlining_record.html">瘦身紀錄</a>
+<a class="ghlink" href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">白話紀錄</a>
 <a class="ghlink" href="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP%20compare%20bef-SL%20vs%20after.pptx" title="兩張 Scan Thru 比較圖：Bef-SL 與 Aft-SL，196 KB">前後對照簡報</a>
 <button class="copy" data-file="https://raw.githubusercontent.com/changhsiung-chemometrician/Lao_Xiong/main/AQP_gui_merged.m">複製連結</button>
 </div>
@@ -1925,7 +1937,7 @@ Run_AQP.m 的標頭把這件事寫成第一項外部相依，六支閉包函式�
 
 <footer>
 <p>老熊 · 加州紅木灘 ｜ 作者簡歷見 <a href="README.md">README</a>。</p>
-<p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.10.19</p>
+<p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.10.20</p>
 </footer>
 
 </div>
