@@ -2197,7 +2197,7 @@ def pls_stage(xp: XferPPResult, ctx: RunContext, cnt: int, pp1: str, pp2: str,
     if f is not None:
         ax = f.add_subplot(111)
         ax.plot(scan, rmsecv, "k-*", lw=2)
-        ax.plot([opm], [rm_opm], "o", color="g", ms=10, mfc="g")
+        ax.plot([opm], [rm_opm], "o", color=ML_G, ms=10, mfc=ML_G)
         if res_x is not None and not (isinstance(res_x, float) and math.isnan(res_x)):
             ax.axvline(res_x, color=(1, 0.5, 0))
         ax.set_xlabel("PLS factor"); ax.set_ylabel("RMSECV")
@@ -2276,7 +2276,7 @@ def pls_stage(xp: XferPPResult, ctx: RunContext, cnt: int, pp1: str, pp2: str,
         ax = f.add_subplot(111)
         ax.plot(Yref, Yest, "b*", ls="none")
         hi = max(ax.get_xlim()[1], ax.get_ylim()[1])
-        ax.plot([0, hi], [0, hi], "y-", lw=2)
+        ax.plot([0, hi], [0, hi], "-", color=ML_Y, lw=2)
         ax.set_xlabel("True Conc"); ax.set_ylabel("Est Conc")
         sm = (f"{CurTcv}-->OpmPLSfactor={rv['PLSfactor']}{sAltOpmPLS}   RMSE ={roundns(RMSE_clean, 3)}"
               f"      STD ={roundns(STD_clean, 3)}      Bias ={roundns(Bias_clean, 3)}")
@@ -2301,7 +2301,7 @@ def pls_stage(xp: XferPPResult, ctx: RunContext, cnt: int, pp1: str, pp2: str,
         f = figs.new("RMSEP_vs_PLSfactor")
         if f is not None:
             ax = f.add_subplot(111)
-            ax.plot([rv["PLSfactor"]], [rv["RMSE"]], "o", color="y", ms=12, mfc="y")
+            ax.plot([rv["PLSfactor"]], [rv["RMSE"]], "o", color=ML_Y, ms=12, mfc=ML_Y)
             ax.plot(scan, rmsep_scan, "b-*", lw=2)
             ax.set_xlabel("PLS factor"); ax.set_ylabel("RMSEP")
             if pro:
@@ -2663,6 +2663,11 @@ def json_prepare(pfn_opm: str, outOpmFM: Dict[str, Any]):
     return fname
 
 
+# MATLAB's one-letter colours.  b, r, k match matplotlib's; g, c, m, y do not
+# (matplotlib 'y' is a dark olive (0.75, 0.75, 0); MATLAB 'y' is pure yellow).
+ML_G, ML_C, ML_M, ML_Y = (0, 1, 0), (0, 1, 1), (1, 0, 1), (1, 1, 0)
+
+
 def plot_rmsep_summary(figs: FigMgr, runs, cLegendLoop, call_X, outOpmFM, st, cPP1, cPP2, cCabXfer, last_pp):
     f = figs.new("RMSEP_summary", size=(11, 6))
     if f is None:
@@ -2670,7 +2675,7 @@ def plot_rmsep_summary(figs: FigMgr, runs, cLegendLoop, call_X, outOpmFM, st, cP
     scol = "krgbymcpolasvhkrgbymcpolasvhkrgb" * 2
     smk = ">+<pxodh>+<pxodh>+<pxodh>+<pxodh"
     smk = smk + smk[1:] + smk[0]
-    colmap = {"k": "k", "r": "r", "g": "g", "b": "b", "y": "y", "m": "m", "c": "c",
+    colmap = {"k": "k", "r": "r", "g": ML_G, "b": "b", "y": ML_Y, "m": ML_M, "c": ML_C,
               "p": (1, 0.6, 0.8), "o": (1, 0.5, 0), "l": (0.6, 1, 0.6), "a": (0.6, 0.6, 0.6),
               "s": (0.75, 0.75, 0.75), "v": (0.5, 0, 0.5), "h": (0.5, 0.5, 0)}
     mkmap = {">": ">", "+": "+", "<": "<", "p": "p", "x": "x", "o": "o", "d": "d", "h": "h"}
@@ -3233,10 +3238,11 @@ def plot_LogStdScale(figs: FigMgr, q, which: str, sfname: str, sDS: str):
     if f is not None:
         ax = f.add_subplot(111)
         ax.stem(XT_, NT, linefmt="b-", markerfmt="b.", basefmt=" ")
-        ax.stem(XP_, NP, linefmt="g-", markerfmt="g*", basefmt=" ")
+        st_ = ax.stem(XP_, NP, linefmt="-", markerfmt="*", basefmt=" ")
+        st_.stemlines.set_color(ML_G); st_.markerline.set_color(ML_G)
         over = XP_ > thr_s
         if over.any():
-            ax.plot(XP_[over], NP[over], "mo", mfc="m", ls="none")
+            ax.plot(XP_[over], NP[over], "o", color=ML_M, mfc=ML_M, ls="none")
         ax.axvline(thr_s, color="r")
         ax.legend(["CS or Tset", "Val or Pset"] + (["Over Threshold"] if over.any() else []) + ["Threshold"])
         ax.set_xlabel(f"{which} of Pset scaled by Tset Sigma"); ax.set_ylabel("percent of samples")
@@ -3279,10 +3285,15 @@ def stepbystep_plots(kind: str, out_SbS: str, path_DS: str, figs: FigMgr, cab_sc
         fxs = [f2 for f2 in files if "XSmst-Before-MatchGrids" in f2]
         if len(fxs) == 1:
             Lx = _load_at(os.path.join(out_SbS, fxs[0]))
-            h2 = ax.plot(wvl, np.atleast_2d(Lx["Atrainpk"]).T, "c-", lw=0.5)
+            h2 = ax.plot(wvl, np.atleast_2d(Lx["Atrainpk"]).T, "-", color=ML_C, lw=0.5)
             hs.append(h2[0]); lab.append("XRSmst")
         y0, y1 = ax.get_ylim()
-        h3 = ax.vlines(wmn, y0 if y0 < 0 else 0, y1, colors="y")
+        # plot_vline_stem: pure-yellow stems at MATLAB's default 0.5 pt, drawn behind
+        # the spectra so every spectrum stays visible through the grid band
+        # (a pale-yellow band underneath keeps the band even at any window size / DPI,
+        #  where 125 sub-pixel lines alone would beat into stripes)
+        ax.axvspan(float(np.min(wmn)), float(np.max(wmn)), ymin=0, ymax=1, color=(1, 1, 0.62), lw=0, zorder=0.9)
+        h3 = ax.vlines(wmn, y0 if y0 < 0 else 0, y1, colors=[ML_Y], linewidths=0.5, zorder=1)
         ax.set_ylim(y0, y1)
         hs.append(h3); lab.append(typ)
         ax.legend(hs, lab)
@@ -3322,7 +3333,7 @@ def stepbystep_plots(kind: str, out_SbS: str, path_DS: str, figs: FigMgr, cab_sc
         if f is not None:
             ax = f.add_subplot(111)
             ax.plot(b["T_scaled"], a["T_scaled"], "bo", mfc="none", ls="none", label="CS or Tset")
-            ax.plot(b["P_scaled"], a["P_scaled"], "g*", ls="none", label="Val or Pset")
+            ax.plot(b["P_scaled"], a["P_scaled"], "*", color=ML_G, ls="none", label="Val or Pset")
             ax.axvline(3, color="r"); ax.axhline(3, color="r")
             ax.legend()
             ax.set_xlabel("Hotelling T-square (scaled by StdLog)"); ax.set_ylabel("Q Residuals (scaled by StdLog)")
@@ -4103,10 +4114,11 @@ class AQPApp:
     def _msgbox(self, msg):
         tk = self.tk
         top = tk.Toplevel(self.root)
+        top.withdraw()                          # shown by _center_on_screen
         top.title("")
         tk.Label(top, text=msg, padx=24, pady=12).pack()
         tk.Button(top, text="OK", width=8, command=top.destroy).pack(pady=(0, 10))
-        top.after(10, top.lift)
+        self._center_on_screen(top)
         self.root.update()
 
     def _error(self, title, lines):
@@ -4132,32 +4144,110 @@ class AQPApp:
         if self.cache["armed"]:
             self.cache["store"][key] = val
 
+    def _work_area(self):
+        """(left, top, right, bottom) of the screen the AQP panel is on.  On Windows
+        this is the monitor's work area (taskbar excluded) from the Win32 API, since
+        Tk only knows the primary screen; elsewhere the Tk screen size."""
+        r = self.root
+        if sys.platform == "win32":
+            try:
+                import ctypes
+                from ctypes import wintypes
+
+                class MONITORINFO(ctypes.Structure):
+                    _fields_ = [("cbSize", wintypes.DWORD), ("rcMonitor", wintypes.RECT),
+                                ("rcWork", wintypes.RECT), ("dwFlags", wintypes.DWORD)]
+                u32 = ctypes.windll.user32
+                u32.MonitorFromPoint.restype = wintypes.HMONITOR
+                u32.MonitorFromPoint.argtypes = [wintypes.POINT, wintypes.DWORD]
+                pt = wintypes.POINT(r.winfo_rootx() + r.winfo_width() // 2, r.winfo_rooty() + r.winfo_height() // 2)
+                hmon = u32.MonitorFromPoint(pt, 2)              # MONITOR_DEFAULTTONEAREST
+                mi = MONITORINFO()
+                mi.cbSize = ctypes.sizeof(MONITORINFO)
+                if u32.GetMonitorInfoW(hmon, ctypes.byref(mi)):
+                    w = mi.rcWork
+                    return w.left, w.top, w.right, w.bottom
+            except Exception:
+                pass
+        return 0, 0, r.winfo_screenwidth(), r.winfo_screenheight()
+
+    def _center_on_screen(self, top, w=None, h=None):
+        """Show a dialog in the middle of the screen, in front, so it cannot be missed.
+        The dialog is positioned while hidden and then shown: on Windows a position
+        given to a window that is already mapped (or not yet mapped and then shown
+        by the window manager) can be ignored, which parks it in the top-left
+        corner.  The position is applied once more just after it appears."""
+        top.withdraw()
+        top.update_idletasks()
+        w = int(w or top.winfo_reqwidth())
+        h = int(h or top.winfo_reqheight())
+        L, T, R, B = self._work_area()
+        x = L + max(0, (R - L - w) // 2)
+        y = T + max(0, (B - T - h) // 2)
+        geo = f"{w}x{h}+{x}+{y}"
+        top.geometry(geo)
+        top.deiconify()
+        top.lift()
+        try:
+            top.attributes("-topmost", True)
+            top.after(400, lambda: top.winfo_exists() and top.attributes("-topmost", False))
+        except Exception:
+            pass
+
+        def again():
+            try:
+                if top.winfo_exists():
+                    top.geometry(geo)
+            except Exception:
+                pass
+        top.after(20, again)
+        top.after(150, again)
+        top.focus_force()
+
     def _pick_analyte(self, analytes):
+        """uicellect: pick the target analyte (a large dialog in the middle of the screen)"""
         key = "analyte|" + "|".join(analytes)
         hit, val = self._cache_get(key)
         if hit:
             return val
         tk = self.tk
-        top = tk.Toplevel(self.root)
-        top.title("pick the target analyte")
+        ppt = self.ppt
+        top = tk.Toplevel(self.root, bg=self.BG)
+        top.withdraw()                          # shown by _center_on_screen
+        top.title("UICELLECT  --  pick the target analyte")
         top.transient(self.root)
-        tk.Label(top, text="Pick the analyte to model", padx=10, pady=6).pack()
-        lb = tk.Listbox(top, height=min(15, len(analytes)), exportselection=False, font=self._font(12))
+        top.resizable(True, True)
+        fl, fi, fb = self._font(16, True), self._font(16), self._font(14, True)
+        tk.Label(top, text="Select from the following:", font=fl, bg=self.BG, anchor="w"
+                 ).pack(fill="x", padx=round(10 * ppt), pady=(round(10 * ppt), round(6 * ppt)))
+        n = len(analytes)
+        lb = tk.Listbox(top, height=min(12, max(4, n)), exportselection=False, font=fi, activestyle="none",
+                        selectbackground="#0078D7", selectforeground="white", bd=1, relief="solid",
+                        highlightthickness=0)
         for a in analytes:
-            lb.insert("end", a)
+            lb.insert("end", "  " + a)
         lb.selection_set(0)
-        lb.pack(fill="both", expand=True, padx=10)
+        lb.activate(0)
+        lb.pack(fill="both", expand=True, padx=round(10 * ppt))
         out = {"v": None}
 
         def ok(_e=None):
-            s = lb.curselection()
-            out["v"] = analytes[s[0]] if s else None
+            s_ = lb.curselection()
+            out["v"] = analytes[s_[0]] if s_ else None
             top.destroy()
-        fr = tk.Frame(top)
-        fr.pack(pady=8)
-        tk.Button(fr, text="OK", width=8, command=ok).pack(side="left", padx=4)
-        tk.Button(fr, text="Cancel", width=8, command=top.destroy).pack(side="left", padx=4)
+        fr = tk.Frame(top, bg=self.BG)
+        fr.pack(fill="x", padx=round(10 * ppt), pady=round(10 * ppt))
+        tk.Button(fr, text="Cancel", font=fb, width=9, command=top.destroy).pack(side="right")
+        tk.Button(fr, text="FINISH", font=fb, width=9, bg="#FDFDFD", command=ok).pack(side="right",
+                                                                                     padx=round(8 * ppt))
         lb.bind("<Double-Button-1>", ok)
+        top.bind("<Return>", ok)
+        top.bind("<Escape>", lambda e: top.destroy())
+        top.update_idletasks()
+        w = max(round(230 * ppt), top.winfo_reqwidth())      # ~ 2.5x the old 160 x 130 px box
+        h = max(round(150 * ppt), top.winfo_reqheight())
+        self._center_on_screen(top, w, h)
+        lb.focus_set()
         top.grab_set()
         self.root.wait_window(top)
         if out["v"] is None:
@@ -4528,6 +4618,7 @@ class AQPApp:
     def _ask3(self, title, msg, choices):
         tk = self.tk
         top = tk.Toplevel(self.root)
+        top.withdraw()                          # shown by _center_on_screen
         top.title(title)
         top.transient(self.root)
         tk.Label(top, text=msg, justify="left", padx=14, pady=10).pack()
@@ -4536,6 +4627,7 @@ class AQPApp:
         fr.pack(pady=8)
         for lab, val in choices:
             tk.Button(fr, text=lab, command=lambda v=val: (out.update(v=v), top.destroy())).pack(side="left", padx=4)
+        self._center_on_screen(top)
         top.grab_set()
         self.root.wait_window(top)
         return out["v"]
@@ -4561,6 +4653,7 @@ class AQPApp:
         tk = self.tk
         S = SCANTHRU_SETTINGS
         top = tk.Toplevel(self.root)
+        top.withdraw()                          # shown by _center_on_screen
         top.title("Scan Thru  --  pick the hyperparameters and their options")
         top.transient(self.root)
         top.geometry("1000x620")
@@ -4643,6 +4736,7 @@ class AQPApp:
         tk.Button(top, text="Cancel", font=F(11), command=top.destroy).place(relx=0.755, rely=0.91,
                                                                              relwidth=0.225, relheight=0.07)
         refresh()
+        self._center_on_screen(top, 1000, 620)
         top.grab_set()
         self.root.wait_window(top)
         if not st["ok"]:
