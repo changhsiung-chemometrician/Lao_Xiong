@@ -79,6 +79,7 @@ import math
 import os
 import re
 import shutil
+import tempfile
 import sys
 import time
 import traceback
@@ -3033,79 +3034,535 @@ def cmp_common_title(S) -> str:
     return "    ".join(p)
 
 
-def enable_datatips(fig, lines, pickradius: float = 7):
-    """MATLAB-style data tips on a matplotlib figure.
+# =============================================================================
+#   MATLAB-STYLE FIGURE TOOLS: "Data Tips" and "Edit Plot" on EVERY figure window
+#   (same code as the standalone matlab_fig_tools.py)
+#
+#   Data Tips (on by default, as in MATLAB R2024a): click a data point of any
+#     line / marker / scatter -> 'X <x>' / 'Y <y>' box pinned to the nearest data
+#     point; click it again to remove; Delete / Escape removes all tips.
+#   Edit Plot (MATLAB's arrow button): drag the legend, titles, axis labels,
+#     texts and tip boxes anywhere; Delete removes the selected object.
+#   The two, Pan and Zoom are mutually exclusive.  Keys: d = Data Tips, e = Edit Plot.
+# =============================================================================
+MFT_TIP_LABEL = "_mft_tip"          # labels of our own artists (never tip targets)
+MFT_SEL_LABEL = "_mft_sel"
+MFT_TIP_FMT = "{:.6g}"              # MATLAB data tips show up to 6 significant digits (0.538279)
+MFT_MSG = {
+    "tips": "Data Tips: click a data point to show X / Y (click again or Delete to remove)",
+    "edit": "Edit Plot: drag the legend, titles, labels, text or tip boxes; Delete removes the selection",
+    None: "",
+}
 
-    Left-click a marker -> a box 'X <x>' / 'Y <y>' stays pinned to it (several
-    may be open at once, as in MATLAB).  Click the same marker again to remove
-    its tip; Delete / Escape removes them all.  Ignored while the toolbar's
-    pan or zoom mode is on.  The figures here are bare Figure objects whose Tk
-    canvas is made later, so the wiring is queued in fig._aqp_on_canvas and run
-    by _show_figure once the canvas exists (PNG/CLI output: nothing happens)."""
-    lines = [ln for ln in lines if ln is not None]
-    if fig is None or not lines:
-        return
-    for ln in lines:
-        ln.set_picker(True)
-        ln.set_pickradius(pickradius)
 
-    def _fmt(v):
-        v = float(v)
-        if v == int(v) and abs(v) < 1e15:
-            return str(int(v))
-        return f"{v:.4g}"                        # MATLAB datatip shows 4 significant digits
+def _mft_fmt(v) -> str:
+    v = float(v)
+    if np.isfinite(v) and v == int(v) and abs(v) < 1e15:
+        return str(int(v))
+    return MFT_TIP_FMT.format(v)
 
-    def connect(canvas):
-        tips = {}                                # (line id, point index) -> (annotation, dot)
 
-        def _busy():
-            tb = getattr(canvas, "toolbar", None)
-            return bool(tb is not None and getattr(tb, "mode", ""))
+# ----------------------------------------------------------------------------- icons
+def _mft_icons() -> dict:
+    """Toolbar icons drawn once with matplotlib (24 px and the toolbar's 48 px
+    '_large' variant) and cached in the temp folder."""
+    d = os.path.join(tempfile.gettempdir(), "mft_icons_v2")
+    paths = {k: os.path.join(d, k + ".png") for k in ("datatips", "editplot")}
+    if all(os.path.isfile(p) and os.path.isfile(p[:-4] + "_large.png") for p in paths.values()):
+        return paths
+    os.makedirs(d, exist_ok=True)
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+    from matplotlib.figure import Figure
+    from matplotlib.patches import Polygon, Rectangle
+    for px, suffix in ((24, ""), (48, "_large")):
+        s = px / 24.0
+        for key in paths:
+            fig = Figure(figsize=(px / 100, px / 100), dpi=100)
+            FigureCanvasAgg(fig)
+            ax = fig.add_axes([0, 0, 1, 1])
+            ax.set_xlim(0, 24)
+            ax.set_ylim(0, 24)
+            ax.axis("off")
+            if key == "editplot":       # MATLAB's white arrow pointer
+                ax.add_patch(Polygon([(6, 22), (6, 4.5), (10, 8.5), (12.8, 2.2), (15.6, 3.4), (12.9, 9.6),
+                                      (18.2, 9.6)], closed=True, fc="white", ec="black", lw=1.3 * s,
+                                     joinstyle="miter"))
+            else:                       # a curve, a pinned point and its tip box
+                x = np.linspace(1.5, 22.5, 60)
+                ax.plot(x, 5 + 3.2 * np.sin(x / 3.4), color="#1F5FD0", lw=1.6 * s)
+                xp = 15.0
+                yp = 5 + 3.2 * np.sin(xp / 3.4)
+                ax.plot([9, xp], [13, yp], color="#555555", lw=0.9 * s)
+                ax.add_patch(Rectangle((2.2, 13), 13.5, 9, fc="#FFFFE6", ec="#333333", lw=1.1 * s))
+                ax.plot([4.5, 13], [19.3, 19.3], color="#1F5FD0", lw=1.2 * s)
+                ax.plot([4.5, 11], [15.8, 15.8], color="#1F5FD0", lw=1.2 * s)
+                ax.plot([xp], [yp], "o", ms=3.6 * s, mfc="black", mec="white", mew=0.6 * s)
+            fig.savefig(paths[key][:-4] + suffix + ".png", transparent=True, dpi=100)
+    return paths
 
-        def on_pick(ev):
-            ln = ev.artist
-            if ln not in lines or _busy() or ev.mouseevent.button != 1 or not len(ev.ind):
-                return
-            ax = ln.axes
-            xd, yd = np.asarray(ln.get_xdata(), float), np.asarray(ln.get_ydata(), float)
-            # several points inside the pick radius -> the one nearest the click (pixels)
-            pts = ax.transData.transform(np.column_stack([xd[ev.ind], yd[ev.ind]]))
-            me = ev.mouseevent
-            i = int(ev.ind[int(np.argmin(np.hypot(pts[:, 0] - me.x, pts[:, 1] - me.y)))])
-            key = (id(ln), i)
-            if key in tips:                      # second click on the same point -> remove
-                for a in tips.pop(key):
+
+# ----------------------------------------------------------------------------- the tools
+class FigureTools:
+    """Data Tips + Edit Plot on one figure.  Created by install_figure_tools()."""
+
+    def __init__(self, fig, canvas, toolbar=None, tips_on: bool = True):
+        self.fig, self.canvas, self.toolbar = fig, canvas, toolbar
+        self.mode = None
+        self.tips = {}                   # (id(artist), index) -> (annotation, dot)
+        self.sel = None                  # selected artist in Edit Plot
+        self._sel_art = []               # dashed frame + handles
+        self._drag = None
+        self._legend_drag_on = []
+        self._buttons = {}               # 'tips' / 'edit' -> toolbar button / action
+        self._nav_off = {}               # 'pan' / 'zoom' -> the toolbar's own method
+        self.cids = [
+            canvas.mpl_connect("button_press_event", self._on_press),
+            canvas.mpl_connect("motion_notify_event", self._on_motion),
+            canvas.mpl_connect("button_release_event", self._on_release),
+            canvas.mpl_connect("key_press_event", self._on_key),
+            canvas.mpl_connect("resize_event", lambda e: self._select(None)),
+        ]
+        fig._mft = self
+        self.set_mode("tips" if tips_on else None)
+
+    # ------------------------------------------------------------------ modes
+    def _nav_mode(self) -> str:
+        tb = self.toolbar
+        return str(getattr(tb, "mode", "") or "") if tb is not None else ""
+
+    def toggle(self, which: str):
+        self.set_mode(None if self.mode == which else which)
+
+    def set_mode(self, mode):
+        if self.mode == "edit" and mode != "edit":
+            self._edit_enable(False)
+        if mode is not None and self._nav_mode():            # Pan / Zoom off first
+            nm = self._nav_mode()
+            fn = self._nav_off.get("pan" if "pan" in nm else "zoom") or getattr(
+                self.toolbar, "pan" if "pan" in nm else "zoom", None)
+            if fn is not None:
+                fn()
+        self.mode = mode
+        if mode == "edit":
+            self._edit_enable(True)
+        self._sync_buttons()
+        tb = self.toolbar
+        if tb is not None and hasattr(tb, "set_message"):
+            try:
+                tb.set_message(MFT_MSG.get(mode, ""))
+            except Exception:
+                pass
+        self._set_cursor("pointer")
+
+    def _after_nav(self):
+        """after the toolbar's Pan / Zoom button: they and our modes exclude each other"""
+        if self._nav_mode():
+            if self.mode is not None:
+                if self.mode == "edit":
+                    self._edit_enable(False)
+                self.mode = None
+                self._sync_buttons()
+        elif self.mode is None:
+            self.set_mode("tips")                           # back to MATLAB's default
+
+    def _sync_buttons(self):
+        for key, b in self._buttons.items():
+            on = self.mode == key
+            try:
+                if hasattr(b, "setChecked"):                # Qt action
+                    b.setChecked(on)
+                elif on:                                    # Tk Checkbutton
+                    b.select()
+                else:
+                    b.deselect()
+            except Exception:
+                pass
+
+    def _set_cursor(self, kind: str):
+        try:
+            from matplotlib.backend_tools import Cursors
+            self.canvas.set_cursor(Cursors.MOVE if kind == "move" else Cursors.POINTER)
+        except Exception:
+            pass
+
+    # ------------------------------------------------------------------ data tips
+    def _tip_targets(self):
+        from matplotlib.collections import PathCollection
+        out = []
+        for ax in self.fig.axes:
+            if not ax.get_visible():
+                continue
+            for ln in ax.lines:
+                if (ln.get_visible() and not str(ln.get_label()).startswith(MFT_TIP_LABEL)
+                        and ln.get_transform().contains_branch(ax.transData)   # not axvline / axhline
+                        and np.size(ln.get_xdata()) > 0):
+                    out.append(ln)
+            for c in ax.collections:
+                if isinstance(c, PathCollection) and c.get_visible() and len(c.get_offsets()):
+                    out.append(c)
+        return out
+
+    def _nearest_point(self, ev):
+        """the data point nearest the click among everything under the cursor"""
+        from matplotlib.lines import Line2D
+        best = None
+        for art in self._tip_targets():
+            try:
+                hit, info = art.contains(ev)
+            except Exception:
+                continue
+            if not hit:
+                continue
+            ax = art.axes
+            if isinstance(art, Line2D):
+                xd = np.asarray(art.get_xdata(), dtype=float).ravel()
+                yd = np.asarray(art.get_ydata(), dtype=float).ravel()
+                ind = np.asarray(info.get("ind", []), dtype=int).ravel()
+                cand = np.unique(np.clip(np.concatenate([ind, ind + 1]), 0, xd.size - 1)) if ind.size else \
+                    np.arange(xd.size)
+            else:
+                off = np.asarray(art.get_offsets(), dtype=float)
+                xd, yd = off[:, 0], off[:, 1]
+                cand = np.asarray(info.get("ind", []), dtype=int).ravel()
+            cand = cand[np.isfinite(xd[cand]) & np.isfinite(yd[cand])]
+            if not cand.size:
+                continue
+            pts = ax.transData.transform(np.column_stack([xd[cand], yd[cand]]))
+            dist = np.hypot(pts[:, 0] - ev.x, pts[:, 1] - ev.y)
+            k = int(np.argmin(dist))
+            if best is None or dist[k] < best[0]:
+                best = (float(dist[k]), art, int(cand[k]), float(xd[cand[k]]), float(yd[cand[k]]))
+        return best
+
+    def _toggle_tip(self, ev):
+        hit = self._nearest_point(ev)
+        if hit is None:
+            return
+        _, art, i, x, y = hit
+        key = (id(art), i)
+        if key in self.tips:                                  # second click -> remove
+            for a in self.tips.pop(key):
+                a.remove()
+            self.canvas.draw_idle()
+            return
+        ax = art.axes
+        fx, fy = ax.transAxes.inverted().transform(ax.transData.transform((x, y)))
+        dx, ha = (-14, "right") if fx > 0.72 else (14, "left")
+        dy, va = (-14, "top") if fy > 0.80 else (14, "bottom")
+        dot, = ax.plot([x], [y], "o", ms=5, mfc="k", mec="w", mew=1, zorder=10,
+                       label=MFT_TIP_LABEL + "_dot")
+        ann = ax.annotate(f"X  {_mft_fmt(x)}\nY  {_mft_fmt(y)}", xy=(x, y), xytext=(dx, dy),
+                          textcoords="offset points", ha=ha, va=va, fontsize=11, fontweight="bold",
+                          color="#0B6FD6", zorder=11, annotation_clip=False,
+                          bbox=dict(boxstyle="round,pad=0.45", fc="#F8F8FB", ec="#8C8C8C", lw=1),
+                          arrowprops=dict(arrowstyle="-", color="#8C8C8C", lw=0.8))
+        ann.set_label(MFT_TIP_LABEL)
+        self.tips[key] = (ann, dot)
+        self.canvas.draw_idle()
+
+    def clear_tips(self):
+        for pair in self.tips.values():
+            for a in pair:
+                try:
                     a.remove()
-                canvas.draw_idle()
+                except Exception:
+                    pass
+        self.tips.clear()
+        self.canvas.draw_idle()
+
+    # ------------------------------------------------------------------ edit plot
+    def _legends(self):
+        lg = [ax.get_legend() for ax in self.fig.axes]
+        return [x for x in lg + list(getattr(self.fig, "legends", [])) if x is not None and x.get_visible()]
+
+    def _edit_enable(self, on: bool):
+        for lg in self._legend_drag_on:
+            try:
+                lg.set_draggable(False)
+            except Exception:
+                pass
+        self._legend_drag_on = []
+        if on:
+            for lg in self._legends():
+                try:
+                    lg.set_draggable(True)                 # matplotlib's own legend dragging
+                    self._legend_drag_on.append(lg)
+                except Exception:
+                    pass
+        else:
+            self._drag = None
+            self._select(None)
+
+    def _edit_targets(self):
+        """movable objects, topmost first: (artist, kind, owner)"""
+        out = []
+        for ax in reversed(self.fig.axes):
+            if not ax.get_visible():
+                continue
+            out += [(t, "text", ax) for t in reversed(ax.texts) if t.get_visible() and t.get_text()]
+            lg = ax.get_legend()
+            if lg is not None and lg.get_visible():
+                out.append((lg, "legend", ax))
+            for t in (ax.title, getattr(ax, "_left_title", None), getattr(ax, "_right_title", None)):
+                if t is not None and t.get_visible() and t.get_text():
+                    out.append((t, "title", ax))
+            for axis in (ax.xaxis, ax.yaxis):
+                if axis.label.get_visible() and axis.label.get_text():
+                    out.append((axis.label, "axislabel", axis))
+        out += [(lg, "legend", self.fig) for lg in getattr(self.fig, "legends", []) if lg.get_visible()]
+        out += [(t, "text", self.fig) for t in reversed(self.fig.texts) if t.get_visible() and t.get_text()]
+        return out
+
+    def _hit_edit(self, ev):
+        for art, kind, owner in self._edit_targets():
+            try:
+                if art.contains(ev)[0]:
+                    return art, kind, owner
+            except Exception:
+                continue
+        return None
+
+    def _start_drag(self, ev, art, kind, owner):
+        from matplotlib.text import Annotation
+        if kind == "legend":
+            self._drag = ("legend", art)                     # moved by set_draggable(True)
+            return
+        if isinstance(art, Annotation) and str(art.anncoords).startswith("offset"):
+            k = 72.0 / self.fig.dpi if art.anncoords == "offset points" else 1.0
+            self._drag = ("ann", art, ev.x, ev.y, tuple(art.xyann), k)
+            return
+        tr = art.get_transform()
+        p0 = tr.transform(art.get_position())
+        if kind == "title":
+            try:
+                owner._autotitlepos = False                  # keep the position we give it
+            except Exception:
+                pass
+        self._drag = (kind, art, ev.x, ev.y, p0, owner)
+
+    def _do_drag(self, ev):
+        d = self._drag
+        if d is None or d[0] == "legend" or ev.x is None:
+            return
+        if d[0] == "ann":
+            _, art, x0, y0, (ox, oy), k = d
+            art.xyann = (ox + (ev.x - x0) * k, oy + (ev.y - y0) * k)
+        else:
+            kind, art, x0, y0, p0, owner = d
+            p = (p0[0] + ev.x - x0, p0[1] + ev.y - y0)
+            if kind == "axislabel":
+                xa, ya = owner.axes.transAxes.inverted().transform(p)
+                owner.set_label_coords(xa, ya)
+            else:
+                art.set_position(tuple(art.get_transform().inverted().transform(p)))
+        self._draw_selection()
+        self.canvas.draw_idle()
+
+    def _select(self, art):
+        self.sel = art
+        self._draw_selection()
+        self.canvas.draw_idle()
+
+    def _draw_selection(self):
+        from matplotlib.patches import Rectangle
+        from matplotlib.transforms import IdentityTransform
+        for a in self._sel_art:
+            try:
+                a.remove()
+            except Exception:
+                pass
+        self._sel_art = []
+        if self.sel is None:
+            return
+        try:
+            r = self.canvas.get_renderer()
+            patch = self.sel.get_bbox_patch() if hasattr(self.sel, "get_bbox_patch") else None
+            bb = (patch or self.sel).get_window_extent(r)      # a tip: its box, not its leader line
+        except Exception:
+            return
+        p = 3
+        x0, y0, w, h = bb.x0 - p, bb.y0 - p, bb.width + 2 * p, bb.height + 2 * p
+        frame = Rectangle((x0, y0), w, h, transform=IdentityTransform(), fill=False, ec="#1E64C8",
+                          lw=1.0, ls="--", zorder=1e6, label=MFT_SEL_LABEL)
+        self._sel_art.append(self.fig.add_artist(frame))
+        s = 5
+        for hx, hy in ((x0, y0), (x0 + w, y0), (x0, y0 + h), (x0 + w, y0 + h)):
+            hd = Rectangle((hx - s / 2, hy - s / 2), s, s, transform=IdentityTransform(), fc="white",
+                           ec="#1E64C8", lw=1.0, zorder=1e6, label=MFT_SEL_LABEL)
+            self._sel_art.append(self.fig.add_artist(hd))
+
+    def _delete_selected(self):
+        a = self.sel
+        if a is None:
+            return
+        self._select(None)
+        for key, pair in list(self.tips.items()):           # a tip box takes its dot with it
+            if a is pair[0]:
+                pair[1].remove()
+                self.tips.pop(key)
+        try:
+            if a in [ax.title for ax in self.fig.axes] or any(a is ax.xaxis.label or a is ax.yaxis.label
+                                                              for ax in self.fig.axes):
+                a.set_text("")
+            else:
+                a.remove()
+        except Exception:
+            try:
+                a.set_visible(False)
+            except Exception:
+                pass
+        self.canvas.draw_idle()
+
+    # ------------------------------------------------------------------ events
+    def _on_press(self, ev):
+        if self._nav_mode() or ev.button != 1:
+            return
+        if self.mode == "tips":
+            if ev.inaxes is not None:
+                self._toggle_tip(ev)
+        elif self.mode == "edit":
+            hit = self._hit_edit(ev)
+            if hit is None:
+                self._drag = None
+                self._select(None)
                 return
-            x, y = xd[i], yd[i]
-            # keep the box inside the axes: flip left near the right edge, down near the top
-            fx, fy = ax.transAxes.inverted().transform(ax.transData.transform((x, y)))
-            dx, ha = (-14, "right") if fx > 0.72 else (14, "left")
-            dy, va = (-14, "top") if fy > 0.80 else (14, "bottom")
-            dot, = ax.plot([x], [y], "o", ms=5, mfc="k", mec="w", mew=1, zorder=10)
-            ann = ax.annotate(f"X  {_fmt(x)}\nY  {_fmt(y)}", xy=(x, y), xytext=(dx, dy),
-                              textcoords="offset points", ha=ha, va=va, fontsize=11,
-                              fontweight="bold", color="#0B6FD6", zorder=11, annotation_clip=False,
-                              bbox=dict(boxstyle="round,pad=0.45", fc="#F8F8FB", ec="#8C8C8C", lw=1),
-                              arrowprops=dict(arrowstyle="-", color="#8C8C8C", lw=0.8))
-            tips[key] = (ann, dot)
-            canvas.draw_idle()
+            art, kind, owner = hit
+            self._select(art)
+            self._start_drag(ev, art, kind, owner)
 
-        def on_key(ev):
-            if ev.key in ("delete", "escape", "backspace") and tips:
-                for pair in tips.values():
-                    for a in pair:
-                        a.remove()
-                tips.clear()
-                canvas.draw_idle()
+    def _on_motion(self, ev):
+        if self.mode != "edit" or self._nav_mode():
+            return
+        if self._drag is not None and ev.button == 1:
+            self._do_drag(ev)
+            if self._drag[0] == "legend":
+                self._draw_selection()
+            return
+        self._set_cursor("move" if self._hit_edit(ev) is not None else "pointer")
 
-        canvas.mpl_connect("pick_event", on_pick)
-        canvas.mpl_connect("key_press_event", on_key)
+    def _on_release(self, ev):
+        if self._drag is not None:
+            self._drag = None
+            self._draw_selection()
+            self.canvas.draw_idle()
 
-    hooks = getattr(fig, "_aqp_on_canvas", None) or []
-    hooks.append(connect)
-    fig._aqp_on_canvas = hooks
+    def _on_key(self, ev):
+        k = (ev.key or "").lower()
+        if k == "d":
+            self.toggle("tips")
+        elif k == "e":
+            self.toggle("edit")
+        elif self.mode == "edit" and k in ("delete", "backspace"):
+            self._delete_selected()
+        elif self.mode == "edit" and k == "escape":
+            self._select(None)
+        elif self.mode == "tips" and k in ("delete", "backspace", "escape") and self.tips:
+            self.clear_tips()
+
+
+# ----------------------------------------------------------------------------- toolbars
+def _mft_add_buttons(tools: FigureTools, toolbar):
+    if toolbar is None:
+        return
+    icons = _mft_icons()
+    if hasattr(toolbar, "_Button"):                           # Tk (NavigationToolbar2Tk)
+        try:
+            toolbar._Spacer()
+        except Exception:
+            pass
+        for key, text, icon, tip in (("tips", "Data Tips", icons["datatips"], MFT_MSG["tips"]),
+                                     ("edit", "Edit Plot", icons["editplot"], MFT_MSG["edit"])):
+            try:
+                b = toolbar._Button(text, icon, True, lambda k=key: tools.toggle(k))
+            except Exception:
+                b = toolbar._Button(text, None, True, lambda k=key: tools.toggle(k))
+            try:
+                from matplotlib.backends._backend_tk import add_tooltip
+                add_tooltip(b, tip)
+            except Exception:
+                try:
+                    from matplotlib.backends._backend_tk import ToolTip
+                    ToolTip.createToolTip(b, tip)
+                except Exception:
+                    pass
+            tools._buttons[key] = b
+            if isinstance(getattr(toolbar, "_buttons", None), dict):
+                toolbar._buttons[text] = b
+        for name in ("pan", "zoom"):                          # Pan / Zoom also end our modes
+            orig = getattr(toolbar, name, None)
+            if orig is None:
+                continue
+            tools._nav_off[name] = orig
+
+            def wrapped(*a, _orig=orig):
+                _orig(*a)
+                tools._after_nav()
+            setattr(toolbar, name, wrapped)                   # keyboard p / o
+            btn = getattr(toolbar, "_buttons", {}).get("Pan" if name == "pan" else "Zoom")
+            if btn is not None:
+                btn.configure(command=wrapped)                # the toolbar buttons
+    elif hasattr(toolbar, "addAction"):                       # Qt (NavigationToolbar2QT)
+        try:
+            from matplotlib.backends.qt_compat import QtGui
+            toolbar.addSeparator()
+            for key, text, icon in (("tips", "Data Tips", icons["datatips"]),
+                                    ("edit", "Edit Plot", icons["editplot"])):
+                act = toolbar.addAction(QtGui.QIcon(icon[:-4] + "_large.png"), text)
+                act.setCheckable(True)
+                act.setToolTip(MFT_MSG[key])
+                act.triggered.connect(lambda checked=False, k=key: tools.toggle(k))
+                tools._buttons[key] = act
+            for name in ("pan", "zoom"):
+                act = getattr(toolbar, "_actions", {}).get(name)
+                if act is not None:
+                    tools._nav_off[name] = getattr(toolbar, name)
+                    act.triggered.connect(lambda *a: tools._after_nav())
+        except Exception:
+            pass
+    tools._sync_buttons()
+
+
+def install_figure_tools(fig, canvas=None, toolbar=None, tips_on: bool = True):
+    """Add Data Tips + Edit Plot to one figure (idempotent).  canvas / toolbar
+    default to the figure's own (pyplot windows)."""
+    if fig is None:
+        return None
+    if getattr(fig, "_mft", None) is not None:
+        return fig._mft
+    canvas = canvas or fig.canvas
+    if toolbar is None:
+        toolbar = getattr(getattr(canvas, "manager", None), "toolbar", None)
+    tools = FigureTools(fig, canvas, toolbar, tips_on=tips_on)
+    _mft_add_buttons(tools, toolbar)
+    return tools
+
+
+def enable_for_pyplot():
+    """From now on every pyplot figure (plt.figure / plt.subplots / plt.gcf ...)
+    gets the tools.  Call once, before making figures."""
+    import matplotlib.pyplot as plt
+    if getattr(plt.figure, "_mft_wrapped", False):
+        return
+    orig = plt.figure
+
+    def figure(*args, **kwargs):
+        fig = orig(*args, **kwargs)
+        try:
+            if getattr(fig.canvas, "manager", None) is not None and getattr(fig.canvas.manager, "toolbar", None) \
+                    is not None:
+                install_figure_tools(fig)
+        except Exception:
+            pass
+        return fig
+    figure._mft_wrapped = True
+    figure.__doc__ = orig.__doc__
+    plt.figure = figure
+
+
+def enable_datatips(fig, lines, pickradius: float = 7):
+    """Kept for compatibility: data tips now come with every figure window
+    (install_figure_tools, called by AQPApp._show_figure), so nothing to do."""
+    return None
 
 
 def cmp_results(folder: str, figs: FigMgr, XTick_order="sortnat", strict_XTick=False,
@@ -4287,18 +4744,23 @@ class AQPApp:
         except Exception:
             pass
         canvas.draw()
-        NavigationToolbar2Tk(canvas, top).update()
+        toolbar = NavigationToolbar2Tk(canvas, top)
+        toolbar.update()
         canvas.get_tk_widget().pack(fill="both", expand=True)
+        install_figure_tools(fig, canvas, toolbar)      # MATLAB-style Data Tips + Edit Plot
         for hook in getattr(fig, "_aqp_on_canvas", None) or []:   # e.g. enable_datatips
             try:
                 hook(canvas)
             except Exception:                                      # noqa: BLE001
                 traceback.print_exc()
-        # key presses (Delete/Escape for data tips) need keyboard focus on the canvas
+        # key presses (Delete / Escape, d / e) need keyboard focus on the canvas
         canvas.get_tk_widget().bind("<Button-1>", lambda e: e.widget.focus_set(), add="+")
         fig._aqp_window = top
         self.fig_windows.append(top)
         top.protocol("WM_DELETE_WINDOW", lambda: self._close_window(top))
+        # a window closed by the run itself (non-optimal schemes) leaves the list too
+        top.bind("<Destroy>", lambda e, t=top: (e.widget is t and t in self.fig_windows
+                                                and self.fig_windows.remove(t)), add="+")
         self.root.update()
 
     def _close_window(self, top):
