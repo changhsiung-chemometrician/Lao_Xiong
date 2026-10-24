@@ -1,0 +1,444 @@
+<title>老熊的第十一圈</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=LXGW+WenKai+TC:wght@700&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: 1100px 老熊隨筆 broadsheet page; the spine is a 14-row "入圈審查表" scored 0–10, then a SIMCA Coomans plot that rejects the sample, then the 11th circle card */
+:root{
+  --paper:#efe7d6; --paper-2:#e6dcc6; --ink:#1e1a15; --ink-2:#4a4237; --rule:#b9ab8f;
+  --seal:#9c2f1f; --staff:#24467a; --thermal:#fbfaf6; --thermal-ink:#2b2b2b;
+  --key:#5d7fa8; --key-ink:#ffffff; --bar:#9c2f1f; --bar-k:#24467a; --track:#d9cdb3;
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-hand:"LXGW WenKai TC","Kaiti TC","DFKai-SB",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --fs-body:clamp(20px, 1rem + 1.25vw, 32px);
+  --fs-h1:clamp(40px, 2rem + 4.2vw, 76px);
+  --fs-h2:clamp(30px, 1.4rem + 2.6vw, 52px);
+  --fs-pull:clamp(26px, 1.2rem + 2vw, 44px);
+  --fs-small:clamp(16px, .8rem + .7vw, 22px);
+  --fs-drop:clamp(84px, 4rem + 5vw, 120px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#1b1813; --paper-2:#25211a; --ink:#ede4d0; --ink-2:#c3b89f; --rule:#5b5244;
+  --seal:#e2785f; --staff:#8fb0e6; --thermal:#2a2822; --thermal-ink:#e9e5da;
+  --key:#3f5f86; --key-ink:#f2f5fa; --bar:#e2785f; --bar-k:#8fb0e6; --track:#3a3328; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#1b1813; --paper-2:#25211a; --ink:#ede4d0; --ink-2:#c3b89f; --rule:#5b5244;
+  --seal:#e2785f; --staff:#8fb0e6; --thermal:#2a2822; --thermal-ink:#e9e5da;
+  --key:#3f5f86; --key-ink:#f2f5fa; --bar:#e2785f; --bar-k:#8fb0e6; --track:#3a3328; color-scheme:dark}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-weight:700;font-size:var(--fs-body);line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 140px}
+.page{max-width:1100px;margin:0 auto}
+a{color:var(--seal);text-underline-offset:.18em}
+a:focus-visible{outline:3px solid var(--staff);outline-offset:3px}
+strong{font-weight:800}
+.num{font-family:var(--f-mono);font-weight:800;font-variant-numeric:tabular-nums}
+p{margin:0}
+.prose{display:grid;gap:1.1em;max-width:34em}
+
+/* masthead */
+.mast{border-bottom:6px double var(--ink);padding-block:28px 14px;display:grid;gap:8px;text-align:center}
+.mast .mrow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;font-family:var(--f-mono);font-size:var(--fs-small);color:var(--ink-2);border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);padding-block:6px}
+.mast .name{font-family:var(--f-display);font-weight:900;font-size:clamp(44px,2rem + 5vw,96px);letter-spacing:.12em;line-height:1.1}
+
+/* hero */
+.hero{display:grid;gap:18px;padding-block:36px 28px;border-bottom:1px solid var(--rule)}
+.kicker{font-family:var(--f-hand);font-size:var(--fs-pull);color:var(--seal)}
+h1{font-family:var(--f-display);font-weight:900;font-size:var(--fs-h1);line-height:1.18;margin:0;text-wrap:balance}
+h1 small{display:block;font-size:.55em;color:var(--ink-2);margin-top:.3em}
+.deck{font-size:var(--fs-body);color:var(--ink-2);max-width:34em}
+.byline{font-family:var(--f-mono);font-size:var(--fs-small);color:var(--ink-2);letter-spacing:.04em}
+
+/* toc */
+nav.toc{margin-block:28px;border:2px solid var(--ink);background:var(--paper-2);padding:20px 24px}
+nav.toc h2{font-family:var(--f-mono);font-size:var(--fs-small);letter-spacing:.2em;margin:0 0 10px;color:var(--ink-2)}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+nav.toc a{text-decoration:none;color:var(--ink)}
+nav.toc a:hover{color:var(--seal)}
+nav.toc .tnum{display:inline-block;min-width:2.2em;color:var(--seal);font-family:var(--f-display)}
+
+/* sections */
+section{padding-block:44px 20px;border-bottom:1px solid var(--rule);display:grid;gap:26px}
+h2.sec{font-family:var(--f-display);font-weight:900;font-size:var(--fs-h2);line-height:1.25;margin:0;text-wrap:balance;display:flex;gap:.5em;align-items:baseline;flex-wrap:wrap}
+h2.sec .sn{color:var(--seal)}
+.back{font-family:var(--f-mono);font-size:var(--fs-small);text-align:right}
+.back a{text-decoration:none}
+.drop::first-letter{float:left;font-family:var(--f-display);font-weight:900;font-size:var(--fs-drop);line-height:.85;margin:.06em .12em 0 0;color:var(--seal)}
+.pull{font-family:var(--f-hand);font-size:var(--fs-pull);line-height:1.5;border-block:3px solid var(--ink);padding-block:18px;max-width:30em}
+
+/* chat timeline */
+.chat{list-style:none;margin:0;padding:0;display:grid;gap:14px;max-width:36em}
+.chat li{display:grid;grid-template-columns:7.2em 1fr;gap:4px 18px;align-items:start;border-left:4px solid var(--rule);padding-left:16px}
+.chat li.me{border-left-color:var(--seal)}
+.chat .t{font-family:var(--f-mono);font-size:var(--fs-small);color:var(--ink-2);line-height:1.6;padding-top:.3em}
+.chat .t b{display:block;font-weight:700;color:var(--staff)}
+.chat .w{min-width:0}
+.chat .who{font-family:var(--f-mono);font-size:var(--fs-small);color:var(--ink-2)}
+.chat q{font-family:var(--f-hand);quotes:"「" "」"}
+@media (max-width:620px){.chat li{grid-template-columns:1fr}}
+
+/* two-col with receipt sidebar */
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:36px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.receipt{background:var(--thermal);color:var(--thermal-ink);font-family:var(--f-mono);font-size:var(--fs-small);line-height:1.7;padding:22px 20px;border:1px dashed var(--rule);display:grid;gap:4px}
+.receipt h3{font-family:var(--f-mono);font-size:var(--fs-small);margin:0 0 8px;text-align:center;letter-spacing:.2em;border-bottom:2px dashed var(--thermal-ink);padding-bottom:8px}
+.receipt .ln{display:flex;justify-content:space-between;gap:12px}
+.receipt .ln span:last-child{text-align:right}
+.receipt .tot{border-top:2px dashed var(--thermal-ink);margin-top:8px;padding-top:8px;font-weight:800}
+
+/* score sheet */
+.sheet{display:grid;gap:0;border-top:3px solid var(--ink)}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) 3.4em;gap:6px 18px;align-items:start;padding-block:20px;border-bottom:1px solid var(--rule)}
+.key{width:1.7em;height:1.7em;border-radius:.28em;background:var(--key);color:var(--key-ink);display:grid;place-items:center;font-family:var(--f-mono);font-size:.9em;font-weight:800;margin-top:.1em;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.row.k .key{background:var(--staff);color:var(--paper)}
+.cname{font-family:var(--f-display);font-weight:900;font-size:1.05em;line-height:1.4}
+.cname .orig{font-family:var(--f-body);font-weight:700;color:var(--ink-2);font-size:var(--fs-small);margin-left:.4em}
+.meter{height:14px;background:var(--track);margin-block:10px 10px;position:relative;max-width:520px}
+.meter i{position:absolute;inset:0 auto 0 0;background:var(--bar)}
+.row.k .meter i{background:var(--bar-k)}
+.meter.na{background:repeating-linear-gradient(45deg,var(--track) 0 8px,transparent 8px 16px)}
+.score{font-family:var(--f-mono);font-weight:800;font-size:1.25em;text-align:right;font-variant-numeric:tabular-nums;line-height:1.3}
+.score small{display:block;font-size:.5em;color:var(--ink-2);font-weight:700}
+.verdict{font-size:.92em;line-height:1.7}
+.verdict .minus{color:var(--seal)}
+.sumline{font-family:var(--f-mono);font-size:var(--fs-small);color:var(--ink-2);padding-top:12px}
+
+/* figure */
+figure{margin:0;display:grid;gap:12px}
+.figwrap{overflow-x:auto;border:2px solid var(--ink);background:var(--thermal)}
+.figwrap svg{display:block;width:100%;min-width:560px;height:auto}
+figcaption{font-size:var(--fs-small);color:var(--ink-2);line-height:1.6;max-width:44em}
+svg text{font-family:var(--f-mono);font-weight:700}
+svg .lbl{font-family:var(--f-body);font-weight:700}
+
+/* 11th circle card */
+.card11{border:3px solid var(--seal);background:var(--paper-2);padding:28px 30px;display:grid;gap:14px;max-width:38em;position:relative}
+.card11 .stamp{position:absolute;top:-18px;right:20px;background:var(--seal);color:var(--paper);font-family:var(--f-mono);font-size:var(--fs-small);padding:2px 12px;letter-spacing:.15em}
+.card11 .line{display:flex;gap:16px;align-items:flex-start}
+.card11 .key{background:var(--seal);color:var(--paper)}
+.card11 .def{font-size:1.12em;line-height:1.65}
+.card11 .def b{font-family:var(--f-display);font-weight:900}
+ol.gate{margin:0;padding-left:1.6em;display:grid;gap:10px;max-width:34em}
+ol.gate li::marker{font-family:var(--f-mono);color:var(--seal);font-weight:800}
+
+/* prereg + notes */
+.prereg{list-style:none;margin:0;padding:0;display:grid;gap:10px;max-width:36em}
+.prereg li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px}
+.prereg li::before{content:"□";font-family:var(--f-mono);color:var(--seal)}
+.notes{font-size:var(--fs-small);line-height:1.75;color:var(--ink-2);display:grid;gap:10px;max-width:46em}
+.notes b{color:var(--ink)}
+.end{text-align:center;font-family:var(--f-display);font-size:var(--fs-pull);padding-block:30px;color:var(--seal)}
+
+/* floating nav */
+.fnav{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:20}
+.fnav a{display:block;background:var(--ink);color:var(--paper);font-family:var(--f-mono);font-weight:700;font-size:clamp(14px,.7rem + .5vw,19px);text-decoration:none;padding:9px 14px;border:2px solid var(--paper);box-shadow:3px 3px 0 var(--rule);text-align:center}
+.fnav a:hover{background:var(--seal)}
+</style>
+
+<div class="page">
+
+<header class="mast" id="top">
+  <div class="mrow"><span>老熊隨筆 · 群組觀察</span><span>2026.10.23 · 週五</span><span>復盤體 · 附 Coomans 圖</span></div>
+  <div class="name">老熊隨筆</div>
+</header>
+
+<div class="hero">
+  <div class="kicker">退休十大圈子，你會在哪個圈？</div>
+  <h1>十個圈子，一個都進不去<small>老熊替自己開的第十一圈</small></h1>
+  <p class="deck">小紅書一張〈退休十大圈子〉的圖，我轉進群組，自己先招認一句「感覺我都不算是？」。拿本站一百二十五篇當證據，逐圈打分，再加上群友補的四圈：最高拿到九分，沒有一圈拿滿。最後只好學 SIMCA 說一聲「都不是」，然後照群友那句現成的話，開出第十一圈。</p>
+  <p class="byline">文 · 老熊　｜　打分與排版 · Claude　｜　分數為示意，依站上文章判讀</p>
+</div>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <h2>目 錄</h2>
+  <ol>
+    <li><a href="#s1"><span class="tnum">壹</span>一天之內的五則訊息</a></li>
+    <li><a href="#s2"><span class="tnum">貳</span>原表十圈，逐圈對帳</a></li>
+    <li><a href="#s3"><span class="tnum">參</span>群友補的四圈</a></li>
+    <li><a href="#s4"><span class="tnum">肆</span>為什麼每圈都差一點：一張 Coomans 圖</a></li>
+    <li><a href="#s5"><span class="tnum">伍</span>第十一圈：生活處處有研究圈</a></li>
+    <li><a href="#s6"><span class="tnum">陸</span>每個人都是一個人的江湖</a></li>
+    <li><a href="#s7"><span class="tnum">附</span>復盤附記</a></li>
+  </ol>
+</nav>
+
+<!-- 壹 -->
+<section id="s1">
+  <h2 class="sec"><span class="sn">壹</span>一天之內的五則訊息</h2>
+  <div class="prose">
+    <p class="drop">十月二十三日，iPhone Duo 首發日。早上排完隊、下午寫完〈哀瘋 Duo 首發日〉，中午空檔滑小紅書，看到「一起趣退休俱樂部」一張圖：退休十大圈子，你會在哪個圈。十個圈從旅遊暴走一路排到宅家自在，我一個一個看下去，一個也對不上，就轉進群組。接下來七個小時，兩個群組一共五則訊息，照時間排：</p>
+  </div>
+  <ol class="chat">
+    <li class="me"><div class="t"><b>12:31 PM</b>LINE</div><div class="w"><div class="who">老熊（附小紅書原圖）</div><q>感覺我都不算是？哈哈</q></div></li>
+    <li><div class="t"><b>3:48 PM</b>WeChat</div><div class="w"><div class="who">群友 K</div><q>这个十大圈子不够全面，漏了 AI 对话圈、自耕农圈、投机炒股圈、世界美食享受圈……</q> 😁</div></li>
+    <li><div class="t"><b>4:10 PM</b>LINE</div><div class="w"><div class="who">群友 W（附本站連結）</div><q>果然博士不同於凡人，人家是生活處處有講究，老熊是生活處處有研究，連排隊買手機都能做數據分析。</q></div></li>
+    <li><div class="t"><b>4:42 PM</b>LINE</div><div class="w"><div class="who">群友 X</div>👏👏👏 <q>精闢！</q></div></li>
+    <li class="me"><div class="t"><b>7:07 PM</b>WeChat</div><div class="w"><div class="who">老熊，回 K</div><q>哈哈哈 的確 每个人都是一个人的江湖</q></div></li>
+  </ol>
+  <div class="prose">
+    <p>五則合起來，剛好是一次完整的分類實驗。小紅書給了一張十類的標籤表；我是那個自評為「都不是」的樣本；K 是提議擴充類別的審稿人；W 直接把新類別的定義寫了出來；X 投了贊成票。W 那句話回的，多半是當天剛上架的〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%93%80%E7%98%8BDuo%E9%A6%96%E7%99%BC%E6%97%A5.html">哀瘋 Duo 首發日</a>〉：前一晚買了一張折疊椅，隔天用十二張照片的 EXIF 推出自己大約排第四十號。這一條是推定，沒問。</p>
+    <p>既然實驗設計都齊了，就照復盤體的規矩把它跑完。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- 貳 -->
+<section id="s2">
+  <h2 class="sec"><span class="sn">貳</span>原表十圈，逐圈對帳</h2>
+  <div class="split">
+    <div class="prose">
+      <p>規矩照舊：每一圈的分數都要有一篇站上的文章當證據，查不到的記零，不腦補。分數從 0 到 10，量的是「站上看得到的投入」，不是「我心裡想不想進」。圈名照原表，後面的小字是我的轉述。紅字是扣分理由，請先記住它們長什麼樣子，第肆節要用。</p>
+    </div>
+    <aside class="receipt" aria-label="量測規格">
+      <h3>量 測 規 格</h3>
+      <div class="ln"><span>樣本</span><span>老熊 ×1</span></div>
+      <div class="ln"><span>證據</span><span>本站 125 篇</span></div>
+      <div class="ln"><span>類別</span><span>原表 10 ＋ 群友 4</span></div>
+      <div class="ln"><span>量程</span><span>0 – 10</span></div>
+      <div class="ln"><span>判準</span><span>臨界距離 1.0</span></div>
+      <div class="ln"><span>查不到</span><span>記 0 或留白</span></div>
+      <div class="ln tot"><span>結果</span><span>見第肆節</span></div>
+    </aside>
+  </div>
+
+  <div class="sheet" role="list">
+    <div class="row" role="listitem"><div class="key">1</div><div>
+      <div class="cname">旅遊暴走圈<span class="orig">到處打卡、步數第一</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:60%"></i></div>
+      <p class="verdict">十二年二十五趟，有一張〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/vacation-trips-map-2014-2026.html">從灣區出發</a>〉的地圖當目錄；〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/alaska_2026_zhuiguang_guanbing.html">追光·觀冰</a>〉的阿拉斯加十一日；年底還有<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E6%AD%90%E6%B4%B2%E5%B0%8F%E5%81%B7%E9%9B%B6%E5%85%83%E8%B3%BC%E5%A4%A9%E5%A0%82%E5%9B%9B%E5%9C%8B%E4%B9%8B%E6%97%85.html">米蘭、羅馬、巴黎、里斯本</a>。<span class="minus">扣四分：「步數第一」查無紀錄；每趟回來先做的，是一張 EXIF 證據表；出發前先算的，是失竊險的損益兩平點。</span></p>
+    </div><div class="score">6</div></div>
+
+    <div class="row" role="listitem"><div class="key">2</div><div>
+      <div class="cname">廣場舞／運動圈<span class="orig">晨練晚跳</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:10%"></i></div>
+      <p class="verdict">一百二十五篇裡沒有一篇講運動。站上最接近戶外裝備的東西，是首發日前一晚在 Target 花 $13.16 買的折疊椅。<span class="minus">那張椅子一分鐘也沒打開過。</span></p>
+    </div><div class="score">1</div></div>
+
+    <div class="row" role="listitem"><div class="key">3</div><div>
+      <div class="cname">隔代帶娃圈<span class="orig">含飴弄孫</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:0%"></i></div>
+      <p class="verdict">本站沒有相關紀錄。<span class="minus">查無，記零。</span></p>
+    </div><div class="score">0</div></div>
+
+    <div class="row" role="listitem"><div class="key">4</div><div>
+      <div class="cname">茶棋交友圈<span class="orig">公園樹下，一壺茶一盤棋</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:40%"></i></div>
+      <p class="verdict">交友是有的：〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E4%BB%8A%E5%B9%B4%E7%9A%84%E7%AC%AC%E5%85%AD%E6%AC%A1%E7%81%A3%E5%8D%80%E5%90%8C%E5%AD%B8%E6%9C%83.html">今年的第六次灣區同學會</a>〉，「志航三仁」與「台大化工 1980」兩個群組天天有話。<span class="minus">扣分：沒有公園，沒有棋盤；那頓同學會的後記，附的是一張 AI 評估的拆帳表。茶只在阿發那句「想不起來就喝杯茶」裡出現過。</span></p>
+    </div><div class="score">4</div></div>
+
+    <div class="row" role="listitem"><div class="key">5</div><div>
+      <div class="cname">花花攝影圈<span class="orig">拍花拍鳥拍雲彩</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:40%"></i></div>
+      <p class="verdict">〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%B4%85%E6%9C%A8%E7%81%98%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.html">紅木灘的前世今生</a>〉裡，窗外十二年的朝霞、魚鱗天、雙彩虹確實拍了不少。<span class="minus">扣分：鏡頭更常對著帳單、門禁卡和護照像；拍照多半是為了取證，日期戳還被拿去推翻過自己的記憶。</span></p>
+    </div><div class="score">4</div></div>
+
+    <div class="row" role="listitem"><div class="key">6</div><div>
+      <div class="cname">廚藝美食圈<span class="orig">把家常菜做出米其林感</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:30%"></i></div>
+      <p class="verdict">吃的有：Cheesecake Factory 77 號桌、〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/mikiya-lunch-plan-zh.html">味喜屋</a>〉九選四的和牛攻略。做的沒有：本站找不到一道自己下廚的菜。<span class="minus">家常菜沒做出米其林感，倒是把一頓生日午餐做成了〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E9%95%B7%E5%B0%BE%E5%B7%B4%E7%9A%84%E5%8C%96%E5%AD%B8%E8%A8%88%E9%87%8F%E5%88%86%E6%9E%90.html">長尾巴的化學計量分析</a>〉，設計矩陣秩不足。</span></p>
+    </div><div class="score">3</div></div>
+
+    <div class="row" role="listitem"><div class="key">7</div><div>
+      <div class="cname">學習成長圈<span class="orig">老年大學常客</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:80%"></i></div>
+      <p class="verdict">全表最高。CSM 的 CIS 400 拿了 A；為了 2027 年春季的 CIS 402「AI 導論」，又<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%82%BA%E4%BA%86%E4%B8%8AAI%E5%B0%8E%E8%AB%96%E5%85%88%E7%95%B6%E4%B8%80%E5%9B%9E%E6%96%B0%E7%94%9F_CSM_CIS402.html">重當了一回新生</a>：五大步驟、十八章導覽、一場期末考。<span class="minus">扣兩分：學的不是書法、畫畫、樂器；而且考完還寫了一篇〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%94%A8AI%E6%87%89%E8%80%83AI%E5%B0%8E%E8%AB%96%E6%8B%BFA_%E8%AA%B0%E4%B8%8D%E5%8F%8A%E6%A0%BC.html">到底誰不及格？</a>〉回頭審課程。</span></p>
+    </div><div class="score">8</div></div>
+
+    <div class="row" role="listitem"><div class="key">8</div><div>
+      <div class="cname">養生佛系圈<span class="orig">八段錦泡腳，萬物隨緣</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:10%"></i></div>
+      <p class="verdict">站上唯一的佛，是〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%A4%96%E5%A9%86%E5%AE%B6%E7%9A%84%E5%85%AB%E5%8D%A6%E5%B1%B1%E5%A4%A7%E4%BD%9B.html">外婆家的八卦山大佛</a>〉，而且那篇還附了一張待查清單。<span class="minus">凌晨四點五十三分坐到螢幕前<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/iphone_duo_preorder_%E5%87%8C%E6%99%A8%E4%BA%94%E9%BB%9E%E7%9A%84%E6%91%BA%E7%96%8A%E6%A9%9F.html">搶摺疊機預購</a>，離「萬物隨緣」大約三點七個西格瑪。</span></p>
+    </div><div class="score">1</div></div>
+
+    <div class="row" role="listitem"><div class="key">9</div><div>
+      <div class="cname">公益志願圈<span class="orig">發揮餘熱，幫助他人</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:50%"></i></div>
+      <p class="verdict">給西非的<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A%E7%9A%84%E9%BB%91%E5%BE%92%E5%85%92.html">黑徒兒</a>開了一門沒有學費、沒有學分的課；替阿發的回憶錄作序、分冊、收進本站，付印版〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%B5%B0%E9%81%8E%E7%9A%84%E8%B7%AF%E9%83%BD%E6%98%AF%E6%81%A9_%E7%B8%BD%E7%9B%AE%E6%AC%A1.html">走過的路，都是恩</a>〉。<span class="minus">扣分：不是社區志工，是一對一；而且教完那堂課，又把叫醒舊程式的經過寫成了一份復盤。</span></p>
+    </div><div class="score">5</div></div>
+
+    <div class="row" role="listitem"><div class="key">10</div><div>
+      <div class="cname">宅家自在圈<span class="orig">追劇睡覺，極致鬆弛</span></div>
+      <div class="meter" aria-hidden="true"><i style="width:30%"></i></div>
+      <p class="verdict">宅家是真的：一百二十五篇，多半是在紅木灘家裡寫成的。<span class="minus">自在就談不上：〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">單場燒掉一億一千八百萬詞元</a>〉不叫極致鬆弛。追劇、擼貓狗，查無。</span></p>
+    </div><div class="score">3</div></div>
+  </div>
+  <p class="sumline">原表十圈 · 總分 <span class="num">35</span> / 100 · 平均 <span class="num">3.5</span> · 最高 <span class="num">8</span>（學習成長）· 最低 <span class="num">0</span>（隔代帶娃）· 過 9 分者 <span class="num">0</span></p>
+  <div class="prose">
+    <p>每一圈都沾一點，沒有一圈夠格。中午那句「感覺我都不算是？」，換成數字就是這一行。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- 參 -->
+<section id="s3">
+  <h2 class="sec"><span class="sn">參</span>群友補的四圈</h2>
+  <div class="prose">
+    <p>K 說原表不夠全面，補了四個圈。審稿意見照收，同一把尺再量四次。藍色是 K 補的。</p>
+  </div>
+  <div class="sheet" role="list">
+    <div class="row k" role="listitem"><div class="key">K1</div><div>
+      <div class="cname">AI 對話圈</div>
+      <div class="meter" aria-hidden="true"><i style="width:90%"></i></div>
+      <p class="verdict">〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">第一次過億詞元</a>〉的修改舊碼；〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/laoxiong_ai_no_return.html">我的 AI 不歸路</a>〉估一年四百到六百場；八月那一週七天無一日掛零，得了一面〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%85%A8%E5%8B%A4%E7%8D%8E_week_usage_20260822.html">全勤獎</a>〉。<span class="minus">扣一分：跟 AI 聊完，還要回頭數它用了多少詞元、照 API 牌價值多少美元。</span></p>
+    </div><div class="score">9</div></div>
+
+    <div class="row k" role="listitem"><div class="key">K2</div><div>
+      <div class="cname">自耕農圈</div>
+      <div class="meter" aria-hidden="true"><i style="width:0%"></i></div>
+      <p class="verdict">紅木灘的家沒有菜園。若把 GitHub repo 當成一畝三分地，一百二十五篇、一百零三支 MATLAB 檔、三支 Python，天天下田，大概能拿九分。<span class="minus">照規矩記字面分：零。</span></p>
+    </div><div class="score">0<small>字面</small></div></div>
+
+    <div class="row k" role="listitem"><div class="key">K3</div><div>
+      <div class="cname">投機炒股圈</div>
+      <div class="meter na" aria-hidden="true"></div>
+      <p class="verdict">站上找不到一篇寫自己進出市場的文章。離股市最近的兩篇，一篇比的是〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/Taiwan_US_Retirement_Pension_Percentile_Comparison.html">台美退休金的百分位</a>〉，一篇在〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/dealt-and-played.html">發牌與出牌</a>〉裡把「追一夜暴富」列為反例。<span class="minus">資料不足，不評，留白。</span></p>
+    </div><div class="score">—<small>留白</small></div></div>
+
+    <div class="row k" role="listitem"><div class="key">K4</div><div>
+      <div class="cname">世界美食享受圈</div>
+      <div class="meter" aria-hidden="true"><i style="width:50%"></i></div>
+      <p class="verdict">蘇黎世第一晚兩碗越南牛肉粉 87.4 美元（〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/vacation-trips-2025-2026.html">兩年三趟旅行</a>〉）；義大利十六天；A5 和牛。<span class="minus">扣分：每一頓最後端上桌的都是帳單分析，含稅總額、小費百分比、建議小費按哪個底數算。</span></p>
+    </div><div class="score">5</div></div>
+  </div>
+  <p class="sumline">K 補四圈 · 可評三圈 · 最高 <span class="num">9</span>（AI 對話）· 全表十四圈最高分出自審稿人，不出自原表</p>
+  <div class="prose">
+    <p>K 看人比小紅書準，AI 對話圈一舉拿下全表最高的九分。可是還差一分，而那一分扣掉的理由，跟前面十圈扣分的理由是同一件事。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- 肆 -->
+<section id="s4">
+  <h2 class="sec"><span class="sn">肆</span>為什麼每圈都差一點：一張 Coomans 圖</h2>
+  <div class="prose">
+    <p>把十四列紅字並排來讀：EXIF 證據表、損益兩平點、拆帳表、拍照取證、設計矩陣秩不足、回頭審課程、教完寫復盤、數詞元、帳單分析。圈子各不相同，扣分的理由幾乎是同一句話：<strong>事情做完，還要回頭對帳。</strong></p>
+    <p>換成化學計量學的說法。每一個圈子是一個類別模型，SIMCA 的做法是每一類各自建一個主成分模型。樣本離某一類有多遠，要同時看兩件事：它落在模型的空間裡偏到哪裡，以及模型解釋不了的殘差有多大。我的活動跟學習成長圈、旅遊暴走圈重疊得不少，所以在模型空間裡不算遠；可是「回頭對帳」這一塊，哪一圈的模型裡都沒有這個方向，它整塊留在殘差裡。</p>
+    <p>把樣本到兩個類別的距離各當一軸，就是 Coomans 圖。原表裡離我最近的是學習成長圈（8 分）和旅遊暴走圈（6 分），拿這兩類來畫：</p>
+  </div>
+  <figure>
+    <div class="figwrap">
+      <svg viewBox="0 0 640 470" role="img" aria-labelledby="cmT cmD">
+        <title id="cmT">老熊在學習成長圈與旅遊暴走圈之間的 Coomans 圖（示意）</title>
+        <desc id="cmD">橫軸是到學習成長圈的距離，縱軸是到旅遊暴走圈的距離，兩條虛線是臨界距離 1.0。學習成長圈的會員落在左上，旅遊暴走圈的會員落在右下，老熊落在右上的「都不是」區。</desc>
+        <!-- quadrants -->
+        <rect x="80" y="258.3" width="216.7" height="141.7" fill="var(--paper-2)"/>
+        <rect x="296.7" y="60" width="303.3" height="198.3" fill="var(--paper-2)" opacity=".55"/>
+        <!-- axes -->
+        <line x1="80" y1="400" x2="600" y2="400" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="80" y1="400" x2="80" y2="60" stroke="var(--ink)" stroke-width="2"/>
+        <!-- ticks -->
+        <g fill="var(--ink-2)" font-size="15" text-anchor="middle">
+          <text x="80" y="422">0</text><text x="296.7" y="422">1.0</text><text x="513.3" y="422">2.0</text>
+        </g>
+        <g fill="var(--ink-2)" font-size="15" text-anchor="end">
+          <text x="70" y="405">0</text><text x="70" y="263">1.0</text><text x="70" y="122">2.0</text>
+        </g>
+        <!-- critical lines -->
+        <line x1="296.7" y1="60" x2="296.7" y2="400" stroke="var(--seal)" stroke-width="2" stroke-dasharray="7 6"/>
+        <line x1="80" y1="258.3" x2="600" y2="258.3" stroke="var(--seal)" stroke-width="2" stroke-dasharray="7 6"/>
+        <!-- axis labels -->
+        <text class="lbl" x="340" y="455" fill="var(--ink)" font-size="17" text-anchor="middle">到「學習成長圈」的距離 →</text>
+        <text class="lbl" x="22" y="230" fill="var(--ink)" font-size="17" text-anchor="middle" transform="rotate(-90 22 230)">到「旅遊暴走圈」的距離 →</text>
+        <!-- quadrant labels -->
+        <text class="lbl" x="188" y="335" fill="var(--ink-2)" font-size="16" text-anchor="middle">兩圈都收</text>
+        <text class="lbl" x="188" y="82" fill="var(--staff)" font-size="16" text-anchor="middle">只進學習成長圈</text>
+        <text class="lbl" x="560" y="392" fill="var(--staff)" font-size="16" text-anchor="end">只進旅遊暴走圈</text>
+        <text class="lbl" x="588" y="88" fill="var(--seal)" font-size="20" text-anchor="end">都不是 · no-match</text>
+        <!-- learning circle members -->
+        <g fill="var(--staff)">
+          <circle cx="166.7" cy="173.3" r="7"/><circle cx="210" cy="130.8" r="7"/><circle cx="145" cy="201.7" r="7"/>
+          <circle cx="231.7" cy="187.5" r="7"/><circle cx="188.3" cy="102.5" r="7"/><circle cx="253.3" cy="159.2" r="7"/>
+        </g>
+        <!-- travel circle members -->
+        <g fill="none" stroke="var(--staff)" stroke-width="2.5">
+          <rect x="420.7" y="351.5" width="12" height="12"/><rect x="485.7" y="323.2" width="12" height="12"/>
+          <rect x="377.3" y="309" width="12" height="12"/><rect x="529" y="337.3" width="12" height="12"/>
+          <rect x="442.3" y="280.7" width="12" height="12"/><rect x="399" y="365.7" width="12" height="12"/>
+        </g>
+        <!-- Lao Xiong -->
+        <circle cx="361.7" cy="194.6" r="14" fill="var(--seal)"/>
+        <circle cx="361.7" cy="194.6" r="22" fill="none" stroke="var(--seal)" stroke-width="2"/>
+        <text class="lbl" x="392" y="188" fill="var(--seal)" font-size="20">老熊</text>
+        <text x="392" y="210" fill="var(--ink-2)" font-size="14">(1.30, 1.45)</text>
+      </svg>
+    </div>
+    <figcaption>示意圖，不是量測。實心圓是學習成長圈的典型會員，空心方塊是旅遊暴走圈的典型會員，紅色虛線是兩類各自的臨界距離 1.0。點位依第貳節的分數與「回頭對帳」這塊殘差的大小判斷擺放，沒有從資料算出來；照本站的老規矩，沒過獨立驗證集的東西，只能當示意。</figcaption>
+  </figure>
+  <div class="prose">
+    <p>我落在右上角：得分不低，殘差太大，兩類都不收。這一格在 SIMCA 裡有個正式的判決，叫「都不是」。〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/ChatGPT_Plus_Chemometricians.html">化學計量學家長什麼樣子？</a>〉的結尾寫過，SIMCA 最值錢的一句話就是「都不是」；這回輪到自己。</p>
+    <p>巧的是，我那三件專利教分類器的，正是同一件事。〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/built_in_abstention_three_patents_LaoXiong.html">內建的棄權</a>〉講的 US 10,810,408、11,009,452、11,656,174：監督式分類器把整個空間分光，不留餘地，沒見過的樣本也會被硬派一個標籤；解法是先給「我沒見過」一個去處，開一個 no-match 類。</p>
+    <p class="pull">小紅書那張表是單選題，十個框，沒有「以上皆非」。我在群組裡那句「感覺我都不算是？」，就是替它補上的那個 no-match 類。</p>
+    <p>這也不是第一次被尺量成離群值。〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%80%81%E7%86%8A%E7%9A%84%E9%9D%9E%E5%85%B8%E4%BA%BA%E7%94%9F.html">老熊的非典人生</a>〉裡的「非典」取的是 atypical 的本義：拿常規那把尺量下去，會被判成離群值的那一種。退休了，尺換了一把，結果一樣。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- 伍 -->
+<section id="s5">
+  <h2 class="sec"><span class="sn">伍</span>第十一圈：生活處處有研究圈</h2>
+  <div class="prose">
+    <p>no-match 類開了，總得取個名字。這個名字不用我想，W 下午四點十分那句話裡就有現成的：人家是生活處處有講究，老熊是生活處處有研究。照原表的格式補上一條：</p>
+  </div>
+  <div class="card11">
+    <span class="stamp">新 增 類 別</span>
+    <div class="line"><div class="key">11</div>
+      <p class="def"><b>生活研究圈：</b>排隊之前先算機率，吃完飯先拆帳單，旅行回來對 EXIF，連退休要進哪個圈，都要先跑一次分類器。</p>
+    </div>
+  </div>
+  <div class="prose">
+    <p>「講究」和「研究」只差一個字。講究要的是事情做得好看；研究要的是事情做完之後，回頭對得上帳。</p>
+    <p>第十一圈跟前十圈不在同一條軸上。前十圈回答的是「退休以後做什麼」：旅遊、跳舞、帶孫、下棋、拍照、下廚、上課、養生、當志工、待在家。第十一圈回答的是「做的時候怎麼做」。用 PCA 的話說，它不是第十一個類別，比較像一個主成分，投影到哪一圈都有值。去旅遊，它在；上館子，它在；修一門 AI 導論，它也在。〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/xianli_100_laoxiong.html">獻禮百篇</a>〉那次把全站一百篇當光譜跑主成分分析，PC2 幾乎就是理工邏輯本身；同一條軸，這回在退休生活上又跑出來一次。</p>
+    <p>入圈門檻三條，都有站上的先例：</p>
+  </div>
+  <ol class="gate">
+    <li><strong>事前估一次機率。</strong>買摺疊機之前，先替自己算 p 值：〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/lao_xiong_duo_3point7sigma.html">三點七個西格瑪</a>〉。</li>
+    <li><strong>事後對一次帳。</strong>排隊排到第幾號，用十二張照片的 EXIF 推回來：約第四十號，大容量全部賣光。</li>
+    <li><strong>查不到的留白。</strong>本篇的投機炒股圈，就沒有填。</li>
+  </ol>
+  <div class="prose">
+    <p>這一圈會員不多，但不寂寞。〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E4%B8%89%E7%A8%AE%E6%88%91%E5%80%91%E9%82%A3%E5%80%8B%E5%B9%B4%E4%BB%A3%E5%8F%B0%E7%81%A3%E4%BB%94%E7%9A%84%E4%BA%BA%E7%94%9F.html">三種我們那個年代台灣仔的人生</a>〉裡早就分好了：A 收集地方，「吃喝玩樂，人生無憾」，是旅遊暴走圈的標準會員；阿發收集恩情，落在學習成長與公益志願之間；老熊收集證據，原表沒有位置，只好自己開一圈。</p>
+  </div>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- 陸 -->
+<section id="s6">
+  <h2 class="sec"><span class="sn">陸</span>每個人都是一個人的江湖</h2>
+  <div class="prose">
+    <p>晚上七點零七分，我回 K 的那一句「每個人都是一個人的江湖」，回頭看就是這篇的結論。</p>
+    <p>十大圈子是一張好用的標籤表，毛病只有一個：它是單選題。真人是多標籤的樣本，每個人在每一圈都有一個分數，十四個分數排在一起，才是那個人。我這一列是 6、1、0、4、4、3、8、1、5、3，再加 9、0、留白、5。圈子是大家的，組合是自己的；江湖指的就是那個組合。</p>
+    <p>照復盤體的規矩，結論後面要附預登記，日後回來對帳：</p>
+  </div>
+  <ul class="prereg">
+    <li><span>十二月中旬歐洲四城回來：旅遊暴走圈預計 6 → 7。若那支 Duo 沒被零元購，攝影圈或許加一分。</span></li>
+    <li><span>2027 年春季 CIS 402 修完：學習成長圈 8 → 9，或維持原分。看期末考完會不會又寫一篇〈誰不及格〉。</span></li>
+    <li><span>一年後十四圈全部重打一次分，用同一把尺。</span></li>
+    <li><span>第十一圈的分數不預測。那一圈不會變。</span></li>
+  </ul>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<!-- 附 -->
+<section id="s7">
+  <h2 class="sec"><span class="sn">附</span>復盤附記</h2>
+  <div class="notes">
+    <p><b>分數是誰打的。</b>十四圈的分數由 Claude 依本站首頁一百二十五篇的摘要與內文連結判讀打出，老熊沒有逐條核定。0 到 10 量的是「站上看得到的投入」，不是生活的全貌：站上沒寫的事，不等於沒做。運動、帶孫、炒股三格尤其如此。</p>
+    <p><b>Coomans 圖是示意。</b>點位依分數與殘差判斷擺放，不是從資料算出的距離；臨界距離 1.0 是畫圖用的約定值。</p>
+    <p><b>群友代號。</b>K（WeChat，下午三點四十八分）、W（LINE，下午四點十分）、X（LINE，下午四點四十二分）；照本站慣例，一律以代號稱呼，截圖不附。W 那則留言回的是哪一篇，屬推定，沒問。</p>
+    <p><b>原表出處。</b>小紅書帳號「一起趣退休俱樂部」〈退休十大圈子，你會在哪個圈〉。本文只引圈名，每圈後面的小字是轉述。</p>
+  </div>
+  <p class="end">完</p>
+  <p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
