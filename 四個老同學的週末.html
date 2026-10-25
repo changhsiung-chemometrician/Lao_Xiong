@@ -9,27 +9,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@500;600;700;800&display=swap">
 <style>
-/* Layout: one reading column like a weekend photo journal; each person is a chapter with a letter badge, photos set in the text, a comparison table at the end */
+/* Palette: blue ground with dark-yellow (gold) accents in both themes; no black backgrounds.
+   Layout: one reading column like a weekend photo journal; each person is a chapter with a letter badge, photos set in the text, a comparison table at the end */
 :root {
-  --bg: #f1f4f0;
-  --paper: #ffffff;
-  --ink: #1d2521;
-  --muted: #56625b;
-  --line: #d3dad3;
-  --accent: #6a3d6e;
-  --accent-soft: #efe6f0;
+  --bg: #e3ebf7;
+  --paper: #f6f9ff;
+  --ink: #14233d;
+  --muted: #475a78;
+  --line: #c2cfe3;
+  --accent: #8f6300;
+  --accent-soft: #f4e8c8;
   --display: "LXGW WenKai TC", "Kaiti TC", "BiauKai", "STKaiti", serif;
   --body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #161a18; --paper: #1f2421; --ink: #e7ece8; --muted: #a2ada6;
-    --line: #343b36; --accent: #cfa3d8; --accent-soft: #2e2531; color-scheme: dark;
+    --bg: #172c50; --paper: #203a66; --ink: #eef3fb; --muted: #b3c3de;
+    --line: #36548a; --accent: #e8b84a; --accent-soft: #263f6b; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #161a18; --paper: #1f2421; --ink: #e7ece8; --muted: #a2ada6;
-  --line: #343b36; --accent: #cfa3d8; --accent-soft: #2e2531; color-scheme: dark;
+  --bg: #172c50; --paper: #203a66; --ink: #eef3fb; --muted: #b3c3de;
+  --line: #36548a; --accent: #e8b84a; --accent-soft: #263f6b; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -94,11 +95,11 @@ tr:last-child td { border-bottom: 0; }
   display: flex; gap: 8px;
 }
 .float-nav a {
-  background: var(--ink); color: var(--bg); text-decoration: none;
+  background: var(--accent); color: var(--bg); text-decoration: none;
   font-size: 18px; font-weight: 700; padding: 10px 16px; border-radius: 999px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  box-shadow: 0 4px 14px rgba(20,35,61,.25);
 }
-.float-nav a:hover, .float-nav a:focus-visible { background: var(--accent); outline: none; }
+.float-nav a:hover, .float-nav a:focus-visible { background: var(--ink); outline: none; }
 footer { font-size: 0.72em; color: var(--muted); }
 </style>
 
