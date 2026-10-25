@@ -1,0 +1,346 @@
+<title>Weee! 的 AI 戰友</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@700&family=Noto+Serif+TC:wght@700;900&family=IBM+Plex+Mono:wght@600&display=swap">
+<style>
+/* Layout: vintage 1100px editorial sheet; single reading column with a 340px margin rail where a side note earns it; timestamps set as ledger chips */
+:root{
+  --paper:#ECE9DA; --paper-2:#E1DDC8; --ink:#1D2620; --muted:#565A49; --rule:#9A9580;
+  --green:#2E6A3A; --seal:#A8382A; --hl:#D6E1C2;
+  --f-display:"LXGW WenKai TC","Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --fs-body:clamp(20px, 1.1rem + 1.15vw, 32px);
+  --fs-h1:clamp(42px, 1.8rem + 4.2vw, 76px);
+  --fs-h2:clamp(28px, 1.2rem + 2.1vw, 46px);
+  --fs-pq:clamp(28px, 1.1rem + 2.1vw, 44px);
+  --fs-side:clamp(18px, 1rem + .75vw, 26px);
+  --fs-small:clamp(15px, .85rem + .45vw, 21px);
+  --fs-drop:clamp(76px, 9vw, 120px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161A16; --paper-2:#1F241F; --ink:#E6E2D0; --muted:#A9A78F; --rule:#4E5246;
+    --green:#86C28B; --seal:#E27561; --hl:#2B3827; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161A16; --paper-2:#1F241F; --ink:#E6E2D0; --muted:#A9A78F; --rule:#4E5246;
+  --green:#86C28B; --seal:#E27561; --hl:#2B3827; color-scheme:dark;
+}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); font-weight:700; font-size:var(--fs-body); line-height:1.8;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap{max-width:1100px; margin:0 auto; padding-block:40px 140px}
+a{color:var(--green)}
+a:focus-visible{outline:3px solid var(--seal); outline-offset:3px}
+strong{font-weight:800}
+p{margin:0 0 1em}
+
+/* masthead */
+.mast{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  border-bottom:4px double var(--ink); padding-bottom:10px; font-size:var(--fs-small); letter-spacing:.12em}
+.mast .brand{font-family:var(--f-display); font-size:clamp(22px,1.2rem + 1vw,34px); letter-spacing:.3em; color:var(--ink)}
+.mast .meta{color:var(--muted); font-family:var(--f-mono); font-size:var(--fs-small); letter-spacing:.06em}
+.hero{position:relative; padding-block:40px 28px; border-bottom:1px solid var(--rule)}
+.kicker{font-size:var(--fs-small); letter-spacing:.25em; color:var(--seal); margin-bottom:12px}
+h1{font-family:var(--f-display); font-weight:700; font-size:var(--fs-h1); line-height:1.2; margin:0 0 20px; text-wrap:balance; max-width:16ch}
+.deck{font-size:calc(var(--fs-body) * 1.08); color:var(--muted); max-width:34em; margin:0}
+.seal{position:absolute; right:0; top:44px; width:clamp(64px,8vw,104px); aspect-ratio:1; max-width:100%;
+  border:3px solid var(--seal); color:var(--seal); display:grid; place-items:center;
+  font-family:var(--f-display); font-size:clamp(18px,2.2vw,30px); line-height:1.15; text-align:center;
+  transform:rotate(-8deg); opacity:.85}
+@media (max-width:700px){.seal{display:none}}
+.ledger{display:flex; flex-wrap:wrap; gap:6px 28px; padding-block:16px; border-bottom:4px double var(--ink);
+  font-size:var(--fs-small); color:var(--muted)}
+.ledger b{color:var(--ink); font-weight:800}
+
+/* toc */
+.toc{margin-block:36px 12px; padding:24px 28px; background:var(--paper-2); border-left:6px solid var(--green)}
+.toc h2{font-size:calc(var(--fs-h2) * .7); margin:0 0 10px; font-family:var(--f-display)}
+.toc ol{margin:0; padding-left:1.6em; columns:2 22ch; column-gap:40px; font-size:var(--fs-side)}
+.toc li{break-inside:avoid; margin-bottom:6px}
+.toc a{text-decoration:none; color:var(--ink); border-bottom:2px solid var(--hl)}
+.toc a:hover{color:var(--green)}
+
+/* sections */
+section{padding-top:44px; scroll-margin-top:20px}
+h2.sec{font-family:var(--f-display); font-weight:700; font-size:var(--fs-h2); line-height:1.3; margin:0 0 22px;
+  display:flex; align-items:baseline; gap:.5em; text-wrap:balance; border-bottom:1px solid var(--rule); padding-bottom:10px}
+h2.sec .no{color:var(--seal); font-size:.75em}
+.split{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:44px; align-items:start}
+.split > *{min-width:0}
+@media (max-width:920px){.split{grid-template-columns:1fr; gap:24px}}
+aside.note{font-size:var(--fs-side); line-height:1.7; border-top:3px solid var(--ink); padding-top:12px; color:var(--ink)}
+aside.note .lab{display:block; font-size:var(--fs-small); letter-spacing:.2em; color:var(--seal); margin-bottom:6px}
+aside.note .big{display:block; font-weight:800; font-size:clamp(48px,6vw,80px); line-height:1.05; color:var(--green); font-variant-numeric:tabular-nums}
+.dropcap::first-letter{float:left; font-family:var(--f-display); font-size:var(--fs-drop); line-height:.88; color:var(--seal); margin:.06em .12em 0 0}
+a.ts{font-family:var(--f-mono); font-weight:800; font-size:.52em; color:var(--green); border:1.5px solid var(--green);
+  padding:0 .35em; border-radius:2px; vertical-align:.25em; text-decoration:none; white-space:nowrap; margin-left:.2em}
+a.ts:hover{background:var(--green); color:var(--paper)}
+.back{text-align:right; font-size:var(--fs-small); margin-top:8px}
+.back a{text-decoration:none; color:var(--muted)}
+.back a:hover{color:var(--green)}
+
+/* glossary */
+.gloss{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px}
+@media (max-width:860px){.gloss{grid-template-columns:1fr}}
+.term{border:2px solid var(--ink); padding:22px 24px; background:var(--paper-2); font-size:var(--fs-side); line-height:1.75}
+.term h3{font-family:var(--f-display); font-size:calc(var(--fs-h2) * .82); margin:0 0 2px}
+.term .en{font-family:var(--f-mono); font-size:var(--fs-small); color:var(--muted); letter-spacing:.04em; display:block; margin-bottom:14px}
+.term ul{margin:0 0 12px; padding-left:1.2em}
+.term li{margin-bottom:6px}
+.term .eg{border-top:1px dashed var(--rule); padding-top:10px; margin:0; color:var(--muted)}
+code{font-family:var(--f-mono); font-size:.85em; background:var(--hl); padding:0 .25em}
+
+/* flow */
+.flow{list-style:none; margin:10px 0 26px; padding:0; display:flex; flex-wrap:wrap; gap:12px 8px; font-size:var(--fs-side)}
+.flow li{display:flex; align-items:center; gap:8px}
+.flow li span{border:2px solid var(--green); padding:4px 14px; background:var(--paper-2)}
+.flow li.human span{border-color:var(--seal); color:var(--seal)}
+.flow li:not(:last-child)::after{content:"→"; color:var(--muted)}
+.flow-cap{font-size:var(--fs-small); color:var(--muted); margin-top:-14px}
+
+/* stats */
+.stats{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin:8px 0 26px}
+@media (max-width:620px){.stats{grid-template-columns:1fr}}
+.stat{border-top:4px solid var(--green); padding-top:10px}
+.stat .num{display:block; font-weight:800; font-size:clamp(46px,6vw,84px); line-height:1.05; color:var(--green); font-variant-numeric:tabular-nums}
+.stat .cap{font-size:var(--fs-side); color:var(--muted)}
+
+/* table */
+.tbl{overflow-x:auto; margin:6px 0 24px}
+table{border-collapse:collapse; width:100%; min-width:560px; font-size:var(--fs-side)}
+th,td{padding:12px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--rule)}
+thead th{border-bottom:3px solid var(--ink); font-family:var(--f-display); font-size:1.1em}
+thead th.dec{color:var(--green)}
+tbody th{color:var(--muted); font-weight:800; white-space:nowrap}
+td.dec{background:var(--hl)}
+
+/* list */
+.rules{list-style:none; margin:0 0 20px; padding:0; display:grid; gap:16px}
+.rules li{display:grid; grid-template-columns:4.2em minmax(0,1fr); gap:14px; border-bottom:1px dotted var(--rule); padding-bottom:12px}
+.rules li b{color:var(--seal); font-family:var(--f-display); font-weight:700}
+
+blockquote.pq{margin:32px 0; padding:22px 0; border-top:4px double var(--ink); border-bottom:4px double var(--ink);
+  font-family:var(--f-display); font-size:var(--fs-pq); line-height:1.45; text-align:center; text-wrap:balance}
+blockquote.pq small{display:block; font-family:var(--f-body); font-size:var(--fs-small); color:var(--muted); margin-top:10px}
+
+.editor{background:var(--paper-2); border:2px solid var(--seal); padding:24px 28px; font-size:var(--fs-side)}
+.editor .lab{color:var(--seal); letter-spacing:.2em; font-size:var(--fs-small); display:block; margin-bottom:8px}
+
+footer{margin-top:56px; border-top:4px double var(--ink); padding-top:16px; font-size:var(--fs-small); color:var(--muted)}
+
+/* floating nav */
+.fnav{position:fixed; z-index:20;
+  right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+  display:flex; flex-direction:column; gap:8px}
+.fnav a{display:block; text-align:center; text-decoration:none; font-size:var(--fs-small); font-weight:800;
+  background:var(--ink); color:var(--paper); padding:8px 16px; border:2px solid var(--ink); box-shadow:3px 3px 0 var(--seal)}
+.fnav a:hover{background:var(--green); border-color:var(--green)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="mast">
+      <span class="brand">精選外刊</span>
+      <span class="meta">老熊隨筆 · 2026.10.25 · 調研時間筆記</span>
+    </div>
+    <div class="hero">
+      <div class="seal" aria-hidden="true">調研<br>時間</div>
+      <div class="kicker">羅振宇專訪 · Weee! 創辦人 Larry</div>
+      <h1>我和我的 AI 並肩戰鬥</h1>
+      <p class="deck">一家估值約十億美元的亞裔生鮮電商，怎麼讓 AI 從「記帳的執行系統」長成「天天出主意的決策系統」；又怎麼讓每位員工都配上一個數位分身。</p>
+    </div>
+    <div class="ledger">
+      <span><b>節目</b>　羅振宇《調研時間》</span>
+      <span><b>受訪</b>　Larry（Weee! 創辦人）</span>
+      <span><b>出處</b>　<a href="https://www.youtube.com/watch?v=CN0m_dBE1K0" target="_blank" rel="noopener">YouTube 原片</a></span>
+    </div>
+  </header>
+
+  <nav class="toc" id="toc" aria-label="目錄">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#people">交大人在灣區賣菜</a></li>
+      <li><a href="#glossary">小詞典：SKU 與 Obsidian</a></li>
+      <li><a href="#market">少數族裔市場的縫隙</a></li>
+      <li><a href="#thai">泰國館是 AI 開的</a></li>
+      <li><a href="#sku">菜價戰場：SKU 匹配</a></li>
+      <li><a href="#systems">執行系統與決策系統</a></li>
+      <li><a href="#avatar">Larry 的數位分身</a></li>
+      <li><a href="#luo">羅振宇的三點結論</a></li>
+      <li><a href="#note">編按</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="people">
+      <h2 class="sec"><span class="no">壹</span>交大人在灣區賣菜</h2>
+      <div class="split">
+        <div>
+          <p class="dropcap">Weee! 是美國知名的亞裔與拉丁裔生鮮電商，總部在灣區的 Fremont，節目稱公司估值約十億美元。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=4s" target="_blank" rel="noopener">00:04</a></p>
+          <p>創辦人 Larry 和他的創業夥伴，都是<strong>上海交通大學</strong>的畢業生。一群工科出身的交大人跑到美國賣菜，乍聽有點跨界。看完這集才明白，他們真正在做的是資料與演算法，菜是載體。</p>
+          <p>這集《調研時間》，羅振宇想問的是：AI 落到一家真實公司的日常裡，究竟改變了什麼？</p>
+        </div>
+        <aside class="note">
+          <span class="lab">一句話看懂</span>
+          AI 在 Weee! 不只是工具，而是每天和採購員、和創辦人一起工作、一起被訓練的「戰友」。
+        </aside>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="glossary">
+      <h2 class="sec"><span class="no">貳</span>小詞典：SKU 與 Obsidian</h2>
+      <div class="gloss">
+        <article class="term">
+          <h3>SKU</h3>
+          <span class="en">Stock Keeping Unit · 最小庫存單位</span>
+          <ul>
+            <li>零售業管理商品的最小單位。規格、包裝、重量、產地只要有一項不同，就是一個獨立的 SKU，各有自己的編號與價格。</li>
+            <li>一家生鮮超市動輒上萬個 SKU。</li>
+            <li>麻煩在於，供應商報價單上的品名五花八門：「上海青」「小棠菜」「Baby Bok Choy」可能是同一樣東西，也可能規格不同。把每一行報價對到自家正確的 SKU，就叫<strong>匹配</strong>。</li>
+          </ul>
+          <p class="eg">例：同樣是青江菜，「1 磅袋裝」與「20 磅整箱」是兩個 SKU；「有機」與「一般」又要再分開。</p>
+        </article>
+        <article class="term">
+          <h3>Obsidian</h3>
+          <span class="en">個人知識管理 · 筆記軟體（2020 年問世）</span>
+          <ul>
+            <li>每則筆記都是存在<strong>自己硬碟</strong>上的純文字 Markdown 檔（<code>.md</code>），不鎖在任何公司的雲端，換軟體也帶得走。</li>
+            <li>用 <code>[[雙向連結]]</code> 把筆記串成網，「關係圖」能看到知識之間的連線。</li>
+            <li>外掛生態豐富，可以接上 AI 模型，讓 AI 直接讀你的筆記庫。個人使用免費。</li>
+          </ul>
+          <p class="eg">對 Larry 而言，它的意義是：資料是自己的，AI 讀得到，也搬得走。</p>
+        </article>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="market">
+      <h2 class="sec"><span class="no">參</span>少數族裔市場的縫隙</h2>
+      <div class="split">
+        <div>
+          <p>亞裔與拉丁裔加起來，佔美國人口將近三成。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=55s" target="_blank" rel="noopener">00:55</a> 但「亞裔」不是一個市場：泰國人要的香料、越南人要的米線、華人要的青菜，需求高度細分，彼此各不相同。</p>
+          <p>傳統實體超市貨架有限，只能挑最大公約數，服務不了這麼多分眾。留下的長尾，正好是線上少數族裔生鮮超市的大機會。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=68s" target="_blank" rel="noopener">01:08</a></p>
+        </div>
+        <aside class="note">
+          <span class="lab">美國人口占比</span>
+          <span class="big">≈30%</span>
+          亞裔＋拉丁裔。市場夠大，但切得夠碎，實體貨架吃不下。
+        </aside>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="thai">
+      <h2 class="sec"><span class="no">肆</span>泰國館是 AI 開的</h2>
+      <p>開設泰國館時，系統先去翻泰國用戶在平台上的搜尋關鍵字：大家在找什麼、找了卻沒找到什麼。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=96s" target="_blank" rel="noopener">01:36</a> 搜得多、架上沒有的，就是缺貨又高需求的品項。</p>
+      <p>AI 據此決定採購清單，人只需要最後確認、按下下單。搜尋框，成了一份全天候、免填寫的市場問卷。</p>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="sku">
+      <h2 class="sec"><span class="no">伍</span>菜價戰場：SKU 匹配</h2>
+      <p>蔬菜採購是最難的一塊。十多家供應商，每天報價都在變；每一行報價都得先對到自家的 SKU，才能橫向比價。人工來做，又慢又容易錯。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=159s" target="_blank" rel="noopener">02:39</a></p>
+      <ol class="flow" aria-label="AI 採購流程">
+        <li><span>十多份報價單</span></li>
+        <li><span>AI 解析</span></li>
+        <li><span>對到 SKU</span></li>
+        <li><span>選最優價</span></li>
+        <li class="human"><span>採購員確認／糾正</span></li>
+      </ol>
+      <p class="flow-cap">紅框是人。每一次糾正，都回頭變成 AI 的訓練資料。</p>
+      <div class="stats">
+        <div class="stat">
+          <span class="num">5–10%</span>
+          <span class="cap">直接省下的採購成本 <a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=193s" target="_blank" rel="noopener">03:13</a></span>
+        </div>
+        <div class="stat">
+          <span class="num">5 年</span>
+          <span class="cap">過去養成一位老練蔬菜採購所需的經驗 <a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=199s" target="_blank" rel="noopener">03:19</a></span>
+        </div>
+      </div>
+      <p>更有意思的是培訓。新進員工每天和 AI 互動、指出它哪裡配錯，AI 學會了，新人也跟著學會了。過去要五年才熬得出來的門檻，如今人機一起速成。</p>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="systems">
+      <h2 class="sec"><span class="no">陸</span>執行系統與決策系統</h2>
+      <p>Larry 把企業軟體分成兩種。傳統系統是<strong>執行系統</strong>，只負責記下買了什麼、花了多少錢。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=387s" target="_blank" rel="noopener">06:27</a> AI 帶來的是<strong>決策系統</strong>：在每天的日常工作裡給建議，並且持續自我迭代升級。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=406s" target="_blank" rel="noopener">06:46</a></p>
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr><th scope="col"></th><th scope="col">執行系統</th><th scope="col" class="dec">決策系統</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">角色</th><td>記錄員</td><td class="dec">參謀</td></tr>
+            <tr><th scope="row">回答的問題</th><td>買了什麼、花了多少</td><td class="dec">該買什麼、跟誰買、多少錢合理</td></tr>
+            <tr><th scope="row">時間方向</th><td>回顧過去</td><td class="dec">面對今天</td></tr>
+            <tr><th scope="row">會不會變</th><td>規則寫死</td><td class="dec">每天隨人的回饋迭代</td></tr>
+            <tr><th scope="row">Weee! 的例子</th><td>採購記錄、帳務</td><td class="dec">報價解析與 SKU 匹配、選品</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="avatar">
+      <h2 class="sec"><span class="no">柒</span>Larry 的數位分身</h2>
+      <div class="split">
+        <div>
+          <p>Larry 也在自己身上做實驗。他的做法可以整理成四條：</p>
+          <ul class="rules">
+            <li><b>餵料</b><span>日常所有 Email、訊息、會議逐字稿，透過 API 匯入，全部交給個人 AI 助理。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=269s" target="_blank" rel="noopener">04:29</a></span></li>
+            <li><b>存放</b><span>用 Obsidian 把知識與資料存在本地硬碟，不只依賴雲端，確保資料掌控權在自己手上。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=287s" target="_blank" rel="noopener">04:47</a></span></li>
+            <li><b>鐵律</b><span>絕不自己從頭寫信，一律交給 AI；寫得不好，就繼續糾正、訓練它。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=309s" target="_blank" rel="noopener">05:09</a></span></li>
+            <li><b>推廣</b><span>公司依職責與權限，替每位員工配置專屬的 AI Agent。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=329s" target="_blank" rel="noopener">05:29</a></span></li>
+          </ul>
+        </div>
+        <aside class="note">
+          <span class="lab">為什麼是本地</span>
+          雲端給的是方便，本地給的是主權。當 AI 要讀遍你所有的信和會議記錄，資料放在哪裡、歸誰所有，就不再是技術細節。
+        </aside>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="luo">
+      <h2 class="sec"><span class="no">捌</span>羅振宇的三點結論</h2>
+      <p><strong>一、戰友，不是工具。</strong>AI 不再只是冷冰冰的工具，也不是遠在天邊的中央大腦，而是與個人高度綁定、一起成長的數位分身。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=496s" target="_blank" rel="noopener">08:16</a></p>
+      <p><strong>二、新的評分標準。</strong>好的 AI 應用不只是把事情做完；用過之後，AI 的能力提升了，人的能力也同步成長了。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=553s" target="_blank" rel="noopener">09:13</a></p>
+      <p><strong>三、社會的新基本單元。</strong>引發社會變革的，向來是合作方式的改變。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=577s" target="_blank" rel="noopener">09:37</a></p>
+      <blockquote class="pq">一個真實的人 ＋ 他的智能體
+        <small>未來社會與商業的基本參與單元（智能體 ＝ AI Agent）</small>
+      </blockquote>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="note">
+      <h2 class="sec"><span class="no">玖</span>編按</h2>
+      <div class="editor">
+        <span class="lab">給做過化學計量的讀者</span>
+        <p>「人和 AI 每天互相校正」這件事，在化學計量界有個老名字：模型維護。校正模型上線之後，新樣本不斷進來，每一次預測偏差都是一次再校正的機會。</p>
+        <p>SKU 匹配本質上也是個分類問題：一行雜亂的報價文字，要分到上萬個類別裡的正確一類，還得知道什麼時候該說「這筆我沒把握，請人看」。Weee! 的不同在於，被持續校正的不只是模型，還有坐在模型旁邊的人。</p>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+  </main>
+
+  <footer>
+    資料來源：羅振宇《調研時間｜我和我的AI並肩戰鬥》，<a href="https://www.youtube.com/watch?v=CN0m_dBE1K0" target="_blank" rel="noopener">youtube.com/watch?v=CN0m_dBE1K0</a>。時間戳記可直接點擊跳至原片位置。<br>
+    <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/" target="_blank" rel="noopener">老熊隨筆 首頁</a>
+  </footer>
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/" target="_blank" rel="noopener">回首頁</a>
+</nav>

@@ -1,0 +1,316 @@
+<title>出價與菜價</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@700&family=Noto+Serif+TC:wght@700;900&family=IBM+Plex+Mono:wght@600&display=swap">
+<style>
+/* Layout: vintage 1100px editorial sheet (same system as 〈Weee! 的 AI 戰友〉); single reading column with a 340px margin rail where a side note earns it; dates set as ledger chips */
+:root{
+  --paper:#ECE9DA; --paper-2:#E1DDC8; --ink:#1D2620; --muted:#565A49; --rule:#9A9580;
+  --green:#2E6A3A; --seal:#A8382A; --hl:#D6E1C2; --stamp:#C9771C;
+  --f-display:"LXGW WenKai TC","Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --fs-body:clamp(20px, 1.1rem + 1.15vw, 32px);
+  --fs-h1:clamp(42px, 1.8rem + 4.2vw, 76px);
+  --fs-h2:clamp(28px, 1.2rem + 2.1vw, 46px);
+  --fs-pq:clamp(28px, 1.1rem + 2.1vw, 44px);
+  --fs-side:clamp(18px, 1rem + .75vw, 26px);
+  --fs-small:clamp(15px, .85rem + .45vw, 21px);
+  --fs-drop:clamp(76px, 9vw, 120px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161A16; --paper-2:#1F241F; --ink:#E6E2D0; --muted:#A9A78F; --rule:#4E5246;
+    --green:#86C28B; --seal:#E27561; --hl:#2B3827; --stamp:#E7A04A; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161A16; --paper-2:#1F241F; --ink:#E6E2D0; --muted:#A9A78F; --rule:#4E5246;
+  --green:#86C28B; --seal:#E27561; --hl:#2B3827; --stamp:#E7A04A; color-scheme:dark;
+}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); font-weight:700; font-size:var(--fs-body); line-height:1.8;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap{max-width:1100px; margin:0 auto; padding-block:40px 140px}
+a{color:var(--green)}
+a:focus-visible{outline:3px solid var(--seal); outline-offset:3px}
+strong{font-weight:800}
+p{margin:0 0 1em}
+
+.mast{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+  border-bottom:4px double var(--ink); padding-bottom:10px; font-size:var(--fs-small); letter-spacing:.12em}
+.mast .brand{font-family:var(--f-display); font-size:clamp(22px,1.2rem + 1vw,34px); letter-spacing:.3em; color:var(--ink)}
+.mast .meta{color:var(--muted); font-family:var(--f-mono); font-size:var(--fs-small); letter-spacing:.06em}
+.hero{position:relative; padding-block:40px 28px; border-bottom:1px solid var(--rule)}
+.kicker{font-size:var(--fs-small); letter-spacing:.25em; color:var(--seal); margin-bottom:12px}
+h1{font-family:var(--f-display); font-weight:700; font-size:var(--fs-h1); line-height:1.2; margin:0 0 20px; text-wrap:balance; max-width:16ch}
+.deck{font-size:calc(var(--fs-body) * 1.08); color:var(--muted); max-width:34em; margin:0}
+.seal{position:absolute; right:0; top:44px; width:clamp(64px,8vw,104px); aspect-ratio:1; max-width:100%;
+  border:3px solid var(--seal); color:var(--seal); display:grid; place-items:center;
+  font-family:var(--f-display); font-size:clamp(18px,2.2vw,30px); line-height:1.15; text-align:center;
+  transform:rotate(-8deg); opacity:.85}
+@media (max-width:700px){.seal{display:none}}
+.ledger{display:flex; flex-wrap:wrap; gap:6px 28px; padding-block:16px; border-bottom:4px double var(--ink);
+  font-size:var(--fs-small); color:var(--muted)}
+.ledger b{color:var(--ink); font-weight:800}
+
+.toc{margin-block:36px 12px; padding:24px 28px; background:var(--paper-2); border-left:6px solid var(--green)}
+.toc h2{font-size:calc(var(--fs-h2) * .7); margin:0 0 10px; font-family:var(--f-display)}
+.toc ol{margin:0; padding-left:1.6em; columns:2 22ch; column-gap:40px; font-size:var(--fs-side)}
+.toc li{break-inside:avoid; margin-bottom:6px}
+.toc a{text-decoration:none; color:var(--ink); border-bottom:2px solid var(--hl)}
+.toc a:hover{color:var(--green)}
+
+section{padding-top:44px; scroll-margin-top:20px}
+h2.sec{font-family:var(--f-display); font-weight:700; font-size:var(--fs-h2); line-height:1.3; margin:0 0 22px;
+  display:flex; align-items:baseline; gap:.5em; text-wrap:balance; border-bottom:1px solid var(--rule); padding-bottom:10px}
+h2.sec .no{color:var(--seal); font-size:.75em}
+.split{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:44px; align-items:start}
+.split > *{min-width:0}
+@media (max-width:920px){.split{grid-template-columns:1fr; gap:24px}}
+aside.note{font-size:var(--fs-side); line-height:1.7; border-top:3px solid var(--ink); padding-top:12px; color:var(--ink)}
+aside.note .lab{display:block; font-size:var(--fs-small); letter-spacing:.2em; color:var(--seal); margin-bottom:6px}
+aside.note .big{display:block; font-weight:800; font-size:clamp(44px,5.4vw,76px); line-height:1.05; color:var(--green); font-variant-numeric:tabular-nums}
+.dropcap::first-letter{float:left; font-family:var(--f-display); font-size:var(--fs-drop); line-height:.88; color:var(--seal); margin:.06em .12em 0 0}
+.num{font-weight:800; font-variant-numeric:tabular-nums}
+a.ts{font-family:var(--f-mono); font-weight:800; font-size:.52em; color:var(--green); border:1.5px solid var(--green);
+  padding:0 .35em; border-radius:2px; vertical-align:.25em; text-decoration:none; white-space:nowrap; margin-left:.2em}
+a.ts:hover{background:var(--green); color:var(--paper)}
+.back{text-align:right; font-size:var(--fs-small); margin-top:8px}
+.back a{text-decoration:none; color:var(--muted)}
+.back a:hover{color:var(--green)}
+code{font-family:var(--f-mono); font-size:.85em; background:var(--hl); padding:0 .25em}
+
+/* photos */
+.photos{display:grid; gap:36px; margin:8px 0 10px}
+figure{margin:0; max-width:880px}
+figure .frame{background:var(--paper-2); border:2px solid var(--ink); padding:10px; box-shadow:6px 6px 0 var(--rule)}
+figure img{display:block; width:100%; height:auto; max-width:100%}
+figcaption{font-size:var(--fs-side); line-height:1.7; margin-top:14px}
+figcaption .stamp{display:inline-block; font-family:var(--f-mono); font-weight:800; font-size:var(--fs-small); color:var(--stamp);
+  border:1.5px solid var(--stamp); padding:0 .45em; margin-right:.5em; letter-spacing:.04em; font-variant-numeric:tabular-nums}
+
+/* flow */
+.flow{list-style:none; margin:10px 0 26px; padding:0; display:flex; flex-wrap:wrap; gap:12px 8px; font-size:var(--fs-side)}
+.flow li{display:flex; align-items:center; gap:8px}
+.flow li span{border:2px solid var(--green); padding:4px 14px; background:var(--paper-2)}
+.flow li.human span{border-color:var(--seal); color:var(--seal)}
+.flow li:not(:last-child)::after{content:"→"; color:var(--muted)}
+.flow-cap{font-size:var(--fs-small); color:var(--muted); margin-top:-14px}
+
+/* stats */
+.stats{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin:8px 0 26px}
+@media (max-width:620px){.stats{grid-template-columns:1fr}}
+.stat{border-top:4px solid var(--green); padding-top:10px}
+.stat .big{display:block; font-weight:800; font-size:clamp(42px,5.6vw,80px); line-height:1.05; color:var(--green); font-variant-numeric:tabular-nums}
+.stat .cap{font-size:var(--fs-side); color:var(--muted)}
+
+/* table */
+.tbl{overflow-x:auto; margin:6px 0 24px}
+table{border-collapse:collapse; width:100%; min-width:600px; font-size:var(--fs-side)}
+th,td{padding:12px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--rule)}
+thead th{border-bottom:3px solid var(--ink); font-family:var(--f-display); font-size:1.1em}
+thead th.dec{color:var(--green)}
+tbody th{color:var(--muted); font-weight:800; white-space:nowrap}
+td.dec{background:var(--hl)}
+td.r{text-align:right; font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap}
+.tag{display:inline-block; font-size:.8em; padding:0 .4em; border:1.5px solid currentColor; white-space:nowrap}
+.tag.old{color:var(--muted)}
+.tag.new{color:var(--green)}
+
+.todo{list-style:none; counter-reset:t; margin:0 0 20px; padding:0; display:grid; gap:14px; font-size:var(--fs-side)}
+.todo li{counter-increment:t; display:grid; grid-template-columns:2.4em minmax(0,1fr); gap:10px; border-bottom:1px dotted var(--rule); padding-bottom:10px}
+.todo li::before{content:counter(t); color:var(--seal); font-family:var(--f-display); font-weight:800}
+
+blockquote.pq{margin:32px 0; padding:22px 0; border-top:4px double var(--ink); border-bottom:4px double var(--ink);
+  font-family:var(--f-display); font-size:var(--fs-pq); line-height:1.45; text-align:center; text-wrap:balance}
+blockquote.pq small{display:block; font-family:var(--f-body); font-size:var(--fs-small); color:var(--muted); margin-top:10px}
+
+.editor{background:var(--paper-2); border:2px solid var(--seal); padding:24px 28px; font-size:var(--fs-side)}
+.editor .lab{color:var(--seal); letter-spacing:.2em; font-size:var(--fs-small); display:block; margin-bottom:8px}
+
+footer{margin-top:56px; border-top:4px double var(--ink); padding-top:16px; font-size:var(--fs-small); color:var(--muted)}
+
+.fnav{position:fixed; z-index:20;
+  right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+  display:flex; flex-direction:column; gap:8px}
+.fnav a{display:block; text-align:center; text-decoration:none; font-size:var(--fs-small); font-weight:800;
+  background:var(--ink); color:var(--paper); padding:8px 16px; border:2px solid var(--ink); box-shadow:3px 3px 0 var(--seal)}
+.fnav a:hover{background:var(--green); border-color:var(--green)}
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="mast">
+      <span class="brand">精選外刊</span>
+      <span class="meta">老熊隨筆 · 2026.10.25 · 對讀篇</span>
+    </div>
+    <div class="hero">
+      <div class="seal" aria-hidden="true">量<br>與亂</div>
+      <div class="kicker">Amazon 2012 × Weee! 2026</div>
+      <h1>同一道比對題，十四年後</h1>
+      <p class="deck">2012 年在 Amazon 面試，聽到的是每分鐘（或每天）幾十億次比對。2026 年聽 Weee! 的 Larry 說，十多家供應商每天的菜價，要靠 AI 智能體和採購員一起對到 SKU。同一道題，一頭難在量，一頭難在亂。</p>
+    </div>
+    <div class="ledger">
+      <span><b>前篇</b>　<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/amazon_interview_trip_2012.html" target="_blank" rel="noopener">每分鐘，還是每天？</a></span>
+      <span><b>前篇</b>　<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/weee_ai_comrade_Gemini_Claude.html" target="_blank" rel="noopener">我和我的 AI 並肩戰鬥</a></span>
+      <span><b>主題</b>　報價 → SKU 比對</span>
+    </div>
+  </header>
+
+  <nav class="toc" id="toc" aria-label="目錄">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#two-steps">兩張報價單，兩個步驟</a></li>
+      <li><a href="#amazon">Amazon：難在量</a></li>
+      <li><a href="#weee">Weee!：難在亂</a></li>
+      <li><a href="#normalize">比價之前，先歸一</a></li>
+      <li><a href="#abstain">會說「沒把握」的比對</a></li>
+      <li><a href="#who">從兩百位資料科學家到每人一個智能體</a></li>
+      <li><a href="#table">對照表</a></li>
+      <li><a href="#notes">復盤附記</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="two-steps">
+      <h2 class="sec"><span class="no">壹</span>兩張報價單，兩個步驟</h2>
+      <p class="dropcap">不管是 Amazon 還是 Weee!，題目都分兩步。先認貨：這一行報價，說的是我目錄裡的哪一件東西？再比價：同一件東西，誰報得最划算？</p>
+      <ol class="flow" aria-label="從報價到下單的步驟">
+        <li><span>一行報價</span></li>
+        <li><span>認貨：對到 SKU</span></li>
+        <li><span>單位歸一</span></li>
+        <li><span>比價</span></li>
+        <li class="human"><span>人確認／糾正</span></li>
+      </ol>
+      <p class="flow-cap">紅框是人。Weee! 把每一次糾正，都回收成 AI 的訓練資料。</p>
+      <p>2012 年那個組說的「找最好的出價」，是第二步。Larry 說的「把報價對到 SKU」，是第一步。第二步是排序，第一步沒做對，排序就沒有意義。</p>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="amazon">
+      <h2 class="sec"><span class="no">貳</span>Amazon：難在量</h2>
+      <div class="split">
+        <div>
+          <p>數萬（或數千）家供應商、數百萬件商品、數百萬則商品頁，比對次數以十億計。這是我面試時聽到的規模。</p>
+          <p>包裝好的商品多半有條碼、品牌和型號，認貨這一步手上有現成的鑰匙。真正的難處是速度和規模：每分鐘也好、每天也好，量都大到只能交給機器。</p>
+          <p>當年的解法是人才：據說兩百位資料科學家，分散到各組去寫模型、調模型。</p>
+        </div>
+        <aside class="note">
+          <span class="lab">2012 · 面試記憶</span>
+          <span class="big">10⁹</span>
+          每分鐘或每天的比對次數。兩種說法差 1,440 倍，見前篇。
+        </aside>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="weee">
+      <h2 class="sec"><span class="no">參</span>Weee!：難在亂</h2>
+      <div class="split">
+        <div>
+          <p>Weee! 的蔬菜採購，對面只有十多家供應商，可是每天報價都在變，每一行都得先對到自家的 SKU 才能橫向比價。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=159s" target="_blank" rel="noopener">02:39</a></p>
+          <p>農場的報價單上沒有條碼。「上海青」「小棠菜」「Baby Bok Choy」可能是同一樣東西，也可能不是；有的按磅，有的按把，有的整箱 20 磅；有機和一般又得分開。供應商家數少了兩、三個數量級，難度卻沒有跟著降，因為每一行都得讀懂。</p>
+          <p>Larry 的做法是讓 AI 解析報價、對到 SKU、挑出最優價，採購員只做最後的確認和糾正。他說這直接省下 5–10% 的採購成本。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=193s" target="_blank" rel="noopener">03:13</a></p>
+          <p>對小農和在地農場來說，還有一層好處：智能體去讀農民自己的寫法，農民不必先學會 Weee! 的編碼。上架的門檻，降在供應商那一端。這一段是老熊的推論，原片沒有談。</p>
+        </div>
+        <aside class="note">
+          <span class="lab">2026 · Weee! 蔬菜採購</span>
+          <span class="big">十多家</span>
+          供應商，每天一批新報價。量不大，但每一行都要讀懂。
+        </aside>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="normalize">
+      <h2 class="sec"><span class="no">肆</span>比價之前，先歸一</h2>
+      <p>認完貨，還不能直接比價。三家農場報同一種青菜，寫法各不相同（以下為示意數字，不是 Weee! 的實價）：</p>
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr><th scope="col">供應商</th><th scope="col">報價單上的寫法</th><th scope="col">報價</th><th scope="col">換算依據</th><th scope="col" class="dec">每磅</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">農場甲</th><td>上海青</td><td class="r">$1.20 / 磅</td><td>已是每磅</td><td class="r dec">$1.200</td></tr>
+            <tr><th scope="row">農場乙</th><td>小棠菜，20 lb 整箱</td><td class="r">$21.00 / 箱</td><td>÷ 20 磅</td><td class="r dec">$1.050</td></tr>
+            <tr><th scope="row">農場丙</th><td>Baby Bok Choy</td><td class="r">$0.90 / 把</td><td>每把約 0.8 磅</td><td class="r dec">$1.125</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>報價單上數字最大的乙，換算後反而最便宜。這和看光譜是同一個道理：比較之前，先用 SNV 或 MSC 把散射和光程差拿掉；比價之前，先把磅、把、箱換成同一把尺。</p>
+      <p>還要注意「每把約 0.8 磅」本身就是一個估計，有誤差，等於一個小小的校正模型。如果甲是有機、乙是一般，兩者根本不是同一個 SKU，換算得再準也不該放在同一欄比。</p>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="abstain">
+      <h2 class="sec"><span class="no">伍</span>會說「沒把握」的比對</h2>
+      <p>SKU 比對是一道分類題：一行雜亂的文字，要分到上萬個類別裡的一類。有條碼的 Amazon，分類器多半可以直接作答。Weee! 的報價裡，總有幾行不該硬配：新來的品種、規格寫不清楚的、名稱同時像兩樣東西的。</p>
+      <p>這種時候，最值錢的輸出是「這筆我沒見過，請人看」。這是我那三件專利的題目，讓分類器內建棄權，見〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/built_in_abstention_three_patents_LaoXiong.html" target="_blank" rel="noopener">內建的棄權</a>〉；也是 idws 換成 idcn 那一課：夾在同類鄰居中間的樣本被判錯，得有工具把它照出來，見〈<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/Fable_enhances_contrast_of_idws_vs_idcn_algorithms.html" target="_blank" rel="noopener">idws 與 idcn 的分野</a>〉。</p>
+      <p>菜還有一個光譜人熟悉的毛病：會漂移。季節換了，產地換了，同一個名字底下的貨也跟著變，就像儀器老化、換批次之後，校正模型要重新維護。採購員每天的糾正，就是新的校正樣本。</p>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="who">
+      <h2 class="sec"><span class="no">陸</span>從兩百位資料科學家到每人一個智能體</h2>
+      <p>2012 年，比對是專家的工作：一群資料科學家坐在各組裡寫模型，我去面試的正是其中一個位子。</p>
+      <p>2026 年的 Weee!，公司依職責和權限替每位員工配一個 AI 智能體。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=329s" target="_blank" rel="noopener">05:29</a> 採購員每天指出 AI 哪裡配錯，做的其實是標註和模型維護，以前資料科學家的活，分攤到了最懂菜的人手上。新人跟著 AI 一起被糾正，過去要五年才熬得出來的蔬菜採購，現在速成。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=199s" target="_blank" rel="noopener">03:19</a></p>
+      <p>羅振宇給好的 AI 應用下的標準是：用過之後，AI 變強了，人也變強了。<a class="ts" href="https://www.youtube.com/watch?v=CN0m_dBE1K0&t=553s" target="_blank" rel="noopener">09:13</a> 我當年面試的那份工作，在 Weee! 被拆成兩半，一半交給智能體，一半留給採購員。</p>
+      <blockquote class="pq">量，可以用機器堆；亂，得靠人教。
+        <small>Amazon 2012 與 Weee! 2026 的同一道比對題</small>
+      </blockquote>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="table">
+      <h2 class="sec"><span class="no">柒</span>對照表</h2>
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr><th scope="col"></th><th scope="col">Amazon · 2012</th><th scope="col" class="dec">Weee! · 2026</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">比對的兩端</th><td>供應商報價 ↔ 商品頁</td><td class="dec">農場與供應商報價 ↔ 自家 SKU</td></tr>
+            <tr><th scope="row">供應商</th><td>數萬（或數千）家</td><td class="dec">十多家（蔬菜）</td></tr>
+            <tr><th scope="row">商品的身分</th><td>條碼、品牌、型號</td><td class="dec">品名、規格、單位各說各話</td></tr>
+            <tr><th scope="row">主要難處</th><td>量與速度</td><td class="dec">名稱與單位混亂、每天變價</td></tr>
+            <tr><th scope="row">誰來做</th><td>約兩百位資料科學家（聽說）</td><td class="dec">每位採購員配一個智能體</td></tr>
+            <tr><th scope="row">人的角色</th><td>寫模型、調模型</td><td class="dec">確認、糾正、教 AI</td></tr>
+            <tr><th scope="row">規模口徑</th><td>每分鐘或每天幾十億次</td><td class="dec">每天十多份報價單</td></tr>
+            <tr><th scope="row">出處</th><td>老熊面試記憶</td><td class="dec">羅振宇《調研時間》</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+
+    <section id="notes">
+      <h2 class="sec"><span class="no">捌</span>復盤附記</h2>
+      <ol class="todo">
+        <li><span>Amazon 一欄全部出自 2012 年面試的記憶，數字未查證；「每分鐘還是每天」當年就沒記清楚。</span></li>
+        <li><span>Weee! 一欄出自節目；5–10% 與「五年」是 Larry 的說法，未獨立查證。</span></li>
+        <li><span>「小農與在地農場」是老熊對供應商的讀法；原片只說十多家供應商。</span></li>
+        <li><span>第肆節的價格與每把重量都是示意數字。</span></li>
+        <li><span>第伍節的棄權與漂移是化學計量學的類比；原片沒有談 Weee! 怎麼處理沒把握的報價。</span></li>
+      </ol>
+      <p class="back"><a href="#toc">↑ 回目錄</a></p>
+    </section>
+  </main>
+
+  <footer>
+    資料來源：羅振宇《調研時間｜我和我的AI並肩戰鬥》，<a href="https://www.youtube.com/watch?v=CN0m_dBE1K0" target="_blank" rel="noopener">youtube.com/watch?v=CN0m_dBE1K0</a>，時間戳記可點擊；老熊〈Amazon interview trip Nov 9 2012〉筆記。<br>
+    <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/" target="_blank" rel="noopener">老熊隨筆 首頁</a>
+  </footer>
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/" target="_blank" rel="noopener">回首頁</a>
+</nav>
