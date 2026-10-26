@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>三天週末，十三篇文章</title>
+<meta name="description" content="2026年10月23至25日的老熊週末復盤：iPhone Duo、第十一圈、田總、Valley Fair、菜價與 2012 年的 Amazon 面試。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=LXGW+WenKai+TC:wght@400;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: 1100px vintage magazine sheet on a soft-blue ground; each section = story column + 340px sidebar ledger, stacking to one column under 960px */
+:root{
+  --bg:#d9e5f3;
+  --paper:#f4f7fc;
+  --ink:#14284f;
+  --muted:#4a5d82;
+  --gold:#86610e;
+  --gold-soft:#efe3bd;
+  --wine:#8a372b;
+  --rule:#b5c5dc;
+  --panel:#e6eef8;
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Serif TC","Songti TC","PMingLiU","Microsoft JhengHei",serif;
+  --f-quote:"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --fs-body:clamp(19px,0.9rem + 1.4vw,32px);
+  --fs-side:clamp(17px,0.8rem + 0.9vw,24px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1f48;--paper:#162a58;--ink:#f2ead2;--muted:#b9c4dd;--gold:#e4bf5e;--gold-soft:#2c3d6a;--wine:#f3a594;--rule:#344b7e;--panel:#1d3366;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1f48;--paper:#162a58;--ink:#f2ead2;--muted:#b9c4dd;--gold:#e4bf5e;--gold-soft:#2c3d6a;--wine:#f3a594;--rule:#344b7e;--panel:#1d3366;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:var(--fs-body);font-weight:700;line-height:1.9}
+a{color:var(--wine);text-underline-offset:4px;text-decoration-thickness:1px}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.page{max-width:1100px;margin:0 auto;padding-block:36px 150px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheet{background:var(--paper);border:1px solid var(--rule);padding:clamp(20px,4.2vw,48px)}
+
+/* masthead */
+.mast{text-align:center;border-top:7px double var(--gold);border-bottom:1px solid var(--rule);padding-block:30px 38px}
+.kicker{font-size:clamp(14px,.7rem + .5vw,19px);letter-spacing:.38em;color:var(--gold);font-weight:900}
+h1{font-family:var(--f-display);font-weight:900;font-size:clamp(40px,1.5rem + 4.4vw,76px);line-height:1.22;letter-spacing:.05em;margin:20px 0 14px;text-wrap:balance}
+.deck{font-family:var(--f-quote);font-weight:700;font-size:clamp(20px,.9rem + 1.4vw,34px);color:var(--muted);line-height:1.6;margin:0 auto;max-width:28em;text-wrap:balance}
+.byline{margin:22px 0 0;font-size:clamp(14px,.7rem + .45vw,19px);color:var(--muted);letter-spacing:.08em;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px}
+.byline b{font-family:var(--f-mono);font-weight:700;color:var(--ink)}
+
+/* toc */
+.toc{margin:36px 0 0;background:var(--panel);border:1px solid var(--rule);padding:22px clamp(18px,3vw,36px);scroll-margin-top:24px}
+.toc-label{font-size:var(--fs-side);letter-spacing:.3em;color:var(--gold);font-weight:900;margin:0 0 10px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:4px 36px}
+.toc a{display:flex;gap:14px;align-items:baseline;text-decoration:none;color:var(--ink);font-size:var(--fs-side);line-height:1.6;padding:4px 0;border-bottom:1px dotted var(--rule)}
+.toc a:hover{color:var(--wine)}
+.toc .n{color:var(--gold);font-weight:900;min-width:1.4em}
+
+/* lede */
+.lede{font-size:calc(var(--fs-body) * 1.04);margin:44px 0 0;text-align:justify}
+.lede::first-letter{float:left;font-family:var(--f-display);font-weight:900;font-size:clamp(64px,2.6rem + 5.2vw,120px);line-height:1;color:var(--wine);margin:.06em .14em 0 0;padding:.02em .1em;border:4px double var(--gold)}
+
+/* sections */
+.sec{margin-top:clamp(52px,6vw,90px);scroll-margin-top:24px}
+.sec-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 24px;align-items:end;border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:32px}
+.sec-no{grid-row:span 2;font-family:var(--f-display);font-weight:900;font-size:clamp(52px,2rem + 4.4vw,104px);line-height:1;color:var(--gold)}
+.sec-day{font-size:var(--fs-side);letter-spacing:.3em;color:var(--muted);font-weight:900}
+.sec h2{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,1.1rem + 2.7vw,54px);line-height:1.3;margin:0;text-wrap:balance}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(28px,4vw,52px);align-items:start}
+@media (max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+.story{min-width:0}
+.story p{margin:0 0 1.1em;text-align:justify}
+.story h3{font-family:var(--f-quote);font-weight:700;font-size:clamp(23px,1rem + 1.6vw,38px);color:var(--wine);margin:1.3em 0 .45em;line-height:1.4}
+.story h3::before{content:"◆";color:var(--gold);font-size:.55em;vertical-align:.25em;margin-right:.45em}
+strong{font-weight:800;color:var(--wine)}
+.num{font-family:var(--f-mono);font-weight:800;font-variant-numeric:tabular-nums}
+blockquote{margin:1.3em 0;padding:.5em 0 .5em 1em;border-left:7px solid var(--gold);font-family:var(--f-quote);font-weight:700;font-size:clamp(24px,1rem + 2vw,42px);line-height:1.6}
+blockquote p{margin:0}
+blockquote cite{display:block;font-family:var(--f-body);font-style:normal;font-size:var(--fs-side);color:var(--muted);margin-top:.3em}
+.pull{font-family:var(--f-quote);font-weight:700;font-size:clamp(26px,1.1rem + 2.4vw,44px);text-align:center;line-height:1.7;color:var(--wine);border-block:4px double var(--gold);padding:1em .4em;margin:1.4em 0}
+.back{display:inline-block;margin-top:16px;font-size:var(--fs-side);color:var(--gold);text-decoration:none;border-bottom:2px solid currentColor;line-height:1.4}
+.back:hover{color:var(--wine)}
+
+/* sidebar */
+.aside{display:flex;flex-direction:column;gap:26px;font-size:var(--fs-side);line-height:1.7;min-width:0}
+.card{background:var(--panel);border-top:5px solid var(--gold);padding:18px 22px 20px}
+.card h4{margin:0 0 10px;font-size:.86em;letter-spacing:.28em;color:var(--gold);font-weight:900}
+.card p{margin:0 0 .6em}
+.card p:last-child{margin-bottom:0}
+.card .src{font-size:.82em;color:var(--muted);font-weight:700}
+.ledger{margin:0;display:grid;gap:4px}
+.ledger div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px dotted var(--rule);padding-bottom:3px}
+.ledger dt{min-width:0}
+.ledger dd{margin:0;font-family:var(--f-mono);font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
+.ledger .hi dd{color:var(--wine);font-size:1.3em}
+.formula{font-family:var(--f-mono);font-weight:700;font-size:.82em;background:var(--gold-soft);padding:10px 12px;line-height:1.6;overflow-x:auto;white-space:nowrap;margin:.3em 0 .7em}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;border-collapse:collapse;font-size:.92em}
+.tbl th,.tbl td{text-align:left;vertical-align:top;border-bottom:1px solid var(--rule);padding:6px 6px}
+.tbl th{color:var(--gold);font-weight:900}
+.tbl td.c{text-align:center}
+.events{margin:0;padding-left:1.6em}
+.events li{margin:0 0 2px}
+.events li::marker{font-family:var(--f-mono);color:var(--gold);font-weight:800}
+
+/* appendix */
+.refs{columns:2 300px;column-gap:40px;padding-left:1.8em;font-size:var(--fs-side);line-height:1.6;margin:0}
+.refs li{break-inside:avoid;margin:0 0 12px}
+.refs li::marker{font-family:var(--f-mono);color:var(--gold);font-weight:800}
+.refs .d{font-family:var(--f-mono);font-weight:800;color:var(--muted);margin-right:8px;font-size:.85em}
+.meta{font-size:var(--fs-side);color:var(--muted);margin:0 0 22px}
+.note{margin-top:32px;background:var(--gold-soft);border-left:6px solid var(--gold);padding:18px 22px;font-size:var(--fs-side);line-height:1.75}
+footer{margin-top:44px;border-top:1px solid var(--rule);padding-top:16px;font-size:clamp(14px,.7rem + .45vw,19px);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 22px}
+
+/* floating nav */
+.fnav{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:20}
+.fnav a{display:block;text-align:center;text-decoration:none;background:var(--ink);color:var(--paper);border:2px solid var(--gold);font-size:clamp(15px,.75rem + .4vw,19px);font-weight:900;letter-spacing:.12em;padding:8px 14px;line-height:1.3}
+.fnav a:hover{background:var(--gold);color:var(--paper)}
+</style>
+</head>
+<body>
+
+<div class="page"><article class="sheet">
+
+<header class="mast">
+  <div class="kicker">老熊隨筆 · 精選外刊 · 週末復盤</div>
+  <h1>三天週末，十三篇文章</h1>
+  <p class="deck">一位退休化學計量學家的週末，為什麼總會跑成一份研究計畫？</p>
+  <p class="byline"><span><b>2026.10.23 — 10.25</b></span><span>據《老熊隨筆》同期篇章改寫</span><span>原稿 GPT-6 ・ 改寫 Claude</span></p>
+</header>
+
+<nav class="toc" id="toc" aria-label="目錄">
+  <p class="toc-label">目　錄</p>
+  <ol>
+    <li><a href="#s1"><span class="n">一</span>星期五｜花十三塊一毛六，買到一個除以零</a></li>
+    <li><a href="#s2"><span class="n">二</span>星期六｜一座商場，三組不相干的實驗</a></li>
+    <li><a href="#s3"><span class="n">三</span>星期天｜一盤菜價，叫醒十四年前的面試</a></li>
+    <li><a href="#s4"><span class="n">四</span>復盤｜十三篇文章，去重之後還剩幾件事</a></li>
+    <li><a href="#s5"><span class="n">附</span>同期文章索引與資料邊界</a></li>
+  </ol>
+</nav>
+
+<p class="lede">問一般人週末做了什麼，答案多半是：逛街、買東西、跟朋友聊天。老熊的答案其實也一樣，只是到了星期天晚上，網站上多出了十三篇標著這三天日期的文章。十三篇當然不等於十三件事。同一件事，他常讓兩個 AI 各寫一遍，再比比看誰真的懂了題目。這是退休生活的副作用，也是本文要處理的第一道資料清理題。</p>
+
+<!-- ============ 一 ============ -->
+<section class="sec" id="s1">
+  <div class="sec-head"><span class="sec-no">一</span><span class="sec-day">FRI · 10.23</span><h2>花十三塊一毛六，買到一個除以零</h2></div>
+  <div class="grid">
+    <div class="story">
+      <p>十月二十三日，iPhone Duo 首發。前一晚，老熊先到 Target 買了一張 <span class="num">$13.16</span> 的折疊椅，準備排長龍。隔天早上七點趕到 Hillsdale 的 Apple Store，隊伍卻已經開始往前移動。椅子沒打開，手機也沒買到。</p>
+      <p>換作別人，故事寫到「白跑一趟」就收工了。老熊的寫法還欠一道算式：椅子成本 <span class="num">$13.16</span>，使用時間零分鐘，每分鐘成本的分母是零。MATLAB 不會安慰人，只會老老實實回你一個 <strong class="num">Inf</strong>。</p>
+      <p>這趟也不算全無收穫。手機沒帶回家，倒帶回一疊照片；照片上有時間戳記，足夠重建當天隊伍怎麼移動。別人去店裡買產品，老熊去店裡採樣。</p>
+
+      <h3>查無此圈</h3>
+      <p>中午，他拿著一張流傳的「退休十大圈子」圖去問老同學：我到底算哪一圈？同學七嘴八舌，替他補上「AI 對話」「自耕農」「炒股」「世界美食」。Claude 和 GPT-6 也輪流上場分類。補了一輪，還是放不進去。</p>
+      <blockquote><p>別人是生活處處有講究，老熊是生活處處有研究。</p><cite>—— 同學評語</cite></blockquote>
+      <p>這一句比十個圈子的標籤都準。拿未知樣本硬套最相近的類別，第一個跳出來反對的就是化學計量學家。老熊乾脆替自己開了第十一圈。<strong>問題不在他退休後找不到組織，在於原來那套分類系統根本沒設計 no-match 這個出口。</strong></p>
+
+      <h3>怎樣誇老婆</h3>
+      <p>同一天還有另一道題。同學聊起兩位精明幹練的理工女博士，老熊想到的是田總。田總連新窗戶邊角沒塞好的膠條都不放過，當年卻做了一個最不像她的決定：嫁給一個還沒畢業、沒有工作、也沒有綠卡的人。</p>
+      <p>這篇後來又拿去和阿發誇老婆的文章並排對照。阿發有阿發的誇法；老熊的誇法是自嘲繞一大圈，最後才露出一句感謝。不肉麻，很老熊。</p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="aside" aria-label="星期五側欄">
+      <div class="card">
+        <h4>椅子帳</h4>
+        <dl class="ledger">
+          <div><dt>購置</dt><dd>10.22 晚</dd></div>
+          <div><dt>成本</dt><dd>$13.16</dd></div>
+          <div><dt>使用時間</dt><dd>0 min</dd></div>
+          <div><dt>購得手機</dt><dd>0 支</dd></div>
+          <div class="hi"><dt>每分鐘成本</dt><dd>Inf</dd></div>
+        </dl>
+        <p class="formula">&gt;&gt; 13.16 / 0<br>ans =<br>&nbsp;&nbsp;&nbsp;Inf</p>
+        <p class="src">副產品：一組可重建排隊動態的照片時間戳記。</p>
+      </div>
+      <div class="card">
+        <h4>分類器診斷</h4>
+        <dl class="ledger">
+          <div><dt>既有類別</dt><dd>10</dd></div>
+          <div><dt>同學補充</dt><dd>+4</dd></div>
+          <div><dt>參與判讀的 AI</dt><dd>2</dd></div>
+          <div class="hi"><dt>判定</dt><dd>no-match</dd></div>
+        </dl>
+        <p style="margin-top:.6em">處置：不硬塞，另立第 <span class="num">11</span> 類。</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ 二 ============ -->
+<section class="sec" id="s2">
+  <div class="sec-head"><span class="sec-no">二</span><span class="sec-day">SAT · 10.24</span><h2>一座商場，三組不相干的實驗</h2></div>
+  <div class="grid">
+    <div class="story">
+      <p>星期六中午，場景移到 Valley Fair。同一座商場，老熊一個下午做了三組實驗，彼此毫無關係。</p>
+
+      <h3>實驗一：外套的殘差</h3>
+      <p>先前買的 Arc'teryx Cronin AR Hoody，當初看著合意，回家再想就有問題：棉混紡淋濕了乾得慢，半拉鍊穿脫也麻煩。原先的模型只放了一個變數「在加州穿起來舒不舒服」，漏掉了旅途上會碰到的冷和濕。於是拿回去換成 Gamma MX。</p>
+      <p>人家說買衣服要試穿。老熊說：<strong>殘差有結構，模型就得加變數。</strong>一件外套能上升到模型診斷，算不算職業病，目前樣本數不足，暫不下結論。</p>
+
+      <h3>實驗二：摸得到，帶不走</h3>
+      <p>下午一點十五分，同一座商場的 Apple Store 擠滿試玩 iPhone Duo 的人。機器摸得到、照得到，就是不能當場帶回家。店外有人排隊，店內有人圍觀；同一片熱鬧，鏡頭朝向不同，故事就不同。老熊這回帶走的，依舊主要是觀測資料。</p>
+
+      <h3>實驗三：數椅子</h3>
+      <p>第三題和科技無關：Bloomingdale's 裡的排燈節。金色布幕、萬壽菊、一排排空著的折疊椅、飲料攤、正在準備的表演，商場裡忽然換了一種節奏。老熊還是忍不住數了椅子，估出五、六十張，並且自己註明這個估計有誤差。萬壽菊倒是逃過一劫，沒被拿去做光譜分類。</p>
+      <p>星期六的結論：<strong>同一個下午，可以同時研究服裝材料、手機供需和印度節慶，不必申請跨學科計畫。</strong></p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="aside" aria-label="星期六側欄">
+      <div class="card">
+        <h4>模型修正</h4>
+        <p>原模型：</p>
+        <p class="formula">y = f(加州舒適度)</p>
+        <p>殘差診斷後：</p>
+        <p class="formula">y = f(舒適度, 低溫,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;潮濕, 穿脫便利)</p>
+        <p class="src">Cronin AR Hoody → Gamma MX</p>
+      </div>
+      <div class="card">
+        <h4>三組實驗紀錄</h4>
+        <div class="tbl"><table>
+          <thead><tr><th>實驗</th><th>觀測</th><th>結果</th></tr></thead>
+          <tbody>
+            <tr><td>外套</td><td>材料、天候</td><td>換貨</td></tr>
+            <tr><td>iPhone Duo</td><td><span class="num">13:15</span> 店內人潮</td><td>照片</td></tr>
+            <tr><td>排燈節</td><td>折疊椅</td><td><span class="num">50–60</span> 張（±）</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ 三 ============ -->
+<section class="sec" id="s3">
+  <div class="sec-head"><span class="sec-no">三</span><span class="sec-day">SUN · 10.25</span><h2>一盤菜價，叫醒十四年前的面試</h2></div>
+  <div class="grid">
+    <div class="story">
+      <p>星期天，重心回到螢幕前。老熊看了 Weee! 創辦人 Larry 談 AI 採購的訪談：不同供應商報來菜價，要先對上真正相同的商品，才能比價。AI 幫得上忙，但難處常常不在算術，而在算術之前那一句：這兩筆，到底是不是同一樣東西？</p>
+      <p>這一問，翻出十四年前的舊帳。2012 年秋天，老熊飛到 Seattle 面試 Amazon 的 Data Scientist，題目同樣牽涉大量供應商報價與商品比對。當時對方說的，究竟是「每分鐘」還是「每天」幾十億次？記憶已經模糊，照片倒還在。於是把舊照找出來重新對證：哪些能確認，哪些只能留著問號。</p>
+      <p>接著寫成一篇跨越十四年的對讀。Amazon 的難處偏向規模；Weee! 的難處則在商品異質、資料雜亂。兩邊有一個共同點：比最低價之前，得先認出同一件貨。這和光譜分析是同一套路：預處理與校正，對應資料歸一；辨認不出的樣本，不能硬塞進某一類。</p>
+      <blockquote><p>不知道是不是同一種東西，價錢比得再快，也只是把錯誤自動化。</p></blockquote>
+      <p>星期天最有意思的地方在這裡。老熊看的是今天的 AI，腦子裡跑的卻是 2012 年的面試、二十多年的化學計量學經驗，和一個老問題：<strong>模型該不該學會說「我不知道」？</strong></p>
+
+      <h3>四個老同學的週末</h3>
+      <p>同一天，另一篇〈四個老同學的週末〉把群組照片排在一起：有人逛農夫市場買花生和芭樂，有人照顧葡萄、盤算今年做果醬明年釀酒，有人到 Napa 排隊買可頌。老熊沒有替誰打分數，只把幾種週末並排放上檯面。</p>
+      <p>大家都在過週末；有人消費，有人種植，有人品嘗，老熊則把這一切變成敘事材料。這裡也得給自己一個 no-match：<strong>群組裡別人的行程，是老熊觀察到的生活，不是老熊去過的地方。</strong></p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="aside" aria-label="星期天側欄">
+      <div class="card">
+        <h4>兩道比對題</h4>
+        <div class="tbl"><table>
+          <thead><tr><th></th><th>2012</th><th>2026</th></tr></thead>
+          <tbody>
+            <tr><td>場合</td><td>Amazon 面試</td><td>Weee! 訪談</td></tr>
+            <tr><td>地點</td><td>Seattle</td><td>螢幕前</td></tr>
+            <tr><td>難處</td><td>規模</td><td>異質、雜亂</td></tr>
+            <tr><td>第一步</td><td colspan="2" class="c">先認出同一件貨</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <h4>化學計量學對照</h4>
+        <dl class="ledger">
+          <div><dt>光譜預處理</dt><dd>資料歸一</dd></div>
+          <div><dt>校正模型</dt><dd>比價規則</dd></div>
+          <div class="hi"><dt>拒判</dt><dd>認不出就不比</dd></div>
+        </dl>
+      </div>
+      <div class="card">
+        <h4>待查</h4>
+        <p>「每分鐘」還是「每天」？</p>
+        <p class="src">記憶與照片對證中；未能確認者保留問號。</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ 四 ============ -->
+<section class="sec" id="s4">
+  <div class="sec-head"><span class="sec-no">四</span><span class="sec-day">復 盤</span><h2>十三篇文章，去重之後還剩幾件事</h2></div>
+  <div class="grid">
+    <div class="story">
+      <p>這三天網站標出十三篇，卻不能當成十三次獨立活動。退休圈子有 Claude 與 GPT-6 兩個版本；誇老婆有原版和對照版；Amazon 與 Weee! 又各有單篇和對讀。不去重就拿篇數當活動量，等於把同一個樣本複測三次，報成三個獨立樣本。做化學計量學的人，不該犯這個錯。</p>
+      <p>再對一次帳，還有一個小缺口：標題說十三篇，附錄索引卻只找得到十二條連結。差的那一篇，是漏收、改了名，還是當初就數錯了？依復盤體的規矩，查不清就照實掛著問號。</p>
+      <p>更大的偏差在後頭：我們看得到的，只是寫出來的那部分。吃飯、散步、休息，未必會上網站。把網頁當成完整的人生，統計做得再精確，也是抽樣偏差。老熊最懂這一點，卻還是愛拿有限的材料做一次推論，然後在註腳裡自己指出推論哪裡不可靠。</p>
+      <div class="pull">退休不是停止工作。<br>只是從此沒人替老熊規定研究題目。<br>連買不到手機，都有資格變成一個。</div>
+      <p>所以這個週末最值得記住的，恐怕不是十三篇文章，也不是 iPhone Duo、始祖鳥或菜價，而是一個小小的反轉：老熊原本想知道自己退休後屬於哪一圈，三天忙完才發現，需要重新分類的不是他，是<strong>「退休」</strong>這個詞。</p>
+      <p>別人說，退休就是終於可以不做事了。老熊說，正好相反：<strong>終於可以不必解釋，為什麼這也值得做。</strong></p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="aside" aria-label="復盤側欄">
+      <div class="card">
+        <h4>去重帳</h4>
+        <dl class="ledger">
+          <div><dt>網站標示篇數</dt><dd>13</dd></div>
+          <div><dt>索引可見連結</dt><dd>12</dd></div>
+          <div class="hi"><dt>獨立事件（約）</dt><dd>8</dd></div>
+          <div><dt>未上網站的生活</dt><dd>未觀測</dd></div>
+        </dl>
+      </div>
+      <div class="card">
+        <h4>八件事</h4>
+        <ol class="events">
+          <li>Hillsdale 排隊未果</li>
+          <li>退休第十一圈</li>
+          <li>誇田總</li>
+          <li>始祖鳥換貨</li>
+          <li>Valley Fair 試玩</li>
+          <li>百貨公司排燈節</li>
+          <li>菜價與 Amazon 面試</li>
+          <li>四個老同學的週末</li>
+        </ol>
+        <p class="src">合併同題多版本後的估計；分法不同，可能是八或九。</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ 附錄 ============ -->
+<section class="sec" id="s5">
+  <div class="sec-head"><span class="sec-no">附</span><span class="sec-day">APPENDIX</span><h2>同期文章索引</h2></div>
+  <p class="meta">依《老熊隨筆》首頁標示日期整理。個別篇章可能已更名，若連結失效，請由<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">網站總目錄</a>尋找。</p>
+  <ol class="refs">
+    <li><span class="d">10.23</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%93%80%E7%98%8BDuo%E9%A6%96%E7%99%BC%E6%97%A5.html">哀瘋 Duo 首發日</a></li>
+    <li><span class="d">10.23</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/Lao_Xiong_Retirement_Eleventh_Circle_GPT-6.html">退休十大圈，老熊竟然查無此圈</a></li>
+    <li><span class="d">10.23</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E9%80%80%E4%BC%91%E5%8D%81%E5%A4%A7%E5%9C%88%E5%AD%90_%E8%80%81%E7%86%8A%E7%9A%84%E7%AC%AC%E5%8D%81%E4%B8%80%E5%9C%88_Claude.html">老熊的第十一圈（Claude 版）</a></li>
+    <li><span class="d">10.23</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E8%81%B0%E6%98%8E%E4%B8%80%E4%B8%96%E7%B3%8A%E5%A1%97%E4%B8%80%E6%99%82%E7%9A%84%E7%94%B0%E7%B8%BD.html">聰明一世，糊塗一時的田總（原版）</a></li>
+    <li><span class="d">10.23</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/Lao_Xiong_Ah_Fa_Two_Ways_To_Praise_Wives.html">老熊與阿發，兩種誇老婆的方法</a></li>
+    <li><span class="d">10.24</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E6%91%B8%E5%BE%97%E5%88%B0_%E5%B8%B6%E4%B8%8D%E8%B5%B0_iPhone_Duo_Valley_Fair.html">摸得到，帶不走</a></li>
+    <li><span class="d">10.24</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%A7%8B%E7%A5%96%E9%B3%A5%E5%8D%87%E7%B4%9A%E8%A8%98.html">始祖鳥升級記</a></li>
+    <li><span class="d">10.24</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E7%99%BE%E8%B2%A8%E5%85%AC%E5%8F%B8%E8%A3%A1%E7%9A%84%E6%8E%92%E7%87%88%E7%AF%80_ValleyFair.html">百貨公司裡的排燈節</a></li>
+    <li><span class="d">10.25</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/%E5%9B%9B%E5%80%8B%E8%80%81%E5%90%8C%E5%AD%B8%E7%9A%84%E9%80%B1%E6%9C%AB.html">四個老同學的週末</a></li>
+    <li><span class="d">10.25</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/weee_ai_comrade_Gemini_Claude.html">我和我的 AI 並肩戰鬥</a></li>
+    <li><span class="d">10.25</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/amazon_interview_trip_2012.html">每分鐘，還是每天？</a></li>
+    <li><span class="d">10.25</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/amazon2012_weee2026_matching.html">出價與菜價</a></li>
+  </ol>
+  <div class="note"><strong>資料邊界：</strong>本文根據網站標示 2026 年 10 月 23–25 日的篇章及同期對話改寫，屬文學化復盤，不是逐分鐘的行程紀錄。網站檔案日期未必等於實際活動日期；Google Calendar 這三天未見行程登記。原稿稱十三篇，索引可見十二篇，差額待查。部分對話與心聲經過文學濃縮，不應視為逐字引言。</div>
+  <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer><span>老熊隨筆 · 週末復盤</span><span>原稿 GPT-6 ・ 改寫 Claude</span><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">返回老熊隨筆</a></footer>
+
+</article></div>
+
+<nav class="fnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
