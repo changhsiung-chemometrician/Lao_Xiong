@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>楊立昆錯在太看輕語言</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=IBM+Plex+Mono:wght@600;700&display=swap">
+<style>
+/* Layout: vintage magazine spread — masthead, wide main column + 340px margin-note rail per section, Othello figure as the one visual set-piece */
+:root{
+  --paper:#e4edf7;      /* soft blue paper */
+  --paper-2:#f2f6fb;    /* card / ledger */
+  --ink:#172748;        /* navy ink */
+  --muted:#46587a;
+  --gold:#8f6a12;       /* dark gold for text on light */
+  --gold-soft:#d6b456;
+  --rule:#b4c3d8;
+  --board:#2f6b4f;      /* felt green for the Othello board */
+  --board-line:#1f4a36;
+  --disc-b:#1d2a44;
+  --disc-w:#f4f1e6;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --body:clamp(21px, 1rem + 1.45vw, 32px);
+  --note:clamp(19px, .9rem + 1vw, 26px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#13254a; --paper-2:#1b3160; --ink:#eef2f9; --muted:#b9c6de;
+    --gold:#e6c46c; --gold-soft:#b8953a; --rule:#34507f;
+    --board:#2c6448; --board-line:#174030; --disc-b:#14203a; --disc-w:#f4f1e6;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#13254a; --paper-2:#1b3160; --ink:#eef2f9; --muted:#b9c6de;
+  --gold:#e6c46c; --gold-soft:#b8953a; --rule:#34507f;
+  --board:#2c6448; --board-line:#174030; --disc-b:#14203a; --disc-w:#f4f1e6;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:var(--body); font-weight:700; line-height:1.75;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 120px;
+}
+.wrap{max-width:1100px; margin:0 auto}
+a{color:var(--gold); text-underline-offset:.18em}
+a:focus-visible{outline:3px solid var(--gold-soft); outline-offset:3px}
+
+/* masthead */
+.mast{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px 24px;
+  border-top:6px double var(--ink); border-bottom:2px solid var(--ink); padding-block:10px;
+  font-size:var(--note); letter-spacing:.12em}
+.mast b{font-weight:900; letter-spacing:.3em}
+.mast .issue{color:var(--muted); font-family:var(--mono); letter-spacing:.04em; font-weight:700}
+
+header.hero{padding-block:40px 28px; border-bottom:1px solid var(--rule)}
+.kicker{font-size:var(--note); color:var(--gold); letter-spacing:.2em; font-weight:900}
+h1{font-size:clamp(40px, 5.6vw, 76px); font-weight:900; line-height:1.18; margin:.2em 0 .25em; text-wrap:balance; letter-spacing:.02em}
+.deck{font-size:clamp(23px, 1.1rem + 1.6vw, 36px); font-weight:700; color:var(--muted); line-height:1.5; margin:0 0 24px; max-width:28em; text-wrap:balance}
+.byline{display:flex; flex-wrap:wrap; gap:12px 28px; align-items:center; font-size:var(--note); color:var(--muted)}
+.watch{display:inline-flex; align-items:center; gap:.5em; background:var(--ink); color:var(--paper);
+  text-decoration:none; padding:.35em 1em; border-radius:4px; font-weight:900}
+.watch:hover{background:var(--gold); color:var(--paper)}
+
+/* TOC */
+nav#toc{margin-block:36px; padding:24px 28px; background:var(--paper-2); border:1px solid var(--rule); border-left:8px solid var(--gold-soft)}
+nav#toc h2{font-size:var(--note); letter-spacing:.3em; margin:0 0 10px; color:var(--gold)}
+nav#toc ol{margin:0; padding-left:1.6em; display:grid; gap:4px}
+nav#toc a{color:var(--ink); text-decoration:none; border-bottom:2px solid var(--gold-soft)}
+nav#toc a:hover{color:var(--gold)}
+
+/* sections */
+section.sec{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:20px 48px; padding-block:44px 28px; border-bottom:1px solid var(--rule)}
+.sec > .main{min-width:0}
+.sec h2{grid-column:1 / -1; font-size:clamp(30px, 1.2rem + 2.6vw, 54px); font-weight:900; line-height:1.3; margin:0; text-wrap:balance}
+.sec h2 .no{display:block; font-family:var(--mono); font-size:var(--note); color:var(--gold); letter-spacing:.15em; margin-bottom:6px}
+.sec p{margin:0 0 1em}
+.dropcap::first-letter{float:left; font-size:clamp(76px, 9vw, 120px); line-height:.9; font-weight:900; color:var(--gold); padding:.06em .12em 0 0}
+.back{display:inline-block; margin-top:8px; font-size:var(--note); text-decoration:none; font-weight:900}
+
+aside.rail{font-size:var(--note); line-height:1.6; border-left:3px solid var(--gold-soft); padding-left:20px; align-self:start}
+aside.rail h3{font-size:var(--note); letter-spacing:.25em; color:var(--gold); margin:0 0 10px; font-weight:900}
+aside.rail ul{list-style:none; padding:0; margin:0; display:grid; gap:12px}
+.ts{font-family:var(--mono); font-weight:800; font-variant-numeric:tabular-nums; text-decoration:none;
+  background:var(--paper-2); border:1px solid var(--rule); padding:.05em .45em; border-radius:3px; white-space:nowrap}
+.ts:hover{border-color:var(--gold)}
+
+/* ledger */
+.ledger-scroll{overflow-x:auto; margin-block:12px 28px}
+table.ledger{width:100%; border-collapse:collapse; background:var(--paper-2); font-size:var(--note); min-width:520px}
+.ledger th,.ledger td{border-bottom:1px solid var(--rule); padding:12px 14px; text-align:left; vertical-align:top}
+.ledger thead th{border-bottom:3px double var(--ink); font-weight:900}
+.ledger tbody th{color:var(--gold); font-weight:900; white-space:nowrap}
+
+blockquote.pull{margin:28px 0; padding:18px 0; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+  font-size:clamp(28px, 1.1rem + 2vw, 44px); font-weight:900; line-height:1.45; text-wrap:balance}
+blockquote.pull cite{display:block; margin-top:10px; font-size:var(--note); font-style:normal; color:var(--muted); font-weight:700}
+
+/* Othello figure */
+figure.othello{margin:20px 0 28px; padding:22px; background:var(--paper-2); border:1px solid var(--rule)}
+.oth-row{display:flex; flex-wrap:wrap; align-items:center; gap:22px}
+.moves{flex:1 1 220px; min-width:0}
+.moves .lab{font-size:var(--note); color:var(--muted); margin-bottom:8px}
+.moves ol{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px}
+.moves li{font-family:var(--mono); font-weight:800; font-size:var(--note); padding:.05em .5em; border:2px solid var(--ink); border-radius:3px}
+.moves li.w{background:var(--disc-w); color:#172748; border-color:var(--rule)}
+.moves li.b{background:var(--disc-b); color:#f4f1e6}
+.arrow{font-size:var(--note); color:var(--gold); font-weight:900; text-align:center; flex:0 0 auto}
+.board{flex:0 1 330px; width:min(330px,100%); aspect-ratio:1; max-width:100%; display:grid; grid-template-columns:repeat(8,1fr);
+  background:var(--board); border:6px solid var(--board-line); gap:2px; padding:2px}
+.board .c{background:var(--board); outline:1px solid var(--board-line); display:grid; place-items:center; position:relative}
+.board .d{width:78%; aspect-ratio:1; border-radius:50%}
+.board .d.b{background:var(--disc-b); box-shadow:inset 0 -3px 0 rgba(255,255,255,.12)}
+.board .d.w{background:var(--disc-w); box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.board .last::after{content:""; position:absolute; width:22%; aspect-ratio:1; border-radius:50%; background:var(--gold-soft)}
+figcaption{margin-top:14px; font-size:var(--note); color:var(--muted); line-height:1.6}
+
+/* 老熊按 */
+.laoxiong{background:var(--paper-2); border:2px solid var(--gold-soft); padding:22px 26px}
+.laoxiong p:last-child{margin-bottom:0}
+
+/* English digest */
+.en{font-family:Georgia,"Times New Roman",serif; font-weight:600; line-height:1.6; font-size:clamp(19px, .9rem + 1.1vw, 27px)}
+.en strong{font-weight:800}
+.en p{max-width:40em}
+.en .en-lede{font-size:1.12em; font-style:italic; border-left:4px solid var(--gold-soft); padding-left:18px}
+.en h3{font-family:var(--serif); font-weight:900; font-size:1.2em; color:var(--gold); margin:1.4em 0 .5em; line-height:1.35; text-wrap:balance}
+
+footer.colophon{padding-block:32px; font-size:var(--note); color:var(--muted); text-align:center; line-height:1.7}
+
+/* floating nav */
+.floatnav{position:fixed; right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+  display:flex; flex-direction:column; gap:8px; z-index:20}
+.floatnav a{display:block; text-align:center; text-decoration:none; font-weight:900; font-size:18px; letter-spacing:.1em;
+  background:var(--ink); color:var(--paper); padding:10px 16px; border-radius:4px; border:2px solid var(--gold-soft);
+  box-shadow:0 4px 14px rgba(10,25,60,.25)}
+.floatnav a:hover{background:var(--gold); color:var(--paper)}
+
+@media (max-width: 900px){
+  section.sec{grid-template-columns:minmax(0,1fr)}
+  aside.rail{border-left:none; border-top:3px solid var(--gold-soft); padding:16px 0 0}
+  aside.rail ul{grid-template-columns:repeat(auto-fill, minmax(220px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="mast">
+    <span><b>老熊隨筆</b>　後 AI 時代 · 精選外刊</span>
+    <span class="issue">2026 · 10 · 27</span>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">史丹佛訪談 · 語言與世界模型</div>
+    <h1>楊立昆錯在太看輕語言</h1>
+    <p class="deck">Christopher Manning：只讀文字的模型，一樣學得會這個世界</p>
+    <div class="byline">
+      <span>老熊　整理　｜　影片來源：AI 101 頻道</span>
+      <a class="watch" href="https://www.youtube.com/watch?v=ZdMf47ftJrM" target="_blank" rel="noopener">▶ 觀看原影片</a>
+    </div>
+  </header>
+
+  <nav id="toc" aria-label="目錄">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#s1">兩種世界觀：看見世界，還是說出世界</a></li>
+      <li><a href="#s2">語言的兩把鑰匙</a></li>
+      <li><a href="#s3">黑白棋裡藏著一張棋盤</a></li>
+      <li><a href="#s4">多模態：到得了，但不是最快的路</a></li>
+      <li><a href="#s5">老熊按：化學計量學家看探針實驗</a></li>
+      <li><a href="#s6">English Digest</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section class="sec" id="s1">
+    <h2><span class="no">第一節</span>兩種世界觀：看見世界，還是說出世界</h2>
+    <div class="main">
+      <p class="dropcap">圖靈獎得主楊立昆（Yann LeCun）是出了名的「視覺派」。他理解世界的方式偏向影像，在他眼裡，語言不過是人與人之間一條頻寬很低的溝通管道。順著這個邏輯，他斷言一個字一個字往下猜的自迴歸大型語言模型，建立不了真正的世界模型，於是另起爐灶，提出 JEPA 架構。</p>
+      <p>史丹佛的 Christopher Manning 不買帳。這位做了大半輩子自然語言處理的老將認為，楊立昆把語言看得太輕了。視覺與基本的規劃能力，很多動物都有；人類之所以能走到今天，關鍵的那一次「認知解鎖」（cognitive unlock）正是語言。</p>
+      <div class="ledger-scroll">
+        <table class="ledger">
+          <thead><tr><th></th><th>楊立昆</th><th>曼寧</th></tr></thead>
+          <tbody>
+            <tr><th>思考的底層</th><td>影像、視覺化的心智</td><td>語言符號與範疇</td></tr>
+            <tr><th>語言的角色</th><td>低頻寬的溝通管道</td><td>人類智慧的核心解鎖</td></tr>
+            <tr><th>純文字模型</th><td>學不到世界模型</td><td>學得到，只是不是最快</td></tr>
+            <tr><th>開出的藥方</th><td>JEPA 架構</td><td>以語言為本，多模態加速</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="rail">
+      <h3>時間碼</h3>
+      <ul>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=85s" target="_blank" rel="noopener">01:25</a> 楊立昆的視覺式思考</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=123s" target="_blank" rel="noopener">02:03</a> 語言＝低頻寬管道</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=146s" target="_blank" rel="noopener">02:26</a> JEPA 的提出</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=176s" target="_blank" rel="noopener">02:56</a> 曼寧：語言更核心</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=194s" target="_blank" rel="noopener">03:14</a> 動物也有視覺與規劃</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=229s" target="_blank" rel="noopener">03:49</a> 語言是認知解鎖</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 2 -->
+  <section class="sec" id="s2">
+    <h2><span class="no">第二節</span>語言的兩把鑰匙</h2>
+    <div class="main">
+      <p>曼寧說，語言同時打開了兩道門。</p>
+      <p>第一道在腦袋裡。語言是個人內在的思考工具：人用符號與範疇來思考、做計畫、拼出自己的世界觀。</p>
+      <p>第二道在人與人之間。語言讓人類演化出複雜的社會合作；一家大型企業、一項現代科技，靠的是成百上千人用語言分工協作才做得出來。曼寧把這叫做「社會智慧」（societal intelligence），並指出當多個 AI 代理彼此用語言協作時，也開始顯露出同樣的群體智慧。</p>
+      <blockquote class="pull">視覺與規劃，動物也有；讓人類走這麼遠的，是語言。<cite>曼寧觀點，意譯</cite></blockquote>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="rail">
+      <h3>時間碼</h3>
+      <ul>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=249s" target="_blank" rel="noopener">04:09</a> 個人的思考工具</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=292s" target="_blank" rel="noopener">04:52</a> 社會智慧</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=320s" target="_blank" rel="noopener">05:20</a> 大型組織的語言分工</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=380s" target="_blank" rel="noopener">06:20</a> 多個 AI 代理的群體智慧</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 3 -->
+  <section class="sec" id="s3">
+    <h2><span class="no">第三節</span>黑白棋裡藏著一張棋盤</h2>
+    <div class="main">
+      <p>最常聽到的反駁是：只讀文字的模型，沒見過也沒摸過，怎麼可能懂物理世界裡的關係？</p>
+      <p>曼寧拿黑白棋（Othello）的研究來回答。研究者只餵給神經網路一串串棋步，例如「f5、d6、c3……」，要它預測下一手；從頭到尾，模型沒看過一眼棋盤。結果用探針（probe）去讀它的隱藏層，整張 8×8 棋盤的狀態竟然就在裡面：哪格是黑、哪格是白、哪格還空著。</p>
+      <figure class="othello" aria-labelledby="oth-cap">
+        <div class="oth-row">
+          <div class="moves">
+            <div class="lab">模型看見的：只有棋步序列</div>
+            <ol id="moves"></ol>
+          </div>
+          <div class="arrow">探針讀出 →</div>
+          <div class="board" id="board" role="img" aria-label="依序下完六手後的黑白棋盤面"></div>
+        </div>
+        <figcaption id="oth-cap">示意：黑先，依序下完六手後的盤面（金點為最後一手），由本頁程式按規則實際推演。模型只拿到左邊的字串，卻在內部長出右邊這張棋盤。</figcaption>
+      </figure>
+      <p>換句話說，「預測下一個符號」這件看似單調的事，逼著模型在內部重建產生那些符號的世界。</p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="rail">
+      <h3>時間碼</h3>
+      <ul>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=422s" target="_blank" rel="noopener">07:02</a> 「純文字不懂物理世界」</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=461s" target="_blank" rel="noopener">07:41</a> 曼寧的反駁</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=512s" target="_blank" rel="noopener">08:32</a> 黑白棋研究</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=529s" target="_blank" rel="noopener">08:49</a> 隱藏層裡的棋盤</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 4 -->
+  <section class="sec" id="s4">
+    <h2><span class="no">第四節</span>多模態：到得了，但不是最快的路</h2>
+    <div class="main">
+      <p>曼寧並沒有把話說滿。他承認單靠文字確實學得出世界模型，但那不是最有效率的方式。把影像、影片等多模態資料一起放進來，模型能更快、更準地建立豐富的世界表徵。</p>
+      <p>這麼看來，兩人真正的分歧不在「要不要看」，而在「誰當地基」。楊立昆要從感知出發，曼寧則認為語言才是讓智慧起飛的那塊跳板，視覺是讓它飛得更快的順風。</p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="rail">
+      <h3>時間碼</h3>
+      <ul>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=559s" target="_blank" rel="noopener">09:19</a> 純文字也學得會</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=577s" target="_blank" rel="noopener">09:37</a> 但不是最有效率</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=602s" target="_blank" rel="noopener">10:02</a> 多模態加速</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 5 -->
+  <section class="sec" id="s5">
+    <h2><span class="no">第五節</span>老熊按：化學計量學家看探針實驗</h2>
+    <div class="main">
+      <div class="laoxiong">
+        <p>這個黑白棋實驗，在做化學計量的人眼裡格外眼熟。近紅外光譜儀從來沒「看見」過分子，它只看見一條吸收曲線；但只要校正樣本夠多，PLS 之類的模型就能從那條曲線裡把濃度讀出來。</p>
+        <p>所謂探針，本質上就是把隱藏層的向量當成「光譜」，對棋盤狀態做一次校正。讀得出來，表示資訊確實藏在裡面；模型自己有沒有拿它來用，則是另一個問題。原研究後來直接改動內部表徵，看模型的下一手預測是否跟著改變，回答的正是這一點。</p>
+        <p>套到語言模型上也是一樣：文字是世界投下的影子，影子夠多、角度夠雜，就有機會把立體的東西反推回來。只是做過校正的人都知道，間接量測需要的樣本，永遠比直接量測多得多。曼寧承認多模態「比較快」，道理大概就在這裡。</p>
+      </div>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="rail">
+      <h3>延伸閱讀</h3>
+      <ul>
+        <li>Kenneth Li 等，〈Emergent World Representations: Exploring a Sequence Model Trained on a Synthetic Task〉，ICLR 2023（俗稱 Othello-GPT）</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 6 -->
+  <section class="sec" id="s6">
+    <h2><span class="no">English Digest</span>Language Is the Unlock</h2>
+    <div class="main en">
+      <p class="en-lede">Stanford's Christopher Manning, one of the most influential figures in natural language processing, thinks Turing Award winner Yann LeCun has made a basic mistake about intelligence. In Manning's view, LeCun treats language as an afterthought, when it is the very thing that made human intelligence possible. A model that reads only text, he argues, can still learn a working picture of the world.</p>
+
+      <h3>1. Two worldviews: seeing the world or saying it</h3>
+      <p>LeCun is famously a visual thinker. He describes his own reasoning in terms of images rather than words, and he regards language as a narrow, low-bandwidth channel that people use to pass information to one another. From that premise follows his best-known claim: autoregressive large language models, which work by predicting one token after another, can never build a genuine model of how the world works. His alternative is JEPA, the Joint Embedding Predictive Architecture, which learns by predicting abstract representations of what it perceives instead of predicting the next word.</p>
+      <p>Manning accepts that vision and planning matter, but he points out that they are not what makes humans special. Many animals see well and can plan a route to food or away from a predator. What they lack is language. For Manning, language was the cognitive unlock: the step that turned a capable primate into a species that builds cities, writes mathematics and sends probes to other planets.</p>
+
+      <h3>2. Language as a dual unlock</h3>
+      <p>Manning describes two ways in which language raised the ceiling on intelligence.</p>
+      <p><strong>Inside one mind.</strong> Language is a tool for thinking, not only for talking. Words give us symbols and categories, and those let us reason about things that are absent, plan several steps ahead, and assemble a coherent view of the world. A great deal of human thought happens in, and depends on, that symbolic medium.</p>
+      <p><strong>Across many minds.</strong> Language is also what makes large-scale cooperation possible. No single person can build a semiconductor fab or run a global company; such things exist because hundreds or thousands of people divide the work and coordinate through language. Manning calls this <em>societal intelligence</em>. He notes that the same pattern is beginning to appear in AI: when multiple AI agents work together and communicate in language, they start to display a kind of collective intelligence that no single agent shows on its own.</p>
+      <p>Seen this way, LeCun's description of language as a low-bandwidth channel misses the point. The bandwidth of a single sentence may be low, but the system that language makes possible, both in one head and across a whole society, is enormously powerful.</p>
+
+      <h3>3. World models emerging from pure text</h3>
+      <p>The strongest objection to text-only models is intuitive: a system that has never seen, touched or moved through the physical world should not be able to understand how that world fits together. Manning answers with a concrete piece of evidence, the Othello experiment.</p>
+      <p>Researchers trained a neural network on nothing but sequences of Othello moves written as text, such as "f5, d6, c3", and asked it to predict the next legal move. The network was never shown a board, a picture or the rules. Yet when the researchers trained probes to read the model's hidden layers, they found that the full 8×8 board state was encoded inside: which squares held black discs, which held white, and which were empty. To predict the next move well, the model had built an internal map of the game.</p>
+      <p>The lesson Manning draws is general. Predicting the next symbol sounds like a shallow task, but doing it well forces a model to reconstruct the hidden structure that produced those symbols. Human text is produced by a world full of objects, causes and people, so a model trained to predict it has strong pressure to build a model of that world.</p>
+
+      <h3>4. Multimodality: a faster road, not the only one</h3>
+      <p>Manning does not overstate his case. He agrees that text alone is not the most efficient way to learn about the world. Images and video carry spatial and physical information directly, which text conveys only indirectly. Adding them lets a model build a rich world representation faster and more accurately.</p>
+      <p>So the real disagreement is narrower than the headlines suggest. Both men accept that perception helps. They differ on what the foundation should be. LeCun wants to build intelligence up from perception and treat language as a layer on top. Manning sees language as the core that made human intelligence take off, with vision and other senses as powerful accelerants.</p>
+
+      <h3>5. Lao Xiong's note: a chemometrician's view of the probe</h3>
+      <p>To anyone who has worked in chemometrics, the Othello result looks familiar. A near-infrared spectrometer never "sees" a molecule; it records an absorbance curve. Given enough calibration samples, a PLS model can still read concentrations out of that curve. A probe does the same thing to a neural network: it treats the hidden-layer vector as a spectrum and calibrates it against the board state. If the probe succeeds, the information is in there. Whether the model actually uses it is a separate question, which the original researchers addressed by editing the internal representation and checking that the model's predicted moves changed accordingly.</p>
+      <p>Language models work the same way. Text is the shadow the world casts; with enough shadows from enough angles, the solid shape can be reconstructed. Anyone who has run calibrations also knows that indirect measurement always needs far more samples than direct measurement. That is probably why Manning concedes multimodal training gets there faster.</p>
+      <a class="back" href="#toc">↑ 回目錄</a>
+    </div>
+    <aside class="rail">
+      <h3>Timestamps</h3>
+      <ul>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=85s" target="_blank" rel="noopener">01:25</a> LeCun's visual thinking</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=123s" target="_blank" rel="noopener">02:03</a> language as a low-bandwidth channel</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=146s" target="_blank" rel="noopener">02:26</a> JEPA</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=176s" target="_blank" rel="noopener">02:56</a> Manning: language is central</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=229s" target="_blank" rel="noopener">03:49</a> the cognitive unlock</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=249s" target="_blank" rel="noopener">04:09</a> a tool for thinking</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=292s" target="_blank" rel="noopener">04:52</a> societal intelligence</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=380s" target="_blank" rel="noopener">06:20</a> multi-agent AI</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=422s" target="_blank" rel="noopener">07:02</a> the text-only objection</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=512s" target="_blank" rel="noopener">08:32</a> the Othello study</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=559s" target="_blank" rel="noopener">09:19</a> text alone can work</li>
+        <li><a class="ts" href="https://www.youtube.com/watch?v=ZdMf47ftJrM&t=602s" target="_blank" rel="noopener">10:02</a> multimodal speed-up</li>
+      </ul>
+    </aside>
+  </section>
+
+  <footer class="colophon">
+    老熊隨筆 · 精選外刊　｜　整理：老熊（Chang Hsiung）<br>
+    影片來源：<a href="https://www.youtube.com/watch?v=ZdMf47ftJrM" target="_blank" rel="noopener">「楊立昆錯在太看輕語言」AI 101</a>
+  </footer>
+</div>
+
+<nav class="floatnav" aria-label="快速導覽">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+<script>
+(function(){
+  // Play an opening by the rules and render the resulting board.
+  var seq = ["f5","d6","c3","d3","c4","f4"];
+  var B = [], i, j;
+  for(i=0;i<8;i++){B.push([0,0,0,0,0,0,0,0]);}
+  // 1 = black, 2 = white; standard start
+  B[3][3]=2; B[4][4]=2; B[3][4]=1; B[4][3]=1; // [row][col]
+  var dirs=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+  function play(r,c,p){
+    var o=3-p, total=0;
+    dirs.forEach(function(d){
+      var rr=r+d[0], cc=c+d[1], run=[];
+      while(rr>=0&&rr<8&&cc>=0&&cc<8&&B[rr][cc]===o){run.push([rr,cc]); rr+=d[0]; cc+=d[1];}
+      if(run.length&&rr>=0&&rr<8&&cc>=0&&cc<8&&B[rr][cc]===p){run.forEach(function(q){B[q[0]][q[1]]=p;}); total+=run.length;}
+    });
+    if(total>0){B[r][c]=p;}
+    return total>0;
+  }
+  var player=1, last=null, ol=document.getElementById("moves");
+  seq.forEach(function(m){
+    var c=m.charCodeAt(0)-97, r=parseInt(m[1],10)-1;
+    if(play(r,c,player)){
+      var li=document.createElement("li"); li.textContent=m; li.className=player===1?"b":"w"; ol.appendChild(li);
+      last=[r,c]; player=3-player;
+    }
+  });
+  var board=document.getElementById("board");
+  for(i=0;i<8;i++){for(j=0;j<8;j++){
+    var cell=document.createElement("div"); cell.className="c";
+    if(B[i][j]){var d=document.createElement("div"); d.className="d "+(B[i][j]===1?"b":"w"); cell.appendChild(d);}
+    if(last&&last[0]===i&&last[1]===j){cell.classList.add("last");}
+    board.appendChild(cell);
+  }}
+})();
+</script>
+</body>
+</html>
