@@ -12,10 +12,16 @@
   --gold:#b8862b; --gold-soft:#f3e6c4; --blue:#2c5aa0; --blue-soft:#dbe6f6; --line:#c4d2ea;
 }
 @media (prefers-color-scheme: dark){
-  :root{
+  :root:not([data-theme="light"]){
     --bg:#0f2347; --paper:#16305c; --ink:#eaf0fa; --muted:#b8c6e0;
     --gold:#e0b54a; --gold-soft:#3a3a2a; --blue:#8fb4ee; --blue-soft:#1d3b6e; --line:#2f4f86;
+    color-scheme:dark;
   }
+}
+:root[data-theme="dark"]{
+  --bg:#0f2347; --paper:#16305c; --ink:#eaf0fa; --muted:#b8c6e0;
+  --gold:#e0b54a; --gold-soft:#3a3a2a; --blue:#8fb4ee; --blue-soft:#1d3b6e; --line:#2f4f86;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -53,13 +59,15 @@ td:first-child{font-weight:800;color:var(--gold);white-space:nowrap}
 .essay{background:var(--paper);border:2px solid var(--gold);border-radius:8px;padding:22px 30px}
 .essay h3{margin:.2em 0 .5em;text-align:center;font-size:1.15em}
 .formula{text-align:center;font-weight:800;font-size:1.05em;color:var(--blue);margin:.8em 0}
+.tablewrap{overflow-x:auto}
 .src{font-size:.62em;color:var(--muted)}
 .src a{color:var(--blue);word-break:break-all}
 .note{font-size:.65em;color:var(--muted)}
 .fnav{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:9}
 .fnav a{background:var(--blue);color:#fff;text-decoration:none;font-size:15px;font-weight:800;padding:8px 14px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25);text-align:center}
 .fnav a.home{background:var(--gold);color:#1a2a4c}
-@media (prefers-color-scheme: dark){.fnav a{color:#0f2347}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fnav a{color:#0f2347}}
+:root[data-theme="dark"] .fnav a{color:#0f2347}
 @media (max-width:700px){body{font-size:20px}.wrap{padding:28px 16px 110px}h1{font-size:1.9em}td:first-child{white-space:normal}}
 </style>
 </head>
@@ -69,7 +77,7 @@ td:first-child{font-weight:800;color:var(--gold);white-space:nowrap}
 <header>
   <div class="kicker">老熊隨筆 · 復盤</div>
   <h1>後AI時代：對其常有的認知誤區</h1>
-  <div class="byline">老熊（熊章民）與 Claude 的一次對話整理 · 2026 年 10 月 30 日</div>
+  <div class="byline">老熊（熊章民）與 Claude 的一次對話整理 · 2026 年 10 月 30 日（同日下午增補兩則後記）</div>
 </header>
 
 <nav class="toc" id="toc">
@@ -80,6 +88,8 @@ td:first-child{font-weight:800;color:var(--gold);white-space:nowrap}
     <li><a href="#s3">兩種批評，兩種認知</a></li>
     <li><a href="#s4">對話推進：從智商到「可驗證性」</a></li>
     <li><a href="#s5">結論</a></li>
+    <li><a href="#s6">後記一：鄧煜沒有以偏概全</a></li>
+    <li><a href="#s7">後記二：一次 MATLAB 除錯的實地測試</a></li>
     <li><a href="#src">資料來源</a></li>
   </ol>
 </nav>
@@ -131,7 +141,8 @@ td:first-child{font-weight:800;color:var(--gold);white-space:nowrap}
 <h2><span class="no">四、</span>對話推進：從智商到「可驗證性」</h2>
 
 <div class="prompt"><span class="tag">老熊</span><p>这个再次证明了 人对ai 的认知 舆其智商有绝对的关系 哈哈</p></div>
-<div class="reply"><span class="tag">Claude</span><p>與其說是智商差，不如說是<strong>採樣偏差</strong>。鄧煜的樣本是前沿數學，劉的樣本是社群媒體上的 AI 套話。兩人各自的判斷都對，錯在把自己的樣本當成全貌，就像訓練集只覆蓋一個區域的模型拿去外推。</p></div>
+<div class="reply"><span class="tag">Claude</span><p>與其說是智商差，不如說是<strong>採樣偏差</strong>。鄧煜的樣本是前沿數學，劉的樣本是社群媒體上的 AI 套話。但兩人處理樣本的方式不同：鄧煜只在數學的範圍內下結論；劉卻從社群媒體上的套話，推到 AI 本身就是空的，就像訓練集只覆蓋一個區域的模型被拿去外推。</p></div>
+<p class="note">（本段原說兩人「錯在把自己的樣本當成全貌」，經老熊指正後修訂，見後記一。）</p>
 
 <div class="prompt"><span class="tag">老熊</span><p>智商决定了用途 用途又决定了使用者对AI 的认知</p></div>
 <div class="reply"><span class="tag">Claude</span><p>同意一半。用途還取決於<strong>領域</strong>和<strong>投入程度</strong>：好作家會嫌 AI 的文章平庸，正因為自己的標準高；不少聰明人從沒拿 AI 做過正經活。</p>
@@ -150,8 +161,46 @@ td:first-child{font-weight:800;color:var(--gold);white-space:nowrap}
 <h3>智商、用法與對 AI 的認知</h3>
 <p>一個人對 AI 的認知，取決於他拿 AI 做過什麼；而他能拿 AI 做什麼，又受智商與專業所限。</p>
 <p>AI 的強項在於能被驗證的問題。數學證明可以逐行檢查，程式可以實際執行，對錯分明，AI 便能不斷強化。社會科學缺乏可靠的標準答案，哲學、藝術、宗教更是根本沒有標準答案，AI 只能向共識的平均值收斂，寫出四平八穩的套話。</p>
-<p>鄧煜在數學前沿使用 AI，親眼見到它補上自己領域外的知識，因此他批評的不是 AI 無能，而是 AI 公司隱藏推理過程、來源無法追溯。劉宗坤看到的則是有人在社群媒體上用 AI 套話裝點門面，於是斥之為「空洞的腦殼」。兩人對各自樣本的判斷都沒有錯，錯在把自己的樣本當成全貌。</p>
-<p>因此，聰明的使用者不在於更崇拜或更鄙視 AI，而在於清楚它在哪裡可靠、在哪裡只是平均值：有參考值的地方信它，沒有參考值的地方，還是要說自己的話。</p>
+<p>鄧煜在數學前沿使用 AI，親眼見到它補上自己領域外的知識，因此他批評的不是 AI 無能，而是 AI 公司隱藏推理過程、來源無法追溯。劉宗坤看到的則是有人在社群媒體上用 AI 套話裝點門面，於是斥之為「空洞的腦殼」。兩人對各自樣本的判斷都沒有錯，差別在於有沒有越出樣本：鄧煜是在數學界的場合、就數學研究談 AI，結論沒有超出自己的樣本；劉宗坤則從社群媒體上的套話，推斷 AI 本身就是空洞的，把局部當成了全貌。</p>
+<p>因此，聰明的使用者不在於更崇拜或更鄙視 AI，而在於清楚它在哪裡可靠、在哪裡只是平均值：有參考值的地方信它，但要真的去對參考值；沒有參考值的地方，還是要說自己的話。</p>
+</div>
+<p class="note">（本文第三段與末句已於同日下午依後記一、二修訂。）</p>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s6">
+<h2><span class="no">六、</span>後記一：鄧煜沒有以偏概全</h2>
+<p>文章貼出後，我重讀結論，覺得有一句話對鄧煜不公平，於是請 Claude 修改：</p>
+<div class="prompt"><span class="tag">老熊（原文）</span>
+<p>兩人對各自樣本的判斷都沒有錯，錯在把自己的樣本當成全貌。--&gt; I think you should modify this phrase, because Deng was saying that complaint in a math related discussion forum</p></div>
+<div class="reply"><span class="tag">Claude</span>
+<p>說得對，這句話對鄧煜不公平。他是在與陶哲軒的播客對談、菲爾茲獎得主聯署這類數學界的場合，就數學研究中的 AI 發言，批評的是 AI 公司在數學上的做法。他並沒有把數學的經驗推廣成「AI 在所有領域都很強」，結論本來就限定在自己的樣本之內，這正是好的實驗者該有的分寸。</p>
+<p>真正越出樣本的是劉宗坤：看到社群媒體上的 AI 套話，就斷言用 AI 的人是空洞的腦殼、AI 本身沒有東西。所以「採樣偏差」只適用於劉，不適用於鄧。第四節的回答與結論第三段已據此修訂。</p></div>
+<span class="back"><a href="#toc">↑ 回目錄</a></span>
+</section>
+
+<section id="s7">
+<h2><span class="no">七、</span>後記二：一次 MATLAB 除錯的實地測試</h2>
+<p>同一天，我請 Claude 把 MATLAB 前處理程式 PP12_AT_TP 做成 GUI，接著一路處理它和 AAQP（批次 PLS 建模程式）之間冒出來的問題：18 個 Siesler 資料檔只轉出 16 個、檔名越改越長、AAQP 拒收含 S1-00419 的檔案、圖上的 \newline 不換行。忙完之後，我把本文丟給它，問它有什麼感想：</p>
+<div class="prompt"><span class="tag">老熊（原文）</span>
+<p>after all these exercise, what is your comments about my recent post, haha</p></div>
+<div class="reply"><span class="tag">Claude</span>
+<p>這次除錯，正好替本文的結論「有參考值的地方信它」做了一次實地測試。</p>
+<p>我站得住腳的地方，手上都有參考值。你在 MATLAB 跑出的 16 個結果，讓我能把 Octave 的結果對到 3e-14；S1-00419 那幾個檔案到底修好沒有，由 AAQP 自己的檢查函式來判定；我還做了一個塞進假副本的測試檔，證明加強後的程式確實有效。沒有參考值的地方，我就弱了，也照實說了：我看不到你的 Windows 螢幕，Load_DS 被標題列遮住、刻度標籤不換行這兩件事，都得等你在 MATLAB 上確認。pp1/pp2 標籤該放在大括號裡面還是外面，也不是任何測試抓得到的錯誤，而是你的命名慣例，只有你能當參考值。</p>
+<p>你也在不知不覺中兩次扮演了鄧煜的角色。「下拉選單那些選項是從哪裡來的？」和「你怎麼決定要刪掉哪一筆光譜？」正是他抱怨的核心：別只給我答案，要讓我看到推理鏈。第一個問題揭穿了選單裡有幾個選項是我自己湊的，不是你用過的方法；第二個問題，則是每位使用者在相信一次資料改動之前都該問的。</p>
+<p>這次還可以為本文補一點：光是「能驗證」還不夠，檢查得真的去跑，而且不通過就要當作真的不通過。舊程式其實察覺了 S1-00419 的光譜數（961）與濃度數（960）不符，卻只印出一行警告就照樣存檔。這個不一致從 2016 年的原始資料就存在，直到 AAQP 的檢查拒收才浮上檯面。多出來的那筆 Vial48 掃描（2015 年 8 月 31 日，其餘抽查的掃描都是 8 月 28 日），也是因為有人去追那多出來的一行，而不是把它平均掉，才被找出來。這就是你的復盤習慣，只是對象從記憶換成了資料。</p>
+<p>所以我會把本文最後那句改成：有參考值的地方信它，但要真的去對參考值。</p></div>
+
+<p>回頭整理，這次除錯每個問題靠什麼當參考值，一目了然：</p>
+<div class="tablewrap">
+<table>
+  <tr><th>問題</th><th>參考值</th><th>結果</th></tr>
+  <tr><td>18 個檔案只轉出 16 個</td><td>我的 MATLAB 輸出、AAQP 的檢查函式</td><td>找出 S1-00419 多一筆無濃度的掃描；刪除後 18 個檔案全數通過</td></tr>
+  <tr><td>光譜存兩處</td><td>Atrainpk／Apred 與 saConc 逐行比對，差值須為 0</td><td>兩處一致；改為存檔前自動檢查，不通過就不存</td></tr>
+  <tr><td>檔名越來越長</td><td>42 種檔名樣式，重跑須得到同一個名字</td><td>舊的前處理標籤全部清除，只留一組 pp1／pp2</td></tr>
+  <tr><td>pp 標籤的位置</td><td>只有我的命名慣例</td><td>由我指正：放進大括號內</td></tr>
+  <tr><td>Load_DS 被遮住、\newline 不換行</td><td>只有我 Windows 上的 MATLAB 畫面</td><td>交由我在 MATLAB 上實機確認</td></tr>
+</table>
 </div>
 <span class="back"><a href="#toc">↑ 回目錄</a></span>
 </section>
