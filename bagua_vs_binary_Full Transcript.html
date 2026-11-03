@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>八卦不是二進制：用經驗解釋世界，與用規則創生世界</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#e6edf6;        /* soft blue surround */
+    --paper:#f7f4ea;       /* warm newsprint */
+    --ink:#1b2a44;         /* deep navy ink */
+    --ink-soft:#3d4f6e;
+    --gold:#a77a1c;
+    --gold-soft:#d8b25a;
+    --rule:#c9b98e;
+    --aside:#ece4cc;
+    --cell-on:#1b2a44;
+    --cell-off:#f7f4ea;
+    --shadow:0 10px 40px rgba(27,42,68,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --page:#0f2140;      /* deep navy, never black */
+      --paper:#162c52;
+      --ink:#f1e6c8;
+      --ink-soft:#d3c49c;
+      --gold:#e3b84f;
+      --gold-soft:#f0cf7a;
+      --rule:#5a6f96;
+      --aside:#1d3866;
+      --cell-on:#e3b84f;
+      --cell-off:#162c52;
+      --shadow:0 10px 40px rgba(5,15,40,.45);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--page);color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;font-size:32px;line-height:1.75;
+  }
+  .sheet{
+    max-width:1100px;margin:48px auto 120px;background:var(--paper);
+    padding:64px 72px 80px;box-shadow:var(--shadow);
+    border-top:10px double var(--gold);
+  }
+  a{color:var(--gold)}
+  strong,b,em{font-weight:800;font-style:normal}
+  em{color:var(--gold)}
+
+  /* masthead */
+  .masthead{display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:3px solid var(--ink);padding-bottom:12px;font-size:22px;letter-spacing:.12em}
+  .masthead .brand{font-size:34px;font-weight:900;letter-spacing:.3em}
+  .masthead a{text-decoration:none}
+  .kicker{margin-top:40px;font-size:24px;color:var(--gold);letter-spacing:.25em}
+  h1{font-size:76px;line-height:1.22;font-weight:900;margin:14px 0 26px}
+  .deck{font-size:34px;color:var(--ink-soft);margin:0 0 30px;line-height:1.6}
+  .ledger{display:flex;flex-wrap:wrap;gap:8px 36px;font-size:23px;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:14px 0}
+  .ledger span b{color:var(--gold)}
+  .num{font-weight:800;font-variant-numeric:tabular-nums}
+
+  .download-bar {
+    margin: 24px 0 10px 0;
+    padding: 18px 24px;
+    background: var(--aside);
+    border: 2px solid var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .download-bar span {
+    font-size: 24px;
+    font-weight: 800;
+  }
+  .btn-download {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--paper) !important;
+    padding: 10px 22px;
+    font-size: 22px;
+    font-weight: 900;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    box-shadow: 2px 2px 0px var(--ink);
+    transition: all 0.2s ease;
+  }
+  .btn-download:hover {
+    background: var(--ink);
+    color: var(--gold) !important;
+  }
+
+  /* TOC */
+  nav#toc{margin:24px 0 10px;padding:28px 36px;background:var(--aside);border-left:8px solid var(--gold)}
+  nav#toc h2{font-size:30px;margin:0 0 10px;letter-spacing:.3em;border:0;padding:0}
+  nav#toc ol{margin:0;padding-left:1.6em;font-size:28px;line-height:1.9}
+  nav#toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--gold)}
+
+  section{margin-top:70px}
+  h2{font-size:50px;font-weight:900;line-height:1.3;margin:0 0 24px;
+    padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h2 .no{color:var(--gold);margin-right:.35em}
+  h3{font-size:36px;font-weight:900;margin:40px 0 10px}
+  p{margin:0 0 1em;text-align:justify}
+  .dropcap::first-letter{float:left;font-size:120px;line-height:.95;font-weight:900;
+    color:var(--gold);margin:10px 18px 0 0}
+  .ts{font-size:20px;font-weight:700;white-space:nowrap;text-decoration:none;
+    border:1px solid var(--gold);border-radius:4px;padding:0 8px;margin-left:6px;vertical-align:middle}
+  .back{display:block;text-align:right;font-size:22px;margin-top:20px}
+  .back a{text-decoration:none}
+
+  /* two-column body with sidebar */
+  .cols{display:grid;grid-template-columns:1fr 340px;gap:44px;align-items:start}
+  aside.side{background:var(--aside);padding:24px 26px;font-size:24px;line-height:1.7;
+    border-top:4px solid var(--gold)}
+  aside.side h4{margin:0 0 8px;font-size:26px;font-weight:900;color:var(--gold);letter-spacing:.15em}
+  aside.side p{text-align:left}
+
+  .pull{margin:50px 0;padding:30px 10px;border-top:3px double var(--gold);border-bottom:3px double var(--gold);
+    font-size:44px;line-height:1.5;font-weight:900;text-align:center}
+  .pull small{display:block;font-size:22px;color:var(--ink-soft);margin-top:12px;font-weight:700}
+
+  /* trigram table */
+  .gua{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:26px 0}
+  .g{border:1px solid var(--rule);padding:16px 8px 12px;text-align:center;background:var(--paper)}
+  .tri{display:flex;flex-direction:column-reverse;gap:9px;width:96px;margin:0 auto 12px}
+  .yao{height:13px;display:flex;justify-content:space-between}
+  .yao i{background:var(--ink);display:block;height:100%}
+  .yao.yang i{width:100%}
+  .yao.yin i{width:42%}
+  .g .nm{font-size:40px;font-weight:900}
+  .g .bin{font-size:26px;font-weight:800;color:var(--gold);letter-spacing:.15em;font-family:"Courier New",monospace}
+  .g .dec{font-size:20px;color:var(--ink-soft)}
+  .ladder{width:100%;border-collapse:collapse;font-size:26px;margin:20px 0}
+  .ladder th,.ladder td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left}
+  .ladder th{color:var(--gold);font-weight:900}
+  .ladder td.num{font-size:28px}
+
+  /* rule lookup */
+  .lookup{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin:24px 0 8px}
+  .lk{text-align:center}
+  .trip,.out{display:flex;justify-content:center;gap:3px}
+  .trip b,.out b{width:24px;height:24px;border:2px solid var(--ink);display:block}
+  .trip b.on,.out b.on{background:var(--ink)}
+  .out{margin-top:6px}
+  .lk .bit{font-size:22px;font-weight:800;color:var(--gold);font-family:"Courier New",monospace}
+  .cap{font-size:22px;color:var(--ink-soft);text-align:center;margin-top:6px}
+
+  /* CA gallery */
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:30px 0}
+  figure{margin:0;border:1px solid var(--rule);background:var(--paper);padding:14px}
+  figure canvas{width:100%;display:block;image-rendering:pixelated;border:1px solid var(--rule)}
+  figcaption{font-size:23px;line-height:1.6;margin-top:10px}
+  figcaption b{color:var(--gold);font-size:26px}
+  figure.wide{grid-column:1 / -1}
+  .play{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:24px;margin-bottom:12px}
+  .play input[type=number]{font:inherit;font-size:26px;font-weight:800;width:130px;padding:4px 10px;
+    background:var(--aside);color:var(--ink);border:2px solid var(--gold)}
+  .play button{font:inherit;font-size:22px;font-weight:800;padding:6px 16px;cursor:pointer;
+    background:var(--gold);color:var(--paper);border:0}
+  .play label{display:flex;align-items:center;gap:8px}
+
+  /* contrast table */
+  .vs{width:100%;border-collapse:collapse;font-size:26px;margin:26px 0}
+  .vs th{background:var(--ink);color:var(--paper);padding:14px;font-weight:900}
+  .vs td{border:1px solid var(--rule);padding:14px;vertical-align:top;line-height:1.6}
+  .vs td:first-child{color:var(--gold);font-weight:900;white-space:nowrap}
+
+  /* verification notes */
+  ol.audit{padding-left:1.4em}
+  ol.audit li{margin-bottom:.9em;font-size:28px;line-height:1.7}
+  .tag{display:inline-block;font-size:19px;padding:0 10px;border-radius:3px;margin-right:8px;
+    vertical-align:middle;font-weight:900;letter-spacing:.1em}
+  .tag.ok{background:#3f7a52;color:#f7f4ea}
+  .tag.note{background:var(--gold);color:var(--paper)}
+  .tag.warn{background:#a8452e;color:#f7f4ea}
+
+  footer{margin-top:80px;padding-top:20px;border-top:3px solid var(--ink);font-size:22px;
+    color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  .fnav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:9}
+  .fnav a{background:var(--ink);color:var(--paper);text-decoration:none;font-size:20px;font-weight:900;
+    padding:10px 18px;border:2px solid var(--gold);box-shadow:var(--shadow);text-align:center}
+
+  @media (max-width:900px){
+    body{font-size:21px}
+    .sheet{padding:30px 22px 50px;margin:0 0 80px}
+    h1{font-size:44px} .deck{font-size:23px} h2{font-size:32px} h3{font-size:25px}
+    .dropcap::first-letter{font-size:76px}
+    .pull{font-size:28px}
+    .cols{grid-template-columns:1fr}
+    .gua{grid-template-columns:repeat(2,1fr)}
+    .gallery{grid-template-columns:1fr}
+    .lookup{grid-template-columns:repeat(4,1fr)}
+    nav#toc ol,ol.audit li,.ladder,.vs{font-size:19px}
+    aside.side,figcaption,.masthead,.ledger{font-size:17px}
+    .masthead .brand{font-size:22px}
+    .fnav a{font-size:15px;padding:7px 12px}
+  }
+
+  /* ---- additions for the transcript edition ---- */
+  .hexfig{display:flex;gap:40px;align-items:center;justify-content:center;flex-wrap:wrap;
+    margin:30px 0;padding:24px;border:1px solid var(--rule);background:var(--aside)}
+  .hex{display:flex;flex-direction:column-reverse;gap:10px;width:150px}
+  .hex .yao{height:16px}
+  .hex .gap{height:8px}
+  .hexlab{font-size:26px;line-height:1.8}
+  .hexlab b{color:var(--gold);font-size:40px;font-weight:900}
+  .hexlab code{font-family:"Courier New",monospace;font-weight:800;font-size:28px;color:var(--gold);letter-spacing:.12em}
+  .rulebtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:26px 0 0}
+  .rulebtns button{font:inherit;font-size:22px;font-weight:900;padding:6px 18px;cursor:pointer;
+    background:var(--paper);color:var(--ink);border:2px solid var(--gold)}
+  .rulebtns button.on{background:var(--gold);color:var(--paper)}
+  .walk{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:26px 0}
+  .step{border:1px solid var(--rule);padding:16px;text-align:center;background:var(--paper)}
+  .step .row{display:flex;justify-content:center;gap:3px;margin:6px 0}
+  .step .row b{width:30px;height:30px;border:2px solid var(--ink);display:block}
+  .step .row b.on{background:var(--ink)}
+  .step .row b.ghost{border-style:dashed;opacity:.35}
+  .step .row b.hl{outline:4px solid var(--gold);outline-offset:1px}
+  .step p{font-size:22px;text-align:center;margin:10px 0 0;line-height:1.6}
+  .qblock{margin:30px 0;padding:24px 30px;border-left:8px solid var(--gold);background:var(--aside);font-size:28px;line-height:1.8}
+  .qblock .who{display:block;font-size:20px;color:var(--ink-soft);margin-top:8px}
+  .tri-ex{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:26px 0}
+  .tri-ex div{border:1px solid var(--rule);padding:20px;background:var(--paper)}
+  .tri-ex h4{margin:0 0 6px;font-size:28px;color:var(--gold);font-weight:900}
+  .tri-ex svg{display:block;margin:6px auto 10px;width:200px;height:auto}
+  .tri-ex p{font-size:24px;line-height:1.7;text-align:left;margin:0}
+  .tx-note{font-size:23px;line-height:1.7;background:var(--aside);padding:18px 24px;border-top:4px solid var(--gold);margin-bottom:30px}
+  .tx p{font-size:28px;line-height:1.95;text-indent:2em}
+  .tx h3{font-size:30px;color:var(--gold);margin:44px 0 14px;text-indent:0}
+  .tx .stamp{font-family:"Courier New",monospace;font-size:20px;color:var(--gold);border:1px solid var(--gold);
+    border-radius:4px;padding:0 6px;margin-right:6px;text-decoration:none;text-indent:0}
+  .tx ins{text-decoration:none;color:var(--gold);font-weight:900}
+  details.raw{margin-top:40px;border:1px dashed var(--rule);padding:16px 22px}
+  details.raw summary{cursor:pointer;font-size:24px;font-weight:900;color:var(--gold)}
+  details.raw div{font-size:20px;line-height:1.8;font-weight:500;white-space:pre-wrap;margin-top:14px;color:var(--ink-soft)}
+  @media (max-width:900px){
+    .walk,.tri-ex{grid-template-columns:1fr}
+    .tx p,.qblock{font-size:19px}
+    .tx h3{font-size:21px}
+    .hexlab,.tri-ex p,.step p,.tx-note{font-size:17px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <a class="brand" href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">老熊隨筆</a>
+    <span>精選外刊 · 影片精讀</span>
+  </div>
+
+  <div class="kicker">易經 × 計算理論 ／ 老鳴TV 影片整理 · 附逐字稿</div>
+  <h1>八卦不是二進制：<br>用經驗解釋世界，<br>與用規則創生世界</h1>
+  <p class="deck">從白晉一封走了十七個月的回信，到沃爾夫勒姆在普林斯頓印出的一張規則圖。同樣是一堆 0 與 1，為什麼一個停在象徵，另一個卻長出了宇宙？</p>
+  <div class="ledger">
+    <span><b>原影片</b>　全網最硬核的八卦解讀，徹底區分八卦與二進制的差別</span>
+    <span><b>頻道</b>　老鳴TV</span>
+    <span><b>發布</b>　<span class="num">2026-10-17</span></span>
+    <span><b>連結</b>　<a href="https://www.youtube.com/watch?v=Zqy05BykuJA" target="_blank" rel="noopener">youtube.com/watch?v=Zqy05BykuJA</a></span>
+    <span><b>逐字稿</b>　Gemini 語音轉寫，老熊校訂</span>
+  </div>
+
+  <div class="download-bar">
+    <span>保存完整文檔與動態離線運算腳本</span>
+    <a id="download-btn" download="bagua_vs_binary_cellular_automata.html" class="btn-download">下載此頁面 HTML 檔案</a>
+  </div>
+
+  <nav id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#s1">一封走了十七個月的信：萊布尼茲、白晉與伏羲</a></li>
+      <li><a href="#s2">從兩儀到六十四卦：一張 6 位元的表</a></li>
+      <li><a href="#s3">1983，普林斯頓：讓 0 與 1 動起來</a></li>
+      <li><a href="#s4">六條規則，六種宇宙（可互動）</a></li>
+      <li><a href="#s5">解釋 vs. 創生：從晝夜、方位到一個等邊三角形</a></li>
+      <li><a href="#s6">復盤查核：逐字稿對照之後</a></li>
+      <li><a href="#s7">影片逐字稿（校訂版）</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="no">壹</span>一封走了十七個月的信：萊布尼茲、白晉與伏羲 <a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=25s" target="_blank" rel="noopener">00:25</a></h2>
+    <div class="cols">
+      <div>
+        <p class="dropcap">西元一七〇一年十一月，北京城已經冷得厲害。康熙皇帝的數學老師、法國耶穌會士白晉（Joachim Bouvet）拆開一封來自德國的信。寫信的人是數學家萊布尼茲，信裡談的是他心愛的發明——<strong>二進制</strong>：所有的數，都只用 1 與 0 兩個符號寫成。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=39s" target="_blank" rel="noopener">00:39</a></p>
+        <p>萊布尼茲還有一層更玄的想法：<em>1 代表上帝，0 代表虛無</em>，只要從「有」與「無」出發，就能生成整個世界。</p>
+        <p>白晉越讀越興奮，腦中閃過一個念頭：這不就是八卦嗎？他本是《易經》的狂熱愛好者，還自己「考證」出八卦的作者伏羲，就是《聖經》裡的以諾；大洪水之後遠古知識失傳，八卦也許正是那時留下的一套密碼。</p>
+        <p>於是他在 1701 年 11 月 4 日回信，客氣而篤定地說：您的二進制非常厲害，但恐怕不能算全新的東西。隨信附上一張〈伏羲先天六十四卦圖〉。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=107s" target="_blank" rel="noopener">01:47</a></p>
+        <p>三百多年前，從中國寄信到德國要走海路，繞過非洲好望角再輾轉入歐。這封信在路上走了<strong>整整十七個月</strong>，才送到萊布尼茲手上。他又驚又喜，立即在論文中增寫了一大段中國八卦：伏羲數千年前就發明了二進制，只是後世中國人丟失了其中的數學奧秘，而他自己的二進制，讓這塵封的真理得以<em>復活</em>。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=136s" target="_blank" rel="noopener">02:16</a></p>
+        <p>影片特別強調：<strong>以上全是真的</strong>。往來書信、伏羲卦圖與萊布尼茲的論文，今天都還保存在德國漢諾威的下薩克森州立圖書館。但故事到這裡才剛開始：在萊布尼茲的時代，沒有人想過，如果讓陽爻與陰爻<em>動起來</em>，會發生什麼事。</p>
+      </div>
+      <aside class="side">
+        <h4>人物小檔</h4>
+        <p><b>萊布尼茲</b>（1646–1716）：德國哲學家、數學家，與牛頓各自發明微積分，也是二進制算術的系統提出者。</p>
+        <p><b>白晉</b>（1656–1730）：法國耶穌會士，康熙年間來華，曾為康熙講授數學，是「索隱派」易學的代表人物，試圖在中國經典中尋找《聖經》的痕跡。</p>
+        <h4 style="margin-top:18px">一封信的旅程</h4>
+        <p>北京　1701.11.04<br>↓ 好望角海路<br>漢諾威　1703 年春<br><b>≈ 17 個月</b></p>
+      </aside>
+    </div>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="no">貳</span>從兩儀到六十四卦：一張 6 位元的表 <a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=248s" target="_blank" rel="noopener">04:08</a></h2>
+    <p>陽爻是一根完整的長線，陰爻是中間斷開的兩小段。元素只有兩種，便和二進制天然成了類比：陽記作 <strong>1</strong>、陰記作 <strong>0</strong>。《易經》的生成次序，就是一部位元數逐級加倍的教科書：</p>
+    <table class="ladder">
+      <tr><th>層級</th><th>位元數</th><th>內容</th><th>組合數</th></tr>
+      <tr><td>兩儀</td><td class="num">1 bit</td><td>陽（1）、陰（0）</td><td class="num">2</td></tr>
+      <tr><td>四象</td><td class="num">2 bits</td><td>太陽 11、少陰 10、少陽 01、太陰 00</td><td class="num">2² = 4</td></tr>
+      <tr><td>八卦</td><td class="num">3 bits</td><td>乾、兌、離、震、巽、坎、艮、坤</td><td class="num">2³ = 8</td></tr>
+      <tr><td>六十四卦</td><td class="num">6 bits</td><td>下卦 ＋ 上卦，六爻疊成</td><td class="num">2⁶ = 64</td></tr>
+    </table>
+    <p>影片的讀法是<strong>由下往上</strong>：兌是「陽陽陰」，巽是「陰陽陽」。依此記法，八卦與三位元碼的對照如下：<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=308s" target="_blank" rel="noopener">05:08</a></p>
+    <div class="gua" id="gua"></div>
+    <p>八卦三層，再疊三層成六層，就有 2⁶ = 64 種變化，這就是六十四卦。所以占卜時要連續六次取爻，六爻齊備方成一卦。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=374s" target="_blank" rel="noopener">06:14</a> 影片舉的例子是<strong>泰卦</strong>：</p>
+    <div class="hexfig">
+      <div class="hex" id="taiHex"></div>
+      <div class="hexlab"><b>䷊ 泰卦（地天泰）</b><br>下卦 乾 ☰ 三陽 <code>111</code><br>上卦 坤 ☷ 三陰 <code>000</code><br>六位元 <code>111 000</code>　通行本第 11 卦</div>
+    </div>
+    <p>到這裡，八卦和二進制的相似性已經很明顯：都是用兩個基本符號組合出更多狀態。但它們都還只是<em>靜態的排列</em>。</p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="no">參</span>1983，普林斯頓：讓 0 與 1 動起來 <a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=189s" target="_blank" rel="noopener">03:09</a></h2>
+    <div class="cols">
+      <div>
+        <p class="dropcap">時間跳到 1983 年。普林斯頓高等研究院的一間辦公室裡，一位 23 歲的年輕人坐在新買的 Sun 工作站前，印出一張規則圖。影片說那一刻是「天書降臨」：他當時並不知道，圖裡藏著一個充滿生機、活著的宇宙。</p>
+        <p>這位年輕人是<strong>史蒂芬・沃爾夫勒姆</strong>（Stephen Wolfram）。他 15 歲發表粒子物理論文，17 歲進牛津，後轉加州理工攻讀理論物理，20 歲拿到博士，1981 年、21 歲獲頒麥克阿瑟「天才獎」。也就在那一年，他把精力轉向一個和八卦很有關係的題目：<em>細胞自動機</em>。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=442s" target="_blank" rel="noopener">07:22</a></p>
+        <p>細胞自動機同樣只有兩種元素：黑格是 1，白格是 0。把三個格子<strong>橫著</strong>排，就有 2³ = 8 種組合：黑黑黑 111、黑黑白 110……一直到白白白 000。影片忍不住問：<em>這不就是八卦嗎？</em></p>
+        <p>差別從下一步開始。沃爾夫勒姆替每一種組合定一條規則：下一代中間那格，是黑還是白？8 種組合、每種 2 個選擇，總共 2⁸ = <strong>256</strong> 條規則，編號從 0 到 255。全部輸出為 0 的是規則 0；只讓 000 的下一代為 1 的是規則 1；只讓 001 為 1 的是規則 2，依此類推。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=523s" target="_blank" rel="noopener">08:43</a></p>
+      </div>
+      <aside class="side">
+        <h4>有趣的呼應</h4>
+        <p>八種三格鄰居狀態，恰好就是 000 到 111，也就是<b>八卦</b>。每一條細胞自動機規則，都可以看成「給八卦各指定一個陰或陽的下一代」。</p>
+        <p>八卦在這裡不再承載天地水火，而只是八種輸入。</p>
+      </aside>
+    </div>
+    <p>把 8 個輸出位元串成一個二進制數，就是規則的編號。點選下方按鈕切換規則：</p>
+    <div class="lookup" id="lookup"></div>
+    <div class="cap" id="lookupCap"></div>
+    <div class="rulebtns" id="ruleBtns"></div>
+
+    <h3>跟著影片手算一步：規則 110</h3>
+    <p>影片用規則 110 示範「生長」。第一代只有一個黑格，兩旁都是白格。逐格查表：</p>
+    <div class="walk" id="walk"></div>
+    <p>於是第二代出現了：<strong>兩個黑格</strong>。第二代再生第三代，第三代再生第四代。一張只有 8 行的更新表，就能不斷迭代、無窮生長，「一直延伸到宇宙毀滅的那一天」。</p>
+    <div class="qblock">如果說量子漲落是遍佈一切的 0，那麼最初的基本粒子，便是在其上的 1。
+      <span class="who">── 影片的哲學類比。主講人隨即強調：這只是哲學思考，並未被科學證實。</span></div>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="no">肆</span>六條規則，六種宇宙</h2>
+    <p>以下圖形都從一個孤零零的黑格出發，每往下一列就是下一代，由本頁即時運算繪出：</p>
+    <div class="gallery">
+      <figure><canvas data-rule="0"></canvas>
+        <figcaption><b>Rule 0</b>　死寂宇宙。第一代之後全部歸零：底層法則若毫無變化，宇宙連一粒粒子、一束光都承載不了。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=711s" target="_blank" rel="noopener">11:51</a></figcaption></figure>
+      <figure><canvas data-rule="90"></canvas>
+        <figcaption><b>Rule 90</b>　謝爾賓斯基三角形，一個全是套娃的宇宙。每顆星辰都只是在機械地複製自己，<em>美得無懈可擊，也單調得令人絕望</em>。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=735s" target="_blank" rel="noopener">12:15</a></figcaption></figure>
+      <figure><canvas data-rule="254"></canvas>
+        <figcaption><b>Rule 254</b>　兩條 45 度的平直斜線，宛如相對論的<strong>光錐</strong>：錐內可觀測，錐外是永遠探知不到的黑暗。光速也許只是宇宙底層「刷新像素」的最高速度。（編號考證見第陸節）<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=760s" target="_blank" rel="noopener">12:40</a></figcaption></figure>
+      <figure><canvas data-rule="30"></canvas>
+        <figcaption><b>Rule 30</b>　一邊整齊、一邊混沌，秩序與隨機並存。要知道第 N 步的樣子，沒有捷徑，只能一代代算下去：這就是「計算不可約性」。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=803s" target="_blank" rel="noopener">13:23</a></figcaption></figure>
+      <figure class="wide"><canvas data-rule="110" data-wide="1"></canvas>
+        <figcaption><b>Rule 110</b>　1990 年代，馬修・庫克在沃爾夫勒姆指導下發現，其中湧現的「粒子」與碰撞，等價於邏輯運算中的資料與邏輯閘；2004 年正式發表證明：規則 110 <strong>圖靈完備</strong>。它和你的筆電、和最強的超級電腦，在「能算什麼」這件事上是等價的。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=872s" target="_blank" rel="noopener">14:32</a></figcaption></figure>
+      <figure class="wide"><canvas data-rule="54" data-wide="1"></canvas>
+        <figcaption><b>Rule 54</b>　影片點名的「種子選手」。沃爾夫勒姆認為它也可能圖靈完備，但至今尚未被數學證實。</figcaption></figure>
+      <figure class="wide">
+        <div class="play">
+          <label>自己試試：Rule <input type="number" id="ruleIn" min="0" max="255" value="73"></label>
+          <label><input type="checkbox" id="randIn"> 隨機初始列</label>
+          <button id="goBtn" type="button">演化</button>
+        </div>
+        <canvas id="playCv" data-wide="1"></canvas>
+        <figcaption id="playCap"><b>Rule 73</b>　輸入 0–255 任意整數，看看 256 個宇宙裡的另一個。</figcaption>
+      </figure>
+    </div>
+    <p>2002 年 5 月 14 日，沃爾夫勒姆把這些發現寫成一部一千多頁的巨著，起了個霸道的名字：《一種新科學》（<i>A New Kind of Science</i>），並把全書排版好放上網路，任人欣賞這 256 種世界。</p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="no">伍</span>解釋 vs. 創生：從晝夜、方位到一個等邊三角形 <a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=964s" target="_blank" rel="noopener">16:04</a></h2>
+    <p class="dropcap">八卦的本質是一套<strong>靜態的符號編碼</strong>，生成之後就不再動；古人再把對世界的觀察映射上去。影片的批評在於：這種映射並不準確。<a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=973s" target="_blank" rel="noopener">16:13</a></p>
+    <h3>三個「局部經驗」的例子</h3>
+    <p><strong>晝夜。</strong>陰陽常被對應為黑夜與白天，很直觀，但自然界並不按「一半白天、一半黑夜」運行。地球自轉軸傾斜約 23.4 度，加上緯度差異，同一天裡漠河與三亞的晝夜比例完全不同。想了解晝夜長短，陰陽幫不上忙。</p>
+    <p><strong>方位。</strong>東西來自地球自轉，南北也來自自轉軸。換一顆不自轉的星球，這套方位概念根本不存在。它是地球的局部經驗，不是宇宙的普遍規律。</p>
+    <p><strong>天地水火風雷山澤。</strong>看似把整個世界都裝進去了，卻不是科學分類。撒哈拉沙漠的人不會把「澤」當基本經驗；南極冰原上，雷極為罕見。這八個字，是黃河、長江流域的人對那片土地最強烈的感受，是地方性的經驗知識。</p>
+    <p>到了宋代，易學家又把六十四卦重新排序、重新詮釋，把陰陽、方位、時序、宇宙生成一層層加進去。體系越來越豐富，也越來越像一套能解釋萬事萬物的框架。</p>
+    <div class="pull">它從一個起點變成了一座堡壘，<br>而堡壘裡永遠住著一群靠解釋為生的人。
+      <small>── 老鳴TV。但主講人也強調：「八卦不是科學的敵人」，它是科學出現之前，人類理解不確定、減少恐懼的一種了不起的智慧。</small></div>
+    <p>八卦缺的，是現代科學最關鍵的一步：<strong>把符號的意義全部拿掉，只研究規則本身。</strong>影片用一個等邊三角形說明兩種思維的分岔：</p>
+    <div class="tri-ex">
+      <div>
+        <h4>象徵思維</h4>
+        <svg viewBox="0 0 200 180"><polygon points="100,12 188,165 12,165" fill="none" stroke="currentColor" stroke-width="5"/>
+          <text x="100" y="80" text-anchor="middle" font-size="26" font-weight="900" fill="currentColor">天</text>
+          <text x="56" y="150" text-anchor="middle" font-size="26" font-weight="900" fill="currentColor">地</text>
+          <text x="144" y="150" text-anchor="middle" font-size="26" font-weight="900" fill="currentColor">人</text></svg>
+        <p>三個角賦予天、地、人。優美、令人滿足。但天不再是頭頂的蒼穹，地不再是宇宙中心的平面，人只是演化樹上的一個物種，這個解釋便失效了。</p>
+      </div>
+      <div>
+        <h4>規則思維</h4>
+        <svg viewBox="0 0 200 180"><polygon points="100,12 188,165 12,165" fill="none" stroke="currentColor" stroke-width="5"/>
+          <text x="100" y="80" text-anchor="middle" font-size="24" font-weight="900" fill="currentColor">60°</text>
+          <text x="58" y="150" text-anchor="middle" font-size="24" font-weight="900" fill="currentColor">60°</text>
+          <text x="142" y="150" text-anchor="middle" font-size="24" font-weight="900" fill="currentColor">60°</text></svg>
+        <p>拿掉意義，只看三角形本身：三個內角必是 60 度。由此可設計三角桁架、蜂巢結構；正三角形拼成六邊形，六邊形鋪滿平面，再往下是鑲嵌、晶體與對稱。規律打開一個可以不斷往下推演的新世界。</p>
+      </div>
+    </div>
+    <table class="vs">
+      <tr><th></th><th>八卦（象徵解釋）</th><th>細胞自動機（計算創生）</th></tr>
+      <tr><td>符號</td><td>陰陽爻，承載意義</td><td>0 與 1，不帶意義</td></tr>
+      <tr><td>時間</td><td>靜態；卦象寫定即止</td><td>動態；逐代演化</td></tr>
+      <tr><td>複雜度來源</td><td>兩千多年來人們不斷加入的意義</td><td>規則自己一步一步算出來</td></tr>
+      <tr><td>結果</td><td>需要有人持續解釋</td><td>規則定好，不需要再解釋</td></tr>
+    </table>
+    <div class="pull">一個用經驗去解釋世界，<br>一個用規則去創造世界。
+      <small>── 老鳴TV 影片結語 <a class="ts" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=1278s" target="_blank" rel="noopener">21:18</a></small></div>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="no">陸</span>復盤查核：逐字稿對照之後</h2>
+    <p>依復盤體的老規矩，拿逐字稿和前一版的影片摘要逐條對照，再把幾個說法核實一遍：</p>
+    <ol class="audit">
+      <li><span class="tag ok">已解</span><strong>「Rule 25」其實是 Rule 254。</strong>前一版標「待核」：實算 Rule 25 只得到一條半速漂移的斜紋，不是 45 度。逐字稿此處作「在規則 25 次的演化中，時空自然地畫出了兩條 45 度的平直斜線」。「二五四」被語音辨識聽成「25 次」，順理成章。實算 Rule 254（二進制 11111110：只要鄰居有一格黑，下一代就黑）：從單點出發，恰好長出兩條完美的 45 度邊界，正是光錐。本頁圖已改正。仍宜回原片 12:40 處親眼確認。</li>
+      <li><span class="tag ok">相符</span><strong>1701 年 11 月 4 日與「十七個月」。</strong>萊布尼茲 1701 年初致信白晉；白晉回信日期，史料記為 1701 年 11 月 4 日（轉寫稿作「10 月 4 日」，前後文又說 11 月才收到來信，當係誤聽）。萊布尼茲於 1703 年 4 月收到，前後正好約 17 個月。同年他發表〈二進制算術的解說〉，援引伏羲卦圖。</li>
+      <li><span class="tag note">小誤</span><strong>伏羲＝亞當的「曾孫」以諾？</strong>白晉等索隱派確實把伏羲比附為以諾。但依《創世記》，塞特一系的以諾是亞當的第七代（〈猶大書〉稱「亞當的七世孫」）；該隱之子以諾則是亞當之孫。兩個都不是「曾孫」。</li>
+      <li><span class="tag ok">確認</span><strong>位元讀法。</strong>逐字稿明說兌＝「陽陽陰」、巽＝「陰陽陽」，即由下往上讀，初爻為最高位。前一版的推斷正確，表中 110／011 的編碼成立。</li>
+      <li><span class="tag note">方向</span><strong>Rule 30 哪一邊整齊？</strong>影片說「右邊整齊，內部和左側混亂」。依沃爾夫勒姆的標準編號實算，整齊的斜紋在<em>左</em>緣、混沌偏右（見上圖）。左右對調後的鏡像規則是 Rule 86。這可能只是畫面方向的差別，不影響論點。</li>
+      <li><span class="tag note">補充</span><strong>「只有 110 被證明圖靈完備」。</strong>嚴格說，與它互為鏡像或黑白互換的 Rule 124、137、193 本質上是同一條規則，也同樣圖靈完備。所以應說「在對稱等價意義下，只有 110 這一類」。Rule 54 仍是未證的候選，影片說法正確。</li>
+      <li><span class="tag note">補充</span><strong>沃爾夫勒姆的國籍與書的頁數。</strong>影片開頭稱他為「美國人」；他 1959 年生於倫敦，後定居美國，一般稱英裔美國科學家。《一種新科學》出版於 2002 年 5 月 14 日，正文常見記載為 1,197 頁（逐字稿作 1198），連索引約 1,280 頁。全書確可在網上免費閱讀。</li>
+      <li><span class="tag note">卦序</span><strong>泰卦是「第 11 卦」。</strong>這是通行本（文王）卦序。若按白晉寄去的伏羲先天序、以二進制排列，乾下坤上的泰卦另有其位。兩種排序不宜混用。</li>
+    </ol>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="no">柒</span>影片逐字稿（校訂版）</h2>
+    <div class="tx-note">
+      <b>校訂說明：</b>底本為 Gemini 的語音轉寫稿（簡體、無標點、同音誤字甚多）。本版簡轉繁，加標點分段，同音誤字逕改（如「元包／原包自動機」→細胞自動機、「二金制」→二進制、「伏吸」→伏羲、「薄荷」→漠河）。轉寫明顯漏字處以<ins>〔　〕</ins>補足；涉及事實判斷的改動也以<ins>〔　〕</ins>標出，理由見第陸節。小標為校訂者所加。原始轉寫稿附於文末，以備查對。
+    </div>
+    <div class="tx">
+      <h3>楔子</h3>
+      <p><a class="stamp" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=0s" target="_blank" rel="noopener">00:00</a>八卦是人類最早的二元符號系統之一，比萊布尼茲的二進制早了兩千多年，但我們只用來算命。一個美國人在 40 年前讓它動了起來，結果它長出了一個宇宙。同樣是 0 和 1 呀，差別到底在哪裡？</p>
+      <p>有關這個橫跨東西文明的故事，還得從頭說起。時間要回到 1701 年 11 月，北京城已經冷得厲害，康熙皇帝的數學老師、法國傳教士白晉，收到了一封德國數學家萊布尼茲的信。</p>
+
+      <h3>萊布尼茲與白晉</h3>
+      <p><a class="stamp" href="https://www.youtube.com/watch?v=Zqy05BykuJA&t=39s" target="_blank" rel="noopener">00:39</a>白晉越看越興奮。萊布尼茲信裡展示了一個絕妙的點子：所有數字其實都可以用兩個符號來表示，<ins>〔1〕</ins>和 0。更加匪夷所思的是，在萊布尼茲看來，<ins>〔1〕</ins>代表上帝，<ins>〔0〕</ins>代表虛無；只要從「有」和「無」兩個概念出發，就能生成一個完整的世界。</p>
+      <p>白晉看到這裡，腦子裡突然閃過一個念頭：等等，這怎麼那麼像《易經》呢？這不就是八卦圖嗎？白晉是《易經》的狂熱愛好者，他自己還做過考證，認為八卦圖的作者伏羲，就是《聖經》中人類始祖亞當的曾孫以諾。後來發生了大洪水事件，遠古文明的很多知識都失傳了，而八卦可能就是當時留下來的一套密碼。</p>
+      <p>1701 年<ins>〔11〕</ins>月 4 日，白晉給萊布尼茲回了一封信。他寫道：您這個二進制非常厲害，但恐怕不能算是全新的東西。為了證明他的論點，他將一張伏羲先天六十四卦圖放在回信裡，他心裡想著的就是這張圖。</p>
+      <p>三百多年前，從中國寄信到德國非常不容易，信要先經海路繞過非洲的好望角，再輾轉送到歐洲。這封信在路上走了整整 17 個月，才終於送到萊布尼茲手上。</p>
+      <p>看到六十四卦圖後，萊布尼茲又驚又喜，他立即在論文中增加了一大段關於中國八卦的內容。萊布尼茲說，伏羲在幾千年前就發明了二進制，但後世的中國人丟失了伏羲創造八卦的奧秘，不再懂得八卦背後蘊含的數學規律。他認為，正是通過他自己所發明的二進制，這一塵封數千年的科學真理才得以重新復活。</p>
+      <p>以上講的內容全都是真的。在德國漢諾威市的下薩克森州立圖書館裡，有關這件事的往來書信、伏羲先天六十四卦圖，以及萊布尼茲的論文都能找到。</p>
+      <p>但故事到這裡才剛開始。在萊布尼茲的時代，沒有人想過，當八卦圖中的陽爻和陰爻動起來，會發生什麼事？</p>
+
+      <h3>沃爾夫勒姆登場</h3>
+      <p>時間來到 1983 年，美國普林斯頓高等研究院的一間辦公室裡，一位 23 歲的年輕人坐在新買的 Sun 工作站前，突然「天書降臨」。當時他並不知道，他列印出的這張規則圖裡，居然隱藏著一個充滿生機的、活著的<ins>〔宇宙〕</ins>。</p>
+      <p>這位年輕人叫史蒂芬・沃爾夫勒姆。他從小是個奇才，15 歲發表粒子物理的學術論文，17 歲考入牛津大學，後來加入加州理工學院攻讀理論物理，20 歲拿到博士學位。1981 年，21 歲的沃爾夫勒姆就被授予麥克阿瑟天才獎。得獎那年，沃爾夫勒姆開始把精力放在一個和八卦圖很有關係的研究上，他的研究叫細胞自動機。</p>
+
+      <h3>從兩儀到六十四卦</h3>
+      <p>我先來對比一下八卦與細胞自動機的相似之處。八卦最基本的元素稱為陽爻與陰爻，畫出來就是這樣的：陽爻可以看成一根完整的長線，陰爻可以看成中間斷開的兩小段。因為元素只有這兩種，這就和二進制產生了類比的關係，我們也可以將陽看成 1，陰看成 0。</p>
+      <p>只有一個陽爻和一個陰爻的時候，就是兩儀：一陽、一陰。但如果把兩個爻放在一起，有幾種組合方式呢？就變成了四種：陽陽稱為太陽，陰陰稱為太陰，下陽上陰是少陰，下陰上陽是少陽。這叫什麼呢？這就叫四象，所謂「兩儀生四象」，就是這個意思。同樣，我們也可以置換成數字，就變成 11、00、10、01。</p>
+      <p>繼續，如果再加上第三層呢？陽陽陽稱為乾，陽陽陰稱為兌，陽陰陽稱為離，陽陰陰稱為震，陰陽陽稱為巽，陰陽陰稱為坎，陰陰陽稱為艮，陰陰陰稱為坤。對應數字呢，就是 111、110、101、100、011、010、001、000。所以八卦的數學骨架非常清楚：兩種基本符號、三個位置的不同排列，一共有 2 的 3 次方，總共有 8 種組合。</p>
+      <p>前面講了白晉寄給萊布尼茲的是六十四卦圖，八卦怎麼又變成了六十四卦呢？一看就明白了。八卦圖不是三層嗎？再加上三層，變成六層。變成六層之後有多少種變化呢？就是 2 的 6 次方，也就是 64 種組合，這就是六十四卦。所以占卜時要連續六次取爻，六爻齊備方成一卦。</p>
+      <p>舉個例子啊：先看下卦，下面是乾卦，三個陽爻；再看上卦，上面是坤卦，三個陰爻。下乾上坤，合起來呢就是第 11 卦泰卦，也叫地天泰。以此類推，上下八卦兩兩組合，就能得到完整的六十四卦。六十四卦是六位二進制，也全部可以用 1 和 0 的數字來表示。</p>
+      <p>講到這裡，八卦和二進制的相似性已經很明顯了，都是用兩個基本符號去組合出更多的狀態。但到這裡啊，它們還只是靜態的排列。真正有意思的是，如果這些 0 和 1 不再只是排在那裡，而是開始按照規則一代一代變化，會發生什麼事呢？</p>
+
+      <h3>細胞自動機的 256 條規則</h3>
+      <p>這就說到沃爾夫勒姆的細胞自動機了。細胞自動機同樣從兩個基本元素展開，一個黑格子、一個白格子，黑格子是 1，白格子是 0，這與八卦的陽爻與陰爻是一樣的。讓格子直接形成三層排列，不是上下排，是橫著排。前面講過，兩種基本符號、三個位置的不同排列，一共是 2 的 3 次方，總共有 8 種組合，無非就是：黑黑黑對應 111，黑黑白對應 110，黑白黑對應 101，黑白白對應 100，白黑黑對應 011，白黑白對應 010，白白黑對應 001，白白白對應 000。這是什麼東西？這不就是八卦嗎？細胞自動機與八卦圖啊，到這裡都是一樣的。</p>
+      <p>那產生變化的地方在哪裡呢？接下來沃爾夫勒姆做了一件很妙的事：給每一種組合都定一條規則，下一代中間那個格子到底是變黑還是變白？黑仍然用 1 來表示，白還是用 0 來表示。一共八種組合，每一種都有黑或白兩種選擇，我們把所有可能性都記下來，用計算機一看就明白了。把八種組合用數字標好：第一次讓所有八種組合的下一代都是 0，這就是規則 0；第二次讓 000 的下一代為 1，這就是規則 1；再下一次讓 001 變成 1，000 變回<ins>〔0〕</ins>，其他不變，這就是規則 2。以此類推啊，把所有八種組合都輪一遍，總共有 2 的 8 次方，一共有 256 種變化，也就是從規則 0 到規則 255。</p>
+      <p>當規則定好之後，最神奇的地方就出現了，這個以二進制為基礎的組合就可以迭代生長了。怎麼生長？我用規則 110 給大家舉例說明。在第一代只有一個黑格，黑格兩邊都是白格，以黑格為中心就是白黑白。然後咱們來查上面的規則，白黑白是第六種排列，下一代呢是個黑格，所以在白黑白的正下方要畫出黑格。但除了白黑白，向左一個呢，還能形成白白黑，查上面的規則，第七種排列，白白黑的下一代是黑格，所以下面畫出黑格。向右看也出現了不同，是黑白白，這是第四種，黑白白的下一代是白格，所以不用畫。就這樣，第二代出現了，是兩個黑格。</p>
+      <p>以此類推啊，第一代按照規則生成第二代，第二代再生成第三代，第三代再生成第四代。一個極其簡單的二進制規則，在一套完整的更新表的規則下，就可以不斷地迭代、不斷地生長。這種生長以至無窮，可以一直延伸到宇宙毀滅的那一<ins>〔天〕</ins>。</p>
+      <p>有的朋友會說：不就是一個二進制的迭代設計，怎麼還和宇宙搭上關係了呢？其實啊，這個說法並不誇張，宇宙演化的基本路徑可能與計算機的運行邏輯是一樣的。如果說量子漲落是遍佈一切的 0，那麼最初的基本粒子便是在其上的 1。以虛與實兩種狀態作為最底層的二進制編碼，原始宇宙在簡單規則的驅動下，通過無數次迭代，最終湧現出了宏觀的大千世界。當然，這只是一種哲學上的思考，並沒有被科學所證實，但是從天文觀測來看，宇宙的確有一個從簡單到複雜的演化過<ins>〔程〕</ins>。</p>
+
+      <h3>幾種有趣的宇宙</h3>
+      <p>在 256 種規則裡啊，我簡單給大家介紹幾種特別有趣的。首先是規則 0，在第一代迭代完成後，整個圖形都顯示為死的狀態。這表明如果底層物理法則缺乏變化，宇宙連一粒粒子、一束光線都無法承載，所以規則 0 的宇宙是一個死寂的宇宙，裡面空無一物。</p>
+      <p>然後是規則 90，這是一個謝爾賓斯基三角形，那個宇宙裡全是套娃。無論時空向前迭代多少代，它都不會誕生真正的驚喜，每一個粒子、每一顆星辰，甚至每一種可能存在的形態，都只是在機械地複製自己。這是一個美得無懈可擊，卻也單調得令人絕望的宇<ins>〔宙〕</ins>。</p>
+      <p>在規則 25<ins>〔4〕</ins>的演化中，時空自然地畫出了兩條 45 度的平直斜線。視覺上，它很容易讓人聯想到相對論中的光錐：光錐之內是可以觀測的事件，而光錐之外是無窮的黑暗，那片黑暗對於光錐之內的意識體來說，是永遠無法探知的。這可能意味著，我們現實宇宙的光速限制，每秒 30 萬公里，可能並不是隨意寫下的常數，而僅僅是因為我們宇宙底層的計算機在刷新每一個像素格時，有一個最高刷新速度。當然我還得強調啊，這些都是哲學上的思考，只是一種類比。</p>
+      <p>值得注意的是規則 30。規則 30 表現出了極度詭異的非對稱性：它的右邊非常整齊，明顯存在著秩序，然而在內部和左側卻湧現出了完全隨機、毫無規律的混亂圖案。混沌與秩序相互並存，這不與我們所處的宇宙非常相似嗎？在規則 30，如果你想知道第<ins>〔N〕</ins>步會變成什麼樣，沒有快捷鍵可以直接跳過去，你只能讓它一代一代地算，從第一步一直算到第<ins>〔N〕</ins>步。沃爾夫勒姆把這種現象叫做計算不可約性，說白了就是有些過程不能被壓縮，想知道結果呢，就得真的把全部過程走一遍。這是沃爾夫勒姆從細胞自動機發展出來的一個非常重要的概念。</p>
+
+      <h3>規則 110：一個活的宇宙</h3>
+      <p>除了以上這些有趣的規則之外，我想重點給大家介紹一個最特殊的規則，就是規則 110。它也是計算機科學和物理學中最著名的初等細胞自動機。在 1990 年代，數學家馬修・庫克在沃爾夫勒姆的指導下開始研究規則 110。庫克發現，規則 110 中湧現出的粒子和碰撞行為，其實等價於邏輯運算中的數據和邏輯閘。2004 年，庫克終於用數學嚴密證明了規則 110 是圖靈完備的。</p>
+      <p>什麼意思？簡單地說，凡是圖靈機能計算的問題，規則 110 原則上都能計算。它和你的筆記型電腦、和世界上最強的超級計算機，在「能算什麼」這件事上是等價的。這意味著規則 110 的宇宙不僅活著，還可以創造出無限複雜的文明與生態。從二進制發展出的如此簡單的規則，內部居然有一個活的宇宙，是不是有一種不可思議的感覺？</p>
+      <p>到目前為止，在 256 種規則裡，只有規則 110 被證明是圖靈完備的。還有一個種子選手是規則 54，沃爾夫勒姆認為呢，它也有可能圖靈完備，但是呢，還沒有被數學所證實。</p>
+      <p>2002 年 5 月 14 日，沃爾夫勒姆將他的發現總結成一部長達 1198 頁的科學著作，他起了一個非常霸道的名字，叫做《一種新科學》。沃爾夫勒姆把全書精心排版放到了互聯網上，大家可以自行去欣賞細胞自動機帶來的 256 種神奇的世界。</p>
+
+      <h3>八卦的問題出在哪裡</h3>
+      <p>說了這麼多，從八卦圖到沃爾夫勒姆的《一種新科學》，這裡面的區別到底在哪裡呢？</p>
+      <p>回到八卦圖上。八卦圖的本質是一套靜態的符號編碼系統，它生成好之後就不再動了，然後古人把對世界的認識與觀測映射到這套符號系統上。問題是，這種映射非常地不準確。比如說，陰和陽常常被對應為黑夜和白天，這種二分法好像很直觀，因為晝與夜確實是人最直觀的感官經驗之一。但實際上，陰與陽是一個模糊的概念，真實的自然界並不會整齊地按照白天一半、黑夜一半來運行。今天我們知道，地球自轉軸相對於公轉軌道傾斜了大約 23.4 度，再加上緯度不同，同一天裡不同地方的晝夜長度可以相差很大，漠河和三亞看到的白天與黑夜，就完全不是同一種比例。如果想了解晝夜的長短變化，陰與陽幫不上什麼<ins>〔忙〕</ins>。</p>
+      <p>方位也是一樣，東南西北同樣是一個相對的概念，解釋不了方位本身。東和西來自地球自轉，南和北<ins>〔也〕</ins>來自地球自轉。換一顆不自轉的星球啊，這套方位概念根本不存在，它是地球的局部經驗，不是宇宙的普遍規<ins>〔律〕</ins>。</p>
+      <p>八卦裡的天地、水火、風雷、山澤，好像把整個世界都裝進去了，但同樣不是一個科學分類。換一個地方，比如換到撒哈拉沙漠，沙漠裡的人不會把澤當作基本的自然經驗；如果換到南極冰原，雷是非常罕見的自然現象，這套分類就有可能不成立了。天地水火風雷山澤，是一群生活在黃河、長江流域特定環境裡的人，對那片環境最強烈的感受，它是一套帶有地方性的經驗知識，不是一套普遍性的法則。</p>
+      <p>後來到了宋代，易學家又對六十四卦重新排序、重新解釋，把陰陽、方位、時序、宇宙生成等越來越多的意義加進去，於是這套體系變得越來越豐富，也越來越像一套可以解釋萬事萬物的解釋框架。</p>
+      <p>但今天我不是來批判八卦的。八卦誕生在兩三千年前，在當時是一種了不起的智慧。八卦不是科學的敵人，它只是科學出現之前，人類用來理解不確定事件、減少恐懼的一種方式。問題出在後面：這套體系太好用了，越來越讓人捨不得放手，於是它從一個起點變成了一座堡壘，而堡壘裡永遠住著一群靠解釋為生的人。他們把所有問題都解釋了，久而久之，也就沒有新問題了。八卦缺的，是後來現代科學非常關鍵的一步：把符號的意義全部拿掉，只研究規則本身。</p>
+
+      <h3>一個等邊三角形</h3>
+      <p>這兩種思維方式到底有什麼區別呢？我來舉一個最簡單的例<ins>〔子〕</ins>，一個等邊三角形。如果採用象徵性思維，可以給三個角分別賦予天、地、人的意義。這種解釋可以很優美，而且很容易讓人滿足。但隨著人類對宇宙認識的不斷加深，天不再是頭頂的蒼穹，地也不再是宇宙中心的一塊平面，人更只是生命演化樹上的一個物種，最後的結果就是，用等邊三角形來象徵天地人，這個概念不再適用了。</p>
+      <p>但如果把這些解釋全部打掉，只研究三角形本身，情況就完全不同了。平面中的等邊三角形，三個內角一定都是 60 度。一旦找到這樣的規律，人類就可以做很多事。我們可以用這個規律來設計結構，比如三角桁架、蜂窩結構、網格建築；還可以繼續建立更複雜的數學體系：幾個正三角形可以拼成六邊形，六邊形又能鋪滿整個平面，往後就可以研究鑲嵌、晶體為什麼長成某種形狀，甚至研究更抽象的對稱規<ins>〔律〕</ins>。尋找規律的意義，就是得到一個可以不斷往下推演的新世界。</p>
+
+      <h3>結語</h3>
+      <p>到這裡，真正的區別已經出現了。八卦是一個解釋系統，它先有一組符號，然後不斷地給這些符號賦予意義，它的複雜性來自兩千多年裡人們不斷往裡面加入意義。細胞自動機完全不一樣，它是一個計算系統，規則一旦定好，後面的結果不需要人繼續解釋，細胞自動機的複雜性是規則自己一步一步算出來的。兩條道路真正分岔的地方在於：一個用經驗去解釋世界，一個用規則去創造世界。</p>
+      <p>好了，今天的內容就分享到這裡，別忘了關注老鳴的頻道，我們下期節目再聊。</p>
+    </div>
+    <details class="raw">
+      <summary>展開：Gemini 原始轉寫稿（未校訂，簡體）</summary>
+      <div>以下是影片《全网最硬核的八卦解读，彻底区分八卦与二进制的差别》（頻道：老鳴TV）的完整逐字稿內容：
+
+[00:00] 八卦是人类最早的二元系统符号之一，比方的二进制早了 2000 多年，但我们只用来算命，一个美国人在 40 年前让他动了起来，结果他长出了一个宇宙，同样是林克一眼，差别到底在哪里？有关这个横化东西文明的故事，怎么赖底？从头说起，时间要回到 1701 年 11 月，北京城已经冷得厉害，康熙皇帝的数学老师，法国教室白晋收到了一条德国数学家莱布尼的信。
+[00:39] 白晋越看越兴奋，来布尼斯信里展示了一个绝妙的点子，所有数字其实都可以用两个符号来表示，0 和更加匪夷所思的是在莱布尼此看来代表上帝代表虚无，只要从有和无两个概念出发，就能生成一个完整的世界，白看到这里，脑子里突然杀过一个念头，等等，这怎么那么像易经呢？这不就是八卦图吗？白剑是一经的狂热爱好者，他自己还做过考证，认为八卦图的作者伏吸就是圣经中人类十祖亚当的曾孙以诺，后来发生了大洪水事件，远古文明的很多知识都失传了，而八卦可能就是当时留下来的一套密码，1701 年 10 月 4 日，白晋给莱布尼回了一封信，他写道，您这个二尽制非常厉害，但恐怕不能算是全新的东西为了证明他的论点，他将一张伏吸先天 64 画图放在回信里，他心里加着的就是这张图，300 多年前，从中国记信到德国非常不容易，信要先经海路绕过非洲的好望角，再辗转送到欧洲，这封信在路上走了整 17 个月，才终于送到来布尼斯手看到 64 画图后，来布尼斯又惊又喜，他立即在论文中增加了一大段关于中国八卦的内容，来不宁说，福西在几千年前就发明了二禁制，但后事实的中国人丢失了伏创造八卦的奥秘，不再懂得八卦背后蕴含的数学规律，他认为正是通过他自己所发明的二金制，这一成风数千年的科学真理才在新复活以上讲的内容全都是真，在德国汉诺威室夏萨克森周立图书馆里有关这件事的往来书信，福西先天 64 画图以及莱布尼斯的论文都能找到，但故事到这里才刚开始，在来不慈的时代，没有人都想过当八卦途中的羊和阴摇动起来，会发生什么事？时间来到 1983 美国普林斯论高等研究院的一间办公实力，一位 23 岁的年轻人坐在新买的散工作站前，突然天书降临，当时他并不知道他打印出的这张规则妖领土，里面居然隐藏着一个充满生机的活着的这位年轻人叫斯蒂芬乌尔富乐部，他从小是个奇彩，15 岁发表历子屋里的学术论文，17 岁考入牛金大学，后啦加入加州理工学院公读理论物理，20 岁达到博士学位，1981 年解 21 岁的乌尔夫勒姆就被授予麦克阿瑟天才人无得奖那年，沃尔夫勒姆开始把经历放在一个和八卦图很有关系的研究上，他的研究叫圆包自动机，我先来对比一下八卦与原包自动机的相似之处，八卦最基本的元素称为羊与阴摇，画出来的就是这样的，羊可以看成一根完整的长线，阴摇可以看成中间断开的两小段，因为元素只有这两种，这就和二金质产生了类比的关系，我们也可以将羊成一，阴看成零，当只有一个羊和一个阴摇的时候，就是两仪，一羊，但如果把羊与阴摇放在一起，有几种组合方式呢？就变成了四种，洋成为太阳，阴音成为太阴，下阳上音是少音下音上阳是少阳，这叫什么呢？这就叫四项，所谓两仪生四项，就是这个意思，同样，我们也可以置换成数字，就变成 11001，继续，如果再加上第三层呢？杨洋称为前，杨洋阴成为对，杨阴阳称为离，杨阴音阴成为震，阴阳称为训，阴阳阴成为砍，阴阳成为更，阴音阴音阴成为，对应数字呢，就是 11110,10110010100100，所以八卦的数学股价非常清楚两种基本符号，三个位置的不同排列，一共有二的三次方，总共有八种组合，前面讲了白进给莱布尼继去的是 64 画图，八卦怎么又变成了 64 画呢？一就明白了，八卦图不是三层吗？再加上三层变成六层，变成六层之后有多少种变化呢？就是 2 的六次方，也就是 64 种组合这就是 64 画，所以占卜时要连续六次取摇，六摇起背后方成一挂，举个例子啊，先看下挂，下面是前挂，三个羊，再看上挂，上面是昆卦，三个阴摇，下前上昆，合起来呢就是第 11 画太挂，也叫地天以此类推下上八卦凉两组合就能得到完整的 64 画，64 画是六位二金制，也全部可以用一和 0的数字来表示，讲到这里，八卦和二进制的相似性已经很明显了，都是用两个基本符号去组合出更多的状态，但到这里啊，他们还只是静态的排列真正有意思的是如果这些 0 和一不再只是排在那里，而是开始按照规则一代变化，会发生什么事呢？这就说到沃尔夫勒姆的元包自动机了，元包自动机同样从两个基本元素展开，一个黑格子，一个白格子，黑格子是 1 白格子是 0 这与八卦的羊与阴ွယ်是一样的，让格子直接形成三层排列不是上下牌，是横着牌，前面讲过两种基本符号，三个位置的不同排列，一共是二的三次方，总共有八种组合，无非就是黑黑对应 111，黑黑白对应 110，黑白黑对应 101 黑白对应 100，白黑对应 1，白黑白对应，白白黑对应，白白对应，这是什么东西？这不就是八卦吗？圆包自动机与八卦图啊到这里都是一样的，那产生变化的地方在哪里呢？接下来沃尔夫母做了一件很妙的事，给每一种组合都定一条规则，下一代中间那个格子到底是变黑还是变白？黑仍然用一来表示，白还是用零来表示，一共八种组合，每一种都有黑或白两种选择，我们把可能性的都记下来，用计算机一看就明白了，把八种组合用数字标好，第一次让所有八种组合的下一代都是 0 这就是规则 0，第二次让的下一代为 1 这就是规则一再下一代让 1 变成 1,00 回，其他不变，这就是规则 2，以此雷推啊，把所有八中组合都轮一遍，总共有 2 的 8 次方，一共有 256 种变化，也就是从规则 0 到规则 255，当规则定好之后，最神奇的地方就出现了这个以二进之为基础的组合就可以迭代生长了，怎么生长？我用规则 110 给大家举例说明，在第一代只有一个黑格，黑格两边都是白格以黑格为中心就是白黑白，然后咱们来查上面的规则，白黑白是第六种排列，下一代呢是个黑格，所以在白黑白的正下方要画出黑但除了白黑白，向左一个呢，还能形成白黑，查上面的规则，第七种排列，白白黑的下一代是黑格，所以下面画出黑格，向右看也出现了不同，是黑白，这是第四种，黑白的下一代是白格，所以不用画，就这样，第二代出现了，是两个黑格，以此类推啊第一代按照规则生成第二代，第二代再生成第三代，第三代再生成第四代，一个极其简单的二禁制规则，在一套完整的更新表的规则下，就可以不断的迭代，不断的生长，这种生长以至无穷，可以一直延伸到宇宙毁灭的那一有的朋友会说不就是一个二进制的迭代设计，怎么还和宇宙搭上关系了呢？其实啊，这个说法并不夸张，宇宙进化的基本路径可能与计算机的运行逻辑是一样的，如果说量子账落是运行于一切的零，那么最初的基本例子便是在动其上的一以虚与石两种状态作为最底层的二进之编码，原始宇宙在简单规则的驱动下，通过无数次跌带，最终湧现出了宏观的大千世界，当然这只是一种哲学上的思考，并没有被科学所证实，但是从天文观测来看，宇宙的确有一个从简单到复杂的进化过在 256 种规则里啊，我简单给大家介绍几种特别有趣的，首先是规则零，在第一代迭代完成后，整个图形都显示为死的状态，这表明如果底层物理法则缺乏变化，宇宙连一粒子一素光线都无法承载，所以规则灵的宇宙是一个死寂的宇宙，里面空无一物，然后是规则 90 这是一个谢谢尔宾司机三角形，那个宇宙里全是套娃，无论时空向前迭代多少代，他都不会诞生真正的惊喜，每一个粒子，每一颗星辰，甚至每一种可能存在的形态，都只是在机械的复制自己，这是一个美的无懈可击，却也单调的令人绝望的宇在规则 25 次的眼花中，时空自然的画出了两条 45 度的平质斜线，视觉上，他很容易让人联想到相对论中的光锥，光锥之内是可以观测的事件，而光锥之外是无穷的黑暗，那片黑暗对于光锥之内的意识体来说是永远无法探知的这可能意味着我们现实宇宙的光速限制每秒 30 万公里可能并不是随意写下的长数，而仅仅是因为我们宇宙底层的计算机在刷新每一个像素格时有一个最高刷新速度，当然我还得强调啊，这些都是哲学上的思考，只是一种类比，值得注意的是规则 30，规则 30 表现出了极度诡异的非对称性他的右边非常整齐，明显存在着秩序，然而在内部和左侧却湧现出了完全随机毫无规律的混乱图案，混沌与秩序相互病存，这不与我们所处的宇宙非常相似吗？在规则 30 如果你想知道第一步会变成什么样，没有快捷键可以直接跳过去，你只能让它一代一代的算，从第一步一直算到第一步沃尔夫勒姆把这种现象叫做计算不可约性，说白了就是有些过程不能被压缩，想知道结果呢就得真的把全部过程走一遍，这是沃尔夫勒姆从原包自动机场发展出来的一个非常重要的概念，除了以上这些有趣的规则之外，我想重点给大家介绍一个最特殊的规则，就是规则 110 他也是计算机科学和物理学最著名的初等元包自动机，在 1990 年代，数学家马修库克在乌尔夫勒姆的指导下开始研究规则 110 克库克发现规则 110 中湧现出的粒子和碰撞性为其实等价于逻辑运算中的数据和逻辑门，2004 年库克终于用数学严密证明了规则 110 是图灵完倍的什么意思？简单的说，凡是图灵机能计算的问题，规则 110 原则上都能计算，他和你的笔记本电脑和世界上最强的超级计算机在能算什么这件事上是等价的，这意味着规则 110 的宇宙不仅活着，还可以创造出无限复杂的文明与生态，从二金之发展的如此简单的规则，内部居然有一个活的宇宙是不是有一种不可思议的感觉？到目前为止，在 256 种规则里，只有规则 110 被证明是土灵完倍的，还有一个种子选手是规则 54，沃尔夫勒姆认为呢，他也有可能突林完倍，但是呢还没有被数学所证实，2002 年 5 月 14 日，沃尔夫勒姆将他的发现总结成一部长达 1198 页的科学著作，他起了一个非常霸道的名字，叫做一种新科学，沃尔夫勒姆把全书精心排版放到了互联网上，大家可以自行的去欣赏原包自动机带来的 256 种神奇的世界，说了这么多，从八卦图到乌尔夫勒姆的一种新科学，这里面的区别到底在哪里呢？回到八卦图上，八卦图的本质是一套静态的符号编码系统，它生成好之后就不再动了，然后古人把对世界的认识与观测映射到这套符号系统上，问题是这种映射非常的不准确，比如说阴和阳常常被对应为黑夜和白天，这种二分法好像很迟观，因为咒语夜确实是人最直观的感官经验之一，但实际上阴与阳是一个模糊的概念真实的自然间并不会整齐的按照白天一半，黑夜一半来运行，今天我们知道地球自转周相对于公转轨道倾斜了大约 23.4 度，再加上维度不同，同一天里不同地方的昼业长度可以相差很大，薄荷和三亚看到的白天与黑夜就完全不是同一种比例，如果想了解业的长短变化，阴与牙帮不上什么方位也是一样，东南西北同样是一个相对的概念，解释不了方位本身，东河西来自地球自传，南河北方来自地球自转，换一颗不自转的星球啊，这套方位概念根本不存在，他是地柜的局部经验，不是宇宙的普遍规八卦里的天地，水火，风雷，山泽，好像把整个事件都装进去了，但同样不是一个科学分类，换一个地方，比如换到撒哈拉沙漠，沙漠里的人不会把泽当做基本的自然经验，如果换到南极兵缘，雷是非常罕见的自然现象，这套分类就有可能不成立了天地水火风雷山泽是一群生活在黄河长江流域特定环境里的人对那片环境最强烈地感受，他是一套带有地方性的经验知识，不是一套普遍性的法则，后来到了宋，等一学家又对 64 掛重新排序，重新解释，把阴阳方位时续，宇宙生成等越来越多的意义加进去于是这套体系变得越来越丰富，也越来越像一套可以解释万事物的解释框架，但今天我不是来批判八卦的，八卦诞生在两三千年前，在当时是一种了不起的智慧，八卦不是科学的敌人，他只是科学出现之前人类用来理解不确定事件，减少恐惧的一种方式，问题出在后面，这套体系太好用了越来越让人舍不得放手，于是他从一个起点变成了一座堡垒，而堡垒永远住着一群靠解释为生的人，他们把所有问题都解释了，九而久之也就没有新问题了，八卦缺的是后来行事科学非常关键的一步，把符号的意义全部拿掉，只研究规则本身，这两种思维方式到底有什么区别呢？我来举一个最简单的例一个等边三角形，如果采用相徵性思维，可以给三个角分别赋予地人的意义，这种解释可以很优美而且很容易让人满足，但随着人类对宇宙认识的不断加深，天不再是头顶的苍穹，地也不再是宇宙中心的一块平面，人更只是生命眼花树上的一个物种，最后的结果就是用等边三角形释放地人，这个概念不再适用工了，但如果把这些解释全部打掉，只研究三角形本身情况就完全不同了，平面中的等边三角形，三个内角一定都是 60 度，一旦找到这样的规律，人类就可以做很多事我们可以用这个规律来设计结构，比如三角横价蜂窝结构金格建筑网络，还可以继续建立更复杂的数学体系，几个正三角形可以拼成六边形，六边形又能铺满整个平面，往后就可以研究镶嵌，晶体为什么长成某种形状，甚至研究更抽象的对称规寻找规律的意义就是得到一个可以不断往下拉的新世界，到这里真正的区别已经出现了，八卦是一个解释系统，他先有一组符号，然后不断的给这些符号赋予意义，他的复杂性来自 2000 多年里，人们不断往里面加入意义，元包自动机完全不一样，它是一个计算系统规则一旦好，后面的结果不需要人继续解释，元包自动机的复杂性是规则自己一步一步算出来的，两道道路真正分差的地方在于一个用经验去解释世界，一个用规则去创造世界，好了，今天的内容就分享到这里，别忘了关注老明的信息，我们下期节目再聊 M</div>
+    </details>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <footer>
+    <span>老熊隨筆 · 精選外刊 · 影片精讀</span>
+    <span>整理自老鳴TV〈全網最硬核的八卦解讀〉，<span class="num">2026-10-17</span>；逐字稿校訂 <span class="num">2026-11-02</span></span>
+  </footer>
+</div>
+
+<div class="fnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+<script>
+(function(){
+  // Snapshot the page BEFORE any DOM changes, so the downloaded copy is clean
+  var PRISTINE='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+
+  function yao(bit){return bit==='1'?'<div class="yao yang"><i></i></div>':'<div class="yao yin"><i></i><i></i></div>';}
+
+  // ---- trigrams (bottom line = MSB, as the video reads them)
+  var gua=[["乾","111"],["兌","110"],["離","101"],["震","100"],["巽","011"],["坎","010"],["艮","001"],["坤","000"]];
+  var gEl=document.getElementById('gua');
+  gua.forEach(function(g){
+    var bits=g[1], d=document.createElement('div'); d.className='g';
+    var tri='<div class="tri">'; for(var k=0;k<3;k++) tri+=yao(bits[k]); tri+='</div>';
+    d.innerHTML=tri+'<div class="nm">'+g[0]+'</div><div class="bin">'+bits+'</div><div class="dec">= '+parseInt(bits,2)+'</div>';
+    gEl.appendChild(d);
+  });
+
+  // ---- 泰 hexagram: lower 乾 111, upper 坤 000 (drawn bottom-up)
+  var hx='', tai='111000';
+  for(var k=0;k<6;k++){ hx+=yao(tai[k]); if(k===2) hx+='<div class="gap"></div>'; }
+  document.getElementById('taiHex').innerHTML=hx;
+
+  // ---- rule lookup with switcher
+  var lk=document.getElementById('lookup'), lkCap=document.getElementById('lookupCap'), btns=document.getElementById('ruleBtns');
+  var notes={30:'混沌與秩序並存',110:'影片手算示範・圖靈完備',254:'光錐：有黑即黑',90:'謝爾賓斯基三角形'};
+  function showRule(r){
+    lk.innerHTML='';
+    for(var n=7;n>=0;n--){
+      var b=(r>>n)&1, t=n.toString(2).padStart(3,'0'), el=document.createElement('div'); el.className='lk';
+      el.innerHTML='<div class="trip">'+t.split('').map(function(c){return '<b class="'+(c==='1'?'on':'')+'"></b>';}).join('')+
+        '</div><div class="out"><b class="'+(b?'on':'')+'"></b></div><div class="bit">'+b+'</div>';
+      lk.appendChild(el);
+    }
+    var bin=r.toString(2).padStart(8,'0');
+    lkCap.textContent='上排：左、中、右三格的現狀（依序為第 1 至第 8 種排列）；下排：中間格的下一代。8 個輸出位元 '+bin+' ＝ 十進位 '+r+'（'+notes[r]+'）';
+    [].forEach.call(btns.children,function(x){x.classList.toggle('on',+x.dataset.r===r);});
+  }
+  [110,30,90,254].forEach(function(r){
+    var bt=document.createElement('button'); bt.type='button'; bt.textContent='Rule '+r; bt.dataset.r=r;
+    bt.addEventListener('click',function(){showRule(r);}); btns.appendChild(bt);
+  });
+  showRule(110);
+
+  // ---- Rule 110 hand-walk, following the video
+  var walk=[
+    {nb:'010',pos:1,name:'白黑白',ord:'第 6 種',out:1},
+    {nb:'001',pos:0,name:'白白黑',ord:'第 7 種',out:1},
+    {nb:'100',pos:2,name:'黑白白',ord:'第 4 種',out:0}
+  ];
+  var wEl=document.getElementById('walk');
+  walk.forEach(function(w){
+    // gen-1 row: 5 cells, center black at index 2; window centred at col (1+pos)
+    var row1=[0,0,1,0,0], centre=w.pos+1, r1='', r2='';
+    for(var i=0;i<5;i++){
+      var inWin=Math.abs(i-centre)<=1;
+      r1+='<b class="'+(row1[i]?'on ':'')+(inWin?'':'ghost')+'"></b>';
+      r2+='<b class="'+(i===centre?(w.out?'on hl':'hl'):'ghost')+'"></b>';
+    }
+    var d=document.createElement('div'); d.className='step';
+    d.innerHTML='<div class="row">'+r1+'</div><div class="row">'+r2+'</div><p><b>'+w.name+'</b>（'+w.nb+'，'+w.ord+'）<br>下一代 → '+(w.out?'<b>黑</b>':'白（不用畫）')+'</p>';
+    wEl.appendChild(d);
+  });
+
+  // ---- cellular automaton renderer
+  function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+  function draw(cv,rule,random){
+    var wide=cv.dataset.wide==='1', W=wide?161:81, G=wide?80:40, s=6;
+    var dpr=window.devicePixelRatio||1;
+    cv.width=W*s*dpr; cv.height=G*s*dpr;
+    var x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0);
+    x.fillStyle=css('--cell-off'); x.fillRect(0,0,W*s,G*s);
+    x.fillStyle=css('--cell-on');
+    var c=new Array(W).fill(0);
+    if(random){for(var i=0;i<W;i++)c[i]=Math.random()<.5?1:0;}
+    else{c[wide&&rule===110?W-30:Math.floor(W/2)]=1;}
+    for(var gn=0;gn<G;gn++){
+      for(i=0;i<W;i++) if(c[i]) x.fillRect(i*s,gn*s,s,s);
+      var nx=new Array(W);
+      for(i=0;i<W;i++){ nx[i]=(rule>>((c[(i-1+W)%W]<<2)|(c[i]<<1)|c[(i+1)%W]))&1; }
+      c=nx;
+    }
+  }
+  var rIn=document.getElementById('ruleIn'), rnd=document.getElementById('randIn'),
+      pc=document.getElementById('playCv'), cap=document.getElementById('playCap');
+  function play(){
+    var r=Math.max(0,Math.min(255,parseInt(rIn.value,10)||0)); rIn.value=r;
+    draw(pc,r,rnd.checked);
+    cap.innerHTML='<b>Rule '+r+'</b>　二進制 '+r.toString(2).padStart(8,'0')+'　｜　輸入 0–255 任意整數，看看 256 個宇宙裡的另一個。';
+  }
+  function drawAll(){
+    document.querySelectorAll('canvas[data-rule]').forEach(function(cv){draw(cv,+cv.dataset.rule,false);});
+    play();
+  }
+  document.getElementById('goBtn').addEventListener('click',play);
+  rIn.addEventListener('keydown',function(e){if(e.key==='Enter')play();});
+  rnd.addEventListener('change',play);
+  drawAll();
+  if(window.matchMedia){
+    var mq=window.matchMedia('(prefers-color-scheme: dark)');
+    (mq.addEventListener?mq.addEventListener('change',drawAll):mq.addListener(drawAll));
+  }
+
+  // ---- Download (works on the 老熊隨筆 site; hidden inside sandboxed viewers that block downloads)
+  var bar=document.querySelector('.download-bar'), downloadBtn=document.getElementById('download-btn');
+  var framed=false; try{framed=window.self!==window.top;}catch(e){framed=true;}
+  if(bar && framed){ bar.style.display='none'; }
+  else if(downloadBtn){
+    downloadBtn.href=URL.createObjectURL(new Blob([PRISTINE],{type:'text/html;charset=utf-8'}));
+  }
+})();
+</script>
+</body>
+</html>
