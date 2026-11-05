@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 後 AI 時代、Post-AI 退休、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 148 篇，另收 MATLAB 檔案 103 個、Python 檔案 3 個。">
+<meta name="description" content="老熊隨筆 — 後 AI 時代、Post-AI 退休、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 149 篇，另收 MATLAB 檔案 103 個、Python 檔案 3 個。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -167,7 +167,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 148 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十五個分區</span><span class="dot">·</span><span>最近更新 2026.11.05</span></p>
+<p class="toolbar"><span>全 149 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十五個分區</span><span class="dot">·</span><span>最近更新 2026.11.05</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
 <summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">23</span><span class="caret" aria-hidden="true">▾</span></summary>
@@ -199,9 +199,10 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </div>
 </details>
 <details class="lxsec">
-<summary>Post-AI 退休<span class="en2">Retirement</span><span class="n">8</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>Post-AI 退休<span class="en2">Retirement</span><span class="n">9</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#tuixiu">前往本區　↓</a>
+<a href="%E5%85%A9%E7%99%BE%E5%88%86%E4%B9%8B%E4%B8%80_%E8%80%81%E7%86%8A%E8%80%83AI.html">兩百分之一 — 老熊出題考 AI：一行錯位的參考值與「編輯距離」<span class="lab">新・附圖</span></a>
 <a href="Halloween_2026_%E7%84%A1%E5%83%B9_Claude.html">無價 — 老熊的萬聖節刷卡帳本：五筆 $206.66，一張不在帳上的笑臉<span class="lab">新・附圖</span></a>
 <a href="Lao_Xiong_Retirement_Weekend_Odds_2026_Oct_26.html">萬分之一的退休週末 — 全美有幾個老熊？五道篩子從六千萬篩到五千<span class="lab">新・附圖表</span></a>
 <a href="Lao_Xiong_Weekend_Three_Days_2026_Oct_23_25_Claude.html">三天週末，十三篇文章 — 退休化學計量學家的週末研究計畫<span class="lab">新</span></a>
@@ -437,7 +438,7 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <h3 class="headline"><a href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">同一道題，兩位 AI 考生 — NIR–PLS 參考值錯位：Claude 與 GPT 的解法對照復盤 <span class="tag">新・附圖</span></a></h3>
 <p class="meta"><time class="date">2026.11.05</time><span class="chip">AI</span><span class="chip">Claude</span><span class="chip">GPT</span><span class="chip">化學計量學</span><span class="chip">NIR</span><span class="chip">PLS</span><span class="chip">MATLAB</span><span class="chip">編輯距離</span></p>
 <p class="deck">S1-00419 的 PLS 預測圖上下各冒出一團離群點，老熊懷疑參考值與光譜「錯了一格」，把同一道題先後交給 Claude 與 GPT。Claude 照老熊的提示把它當成 DNA 序列比對，用 Needleman–Wunsch 找出只有兩次編輯——Vial10 多一筆、Vial48 少一筆——38 筆錯標全是連鎖後果；GPT 則當成瓶界偵探案，逐瓶比對開頭光譜像前一瓶還是本瓶，PLS 只留作事後驗證。兩份答卷殊途同歸，RMSE 都從 1.535 降到 1.044，連 38 筆重標都一筆不差。比的是過程：關鍵點子出自老熊本人，誰接住了它、誰的病因模型能推廣到沒見過的錯法（少一筆的鏡像情況 GPT 會漏）、誰自己抓到自己的錯，以及 GPT 扳回的幾局——不讓 PLS 參與判定的方法學潔癖、稽核檔與可還原的工程紀律、中英雙語文件。另有一節回答「為什麼 Claude 跑得比較快」：核心運算其實 GPT 較輕，時間花在七個輸出檔與彈窗上。附總評表、兩邊的修復前後圖，以及合體成「第三份答卷」的建議。評審是 Claude 本人，文首有利益迴避聲明。</p>
-<p class="deck">延伸：同樣是 AI 動手改 MATLAB 舊碼，見〈<a href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">紀錄第一次過億詞元的修改舊碼</a>〉；「有參考值才算數」，見〈<a href="%E5%BE%8CAI%E6%99%82%E4%BB%A3_%E8%AA%8D%E7%9F%A5%E8%AA%A4%E5%8D%80.html">後 AI 時代：對其常有的認知誤區</a>〉（皆在本區）。</p>
+<p class="deck">延伸：同樣是 AI 動手改 MATLAB 舊碼，見〈<a href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">紀錄第一次過億詞元的修改舊碼</a>〉；「有參考值才算數」，見〈<a href="%E5%BE%8CAI%E6%99%82%E4%BB%A3_%E8%AA%8D%E7%9F%A5%E8%AA%A4%E5%8D%80.html">後 AI 時代：對其常有的認知誤區</a>〉（皆在本區）；這道題老熊先拿來考 Claude 的那一場，見〈<a href="%E5%85%A9%E7%99%BE%E5%88%86%E4%B9%8B%E4%B8%80_%E8%80%81%E7%86%8A%E8%80%83AI.html">兩百分之一</a>〉（收於「Post-AI 退休」）。</p>
 <div class="tools">
 <a class="read" href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">閱讀</a>
 <button class="copy" data-file="同一道題兩位AI考生_Claude_vs_GPT.html">複製連結</button>
@@ -679,8 +680,19 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 
 <p class="sec-end"><a class="totop" href="#top">↑ 回分區目錄</a></p>
 
-<h2 class="section" id="tuixiu">Post-AI 退休<span class="en">（Retirement）</span><span class="count">8 篇</span></h2>
-<p class="section-note">退休之後，沒人規定研究題目：上課、排隊、比退休金、對同學的週末，連「退休」這個詞都拿來重新分類，再算算這一圈全美有幾個人；萬聖節出門，連刷卡帳本都要驗算一遍</p>
+<h2 class="section" id="tuixiu">Post-AI 退休<span class="en">（Retirement）</span><span class="count">9 篇</span></h2>
+<p class="section-note">退休之後，沒人規定研究題目：上課、排隊、比退休金、對同學的週末，連「退休」這個詞都拿來重新分類，再算算這一圈全美有幾個人；萬聖節出門，連刷卡帳本都要驗算一遍；閒來還出題考 AI，順便量一量自己的眼力</p>
+
+<article class="entry">
+<h3 class="headline"><a href="%E5%85%A9%E7%99%BE%E5%88%86%E4%B9%8B%E4%B8%80_%E8%80%81%E7%86%8A%E8%80%83AI.html">兩百分之一 — 老熊出題考 AI：一張跨儀器 PLS 圖、一行錯位的參考值，與「編輯距離」 <span class="tag">新・附圖</span></a></h3>
+<p class="meta"><time class="date">2026.11.05</time><span class="chip">退休生活</span><span class="chip">老熊出題</span><span class="chip">AI 應考</span><span class="chip">化學計量學</span><span class="chip">NIR</span><span class="chip">PLS</span><span class="chip">編輯距離</span><span class="chip">復盤</span></p>
+<p class="deck">十一月五日午後，老熊把一張三台 NIR 光譜儀互相交叉預測的 RMSEP 折線圖丟給 Claude，只問一句：拿給 junior 看，他看得出哪裡錯嗎？其實答案前一天就被老熊自己解開了，這回不是求救，是出考題。AI 把六個點排成 3×3 矩陣、抓到不對稱，推得頭頭是道，嫌犯卻指向 KneePt+1 的因子數——沒打中。真正的線索在 S1-00419 的 45 度圖：一群點在線上、一群在線下，成雙成對，是帳出了錯而不是光出了錯。病根是 Vial10 多一支光譜、Vial48 少一支，參考值卻照「每瓶 20 支」按位置填，從第 201 行錯一格到第 941 行。老熊點名用錯字校正與 DNA 比對的 Needleman–Wunsch 編輯距離來修：兩處編輯、38 支光譜歸位，RMSE 從 1.535 降到 1.044，和正常機幾乎一樣，960 支獨立核對全對。附一百個 junior 的漏斗記分板——能自己想到編輯距離的，Claude 估一兩百人裡才一個，標題由此而來（復盤體老規矩：估計值，存疑備查）——以及從源頭治本的「按類別查表＋assert」兩行碼。</p>
+<p class="deck">延伸：同一道題後來再交給 GPT，兩份答卷的對照，見〈<a href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">同一道題，兩位 AI 考生</a>〉（收於「後 AI 時代」）；老熊的另一次自我量測，見〈<a href="%E8%80%81%E7%86%8A%E5%88%B0%E5%BA%95%E6%9C%89%E5%A4%9A%E8%81%B0%E6%98%8E.html">老熊到底有多聰明</a>〉（收於「本站自評」）。</p>
+<div class="tools">
+<a class="read" href="%E5%85%A9%E7%99%BE%E5%88%86%E4%B9%8B%E4%B8%80_%E8%80%81%E7%86%8A%E8%80%83AI.html">閱讀</a>
+<button class="copy" data-file="兩百分之一_老熊考AI.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="Halloween_2026_%E7%84%A1%E5%83%B9_Claude.html">無價 — 老熊的萬聖節刷卡帳本：一個週六的五筆開銷，與一張不在帳上的笑臉 <span class="tag">新・附圖</span></a></h3>
