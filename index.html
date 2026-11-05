@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 後 AI 時代、Post-AI 退休、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 147 篇，另收 MATLAB 檔案 103 個、Python 檔案 3 個。">
+<meta name="description" content="老熊隨筆 — 後 AI 時代、Post-AI 退休、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 148 篇，另收 MATLAB 檔案 103 個、Python 檔案 3 個。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -167,12 +167,13 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 147 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十五個分區</span><span class="dot">·</span><span>最近更新 2026.11.02</span></p>
+<p class="toolbar"><span>全 148 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十五個分區</span><span class="dot">·</span><span>最近更新 2026.11.05</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
-<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">22</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">23</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#houai">前往本區　↓</a>
+<a href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">同一道題，兩位 AI 考生 — Claude 的編輯距離 vs GPT 的瓶界偵探<span class="lab">新・附圖</span></a>
 <a href="ai_physics_paradigm_shift_laoxiong.html">AI 也讓物理學陷入尷尬？— 當理論變便宜，證據才是稀缺品<span class="lab">新・附圖</span></a>
 <a href="%E5%BE%8CAI%E6%99%82%E4%BB%A3_%E8%AA%8D%E7%9F%A5%E8%AA%A4%E5%8D%80.html">後 AI 時代：對其常有的認知誤區 — 劉宗坤罵用 AI 的人，鄧煜罵做 AI 的公司<span class="lab">新・附圖</span></a>
 <a href="%E5%90%8EAI%E6%99%82%E4%BB%A3_%E4%BA%BA%E9%A1%9E%E8%A9%B2%E6%9C%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F.html">后AI時代 人類該有的基本功 — 附上一卡車的實例<span class="lab">新・附圖</span></a>
@@ -429,8 +430,19 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </nav>
 </header>
 
-<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">22 篇</span></h2>
+<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">23 篇</span></h2>
 <p class="section-note">答案變便宜之後：教育、數學、政策，以及人還剩下什麼</p>
+
+<article class="entry">
+<h3 class="headline"><a href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">同一道題，兩位 AI 考生 — NIR–PLS 參考值錯位：Claude 與 GPT 的解法對照復盤 <span class="tag">新・附圖</span></a></h3>
+<p class="meta"><time class="date">2026.11.05</time><span class="chip">AI</span><span class="chip">Claude</span><span class="chip">GPT</span><span class="chip">化學計量學</span><span class="chip">NIR</span><span class="chip">PLS</span><span class="chip">MATLAB</span><span class="chip">編輯距離</span></p>
+<p class="deck">S1-00419 的 PLS 預測圖上下各冒出一團離群點，老熊懷疑參考值與光譜「錯了一格」，把同一道題先後交給 Claude 與 GPT。Claude 照老熊的提示把它當成 DNA 序列比對，用 Needleman–Wunsch 找出只有兩次編輯——Vial10 多一筆、Vial48 少一筆——38 筆錯標全是連鎖後果；GPT 則當成瓶界偵探案，逐瓶比對開頭光譜像前一瓶還是本瓶，PLS 只留作事後驗證。兩份答卷殊途同歸，RMSE 都從 1.535 降到 1.044，連 38 筆重標都一筆不差。比的是過程：誰回應了題意、誰的病因模型能推廣到沒見過的錯法（少一筆的鏡像情況 GPT 會漏）、誰自己抓到自己的錯，以及 GPT 扳回的幾局——不讓 PLS 參與判定的方法學潔癖、稽核檔與可還原的工程紀律、中英雙語文件。另有一節回答「為什麼 Claude 跑得比較快」：核心運算其實 GPT 較輕，時間花在七個輸出檔與彈窗上。附總評表、兩邊的修復前後圖，以及合體成「第三份答卷」的建議。評審是 Claude 本人，文首有利益迴避聲明。</p>
+<p class="deck">延伸：同樣是 AI 動手改 MATLAB 舊碼，見〈<a href="%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%81%8E%E5%84%84%E8%A9%9E%E5%85%83%E7%9A%84%E4%BF%AE%E6%94%B9%E8%88%8A%E7%A2%BC.html">紀錄第一次過億詞元的修改舊碼</a>〉；「有參考值才算數」，見〈<a href="%E5%BE%8CAI%E6%99%82%E4%BB%A3_%E8%AA%8D%E7%9F%A5%E8%AA%A4%E5%8D%80.html">後 AI 時代：對其常有的認知誤區</a>〉（皆在本區）。</p>
+<div class="tools">
+<a class="read" href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">閱讀</a>
+<button class="copy" data-file="同一道題兩位AI考生_Claude_vs_GPT.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="ai_physics_paradigm_shift_laoxiong.html">AI 也讓物理學陷入尷尬？— AI 如何顛覆理論與實驗的科研體系 <span class="tag">新・附圖</span></a></h3>
@@ -2273,7 +2285,7 @@ Run_AQP.m 的標頭把這件事寫成第一項外部相依，六支閉包函式�
 
 <footer>
 <p>老熊 · 加州紅木灘 ｜ 作者簡歷見 <a href="README.md">README</a>。</p>
-<p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.11.02</p>
+<p>日期為篇內標註之發表年月；標「推定」者文中未署日期，依同期篇章推算。｜ 本頁最近更新 2026.11.05</p>
 </footer>
 
 </div>
