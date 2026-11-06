@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夜行黑路吹口哨 給自己壯膽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#d4e2f0;          /* soft blue page */
+    --paper:#fbf6e9;         /* ivory paper */
+    --ink:#182a4c;           /* navy ink, never black */
+    --ink-soft:#3c5078;
+    --gold:#a27717;
+    --gold-soft:#e9d9ad;
+    --rule:#c9b47a;
+    --red:#a3322c;
+    --green:#2f7a4a;
+    --bubble-me:#9fe39a;
+    --bubble-other:#ffffff;
+    --chat-bg:#a9bfdc;
+    --shadow:rgba(24,42,76,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --page:#0f2245;        /* deep navy, not black */
+      --paper:#16305a;
+      --ink:#f1e8d0;
+      --ink-soft:#c9c0a6;
+      --gold:#dcb75c;
+      --gold-soft:#2c4676;
+      --rule:#8f7a3e;
+      --red:#ff8d84;
+      --green:#8fe0a8;
+      --bubble-me:#3f7f4c;
+      --bubble-other:#2a4a7c;
+      --chat-bg:#203c6b;
+      --shadow:rgba(0,10,40,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--page);color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;font-size:32px;line-height:1.78;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:1100px;margin:48px auto 120px;background:var(--paper);
+    padding:64px 72px 80px;box-shadow:0 10px 40px var(--shadow);
+    border-top:10px double var(--gold);
+  }
+  /* masthead */
+  .masthead{display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:8px;
+    font-family:"Noto Sans TC",sans-serif;}
+  .masthead .brand{font-size:44px;font-weight:900;letter-spacing:.18em}
+  .masthead .meta{font-size:22px;font-weight:700;color:var(--ink-soft);text-align:right;line-height:1.5}
+  .subrule{border-bottom:1px solid var(--ink);margin-bottom:44px;height:6px}
+  .kicker{font-family:"Noto Sans TC",sans-serif;font-size:24px;font-weight:800;
+    color:var(--gold);letter-spacing:.24em;margin:0 0 10px}
+  h1{font-size:76px;line-height:1.22;font-weight:900;margin:0 0 26px;letter-spacing:.02em}
+  h1 .sub{display:block;font-size:46px;color:var(--ink-soft);font-weight:700;margin-top:10px;letter-spacing:.12em}
+  .deck{font-size:34px;font-weight:700;color:var(--ink-soft);border-left:8px solid var(--gold);
+    padding:6px 0 6px 28px;margin:0 0 34px}
+  .byline{font-family:"Noto Sans TC",sans-serif;font-size:22px;font-weight:700;color:var(--ink-soft);
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 0;margin-bottom:46px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  /* TOC */
+  nav.toc{background:var(--gold-soft);border:2px solid var(--rule);padding:28px 36px;margin:0 0 60px}
+  nav.toc h2{font-family:"Noto Sans TC",sans-serif;font-size:28px;margin:0 0 12px;letter-spacing:.3em;color:var(--gold);border:none;padding:0}
+  nav.toc ol{margin:0;padding-left:0;list-style:none;columns:2;column-gap:40px}
+  nav.toc li{font-size:28px;font-weight:700;margin:4px 0;break-inside:avoid}
+  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--rule)}
+  nav.toc a:hover{color:var(--gold)}
+  /* sections */
+  section{margin:0 0 70px;scroll-margin-top:24px}
+  h2{font-size:52px;font-weight:900;line-height:1.3;margin:0 0 28px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  h2 .num{color:var(--gold);margin-right:14px}
+  h3{font-family:"Noto Sans TC",sans-serif;font-size:30px;font-weight:900;color:var(--gold);letter-spacing:.12em;margin:36px 0 10px}
+  p{margin:0 0 28px;text-align:justify;text-justify:inter-character}
+  .grid p{text-align:left}
+  strong{font-weight:900}
+  .num-val{font-family:"Noto Sans TC",sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+  .down{color:var(--red)} .up{color:var(--green)}
+  .dropcap::first-letter{float:left;font-size:120px;line-height:.9;font-weight:900;color:var(--gold);
+    margin:10px 18px 0 0;font-family:"Noto Serif TC",serif}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:start}
+  aside{font-family:"Noto Sans TC",sans-serif;font-size:22px;font-weight:700;line-height:1.6;
+    border-top:6px solid var(--gold);background:var(--gold-soft);padding:22px 24px;position:sticky;top:24px}
+  aside h4{font-size:24px;font-weight:900;margin:0 0 12px;letter-spacing:.14em;color:var(--gold)}
+  aside table{width:100%;border-collapse:collapse}
+  aside td{padding:6px 0;border-bottom:1px dotted var(--rule);vertical-align:top}
+  aside td:last-child{text-align:right;font-weight:800}
+  aside .note{font-size:19px;color:var(--ink-soft);margin-top:12px}
+  .pullquote{font-size:44px;font-weight:900;line-height:1.5;color:var(--ink);text-align:center;
+    margin:50px 30px;padding:30px 10px;border-top:3px solid var(--gold);border-bottom:3px solid var(--gold)}
+  .pullquote small{display:block;font-size:24px;color:var(--ink-soft);margin-top:12px;font-family:"Noto Sans TC",sans-serif}
+  .margin-note{font-family:"Noto Sans TC",sans-serif;font-size:24px;font-weight:700;color:var(--ink-soft);
+    border:2px dashed var(--rule);padding:18px 22px;margin:0 0 30px;line-height:1.6}
+  .margin-note b{color:var(--gold);font-weight:900}
+  /* ledger */
+  table.ledger{width:100%;border-collapse:collapse;margin:0 0 34px;font-family:"Noto Sans TC",sans-serif;font-size:26px}
+  table.ledger th{font-weight:900;text-align:left;border-bottom:3px solid var(--ink);padding:10px 8px;color:var(--gold);letter-spacing:.08em}
+  table.ledger td{font-weight:700;border-bottom:1px solid var(--rule);padding:10px 8px}
+  table.ledger td.r,table.ledger th.r{text-align:right}
+  table.ledger tr.total td{font-weight:900;border-top:3px double var(--ink);border-bottom:none}
+  figure{margin:0 0 36px}
+  figcaption{font-family:"Noto Sans TC",sans-serif;font-size:21px;font-weight:700;color:var(--ink-soft);margin-top:8px}
+  svg text{font-family:"Noto Sans TC",sans-serif;font-weight:800}
+  /* LINE chat */
+  .chat{background:var(--chat-bg);border-radius:18px;padding:26px 22px;margin:0 0 36px;font-family:"Noto Sans TC",sans-serif}
+  .msg{display:flex;flex-direction:column;margin:0 0 20px}
+  .msg .who{font-size:20px;font-weight:900;margin:0 0 4px 6px;color:var(--ink)}
+  .msg .row{display:flex;align-items:flex-end;gap:10px}
+  .bubble{font-size:26px;font-weight:700;line-height:1.55;padding:14px 20px;border-radius:22px;max-width:82%;background:var(--bubble-other);color:var(--ink)}
+  .time{font-size:17px;font-weight:700;color:var(--ink-soft);white-space:nowrap}
+  .msg.me{align-items:flex-end}
+  .msg.me .row{flex-direction:row-reverse}
+  .msg.me .bubble{background:var(--bubble-me)}
+  .tag{display:inline-block;font-family:"Noto Sans TC",sans-serif;font-size:20px;font-weight:900;
+    padding:2px 12px;border-radius:30px;border:2px solid var(--gold);color:var(--gold);margin-left:8px;vertical-align:middle}
+  /* five points */
+  .points{counter-reset:pt;list-style:none;padding:0;margin:0 0 30px}
+  .points li{counter-increment:pt;position:relative;padding:22px 26px 22px 100px;margin:0 0 22px;
+    background:var(--gold-soft);border-left:6px solid var(--gold)}
+  .points li::before{content:counter(pt);position:absolute;left:24px;top:14px;font-size:60px;font-weight:900;color:var(--gold);font-family:"Noto Sans TC",sans-serif}
+  .points li b.h{display:block;font-size:32px;font-weight:900;margin-bottom:6px}
+  .points li p{margin:0;font-size:29px}
+  .verdict td.ok{color:var(--green);font-weight:900}
+  .verdict td.mid{color:var(--gold);font-weight:900}
+  .back{display:inline-block;font-family:"Noto Sans TC",sans-serif;font-size:22px;font-weight:800;
+    color:var(--gold);text-decoration:none;margin-top:6px;border-bottom:2px solid var(--gold)}
+  .fineprint{font-family:"Noto Sans TC",sans-serif;font-size:21px;font-weight:700;color:var(--ink-soft);line-height:1.7}
+  .end-mark{text-align:center;color:var(--gold);font-size:34px;letter-spacing:.6em;margin:40px 0}
+  /* floating nav */
+  .float-nav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:50}
+  .float-nav a{font-family:"Noto Sans TC",sans-serif;font-size:20px;font-weight:900;text-decoration:none;
+    background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:30px;box-shadow:0 4px 14px var(--shadow);
+    border:2px solid var(--gold);text-align:center}
+  .float-nav a:hover{background:var(--gold);color:var(--paper)}
+  @media (max-width:980px){
+    body{font-size:24px}
+    .sheet{margin:0;padding:34px 22px 60px}
+    h1{font-size:50px} h1 .sub{font-size:30px}
+    .deck{font-size:25px}
+    h2{font-size:36px}
+    .grid{grid-template-columns:1fr;gap:24px}
+    aside{position:static;font-size:20px}
+    nav.toc ol{columns:1} nav.toc li{font-size:23px}
+    .pullquote{font-size:31px;margin:34px 0}
+    .dropcap::first-letter{font-size:86px}
+    .points li{padding-left:72px} .points li::before{font-size:44px;left:16px}
+    .points li p{font-size:23px} .points li b.h{font-size:25px}
+    .bubble{font-size:21px} table.ledger{font-size:20px}
+    .masthead .brand{font-size:32px} .masthead .meta{font-size:17px}
+    .margin-note{font-size:20px}
+  }
+</style>
+</head>
+<body id="top">
+<div class="sheet">
+
+  <header>
+    <div class="masthead">
+      <div class="brand">老熊隨筆</div>
+      <div class="meta">Post-AI 退休 · 復盤體<br>2026 年 11 月 5 日 · 紅木岸</div>
+    </div>
+    <div class="subrule"></div>
+    <p class="kicker">群組觀察 ／ 前東家的股票</p>
+    <h1>夜行黑路吹口哨<span class="sub">給自己壯膽</span></h1>
+    <p class="deck">前東家的股價半年腰斬，老熊在 24.33 和 24.37 各買了五百股。群組裡一位同學說「還會再跌」，另一位說「有巴菲特的豪氣」。真正拍板的是田總。收盤後，老熊照例把這筆買賣攤開來復盤：哪些是道理，哪些只是口哨。</p>
+    <div class="byline"><span>文 ／ 老熊（熊章民）</span><span>資料：當日 Google 行情截圖、LINE 群組「台大化…80」對話</span></div>
+  </header>
+
+  <nav class="toc" id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#s1">一、題記：黑路上的口哨</a></li>
+      <li><a href="#s2">二、10:54 的兩張單</a></li>
+      <li><a href="#s3">三、群組裡的三種聲音</a></li>
+      <li><a href="#s4">四、拍板的是田總</a></li>
+      <li><a href="#s5">五、收盤後的復盤</a></li>
+      <li><a href="#s6">六、口哨與膽量</a></li>
+      <li><a href="#s7">附記：資料與聲明</a></li>
+    </ol>
+  </nav>
+
+  <!-- 一 -->
+  <section id="s1">
+    <h2><span class="num">一</span>題記：黑路上的口哨</h2>
+    <p class="dropcap">老一輩常說，夜裡走黑路，吹吹口哨給自己壯膽。英文裡也有一句差不多的話：<em>whistling past the graveyard</em>，經過墳場時吹口哨，裝作不怕。</p>
+    <p>口哨嚇不走鬼，不過能讓腳步不亂。今天這筆買賣，大概就是一聲口哨。問題在於口哨吹完，路還得自己走。所以老熊的習慣是：口哨照吹，吹完回頭把路況查一遍。查得過，那是膽量；查不過，那就只是口哨。</p>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 二 -->
+  <section id="s2">
+    <h2><span class="num">二</span>10:54 的兩張單</h2>
+    <div class="grid">
+      <div>
+        <p>先擺數據。上午我在群組貼了一張 Google 的行情截圖：Viavi Solutions（NASDAQ: VIAV），<span class="num-val">24.11</span> 美元，過去六個月跌了 <span class="num-val down">29.86</span>，也就是 <span class="num-val down">−55.33%</span>。半年前大約還在 54 塊上下。</p>
+        <p>這家公司我很熟。2013 年 8 月我接了 JDSU 的 offer，後來 JDSU 改名 Viavi，我一路待到 2024 年退休，前後十一年。所以群組裡我叫它「前東家」。</p>
+        <p>太平洋時間 10:54，我發了第二條訊息：</p>
+        <table class="ledger">
+          <tr><th>筆次</th><th class="r">成交價</th><th class="r">股數</th><th class="r">金額（美元）</th></tr>
+          <tr><td>第一筆</td><td class="r num-val">24.33</td><td class="r num-val">500</td><td class="r num-val">12,165</td></tr>
+          <tr><td>第二筆</td><td class="r num-val">24.37</td><td class="r num-val">500</td><td class="r num-val">12,185</td></tr>
+          <tr class="total"><td>合計</td><td class="r num-val">均價 24.35</td><td class="r num-val">1,000</td><td class="r num-val">24,350</td></tr>
+        </table>
+        <div class="margin-note"><b>復盤第一條：</b>截圖時間是美東 1:08 PM，換成加州是 10:08，價格 24.11。四十幾分鐘後下單，股價已經反彈到 24.33 附近，等於比截圖價多付了大約 0.9%。截圖價不等於成交價，口哨吹著吹著，價格已經走了。</div>
+        <div class="margin-note"><b>資料打架：</b>同一張截圖上，現價 24.11 比「當日最低 24.12」還低一分錢。大概是報價源更新不同步。老熊做了一輩子資料，看到這種小矛盾還是忍不住要記一筆。</div>
+        <figure>
+          <svg viewBox="0 0 720 210" width="100%" role="img" aria-label="VIAV 52 週區間與買入均價位置">
+            <line x1="40" y1="110" x2="680" y2="110" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+            <rect x="40" y="100" width="127" height="20" fill="var(--gold-soft)" stroke="var(--rule)" stroke-width="2"/>
+            <!-- 52wk low 15.50 -->
+            <circle cx="40" cy="110" r="11" fill="var(--green)"/>
+            <text x="40" y="160" text-anchor="start" font-size="24" fill="var(--ink)">15.50</text>
+            <text x="40" y="190" text-anchor="start" font-size="20" fill="var(--ink-soft)">52 週低</text>
+            <!-- avg 24.35 -->
+            <circle cx="167" cy="110" r="13" fill="var(--red)"/>
+            <line x1="167" y1="96" x2="167" y2="62" stroke="var(--red)" stroke-width="3"/>
+            <text x="167" y="52" text-anchor="middle" font-size="26" fill="var(--red)">均價 24.35</text>
+            <!-- day high 27.09 -->
+            <circle cx="205" cy="110" r="8" fill="var(--ink-soft)"/>
+            <text x="215" y="160" text-anchor="start" font-size="22" fill="var(--ink-soft)">當日高 27.09</text>
+            <!-- 52wk high 60.43 -->
+            <circle cx="680" cy="110" r="11" fill="var(--gold)"/>
+            <text x="680" y="160" text-anchor="end" font-size="24" fill="var(--ink)">60.43</text>
+            <text x="680" y="190" text-anchor="end" font-size="20" fill="var(--ink-soft)">52 週高</text>
+            <text x="420" y="52" text-anchor="middle" font-size="22" fill="var(--ink-soft)">距高點 −59.7%</text>
+            <text x="100" y="20" text-anchor="middle" font-size="20" fill="var(--ink-soft)">距低點 +57.1%</text>
+          </svg>
+          <figcaption>圖一　買入均價在 52 週區間的位置（依截圖數據；比例尺為線性）。</figcaption>
+        </figure>
+      </div>
+      <aside>
+        <h4>當日行情卡</h4>
+        <table>
+          <tr><td>現價</td><td>24.11</td></tr>
+          <tr><td>六個月</td><td class="down">−55.33%</td></tr>
+          <tr><td>開盤</td><td>26.21</td></tr>
+          <tr><td>當日高</td><td>27.09</td></tr>
+          <tr><td>當日低</td><td>24.12</td></tr>
+          <tr><td>開盤至截圖</td><td class="down">−8.0%</td></tr>
+          <tr><td>52 週區間</td><td>15.50–60.43</td></tr>
+          <tr><td>市值</td><td>59.4 億</td></tr>
+          <tr><td>本益比</td><td>—</td></tr>
+          <tr><td>股息</td><td>—</td></tr>
+        </table>
+        <p class="note">來源：Google AI Overview 截圖，美東 11/5 1:08 PM。單位：美元。</p>
+      </aside>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 三 -->
+  <section id="s3">
+    <h2><span class="num">三</span>群組裡的三種聲音</h2>
+    <p>買完股票不在群組裡說一聲，好像就沒買過。我在「台大化…80」那個四十七人的群組裡報了單，接下來的對話照錄如下：</p>
+    <div class="chat">
+      <div class="msg me"><div class="row"><div class="bubble">剛剛在 24.33 及 24.37 各買了五百股，哈哈，希望前東家不要讓我失望 😉</div><span class="time">10:54 AM</span></div></div>
+      <div class="msg"><span class="who">Kenny Du</span><div class="row"><div class="bubble">還會再跌哦 😲</div><span class="time">2:27 PM</span></div></div>
+      <div class="msg me"><div class="row"><div class="bubble">哈哈，有可能，那我就再買，哈哈。我離剛退休時的大整數股還差一小截呢 😉</div><span class="time">3:28 PM</span></div></div>
+      <div class="msg"><span class="who">CS 卞鐘石</span><div class="row"><div class="bubble">越跌越買，有巴菲特的豪氣。</div><span class="time">3:50 PM</span></div></div>
+      <div class="msg me"><div class="row"><div class="bubble">哈哈 😂</div><span class="time">3:51 PM</span></div></div>
+    </div>
+    <div class="grid">
+      <div>
+        <h3>謹慎派：Kenny</h3>
+        <p>「還會再跌」是一句永遠不會錯的話。跌了，他說中；不跌，大家也不會回頭去算。不過 Kenny 說的是實話，短線誰也不知道底在哪裡。</p>
+        <h3>打氣派：卞兄</h3>
+        <p>「巴菲特的豪氣」是給面子。同學之間，買在半山腰也要說成買在谷底，這是四十幾年的交情。</p>
+        <h3>口哨派：老熊自己</h3>
+        <p>我回的「那我就再買」，說穿了就是口哨。至於「剛退休時的大整數股」：退休那時手上有個整數的 Viavi 股票，後來陸續減了一些。這次是往回補，離那個整數還差一小截。補回去算是念舊，不能當成投資理由。</p>
+      </div>
+      <aside>
+        <h4>群組時間軸</h4>
+        <table>
+          <tr><td>10:08</td><td>截圖 24.11</td></tr>
+          <tr><td>10:54</td><td>報單 ×2</td></tr>
+          <tr><td>2:27</td><td>Kenny：再跌</td></tr>
+          <tr><td>3:28</td><td>老熊：再買</td></tr>
+          <tr><td>3:50</td><td>卞兄：巴菲特</td></tr>
+          <tr><td>4:07</td><td>老熊：田總拍板</td></tr>
+        </table>
+        <p class="note">時間皆為太平洋時間。截圖時間由美東 1:08 PM 換算。</p>
+      </aside>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 四 -->
+  <section id="s4">
+    <h2><span class="num">四</span>拍板的是田總</h2>
+    <p>4:07，我把底牌亮了出來：</p>
+    <div class="chat">
+      <div class="msg me"><div class="row"><div class="bubble">我的豪氣遠不及巴菲特，不過長期持有的戰略是一樣的。今天的購入是老婆拍板的。她說她與巴菲特一樣，不熟悉的產業不買。她認為光量子技術在超高速計算、密碼學、網絡安全、國防……都將大有作為；數據中心的緩建對 LITE 的影響比較大，對於 VIAV 長遠來說應該比較小？我聽後覺得好像有點道理？哈哈</div><span class="time">4:07 PM</span></div></div>
+    </div>
+    <div class="pullquote">「我的豪氣遠不及巴菲特，<br>不過長期持有的戰略是一樣的。」<small>— 老熊，4:07 PM</small></div>
+    <p>田總的邏輯有三條腿：</p>
+    <p><strong>第一條，不熟不買。</strong>這是巴菲特的「能力圈」。用在我們家倒也合適：一個在 Viavi 做了十一年演算法，一個做了三十多年工程，這個行業對我們不算陌生。</p>
+    <p><strong>第二條，光量子會大有作為。</strong>超高速計算、密碼學、網路安全、國防，聽起來每一樣都是未來。</p>
+    <p><strong>第三條，數據中心緩建，傷 LITE 多，傷 VIAV 少。</strong>這條最具體，也最好驗證。</p>
+    <p>我在群組裡用了兩個問號：「應該比較小？」「好像有點道理？」問號是老實的。覺得有道理不等於有證據，所以晚上要復盤。</p>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 五 -->
+  <section id="s5">
+    <h2><span class="num">五</span>收盤後的復盤</h2>
+    <p>收盤後，我把田總的三條腿拿去跟 AI 一起對了一遍。整理出來的結論是：<strong>田總的判斷基本正確，長期持有這個角度尤其站得住。</strong>理由有五點：</p>
+    <ol class="points">
+      <li><b class="h">VIAV 比 LITE 分散</b><p>Viavi 的數據中心業務大約占 NSE 部門的一半，國防大約占 17%，另外還有 OSP（防偽、3D 感測等），數據中心合計大約占總營收四成。Lumentum 幾乎全押在 AI 光器件上，而且被 Marvell 以全股票收購，又多一層交易風險。當天 VIAV 跌約 10%，LITE 跌約 18%，市場的看法也一樣。</p></li>
+      <li><b class="h">長期優勢在技術換代</b><p>Viavi 賣的是測試儀器。光模組每升級一代（800G → 1.6T → 3.2T），客戶就得重新採購，而 1.6T 的轉換還在早期。機房延後，或者改到別的州蓋，測試需求都還在。Lumentum 賣的是器件，機房少蓋，就直接少賣。</p></li>
+      <li><b class="h">基本面目前很強</b><p>上一季營收年增 <span class="num-val up">56.9%</span>，達到 <span class="num-val">4.693 億</span>美元，公司上調了指引，並批准 <span class="num-val">5 億</span>美元的回購。當天的下跌主要是選後情緒，不是公司本身出了問題。</p></li>
+      <li><b class="h">短期還會波動</b><p>VIAV 的數據中心收入跟著客戶擴產的週期走，多半是當季接單、當季出貨，能見度不高。股價可能還會再跌（Kenny 說得對），不過長期持有可以不必太在意。</p></li>
+      <li><b class="h">光量子只是遠期加分</b><p>Viavi 在這方面做的是後量子密碼（PQC）測試，以及和 QNu Labs 合作做量子安全的測試驗證。方向是對的，但幾年內占營收的比重很小。</p></li>
+    </ol>
+    <div class="grid">
+      <div>
+        <h3>田總三條腿・評分表</h3>
+        <table class="ledger verdict">
+          <tr><th>論點</th><th>復盤結果</th></tr>
+          <tr><td>不熟不買</td><td class="ok">成立</td></tr>
+          <tr><td>緩建傷 LITE 多、傷 VIAV 少</td><td class="ok">成立：業務分散，當日跌幅 −18% 對 −10%</td></tr>
+          <tr><td>光量子大有作為</td><td class="mid">方向對，但遠水：是加分項，不是主因</td></tr>
+        </table>
+        <p>有趣的是，三條腿裡聽起來最動人的「光量子」，偏偏是最弱的一條；最平淡的「測試儀器每代都要重買」，反倒最結實。吹得最響的口哨往往不是最管用的那一聲。</p>
+      </div>
+      <aside>
+        <h4>一句話結論</h4>
+        <p style="margin:0;text-align:left">田總說「對 LITE 影響較大，對 VIAV 長遠較小」，這個看法站得住；長期持有的邏輯也合理。</p>
+        <p class="note">至於短期底在哪裡，沒有人知道，包括 AI。</p>
+      </aside>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 六 -->
+  <section id="s6">
+    <h2><span class="num">六</span>口哨與膽量</h2>
+    <p class="dropcap">把今天的事拆開來看，口哨和膽量其實分得很清楚。</p>
+    <p><strong>口哨的部分</strong>：「希望前東家不要讓我失望」、「那我就再買」、「離大整數股還差一小截」。這些話是說給自己聽的，帶著念舊，也帶著一點逞強。</p>
+    <p><strong>膽量的部分</strong>：測試儀器跟著技術換代走，機房晚蓋、換地方蓋，測試照樣要做；公司營收正在成長，還有回購撐著；跌幅比純器件廠小，市場自己投了票。這些是可以查、可以對帳的。</p>
+    <p><strong>還沒看清的部分</strong>：短期能見度低，選後情緒什麼時候退，沒有人說得準。Kenny 那句「還會再跌」，我得收進口袋裡隨身帶著。</p>
+    <div class="pullquote">口哨是給自己聽的；<br>膽量是看清了路況，還敢往前走。</div>
+    <p>回頭再看 10:54 那句「希望前東家不要讓我失望」，說的其實是自己。我在那裡寫了十一年演算法，看過它換名字、換老闆、換產品線。這次買進，一半是看路況，一半是念舊。念舊那一半我承認是口哨。看路況那一半，今晚查過了，查得過。</p>
+    <p>黑路還長，口哨照吹。只是下次再想「越跌越買」的時候，老熊打算先問自己一句：這回是在看路，還是只是在吹口哨？</p>
+    <div class="end-mark">◆ ◆ ◆</div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 附記 -->
+  <section id="s7">
+    <h2><span class="num">附</span>附記：資料與聲明</h2>
+    <p class="fineprint">一、行情數據取自當日 Google AI Overview 截圖（美東 2026/11/5 1:08 PM），未與交易所收盤資料核對。<br>
+    二、成交價與股數依本人群組訊息所記；均價與百分比為本文自行計算。<br>
+    三、公司業務比重、季度營收、回購、收購案及當日跌幅，取自收盤後的整理摘要，未逐條對照財報與公告原文，請以官方資料為準。<br>
+    四、群組訊息原文為簡體，本文為求全篇一致改為繁體，文意未改。<br>
+    五、本文是個人紀錄與復盤，不構成任何投資建議。前東家的股票，老熊自己負責。</p>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+</div>
+
+<div class="float-nav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+</body>
+</html>
