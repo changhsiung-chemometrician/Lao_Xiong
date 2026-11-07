@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>反 AI 浪潮能走多遠？——老熊與 AI 的一場對談</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3ead2;
+    --paper-2:#ebdfbf;
+    --ink:#1b2a4a;
+    --ink-soft:#34476e;
+    --accent:#8a2a1c;
+    --gold:#a77c1c;
+    --rule:#1b2a4a;
+    --side:#e4ecf6;
+    --side-ink:#1b2a4a;
+    --nav-bg:#1f3a6b;
+    --nav-ink:#f6e7b8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#14264a;
+      --paper-2:#1b3160;
+      --ink:#f1e6c8;
+      --ink-soft:#d8c99e;
+      --accent:#f0b85a;
+      --gold:#e3b54c;
+      --rule:#e3b54c;
+      --side:#1d3768;
+      --side-ink:#f1e6c8;
+      --nav-bg:#c9a23d;
+      --nav-ink:#14264a;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:radial-gradient(ellipse at top, rgba(255,255,255,.18), transparent 60%);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.75;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 36px 160px}
+
+  /* Masthead */
+  .masthead{text-align:center;border-top:6px double var(--rule);border-bottom:6px double var(--rule);padding:18px 0 14px;margin-bottom:28px}
+  .masthead .kicker{font-family:"Playfair Display",serif;letter-spacing:.32em;font-size:22px;font-weight:800;color:var(--gold);text-transform:uppercase}
+  .masthead .name{font-size:58px;font-weight:900;letter-spacing:.2em;margin:4px 0}
+  .masthead .meta{font-size:22px;font-weight:700;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--rule);padding-top:8px;margin-top:8px}
+
+  h1{font-size:76px;line-height:1.22;font-weight:900;margin:24px 0 18px;text-align:center}
+  .deck{font-size:34px;font-weight:700;color:var(--ink-soft);text-align:center;font-style:italic;margin:0 auto 26px;max-width:960px}
+  .byline{text-align:center;font-size:24px;font-weight:700;color:var(--gold);letter-spacing:.12em;margin-bottom:36px}
+
+  /* TOC */
+  .toc{background:var(--paper-2);border:2px solid var(--rule);padding:22px 34px;margin:0 0 48px}
+  .toc h2{font-size:34px;margin:0 0 8px;border:none;padding:0;text-align:left;font-weight:900;color:var(--accent)}
+  .toc ol{margin:0;padding-left:1.4em}
+  .toc li{font-size:28px;font-weight:700;margin:4px 0}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--gold)}
+  .toc a:hover{color:var(--accent)}
+
+  section{margin:0 0 56px;scroll-margin-top:20px}
+  h2{font-size:48px;font-weight:900;line-height:1.3;margin:0 0 22px;padding-bottom:10px;border-bottom:3px solid var(--rule)}
+  h2 .num{font-family:"Playfair Display",serif;color:var(--accent);font-weight:900;margin-right:.3em}
+  p{margin:0 0 26px;text-align:justify}
+  strong{font-weight:800;color:var(--accent)}
+  .n{font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+
+  .dropcap::first-letter{
+    float:left;font-size:120px;line-height:.9;font-weight:900;color:var(--accent);
+    padding:10px 14px 0 0;font-family:"Noto Serif TC",serif;
+  }
+
+  .pull{font-size:44px;font-weight:800;line-height:1.45;text-align:center;color:var(--accent);
+    border-top:3px solid var(--rule);border-bottom:3px solid var(--rule);padding:22px 30px;margin:40px 40px;font-style:italic}
+
+  .with-side{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+  aside{background:var(--side);color:var(--side-ink);border-left:6px solid var(--gold);padding:22px 24px;font-size:24px;font-weight:700;line-height:1.65}
+  aside h3{font-size:28px;font-weight:900;margin:0 0 10px;color:var(--accent)}
+  aside p{margin:0 0 14px;text-align:left}
+
+  /* Ledger table */
+  table.ledger{width:100%;border-collapse:collapse;margin:10px 0 30px;font-size:26px}
+  .ledger th,.ledger td{border-bottom:1px solid var(--rule);padding:12px 10px;text-align:left;vertical-align:top;font-weight:700}
+  .ledger th{font-weight:900;border-bottom:3px double var(--rule);color:var(--gold);font-size:24px;letter-spacing:.08em}
+  .ledger td.v{font-weight:800;color:var(--accent);white-space:nowrap}
+
+  ul.list,ol.list{margin:0 0 26px;padding-left:1.3em}
+  ul.list li,ol.list li{margin:0 0 14px;font-weight:700}
+
+  .dialog{border:2px solid var(--rule);padding:20px 28px;margin:0 0 30px;background:var(--paper-2)}
+  .dialog .who{font-weight:900;color:var(--gold);font-size:26px;letter-spacing:.1em}
+
+  .verdict{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:10px 0 30px}
+  .verdict div{border:3px solid var(--rule);padding:20px 24px;background:var(--paper-2)}
+  .verdict h3{margin:0 0 10px;font-size:32px;font-weight:900;color:var(--accent)}
+  .verdict p{font-size:26px;margin:0}
+
+  .back{display:inline-block;font-size:22px;font-weight:800;color:var(--gold);text-decoration:none;border:2px solid var(--gold);padding:2px 14px;margin-top:4px}
+  .back:hover{background:var(--gold);color:var(--paper)}
+
+  .sources{font-size:22px;line-height:1.6}
+  .sources li{margin-bottom:8px;font-weight:700}
+  .sources a{color:var(--ink-soft)}
+
+  footer{text-align:center;font-size:22px;color:var(--ink-soft);border-top:6px double var(--rule);padding-top:16px;margin-top:40px}
+
+  /* Floating nav */
+  .fnav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:99}
+  .fnav a{background:var(--nav-bg);color:var(--nav-ink);text-decoration:none;font-weight:800;font-size:22px;padding:10px 18px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25);text-align:center}
+  .fnav a:hover{filter:brightness(1.12)}
+
+  @media (max-width:900px){
+    body{font-size:24px}
+    .wrap{padding:28px 18px 140px}
+    h1{font-size:46px}
+    .deck{font-size:26px}
+    h2{font-size:34px}
+    .pull{font-size:30px;margin:28px 0;padding:16px}
+    .dropcap::first-letter{font-size:84px}
+    .with-side,.verdict{grid-template-columns:1fr}
+    .masthead .name{font-size:40px}
+    table.ledger{font-size:21px}
+    .toc li{font-size:23px}
+    .fnav a{font-size:18px;padding:8px 12px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">The Lao Xiong Review · Post-AI Era</div>
+    <div class="name">老熊隨筆</div>
+    <div class="meta"><span>後 AI 時代 · 精選外刊</span><span>2026 年 11 月 7 日</span><span>對談整理</span></div>
+  </header>
+
+  <h1>反 AI 浪潮，能走多遠？</h1>
+  <p class="deck">從一位民主黨議員的推文、馬斯克一句冷嘲，到全美遍地開花的資料中心暫停令，老熊與 AI 談這股風潮的邊界在哪裡</p>
+  <div class="byline">老熊 提問 ・ Claude 分析 ・ 2026 年期中選舉後三日</div>
+
+  <nav class="toc" id="toc">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#s1">導火線：一則推文與一句「See you soon」</a></li>
+      <li><a href="#s2">法案拆解：《禁止人工超級智慧法案》寫了什麼</a></li>
+      <li><a href="#s3">民意溫度計：數字會說話</a></li>
+      <li><a href="#s4">會走很遠的戰線：電、地、水</a></li>
+      <li><a href="#s5">走不遠的戰線：聯邦「暫停」的五道門檻</a></li>
+      <li><a href="#s6">中間地帶與三個升級變數</a></li>
+      <li><a href="#s7">結語：這是 AI 的「反核時刻」</a></li>
+      <li><a href="#src">資料來源</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="num">I.</span>導火線：一則推文與一句「See you soon」</h2>
+    <div class="with-side">
+      <div>
+        <p class="dropcap">十一月五日，期中選舉投票後兩天，亞利桑那州民主黨聯邦眾議員安薩里（Yassamin Ansari）在 X 上發文，主張民主黨一旦掌權，第一天就該把三件事列為首要議程：暫停先進 AI 的開發、把這個她形容為失控的產業納入監管、以及全面禁止人工超級智慧。</p>
+        <p>馬斯克的回應只有一句，借用了赫胥黎的反烏托邦小說書名《美麗新世界》來挖苦。安薩里回了一句「See you soon」，卻沒說明是聽證會還是傳喚。</p>
+        <p>中時新聞網記者許庭瑛整理的網友反應，大致分成三派：有人質疑議員搞錯優先順序，民眾被食物、房租、保險壓得喘不過氣，議員卻在談超級智慧；有人替馬斯克說話，認為他的企業創造就業，在電動車、能源、太空都有投入；也有人覺得那句「很快就會見面」不是政策，倒像是衝著個人來的政治威脅。</p>
+      </div>
+      <aside>
+        <h3>新聞小檔案</h3>
+        <p><b>出處：</b>中時新聞網國際版</p>
+        <p><b>發布：</b>2026/11/7 09:44</p>
+        <p><b>主角：</b>安薩里（D-AZ）vs. 馬斯克</p>
+        <p><b>背景：</b>她是《2026 年禁止人工超級智慧法案》最早的共同提案人之一</p>
+        <p><b>老熊註：</b>她那句「See you soon」，我讀成是在預告：民主黨若拿下眾院，就要傳喚馬斯克作證。</p>
+      </aside>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="num">II.</span>法案拆解：《禁止人工超級智慧法案》寫了什麼</h2>
+    <p>這項法案的參院版由桑德斯（Bernie Sanders）在九月二十三日提出，眾院版由卡薩爾（Greg Casar）在隔天跟進。兩案目前都還停在提案階段。重點如下：</p>
+    <table class="ledger">
+      <thead><tr><th>項目</th><th>內容</th><th>關鍵數字</th></tr></thead>
+      <tbody>
+        <tr><td>新設機構</td><td>成立「人工智慧部」，監督先進 AI、執行安全規範</td><td class="v">—</td></tr>
+        <tr><td>暫停條款</td><td>新部門人員到位、安全規則訂好之前，受管制的系統不得訓練、修改或微調；未發布的不得部署</td><td class="v">全面凍結</td></tr>
+        <tr><td>管制門檻</td><td>以訓練運算量為準，部長每年可調整</td><td class="v">10<sup>25</sup> 次運算</td></tr>
+        <tr><td>永久禁令</td><td>禁止在多數領域超越人類認知、或可能危害人類、奪走人類主導權的「超級智慧」</td><td class="v">永久</td></tr>
+        <tr><td>個人罰則</td><td>罰款，並可處徒刑</td><td class="v">最高 20 年</td></tr>
+        <tr><td>其他違規</td><td>禁止從事 AI 產業</td><td class="v">10 年</td></tr>
+      </tbody>
+    </table>
+    <p>這個方向跟川普政府「鼓勵創新、減少監管」的路線正好相反。支持者的邏輯是：防護必須趕在 AI 能力超過人類控管能力之前建好；反對者則擔心美國自廢武功，把領先地位讓給對手。</p>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="num">III.</span>民意溫度計：數字會說話</h2>
+    <p>老熊問的是「這波反 AI 能走多遠」。要回答這個問題，第一步是看清楚民意的溫度到底有多高。2026 年的民調數字相當驚人：</p>
+    <table class="ledger">
+      <thead><tr><th>指標</th><th>來源</th><th>數字</th></tr></thead>
+      <tbody>
+        <tr><td>反對在自家社區蓋 AI 資料中心</td><td>Gallup（2026/5）</td><td class="v">71%</td></tr>
+        <tr><td>鄉村／都市選民反對附近蓋資料中心</td><td>Fox News 民調</td><td class="v">75% / 63%</td></tr>
+        <tr><td>可能選民支持 Sanders–Casar 暫停法案</td><td>Data for Progress</td><td class="v">68%</td></tr>
+        <tr><td>成年人支持暫停 AI</td><td>《華爾街日報》民調</td><td class="v">63%</td></tr>
+        <tr><td>2026 Q1 被擋下或延遲的資料中心案</td><td>Data Center Watch</td><td class="v">75 案 ≈ 1,300 億美元</td></tr>
+        <tr><td>公開反對資料中心的政治人物黨籍比</td><td>Introl 整理</td><td class="v">共 55% : 民 45%</td></tr>
+      </tbody>
+    </table>
+    <p class="pull">反對資料中心，是今年美國少數能讓紅藍兩黨選民站在同一邊的議題。</p>
+    <p>不過，做過三十年多變量分析的人都知道，<strong>相關不等於權重</strong>。「你支不支持暫停 AI」這種問題，受訪者很容易點頭。但真正決定選票的，是電費、房租和飯碗。民意的「廣度」很驚人，「深度」卻還有待驗證。</p>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="num">IV.</span>會走很遠的戰線：電、地、水</h2>
+    <p class="dropcap">AI 的判斷是：反 AI 運動真正的殺傷力不在國會山莊，而在各地的鎮公所、郡議會和公用事業委員會。資料中心吃電、佔地、耗水，是 AI 最看得見、摸得著的部分，也就成了最好打的靶。</p>
+    <ul class="list">
+      <li><strong>地方暫停令遍地開花：</strong>至少十四個州的社區已經對資料中心按下暫停鍵，十八州提出了州級暫停法案。從北卡的夏洛特到佛州的 North Port，公聽會動輒擠進數百人，發言一講就是好幾個小時。</li>
+      <li><strong>跨意識形態結盟：</strong>保守派在意的是財產權、鄉村景觀被工業化；進步派在意的是環境和大型企業。兩邊理由不同，結論一致。</li>
+      <li><strong>錢包政治：</strong>電費上漲被算到 AI 頭上，讓抽象的科技議題變成每個月帳單上的數字。</li>
+    </ul>
+    <div class="dialog">
+      <div class="who">◆ 歷史類比</div>
+      <p style="margin:0">這條路很像當年的<strong>核電</strong>。美國從來沒有立法禁止核電，可是許可程序、地方抗爭、保險和成本一路墊高，新建核電廠實際上停擺了好幾十年。反 AI 運動若是沿著電、地、水這條路走下去，不需要禁令，就能讓 AI 的擴張大幅變貴、變慢。</p>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="num">V.</span>走不遠的戰線：聯邦「暫停」的五道門檻</h2>
+    <p>反過來看，安薩里、桑德斯想要的「暫停開發、禁止超級智慧」，短期內要變成聯邦法律，幾乎不可能。AI 列出五道門檻：</p>
+    <ol class="list">
+      <li><strong>制度門檻：</strong>參議院有六十票的阻撓議事門檻，川普任期到 2029 年 1 月，一定會否決。就算民主黨拿下眾院，能做的大概也只有聽證會和調查。</li>
+      <li><strong>執政者的猶豫：</strong>最有說服力的例子在緬因州。州議會以跨黨派多數通過了全美第一個全州資料中心暫停令，民主黨籍州長 Mills 卻在 2026 年 4 月 24 日否決了，只另外簽署法案取消資料中心的稅收優惠。在野時喊暫停容易，執政時就得面對稅收、就業和投資。</li>
+      <li><strong>中國因素：</strong>「我們停下來，北京不會停」，這個論點在華府幾乎無往不利。</li>
+      <li><strong>金錢：</strong>AI 產業為這次期中選舉投入了大約 <span class="n">1.5 億</span>美元。</li>
+      <li><strong>民意深度不足：</strong>網友罵議員搞錯優先順序，正好說明多數選民最在意的還是物價，不是超級智慧。</li>
+    </ol>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="num">VI.</span>中間地帶與三個升級變數</h2>
+    <div class="verdict">
+      <div>
+        <h3>最可能的中間結果</h3>
+        <p>各州陸續立法：電費分攤（不讓一般住戶替資料中心埋單）、取消稅收優惠、兒童安全、AI 陪伴應用規範。大公司被迫自建電廠、付更高電價、做更多揭露。算力則往法規寬鬆的州或海外移動，例如德州或中東。</p>
+      </div>
+      <div>
+        <h3>可能讓浪潮升級的變數</h3>
+        <p>① 重大 AI 事故，例如大規模網攻或可歸咎的人命傷亡；② 白領失業真正出現在統計數字裡，而不只是預測；③ AI 泡沫破裂。諷刺的是，市場崩盤的「暫停」效果，可能比任何法案都大。</p>
+      </div>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="num">VII.</span>結語：這是 AI 的「反核時刻」</h2>
+    <div class="with-side">
+      <div>
+        <p class="dropcap">整場對談的結論可以濃縮成一句話：這波浪潮比較像<strong>反核</strong>，不像<strong>盧德運動</strong>。它很難讓技術本身停下來，但很可能大幅改變 AI 發展的成本、地點和速度。</p>
+        <p>真正的試金石是 2028 年總統大選：如果到時候有主流候選人把「暫停 AI」當成核心政見還能勝選，那才代表聯邦層面的轉向。至於 11 月 3 日剛投完的期中選舉，AI 議題實際影響了多少選票，就等選後分析出爐再來復盤。</p>
+        <p class="pull" style="margin:30px 0">它擋不住技術，卻能決定技術要付多少代價。</p>
+      </div>
+      <aside>
+        <h3>利益揭露</h3>
+        <p>本文的分析來自 Claude，是 Anthropic 開發的 AI。Anthropic 本身正是這波反 AI 浪潮針對的公司之一。</p>
+        <p>換句話說，被問「反 AI 能走多遠」的，正是 AI 自己。讀者請自行打個折扣，這也符合復盤體「記憶即數據、須經查證」的精神。</p>
+      </aside>
+    </div>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <section id="src">
+    <h2><span class="num">※</span>資料來源</h2>
+    <ol class="sources">
+      <li><a href="https://www.chinatimes.com/realtimenews/20261107001157-260408">中時新聞網：民主黨新科議員喊「暫停AI開發」開戰馬斯克 慘遭網圍剿（2026/11/7）</a></li>
+      <li><a href="https://builtin.com/articles/ai-issues-2026-midterm-elections">Built In — AI Issues Shaping the 2026 Midterms</a></li>
+      <li><a href="https://cryptobriefing.com/data-centers-2026-midterms-ai-buildout/">Crypto Briefing — Data centers become the hottest local issue in the 2026 midterms</a></li>
+      <li><a href="https://www.mediaite.com/media/electoral-poison-cnn-data-guru-finds-dems-and-republicans-are-united-in-their-data-center-hatred/">Mediaite — CNN's Harry Enten on bipartisan data center opposition</a></li>
+      <li><a href="https://introl.com/pt/blog/data-center-community-opposition-64-billion-backlash">Introl — The $64 Billion Backlash</a></li>
+      <li><a href="https://capacityglobal.com/?p=10010579">Capacity — Data Center Watch Q1 2026</a></li>
+      <li><a href="https://techradar.com/pro/security/americans-are-increasingly-opposing-data-centers-here-is-every-us-state-fighting-back-against-new-buildings">TechRadar — Every US state fighting back against data centers</a></li>
+      <li><a href="https://aiunderstanding.org/news/poll-shows-68-of-us-voters-support-sanders-casar-ai-pause-bill">AI Understanding — 68% support Sanders–Casar AI pause bill</a></li>
+      <li><a href="https://futurism.com/future-society/american-voters-overwhelming-support-ai-pause-billionaire-tax">Futurism — WSJ poll: 63% support an AI pause</a></li>
+      <li><a href="https://floridadc.pages.dev/maine-data-center-opposition">Maine LD 307 veto summary</a></li>
+      <li><a href="https://www.gzeromedia.com/news/analysis/ai-will-be-on-the-ballot-in-the-2026-midterms">GZERO — AI will be on the ballot in the 2026 midterms</a></li>
+    </ol>
+    <a class="back" href="#toc">↑ 回目錄</a>
+  </section>
+
+  <footer>老熊隨筆 · 後 AI 時代 · 2026 年 11 月</footer>
+</div>
+
+<nav class="fnav">
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
