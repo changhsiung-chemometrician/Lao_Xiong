@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>同一條起跑線，十年後的六種人生 — 用 AI 與不用 AI 的三代人</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f2e8cf;
+    --paper-2:#eadcb8;
+    --ink:#1b2a4a;
+    --ink-soft:#33426a;
+    --rule:#1b2a4a;
+    --accent:#8b2e1f;
+    --gold:#a87a1f;
+    --gold-soft:#d9bd78;
+    --box:#e6d6ad;
+    --bar-bg:rgba(27,42,74,.10);
+  }
+  html[data-theme="dark"]{
+    --paper:#13213f;
+    --paper-2:#1a2b50;
+    --ink:#f1e7cb;
+    --ink-soft:#cfc3a1;
+    --rule:#d9b65e;
+    --accent:#f0a77a;
+    --gold:#e3bc5f;
+    --gold-soft:#8a7034;
+    --box:#1c2f58;
+    --bar-bg:rgba(241,231,203,.12);
+  }
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]){
+      --paper:#13213f; --paper-2:#1a2b50; --ink:#f1e7cb; --ink-soft:#cfc3a1;
+      --rule:#d9b65e; --accent:#f0a77a; --gold:#e3bc5f; --gold-soft:#8a7034;
+      --box:#1c2f58; --bar-bg:rgba(241,231,203,.12);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--paper)}
+  body{
+    margin:0;
+    background:var(--paper);
+    min-height:100vh;
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;
+    font-weight:700;
+    font-size:32px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent)}
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 40px 140px}
+
+  /* Masthead */
+  .masthead{text-align:center;border-bottom:6px double var(--rule);padding-bottom:18px}
+  .masthead .top{display:flex;justify-content:space-between;font-size:20px;letter-spacing:.12em;color:var(--ink-soft);border-bottom:2px solid var(--rule);padding-bottom:10px}
+  .masthead .name{font-family:"Playfair Display","Noto Serif TC",serif;font-weight:900;font-size:84px;letter-spacing:.06em;line-height:1.15;margin:18px 0 4px}
+  .masthead .name small{display:block;font-family:"Noto Serif TC",serif;font-size:28px;letter-spacing:.6em;color:var(--gold);font-weight:900;margin-top:6px}
+  .masthead .bar{display:flex;justify-content:center;gap:28px;font-size:20px;letter-spacing:.2em;border-top:2px solid var(--rule);padding-top:10px;margin-top:14px;color:var(--ink-soft)}
+
+  /* Headline block */
+  .kicker{margin-top:48px;text-align:center;font-size:24px;letter-spacing:.4em;color:var(--accent);font-weight:900}
+  h1{font-size:76px;line-height:1.25;text-align:center;font-weight:900;margin:18px 0 22px;letter-spacing:.02em}
+  h1 .num{font-weight:900;color:var(--accent)}
+  .deck{text-align:center;font-size:34px;color:var(--ink-soft);max-width:900px;margin:0 auto;line-height:1.6}
+  .byline{text-align:center;font-size:22px;letter-spacing:.2em;margin-top:22px;color:var(--gold)}
+  .ornament{text-align:center;color:var(--gold);font-size:36px;letter-spacing:.8em;margin:30px 0 10px}
+
+  /* TOC */
+  #toc{border:3px solid var(--rule);outline:1px solid var(--rule);outline-offset:5px;background:var(--box);padding:26px 38px;margin:40px 0 50px}
+  #toc h2{margin:0 0 10px;font-size:34px;letter-spacing:.3em;text-align:center;border:none;padding:0}
+  #toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:48px;font-size:26px;line-height:1.9}
+  #toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--gold)}
+  #toc a:hover{color:var(--accent)}
+
+  /* Layout */
+  .grid{display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:start}
+  article{min-width:0}
+  article p{margin:0 0 1.05em;text-align:justify}
+  section{scroll-margin-top:30px;margin-bottom:56px}
+  h2{font-size:46px;font-weight:900;line-height:1.35;margin:0 0 22px;padding-bottom:10px;border-bottom:3px solid var(--rule)}
+  h2 .no{font-family:"Playfair Display",serif;font-weight:900;color:var(--gold);margin-right:14px}
+  .dropcap::first-letter{float:left;font-size:120px;line-height:.9;font-weight:900;color:var(--accent);padding:10px 16px 0 0}
+  .en{font-family:"Playfair Display",serif;font-style:italic;font-weight:700;color:var(--ink-soft)}
+  strong{font-weight:800;color:var(--accent)}
+  .num{font-weight:800}
+  .takeaway{display:inline-block;margin-top:6px;font-size:26px;letter-spacing:.08em;padding:6px 18px;border:2px solid var(--gold);color:var(--gold);font-weight:800}
+  .back{display:block;text-align:right;font-size:22px;margin-top:10px}
+  .back a{color:var(--gold);text-decoration:none;font-weight:800}
+
+  blockquote.pull{margin:38px 0;padding:26px 10px;border-top:4px solid var(--rule);border-bottom:4px solid var(--rule);font-size:44px;line-height:1.5;text-align:center;font-weight:900;color:var(--ink)}
+  blockquote.pull::before{content:"「";color:var(--accent)}
+  blockquote.pull::after{content:"」";color:var(--accent)}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:10px 0 24px}
+  .split > div{border:2px solid var(--rule);padding:18px 22px;background:var(--box);font-size:27px;line-height:1.65}
+  .split > div b{display:block;font-size:30px;font-weight:900;color:var(--accent);margin-bottom:6px}
+  .split .yr{display:block;margin-top:12px;font-size:22px;letter-spacing:.15em;color:var(--gold);font-weight:900;border-top:1px dashed var(--gold-soft);padding-top:8px}
+
+  /* Six-cell map */
+  .six{display:grid;grid-template-columns:150px 1fr 1fr;gap:12px;margin:14px 0 26px}
+  .six .hd{text-align:center;font-size:24px;letter-spacing:.2em;color:var(--gold);font-weight:900;padding:6px 0;border-bottom:3px solid var(--rule)}
+  .six .stage{display:flex;align-items:center;justify-content:center;text-align:center;font-size:26px;font-weight:900;border:2px solid var(--rule);background:var(--paper-2);line-height:1.4;padding:10px}
+  .six .cell{border:2px solid var(--rule);background:var(--box);padding:14px 18px;font-size:24px;line-height:1.6}
+  .six .cell .code{font-family:"Playfair Display",serif;font-size:34px;font-weight:900;color:var(--accent);margin-right:10px}
+  .six .cell .nm{font-size:26px;font-weight:900}
+  .six .cell.b{border-width:3px;border-color:var(--gold)}
+
+  /* Chart */
+  .chart{border:2px solid var(--rule);padding:24px 26px;background:var(--box);margin:20px 0 26px}
+  .chart h3{margin:0 0 14px;font-size:28px;letter-spacing:.12em}
+  .row{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;margin:12px 0;font-size:24px}
+  .track{background:var(--bar-bg);height:34px;position:relative}
+  .fill{height:100%;background:var(--accent)}
+  .fill.gold{background:var(--gold)}
+  .val{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-weight:800;font-size:22px}
+  .chart .note{font-size:20px;color:var(--ink-soft);margin-top:10px;line-height:1.6}
+  .chart .grp{margin-top:18px;font-size:22px;letter-spacing:.2em;color:var(--gold);font-weight:900}
+
+  /* Matrix table */
+  table.matrix{width:100%;border-collapse:collapse;margin:14px 0 26px;font-size:25px;line-height:1.5}
+  table.matrix th,table.matrix td{border:2px solid var(--rule);padding:12px 14px;text-align:left;vertical-align:top}
+  table.matrix th{background:var(--paper-2);font-weight:900;letter-spacing:.08em}
+  table.matrix td{background:var(--box)}
+  table.matrix td:first-child{font-weight:900;color:var(--accent);white-space:nowrap}
+
+  /* Numbered inferences */
+  .inf{border-left:6px solid var(--accent);padding:6px 0 6px 22px;margin:0 0 26px}
+  .inf h3{margin:0 0 6px;font-size:34px;font-weight:900;line-height:1.4}
+  .inf h3 span{font-family:"Playfair Display",serif;color:var(--gold);margin-right:10px}
+  .inf p{margin:0}
+
+  /* Sidebar */
+  aside{position:sticky;top:24px}
+  .side-box{border:3px double var(--rule);background:var(--paper-2);padding:22px 24px;margin-bottom:28px;font-size:24px;line-height:1.7}
+  .side-box h4{margin:0 0 12px;font-size:26px;letter-spacing:.3em;text-align:center;border-bottom:2px solid var(--rule);padding-bottom:8px}
+  .ledger{list-style:none;margin:0;padding:0}
+  .ledger li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--gold-soft);padding:8px 0}
+  .ledger li span:last-child{font-weight:800;color:var(--accent);white-space:nowrap}
+  .margin-note{font-size:22px;line-height:1.7;border-left:5px solid var(--gold);padding:6px 0 6px 16px;color:var(--ink-soft);margin:0 0 12px}
+  .margin-note b{color:var(--gold);font-weight:900}
+  .yt{display:block;text-align:center;margin-top:12px;padding:12px;border:2px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:900;letter-spacing:.1em}
+  .yt:hover{background:var(--accent);color:var(--paper)}
+
+  .colophon{margin-top:60px;border-top:6px double var(--rule);padding-top:18px;font-size:20px;text-align:center;color:var(--ink-soft);line-height:1.8}
+
+  /* Floating nav */
+  .fnav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:50}
+  .fnav a,.fnav button{font-family:inherit;font-weight:900;font-size:20px;letter-spacing:.1em;padding:10px 18px;border:2px solid var(--gold);background:var(--paper-2);color:var(--ink);text-decoration:none;cursor:pointer;text-align:center;box-shadow:0 4px 14px rgba(27,42,74,.25)}
+  .fnav a:hover,.fnav button:hover{background:var(--gold);color:var(--paper)}
+
+  @media (max-width:900px){
+    body{font-size:24px}
+    .wrap{padding:28px 18px 140px}
+    .masthead .name{font-size:52px}
+    .masthead .top,.masthead .bar{font-size:15px}
+    h1{font-size:46px}
+    .deck{font-size:26px}
+    h2{font-size:34px}
+    blockquote.pull{font-size:32px}
+    .dropcap::first-letter{font-size:84px}
+    .grid{grid-template-columns:1fr}
+    aside{position:static}
+    #toc ol{columns:1;font-size:22px}
+    .split{grid-template-columns:1fr}
+    .split > div{font-size:22px}
+    .six{grid-template-columns:1fr}
+    .six .hd{display:none}
+    .six .stage{margin-top:10px}
+    .six .cell{font-size:21px}
+    .row{grid-template-columns:130px 1fr;font-size:19px}
+    table.matrix{font-size:19px}
+    table.matrix td:first-child{white-space:normal}
+    .inf h3{font-size:27px}
+    .masthead .top span:nth-child(2){display:none}
+    .fnav{right:10px;bottom:10px;gap:6px}
+    .fnav a,.fnav button{font-size:15px;padding:6px 10px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="top"><span>老熊隨筆</span><span>後 AI 時代 · 精選外刊</span><span>二〇二六年十一月</span></div>
+    <div class="name">THE AI REVIEW<small>精選外刊</small></div>
+    <div class="bar"><span>教育</span><span>·</span><span>職場</span><span>·</span><span>退休</span></div>
+  </header>
+
+  <div class="kicker">後 AI 時代 · 延伸推演</div>
+  <h1>同一條起跑線，<br>十年後的 <span class="num">六</span> 種人生</h1>
+  <p class="deck">拿李飛飛「構建者 vs 等待者」這把尺，量一量中學畢業生、職場中堅、退休族三代人：照舊過日子，和擁抱 AI，五到十年後差多少？</p>
+  <div class="byline">承接〈一年八萬美元的私教，AI 只要一百美元〉 · 老熊隨筆編排</div>
+  <div class="ornament">❦ ❦ ❦</div>
+
+  <nav id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#s1">導言：把二分法切成六格</a></li>
+      <li><a href="#s2">先看地圖：六格速覽</a></li>
+      <li><a href="#s3">第一代：中學畢業的年輕人</a></li>
+      <li><a href="#s4">第二代：職涯中段的中堅</a></li>
+      <li><a href="#s5">第三代：退休族</a></li>
+      <li><a href="#s6">橫向比較：哪一代差最多</a></li>
+      <li><a href="#s7">三個反直覺的推論</a></li>
+      <li><a href="#s8">結語：格子是可以換的</a></li>
+    </ol>
+  </nav>
+
+  <div class="grid">
+    <article>
+
+      <section id="s1">
+        <h2><span class="no">I</span>導言：把二分法切成六格</h2>
+        <p class="dropcap">上一篇整理李飛飛的短片，核心是一刀切：積極的構建者，和被動的等待者。可是同一刀落在不同年紀的人身上，深淺完全不同。十八歲的人還有四十年職涯可以利滾利；四十歲的人要守住飯碗；退休的人已經不用上班，賭的是生活品質和腦力。</p>
+        <p>所以這篇把人分成三個階段，每個階段再分兩種態度：<strong>a 照舊</strong>，<strong>b 主動用 AI、學 AI</strong>，一共六格。再拿上一篇的四個概念（分化、教育成本、工作速度、人才類型）來推演：<span class="num">2031</span> 年（五年後）和 <span class="num">2036</span> 年（十年後），這六種人各會是什麼樣子。</p>
+        <blockquote class="pull">同樣是用不用 AI，對十八歲是複利，對四十歲是存亡，對七十歲是活力。</blockquote>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s2">
+        <h2><span class="no">II</span>先看地圖：六格速覽</h2>
+        <p>先給全貌，每一格寫一句十年後最可能的樣子：</p>
+        <div class="six">
+          <div class="hd">階段</div><div class="hd">a · 照舊</div><div class="hd">b · 擁抱 AI</div>
+
+          <div class="stage">中學畢業<br>求學中</div>
+          <div class="cell"><span class="code">1a</span><span class="nm">照舊求學</span><br>學歷到手，卻發現履歷上的技能，別人用 AI 一週就學得會。</div>
+          <div class="cell b"><span class="code">1b</span><span class="nm">求學＋AI</span><br>把 100 美元的導師，用出 8 萬美元私教的效果，一起跑就領先一個身位。</div>
+
+          <div class="stage">職涯中段<br>工作數年</div>
+          <div class="cell"><span class="code">2a</span><span class="nm">照舊工作</span><br>經驗還值錢，但產出會被拿去跟「一個人加 AI」比。</div>
+          <div class="cell b"><span class="code">2b</span><span class="nm">工作＋AI</span><br>經驗乘上槓桿，最有機會成為頂尖 1% 專家或跨界通才。</div>
+
+          <div class="stage">退休族</div>
+          <div class="cell"><span class="code">3a</span><span class="nm">照舊退休</span><br>生活無虞，但辦事、防詐、看病溝通，愈來愈要靠子女。</div>
+          <div class="cell b"><span class="code">3b</span><span class="nm">退休＋AI</span><br>第二條曲線：學新東西、做新作品，腦子比十年前還忙。</div>
+        </div>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s3">
+        <h2><span class="no">III</span>第一代：中學畢業的年輕人</h2>
+        <p>「教育成本革命」對這一代影響最大。上一篇說，一年 <span class="num">1.2 萬</span>到 <span class="num">8 萬</span>美元的私教，AI 導師大約 <span class="num">100</span> 美元就做得到。對 1b 來說，等於人人都有一位隨叫隨到的家教：微積分卡住、論文讀不懂、程式跑不動，問了就有人講，而且講到懂為止。</p>
+        <div class="split">
+          <div><b>1a 照舊求學</b><span class="en">The Traditional Track</span>
+            <span class="yr">五年後 · 2031</span>拿到學位，基本功扎實；但作業和報告的「工作量」不再是本事，同學用 AI 半天做完的事，他要三天。
+            <span class="yr">十年後 · 2036</span>雇主已經預設新人會用 AI，他得邊工作邊補課，起步慢一拍，但不至於出局。</div>
+          <div><b>1b 求學＋AI</b><span class="en">The AI-Native Learner</span>
+            <span class="yr">五年後 · 2031</span>學得更快，也能跨科自學，例如念化工的順便把資料分析學起來。
+            <span class="yr">十年後 · 2036</span>二十八歲上下，已經用 AI 做過好幾個真正的作品，是天生的構建者，最有機會走向通才或頂尖專家。</div>
+        </div>
+        <p>不過 1b 裡面還藏著一道更細的裂縫。同樣用 AI，有人把它當<strong>家教</strong>：先自己想，卡住才問，問完弄懂為什麼。有人把它當<strong>代筆</strong>：作業丟進去，答案抄出來。前者十年後是真高手；後者可能比 1a 還糟，文憑一樣，腦子裡卻沒東西，連基本功都沒練過。</p>
+        <span class="takeaway">關鍵不在用不用，在「拿來學」還是「拿來抄」</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s4">
+        <h2><span class="no">IV</span>第二代：職涯中段的中堅</h2>
+        <p>「工作方式巨變」對這一代衝擊最直接。上一篇說產品經理幾分鐘就做得出原型；寫報告、做分析、寫程式、整理文件，也會被同樣壓縮。2a 十年的經驗仍然值錢，但他每天的產出，會被拿去跟「一個 2b 加上 AI」比。</p>
+        <div class="split">
+          <div><b>2a 照舊工作</b><span class="en">The Steady Hand</span>
+            <span class="yr">五年後 · 2031</span>多半還在原來的位子，經驗和人脈仍是護城河；但升遷、加薪開始落後同儕。
+            <span class="yr">十年後 · 2036</span>萬一碰上裁員或轉職，才發現市場要的是「會帶著 AI 做事的資深者」，重新找工作的門檻高了。最危險的是中間層職務：資深得不夠，無法不可取代；又不夠年輕，不容易轉身。</div>
+          <div><b>2b 工作＋AI</b><span class="en">The Amplified Expert</span>
+            <span class="yr">五年後 · 2031</span>一個人做得了以前一個小組的事，把多年累積的領域知識，用 AI 放大成更多產出。
+            <span class="yr">十年後 · 2036</span>最有機會成為上一篇說的兩種「最值錢的人」：用 AI 把專業鑽到頂尖 1%，或用 AI 跨進鄰近領域，成為跨界通才。</div>
+        </div>
+        <p>六格裡，「指數級放大效應」在這一格最明顯。道理很簡單：<strong>AI 放大的是你本來就有的東西</strong>。年輕人還在累積，退休族不再需要產出，只有中堅同時擁有深厚的領域知識和迫切的產出需求。一位懂製程的工程師加上 AI，遠勝過一位只會 AI 的新人。</p>
+        <span class="takeaway">經驗 × AI＝最大槓桿；經驗 × 觀望＝慢慢貶值</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s5">
+        <h2><span class="no">V</span>第三代：退休族</h2>
+        <p>到了退休族，「用 AI 的人會淘汰不用的人」這句話得改寫，因為退休的人沒有工作可以被淘汰。這一代的差距不在收入，而在三件事：<strong>腦力、自主、連結</strong>。</p>
+        <div class="split">
+          <div><b>3a 照舊退休</b><span class="en">The Classic Retirement</span>
+            <span class="yr">五年後 · 2031</span>日子照過，看不出損失；但銀行、醫療、政府服務愈來愈數位化，遇到事常要等子女來幫。
+            <span class="yr">十年後 · 2036</span>AI 合成的聲音、影片詐騙更逼真，資訊更難判斷；世界的變化，多半是「聽說」而不是「看懂」。這不算失敗，只是被動。</div>
+          <div><b>3b 退休＋AI</b><span class="en">The Second Curve</span>
+            <span class="yr">五年後 · 2031</span>那位 100 美元的導師，一樣服務七十歲的學生：想學的歷史、數學、程式，隨時有人陪讀。
+            <span class="yr">十年後 · 2036</span>持續做出作品（文章、工具、研究），自己查證醫療和財務資訊、識破詐騙，跟孫輩聊得上 AI；腦子比剛退休時還忙。</div>
+        </div>
+        <p>老熊自己就是一個樣本：退休後架了一個上百篇文章的網站，把當年的 MATLAB 演算法移植到 Python，到社區大學修課，還拿 AI 來查證自己的記憶。對 3b 來說，AI 的價值不在「生產力」，而在上一篇的結語：<strong>保持好奇，付諸行動</strong>。這句話放在這一格最貼切。</p>
+        <p>也得替 3a 說句公道話：他們不必有壓力。釣魚、種花、含飴弄孫，本來就是退休的意義。差別只在 3b 多了一個選項：想學什麼就學，想做什麼就自己動手。</p>
+        <span class="takeaway">退休族比的不是誰賺得多，而是誰的世界還在變大</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s6">
+        <h2><span class="no">VI</span>橫向比較：哪一代差最多</h2>
+        <div class="chart">
+          <h3>a 與 b 的差距有多大（編者主觀評估）</h3>
+          <div class="grp">第一代 · 年輕人</div>
+          <div class="row"><span>五年後</span><div class="track"><div class="fill gold" style="width:40%"></div><span class="val">中</span></div></div>
+          <div class="row"><span>十年後</span><div class="track"><div class="fill" style="width:95%"></div><span class="val" style="color:var(--paper)">最大</span></div></div>
+          <div class="grp">第二代 · 中堅</div>
+          <div class="row"><span>五年後</span><div class="track"><div class="fill" style="width:65%"></div><span class="val">大</span></div></div>
+          <div class="row"><span>十年後</span><div class="track"><div class="fill" style="width:80%"></div><span class="val" style="color:var(--paper)">很大</span></div></div>
+          <div class="grp">第三代 · 退休族</div>
+          <div class="row"><span>五年後</span><div class="track"><div class="fill gold" style="width:20%"></div><span class="val">小</span></div></div>
+          <div class="row"><span>十年後</span><div class="track"><div class="fill gold" style="width:40%"></div><span class="val">中</span></div></div>
+          <p class="note">長條是編者依本文推理做的相對評估，不是實測數據，只用來看三條曲線的「形狀」。</p>
+        </div>
+        <p>三條曲線形狀不一樣。<strong>中堅的差距來得最早</strong>，五年內就會出現在升遷和裁員名單上。<strong>年輕人的差距起步溫和</strong>，卻會隨著四十年職涯複利放大，十年後最大。<strong>退休族的差距最小</strong>，也最不關乎錢，但會在健康、安全和生活樂趣上慢慢顯現。</p>
+        <table class="matrix">
+          <tr><th>階段</th><th>賭的是什麼</th><th>差距何時出現</th><th>最大的坑</th></tr>
+          <tr><td>年輕人</td><td>四十年的複利</td><td>慢，但最後最大</td><td>把 AI 當代筆</td></tr>
+          <tr><td>中堅</td><td>飯碗與升遷</td><td>最快</td><td>觀望到被裁</td></tr>
+          <tr><td>退休族</td><td>腦力與自主</td><td>慢，而且小</td><td>被動、被詐騙</td></tr>
+        </table>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s7">
+        <h2><span class="no">VII</span>三個反直覺的推論</h2>
+        <div class="inf">
+          <h3><span>一</span>七十歲的 3b，可能比十八歲的 1a 更懂 AI</h3>
+          <p>分界線不是年齡，是態度。十年後，一位天天用 AI 的退休工程師，用工具的熟練度，很可能勝過一位只拿手機滑短影片的大學畢業生。</p>
+        </div>
+        <div class="inf">
+          <h3><span>二</span>1b 不保證是贏家</h3>
+          <p>前面說過，拿 AI 代筆的學生，可能比照舊念書的同學更慘。AI 是放大器：放大用功，也放大偷懶。</p>
+        </div>
+        <div class="inf">
+          <h3><span>三</span>十年後，「a」這個選項可能不存在了</h3>
+          <p>到了 2036 年，AI 會像電一樣藏在每個軟體裡，想完全不用幾乎不可能。真正的分化會從「用 vs 不用」，變成「<strong>構建 vs 消費</strong>」：是拿 AI 做出東西，還是只被 AI 餵內容。這其實正是李飛飛「構建者 vs 等待者」的原意。</p>
+        </div>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s8">
+        <h2><span class="no">VIII</span>結語：格子是可以換的</h2>
+        <p>這張六格表最重要的一點是：<strong>格子不是一輩子的</strong>。1a 明天就能變成 1b，2a 可以變 2b，3a 也隨時能變 3b。老熊就是退休之後才換格的。</p>
+        <blockquote class="pull">換格不看年紀，只看你今天有沒有動手。</blockquote>
+        <p>上一篇的結論是「保持好奇，付諸行動」。放進六格裡看，這句話對每一代都成立，只是意思不同：對年輕人是起跑，對中堅是轉身，對退休族，是讓自己的世界繼續變大。</p>
+        <p style="text-align:center"><a class="yt" href="https://www.youtube.com/shorts/rQ4PHFB302c" target="_blank" rel="noopener noreferrer">▶ 看李飛飛原片</a></p>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+    </article>
+
+    <aside>
+      <div class="side-box">
+        <h4>六格速查</h4>
+        <ul class="ledger">
+          <li><span>1a 照舊求學</span><span>慢一拍</span></li>
+          <li><span>1b 求學＋AI</span><span>複利起跑</span></li>
+          <li><span>2a 照舊工作</span><span>慢慢貶值</span></li>
+          <li><span>2b 工作＋AI</span><span>槓桿最大</span></li>
+          <li><span>3a 照舊退休</span><span>安穩被動</span></li>
+          <li><span>3b 退休＋AI</span><span>第二曲線</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>時間軸</h4>
+        <ul class="ledger">
+          <li><span>現在</span><span>2026</span></li>
+          <li><span>五年後</span><span>2031</span></li>
+          <li><span>十年後</span><span>2036</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>概念對照</h4>
+        <ul class="ledger">
+          <li><span>構建 vs 等待</span><span>六格全部</span></li>
+          <li><span>教育成本</span><span>1b、3b</span></li>
+          <li><span>工作速度</span><span>2a、2b</span></li>
+          <li><span>深度＋廣度</span><span>1b、2b</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>編者按</h4>
+        <p class="margin-note"><b>性質說明：</b>本文是借用上一篇〈一年八萬美元的私教〉的概念所做的推演，屬於觀點與推理，不是預測模型；長條和評語都是編者的主觀判斷。</p>
+        <p class="margin-note"><b>數字來源：</b>私教 1.2 萬至 8 萬美元、AI 導師約 100 美元，沿用原短片所述，未另行查證。</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="colophon">
+    老熊隨筆 · 後 AI 時代 ❦ 本頁延伸自李飛飛相關 YouTube 短片的整理文章<br>
+    <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">changhsiung-chemometrician.github.io/Lao_Xiong</a>
+  </footer>
+</div>
+
+<div class="fnav">
+  <button type="button" id="themeBtn" aria-label="切換深淺色">☾ 深色</button>
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function isDark(){
+    var t=root.getAttribute('data-theme');
+    if(t) return t==='dark';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function label(){ btn.textContent = isDark() ? '☀ 淺色' : '☾ 深色'; }
+  try{ var saved=localStorage.getItem('lx-theme'); if(saved) root.setAttribute('data-theme',saved); }catch(e){}
+  label();
+  btn.addEventListener('click',function(){
+    var next=isDark()?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('lx-theme',next); }catch(e){}
+    label();
+  });
+})();
+</script>
+</body>
+</html>
