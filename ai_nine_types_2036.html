@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代溝的第二個維度：十年後的九種人生 — 三代人 × 三種 AI 用法</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f2e8cf; --paper-2:#eadcb8; --ink:#1b2a4a; --ink-soft:#33426a;
+    --rule:#1b2a4a; --accent:#8b2e1f; --gold:#a87a1f; --gold-soft:#d9bd78;
+    --box:#e6d6ad; --bar-bg:rgba(27,42,74,.10); --seg-a:rgba(51,66,106,.38);
+  }
+  html[data-theme="dark"]{
+    --paper:#13213f; --paper-2:#1a2b50; --ink:#f1e7cb; --ink-soft:#cfc3a1;
+    --rule:#d9b65e; --accent:#f0a77a; --gold:#e3bc5f; --gold-soft:#8a7034;
+    --box:#1c2f58; --bar-bg:rgba(241,231,203,.12); --seg-a:rgba(207,195,161,.38);
+  }
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]){
+      --paper:#13213f; --paper-2:#1a2b50; --ink:#f1e7cb; --ink-soft:#cfc3a1;
+      --rule:#d9b65e; --accent:#f0a77a; --gold:#e3bc5f; --gold-soft:#8a7034;
+      --box:#1c2f58; --bar-bg:rgba(241,231,203,.12); --seg-a:rgba(207,195,161,.38);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--paper)}
+  body{margin:0;background:var(--paper);min-height:100vh;color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;font-weight:700;
+    font-size:32px;line-height:1.85;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 40px 140px}
+
+  /* Masthead */
+  .masthead{text-align:center;border-bottom:6px double var(--rule);padding-bottom:18px}
+  .masthead .top{display:flex;justify-content:space-between;font-size:20px;letter-spacing:.12em;color:var(--ink-soft);border-bottom:2px solid var(--rule);padding-bottom:10px}
+  .masthead .name{font-family:"Playfair Display","Noto Serif TC",serif;font-weight:900;font-size:84px;letter-spacing:.06em;line-height:1.15;margin:18px 0 4px}
+  .masthead .name small{display:block;font-family:"Noto Serif TC",serif;font-size:28px;letter-spacing:.6em;color:var(--gold);font-weight:900;margin-top:6px}
+  .masthead .bar{display:flex;justify-content:center;gap:28px;font-size:20px;letter-spacing:.2em;border-top:2px solid var(--rule);padding-top:10px;margin-top:14px;color:var(--ink-soft)}
+
+  /* Headline */
+  .kicker{margin-top:48px;text-align:center;font-size:24px;letter-spacing:.4em;color:var(--accent);font-weight:900}
+  h1{font-size:76px;line-height:1.25;text-align:center;font-weight:900;margin:18px 0 22px;letter-spacing:.02em}
+  h1 .num{font-weight:900;color:var(--accent)}
+  .deck{text-align:center;font-size:34px;color:var(--ink-soft);max-width:900px;margin:0 auto;line-height:1.6}
+  .byline{text-align:center;font-size:22px;letter-spacing:.2em;margin-top:22px;color:var(--gold)}
+  .ornament{text-align:center;color:var(--gold);font-size:36px;letter-spacing:.8em;margin:30px 0 10px}
+
+  /* TOC */
+  #toc{border:3px solid var(--rule);outline:1px solid var(--rule);outline-offset:5px;background:var(--box);padding:26px 38px;margin:40px 0 50px}
+  #toc h2{margin:0 0 10px;font-size:34px;letter-spacing:.3em;text-align:center;border:none;padding:0}
+  #toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:48px;font-size:26px;line-height:1.9}
+  #toc a{color:var(--ink);text-decoration:none;border-bottom:2px dotted var(--gold)}
+  #toc a:hover{color:var(--accent)}
+
+  /* Layout */
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:50px;align-items:start}
+  article{min-width:0}
+  p{margin:0 0 1.05em;text-align:justify}
+  section{scroll-margin-top:30px;margin-bottom:56px}
+  h2{font-size:46px;font-weight:900;line-height:1.35;margin:0 0 22px;padding-bottom:10px;border-bottom:3px solid var(--rule)}
+  h2 .no{font-family:"Playfair Display",serif;font-weight:900;color:var(--gold);margin-right:14px}
+  .dropcap::first-letter{float:left;font-size:120px;line-height:.9;font-weight:900;color:var(--accent);padding:10px 16px 0 0}
+  .en{font-family:"Playfair Display",serif;font-style:italic;font-weight:700;color:var(--ink-soft);font-size:.85em}
+  strong{font-weight:800;color:var(--accent)}
+  .num{font-weight:800}
+  .takeaway{display:inline-block;margin-top:6px;font-size:26px;letter-spacing:.08em;padding:6px 18px;border:2px solid var(--gold);color:var(--gold);font-weight:800}
+  .back{display:block;text-align:right;font-size:22px;margin-top:10px}
+  .back a{color:var(--gold);text-decoration:none;font-weight:800}
+
+  blockquote.pull{margin:38px 0;padding:26px 10px;border-top:4px solid var(--rule);border-bottom:4px solid var(--rule);font-size:44px;line-height:1.5;text-align:center;font-weight:900;color:var(--ink)}
+  blockquote.pull::before{content:"「";color:var(--accent)}
+  blockquote.pull::after{content:"」";color:var(--accent)}
+
+  /* Two axes */
+  .axes{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:10px 0 24px}
+  .axes > div{border:2px solid var(--rule);padding:18px 22px;background:var(--box);font-size:27px;line-height:1.65}
+  .axes > div b{display:block;font-size:30px;font-weight:900;color:var(--accent);margin-bottom:6px}
+
+  /* Column definitions */
+  ul.defs{list-style:none;margin:0 0 1.05em;padding:0}
+  ul.defs li{border-bottom:1px dashed var(--gold-soft);padding:8px 0}
+  ul.defs .tag{display:inline-block;min-width:118px;font-weight:900;color:var(--accent);margin-right:12px}
+  ul.defs.path .tag{display:block;min-width:0;margin:0}
+
+  /* Nine-cell map */
+  .nine{display:grid;grid-template-columns:150px repeat(3,1fr);gap:12px;margin:14px 0 26px}
+  .nine .hd{text-align:center;font-size:24px;letter-spacing:.15em;color:var(--gold);font-weight:900;padding:6px 0;border-bottom:3px solid var(--rule);line-height:1.4}
+  .nine .hd small{display:block;font-size:19px;letter-spacing:.05em;color:var(--ink-soft)}
+  .nine .stage{display:flex;align-items:center;justify-content:center;text-align:center;font-size:26px;font-weight:900;border:2px solid var(--rule);background:var(--paper-2);line-height:1.4;padding:10px}
+  .nine .cell{border:2px solid var(--rule);background:var(--box);padding:14px 16px;font-size:23px;line-height:1.6}
+  .nine .cell .code{font-family:"Playfair Display",serif;font-size:32px;font-weight:900;color:var(--accent);margin-right:8px}
+  .nine .cell .nm{font-size:25px;font-weight:900}
+  .nine .cell.b{border-style:dashed}
+  .nine .cell.c{border-width:3px;border-color:var(--gold)}
+
+  /* Per-generation trio */
+  .trio{margin:10px 0 24px}
+  .trio > div{border:2px solid var(--rule);background:var(--box);padding:18px 22px;margin-bottom:16px;font-size:26px;line-height:1.65}
+  .trio > div.b{border-style:dashed}
+  .trio > div.c{border-width:3px;border-color:var(--gold)}
+  .trio > div > b{font-size:30px;font-weight:900;color:var(--accent);margin-right:12px}
+  .yrs{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+  .yr{display:block;font-size:22px;letter-spacing:.15em;color:var(--gold);font-weight:900;border-top:1px dashed var(--gold-soft);padding-top:6px}
+
+  /* Stacked chart */
+  .chart{border:2px solid var(--rule);padding:24px 26px;background:var(--box);margin:20px 0 26px}
+  .chart h3{margin:0 0 14px;font-size:28px;letter-spacing:.12em}
+  .legend{display:flex;flex-wrap:wrap;gap:22px;font-size:22px;margin-bottom:10px}
+  .legend i{display:inline-block;width:26px;height:18px;margin-right:8px;vertical-align:middle;border:1px solid var(--rule)}
+  .srow{display:grid;grid-template-columns:90px 1fr;gap:16px;align-items:center;margin:12px 0;font-size:24px}
+  .stack{display:flex;height:42px;border:1px solid var(--rule)}
+  .stack span{display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--paper);overflow:hidden;white-space:nowrap}
+  .sa{background:var(--seg-a);color:var(--ink) !important}
+  .sb{background:var(--gold)}
+  .sc{background:var(--accent)}
+  .chart .note{font-size:20px;color:var(--ink-soft);margin-top:10px;line-height:1.6}
+
+  /* Tables */
+  table.matrix{width:100%;border-collapse:collapse;margin:14px 0 26px;font-size:24px;line-height:1.5}
+  table.matrix th,table.matrix td{border:2px solid var(--rule);padding:12px 14px;text-align:left;vertical-align:top}
+  table.matrix th{background:var(--paper-2);font-weight:900;letter-spacing:.06em}
+  table.matrix td{background:var(--box)}
+  table.matrix td:first-child{font-weight:900;color:var(--accent);white-space:nowrap}
+  table.matrix th{white-space:nowrap}
+  table.gaps td:nth-child(2),table.gaps td:nth-child(3){white-space:nowrap}
+
+  /* Inferences */
+  .inf{border-left:6px solid var(--accent);padding:6px 0 6px 22px;margin:0 0 26px}
+  .inf h3{margin:0 0 6px;font-size:34px;font-weight:900;line-height:1.4}
+  .inf h3 span{font-family:"Playfair Display",serif;color:var(--gold);margin-right:10px}
+  .inf p{margin:0}
+
+  /* Sidebar */
+  aside{position:sticky;top:24px}
+  .side-box{border:3px double var(--rule);background:var(--paper-2);padding:22px 24px;margin-bottom:28px;font-size:24px;line-height:1.7}
+  .side-box h4{margin:0 0 12px;font-size:26px;letter-spacing:.3em;text-align:center;border-bottom:2px solid var(--rule);padding-bottom:8px}
+  .ledger{list-style:none;margin:0;padding:0}
+  .ledger li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--gold-soft);padding:8px 0}
+  .ledger li span:last-child{font-weight:800;color:var(--accent);white-space:nowrap}
+  .margin-note{font-size:22px;line-height:1.7;border-left:5px solid var(--gold);padding:6px 0 6px 16px;color:var(--ink-soft);margin:0 0 12px}
+  .margin-note b{color:var(--gold);font-weight:900}
+  .yt{display:block;text-align:center;margin-top:12px;padding:12px;border:2px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:900;letter-spacing:.1em}
+  .yt:hover{background:var(--accent);color:var(--paper)}
+
+  .colophon{margin-top:60px;border-top:6px double var(--rule);padding-top:18px;font-size:20px;text-align:center;color:var(--ink-soft);line-height:1.8}
+
+  /* Floating nav */
+  .fnav{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:50}
+  .fnav a,.fnav button{font-family:inherit;font-weight:900;font-size:20px;letter-spacing:.1em;padding:10px 18px;border:2px solid var(--gold);background:var(--paper-2);color:var(--ink);text-decoration:none;cursor:pointer;text-align:center;box-shadow:0 4px 14px rgba(27,42,74,.25)}
+  .fnav a:hover,.fnav button:hover{background:var(--gold);color:var(--paper)}
+
+  @media (max-width:900px){
+    body{font-size:24px}
+    .wrap{padding:28px 18px 140px}
+    .masthead .name{font-size:52px}
+    .masthead .top,.masthead .bar{font-size:15px}
+    h1{font-size:44px}
+    .deck{font-size:26px}
+    h2{font-size:34px}
+    blockquote.pull{font-size:30px}
+    .dropcap::first-letter{font-size:84px}
+    .grid{grid-template-columns:1fr}
+    aside{position:static}
+    #toc ol{columns:1;font-size:22px}
+    .axes{grid-template-columns:1fr}
+    .axes > div{font-size:22px}
+    .nine{grid-template-columns:1fr}
+    .nine .hd{display:none}
+    .nine .stage{margin-top:12px}
+    .nine .cell{font-size:21px}
+    .trio > div{font-size:22px}
+    .yrs{grid-template-columns:1fr;gap:6px}
+    .srow{grid-template-columns:64px 1fr;font-size:19px}
+    .stack span{font-size:15px}
+    table.matrix{font-size:18px}
+    table.matrix td:first-child,table.matrix th,table.gaps td{white-space:normal !important}
+    .inf h3{font-size:27px}
+    .masthead .top span:nth-child(2){display:none}
+    .fnav{right:10px;bottom:10px;gap:6px}
+    .fnav a,.fnav button{font-size:15px;padding:6px 10px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="top"><span>老熊隨筆</span><span>後 AI 時代 · 精選外刊</span><span>二〇二六年十一月</span></div>
+    <div class="name">THE AI REVIEW<small>精選外刊</small></div>
+    <div class="bar"><span>教育</span><span>·</span><span>職場</span><span>·</span><span>退休</span><span>·</span><span>代溝</span></div>
+  </header>
+
+  <div class="kicker">後 AI 時代 · 延伸推演 · 九格版</div>
+  <h1>代溝的第二個維度：<br>十年後的 <span class="num">九</span> 種人生</h1>
+  <p class="deck">代溝不只看年齡了。拿「年齡」和「AI 用法」當兩條軸，把三代人各分成不用、消費、構建三種：五到十年後，九種人生差多少？</p>
+  <div class="byline">承接〈一年八萬美元的私教〉 · 由〈十年後的六種人生〉改寫 · 老熊隨筆編排</div>
+  <div class="ornament">❦ ❦ ❦</div>
+
+  <nav id="toc">
+    <h2>目　錄</h2>
+    <ol>
+      <li><a href="#s1">導言：代溝之外，還有一道 AI 溝</a></li>
+      <li><a href="#s2">先看地圖：九格速覽</a></li>
+      <li><a href="#s3">第一代：中學畢業的年輕人</a></li>
+      <li><a href="#s4">第二代：職涯中段的中堅</a></li>
+      <li><a href="#s5">第三代：退休族</a></li>
+      <li><a href="#s6">兩道溝：直看、橫看、斜看</a></li>
+      <li><a href="#s7">四個反直覺的推論</a></li>
+      <li><a href="#s8">老熊的格子：只往下，沒往右</a></li>
+      <li><a href="#s9">結語：往右移一格</a></li>
+    </ol>
+  </nav>
+
+  <section id="s1">
+    <h2><span class="no">I</span>導言：代溝之外，還有一道 AI 溝</h2>
+    <p class="dropcap">「代溝」原本只有一個維度：年齡。父母和子女之間的距離，來自成長的年代不同，價值觀和經歷也就不同。到了網路時代，這條軸還多背了一件事：年輕人懂科技，長輩不懂。可是 AI 打亂了這個默契。AI 放大的是你本來就有的東西，而長輩手上的經驗和判斷，恰恰最值得放大。<strong>年齡，不再能預測誰走在前面。</strong></p>
+    <p>上一版〈十年後的六種人生〉，把李飛飛「構建者 vs 等待者」的二分法，切成三代人 × 兩種態度（照舊、擁抱 AI）。寫完之後發現兩個問題。第一，「擁抱 AI」那一欄裡藏著一道裂縫：同樣用 AI，有人拿來學，有人拿來抄，結果可能完全相反。第二，到了 <span class="num">2036</span> 年，AI 會像電一樣藏在每個軟體裡，「不用」這個選項幾乎不存在了。</p>
+    <p>所以這一版把橫軸切成三欄，變成兩條軸、九個格子：</p>
+    <div class="axes">
+      <div><b>縱軸 · 年齡</b>年輕人、中堅、退休族。只會往一個方向走，誰也改不了。</div>
+      <div><b>橫軸 · AI 用法</b>不用、消費、構建。隨時可以往右移，看的是態度，不是年紀。</div>
+    </div>
+    <blockquote class="pull">年齡是改不了的溝，AI 用法是跨得過的溝。</blockquote>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <section id="s2">
+    <h2><span class="no">II</span>先看地圖：九格速覽</h2>
+    <p>橫軸三欄的定義：</p>
+    <ul class="defs">
+      <li><span class="tag">a · 不用</span>照舊過日子，不碰，或排斥。</li>
+      <li><span class="tag">b · 消費</span>會用，但被動：拿來抄、拿來代勞、被它餵內容，判斷交給 AI。</li>
+      <li><span class="tag">c · 構建</span>拿來學、拿來做、拿來查證，判斷留在自己手上。</li>
+    </ul>
+    <p>每一格寫一句十年後（2036）最可能的樣子：</p>
+    <div class="nine">
+      <div class="hd">階段</div>
+      <div class="hd">a · 不用<small>照舊</small></div>
+      <div class="hd">b · 消費<small>被動地用</small></div>
+      <div class="hd">c · 構建<small>主動地用</small></div>
+
+      <div class="stage">中學畢業<br>求學中</div>
+      <div class="cell"><span class="code">1a</span><span class="nm">照舊求學</span><br>學歷到手，卻發現履歷上的技能，別人用 AI 一週就學得會。</div>
+      <div class="cell b"><span class="code">1b</span><span class="nm">拿來抄</span><br>作業交得最快，腦子裡最空；文憑一樣，基本功沒練過。</div>
+      <div class="cell c"><span class="code">1c</span><span class="nm">拿來學</span><br>把 100 美元的導師用出 8 萬美元私教的效果，二十八歲已有作品。</div>
+
+      <div class="stage">職涯中段<br>工作數年</div>
+      <div class="cell"><span class="code">2a</span><span class="nm">照舊工作</span><br>經驗還值錢，但產出會被拿去跟「一個人加 AI」比。</div>
+      <div class="cell b"><span class="code">2b</span><span class="nm">拿來代勞</span><br>每天省一兩小時，卻把最容易被取代的那部分交了出去。</div>
+      <div class="cell c"><span class="code">2c</span><span class="nm">經驗×槓桿</span><br>一個人抵一個小組，最有機會成為頂尖 1% 或跨界通才。</div>
+
+      <div class="stage">退休族</div>
+      <div class="cell"><span class="code">3a</span><span class="nm">照舊退休</span><br>生活無虞，但辦事、防詐、看病溝通，愈來愈要靠子女。</div>
+      <div class="cell b"><span class="code">3b</span><span class="nm">被餵內容</span><br>資訊收得最多、判斷跟不上，面對 AI 詐騙反而更容易上當。</div>
+      <div class="cell c"><span class="code">3c</span><span class="nm">第二曲線</span><br>學新東西、做新作品、自己查證，腦子比十年前還忙。</div>
+    </div>
+    <p>讀這張圖有三個方向：橫著看是 AI 溝，直著看是傳統代溝，斜著看最有意思，第六節再談。</p>
+    <span class="back"><a href="#toc">↑ 回目錄</a></span>
+  </section>
+
+  <div class="grid">
+    <article>
+
+      <section id="s3">
+        <h2><span class="no">III</span>第一代：中學畢業的年輕人</h2>
+        <p>「教育成本革命」對這一代影響最大：一年 <span class="num">1.2 萬</span>到 <span class="num">8 萬</span>美元的私教，AI 導師大約 <span class="num">100</span> 美元就做得到。但同一位導師，用法不同，教出來的是完全不同的人。</p>
+        <div class="trio">
+          <div><b>1a 照舊求學</b><span class="en">The Traditional Track</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>拿到學位，基本功扎實；但同學用 AI 半天做完的報告，他要三天。</div>
+              <div><span class="yr">十年後 · 2036</span>雇主預設新人會用 AI，他得邊工作邊補課，起步慢一拍，但不至於出局。</div>
+            </div>
+          </div>
+          <div class="b"><b>1b 拿來抄</b><span class="en">The Copy-Paster</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>作業最快交、分數不差，看起來像贏家。</div>
+              <div><span class="yr">十年後 · 2036</span>文憑一樣，腦子裡卻沒東西；第一次碰到 AI 答錯的問題，才發現自己沒有能力分辨。</div>
+            </div>
+          </div>
+          <div class="c"><b>1c 拿來學</b><span class="en">The AI-Native Learner</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>先自己想，卡住才問，問完弄懂為什麼；還能跨科自學，例如念化工的順便學會資料分析。</div>
+              <div><span class="yr">十年後 · 2036</span>二十八歲上下，已經做過好幾個真正的作品，最有機會走向頂尖專家或跨界通才。</div>
+            </div>
+          </div>
+        </div>
+        <p>這一代最大的陷阱是 1b，因為它看起來像 1c。兩者用的是同一個工具，差別只在一個習慣：<strong>答案出來之後，有沒有追問為什麼</strong>。</p>
+        <span class="takeaway">同一位一百美元的導師，教得出高手，也養得出空殼</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s4">
+        <h2><span class="no">IV</span>第二代：職涯中段的中堅</h2>
+        <p>「工作方式巨變」對這一代衝擊最直接。產品經理幾分鐘就做得出原型；寫報告、做分析、寫程式，也被同樣壓縮。這一代的三欄，差的不只是效率，而是被取代的機率。</p>
+        <div class="trio">
+          <div><b>2a 照舊工作</b><span class="en">The Steady Hand</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>多半還在原位，經驗和人脈仍是護城河；但升遷、加薪開始落後同儕。</div>
+              <div><span class="yr">十年後 · 2036</span>碰上裁員或轉職才發現，市場要的是「會帶著 AI 做事的資深者」，重新找工作的門檻高了。</div>
+            </div>
+          </div>
+          <div class="b"><b>2b 拿來代勞</b><span class="en">The Autopilot</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>用 AI 寫信、做簡報、整理會議紀錄，每天省下一兩個小時，自認跟上了潮流。</div>
+              <div><span class="yr">十年後 · 2036</span>工作內容沒變，只是做得快一點；而他交給 AI 的那部分，正是最容易被整個拿走的那部分。</div>
+            </div>
+          </div>
+          <div class="c"><b>2c 經驗 × 槓桿</b><span class="en">The Amplified Expert</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>一個人做得了以前一個小組的事，把多年的領域知識放大成更多產出。</div>
+              <div><span class="yr">十年後 · 2036</span>用 AI 把專業鑽到頂尖 1%，或跨進鄰近領域成為通才；是九格裡槓桿最大的一格。</div>
+            </div>
+          </div>
+        </div>
+        <p>2b 是這一代藏得最深的風險。<strong>AI 放大的是你本來就有的東西</strong>：2c 拿 AI 放大判斷，2b 拿 AI 放大例行公事。一位懂製程的工程師，若只用 AI 寫週報，十年後他的價值和一位只會 AI 的新人差不多；若用 AI 驗證製程假設、做以前做不到的分析，他就是無可取代的人。</p>
+        <span class="takeaway">經驗 × 構建＝最大槓桿；經驗 × 代勞＝慢慢被替換</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s5">
+        <h2><span class="no">V</span>第三代：退休族</h2>
+        <p>到了退休族，「用 AI 的人會淘汰不用的人」得改寫，因為退休的人沒有工作可以被淘汰。這一代的差距不在收入，而在三件事：<strong>腦力、自主、連結</strong>。</p>
+        <div class="trio">
+          <div><b>3a 照舊退休</b><span class="en">The Classic Retirement</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>日子照過，看不出損失；但銀行、醫療、政府服務愈來愈數位化，遇事常要等子女來幫。</div>
+              <div><span class="yr">十年後 · 2036</span>世界的變化多半是「聽說」而不是「看懂」。這不算失敗，只是被動。</div>
+            </div>
+          </div>
+          <div class="b"><b>3b 被餵內容</b><span class="en">The Fed Feed</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>手機裡的 AI 助理、推薦短片、自動摘要天天在用，看起來比 3a 跟得上時代。</div>
+              <div><span class="yr">十年後 · 2036</span>接收的資訊最多，判斷的能力卻沒跟上；面對 AI 合成的聲音、影片和假新聞，反而比 3a 更容易上當。</div>
+            </div>
+          </div>
+          <div class="c"><b>3c 第二曲線</b><span class="en">The Second Curve</span>
+            <div class="yrs">
+              <div><span class="yr">五年後 · 2031</span>那位 100 美元的導師，一樣服務七十歲的學生：歷史、數學、程式，隨時有人陪讀。</div>
+              <div><span class="yr">十年後 · 2036</span>持續做出作品，自己查證醫療和財務資訊、識破詐騙，跟孫輩聊得上 AI；腦子比剛退休時還忙。</div>
+            </div>
+          </div>
+        </div>
+        <p>老熊自己就是 3c 的一個樣本：退休後架了上百篇文章的網站，把當年的 MATLAB 演算法移植到 Python，到社區大學修課，還拿 AI 查證自己的記憶。他是怎麼走到這一格的，第八節細談；這裡先記住：一個樣本，證明的是可能，不是普遍。</p>
+        <p>也得替 3a 說句公道話：釣魚、種花、含飴弄孫，本來就是退休的意義。這一代真正需要提防的不是 3a，而是 3b：<strong>看似用了 AI，其實是被 AI 用了</strong>。</p>
+        <span class="takeaway">退休族比的不是誰賺得多，而是誰的世界還在變大</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s6">
+        <h2><span class="no">VI</span>兩道溝：直看、橫看、斜看</h2>
+        <p>九格最大的用處，是可以量任意兩格之間的距離，而不只是同一列的左右。</p>
+        <table class="matrix gaps">
+          <tr><th>兩格</th><th>方向</th><th>哪一種溝</th><th>十年後的樣子</th></tr>
+          <tr><td>1a ↔ 3a</td><td>直看</td><td>傳統代溝</td><td>價值觀、經歷不同；對 AI 兩人一樣陌生</td></tr>
+          <tr><td>2a ↔ 2c</td><td>橫看</td><td>純粹的 AI 溝</td><td>同年齡、同公司，十年後天差地遠</td></tr>
+          <tr><td>1b ↔ 3c</td><td>斜看</td><td>逆向代溝</td><td>祖父教孫子怎麼質疑 AI 的答案</td></tr>
+          <tr><td>1c ↔ 3c</td><td>同欄</td><td>只剩代溝</td><td>在 AI 上同路，有話可聊，差的只剩年代</td></tr>
+        </table>
+        <p>舊的代溝只有一個方向：年輕人在科技上領先，長輩在經驗上領先。九格裡卻出現了<strong>長輩兩樣都領先</strong>的格子。這就是 AI 時代的「代溝」必須加上第二個維度的原因。</p>
+        <div class="chart">
+          <h3>三欄人數比例的推移（編者示意）</h3>
+          <div class="legend"><span><i class="sa"></i>a 不用</span><span><i class="sb"></i>b 消費</span><span><i class="sc"></i>c 構建</span></div>
+          <div class="srow"><span>2026</span><div class="stack"><span class="sa" style="width:50%">50%</span><span class="sb" style="width:40%">40%</span><span class="sc" style="width:10%"></span></div></div>
+          <div class="srow"><span>2031</span><div class="stack"><span class="sa" style="width:25%">25%</span><span class="sb" style="width:55%">55%</span><span class="sc" style="width:20%">20%</span></div></div>
+          <div class="srow"><span>2036</span><div class="stack"><span class="sa" style="width:5%"></span><span class="sb" style="width:65%">65%</span><span class="sc" style="width:30%">30%</span></div></div>
+          <p class="note">比例是編者依本文推理畫的示意（2026 年構建約 10%，2036 年不用約 5%），不是調查數據，只用來看「左欄清空、溝往右移」的方向。</p>
+        </div>
+        <p>這張示意圖說的是：<strong>到了 2036 年，主要的溝不在 a 與 b 之間，而在 b 與 c 之間</strong>。不用 AI 的人愈來愈少，只會消費 AI 的人愈來愈多。</p>
+        <table class="matrix">
+          <tr><th>階段</th><th>賭的是什麼</th><th>差距何時出現</th><th>最容易卡住的格子</th></tr>
+          <tr><td>年輕人</td><td>四十年的複利</td><td>慢，但最後最大</td><td>1b：把 AI 當代筆</td></tr>
+          <tr><td>中堅</td><td>飯碗與升遷</td><td>最快</td><td>2b：只自動化可取代的部分</td></tr>
+          <tr><td>退休族</td><td>腦力與自主</td><td>慢，而且小</td><td>3b：被餵內容、被詐騙</td></tr>
+        </table>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s7">
+        <h2><span class="no">VII</span>四個反直覺的推論</h2>
+        <div class="inf">
+          <h3><span>一</span>七十歲的 3c，可能比十八歲的 1b 更懂 AI</h3>
+          <p>分界線不是年齡，是用法。一位天天拿 AI 查證、做東西的退休工程師，十年後對 AI 的理解，很可能勝過一位只拿它寫作業的大學生。「懂」不是會按按鈕，而是知道它什麼時候會錯。</p>
+        </div>
+        <div class="inf">
+          <h3><span>二</span>中間那一欄最危險，因為它看起來像進步</h3>
+          <p>1b、2b、3b 都自認「有在用 AI」，也確實比 a 欄方便。但方便換來的是判斷力外包。a 欄至少知道自己沒跟上；b 欄往往不知道。</p>
+        </div>
+        <div class="inf">
+          <h3><span>三</span>2036 年，左欄幾乎清空</h3>
+          <p>AI 會像電一樣藏在每個軟體裡。真正的分化會從「用 vs 不用」變成「<strong>構建 vs 消費</strong>」，這正是李飛飛「構建者 vs 等待者」的原意。六格版的 a、b 之分，十年後會變成九格版的 b、c 之分。</p>
+        </div>
+        <div class="inf">
+          <h3><span>四</span>同齡人之間的溝，可能大過跨代的溝</h3>
+          <p>兩位十八歲的年輕人，一個在 1b、一個在 1c，十年後的距離，可能比 1c 和 3c 之間還遠。如果這成立，只用年齡來談代溝，就已經不夠了。</p>
+        </div>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s8">
+        <h2><span class="no">VIII</span>老熊的格子：只往下，沒往右</h2>
+        <p>寫到這裡，該把尺量回自己身上。老熊在哪一格？答案有點出乎意料：不是從 a 欄換到 c 欄，而是<strong>一直待在 c 欄，只是從第二列往下移到了第三列</strong>。</p>
+        <ul class="defs path">
+          <li><span class="tag">起點</span>念化工、做高分子：台大化工，Akron 博士，再做博士後。老實說，從來沒喜歡過化學。</li>
+          <li><span class="tag">轉身</span>轉進化學計量學（chemometrics），用數學和演算法從光譜裡讀出化學資訊。當年這不叫 AI，叫多變量校正、模式辨識；用今天的話說，就是機器學習。</li>
+          <li><span class="tag">2c · 在職</span>從 <span class="num">1998</span> 到 <span class="num">2024</span>，在業界累積了 <span class="num">27</span> 個專利家族，多半與化學計量和機器學習有關：近紅外光譜、SVM 分類器、信心度演算法（把前輩的 idws 改良成 idcn）。不是用 AI 的人，而是造 AI 的人。</li>
+          <li><span class="tag">3c · 退休</span>工具換了：MATLAB 換成 Python，手刻的分類器換成大型語言模型。習慣沒換：架網站、移植演算法、到社區大學修課、拿 AI 查證自己的記憶。</li>
+        </ul>
+        <blockquote class="pull">老熊不是退休後才學會用 AI，而是退休後才發現，自己一輩子都在做 AI 的前身。</blockquote>
+        <p>回頭看這條路，有三點體會，剛好對上九格裡的三個說法：</p>
+        <div class="inf">
+          <h3><span>一</span>被放大的，是幾十年的經驗</h3>
+          <p>用 AI 把當年的 MATLAB 程式移植到 Python，AI 寫得出程式碼，卻看不出哪個數字不對、哪條曲線不合理；看得出來的，是幾十年盯著光譜的眼睛。這正是 2c 那一格說的「經驗 × 槓桿」，只是發生在退休之後。</p>
+        </div>
+        <div class="inf">
+          <h3><span>二</span>造過模型的人，比較不容易被模型騙</h3>
+          <p>做了一輩子校正模型，最清楚模型會過度擬合，會在沒見過的樣本上自信滿滿地犯錯。這個直覺用在大型語言模型上一樣管用：它講得愈流利，愈要驗證。老熊寫回憶文章時把記憶當成待查證的數據，其實是同一個職業病。這也正是 b 欄和 c 欄的分界：判斷有沒有留在自己手上。</p>
+        </div>
+        <div class="inf">
+          <h3><span>三</span>換的是工具，不是格子</h3>
+          <p>從 MATLAB 到 Python，從 SVM 到 LLM，每一次都得重學。但重學本身就是 c 欄的日常。今天的生成式 AI 和當年的化學計量是兩套工具，所以嚴格說，老熊是以 2c 的底子，重新當了一次 3c 的學生。</p>
+        </div>
+        <p>最後也得誠實說：這條路不是一般人的路。老熊的職業本來就站在 AI 旁邊，等於比大多數人早起跑了好多年。這是幸運，不是證明。它能說明的只有一件事：<strong>c 欄看的是習慣，不是年紀</strong>；而習慣，可以一路帶到退休。</p>
+        <span class="takeaway">縱軸會把人往下推，橫軸的位置卻是自己守住的</span>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+      <section id="s9">
+        <h2><span class="no">IX</span>結語：往右移一格</h2>
+        <p>九格表最重要的一點仍然是：<strong>格子不是一輩子的</strong>。縱軸只會往下走，每個人都會變老；橫軸卻隨時可以往右移。a 可以變 b，b 也可以變 c。至於老熊，走的是另一條路：在職時就在 c 欄，退休後只是往下移了一格，橫軸沒動。這說明 c 欄一旦守住，年紀帶不走它。</p>
+        <blockquote class="pull">年紀只會往下走，用法隨時可以往右移。</blockquote>
+        <p>從 b 移到 c，關鍵只有一個動作：<strong>答案出來之後，回頭檢驗</strong>。李飛飛說「保持好奇，付諸行動」；放進九格裡，還得補上一句：別把判斷交出去。對年輕人，這是起跑；對中堅，這是轉身；對退休族，這是讓自己的世界繼續變大。</p>
+        <p style="text-align:center"><a class="yt" href="https://www.youtube.com/shorts/rQ4PHFB302c" target="_blank" rel="noopener noreferrer">▶ 看李飛飛原片</a></p>
+        <span class="back"><a href="#toc">↑ 回目錄</a></span>
+      </section>
+
+    </article>
+
+    <aside>
+      <div class="side-box">
+        <h4>九格速查</h4>
+        <ul class="ledger">
+          <li><span>1a 照舊求學</span><span>慢一拍</span></li>
+          <li><span>1b 拿來抄</span><span>快而空</span></li>
+          <li><span>1c 拿來學</span><span>複利起跑</span></li>
+          <li><span>2a 照舊工作</span><span>慢慢貶值</span></li>
+          <li><span>2b 拿來代勞</span><span>易被替換</span></li>
+          <li><span>2c 經驗×槓桿</span><span>槓桿最大</span></li>
+          <li><span>3a 照舊退休</span><span>安穩被動</span></li>
+          <li><span>3b 被餵內容</span><span>易上當</span></li>
+          <li><span>3c 第二曲線</span><span>世界變大</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>兩條軸</h4>
+        <ul class="ledger">
+          <li><span>縱軸 · 年齡</span><span>改不了</span></li>
+          <li><span>橫軸 · AI 用法</span><span>可以移</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>老熊的路徑</h4>
+        <ul class="ledger">
+          <li><span>在職 · 化學計量</span><span>2c</span></li>
+          <li><span>專利家族</span><span>27</span></li>
+          <li><span>退休 · 生成式 AI</span><span>3c</span></li>
+          <li><span>橫軸移動</span><span>沒動</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>時間軸</h4>
+        <ul class="ledger">
+          <li><span>現在</span><span>2026</span></li>
+          <li><span>五年後</span><span>2031</span></li>
+          <li><span>十年後</span><span>2036</span></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <h4>編者按</h4>
+        <p class="margin-note"><b>版本說明：</b>本文由〈十年後的六種人生〉改寫：橫軸從兩欄（照舊／擁抱 AI）擴為三欄（不用／消費／構建）。</p>
+        <p class="margin-note"><b>性質說明：</b>本文是借用李飛飛短片概念所做的推演，屬於觀點與推理，不是預測模型；比例圖和評語都是編者的主觀判斷。</p>
+        <p class="margin-note"><b>數字來源：</b>私教 1.2 萬至 8 萬美元、AI 導師約 100 美元，沿用原短片所述，未另行查證。</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="colophon">
+    老熊隨筆 · 後 AI 時代 ❦ 本頁延伸自李飛飛相關 YouTube 短片的整理文章<br>
+    <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">changhsiung-chemometrician.github.io/Lao_Xiong</a>
+  </footer>
+</div>
+
+<div class="fnav">
+  <button type="button" id="themeBtn" aria-label="切換深淺色">☾ 深色</button>
+  <a href="#toc">回目錄</a>
+  <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function isDark(){
+    var t=root.getAttribute('data-theme');
+    if(t) return t==='dark';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function label(){ btn.textContent = isDark() ? '☀ 淺色' : '☾ 深色'; }
+  try{ var saved=localStorage.getItem('lx-theme'); if(saved) root.setAttribute('data-theme',saved); }catch(e){}
+  label();
+  btn.addEventListener('click',function(){
+    var next=isDark()?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('lx-theme',next); }catch(e){}
+    label();
+  });
+})();
+</script>
+</body>
+</html>
