@@ -1,0 +1,1152 @@
+<html lang="zh-TW" class="dark"><head><script data-bard-client-injected="true">(function(firebaseConfig, initialAuthToken, appId) {
+        window.__firebase_config = firebaseConfig;
+        window.__initial_auth_token = initialAuthToken;
+        window.__app_id = appId;
+            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNjRiNzdiNDMzZDdhMDAyMWI4NjE4YjhjYTU3ZTMyZGI5MWUxMTMiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIwOTg0MTIzOTAyOTg5MTE2MTE2OSIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzdiZmQ2M2E3OGU1MTAyNmVfbnZpZGlhX2NoaXBfc2hhZG93X2dhbWUuaHRtbC0zMDEifSwiZXhwIjoxNzk0MjA5MzU0LCJpYXQiOjE3OTQyMDU3NTQsImFsZyI6IlJTMjU2In0.jWNlJthWqC_fumQ_7DgO9qdwxxUoFhYGIWs7zGqBv1y3lL1OAGjm_NzXELiHDSZKDxjjBOmp4QGfJfmUwZe42Rt6OSCMAmjxku1GOQ6SkS-jDK-DQvfg-L6Qa3kKn5tSINP37ua9GAf0RdnVZmVeADLm9JqCK30go9m8p60APYR2jp4HWKpGCsttoAKPoFtVMHcKWyAQzBPQE5knnd_xbqVzOLOEYXJyrcsXiV0SZ4VQVtI5m3kIU5ek9ewbxB6yAVMHAtnxSDneXlCPxgiLI5cBsYSmGJPFOPMp_xzi4d5AACey6cH01iG-dDX-IAxSGOuag8XozHORnpmJK-8R2w","c_7bfd63a78e51026e_nvidia_chip_shadow_game.html-301")</script><script data-bard-client-injected="true">
+  document.addEventListener('input', (event) => {
+    if (event.target && (event.target.isContentEditable || event.target.hasAttribute('contenteditable'))) {
+      const clonedDoc = document.cloneNode(true);
+      const injectedScripts = clonedDoc.querySelectorAll('[data-bard-client-injected="true"]');
+      injectedScripts.forEach(el => el.remove());
+      window.parent.postMessage({
+        type: 'inlineEdit',
+        html: '<!DOCTYPE html>\n' + clonedDoc.documentElement.outerHTML
+      }, '*');
+    }
+  });
+</script><script data-bard-client-injected="true">(function(){'use strict';window.addEventListener("message",a=>{a.data&&a.data.type==="SUPPLEMENTAL_DATA_UPDATE"&&window.dispatchEvent(new CustomEvent("supplementaldataupdate",{detail:a.data.data}))});}).call(this);
+</script><script data-bard-client-injected="true">(function() {
+  const SCROLL_KEYS = new Set([
+    'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+    ' ', 'Spacebar', 'PageUp', 'PageDown', 'Home', 'End',
+  ]);
+  const HORIZONTAL_KEYS = new Set(['ArrowLeft', 'ArrowRight']);
+
+  function isTextEntryTarget(target) {
+    if (!target) return false;
+    const tagName = target.tagName;
+    return tagName === 'INPUT' || tagName === 'TEXTAREA' ||
+        tagName === 'SELECT' || target.isContentEditable === true;
+  }
+
+  // An element absorbs the key only if it both overflows on the axis being
+  // scrolled and is configured to scroll on that axis. The cheap dimension
+  // test runs first because getComputedStyle forces a style recalc, and this
+  // runs on every keypress. Each axis is read from its own longhand: the
+  // 'overflow' shorthand serializes as two values when the axes differ, which
+  // is the common 'overflow-x: hidden; overflow-y: auto' pane.
+  function canScroll(node, horizontal) {
+    const overflows = horizontal ? node.scrollWidth > node.clientWidth
+                                 : node.scrollHeight > node.clientHeight;
+    if (!overflows) return false;
+    const style = window.getComputedStyle(node);
+    const overflow = horizontal ? style.overflowX : style.overflowY;
+    return overflow === 'auto' || overflow === 'scroll';
+  }
+
+  // Walks up from the event target so nested scrollers keep their behavior.
+  // <body> is included because pages that pin the root height make it the
+  // scroll container.
+  function hasScrollableAncestor(target, horizontal) {
+    let node = target;
+    while (node && node !== document.documentElement) {
+      if (canScroll(node, horizontal)) return true;
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function rootCanScroll(horizontal) {
+    const scroller = document.scrollingElement || document.documentElement;
+    if (!scroller) return false;
+    // Tolerate a pixel of rounding so subpixel layouts do not look scrollable.
+    return horizontal ? scroller.scrollWidth > window.innerWidth + 1
+                      : scroller.scrollHeight > window.innerHeight + 1;
+  }
+
+  window.addEventListener('keydown', function(event) {
+    if (!SCROLL_KEYS.has(event.key)) return;
+    if (event.defaultPrevented) return;
+    // Alt and Meta turn arrows into browser history navigation, and Ctrl is
+    // reserved for shortcuts, so none of them are scroll intent.
+    if (event.altKey || event.metaKey || event.ctrlKey) return;
+
+    const target = event.target;
+    if (isTextEntryTarget(target)) return;
+
+    // Anything that can still absorb the scroll gets to keep it.
+    const horizontal = HORIZONTAL_KEYS.has(event.key);
+    if (rootCanScroll(horizontal)) return;
+    if (hasScrollableAncestor(target, horizontal)) return;
+
+    event.preventDefault();
+  }, {capture: true, passive: false});
+})();</script><script data-bard-client-injected="true">(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script data-bard-client-injected="true">
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}" data-bard-client-injected="true">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.j=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.h=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.i="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
+c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
+"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
+Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script data-bard-client-injected="true">((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedImageTransformModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image","imageTransformModelName":"gemini-3-pro-image","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image","gemini-3.1-flash-image-preview"],"deprecatedImageTransformModelNames":["gemini-3-pro-image-preview-11-2025"]})</script><script data-bard-client-injected="true">(function() {
+  function normalizeSlug(str) {
+    try {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[^p{L}p{N}s_-]/gu, '')
+        .replace(/s+/g, '-');
+    } catch (e) {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9s_-]/g, '')
+        .replace(/s+/g, '-');
+    }
+  }
+
+  function findTargetElement(hash) {
+    if (!hash || hash === '#') {
+      return null;
+    }
+    const rawId = hash.startsWith('#') ? hash.slice(1) : hash;
+    let decodedId = rawId;
+    try {
+      decodedId = decodeURIComponent(rawId);
+    } catch (e) {
+      // Ignore URI malformed errors.
+    }
+
+    // 1. Direct ID match (raw and decoded).
+    let target = document.getElementById(rawId) || document.getElementById(decodedId);
+    if (target) {
+      return target;
+    }
+
+    // 2. Name attribute match (<a name="...">).
+    try {
+      if (typeof CSS !== 'undefined' && CSS.escape) {
+        target =
+          document.querySelector('[name="' + CSS.escape(rawId) + '"]') ||
+          document.querySelector('[name="' + CSS.escape(decodedId) + '"]');
+      } else {
+        const namedElements = document.getElementsByName(rawId);
+        if (namedElements && namedElements.length > 0) {
+          return namedElements[0];
+        }
+      }
+    } catch (e) {
+      // Ignore querySelector syntax errors.
+    }
+    if (target) {
+      return target;
+    }
+
+    // 3. Match heading text by slug (for Markdown TOCs where headings lack explicit IDs).
+    const targetSlug = normalizeSlug(decodedId);
+    if (targetSlug) {
+      for (const heading of document.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
+        if (normalizeSlug(heading.textContent || '') === targetSlug) {
+          return heading;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  document.addEventListener('click', function(event) {
+    const target = event.target;
+    const anchor = target && typeof target.closest === 'function' ? target.closest('a') : null;
+    if (!anchor) {
+      return;
+    }
+
+    const href = anchor.getAttribute('href');
+    if (
+      !href ||
+      href.trim().toLowerCase().startsWith('javascript:') ||
+      anchor.hasAttribute('download')
+    ) {
+      return;
+    }
+
+    // Check if the link is an in-page hash / anchor link.
+    if (href.startsWith('#')) {
+      event.preventDefault();
+      const targetElement = findTargetElement(href);
+      if (targetElement) {
+        targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+      return;
+    }
+
+    // Check if the URL has the same origin/pathname but with a hash.
+    try {
+      const url = new URL(anchor.href, window.location.href);
+      if (
+        url.hash &&
+        url.origin === window.location.origin &&
+        url.pathname === window.location.pathname
+      ) {
+        event.preventDefault();
+        const targetElement = findTargetElement(url.hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+        return;
+      }
+    } catch (e) {
+      // Fall through if URL parsing fails.
+    }
+
+    // For all external or full navigation links, prevent iframe-level navigation
+    // (which breaks in AGSA WebView or sandboxed iframes) and ensure they open
+    // safely in a new tab/window.
+    if (anchor.target !== '_blank') {
+      event.preventDefault();
+      window.open(anchor.href, '_blank', 'noopener,noreferrer');
+    }
+  }, {capture: true});
+})();</script><script data-bard-client-injected="true">(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script data-bard-client-injected="true">(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI晶片影子帝國：48億美元的世紀走私案與黃仁勳的夜半賭局</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0a0d14',
+                            card: '#121824',
+                            border: '#1e293b',
+                            accent: '#76b900', // Nvidia Green
+                            gold: '#fbbf24',
+                            cyan: '#06b6d4',
+                            danger: '#f43f5e',
+                            muted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0d14;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(118, 185, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 60%, rgba(6, 182, 212, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(251, 191, 36, 0.04) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+        .story-title {
+            font-family: 'Noto Serif TC', serif;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #76b900 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chapter-heading {
+            font-family: 'Noto Serif TC', serif;
+        }
+        .glass-panel {
+            background: rgba(18, 24, 36, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .timeline-line {
+            background: linear-gradient(to bottom, #76b900, #06b6d4, #fbbf24, #f43f5e);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(118, 185, 0, 0.2);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #76b900;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Inter, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.-bottom-10{bottom:-2.5rem}.-left-6{left:-1.5rem}.-right-10{right:-2.5rem}.bottom-3{bottom:0.75rem}.left-2{left:0.5rem}.top-0{top:0px}.top-0\.5{top:0.125rem}.top-3{top:0.75rem}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.my-4{margin-top:1rem;margin-bottom:1rem}.my-6{margin-top:1.5rem;margin-bottom:1.5rem}.mb-1{margin-bottom:0.25rem}.mb-12{margin-bottom:3rem}.mb-16{margin-bottom:4rem}.mt-1{margin-top:0.25rem}.mt-16{margin-top:4rem}.mt-2{margin-top:0.5rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-3{height:0.75rem}.h-4{height:1rem}.h-40{height:10rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.min-h-screen{min-height:100vh}.w-0\.5{width:0.125rem}.w-3{width:0.75rem}.w-4{width:1rem}.w-40{width:10rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.max-w-3xl{max-width:48rem}.max-w-5xl{max-width:64rem}.max-w-6xl{max-width:72rem}.max-w-none{max-width:none}.max-w-xl{max-width:36rem}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.list-disc{list-style-type:disc}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-16 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(4rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(4rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-r{border-top-right-radius:0.25rem;border-bottom-right-radius:0.25rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-l-4{border-left-width:4px}.border-r{border-right-width:1px}.border-t{border-top-width:1px}.border-t-2{border-top-width:2px}.border-cyber-accent{--tw-border-opacity:1;border-color:rgb(118 185 0 / var(--tw-border-opacity, 1))}.border-cyber-accent\/30{border-color:rgb(118 185 0 / 0.3)}.border-cyber-cyan{--tw-border-opacity:1;border-color:rgb(6 182 212 / var(--tw-border-opacity, 1))}.border-cyber-danger{--tw-border-opacity:1;border-color:rgb(244 63 94 / var(--tw-border-opacity, 1))}.border-cyber-gold{--tw-border-opacity:1;border-color:rgb(251 191 36 / var(--tw-border-opacity, 1))}.border-purple-500{--tw-border-opacity:1;border-color:rgb(168 85 247 / var(--tw-border-opacity, 1))}.border-red-500\/30{border-color:rgb(239 68 68 / 0.3)}.border-red-800\/40{border-color:rgb(153 27 27 / 0.4)}.border-slate-400{--tw-border-opacity:1;border-color:rgb(148 163 184 / var(--tw-border-opacity, 1))}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-slate-800\/60{border-color:rgb(30 41 59 / 0.6)}.border-slate-800\/80{border-color:rgb(30 41 59 / 0.8)}.border-t-cyber-accent{--tw-border-opacity:1;border-top-color:rgb(118 185 0 / var(--tw-border-opacity, 1))}.bg-cyber-accent{--tw-bg-opacity:1;background-color:rgb(118 185 0 / var(--tw-bg-opacity, 1))}.bg-cyber-accent\/10{background-color:rgb(118 185 0 / 0.1)}.bg-cyber-accent\/20{background-color:rgb(118 185 0 / 0.2)}.bg-cyber-accent\/5{background-color:rgb(118 185 0 / 0.05)}.bg-cyber-cyan\/20{background-color:rgb(6 182 212 / 0.2)}.bg-cyber-danger\/20{background-color:rgb(244 63 94 / 0.2)}.bg-cyber-gold\/20{background-color:rgb(251 191 36 / 0.2)}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-red-600\/20{background-color:rgb(220 38 38 / 0.2)}.bg-red-950\/30{background-color:rgb(69 10 10 / 0.3)}.bg-slate-800\/80{background-color:rgb(30 41 59 / 0.8)}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/80{background-color:rgb(15 23 42 / 0.8)}.bg-slate-900\/90{background-color:rgb(15 23 42 / 0.9)}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pl-4{padding-left:1rem}.pl-5{padding-left:1.25rem}.pl-6{padding-left:1.5rem}.pt-2{padding-top:0.5rem}.pt-4{padding-top:1rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.font-sans{font-family:Inter, sans-serif}.font-serif{font-family:"Noto Serif TC", serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-light{font-weight:300}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-cyber-accent{--tw-text-opacity:1;color:rgb(118 185 0 / var(--tw-text-opacity, 1))}.text-cyber-cyan{--tw-text-opacity:1;color:rgb(6 182 212 / var(--tw-text-opacity, 1))}.text-cyber-danger{--tw-text-opacity:1;color:rgb(244 63 94 / var(--tw-text-opacity, 1))}.text-cyber-gold{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-cyber-muted{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-red-400{--tw-text-opacity:1;color:rgb(248 113 113 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-950{--tw-text-opacity:1;color:rgb(2 6 23 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.blur-2xl{--tw-blur:blur(40px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-200{transition-duration:200ms}.selection\:bg-cyber-accent *::selection{--tw-bg-opacity:1;background-color:rgb(118 185 0 / var(--tw-bg-opacity, 1))}.selection\:text-black *::selection{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.selection\:bg-cyber-accent::selection{--tw-bg-opacity:1;background-color:rgb(118 185 0 / var(--tw-bg-opacity, 1))}.selection\:text-black::selection{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.hover\:bg-lime-400:hover{--tw-bg-opacity:1;background-color:rgb(163 230 53 / var(--tw-bg-opacity, 1))}.hover\:bg-red-600:hover{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.hover\:bg-red-700:hover{--tw-bg-opacity:1;background-color:rgb(185 28 28 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.hover\:shadow-red-900\/40:hover{--tw-shadow-color:rgb(127 29 29 / 0.4);--tw-shadow:var(--tw-shadow-colored)}@media (min-width: 640px){.sm\:-left-10{left:-2.5rem}.sm\:left-3{left:0.75rem}.sm\:inline-block{display:inline-block}.sm\:h-7{height:1.75rem}.sm\:w-7{width:1.75rem}.sm\:flex-row{flex-direction:row}.sm\:p-8{padding:2rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:pl-10{padding-left:2.5rem}.sm\:text-left{text-align:left}.sm\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-6xl{font-size:3.75rem;line-height:1}}@media (min-width: 768px){.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}</style></head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyber-accent selection:text-black">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 py-3 sm:px-8">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="inline-block w-3 h-3 rounded-full bg-cyber-accent animate-pulse"></span>
+                <span class="font-bold text-lg tracking-wider text-white">NVIDIA SHADOW GAME</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30 hidden sm:inline-block">特別調查報告</span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <a href="https://www.youtube.com/watch?v=g4Bx1t9oMmg" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white transition duration-200">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.017 3.017 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                    觀看原影片【杰森視角】
+                </a>
+
+                <a id="download-btn" download="nvidia_chip_shadow_game.html" href="#" class="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-semibold rounded-lg bg-cyber-accent text-slate-950 hover:bg-lime-400 transition duration-200 shadow-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    下載完整故事 HTML 檔案
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        
+        <!-- Story Hero Banner -->
+        <div class="text-center mb-16 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-cyber-gold tracking-widest uppercase">
+                <span>深度解密檔案</span> • <span>Geopolitical Cyber Thriller</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight story-title">
+                AI 晶片影子帝國
+            </h1>
+            <p class="text-xl sm:text-2xl text-slate-300 font-serif max-w-3xl mx-auto font-light leading-relaxed">
+                午夜台北酒吧的神秘賭局，與巧妙連闖四關送進中國的 <span class="text-cyber-accent font-semibold">48 億美元頂級晶片</span>
+            </p>
+
+            <div class="pt-4 flex justify-center items-center gap-6 text-sm text-cyber-muted border-t border-b border-slate-800/60 py-4 max-w-xl mx-auto">
+                <div>解密對象：<span class="text-white font-medium">黃樂 (Iris Huang)</span></div>
+                <div>關鍵角色：<span class="text-white font-medium">黃仁勳 (Jensen Huang)</span></div>
+                <div>涉案金額：<span class="text-cyber-gold font-bold">$4.8B USD</span></div>
+            </div>
+        </div>
+
+        <!-- Video Source Banner Badge -->
+        <div class="mb-12 glass-panel p-6 rounded-2xl border border-cyber-accent/30 relative overflow-hidden glow-effect">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-cyber-accent/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="space-y-1 text-center sm:text-left">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-cyber-accent">改編自熱門新聞節目頻道</div>
+                    <h3 class="text-lg font-bold text-white">【杰森視角】午夜台北酒吧讓黃仁勳隨叫隨到的神秘女是誰？</h3>
+                    <p class="text-xs text-slate-400">詳細調查黃樂如何透過四層迷陣避開美國商務部管制，將 48 億美元 Nvidia AI 伺服器運抵中國。</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=g4Bx1t9oMmg" target="_blank" rel="noopener noreferrer" class="whitespace-nowrap px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-medium text-sm rounded-xl transition shadow-lg flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.017 3.017 0 0 0 2.122-2.136C24 15.93 24 12 0 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                    前往 YouTube 觀看原片
+                </a>
+            </div>
+        </div>
+
+        <!-- Timeline / Chapter Story Content -->
+        <div class="relative pl-6 sm:pl-10 space-y-16">
+            <!-- Central Line -->
+            <div class="absolute left-2 sm:left-3 top-3 bottom-3 w-0.5 timeline-line"></div>
+
+            <!-- PROLOGUE -->
+            <section class="relative group">
+                <div class="absolute -left-6 sm:-left-10 top-0.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 border-2 border-cyber-accent flex items-center justify-center text-xs font-bold text-cyber-accent">
+                    0
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-cyber-accent">Prologue • 序幕</span>
+                        <span class="text-xs text-slate-500 font-mono">2024 年 6 月 • 台北Computex</span>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white chapter-heading">
+                        午夜台北酒吧的神秘賭局
+                    </h2>
+                    
+                    <div class="prose prose-invert max-w-none text-slate-300 space-y-4 font-serif text-base leading-relaxed">
+                        <p>
+                            2024 年 6 月的台北，空氣中瀰漫著 Computex 展覽帶來的狂熱。全球半導體巨人輝達（Nvidia）執行長黃仁勳，正處於 AI 革命的極致漩渦中心。然而，在結束公眾行程的某個午夜，信義區一家未對外公開的「98 Bar」私人酒吧內，一場看似隨意、實則驚天動地的私人賭局正在悄然上演。
+                        </p>
+                        <p>
+                            傳聞中，黃仁勳在那晚隨叫隨到，只為應一位神祕女子的邀約。她身穿精緻的暗色高級訂製服，氣質高冷，名片上印著「Iris Huang」（黃樂）。在那晚的酒杯交錯間，黃樂提出了一個看似荒謬的賭局：
+                        </p>
+                        <blockquote class="border-l-4 border-cyber-accent pl-4 italic text-cyber-gold bg-cyber-accent/5 py-2 my-4 rounded-r">
+                            「在美國商務部史上最嚴厲的管制下，我依然能把數萬顆 H100 與 Blackwell 晶片，合法且無痕地搬進中國。」
+                        </blockquote>
+                        <p>
+                            這不僅僅是一場酒吧裡的吹牛或豪賭，這是一場牽涉新加坡、馬來西亞、英屬維京群島、美國國安局（NSA）以及 48 億美元資金流動的世紀影子遊戲。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHAPTER 1 -->
+            <section class="relative group">
+                <div class="absolute -left-6 sm:-left-10 top-0.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 border-2 border-cyber-cyan flex items-center justify-center text-xs font-bold text-cyber-cyan">
+                    1
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-cyber-cyan">Chapter 1 • 第一章</span>
+                        <span class="text-xs text-slate-500 font-mono">雙重身份與資本圍獵</span>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white chapter-heading">
+                        神秘女子黃樂：從湖南台記者到國資白手套
+                    </h2>
+                    
+                    <div class="prose prose-invert max-w-none text-slate-300 space-y-4 font-serif text-base leading-relaxed">
+                        <p>
+                            「Iris Huang」黃樂，並非橫空出世的科技新貴。在情報與金融界調查人員眼中，她的過往經歷充斥著極高精度的「身份清洗」。
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 font-sans">
+                            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                <div class="text-xs text-cyber-cyan font-semibold mb-1">媒體前線掩護</div>
+                                <div class="text-white font-bold">湖南衛視 / 央視記者</div>
+                                <div class="text-xs text-slate-400 mt-2">早年以資深財經記者身份穿梭於全球頂級論壇，累積高層政商脈絡。</div>
+                            </div>
+                            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                <div class="text-xs text-cyber-cyan font-semibold mb-1">金融套利中樞</div>
+                                <div class="text-white font-bold">匯豐 &amp; 中信私人銀行</div>
+                                <div class="text-xs text-slate-400 mt-2">精通跨境家族信託、跨境洗錢路徑與離岸公司架構設計。</div>
+                            </div>
+                            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                <div class="text-xs text-cyber-cyan font-semibold mb-1">離岸架構核心</div>
+                                <div class="text-white font-bold">BVI Mapleville 控股</div>
+                                <div class="text-xs text-slate-400 mt-2">操控七路資本，完成高達 10 億人民幣國資洗白與轉移迴路。</div>
+                            </div>
+                        </div>
+                        <p>
+                            黃樂最經典的手筆，是利用「七路資本」進行了一場完美的國資迴流轉移。她巧妙地將近 10 億人民幣地方國有資本，經由新加坡與 BVI 離岸公司的多重轉手，化整為零，最終轉化為合法採購頂級科技硬體的私有資本。她不僅具備流利的英語與頂級社交能力，更掌握著直達北京與華爾街的資本暗道。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHAPTER 2 -->
+            <section class="relative group">
+                <div class="absolute -left-6 sm:-left-10 top-0.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 border-2 border-cyber-gold flex items-center justify-center text-xs font-bold text-cyber-gold">
+                    2
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-6">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-cyber-gold">Chapter 2 • 第二章</span>
+                        <span class="text-xs text-slate-500 font-mono">48 億美元走私地圖</span>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white chapter-heading">
+                        連闖四關：48 億美元晶片暗度陳倉
+                    </h2>
+
+                    <p class="text-slate-300 font-serif leading-relaxed">
+                        面對美國 BIS（工業與安全局）的嚴密監控，黃樂設計了一套猶如精密瑞士手錶般的四階段走私架構：
+                    </p>
+
+                    <!-- 4 Stages Timeline -->
+                    <div class="space-y-4 font-sans">
+                        <!-- Stage 1 -->
+                        <div class="bg-slate-900/90 p-5 rounded-xl border-l-4 border-cyber-accent border-r border-t border-b border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-cyber-accent/20 text-cyber-accent">第一關</span>
+                                <span class="text-xs text-slate-400 font-mono">Shell Company Whitewashing</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mt-2">殼公司洗白（Megaspeed &amp; Sweet Data）</h4>
+                            <p class="text-sm text-slate-300 mt-1">
+                                在新加坡成立 Megaspeed 與 Sweet Data，並由人頭富商 Tan Eng Pang 掛名。通過海外合規審查，向 Nvidia 正式訂購價值數十億美元的 AI 伺服器，表面上用於東南亞雲端運算中心。
+                            </p>
+                        </div>
+
+                        <!-- Stage 2 -->
+                        <div class="bg-slate-900/90 p-5 rounded-xl border-l-4 border-cyber-cyan border-r border-t border-b border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-cyber-cyan/20 text-cyber-cyan">第二關</span>
+                                <span class="text-xs text-slate-400 font-mono">Blacklist Rebranding &amp; Regulatory Loophole</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mt-2">黑名單貼牌與 42 天時區漏洞（Everest Systems / 浪潮美國）</h4>
+                            <p class="text-sm text-slate-300 mt-1">
+                                被美方制裁的中國「浪潮資訊」（Inspur），在其美國分公司改名為 Everest Systems。利用美國法規公佈到正式生效的 <strong class="text-cyber-cyan font-bold">42 天窗口期</strong>，急速轉移簽署合約與提單，避開禁令裁決。
+                            </p>
+                        </div>
+
+                        <!-- Stage 3 -->
+                        <div class="bg-slate-900/90 p-5 rounded-xl border-l-4 border-cyber-gold border-r border-t border-b border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-cyber-gold/20 text-cyber-gold">第三關</span>
+                                <span class="text-xs text-slate-400 font-mono">Financial Mirage &amp; Bridging Loans</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mt-2">金融幻影與阿里過橋貸款（AIEX &amp; $4.2B 押金）</h4>
+                            <p class="text-sm text-slate-300 mt-1">
+                                建立名為 AIEX 的加密金融中介機構，中國電商巨擘阿里巴巴在此扮演關鍵角色，提供高達 <strong class="text-cyber-gold font-bold">42 億美元的可退還保證金（Bridge Loan）</strong>，為這筆龐大的海外採購提供即時信用擔保。
+                            </p>
+                        </div>
+
+                        <!-- Stage 4 -->
+                        <div class="bg-slate-900/90 p-5 rounded-xl border-l-4 border-cyber-danger border-r border-t border-b border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-cyber-danger/20 text-cyber-danger">第四關</span>
+                                <span class="text-xs text-slate-400 font-mono">Empty Racks &amp; Physical Transit</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mt-2">馬來西亞機房空殼與夜間轉運（貝恩資本數據中心）</h4>
+                            <p class="text-sm text-slate-300 mt-1">
+                                貨物運抵馬來西亞由貝恩資本（Bain Capital）投資的數據中心後，機櫃內被換上預先準備好的 Dummy Chassis（道具空機箱）以應付美方現場抽查；真正的 Nvidia H100 伺服器主機板則在深夜被連夜拆裝，封箱飛往深圳與香港。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHAPTER 3 -->
+            <section class="relative group">
+                <div class="absolute -left-6 sm:-left-10 top-0.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 border-2 border-cyber-danger flex items-center justify-center text-xs font-bold text-cyber-danger">
+                    3
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-cyber-danger">Chapter 3 • 第三章</span>
+                        <span class="text-xs text-slate-500 font-mono">全球監聽與美方鎖定</span>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white chapter-heading">
+                        電子監聽與「美國公民一號」的解密
+                    </h2>
+                    
+                    <div class="prose prose-invert max-w-none text-slate-300 space-y-4 font-serif text-base leading-relaxed">
+                        <p>
+                            然而，這場看似完美的走私大戲，早已暴露在五眼聯盟（Five Eyes）龐大的訊號情報網之下。美國 CIA 與 NSA 展開了長達一年的加密電子監聽計畫，代號：「神燈行動」。
+                        </p>
+                        <p>
+                            在攔截到的數千封加密通訊紀錄中，多次出現一個極高等級的對話代號——<span class="text-cyber-danger font-bold">「American Citizen No. 1」（美國公民一號）</span>。調查人員驚覺，這位「公民一號」竟然就是輝達執行長黃仁勳本人。
+                        </p>
+                        <div class="bg-red-950/30 border border-red-800/40 p-4 rounded-xl text-sm font-sans my-4">
+                            <span class="text-red-400 font-bold block mb-1">【情報機密調閱】：為什麼美國國安局不警告黃仁勳？</span>
+                            <span class="text-slate-300">
+                                1. <strong>放長線釣大魚：</strong> 需要藉由黃樂的交易鏈，完整描繪出中國高層在海外的所有黑市洗錢與晶片採購節點。<br>
+                                2. <strong>商業合規安全距離：</strong> 黃仁勳與 Nvidia 在表面上完全遵循了美國商務部的出口審查，交貨給新加坡 Megaspeed。美方若貿然打斷，反而會打草驚蛇。
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHAPTER 4 -->
+            <section class="relative group">
+                <div class="absolute -left-6 sm:-left-10 top-0.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 border-2 border-purple-500 flex items-center justify-center text-xs font-bold text-purple-400">
+                    4
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-purple-400">Chapter 4 • 第四章</span>
+                        <span class="text-xs text-slate-500 font-mono">地緣政治的三重陷阱</span>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white chapter-heading">
+                        連環局與地緣政治棋局
+                    </h2>
+                    
+                    <div class="prose prose-invert max-w-none text-slate-300 space-y-4 font-serif text-base leading-relaxed">
+                        <p>
+                            隨著這起 48 億美元走私案的曝光，華府的地緣政治智庫與政策制定者意識到，單純的行政禁令已無法阻擋資本對 AI 算力的狂熱追求。這場案件直接推動了川普與拜登政府對華 AI 戰略的重大升級：
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-300 font-sans">
+                            <li><strong class="text-white">硬體限制升級：</strong> 從禁止頂級 H100 擴展至全面封殺降規版 H20 / B20 晶片。</li>
+                            <li><strong class="text-white">三叉戟打擊：</strong> 結合司法部刑事追訴、財政部離岸制裁與商務部實體清單。</li>
+                            <li><strong class="text-white">雲端穿透條款：</strong> 嚴查海外數據中心（如馬來西亞、新加坡）的真實算力分配與最終用戶身份。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EPILOGUE -->
+            <section class="relative group">
+                <div class="absolute -left-6 sm:-left-10 top-0.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 border-2 border-slate-400 flex items-center justify-center text-xs font-bold text-slate-300">
+                    E
+                </div>
+                
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl space-y-4 border-t-2 border-t-cyber-accent">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-slate-400">Epilogue • 尾聲</span>
+                        <span class="text-xs text-slate-500 font-mono">國會傳喚與數位腳鐐</span>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white chapter-heading">
+                        國會傳票與數位腳鐐
+                    </h2>
+                    
+                    <div class="prose prose-invert max-w-none text-slate-300 space-y-4 font-serif text-base leading-relaxed">
+                        <p>
+                            2024 年 11 月 18 日，美國國會聽證會正式就「AI 晶片出口管制漏洞」展開質詢。美國司法部（DOJ）展開刑事調查，多張密封起訴書悄然發出。
+                        </p>
+                        <p>
+                            而在現代半導體戰略中，最致命的武器莫過於<strong class="text-cyber-accent font-bold"> Fleet Intelligence（車隊智慧遙測）與電子鎖</strong>。輝達最新一代的伺服器與晶片中，均植入了遠端遙測與韌體驗證機制。一旦硬體偏離註冊的 GPS 座標或連結未授權的 IP 網段，晶片將自動觸發「數位熔斷」，瞬間變成一堆無法運行的矽晶廢鐵。
+                        </p>
+                        <p class="italic text-slate-400">
+                            台北午夜酒吧裡的香檳氣泡早已消散，但這場圍繞著 AI 算力、國家戰略與資本野心的影子帝國對決，才剛剛進入最熾熱的下半場……
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Call to Action Banner -->
+        <div class="mt-16 text-center space-y-4 glass-panel p-8 rounded-2xl border border-slate-800">
+            <h3 class="text-xl font-bold text-white">想深入了解整起事件的完整細節與獨家視角？</h3>
+            <p class="text-sm text-slate-400 max-w-xl mx-auto">點擊下方連結，前往 YouTube 觀看【杰森視角】原版精彩分析影片。</p>
+            <div class="pt-2">
+                <a href="https://www.youtube.com/watch?v=g4Bx1t9oMmg" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition shadow-lg hover:shadow-red-900/40">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.017 3.017 0 0 0 2.122-2.136C24 15.93 24 12 0 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                    立即觀看原影片【杰森視角】
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500 font-mono">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>© AI Chip Shadow Game Report • Traditional Chinese Interactive Story</div>
+            <div>Source Content: <a href="https://www.youtube.com/watch?v=g4Bx1t9oMmg" class="text-cyber-accent hover:underline" target="_blank" rel="noopener noreferrer">YouTube g4Bx1t9oMmg</a></div>
+        </div>
+    </footer>
+
+    <!-- HTML Download Script snippet using Blob URL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const downloadBtn = document.getElementById('download-btn');
+            if (downloadBtn) {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                downloadBtn.href = URL.createObjectURL(blob);
+            }
+        });
+    </script>
+
+</body></html>
