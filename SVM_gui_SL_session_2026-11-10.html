@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVM_gui merge (Nov 9) and StreamLine (SL) version (Nov 10, 2026): session documentation</title>
+<style>
+  :root{
+    --bg:#e7effa; --panel:#f4f8fd; --ink:#132f57; --muted:#3d5880;
+    --gold:#a8790c; --gold-soft:#f3e3b5; --line:#b9cbe4; --code-bg:#d9e6f6;
+    --ok:#1f6b3a; --ok-bg:#d8efdf; --bad:#9a2a1c; --bad-bg:#f6dcd6; --warn-bg:#fbefd0;
+    --new-bg:#e3eefc; --bar1:#2f5f9e; --bar2:#a8790c; --bar3:#4f8a5b; --bar4:#8a5fa8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f2342; --panel:#15305a; --ink:#e8effb; --muted:#b4c5e2;
+      --gold:#e6b84f; --gold-soft:#3a3a2a; --line:#2f4f80; --code-bg:#1b3a68;
+      --ok:#8fe0a8; --ok-bg:#1d4a35; --bad:#ffb4a6; --bad-bg:#5a2a2a; --warn-bg:#4a4024;
+      --new-bg:#1c3f70; --bar1:#7fb0f0; --bar2:#e6b84f; --bar3:#8fe0a8; --bar4:#c9a3ea;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+       font-size:27px;font-weight:600;line-height:1.55}
+  main{max-width:1250px;margin:0 auto;padding:56px 40px 120px}
+  h1{font-size:60px;font-weight:700;line-height:1.15;margin:0 0 14px}
+  h2{font-size:42px;font-weight:700;margin:76px 0 18px;padding-bottom:10px;border-bottom:4px solid var(--gold)}
+  h3{font-size:33px;font-weight:700;margin:44px 0 12px;color:var(--gold)}
+  p{margin:0 0 20px} strong{font-weight:800}
+  .deck{font-size:31px;color:var(--muted);margin-bottom:26px}
+  .meta{font-size:23px;color:var(--muted)}
+  a{color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+  code{font-family:Consolas,"Cascadia Mono",Menlo,monospace;font-size:.84em;font-weight:600;
+       background:var(--code-bg);padding:2px 8px;border-radius:6px}
+  pre{background:var(--code-bg);border-left:6px solid var(--gold);padding:20px 24px;border-radius:8px;
+      overflow-x:auto;font-size:22px;line-height:1.45;margin:0 0 24px}
+  pre code{background:none;padding:0;font-size:inherit}
+  .toc{background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:24px 34px;margin:34px 0}
+  .toc b{font-size:29px;font-weight:700;color:var(--gold)}
+  .toc ol{margin:12px 0 0;padding-left:38px} .toc li{margin:6px 0}
+  .back{display:block;text-align:right;font-size:22px;margin-top:22px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:30px 0}
+  .stat{background:var(--panel);border:2px solid var(--line);border-top:6px solid var(--gold);border-radius:10px;padding:18px 20px}
+  .stat .n{font-size:50px;font-weight:800;line-height:1.1}
+  .stat .l{font-size:22px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:8px 0 26px;font-size:23px;background:var(--panel)}
+  th,td{border:2px solid var(--line);padding:11px 14px;text-align:left;vertical-align:top}
+  th{background:var(--gold-soft);font-weight:700}
+  td.num{font-weight:800;text-align:right;white-space:nowrap}
+  td.v3{background:var(--new-bg)}
+  .callout{border-radius:10px;padding:20px 26px;margin:22px 0 26px;border:2px solid var(--line)}
+  .callout.ok{background:var(--ok-bg)} .callout.bad{background:var(--bad-bg)} .callout.warn{background:var(--warn-bg)}
+  .tag{display:inline-block;font-size:19px;font-weight:800;padding:2px 12px;border-radius:999px;margin-right:8px;vertical-align:2px}
+  .tag.ok{background:var(--ok-bg);color:var(--ok);border:2px solid var(--ok)}
+  .tag.bad{background:var(--bad-bg);color:var(--bad);border:2px solid var(--bad)}
+  .tag.new{background:var(--new-bg);color:var(--gold);border:2px solid var(--gold)}
+  ol.steps>li,ul.list>li{margin:10px 0}
+  .timeline{border-left:5px solid var(--gold);margin:20px 0 30px 10px;padding-left:30px}
+  .timeline div{margin:0 0 20px;position:relative}
+  .timeline div::before{content:"";position:absolute;left:-43px;top:12px;width:20px;height:20px;border-radius:50%;background:var(--gold)}
+  .timeline .t{font-size:22px;color:var(--muted);font-weight:700}
+  .bars{margin:20px 0 28px}
+  .bar{display:grid;grid-template-columns:330px 1fr 100px;align-items:center;gap:16px;margin:12px 0;font-size:23px}
+  .bar .track{background:var(--panel);border:2px solid var(--line);border-radius:8px;height:34px;overflow:hidden}
+  .bar .fill{height:100%}
+  .bar .pct{font-weight:800;text-align:right}
+  .part{margin:96px 0 0;padding:20px 28px;border-radius:12px;background:var(--gold-soft);border:3px solid var(--gold);font-size:36px;font-weight:800;color:var(--ink)}
+  .toc .ph{display:block;margin:16px 0 4px;font-size:25px;font-weight:800;color:var(--muted)}
+  footer{margin-top:80px;font-size:21px;color:var(--muted);border-top:2px solid var(--line);padding-top:20px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>SVM_gui: from 354 m-files to one streamlined SVM_gui.m</h1>
+<p class="deck"><strong>Part I (Nov 9):</strong> how the SVM_gui tool was merged into one self-contained <code>SVM_gui.m</code> in three versions. <strong>Part II (Nov 10):</strong> how that merged program was streamlined into the SL version (one file, no <code>ssds.m</code>, no <code>C:\work</code> data, one temp folder, data passed in memory), and how each step was validated.</p>
+<p class="meta">Sessions: Monday, Nov 9, 2026 (7:51 to 11:25 pm) and Tuesday, Nov 10, 2026 (9:16 am to 7:05 pm), Pacific · Author: 熊章民 (Chang Hsiung) with Claude · Status: v2 <span class="tag ok">WORKING</span> (confirmed in MATLAB) · v3 superseded by SL · SL <span class="tag new">NEW</span> (Octave-validated with real data, awaiting a MATLAB pass)</p>
+
+<nav class="toc" id="toc">
+  <b>Contents</b>
+  <span class="ph">Part I · Nov 9: the merge</span>
+  <ol>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#timeline">Session timeline</a></li>
+    <li><a href="#inventory">Starting point: what was in the zip</a></li>
+    <li><a href="#audit">Pre-merge audit: what can break after a merge</a></li>
+    <li><a href="#merge">Running the merge, and two parser bugs</a></li>
+    <li><a href="#result">Merge result and verification (v1)</a></li>
+    <li><a href="#bug">The runtime bug: "kw2skw is not found" (v2)</a></li>
+    <li><a href="#v3">v3: merging everything except ssds</a></li>
+    <li><a href="#compare">Side-by-side: v2 vs v3</a></li>
+    <li><a href="#deliverable">Final deliverable (v3)</a></li>
+    <li><a href="#risks">Remaining risk</a></li>
+    <li><a href="#lessons">Lessons and checklist for future merges</a></li>
+    <li><a href="#tokens">Token usage for the evening</a></li>
+  </ol>
+  <span class="ph">Part II · Nov 10: the StreamLined (SL) version</span>
+  <ol start="14">
+    <li><a href="#sl-summary">SL summary</a></li>
+    <li><a href="#sl-timeline">Nov 10 timeline</a></li>
+    <li><a href="#sl-method">How the work was done: tools and test harness</a></li>
+    <li><a href="#sl-ssds">ssds absorbed into SVM_gui.m</a></li>
+    <li><a href="#sl-tmp">One temp/export folder: TMP_SVM_gui</a></li>
+    <li><a href="#sl-memory">In memory instead of write-then-read-back</a></li>
+    <li><a href="#sl-prune">Dead code, clogging and fixes</a></li>
+    <li><a href="#sl-validate">Validation: original vs SL, 18 GUI scenarios</a></li>
+    <li><a href="#sl-cmap">No more C:\work\…\cmap_etc</a></li>
+    <li><a href="#sl-callbacks">The button bug: "Clsname_2D_PCASVM_gui is not found"</a></li>
+    <li><a href="#sl-deliver">SL deliverable, open items and lessons</a></li>
+    <li><a href="#sl-tokens">Token usage: Nov 10 vs Nov 9, and both together</a></li>
+  </ol>
+</nav>
+
+<div class="part" id="part1" style="margin-top:40px">Part I · Monday, Nov 9, 2026: merging the m-files</div>
+
+<section id="summary">
+<h2>1. Summary</h2>
+<p>The goal was to fold every m-file in <code>SVM_gui_ALL-mfiles.zip</code> into the GUIDE program <code>SVM_gui.m</code> as <strong>local functions</strong>, using the saved skill <em>matlab-merge-mfiles</em>. Its main rule is that every function gets its own matching <code>end</code>.</p>
+<div class="stats">
+  <div class="stat"><div class="n">354</div><div class="l">m-files in the zip</div></div>
+  <div class="stat"><div class="n">349</div><div class="l">helpers merged as local functions (v3)</div></div>
+  <div class="stat"><div class="n">528</div><div class="l">functions = 528 function-closing <code>end</code>s (v3)</div></div>
+  <div class="stat"><div class="n">44,671</div><div class="l">lines in merged SVM_gui.m (v3)</div></div>
+  <div class="stat"><div class="n">1</div><div class="l">m-file still separate (<code>ssds.m</code>, a classdef)</div></div>
+  <div class="stat"><div class="n">77</div><div class="l">model calls over the evening</div></div>
+</div>
+<p>Most of the work was the <strong>audit</strong>, not the concatenation. A merge can pass every static check and still break at run time wherever code depends on <em>which file</em> a function lives in. Examples are <code>which()</code>, <code>dbstack</code> names, implementations swapped with <code>addpath</code>, and code found on the path that can't see local functions. One of these got past v1 and showed up as the <code>kw2skw</code> error, which v2 fixed. v3 then merged the remaining files: <code>cmap_DPR</code> became a small <strong>dispatcher</strong> that keeps the default/alternate colour-scheme switch working, and only the class <code>ssds.m</code> is left as a separate m-file.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="timeline">
+<h2>2. Session timeline</h2>
+<div class="timeline">
+  <div><span class="t">7:51 pm</span><br>Request: merge all m-files under <code>SVM_gui.m</code>, following the merge skill.</div>
+  <div><span class="t">Audit</span><br>Classified 354 files. Found the classdef, the scripts, the second GUIDE GUI (<code>AQP_gui</code>), the <code>which('svmtrain')</code> guard, the <code>cmap_DPR</code> path swap, the <code>dbstack</code> name checks, and 7 Latin-1 files.</div>
+  <div><span class="t">Merge attempt 1</span><br>The merge script crashed (<code>KeyError</code>) on 5 function headers split across lines with <code>...</code>.</div>
+  <div><span class="t">Merge attempt 2</span><br><span class="tag bad">VERIFY FAILED</span> 236 functions vs 235 ends, stack leftover 3, parenthesis depth 2. The causes were two parser bugs.</div>
+  <div><span class="t">Merge attempt 3</span><br><span class="tag ok">BALANCED</span> after fixing the parser (522 = 522). Octave install, then <span class="tag ok">PARSE_OK</span>. <strong>v1 delivered.</strong></div>
+  <div><span class="t">8:50 pm</span><br>User report: Modeling, then <em>L/P single plot</em>, gives <code>kw2skw is not found</code>.</div>
+  <div><span class="t">Diagnosis</span><br>The traceback line numbers (128 / 188) matched the <strong>original</strong> <code>cmap_DPR.m</code>, not the shipped one. Reproduced in Octave with the user's dataset.</div>
+  <div><span class="t">Fix</span><br>Shipped the 6 <code>cmap_DPR</code> helpers as standalone files. Re-tested both path orders: an 8×3 colormap each time. <strong>v2 delivered.</strong></div>
+  <div><span class="t">9:25 pm</span><br>User confirms v2: <strong>now works</strong>. First version of this document written.</div>
+  <div><span class="t">11:01 pm</span><br>User asks: merge most of the remaining v2 files too; if not, why?</div>
+  <div><span class="t">Analysis</span><br>Every <code>clr</code> / <code>SVMnose</code> reference is inside an <code>if false</code> block. The alternate <code>cmap_DPR</code> lives outside the package and is picked by <code>addpath</code>/<code>rmpath</code>/<code>cd</code>.</div>
+  <div><span class="t">Build</span><br><code>cmap_DPR</code> rewritten as a dispatcher, with the original code renamed <code>cmap_DPR__default</code>. Merge: <span class="tag ok">BALANCED</span> 528 = 528.</div>
+  <div><span class="t">Test</span><br>4 colour-scheme modes run in Octave. An Octave caching quirk showed up and was worked around to mimic MATLAB. All 4 <span class="tag ok">PASS</span>. <strong>v3 delivered.</strong></div>
+  <div><span class="t">11:25 pm</span><br>This document updated with v3, the v2 vs v3 comparison and the token usage.</div>
+</div>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="inventory">
+<h2>3. Starting point: what was in the zip</h2>
+<table>
+  <tr><th>Kind</th><th>Count</th><th>Notes</th></tr>
+  <tr><td>MATLAB m-files</td><td class="num">354</td><td>Main <code>SVM_gui.m</code> (2,656 lines, GUIDE-based) plus helpers. Mostly CRLF line endings.</td></tr>
+  <tr><td>Figure</td><td class="num">1</td><td><code>SVM_gui.fig</code></td></tr>
+  <tr><td>MEX (Windows 64-bit)</td><td class="num">6</td><td><code>svmtrain_MEX</code>, <code>svmpredict_MEX</code>, <code>LIBLINEAR_train/predict</code>, <code>libsvmwrite</code>, <code>loqo</code></td></tr>
+  <tr><td>DLL</td><td class="num">1</td><td><code>SamLibrary.dll</code></td></tr>
+  <tr><td>Compiled P-code</td><td class="num">1</td><td><code>ssds_method_maxDV_dvABC_kt.p</code> (encrypted, can't be read)</td></tr>
+  <tr><td>Data (.mat)</td><td class="num">3</td><td>Atrainpketc test datasets (not needed by the code)</td></tr>
+</table>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="audit">
+<h2>4. Pre-merge audit: what can break after a merge</h2>
+<p>A local function is <strong>private to its file</strong> and is <strong>invisible to <code>which</code></strong>, to the base workspace, and to any other file. Before merging, every pattern that depends on file identity was searched for.</p>
+
+<h3>4.1 Files that cannot (or should not) become local functions</h3>
+<table>
+  <tr><th>File</th><th>Why</th><th>Treatment (v1/v2)</th><th>v3</th></tr>
+  <tr><td><code>ssds.m</code></td><td>classdef: a class must be its own file</td><td>Kept separate. Already self-contained from an earlier session (local block from line 1805). Verified: it calls no helper it doesn't define itself. Left byte-identical.</td><td class="v3">Unchanged, still separate (MATLAB rule)</td></tr>
+  <tr><td><code>clr.m</code></td><td>Script (<code>clearj most; close all; clc;</code>)</td><td>Kept separate, with <code>clearj</code> appended so the script works without the path.</td><td class="v3">Dropped: SVM_gui never runs it (only in <code>if false</code> examples)</td></tr>
+  <tr><td><code>SVMnose.m</code></td><td>Script launcher (<code>openfig('SVM_gui.fig')</code>)</td><td>Kept separate. It needs no helpers.</td><td class="v3">Dropped: SVM_gui never runs it</td></tr>
+  <tr><td><code>AQP_gui.m</code>, <code>AQPlite.m</code></td><td>Separate main programs, never called by SVM_gui. AQP_gui is a GUIDE GUI whose <code>gui_Name = mfilename</code> would become <code>'SVM_gui'</code> and open the wrong .fig.</td><td>Excluded.</td><td class="v3">Still excluded</td></tr>
+  <tr><td><code>cmap_DPR.m</code></td><td>Deliberately swapped by path: <code>cmap_DPR_reset_default_path</code> and <code>cmap_DPR_Alt_LM_KeepColorScheme_in_GM</code> use <code>addpath</code>/<code>rmpath</code>/<code>cd</code> to choose between the default and the alternate version in <code>attic_cmap_alt</code>. A plain local copy would always win and silently disable the alternate scheme.</td><td>Kept standalone with its helpers appended; from v2 the helpers also ship standalone (<a href="#bug">§7</a>).</td><td class="v3">Merged as a dispatcher (<a href="#v3">§8</a>)</td></tr>
+</table>
+
+<h3>4.2 Code that changes meaning once merged</h3>
+<table>
+  <tr><th>Pattern found</th><th>Where</th><th>Problem</th><th>Fix</th></tr>
+  <tr><td><code>which('svmtrain')</code> guard that errors unless the result contains <code>svmtrain.m</code></td><td>SVM_gui main body. It runs on <strong>every</strong> call, including every callback.</td><td><code>which</code> can't see a local <code>svmtrain</code>, so every button click would error.</td><td>Wrapped in <code>if false … end</code> with a MERGE NOTE. The local <code>svmtrain</code> now always takes priority, so the guard isn't needed.</td></tr>
+  <tr><td><code>strcmp(aStack(k).name,'…')</code></td><td><code>PLS_wTcv_StandAlone_AQPpu</code>, <code>RUN_LIBSVM_ova_linear_wDecVal_CmpClsfr</code>, <code>SVM_visual_PCS_Callback_in_SVM_gui</code></td><td>For a local function MATLAB may report <code>SVM_gui&gt;name</code>, which would silently flip the branch.</td><td>Compare <code>regexprep(aStack(k).name,'^.*[&gt;/]','')</code> instead, which works either way.</td></tr>
+  <tr><td>dbstack <code>.file</code> / <code>.line</code></td><td><code>getCases_in_switch</code> (reads the caller's source)</td><td>None. The caller's file and line still point into the merged file.</td><td>No change needed.</td></tr>
+  <tr><td><code>mfilename</code></td><td><code>getCases_in_switch</code>, <code>RenameField</code> (error IDs only)</td><td>Only changes the text of error IDs.</td><td>No change needed.</td></tr>
+  <tr><td>String callbacks</td><td>Code and <code>SVM_gui.fig</code></td><td>A string callback runs in the base workspace and can't see local functions.</td><td>None found in code. The .fig has 64 references, all <code>SVM_gui('&lt;name&gt;',…)</code>. All 30 callback names exist in the merged file. <span class="tag bad">MISSED</span> the multi-line form; found and fixed Nov 10, see <a href="#sl-callbacks">§23</a>.</td></tr>
+</table>
+
+<h3>4.3 Encoding and line endings</h3>
+<p>Seven files (<code>PLS_Scv</code>, <code>PLS_Tcv</code>, <code>PLS_Tcv_P_Avg_All</code>, <code>PLS_predict_ONLY</code>, <code>SVR_Tcv_indvRun</code>, <code>plot_Regress_45_degree_line</code>, <code>seconds2human</code>) were ISO-8859-1. The only non-ASCII characters were <code>º</code> and <code>à</code>, both in comments. They were converted to UTF-8 so nothing was lost. Line endings were normalised to LF for processing and written back as Windows CRLF.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="merge">
+<h2>5. Running the merge, and two parser bugs</h2>
+<p>The skill's script <code>merge_mfiles.py</code> does the concatenation, the end-termination, the collision renaming and a self-check. It failed twice on this codebase, and both failures were genuine gaps in its parser.</p>
+
+<h3>5.1 Crash: function headers split across lines</h3>
+<p>Five files declare their function across several lines with <code>...</code>, e.g.</p>
+<pre><code>function [SVM_models_4C320,metpathfilename]...
+    =implement_SVMpred_gui(TPinfo_loaded,SVMmodels_sort, ...);</code></pre>
+<p>The header pattern found no function name, which caused a <code>KeyError</code>. <strong>Fix:</strong> the headers were joined onto one line in the staged copy (line count kept). Files: <code>LinkGraph_Y1_smellprint_PCA2D</code>, <code>LinkGraph_Y1_smellprint_scale_and_UNscaled</code>, <code>implement_SVMpred_gui</code>, <code>pcascore_all</code>, <code>plotresp_T_clsoffset_wP_eaFeat_origscale</code>.</p>
+
+<h3>5.2 Self-check failed: the parser misread quotes and block comments</h3>
+<div class="callout bad"><strong>[verify] functions=236 function_ends=235 stack_leftover=3 paren_depth=2 → NOT BALANCED</strong></div>
+<ol class="steps">
+  <li><strong><code>csv2struct.m</code>, line 48: <code>format = [format '%f'];</code></strong><br>
+  Inside <code>[ ]</code> or <code>{ }</code>, a quote that follows a <em>space</em> starts a string, even right after an identifier. The parser treated it as a transpose. The <code>%</code> in <code>'%f'</code> then looked like a comment and swallowed the closing <code>]</code>.</li>
+  <li><strong><code>getCases_in_switch.m</code>: a <code>%{ … %}</code> block comment before the <code>function</code> line</strong><br>
+  Its first "code" line looked like <code>2018/June</code>, so the file was classified as a script and kept out of the merge.</li>
+</ol>
+<p><strong>Fix:</strong> a patched working copy (<code>merge_v2.py</code>; the saved skill was left untouched) with a parser that:</p>
+<ul class="list">
+  <li>treats a quote after whitespace inside <code>[ ]</code>/<code>{ }</code> as the start of a string;</li>
+  <li>blanks <code>%{ … %}</code> block comments across lines (nesting allowed);</li>
+  <li>blanks everything after a <code>...</code> continuation;</li>
+  <li>handles double-quoted strings, including the doubled-quote escape <code>""</code>.</li>
+</ul>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="result">
+<h2>6. Merge result and verification (v1)</h2>
+<pre><code>[verify] functions=522 function_ends=522 stack_leftover=0 paren_depth=0
+         negative=False duplicate_names=0 -&gt; BALANCED
+cmap_DPR self-contained : 13 functions / 13 ends -&gt; BALANCED
+clr      self-contained :  1 function  /  1 end  -&gt; BALANCED</code></pre>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Static balance (functions vs function-closing <code>end</code>s, block stack, parenthesis depth)</td><td><span class="tag ok">PASS</span> 522 = 522, stack empty, depth 0</td></tr>
+  <tr><td>Duplicate function names in the merged file</td><td><span class="tag ok">PASS</span> 0</td></tr>
+  <tr><td>Independent parse in Octave</td><td><span class="tag ok">PARSE_OK</span> SVM_gui (nargin = −1, i.e. varargin), cmap_DPR, clr, SVMnose</td></tr>
+  <tr><td>All .fig callback names defined</td><td><span class="tag ok">PASS</span> 30 of 30</td></tr>
+  <tr><td>Kept-separate files call only functions they define themselves</td><td><span class="tag ok">PASS</span> ssds, cmap_DPR, clr, SVMnose</td></tr>
+  <tr><td>Coverage: every m-file merged, shipped separately, or deliberately excluded</td><td><span class="tag ok">PASS</span> 347 + SVM_gui + 4 + 2 = 354</td></tr>
+</table>
+<h3>Name collisions (29)</h3>
+<p>The same sub-function name appeared in more than one file, e.g. <code>cc</code>, <code>disp_with_border</code>, <code>fdir_wildcard</code> inside <code>tmp_folder_rm_mk</code>; <code>plotsv</code> / <code>plotdata</code> / <code>plotboundary</code> across the <code>SVM_Anton_wP*</code> family; <code>saConc2XY</code> in four PLS files. The file that owns the name keeps it. Every other private copy is renamed <code>&lt;hostfile&gt;__&lt;name&gt;</code>, and that file's own calls are rewritten to match. Also, <code>title_usF.m</code>'s function <code>title_usF_Interpreter_none</code> was renamed to <code>title_usF</code> to match its filename.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="bug">
+<h2>7. The runtime bug: "kw2skw is not found" (v2)</h2>
+<div class="callout bad">
+<strong>Symptom</strong> (after Modeling, then the <em>L/P single plot</em> button):<br>
+<code>kw2skw is not found in the current folder or on the MATLAB path</code><br>
+<code>Error in cmap_DPR&gt;isUnique_themap (line 188)</code> → <code>cmap_DPR (line 128)</code> → <code>SVM_gui&gt;cmap_dpr_ncls</code> → <code>SVM_gui&gt;SVM_visual_PCS</code> → … <code>SVM_visual_PCS_Callback</code>
+</div>
+<h3>7.1 Diagnosis</h3>
+<ol class="steps">
+  <li><strong>Nothing missing?</strong> The uploaded merged file was identical to the delivered one, and all 354 m-files were accounted for.</li>
+  <li><strong>The line numbers gave it away.</strong> Lines 188 and 128 match the <strong>original</strong> <code>cmap_DPR.m</code> exactly; in the shipped copy that line is 191. MATLAB was running a <em>different copy</em> of <code>cmap_DPR</code>.</li>
+  <li><strong>Why:</strong> code paths inside SVM_gui call <code>cmap_DPR_reset_default_path</code>, which runs <code>addpath('C:\work\JDSU\mfiles\jdsu_Utility_mfiles\cmap_etc')</code> and puts the original <code>cmap_DPR.m</code> first on the path. A <code>cmap_DPR</code> found on the path can't see local functions inside <code>SVM_gui.m</code>, and <code>kw2skw</code> now existed only there.</li>
+</ol>
+<h3>7.2 Reproduction with the real dataset</h3>
+<p>Dataset: <code>Atrainpketc_{ApdCls-N6_S3_T-470_P-600}_nvar119_ncls8_nsampT375_nsampP373.mat</code> (8 classes), calling <code>cmap_DPR(ncls, inp4cmap)</code> as <code>SVM_visual_PCS</code> does.</p>
+<table>
+  <tr><th>Case</th><th><code>cmap_DPR</code> resolves to</th><th>Result</th></tr>
+  <tr><td>Before fix</td><td>original <code>cmap_etc/cmap_DPR.m</code></td><td><span class="tag bad">ERROR</span> helper undefined (same root cause)</td></tr>
+  <tr><td>After fix: original first on path</td><td>original <code>cmap_etc/cmap_DPR.m</code></td><td><span class="tag ok">OK</span> 8×3 colormap</td></tr>
+  <tr><td>After fix: shipped copy only</td><td>merged-folder <code>cmap_DPR.m</code></td><td><span class="tag ok">OK</span> 8×3 colormap</td></tr>
+</table>
+<h3>7.3 Fix</h3>
+<p>The six helpers (<code>kw2skw</code>, <code>color_CH</code>, <code>colorSpectrum_curvspace</code>, <code>curvspace</code>, <code>KennardStone</code>, <code>SpcDistance</code>) <strong>also ship as standalone .m files</strong>, so <em>any</em> <code>cmap_DPR</code> on the path can find them. <code>SVM_gui.m</code> itself didn't change in v2. The user confirmed: <strong>now works</strong>.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="v3">
+<h2>8. v3: merging everything except ssds <span class="tag bad">SUPERSEDED by SL</span></h2>
+<p>Question at 11:01 pm: <em>"can you merge most (unless something like ssds which is not allowed) of those m-files in v2 into SVM_gui.m? If not, why?"</em> Each remaining file was re-examined.</p>
+
+<h3>8.1 File-by-file verdict</h3>
+<table>
+  <tr><th>v2 file</th><th>Can it be merged?</th><th>Reason</th></tr>
+  <tr><td><code>ssds.m</code></td><td><span class="tag bad">NO</span></td><td>classdef. MATLAB requires a class to live in its own file named after the class. It's self-contained and unchanged.</td></tr>
+  <tr><td><code>cmap_DPR.m</code></td><td><span class="tag ok">YES</span> (as a dispatcher)</td><td>A plain merge would disable the alternate scheme, so the merged <code>cmap_DPR</code> asks MATLAB which copy it would have picked (8.2).</td></tr>
+  <tr><td>6 helpers</td><td><span class="tag ok">Already merged</span></td><td>They were always local functions in <code>SVM_gui.m</code>. The standalone copies only served a <code>cmap_DPR</code> found on the path; once <code>cmap_DPR</code> is merged, the main folder doesn't need them.</td></tr>
+  <tr><td><code>clr.m</code></td><td>Not needed</td><td>All 6 references are inside <code>if false</code> usage examples. It also couldn't become a faithful local function: <code>clearj</code> clears the <em>caller's</em> workspace via <code>evalin('caller',…)</code>. It's a command-line utility, so dropped from the package.</td></tr>
+  <tr><td><code>SVMnose.m</code></td><td>Not needed</td><td>Only referenced inside an <code>if false</code> block; it's an alternate launcher script. Dropped from the package.</td></tr>
+</table>
+
+<h3>8.2 The <code>cmap_DPR</code> dispatcher</h3>
+<p>Before the merge, MATLAB itself chose the colour scheme (current folder first, then path):</p>
+<ul class="list">
+  <li><strong>Default:</strong> <code>cmap_etc\cmap_DPR.m</code>, or the copy next to SVM_gui.m.</li>
+  <li><strong>Alternate:</strong> <code>cmap_etc\attic_cmap_alt\cmap_DPR.*</code>, switched on by <code>cmap_DPR_Alt_LM_KeepColorScheme_in_GM</code> (<code>rmpath</code> cmap_etc, <code>addpath</code> attic) and off by <code>cmap_DPR_reset_default_path</code>.</li>
+  <li><strong>Forced default:</strong> <code>cmap_DPR_customerized</code> <code>cd</code>s into <code>cmap_etc</code> so the default wins even while the alternate is on the path.</li>
+</ul>
+<p>In v3 the original code became the local function <code>cmap_DPR__default</code>, and a new local <code>cmap_DPR</code> defers that choice to MATLAB by asking the <strong>base workspace</strong>, which can't see local functions:</p>
+<pre><code>function varargout = cmap_DPR(varargin)
+nout = max(nargout,1);
+w = '';
+try
+    w = evalin('base','which(''cmap_DPR'')');     % what MATLAB itself would pick
+catch
+end
+if ~isempty(strfind(lower(w),'attic_cmap_alt'))    % alternate scheme is active
+    tmpName = 'tmp_args_4_cmap_DPR_alt__';
+    assignin('base', tmpName, varargin);
+    cleanupObj = onCleanup(@() evalin('base', ['clear ' tmpName]));
+    [varargout{1:nout}] = evalin('base', ['cmap_DPR(' tmpName '{:})']);
+else
+    [varargout{1:nout}] = cmap_DPR__default(varargin{:});
+end
+end</code></pre>
+
+<h3>8.3 Verification</h3>
+<pre><code>[verify] functions=528 function_ends=528 stack_leftover=0 paren_depth=0
+         negative=False duplicate_names=0 -&gt; BALANCED
+merged_helpers 349 · kept_separate ['ssds'] · excluded ['AQP_gui','AQPlite']
+Octave: PARSE_OK SVM_gui nargin=-1</code></pre>
+<p>Test harness: the full merged <code>SVM_gui.m</code> was wrapped so its local <code>cmap_DPR</code> could be called directly, using the 8-class dataset, a simulated <code>cmap_etc</code> holding the original <code>cmap_DPR.m</code>, and a fake <code>attic_cmap_alt</code> version that returns a recognisable all-0.5 map.</p>
+<table>
+  <tr><th>Mode</th><th>Simulates</th><th>Expected</th><th>Result</th></tr>
+  <tr><td>A. Default</td><td>Normal SVM_gui run</td><td>Default colours</td><td><span class="tag ok">PASS</span> 8×3, identical to v2's <code>cmap_DPR</code></td></tr>
+  <tr><td>B. Alternate on path</td><td><code>cmap_DPR_Alt_LM_KeepColorScheme_in_GM</code></td><td>Alternate version used</td><td><span class="tag ok">PASS</span> alternate used; temp base variable cleared</td></tr>
+  <tr><td>C. Alternate on path + <code>cd cmap_etc</code></td><td><code>cmap_DPR_customerized</code></td><td>Default colours</td><td><span class="tag ok">PASS</span> default used</td></tr>
+  <tr><td>D. After reset</td><td><code>cmap_DPR_reset_default_path</code></td><td>Default colours</td><td><span class="tag ok">PASS</span> default used</td></tr>
+</table>
+<div class="callout warn"><strong>Octave caching quirk (not a v3 bug).</strong> On the first run, mode C failed. Debugging showed the dispatcher's decision logic was right: run fresh, mode C picked the default. The problem was that once <code>cmap_DPR</code> had been called, Octave's <code>which</code> kept returning the cached copy even after <code>cd</code> or <code>addpath</code>. MATLAB re-resolves on every <code>cd</code>/<code>addpath</code>, and the original pre-merge code depended on exactly that. Re-running with <code>clear cmap_DPR; rehash</code> after each path/folder change, to mimic MATLAB, made all four modes pass.</div>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="compare">
+<h2>9. Side-by-side: v2 vs v3</h2>
+<table>
+  <tr><th style="width:24%">Aspect</th><th style="width:38%">v2 (9:25 pm, confirmed in MATLAB)</th><th style="width:38%">v3 (11 pm, Octave-tested)</th></tr>
+  <tr><td>Package</td><td><code>SVM_gui_merged_v2.zip</code>, 21 files</td><td class="v3"><code>SVM_gui_merged_v3.zip</code>, 12 files + optional folder (6)</td></tr>
+  <tr><td>m-files in main folder</td><td class="num">11</td><td class="v3 num">2 (<code>SVM_gui.m</code>, <code>ssds.m</code>)</td></tr>
+  <tr><td>Helpers merged in <code>SVM_gui.m</code></td><td class="num">347</td><td class="v3 num">349 (+ <code>cmap_DPR</code>, <code>cmap_DPR__default</code>)</td></tr>
+  <tr><td>Functions / function-ends</td><td class="num">522 / 522</td><td class="v3 num">528 / 528</td></tr>
+  <tr><td><code>SVM_gui.m</code> lines</td><td class="num">44,355</td><td class="v3 num">44,671</td></tr>
+  <tr><td><code>cmap_DPR</code></td><td>Standalone <code>cmap_DPR.m</code>, helpers appended; found through the path</td><td class="v3">Merged: local dispatcher + <code>cmap_DPR__default</code></td></tr>
+  <tr><td>Default / alternate colour switching</td><td>MATLAB picks the file (current folder, then path)</td><td class="v3">Dispatcher asks the base workspace's <code>which</code>, so the same choice as before</td></tr>
+  <tr><td>6 <code>cmap_DPR</code> helpers</td><td>Standalone in main folder (needed by any path-found <code>cmap_DPR</code>)</td><td class="v3">Only local copies are used; standalone copies moved to <code>optional_alt_cmap_helpers\</code></td></tr>
+  <tr><td>When the 6 standalone helpers matter</td><td>Always (the default <code>cmap_DPR</code> might be found on the path)</td><td class="v3">Only if the <em>alternate</em> scheme is used and its <code>cmap_DPR</code> calls them: copy them into <code>attic_cmap_alt</code></td></tr>
+  <tr><td><code>clr.m</code></td><td>Shipped (script + local <code>clearj</code>)</td><td class="v3">Dropped (never run by SVM_gui)</td></tr>
+  <tr><td><code>SVMnose.m</code></td><td>Shipped (launcher script)</td><td class="v3">Dropped (never run by SVM_gui)</td></tr>
+  <tr><td><code>ssds.m</code></td><td>Separate, self-contained, unchanged</td><td class="v3">Same</td></tr>
+  <tr><td>Risk of "X is not found" from a path-found <code>cmap_DPR</code></td><td>Covered by the standalone helpers</td><td class="v3">Gone for the default scheme; alternate scheme covered by the optional folder</td></tr>
+  <tr><td>Other fixes (svmtrain guard, dbstack names, 29 renames, UTF-8, CRLF)</td><td>Included</td><td class="v3">Included, unchanged</td></tr>
+  <tr><td>Testing</td><td>Octave repro + fix test; <strong>user confirmed in MATLAB</strong></td><td class="v3">Static balance, Octave parse, 4-mode dispatcher test with real data; MATLAB check pending</td></tr>
+  <tr><td>Recommended use</td><td>Safe fallback</td><td class="v3">Cleanest package, once a quick MATLAB run confirms it</td></tr>
+</table>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="deliverable">
+<h2>10. Final deliverable (v3)</h2>
+<p><code>SVM_gui_merged_v3.zip</code>: keep everything together in one folder on the MATLAB path.</p>
+<table>
+  <tr><th>File(s)</th><th>Role</th></tr>
+  <tr><td><code>SVM_gui.m</code></td><td>Main GUI plus 349 merged helpers, including the <code>cmap_DPR</code> dispatcher (44,671 lines, UTF-8, CRLF)</td></tr>
+  <tr><td><code>SVM_gui.fig</code></td><td>GUIDE layout (callbacks all go through <code>SVM_gui('…')</code>)</td></tr>
+  <tr><td><code>ssds.m</code></td><td>classdef, self-contained, unchanged</td></tr>
+  <tr><td><code>ssds_method_maxDV_dvABC_kt.p</code>, <code>SamLibrary.dll</code>, 6 × <code>.mexw64</code></td><td>Compiled files the program needs</td></tr>
+  <tr><td><code>optional_alt_cmap_helpers\</code> (6 .m)</td><td>Only for the alternate colour scheme: copy into <code>attic_cmap_alt</code> if it reports a missing helper</td></tr>
+  <tr><td><code>MERGE_NOTES.txt</code></td><td>Record of every change (each also marked <code>MERGE NOTE</code> in the code)</td></tr>
+</table>
+<p>v2 remains a working fallback.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="risks">
+<h2>11. Remaining risk</h2>
+<ul class="list">
+  <li><strong>v3 not yet run in MATLAB.</strong> The MEX files are Windows-only and Octave can't open a GUIDE .fig. The dispatcher uses only standard MATLAB calls (<code>evalin</code>, <code>assignin</code>, <code>onCleanup</code>, multi-output <code>evalin</code>), but a quick Modeling → L/P single plot run is the real test.</li>
+  <li><strong>Alternate colour scheme.</strong> Its <code>cmap_DPR</code> lives outside the package, so its own dependencies are unknown. If it reports a missing helper, copy the 6 optional files into <code>attic_cmap_alt</code>.</li>
+  <li><span class="tag ok">MOOT in SL</span> (ssds absorbed, <a href="#sl-ssds">§17</a>) <strong><code>ssds_method_maxDV_dvABC_kt.p</code></strong> is encrypted, so what it calls can't be checked. It's only used by an <code>ssds</code> batch-pipeline method. If it reports "Undefined function X", put the original <code>X.m</code> on the path.</li>
+  <li>The hard-coded <code>C:\work\JDSU\…</code> paths in the colour-scheme code are unchanged from the original. <span class="tag ok">RESOLVED Nov 10</span> see <a href="#sl-cmap">§22</a>.</li>
+</ul>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="lessons">
+<h2>12. Lessons and checklist for future merges</h2>
+<ol class="steps">
+  <li><strong>Inventory first.</strong> Classify every file (function, script or classdef) after blanking block comments; find other main programs or GUIDE GUIs to exclude.</li>
+  <li><strong>Search for file-identity code:</strong> <code>which(</code>, <code>exist(…,'file')</code>, <code>nargin('name')</code>, <code>dbstack</code> <code>.name</code> comparisons, <code>mfilename</code>, <code>eval</code>/<code>evalin</code> strings, string callbacks (in code <em>and</em> in the .fig).</li>
+  <li><strong>Search for implementations swapped by path</strong> (<code>addpath</code>/<code>rmpath</code>/<code>cd</code>). Either keep them standalone, or merge them as a <strong>dispatcher</strong> that asks the base workspace's <code>which</code> and calls the outside version only when MATLAB would have picked it (v3 pattern).</li>
+  <li><strong>Anything found on the path needs its helpers on the path too</strong>: kept-separate files, external copies the code may add to the path, and .p files.</li>
+  <li><strong>Check whether scripts are actually run.</strong> References inside <code>if false</code> example blocks don't count; those scripts can be left out.</li>
+  <li><strong>Make sure the parser handles real MATLAB syntax:</strong> <code>[a 'str']</code> strings, <code>%{ %}</code> block comments, <code>...</code> tails, double-quoted strings, and function headers split with <code>...</code>.</li>
+  <li><strong>Normalise encoding</strong> (Latin-1 to UTF-8); write CRLF back for Windows.</li>
+  <li><strong>Check three ways:</strong> the balance check, an independent Octave parse, and a coverage audit. For behaviour tests in Octave, run <code>clear name; rehash</code> after each <code>cd</code>/<code>addpath</code>, because Octave caches function lookups where MATLAB doesn't.</li>
+  <li><strong>When an error comes back, compare the traceback line numbers with each candidate file</strong> to find which copy actually ran.</li>
+</ol>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="tokens">
+<h2>13. Token usage for the evening</h2>
+<p>Measured usage for this conversation, from 7:51 pm up to the start of this final document update (which is not included):</p>
+<div class="stats">
+  <div class="stat"><div class="n">77</div><div class="l">model calls (requests)</div></div>
+  <div class="stat"><div class="n">≈16.1 M</div><div class="l">tokens processed in total</div></div>
+  <div class="stat"><div class="n">84,886</div><div class="l">output tokens written</div></div>
+  <div class="stat"><div class="n">≈2.5 M</div><div class="l">effective "input-equivalent" tokens</div></div>
+</div>
+<table>
+  <tr><th>Token type</th><th>Count</th><th>Weight vs plain input</th><th>Input-equivalent</th></tr>
+  <tr><td>Cache reads (context re-read each call)</td><td class="num">15,810,965</td><td>≈ 0.1×</td><td class="num">≈ 1,581,000</td></tr>
+  <tr><td>Cache writes (new context stored)</td><td class="num">251,588</td><td>≈ 2×</td><td class="num">≈ 503,000</td></tr>
+  <tr><td>Uncached input</td><td class="num">158</td><td>1×</td><td class="num">158</td></tr>
+  <tr><td>Output (code, HTML, replies, reasoning)</td><td class="num">84,886</td><td>≈ 5×</td><td class="num">≈ 424,000</td></tr>
+  <tr><td><strong>Total</strong></td><td class="num">16,147,597</td><td></td><td class="num">≈ 2,509,000</td></tr>
+</table>
+<h3>Where it went (share of effective usage)</h3>
+<div class="bars">
+  <div class="bar"><span>Standing instructions &amp; context, re-read every call</span><div class="track"><div class="fill" style="width:61.8%;background:var(--bar1)"></div></div><span class="pct">61.8%</span></div>
+  <div class="bar"><span>Files &amp; commands (65 shell runs, file reads/writes)</span><div class="track"><div class="fill" style="width:32.1%;background:var(--bar2)"></div></div><span class="pct">32.1%</span></div>
+  <div class="bar"><span>The conversation (your messages, my replies)</span><div class="track"><div class="fill" style="width:5.5%;background:var(--bar3)"></div></div><span class="pct">5.5%</span></div>
+  <div class="bar"><span>Publishing this page</span><div class="track"><div class="fill" style="width:0.7%;background:var(--bar4)"></div></div><span class="pct">0.7%</span></div>
+</div>
+<ul class="list">
+  <li>Most of the cost is the standing context (instructions, tool list, earlier steps) being re-read on each of the 77 calls. Caching makes each re-read cheap (≈ 0.1×), but it adds up.</li>
+  <li>The shell work (unzipping, audits, three merges, the Octave install and the tests) is nearly a third. That's where the actual engineering happened.</li>
+  <li>Large single outputs, such as this HTML page, the dispatcher and the notes, make up most of the 85 K output tokens.</li>
+</ul>
+<p class="meta">Caveats: the split between groups is an estimate, since usage is metered per request, not per tool. The weights are approximate relative costs. Tokens spent producing this update aren't included.</p>
+<p>For the Nov 10 session and the total of both sessions, see <a href="#sl-tokens">§25</a>.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+
+<div class="part" id="part2">Part II · Tuesday, Nov 10, 2026: the StreamLined (SL) version</div>
+
+<section id="sl-summary">
+<h2>14. SL summary</h2>
+<p>The day after the merge, the merged v3 program (<code>SVM_gui.m</code> + <code>ssds.m</code>) was <strong>streamlined</strong>. The request asked for five things:</p>
+<ul class="list">
+  <li>remove clogging, redundant and inefficient parts;</li>
+  <li>consolidate the many <code>TMP~</code> folders into one <code>TMP_SVM_gui</code> folder with subfolders;</li>
+  <li>absorb the <code>ssds</code> class so it is no longer an external file;</li>
+  <li>pass data between steps in memory instead of writing it to disk and reading it back;</li>
+  <li>validate as much as possible with the uploaded datasets before handing the code back.</li>
+</ul>
+<p>Three follow-up requests came the same day: drop the dependency on the local <code>C:\work\…\cmap_etc</code> folder, fix a button error, and write this document.</p>
+<div class="stats">
+  <div class="stat"><div class="n">67,544</div><div class="l">lines before (SVM_gui.m 44,672 + ssds.m 22,872)</div></div>
+  <div class="stat"><div class="n">31,431</div><div class="l">lines after, in one SVM_gui.m</div></div>
+  <div class="stat"><div class="n">1</div><div class="l">m-file needed (ssds.m, cmap_etc and SamLibrary.dll no longer needed)</div></div>
+  <div class="stat"><div class="n">8 → 1</div><div class="l">temp/export folders → <code>TMP_SVM_gui</code></div></div>
+  <div class="stat"><div class="n">217</div><div class="l">unreachable local functions removed</div></div>
+  <div class="stat"><div class="n">3.7×</div><div class="l">faster Tcv OneSampOut (175.6 s → 47.8 s)</div></div>
+</div>
+<div class="callout ok"><strong>Result.</strong> Every modeling scenario that runs in both versions gives <strong>identical</strong> numbers to the original merged program: about 14.5k values per scenario (PAS, decision values, predicted classes, GUI text). The new data paths (ssds struct, in-memory local model, in-memory Tcv, in-memory colour scheme) were each checked value for value against the original file-based path.</div>
+<p class="meta">Status: SL <span class="tag new">NEW</span> Octave-validated with the real U2U datasets · awaiting a pass in real MATLAB (LA_PCA_SVM, CFP_GM, FeatMat <code>*_ssds</code> views, Fig 250/252 buttons).</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-timeline">
+<h2>15. Nov 10 timeline</h2>
+<div class="timeline">
+  <div><span class="t">9:16 am · Request 1</span><br>Streamline the merged v3 <code>SVM_gui.m</code>: one TMP folder, absorb <code>ssds</code>, in-memory hand-offs, validate with the U2U_20_&amp;_22 data.</div>
+  <div><span class="t">Map</span><br>A new MATLAB parser and call graph were built, starting from the GUIDE entry points and the 30 callbacks stored in <code>SVM_gui.fig</code>. They showed that about 21k lines (184 functions) could never be reached. Only 16 of 49 ssds methods are used.</div>
+  <div><span class="t">Baseline</span><br>Octave 8.4 was installed, libsvm and liblinear were compiled under the MEX names (<code>svmtrain_MEX</code>, …), and a headless GUI harness was built. The <strong>original</strong> program was then run through 18 scenarios to record reference results.</div>
+  <div><span class="t">Build</span><br>A four-stage scripted build: absorb ssds, apply targeted edits, prune, finalize. Each stage parse-checks.</div>
+  <div><span class="t">Validate</span><br>Full suite on both versions, ssds unit tests (original class vs new functions, in separate processes), and an LA_PCA_SVM chain test. <strong>SL delivered.</strong></div>
+  <div><span class="t">5:18 pm · Request 2</span><br>"Make the program no longer rely on data at the local drive" (<code>cmap_etc</code>). The colour schemes now live in memory. Checked against the uploaded <code>cmap_etc</code>, including a real <code>inp4cmap</code> file. <strong>Delivered.</strong></div>
+  <div><span class="t">5:47 pm · Request 3</span><br>Pressing <em>N6</em> on Fig 252 after <em>T/P single plot</em> gave "<code>Clsname_2D_PCASVM_gui</code> is not found". Cause: string callbacks. All of them were fixed, and 38 buttons were pressed in a test. <strong>Delivered.</strong></div>
+  <div><span class="t">7:05 pm · Request 4</span><br>This document: Part I (Nov 9) kept, Part II (Nov 10) added.</div>
+</div>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-method">
+<h2>16. How the work was done: tools and test harness</h2>
+<h3>16.1 Analysis tools (Python)</h3>
+<table>
+  <tr><th>Tool</th><th>What it does</th></tr>
+  <tr><td><code>mparse.py</code></td><td>Finds function boundaries in MATLAB code. It handles <code>%{ %}</code> block comments, <code>...</code> continuations, quote vs transpose (looking at the character right before the quote, so <code>[format '%f']</code> is a string), <code>end</code> used as an index, and <code>properties = {…}</code> used as a variable name.</td></tr>
+  <tr><td><code>callgraph.py</code> / <code>prune.py</code></td><td>Reachability. It starts from <code>SVM_gui</code>, <code>OpeningFcn</code>, <code>OutputFcn</code> and the 30 .fig callbacks. Edges are identifiers plus words inside string literals (callback strings, <code>feval</code> names). Code in <code>if false</code> example blocks is ignored because it never runs.</td></tr>
+  <tr><td><code>build_sl.py</code> → <code>stage2.py</code> → <code>prune.py</code> → <code>finalize.py</code></td><td>The reproducible build: absorb ssds, apply 19 groups of targeted edits (each one asserted to match exactly), prune, then add the change-log header and write CRLF. Every edit in the code is tagged <code>[SL Nov-2026]</code>.</td></tr>
+  <tr><td><code>scan_callbacks.py</code></td><td>Finds every callback-type property whose value is a string, a <code>{'name',…}</code> cell or a string variable, after joining <code>...</code> lines (added for request 3).</td></tr>
+</table>
+<h3>16.2 Headless GUI harness (Octave 8.4 + Xvfb)</h3>
+<ul class="list">
+  <li><strong>Fake GUI:</strong> Octave can't open a GUIDE .fig, so the window was rebuilt from <code>SVM_gui.fig</code>'s controls, with the same tags, strings, values and <code>SVM_gui('…_Callback',…)</code> callbacks. A minimal <code>gui_mainfcn</code> dispatches callbacks by name.</li>
+  <li><strong>Mocks:</strong> <code>uigetfile</code> (returns the dataset), <code>gcbo</code>/<code>gco</code> (the "clicked" control), <code>uiwait</code> (auto-picks classes in the uicellect dialog), <code>ginput</code>, <code>input</code>.</li>
+  <li><strong>MEX:</strong> libsvm 3.x and liblinear compiled with <code>mkoctfile</code> under the program's own names.</li>
+  <li><strong>Octave-compat layer (test-only, applied identically to both versions, never shipped):</strong> HG2 dot syntax (<code>h.Value</code>) is rewritten to <code>get</code>/<code>set</code>, and a literal <code>'\'</code> becomes <code>filesep</code>. Shims cover <code>load</code> (a missing variable gives a warning, as in MATLAB), <code>qp</code>, <code>struct2array</code>, <code>maxk</code>/<code>mink</code>, <code>gobjects</code>, <code>strfind([])</code>, a small <code>string</code> class (<code>+</code>, <code>replaceBetween</code>, …), <code>ver</code>, <code>lighting phong</code>, empty <code>isosurface</code>/<code>patch</code>, and contour <code>Color</code>/<code>SelectionChangeFcn</code> names.</li>
+  <li><strong>Datasets:</strong> unit (20) and unit (22), 8 classes, 119 variables; a 3-class extract; a T==P copy for Tcv.</li>
+</ul>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-ssds">
+<h2>17. ssds absorbed into SVM_gui.m</h2>
+<p><code>ssds.m</code> was 49 class methods (1.5k lines) plus 247 private helpers (20k lines), many of them duplicates of helpers already merged into <code>SVM_gui.m</code>. Only <strong>16 methods</strong> are reachable from the GUI.</p>
+<table>
+  <tr><th>Old (class)</th><th>New (local function)</th></tr>
+  <tr><td><code>ssds(x)</code></td><td><code>ssds_new(x)</code>, which starts from <code>ssds_blank()</code> (all 16 former properties, <code>[]</code> by default)</td></tr>
+  <tr><td><code>o1 &gt; o2</code>, <code>TP_pair</code>, <code>o1 + o2</code>, <code>o1 - o2</code>, <code>&amp;</code></td><td><code>ssds_gt</code>, <code>ssds_TP_pair</code>, <code>ssds_plus</code>, <code>ssds_minus</code>, <code>ssds_and</code></td></tr>
+  <tr><td><code>obj.saveAT</code>, <code>.P2T</code>, <code>.rm_Pset</code>, <code>.extract_class</code>, <code>.merge_rm_extract_class</code>, <code>.rm_samps_*</code>, <code>.diagnose_Clsname_PushButton</code>, <code>.run_CFP_GM_sortTcls</code></td><td><code>ssds_saveAT(obj,…)</code> … <code>ssds_run_CFP_GM_sortTcls(obj,…)</code></td></tr>
+  <tr><td><code>isa(x,'ssds')</code></td><td><code>is_ssds(x)</code></td></tr>
+</table>
+<ul class="list">
+  <li>61 ssds-private helpers that SVM_gui.m lacked were copied in. Four helpers existed in both files with slightly different code; the SVM_gui.m copies were kept because they hold the same logic.</li>
+  <li>Value-class semantics are unchanged, because MATLAB structs are also passed by value.</li>
+  <li>The constructor used to <strong>save a dummy AT file into pwd and delete it again</strong> just to learn <code>fname_AT_barebone_tail</code>. That name is now computed directly by <code>ssds_fname_AT</code>.</li>
+  <li><code>ssds_gt</code> no longer leaves an unused <code>…_TP.mat</code> in pwd.</li>
+  <li>With ssds gone, <code>ssds_method_maxDV_dvABC_kt.p</code> and <code>SamLibrary.dll</code> are no longer used by the GUI.</li>
+</ul>
+<h3>17.1 Unit equivalence (original class vs new functions, in separate Octave processes)</h3>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Constructor on 3 AT files: all properties and LAT</td><td><span class="tag ok">IDENTICAL</span> and no file left behind</td></tr>
+  <tr><td><code>ssds(T20) &gt; ssds(T22)</code> vs <code>ssds_gt</code></td><td><span class="tag ok">IDENTICAL</span></td></tr>
+  <tr><td><code>P2T</code> (including the saved file name)</td><td><span class="tag ok">IDENTICAL</span></td></tr>
+  <tr><td><code>merge_rm_extract_class</code> extracting PET/PTT/TP (file path, and the new in-memory path)</td><td><span class="tag ok">IDENTICAL</span> LAT and properties; the in-memory path writes nothing</td></tr>
+</table>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-tmp">
+<h2>18. One temp/export folder: <code>TMP_SVM_gui</code></h2>
+<p>The helper <code>svmgui_tmp(sub)</code> places every folder under <code>TMP_SVM_gui</code>, inside the last non-TMP folder of pwd (normally the folder SVM_gui was started from). It keeps the clean-on-reuse behaviour of <code>tmp_folder_rm_mk</code>.</p>
+<table>
+  <tr><th>Before</th><th>Now</th></tr>
+  <tr><td><code>TMP4SVMnose</code></td><td><code>TMP_SVM_gui\SVMmodels</code></td></tr>
+  <tr><td><code>TMP4SVMnoseADD</code></td><td><code>TMP_SVM_gui\ModelsUpdate_ADD</code></td></tr>
+  <tr><td><code>TMP4AT</code></td><td><code>TMP_SVM_gui\AT_normasmc</code></td></tr>
+  <tr><td><code>TMP4AT4libsvm</code></td><td><code>TMP_SVM_gui\libsvm_format</code></td></tr>
+  <tr><td><code>TMP4LIBSVM_model_Pset</code></td><td><code>TMP_SVM_gui\LIBSVM_model_Pset</code></td></tr>
+  <tr><td><code>Predict_As_Label_AS_SVM.mat</code> (saved in pwd)</td><td><code>TMP_SVM_gui\MLsvm</code></td></tr>
+  <tr><td><code>TMP_CV</code> (created <strong>next to the data file</strong>)</td><td><code>TMP_SVM_gui\CV</code></td></tr>
+  <tr><td><code>TMP_2SCFP</code></td><td><code>TMP_SVM_gui\CFP_2S</code></td></tr>
+  <tr><td><code>newMergeCls</code></td><td>not created by LA_PCA_SVM any more (in memory); other callers use <code>TMP_SVM_gui\newMergeCls</code></td></tr>
+</table>
+<div class="bars">
+  <div class="bar"><span>Working folder after a full U2U session: original</span><div class="track"><div class="fill" style="width:100%;background:var(--bar2)"></div></div><span class="pct">11</span></div>
+  <div class="bar"><span>Working folder after a full U2U session: SL</span><div class="track"><div class="fill" style="width:27.3%;background:var(--bar1)"></div></div><span class="pct">3</span></div>
+</div>
+<p class="meta">Top-level entries. Original: 7 TMP-type folders, 2 AT files and 2 CSV reports. SL: <code>TMP_SVM_gui</code> and the 2 CSV reports. The original's Tcv also wrote 20 MB into the <em>data</em> folder and rewrote it on every fold.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-memory">
+<h2>19. In memory instead of write-then-read-back</h2>
+<table>
+  <tr><th>Where</th><th>Before</th><th>Now</th><th>Check</th></tr>
+  <tr><td><strong>LA_PCA_SVM</strong></td><td>Wrote <code>Atrainpketc_Orig_…mat</code>, <code>newMergeCls\…</code> and the extracted Local Model AT into pwd, then re-loaded it</td><td>The Local Model is passed as an ssds struct and keeps exactly the name <code>saveAT</code> would have given</td><td><span class="tag ok">SAME</span> name, data and class map; 0 files written (original: 3 files + 1 folder)</td></tr>
+  <tr><td><strong>Tcv OneSampOut</strong></td><td>Per fold: AT file loaded 3×, 4 split files saved, 1 re-loaded</td><td>AT file loaded once; folds built in memory (<code>Extract_AT_rows</code>, <code>merge_LT_LP_struct</code>, which the file-based helpers now also use)</td><td><span class="tag ok">IDENTICAL</span> 1,633 values; <strong>175.6 s → 47.8 s</strong></td></tr>
+  <tr><td><strong>Load T / Load P</strong></td><td>FeatMat, fpred_analysis_ui and the polygon picker re-read the files; Load P read its file 5–6 times (once via <code>eval('load …')</code>)</td><td>Each file is loaded once and kept in <code>handles.TPinfo_loaded.LAT_T</code> / <code>LAT_P</code></td><td><span class="tag ok">IDENTICAL</span> results</td></tr>
+  <tr><td><strong>Modeling</strong></td><td><code>isnan_AT(file)</code> re-read the AT file on every press</td><td>NaN check on the data already in handles</td><td><span class="tag ok">IDENTICAL</span></td></tr>
+  <tr><td><strong>Colour schemes</strong> (request 2)</td><td><code>cmap_DPR_customerized</code> saved <code>attic_cmap_alt\inp4cmap\*.mat</code>; the alternate <code>cmap_DPR</code> read it back after an <code>addpath</code>/<code>rmpath</code> swap</td><td>Kept in memory (<a href="#sl-cmap">§22</a>)</td><td><span class="tag ok">IDENTICAL</span> to the original's saved file</td></tr>
+</table>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-prune">
+<h2>20. Dead code, clogging and fixes</h2>
+<ul class="list">
+  <li><strong>217 local functions removed</strong> because no button or callback can reach them: AQP / CabXfer / PLS / UDM / SAM-file tooling merged in from other projects. A static check confirmed that no kept code (outside <code>if false</code> examples) refers to a removed function. Two byte-identical merge copies (<code>tmp_folder_rm_mk__fdir_wildcard</code>, <code>tmp_folder_rm_mk__disp_with_border</code>) were folded into the originals. <code>if false</code> example blocks were left as they were.</li>
+  <li><strong>Clogging:</strong> the CV progress lines were printed 10× with <code>pause(0.2)</code>, which is 2 s idle per run. They are now printed once; the keep-awake mouse move was kept.</li>
+  <li><strong>Fix:</strong> <code>lib_type = LIBLINEAR</code> always crashed (<code>model_wProb</code> undefined). It now works for 2–3 classes; with 8 classes it stops at the code's own "two or three classes" message.</li>
+  <li><strong>Fix (request 3):</strong> the <code>Y1_PCASVM_2PC/3PC</code> options never set <code>inpfa.handles</code> and crashed. This was already the case in the pre-merge code.</li>
+</ul>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-validate">
+<h2>21. Validation: original vs SL, 18 GUI scenarios</h2>
+<p>Each scenario runs Load T (and Load P), sets the popups and presses <em>Modeling</em>; the larger ones then run the post-model callbacks. All numeric outputs were compared recursively (tolerance 1e-9 relative).</p>
+<table>
+  <tr><th>Scenario group</th><th>Result</th></tr>
+  <tr><td>linear / rbf × wProb, wDecVal_OVA, wDecVal_APs (+ the OVA_2PC entry)</td><td><span class="tag ok">IDENTICAL</span> 14,559 values each</td></tr>
+  <tr><td>norm1 + meancenter; WtSDev none; 3-class set; SmellPrint</td><td><span class="tag ok">IDENTICAL</span></td></tr>
+  <tr><td>U2U: T = unit 20, P = unit 22 (rbf, wDecVal_OVA)</td><td><span class="tag ok">IDENTICAL</span> 14,637 values</td></tr>
+  <tr><td>Tcv OneSampOut</td><td><span class="tag ok">IDENTICAL</span> 1,633 values, 3.7× faster</td></tr>
+  <tr><td>LIBLINEAR on 3 classes</td><td>Original crashes; SL works (fix)</td></tr>
+  <tr><td>Modeling_opt / MLsvm_off / PCASVM_off (Anton svmtrain path)</td><td>Both stop at the same Octave plotting limit (marker <code>'bO'</code>). Needs MATLAB.</td></tr>
+  <tr><td>Post-model callbacks (Y1 views, FeatMat, ModelsUpdate, Remove_Tsamples, LinkGraph, CFP_GM, LA_PCA_SVM)</td><td>Each one ends identically in both versions, or goes further in SL. Every remaining stop is Octave-only.</td></tr>
+</table>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-cmap">
+<h2>22. No more <code>C:\work\…\cmap_etc</code> (request 2)</h2>
+<p>This supersedes the v3 dispatcher of <a href="#v3">§8.2</a>, which still asked MATLAB's path which <code>cmap_DPR</code> to run. That left SVM_gui dependent on the local <code>cmap_etc</code> folder; LA_PCA_SVM failed with "<code>C:\work\JDSU\mfiles\jdsu_Utility_mfiles\cmap_etc</code>: No such file or directory".</p>
+<table>
+  <tr><th>Before</th><th>Now</th></tr>
+  <tr><td>Default colours from <code>cmap_etc\cmap_DPR.m</code></td><td><code>cmap_DPR__default</code> inside SVM_gui.m (code-identical, checked)</td></tr>
+  <tr><td>Local-Model colours from <code>attic_cmap_alt\cmap_DPR.m</code>, chosen by <code>rmpath</code>/<code>addpath</code></td><td><code>cmap_DPR__alt</code>, an in-file port; the <code>cmap_DPR</code> dispatcher reads an in-memory flag</td></tr>
+  <tr><td><code>cmap_DPR_customerized</code>: <code>cd(cmap_etc)</code>, then <code>save … inp4cmap\*.mat</code></td><td>Computes the GM colours directly and stores them with <code>svmgui_cmap_state</code> (MATLAB root appdata, lasting the session like the old path setting)</td></tr>
+  <tr><td><code>…Alt_LM_KeepColorScheme_in_GM</code> / <code>…reset_default_path</code></td><td>Turn the flag ON/OFF; same command-line usage</td></tr>
+  <tr><td>After an LA_PCA_SVM error the alternate colours stayed ON, so later plots failed with "numcls Not matched"</td><td>Switched back OFF on error (unless <code>inp.cmap_DPR_reset_default_path_yes=0</code>)</td></tr>
+</table>
+<table>
+  <tr><th>Check against the uploaded <code>cmap_etc</code></th><th>Result</th></tr>
+  <tr><td><code>cmap_DPR(2…20)</code> vs <code>cmap_etc\cmap_DPR.m</code></td><td><span class="tag ok">IDENTICAL</span></td></tr>
+  <tr><td>Local Model classes 6, 7, 8 of an 8-class GM: colours = GM colours of 6, 7, 8 (also with labels, also via <code>cmap_dpr_ncls</code>)</td><td><span class="tag ok">PASS</span></td></tr>
+  <tr><td>In-memory <code>inp4cmap</code> vs the real <code>input4cmap_…_nclsGM-8_…mat</code> the original wrote</td><td><span class="tag ok">IDENTICAL</span> all 6 fields and the name</td></tr>
+  <tr><td>Files written</td><td><span class="tag ok">0</span></td></tr>
+  <tr><td>GUI: LA_PCA_SVM</td><td>Now runs through extraction, colour setup and the Local Model SVM. It stops only at <code>clistclslabel{icls} + "_Tset"</code> (MATLAB string <code>+</code>, which Octave can't evaluate).</td></tr>
+</table>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-callbacks">
+<h2>23. The button bug: "Clsname_2D_PCASVM_gui is not found" (request 3)</h2>
+<div class="callout bad"><strong>Symptom.</strong> After <em>T/P single plot</em>, pressing a class button (e.g. <em>N6</em>) on Fig 252:<br><code>Clsname_2D_PCASVM_gui is not found in the current folder or on the MATLAB path, but exists in: C:\SFV\Extract-Cln_SVM_gui_110926 …</code><br>The same button worked with the pre-merge program.</div>
+<h3>23.1 Cause, and a miss in the Nov 9 audit</h3>
+<p>The buttons are created in code with a <strong>string callback</strong>: <code>'callback', ...</code> followed on the next line by <code>'Clsname_2D_PCASVM_gui', ...</code>. MATLAB evaluates a string callback in the <strong>base workspace</strong>. Before the merge, that function was its own file on the path. After the merge it is a local function, which the base workspace can't see.</p>
+<p>The Nov 9 audit (<a href="#audit">§4.2</a>) reported "string callbacks: none found in code". That search missed the multi-line form, where the string sits on the line after <code>'callback', ...</code>. The new scan joins continuation lines first.</p>
+<h3>23.2 Fix, applied to every button of this kind</h3>
+<table>
+  <tr><th>Function</th><th>Buttons</th><th>Now</th></tr>
+  <tr><td><code>Clsname_2D_PCASVM_gui</code></td><td>Fig 252 class names, <code>n-P</code>, <code>None</code> (5 places)</td><td rowspan="5"><code>@(~,~) fname()</code>: called with no arguments, exactly as the string did, so <code>nargin==0</code>, <code>gcbo</code> and the <code>dbstack(n)</code> checks behave as before</td></tr>
+  <tr><td><code>pickpts_inpolygon_2D_PCASVM_gui</code></td><td>Fig 250 pick-T / pick-P / pick-TP (3)</td></tr>
+  <tr><td><code>Clsname_CmpSpectra_gui</code></td><td>Spectra-view class buttons (4)</td></tr>
+  <tr><td><code>ShowLabel_fpred_analysis_gui</code></td><td>Fig 400 (2)</td></tr>
+  <tr><td><code>CmpSpectra_fpred_analysis_gui</code></td><td>Fig 400 (4)</td></tr>
+  <tr><td colspan="2">8 function names that are <strong>not in SVM_gui.m, nor in the pre-merge folder</strong>: <code>pickContour_2D_PCASVM_gui</code>, <code>Clsname_CmpSpectra_gui_4ssds</code>, <code>ShowLabel_findclosestCurve_RS_AT_gui</code>, <code>ShowTSD_fpred_analysis_gui</code>, <code>ShowTSD_fpred_analysis_gui_AddFeatPrint</code>, <code>TagTSD_fpred_analysis_gui</code>, <code>ShowTSD_plotresp_T_clsoffset_wP</code> (+ <code>_eaFeat_origscale</code>)</td><td><code>svmgui_external_cb</code>: if the file is on the path, the call is evaluated in base as before; if not, a clear message names the missing file</td></tr>
+</table>
+<p>The conversion is now an automatic build step. Other merge side effects were also checked (<code>exist(…,'file')</code>, <code>which</code>, <code>nargin('name')</code>, <code>mfilename</code>, <code>evalin('base')</code>, <code>cellfun('name')</code>); none applies.</p>
+<h3>23.3 Pressing every button</h3>
+<p>The real flow ran: Load T(20) + P(22), Modeling, T/P single plot, the Y1 views and the FeatMat views. After each step, every new pushbutton was pressed with its figure made current (as a real click does), and then every button those presses created.</p>
+<div class="bars">
+  <div class="bar"><span>Previous build: buttons that fail with "… undefined"</span><div class="track"><div class="fill" style="width:100%;background:var(--bad)"></div></div><span class="pct">38/38</span></div>
+  <div class="bar"><span>SL build: buttons that reach their function</span><div class="track"><div class="fill" style="width:100%;background:var(--bar3)"></div></div><span class="pct">38/38</span></div>
+  <div class="bar"><span>SL build: buttons that run to completion in Octave</span><div class="track"><div class="fill" style="width:84.2%;background:var(--bar1)"></div></div><span class="pct">32/38</span></div>
+</div>
+<p class="meta">The other 6 stop inside their functions on Octave-only gaps: <code>get(400)</code> field-name case, the <code>'O'</code> marker spec, and <code>delete()</code> of an already-removed highlight.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-deliver">
+<h2>24. SL deliverable, open items and lessons</h2>
+<h3>24.1 <code>SVM_gui_SL.zip</code></h3>
+<table>
+  <tr><th>File(s)</th><th>Role</th></tr>
+  <tr><td><code>SVM_gui.m</code></td><td>31,431 lines, CRLF. Change-log header items 1–7; every change tagged <code>[SL Nov-2026]</code>.</td></tr>
+  <tr><td><code>SVM_gui.fig</code></td><td>Unchanged</td></tr>
+  <tr><td>6 × <code>.mexw64</code></td><td>libsvm / liblinear / libsvmwrite / loqo</td></tr>
+  <tr><td><code>SL_CHANGES.md</code></td><td>Sections 1–7, with the validation details</td></tr>
+  <tr><td><em>No longer needed</em></td><td><code>ssds.m</code>, <code>ssds_method_maxDV_dvABC_kt.p</code>, <code>SamLibrary.dll</code>, the <code>cmap_etc</code> folder (keep them only for other tools)</td></tr>
+</table>
+<h3>24.2 Flagged, not changed</h3>
+<ul class="list">
+  <li>Popup <code>wProb_or_DecVal</code>, 4th entry: the .fig stores <code>wDecVal\r_OVA_2PC\r</code>, so it never equals <code>'wDecVal_OVA_2PC'</code> and that option does nothing (retype it in GUIDE).</li>
+  <li><code>Tcv = OneSampOut</code> supports only linear+wProb (and rbf+wDecVal_OVA_2PC); rbf+wProb+Tcv crashes (also in the original).</li>
+  <li>CFP_GM stays file-based by design (now inside <code>TMP_SVM_gui\CFP_2S</code>). The CSV reports still go to the working folder.</li>
+  <li><code>Y1_PCASVM_*</code> views need Modeling with PCA-SVM on (not <code>libsvmCalcONLY</code>).</li>
+  <li>Waiting for the 8 missing callback function files listed in §23.2, to merge them in.</li>
+  <li>Validation was done in Octave: one pass in real MATLAB is still needed.</li>
+</ul>
+<h3>24.3 Lessons added to the checklist (<a href="#lessons">§12</a>)</h3>
+<ol class="steps">
+  <li><strong>Search callbacks after joining <code>...</code> lines.</strong> A string callback on the next line looks harmless to a line-by-line search. Convert local targets to <code>@(~,~) f()</code>, never a bare <code>@f</code>: that would pass <code>(src,evt)</code> into a function whose first input is optional.</li>
+  <li><strong>Test by pressing buttons</strong>, not only by parsing. Make the button's figure current, because many callbacks read <code>get(gcf,'userdata')</code>. A pre-fix build must reproduce the reported error.</li>
+  <li><strong>A path-switched implementation is still a local-drive dependency.</strong> Replace the path swap with in-memory state; it holds the same information without the folder.</li>
+  <li><strong>Prune by reachability from the .fig callbacks.</strong> In a single-file merge, half the code was unreachable.</li>
+  <li><strong>Record a baseline from the original first</strong>, then compare every number. The comparison is what makes an aggressive refactor safe.</li>
+  <li><strong>Octave is a usable test bench for MATLAB GUIs</strong> with a test-only compatibility layer, as long as both versions run under the same layer.</li>
+</ol>
+<p>These lessons were also proposed as an update to the <em>matlab-merge-mfiles</em> skill ("the third rule: string callbacks run in the base workspace").</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<section id="sl-tokens">
+<h2>25. Token usage: Nov 10 (SL), compared with Nov 9, and both together</h2>
+<p>Measured usage for the Nov 10 conversation, from the 9:16 am request up to 7:12 pm. That includes writing Part II of this document, but not adding this section.</p>
+<div class="stats">
+  <div class="stat"><div class="n">271</div><div class="l">model calls (requests), Nov 10</div></div>
+  <div class="stat"><div class="n">≈100.6 M</div><div class="l">tokens processed in total, Nov 10</div></div>
+  <div class="stat"><div class="n">286,851</div><div class="l">output tokens written, Nov 10</div></div>
+  <div class="stat"><div class="n">≈13.0 M</div><div class="l">effective "input-equivalent" tokens, Nov 10</div></div>
+</div>
+
+<h3>25.1 Side by side, and the total of both sessions</h3>
+<table>
+  <tr><th>Token type (weight vs plain input)</th><th>Part I · Nov 9 (merge)</th><th>Part II · Nov 10 (SL)</th><th>Both sessions</th><th>Nov 10 ÷ Nov 9</th></tr>
+  <tr><td>Model calls (requests)</td><td class="num">77</td><td class="num v3">271</td><td class="num">348</td><td class="num">3.5×</td></tr>
+  <tr><td>Cache reads (≈ 0.1×)</td><td class="num">15,810,965</td><td class="num v3">99,482,191</td><td class="num">115,293,156</td><td class="num">6.3×</td></tr>
+  <tr><td>Cache writes (≈ 2×)</td><td class="num">251,588</td><td class="num v3">811,141</td><td class="num">1,062,729</td><td class="num">3.2×</td></tr>
+  <tr><td>Uncached input (1×)</td><td class="num">158</td><td class="num v3">542</td><td class="num">700</td><td class="num">3.4×</td></tr>
+  <tr><td>Output (≈ 5×)</td><td class="num">84,886</td><td class="num v3">286,851</td><td class="num">371,737</td><td class="num">3.4×</td></tr>
+  <tr><td><strong>Total tokens processed</strong></td><td class="num">16,147,597</td><td class="num v3">100,580,725</td><td class="num">116,728,322</td><td class="num">6.2×</td></tr>
+  <tr><td><strong>Effective (input-equivalent)</strong></td><td class="num">≈ 2,509,000</td><td class="num v3">≈ 13,005,000</td><td class="num">≈ 15,514,000</td><td class="num">5.2×</td></tr>
+</table>
+<table>
+  <tr><th>Effective tokens by type</th><th>Nov 9</th><th>Nov 10</th><th>Both</th></tr>
+  <tr><td>Cache reads × 0.1</td><td class="num">≈ 1,581,000</td><td class="num v3">≈ 9,948,000</td><td class="num">≈ 11,529,000</td></tr>
+  <tr><td>Cache writes × 2</td><td class="num">≈ 503,000</td><td class="num v3">≈ 1,622,000</td><td class="num">≈ 2,125,000</td></tr>
+  <tr><td>Uncached input × 1</td><td class="num">158</td><td class="num v3">542</td><td class="num">700</td></tr>
+  <tr><td>Output × 5</td><td class="num">≈ 424,000</td><td class="num v3">≈ 1,434,000</td><td class="num">≈ 1,859,000</td></tr>
+</table>
+
+<h3>25.2 Where it went (share of effective usage)</h3>
+<table>
+  <tr><th>Group</th><th>Nov 9</th><th>Nov 10</th><th>Both (weighted)</th></tr>
+  <tr><td>Standing instructions &amp; context, re-read every call</td><td class="num">61.8%</td><td class="num v3">53.4%</td><td class="num">54.8%</td></tr>
+  <tr><td>Files &amp; commands (shell runs, file reads/writes)</td><td class="num">32.1%</td><td class="num v3">41.9%</td><td class="num">40.3%</td></tr>
+  <tr><td>The conversation (your messages, my replies)</td><td class="num">5.5%</td><td class="num v3">4.1%</td><td class="num">4.3%</td></tr>
+  <tr><td>Everything else (publishing, memory, skills, task list)</td><td class="num">0.7%</td><td class="num v3">0.7%</td><td class="num">0.7%</td></tr>
+</table>
+<h3>Both sessions together</h3>
+<div class="bars">
+  <div class="bar"><span>Standing instructions &amp; context</span><div class="track"><div class="fill" style="width:54.8%;background:var(--bar1)"></div></div><span class="pct">54.8%</span></div>
+  <div class="bar"><span>Files &amp; commands</span><div class="track"><div class="fill" style="width:40.3%;background:var(--bar2)"></div></div><span class="pct">40.3%</span></div>
+  <div class="bar"><span>The conversation</span><div class="track"><div class="fill" style="width:4.3%;background:var(--bar3)"></div></div><span class="pct">4.3%</span></div>
+  <div class="bar"><span>Everything else</span><div class="track"><div class="fill" style="width:0.7%;background:var(--bar4)"></div></div><span class="pct">0.7%</span></div>
+</div>
+<h3>Effective usage per session</h3>
+<div class="bars">
+  <div class="bar"><span>Nov 9 · merge (Part I)</span><div class="track"><div class="fill" style="width:16.2%;background:var(--bar2)"></div></div><span class="pct">2.5 M</span></div>
+  <div class="bar"><span>Nov 10 · StreamLine (Part II)</span><div class="track"><div class="fill" style="width:83.8%;background:var(--bar1)"></div></div><span class="pct">13.0 M</span></div>
+</div>
+
+<ul class="list">
+  <li><strong>Nov 10 cost about 5× more than Nov 9</strong> (13.0M vs 2.5M effective). It took 3.5× as many calls. The context also grew much larger, and every call re-reads it. In the 31k-line merged program, many tool results (parser, build and test output) stayed in the context.</li>
+  <li><strong>The shell work share rose</strong> from 32% to 42%. Nov 10 was mostly testing: an 18-scenario suite run several times on both versions, unit tests in separate processes, and the button-press tests. Nov 9 was mostly the merge itself.</li>
+  <li><strong>The conversation stays small</strong> in both sessions (4–6%). Most of the cost is the machinery around each step, not the messages.</li>
+  <li><strong>Both sessions together:</strong> 348 model calls, about 116.7M tokens processed, about 372K output tokens written, about 15.5M effective tokens.</li>
+</ul>
+<p class="meta">Caveats: the split between groups is an estimate, since usage is metered per request, not per tool. The weights are approximate relative costs. The "both" group shares are weighted by each session's effective usage. Tokens spent adding this section aren't included.</p>
+<a class="back" href="#toc">↑ Back to contents</a>
+</section>
+
+<footer>SVM_gui merge (Nov 9) and StreamLine (Nov 10) sessions · Redwood Shores, CA · Generated with Claude · Part I updated Nov 9, 11:25 pm with v3 · Part II added Nov 10, 2026, 7:05 pm · token comparison added 7:13 pm</footer>
+</main>
+</body>
+</html>
