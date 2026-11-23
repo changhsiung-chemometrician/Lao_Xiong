@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>167 年後，一條金線上的零點：Claude、Lean 與黎曼猜想</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: 沉穩的科普長文，像精選外刊的專題報導；敘事而不煽情，對每個數字負責
+IDEA: 數學家的筆記本攤在 critical strip 上：一條金線，零點一顆顆排在上面
+PICTURE: 複平面上的 critical strip、Re(s)=½ 金線與零點，旁邊是 1700 萬行 Lean 的刻度；第二章可互動，畫出真實的 Hardy Z(t)
+COLOUR and TYPE: 淺色為柔和天藍紙面配深藍字、金色點綴；深色為深海軍藍配米白字與金；不用黑底。Noto Serif TC 標題 + Noto Sans TC 粗體內文
+LAYOUT: 單欄 1100px 主文，側欄 340px 放數字與註記，窄螢幕全部堆疊
+*/
+:root{color-scheme:light dark;
+--bg:light-dark(#e6eef8,#0f2342);
+--paper:light-dark(#f4f8fd,#14305a);
+--ink:light-dark(#10264a,#f3ecd8);
+--soft:light-dark(#3a5276,#c9cfdc);
+--gold:light-dark(#9a6b06,#e3b94c);
+--gold2:light-dark(#c99a2e,#f0cf72);
+--line:light-dark(#b9cbe3,#2b4c7c);
+--strip:light-dark(#cfdcef,#1d3d6c);
+--warn:light-dark(#b23a2a,#ff9a7a);
+--wave:light-dark(#5b6fd6,#9aa8ff)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:40px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:700 clamp(20px,2.6vw,32px)/1.75 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;overflow-x:clip}
+a{color:var(--gold)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px)}
+header.hero{padding:clamp(32px,5vw,72px) 0 24px}
+.kicker{font-size:.62em;color:var(--soft);font-weight:800;margin:0 0 .6em}
+h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(40px,6.6vw,76px);line-height:1.12;margin:0 0 .35em;text-wrap:balance}
+.deck{font-size:1em;color:var(--soft);margin:0 0 1.2em;max-width:30em}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 22px}
+.metric{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.metric .lab{font-size:.5em;color:var(--soft);font-weight:800;display:block}
+.metric .val{font-size:1.25em;font-weight:800;line-height:1.2;display:block;font-variant-numeric:tabular-nums}
+.metric .val.g{color:var(--gold)}
+.metric .sub{font-size:.46em;color:var(--soft);font-weight:600;display:block;line-height:1.5;margin-top:.3em}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0 18px}
+.fig svg{display:block;width:100%;height:auto}
+.cap{font-size:.56em;color:var(--soft);margin:8px 4px 0;font-weight:600}
+.note{font-size:.56em;color:var(--soft);font-weight:600;border-left:4px solid var(--gold2);padding:.2em .8em;margin:1.2em 0}
+nav#toc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 26px;margin:28px 0}
+nav#toc h2{font-family:"Noto Serif TC",serif;font-size:.9em;margin:0 0 .3em}
+nav#toc ol{margin:0;padding-left:1.4em;font-size:.78em;line-height:1.9}
+nav#toc a{text-decoration:none;color:var(--ink)}nav#toc a:hover{color:var(--gold)}
+section{padding:clamp(24px,3vw,44px) 0;border-top:1px solid var(--line)}
+h2.sec{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(30px,4.2vw,52px);line-height:1.2;margin:0 0 .6em;text-wrap:balance}
+h3.sub{font-family:"Noto Serif TC",serif;font-weight:900;font-size:1.05em;margin:1.2em 0 .5em;color:var(--gold)}
+p{margin:0 0 1em}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+aside{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;font-size:.66em;line-height:1.7}
+aside h3{font-family:"Noto Serif TC",serif;font-size:1.1em;margin:0 0 .5em;color:var(--gold)}
+aside p{margin:0 0 .6em}
+.num{font-weight:800;font-size:1.9em;line-height:1.15;color:var(--ink);display:block;font-variant-numeric:tabular-nums}
+.num+small{display:block;color:var(--soft);margin-bottom:.9em;font-weight:600}
+.drop::first-letter{font-family:"Noto Serif TC",serif;font-weight:900;float:left;font-size:3.75em;line-height:1;margin:.08em .12em 0 0;color:var(--gold)}
+blockquote{font-family:"Noto Serif TC",serif;font-weight:700;font-size:clamp(26px,3.4vw,44px);line-height:1.45;margin:1.2em 0;padding:.2em 0 .2em .9em;border-left:6px solid var(--gold2)}
+blockquote cite{display:block;font:600 .5em/1.6 "Noto Sans TC",sans-serif;color:var(--soft);margin-top:.5em;font-style:normal}
+.formula{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:0 0 1.2em;text-align:center;font-family:"Noto Serif TC",serif;font-size:1.05em;overflow-x:auto;white-space:nowrap}
+.formula small{display:block;font:600 .5em/1.6 "Noto Sans TC",sans-serif;color:var(--soft);white-space:normal;margin-top:.4em}
+ol.checks,ul.list{padding-left:1.3em}ol.checks li,ul.list li{margin-bottom:.55em}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:var(--strip);padding:.05em .3em;border-radius:5px;overflow-wrap:anywhere}
+.timeline{list-style:none;padding:0;margin:0}
+.timeline li{display:grid;grid-template-columns:7.2em minmax(0,1fr);gap:16px;padding:.45em 0;border-bottom:1px dashed var(--line)}
+.timeline b{color:var(--gold);white-space:nowrap}
+.viz{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;margin:1em 0 1.4em}
+.viz h3{font-family:"Noto Serif TC",serif;font-size:.8em;margin:0 0 .2em}
+.viz .hint{font-size:.52em;color:var(--soft);font-weight:600;margin:0 0 .6em}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.btns button{font:800 .52em/1.3 "Noto Sans TC",sans-serif;padding:.6em 1em;border-radius:999px;border:2px solid var(--gold2);background:transparent;color:var(--ink);cursor:pointer;min-height:44px}
+.btns button[aria-pressed=true]{background:var(--gold2);color:#10264a}
+.btns button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#zcan{display:block;width:100%;border-radius:10px;background:var(--bg)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.5em;color:var(--soft);font-weight:700;margin-top:10px}
+.legend i{display:inline-block;width:.9em;height:.9em;border-radius:50%;vertical-align:-.1em;margin-right:.35em}
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0 0 1.2em}
+.cmp div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:.62em;line-height:1.7}
+.cmp div.hl{border:2px solid var(--gold2)}
+.cmp b{display:block;font-family:"Noto Serif TC",serif;font-size:1.2em;margin-bottom:.3em;color:var(--gold)}
+table.chk{width:100%;border-collapse:collapse;font-size:.58em;line-height:1.6;margin:0 0 1.2em;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table.chk th,table.chk td{text-align:left;padding:.55em .8em;border-bottom:1px solid var(--line);vertical-align:top}
+table.chk th{color:var(--gold);font-family:"Noto Serif TC",serif;font-weight:900}
+.loop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 1.2em;counter-reset:st}
+.loop div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:.55em;line-height:1.6;text-align:center}
+.loop b{display:block;font-family:"Noto Serif TC",serif;font-size:1.35em;color:var(--gold);margin-bottom:.2em}
+.back{font-size:.58em;margin-top:1.2em}.back a{text-decoration:none}
+.sources{font-size:.6em;line-height:1.8}.sources li{margin-bottom:.35em;overflow-wrap:anywhere}
+footer{padding:40px 0 120px;font-size:.55em;color:var(--soft);font-weight:600}
+.fnav{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9}
+.fnav a{display:block;min-width:44px;padding:10px 16px;border-radius:999px;background:var(--gold2);color:#10264a;font:800 17px/1.2 "Noto Sans TC",sans-serif;text-decoration:none;text-align:center;box-shadow:0 4px 14px rgba(15,35,66,.28)}
+.fnav a:focus-visible,nav#toc a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+@media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}aside{order:2}.metrics,.loop{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.timeline li{grid-template-columns:minmax(0,1fr);gap:0}.cmp{grid-template-columns:minmax(0,1fr)}.fnav a{padding:9px 12px;font-size:15px}table.chk{font-size:.52em}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+<p class="kicker">科普故事｜改寫自 YouTube 頻道「為什麼叫QQ」2026 年 11 月 22 日的影片，並對照一手資料查核</p>
+<h1>167 年後，一條金線上的零點：Claude、Lean 與黎曼猜想</h1>
+<p class="deck">一位 Anthropic 數學家說，他和 Claude 找到了黎曼猜想的證明，交出來的卻只有 1700 萬行 Lean code。機器已經確認，人類才剛開始讀懂。</p>
+
+<div class="metrics">
+<div class="metric"><span class="lab">歷史懸案</span><span class="val">167 年</span><span class="sub">1859 年 Riemann 提出</span></div>
+<div class="metric"><span class="lab">形式化程式碼</span><span class="val g">~1700 萬行</span><span class="sub">175,187 個 Lean 檔案</span></div>
+<div class="metric"><span class="lab">人類可讀版本</span><span class="val">&gt;25 萬頁</span><span class="sub">長到無法出版</span></div>
+<div class="metric"><span class="lab">Clay 千禧年獎金</span><span class="val g">$1,000,000</span><span class="sub">發表滿兩年並獲普遍接受才評審</span></div>
+</div>
+
+<div class="fig" role="img" aria-label="複平面上的 critical strip，Re(s)=1/2 的金色直線上排列著黎曼 zeta 函數的前十個非平凡零點；右側為 Lean 程式庫的規模數字">
+<svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="var(--strip)" stop-opacity=".35"/><stop offset=".5" stop-color="var(--strip)"/><stop offset="1" stop-color="var(--strip)" stop-opacity=".35"/></linearGradient>
+<radialGradient id="z"><stop offset="0" stop-color="var(--gold2)"/><stop offset="1" stop-color="var(--gold)"/></radialGradient>
+</defs>
+<line x1="60" y1="470" x2="640" y2="470" stroke="var(--soft)" stroke-width="2"/>
+<line x1="160" y1="500" x2="160" y2="20" stroke="var(--soft)" stroke-width="2"/>
+<rect x="160" y="20" width="360" height="450" fill="url(#g)"/>
+<line x1="520" y1="20" x2="520" y2="470" stroke="var(--soft)" stroke-width="1.5" stroke-dasharray="4 6"/>
+<line x1="340" y1="20" x2="340" y2="470" stroke="var(--gold)" stroke-width="4"/>
+<g id="zeros"></g>
+<text x="160" y="500" fill="var(--soft)" font-size="22" font-weight="700" text-anchor="middle">0</text>
+<text x="520" y="500" fill="var(--soft)" font-size="22" font-weight="700" text-anchor="middle">1</text>
+<text x="340" y="505" fill="var(--gold)" font-size="22" font-weight="800" text-anchor="middle">½</text>
+<text x="60" y="455" fill="var(--soft)" font-size="20" font-weight="700">Re(s)</text>
+<text x="172" y="44" fill="var(--soft)" font-size="20" font-weight="700">Im(s)</text>
+<text x="360" y="60" fill="var(--gold)" font-size="24" font-weight="800">critical line</text>
+<text x="360" y="88" fill="var(--soft)" font-size="19" font-weight="700">Re(s) = ½</text>
+<text x="176" y="440" fill="var(--soft)" font-size="19" font-weight="700">critical strip</text>
+<g font-weight="800">
+<text x="690" y="140" fill="var(--soft)" font-size="24">Lean library</text>
+<text x="690" y="210" fill="var(--ink)" font-size="66">17,000,000</text>
+<text x="690" y="246" fill="var(--soft)" font-size="22">行程式碼（約數）</text>
+<text x="690" y="320" fill="var(--ink)" font-size="54">175,187</text>
+<text x="690" y="352" fill="var(--soft)" font-size="22">個檔案／modules</text>
+<text x="690" y="420" fill="var(--gold)" font-size="40">2026.11.20</text>
+<text x="690" y="452" fill="var(--soft)" font-size="22">Alpöge 公布證明</text>
+</g>
+</svg>
+</div>
+<p class="cap">示意圖：黎曼猜想斷言，ζ 函數所有非平凡零點都落在金色的 critical line 上。圖中十個點是已知的前十個零點，虛部約 14.13 到 49.77。</p>
+
+<p class="note">說明：這支影片的字幕是燒錄在畫面上的，無法完整擷取逐字稿。本文依影片說明欄與段落大綱重寫成故事，事實與數字都對照過一手資料：Alpöge 的 note、Lean／Mathlib 聯合聲明、MIT Andrew Sutherland 與 Waterloo Michael Rubinstein 的驗證頁、陶哲軒的部落格，以及 Anthropic 的研究文章。網路上流傳但查無出處的說法，集中放在文末〈查核附記〉。</p>
+</header>
+
+<nav id="toc" aria-label="目錄">
+<h2>目錄</h2>
+<ol>
+<li><a href="#s1">1859：一篇八頁的論文</a></li>
+<li><a href="#s2">素數裡的波：ζ 函數與 critical line</a></li>
+<li><a href="#s3">八月的前奏：從 41.6% 到 67.2%</a></li>
+<li><a href="#s4">11 月 20 日：一份四頁的 note</a></li>
+<li><a href="#s5">為什麼不是論文，而是 1700 萬行 Lean？</a></li>
+<li><a href="#s6">一天之內：社群如何驗證</a></li>
+<li><a href="#s7">陶哲軒下場：他說了什麼，沒說什麼</a></li>
+<li><a href="#s8">機器已確認，人類仍在理解</a></li>
+<li><a href="#s9">尾聲：科學研究的新起點？</a></li>
+<li><a href="#s10">查核附記</a></li>
+<li><a href="#src">資料來源</a></li>
+</ol>
+</nav>
+
+<section id="s1">
+<h2 class="sec">一、1859：一篇八頁的論文</h2>
+<div class="grid"><div>
+<p class="drop">1859 年，三十三歲的 Bernhard Riemann 交給柏林科學院一篇只有八頁的論文，題目是〈論小於給定數值的素數個數〉。這是他一生唯一一篇數論論文，卻在順手之間留下一句話：他認為某個函數的零點「很可能」（sehr wahrscheinlich）都排在同一條直線上，只是暫時沒找到證明，也就先擱下了。</p>
+<p>這一擱，就是 167 年。1900 年，David Hilbert 把它列進二十世紀最重要的 23 個問題；2000 年，Clay Mathematics Institute 把它選入七大 Millennium Prize Problems，懸賞一百萬美元。無數數學家試過，全都沒有成功。</p>
+<p>2026 年 11 月，這個故事出現了一個誰也沒料到的轉折：主角之一，是一個 AI model。</p>
+</div>
+<aside>
+<h3>數字速覽</h3>
+<span class="num">1859</span><small>Riemann 提出猜想</small>
+<span class="num">167 年</span><small>從提出到 2026 年的距離</small>
+<span class="num">$1,000,000</span><small>Clay 研究所的懸賞獎金</small>
+</aside>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s2">
+<h2 class="sec">二、素數裡的波：ζ 函數與 critical line</h2>
+<div class="grid"><div>
+<p>素數是只能被 1 和自己整除的數：2、3、5、7、11、13……一個個看，它們毫無規律；拉遠了看，卻相當守紀律：在 n 附近，大約每 ln(n) 個數就有一個素數。</p>
+<p>連接這兩種面貌的，是 Riemann zeta function：</p>
+</div>
+<aside>
+<h3>名詞小抄</h3>
+<p><b>Riemann zeta function</b>：編碼素數資訊的複變函數。</p>
+<p><b>Non-trivial zeros</b>：非平凡零點，位於 critical strip 內。</p>
+<p><b>Critical line</b>：Re(s) = ½ 這條直線。</p>
+<p><b>GRH</b>：Generalized Riemann Hypothesis，把同一斷言推廣到 Dirichlet L-functions 等更一般的函數。</p>
+</aside>
+</div>
+<div class="formula">ζ(s) = 1 + 1/2<sup>s</sup> + 1/3<sup>s</sup> + 1/4<sup>s</sup> + ⋯ = ∏<sub>p 素數</sub> 1/(1 − p<sup>−s</sup>)<small>左邊是對所有正整數求和，右邊是只用素數的 Euler 乘積。兩者相等，因為每個整數的素因數分解都是唯一的，所以 ζ 函數就是素數換了一種包裝。</small></div>
+<p>Riemann 把 s 推廣到整個複數平面，發現 ζ 函數的零點控制著素數分布的「誤差」：每個零點都像一道波，疊在素數的平均分布之上，一層層修正細節。零點分兩種：trivial zeros 位於負偶數，早已清楚；真正神祕的是非平凡零點，它們都落在實部介於 0 和 1 之間的 <b>critical strip</b> 裡。</p>
+<p>黎曼猜想說的是：這些非平凡零點全部都在實部等於 ½ 的那條直線上，也就是 <b>critical line</b>。猜想如果成立，素數的「誤差」就小到不能再小，素數會以最整齊的方式分布；解析數論裡成百上千條「假設 RH 成立」的定理，也都會一起落地。</p>
+
+<div class="viz">
+<h3>互動圖：在 critical line 上找零點</h3>
+<p class="hint">繞著金線左右擺動的深色曲線，是真實計算的 Hardy Z(t) 函數（Riemann–Siegel 公式近似）：|Z(t)| 等於 ζ(½+it) 的絕對值，而它每穿過金線一次，就是一個零點。後面那條緩緩擺動的藍色波浪只是裝飾。</p>
+<div class="btns" role="group" aria-label="切換檢視">
+<button type="button" data-mode="full" aria-pressed="true">全景</button>
+<button type="button" data-mode="zoom" aria-pressed="false">放大 critical strip</button>
+<button type="button" data-mode="counter" aria-pressed="false">假想：若有零點偏離</button>
+</div>
+<canvas id="zcan" role="img" aria-label="複平面上 critical strip 的互動示意圖，顯示 critical line 上前十三個非平凡零點與 Hardy Z 函數曲線"></canvas>
+<div class="legend">
+<span><i style="background:var(--gold)"></i>critical line Re(s) = ½</span>
+<span><i style="background:var(--ink)"></i>Hardy Z(t)（真實計算）</span>
+<span><i style="background:var(--gold2)"></i>非平凡零點 ½ + i·t<sub>n</sub></span>
+<span><i style="background:var(--strip)"></i>critical strip 0 &lt; Re(s) &lt; 1</span>
+<span><i style="background:var(--wave)"></i>藍色波浪：純裝飾的視覺效果，不是數學資料</span>
+<span><i style="background:var(--warn)"></i>假想的反例（實際上從未找到）</span>
+</div>
+</div>
+
+<p>電腦已經算出數以兆計的零點，每一個都乖乖落在線上。但再多的例子也只是有限樣本，無法排除遠方某個零點偏離。零點對稱分布，只要有一顆偏離，就會連同它的鏡像一起出現在線外，猜想就垮了。數學要的是證明。</p>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s3">
+<h2 class="sec">三、八月的前奏：從 41.6% 到 67.2%</h2>
+<div class="grid"><div>
+<p>故事其實在三個月前就埋下伏筆。2026 年 8 月 10 日，Anthropic 發表研究文章：一位不是數學家的員工 Jarred Sumner 在 Claude Code 裡給尚未發布的 Claude 研究版本出了一項「不合理」的任務，要它認真試試黎曼猜想，之後的數學決定全交給模型自己。</p>
+<p>Claude 沒有證出黎曼猜想，Anthropic 也說不認為這套方法能通往完整證明。但在嘗試過程中，它在一個相關問題上取得真正的突破：已知落在 critical line 上的零點比例，下界原本是數十年努力累積的 41.6%，被它一舉推到 67.2%。關鍵是把 Baluyot、Goldston、Suriajaya、Turnage-Butterbaugh 的工作，與 Bombieri 2000 年一篇關於 Weil 二次型的論文接了起來。整個過程大約一天半，指揮約 60 個 subagents，用掉約 3100 萬個 output tokens，分兩個 session 完成。</p>
+<p>結果由兩位 Anthropic 數學家驗證，外部專家 Brian Conrey 和 Dan Goldston 審閱，並附上可機器檢查的 Lean 形式化證明。後續文獻把這套架構稱為 Alpöge–Furman 框架，也就是說，三個月後的主角 Levent Alpöge 那時已經在場。後來還有人在公開的 Lean 成果上再推進一點，到 67.28%。</p>
+<p>當時的頭條是：「不，AI 並沒有解決黎曼猜想。」沒有人想到，三個月後這句話會被改寫。</p>
+</div>
+<aside>
+<h3>零點比例下界</h3>
+<span class="num">41.6%</span><small>八月之前的紀錄</small>
+<span class="num">67.2%</span><small>Claude 的新下界（2026 年 8 月）</small>
+<span class="num">67.28%</span><small>他人在公開 Lean 成果上的小幅推進</small>
+<span class="num">100%</span><small>黎曼猜想本身的斷言</small>
+</aside>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s4">
+<h2 class="sec">四、11 月 20 日：一份四頁的 note</h2>
+<p>2026 年 11 月 20 日星期五早上，Anthropic 的數學家 Levent Alpöge 在個人網站貼出一份四頁、沒有標題的 note。其中一句話幾小時內傳遍全世界：</p>
+<blockquote>“I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis.”<cite>Levent Alpöge，2026 年 11 月 20 日（中譯：我相信，我與 Claude 一起找到了黎曼猜想的一個證明。）</cite></blockquote>
+<div class="grid"><div>
+<p>他說，同一套方法也證明了 Generalized Riemann Hypothesis，但程式碼裡實際形式化的推廣只涵蓋 Dirichlet L-functions。整個發現大約花了 41 天：note 末尾附了一份「Claude 提供」的 20 步時間表，從 10 月 6 日開始，光 11 月 15 日一天就有 8 步，最後一行是 11 月 16 日，只寫著「GRH」。</p>
+<p>形容最後那段衝刺，他寫下一句很有畫面的話：</p>
+</div>
+<aside>
+<h3>Alpöge 的時間表</h3>
+<ul class="timeline">
+<li><b>10 月 6 日</b><span>第一天，4 步</span></li>
+<li><b>10 月 8–20 日</b><span>陸續 6 步</span></li>
+<li><b>11 月 15 日</b><span>單日 8 步</span></li>
+<li><b>11 月 16 日</b><span>最後一步：「GRH」</span></li>
+<li><b>11 月 19 日</b><span>Anthropic 在 Nasdaq 掛牌</span></li>
+<li><b>11 月 20 日</b><span>貼出 note 與 Lean code</span></li>
+</ul>
+</aside>
+</div>
+<blockquote>“Claude flew, and danced, and sparkled near that finish line.”<cite>Alpöge 的 note（中譯：在終點線附近，Claude 飛了起來、跳起舞來、閃閃發光。）</cite></blockquote>
+<p>最不尋常的是證明的形式。Claude 寫出的人類可讀版本超過 25 萬頁，根本不可能出版，所以 Alpöge 只公開了 Lean code：14 個壓縮檔、約 239 MB，解開後是 175,187 個檔案、約 1700 萬行，是整個 Mathlib 的好幾倍大。</p>
+<p>他也很坦白：note 裡有些描述是轉述 Claude 的摘要，未必說得通；證明用到的一些工具，例如 higher rank groups 上的 automorphic forms，他自己掌握得很有限。</p>
+<p>至於時機，他說 11 月 15 日深夜曾向 Anthropic 執行長 Dario Amodei 提出一個假設性的問題，再請示能否公布。據 Quanta 報導，他 16 日就拿到結果，等了幾天才發表；而 19 日正好是 Anthropic 在 Nasdaq 上市的日子。他形容這個時機「糟透了」，並否認背後另有盤算。</p>
+<p>同一天還有另一份稿子：數學家 Vakil 代為貼出 Alessandro Masullo 一份 940 頁的手稿，約八小時後又更新說，已在 AI 協助下找出其中的問題。陶哲軒評論，那份手稿的路線比較接近 Deninger 的策略。AI 在同一天既被用來產出證明，也被用來挑錯。</p>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s5">
+<h2 class="sec">五、為什麼不是論文，而是 1700 萬行 Lean？</h2>
+<p>Lean 是一套 proof assistant：數學家把定義、引理、推理步驟都寫成程式碼，再由一個很小的 kernel 逐步檢查，每一步是否真的從前一步推得出來。少了一步、偷用一個沒證明的假設（Lean 裡叫 <code>sorry</code>），或偷加一條公理，程式就不會通過。Mathlib 則是社群共同維護的龐大數學程式庫，裡面早就有一個經專家審核的定義，叫做 <code>RiemannHypothesis</code>。</p>
+<div class="cmp">
+<div><b>傳統數學論文</b>常寫「由前述定理顯然可得……」這類跳躍。靠審稿人花上幾個月甚至幾年逐行核對，幾百頁以上的複雜構造很容易藏著不易察覺的漏洞。</div>
+<div class="hl"><b>Lean 形式化證明</b>每個定義、引理、前提與推理步驟都必須明確寫出，並通過 kernel 的邏輯檢查。編譯通過，就代表整條推理鏈在 Lean 的公理系統下嚴格成立。</div>
+</div>
+<p>代價是長度。人類論文裡一句「顯然」，在 Lean 裡可能展開成幾百行。25 萬頁的人類版本沒有人能審，1700 萬行 Lean 卻可以交給機器，一行一行、毫不疲倦地檢查。這就是 Alpöge 只交出程式碼的原因，也是這次事件最特別的地方：驗證先於理解。</p>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s6">
+<h2 class="sec">六、一天之內：社群如何驗證</h2>
+<div class="grid"><div>
+<p>11 月 20 日中午前不久，MIT 的 Andrew Sutherland 成為第一個編譯成功的人；幾個小時後，Carnegie Mellon 的 Simon DeDeo 也跑完了。Imperial College 的 Kevin Buzzard 提醒，第一個要問的是：程式碼證明的敘述，真的就是那個定理嗎？社群接著照四個步驟跑：</p>
+<ol class="checks">
+<li><b>定理敘述正確</b>：證明的對象就是 Mathlib 的 <code>RiemannHypothesis</code>，不是偷換過的版本。</li>
+<li><b>程式庫能編譯</b>：幾十個人各自編譯，得到一模一樣的原始 proof export，解開約 61.6 GB（壓縮後 7.7 GB）。</li>
+<li><b>程式碼證的就是那個敘述</b>：用 <code>comparator</code> 與 <code>con-leche --compare</code> 比對一份只 import Mathlib 的獨立檔案，結果相符。</li>
+<li><b>證明有效</b>：export 與原始碼隔離後，交給 Lean 官方 kernel、<code>con-leche</code>、<code>con-ron</code>，以及多個用不同程式語言寫成的第三方 checker 檢查。</li>
+</ol>
+</div>
+<aside>
+<h3>Rubinstein 的四項檢查</h3>
+<p>Waterloo 研究 ζ 函數多年的 Michael Rubinstein，用 Claude Code 在學校伺服器上自己跑了一遍，11 月 21 日全部通過：</p>
+<span class="num">175,187</span><small>modules 完整編譯、kernel 全數接受</small>
+<span class="num">3</span><small>五個定理只依賴的標準 axioms 數</small>
+<span class="num">1,484,729</span><small>nanoda 檢查的 declarations，零錯誤</small>
+</aside>
+</div>
+<table class="chk">
+<thead><tr><th>檢查工具</th><th>是什麼</th><th>結果（MIT 驗證頁）</th></tr></thead>
+<tbody>
+<tr><td><code>leanchecker</code></td><td>Lean 官方 kernel</td><td>175,187 個 modules 全部接受</td></tr>
+<tr><td><code>nanoda</code></td><td>以 Rust 獨立實作的第二 kernel</td><td>完整 export 接受</td></tr>
+<tr><td><code>lean4lean</code></td><td>用 Lean 本身重寫的 kernel</td><td>全部通過（5 個需調高計算步數上限）</td></tr>
+<tr><td><code>con-leche</code>／<code>con-ron</code></td><td>獨立 checker，含敘述比對模式</td><td>接受，五個定理都由證明支撐</td></tr>
+<tr><td><code>comparator</code></td><td>敘述與公理比對</td><td>敘述比對與公理檢查已通過</td></tr>
+</tbody>
+</table>
+<p>那三條標準 axioms 是 <code>propext</code>（命題外延性）、<code>Classical.choice</code>（選擇公理）與 <code>Quot.sound</code>（商型別），幾乎所有 Mathlib 定理都依賴它們。原始程式庫用 Alpöge 當時的 Lean 4.33.1 編譯，社群認為那只算有限證據，最終判定交給 Lean 4.36.0 與各個獨立 checker。</p>
+<p>11 月 21 日，Lean 與 Mathlib 社群發表聯合聲明，由 Lean FRO 和 Mathlib Initiative 背書，表示對證明的正確性有「full confidence」。從公布到認證，不到一天半。</p>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s7">
+<h2 class="sec">七、陶哲軒下場：他說了什麼，沒說什麼</h2>
+<p>11 月 20 日當天，2006 年 Fields 獎得主陶哲軒（Terence Tao）在部落格發文，把近來三項 AI 參與的突破放在一起談，按「目前被消化的程度」由高到低排列：</p>
+<ul class="list">
+<li><b>三維 Euler 方程的 unforced singularity</b>：Alpöge、Buckmaster、Coiculescu 寫出人類可讀的 finite-time blowup 證明，大量使用 AI，並完成 Lean 形式化。</li>
+<li><b>三維 Navier-Stokes 方程的 unforced singularity</b>：Alpöge 與 Buckmaster 的證明，策略大致清楚：先用數值造出近似的 discretely self-similar 解，再用嚴格的 perturbation theory 把它變成精確解，但還需要寫成專業的證明。</li>
+<li><b>Generalized Riemann Hypothesis</b>：一份只有 Lean 的巨大證明。</li>
+</ul>
+<p>對最後一項，他說「非常初步」的分析顯示，它似乎動用了 Langlands program 與 arithmetic geometry 的全部現代成果。他在留言裡補充：一般認為純解析的方法不足以證明 RH，主要路線是 automorphic 方法、代數數論與算術幾何，而這份 AI 證明「似乎全都用上了」。他預期消化過程需要時間，並建議想追蹤驗證進度的人去看 Lean Zulip 的討論串。</p>
+<p>這正是影片特別提醒的一點：陶哲軒寫文章討論，不等於他親自驗證，也不等於他為證明背書。他做的是報導結果，並指出驗證在哪裡進行。</p>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s8">
+<h2 class="sec">八、機器已確認，人類仍在理解</h2>
+<div class="grid"><div>
+<p>Lean 能確認每一步邏輯都成立，卻不會告訴我們：這個證明的核心想法是什麼？為什麼行得通？</p>
+<p>Rubinstein 的驗證頁上掛著一份 164 頁的工作指南〈The proof explained for the Riemann zeta function〉，日期是 11 月 21 日，註明是借助 Claude、Codex 和 Gemini 寫成的研讀輔助。它是幫人讀懂證明的地圖，不是正式論文；核心論證目前仍然只存在於 Lean 裡。</p>
+<p>懷疑的聲音也不少。Alpöge 在 note 裡致謝的 NYU 解析數論學者 Maksym Radziwiłł 對 Quanta 說，那份四頁 note 裡有些敘述「說不通」；他認為 Lean 只檢查符號是否照規則走，並不解釋結果為什麼成立。Association for Human Mathematics 則表示「深感憂慮」。</p>
+<p>Clay 研究所的網站上，黎曼猜想仍然列為未解。依千禧年大獎的規則，解答必須刊登在合格的出版物上，發表後滿兩年並獲學界普遍接受，才會啟動評審。</p>
+<p>範圍也要說清楚：Lean／Mathlib 的聯合聲明認證的是標準的黎曼猜想；GRH 的部分，MIT 驗證頁明說只檢查了 Dirichlet L-functions（涵蓋所有模數與所有 character），Dedekind zeta、Hecke L-functions 與一般的 automorphic L-functions 都不在其中。</p>
+<p>於是出現了數學史上前所未有的局面：一個猜想的證明，被好幾個獨立程式檢查過、被正式認證，卻沒有任何人，包括發現者自己，能完整講出它為什麼成立。Alpöge 說他接下來會努力理解這個論證、尋找簡化，再好好寫出來；他預期一旦大家開始找捷徑，證明會大幅縮短。</p>
+</div>
+<aside>
+<h3>確認了什麼</h3>
+<p>✔ 敘述是 Mathlib 的 <code>RiemannHypothesis</code></p>
+<p>✔ 程式碼可重現編譯</p>
+<p>✔ 多個獨立 kernel 與 checker 接受</p>
+<p>✔ 只依賴三條標準 axioms</p>
+<h3>還沒有的</h3>
+<p>✘ 人類可讀的完整論證</p>
+<p>✘ 核心新想法的解說</p>
+<p>✘ 期刊審稿與 Clay 的認定</p>
+<p>✘ Dirichlet 以外的 GRH 形式化</p>
+</aside>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s9">
+<h2 class="sec">九、尾聲：科學研究的新起點？</h2>
+<p>過去，一個證明要先讓人類讀懂，才算被接受；讀懂的過程本身，就是數學的進步。這一次順序倒過來了：機器先確認對錯，人類再回頭理解。</p>
+<div class="loop">
+<div><b>1. 人類提問</b>提出猜想，給出方向與跨領域的直覺</div>
+<div><b>2. AI 探索</b>在龐大的技術路線裡搜尋，構造引理與不等式</div>
+<div><b>3. 形式驗證</b>Lean 當零容錯的守門員，獨立 checker 互相印證</div>
+<div><b>4. 人類理解</b>提煉核心想法，簡化證明，催生下一個發現</div>
+</div>
+<p>這個秋天並不只有這一件事。10 月 6 日，OpenAI 一口氣公布 377 項結果，其中包括 quasi-Riemann hypothesis 的證明；數學家們至今仍在消化。AI 產出結果的速度，正在追過人類驗證、解釋和吸收的速度。</p>
+<p>影片的結論是：「機器已經確認，人類仍在理解」，可能正是科學研究的新起點。1700 萬行程式碼不是終點，而是一份等著被讀懂的地圖。這一代研究者的必修課，是學會驗證、理解並駕馭超出個人直覺的答案。也許再過幾年，有人會把它濃縮成幾十頁優雅的論文，讓我們終於看清那條金線上的零點，為什麼一顆也不會偏離。</p>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="s10">
+<h2 class="sec">十、查核附記</h2>
+<p style="font-size:.66em">整理過程中遇到幾則流傳很廣、但與一手資料不符或查無出處的說法，記錄如下：</p>
+<ul class="list" style="font-size:.66em">
+<li><b>「Stepanov method × theta lifts」的三步驟證明策略</b>：這個說法源自陶哲軒部落格下的一則讀者留言。陶哲軒本文、Lean 社群聲明與 MIT 驗證頁都沒有提到，本文不採用。證明確實用到的，是 Alpöge 自己點名的 higher rank automorphic forms，以及陶哲軒初讀時提到的 Langlands program 與 arithmetic geometry。</li>
+<li><b>164 頁草稿的作者</b>：有報導寫成 Alpöge 的 companion paper，也有寫成 Rubinstein 的「翻譯稿」。實際上它掛在 Rubinstein 的驗證頁上，註明借助 Claude、Codex、Gemini 寫成，頁面沒有列出其他人類作者。</li>
+<li><b>「飛了起來、跳起舞來」</b>：確有其語，出自 Alpöge 的 note，原文是 “Claude flew, and danced, and sparkled near that finish line.”</li>
+<li><b>陶哲軒「認為 AI 已開始獨立探索前沿」</b>：他這篇文章裡沒有這句話；他只排序、報導，並說消化需要時間。</li>
+<li><b>Simon DeDeo 的單位</b>：是 Carnegie Mellon，不是 MIT。</li>
+</ul>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="src">
+<h2 class="sec">資料來源</h2>
+<ol class="sources">
+<li>為什麼叫QQ，〈Claude 帮数学家挑战黎曼猜想，陶哲轩也下场了〉，YouTube，2026-11-22：<a href="https://www.youtube.com/watch?v=o2U-s57RZso">youtube.com/watch?v=o2U-s57RZso</a></li>
+<li>Levent Alpöge，四頁 note，2026-11-20：<a href="https://alpo.ge/remark.pdf">alpo.ge/remark.pdf</a></li>
+<li>Lean／Mathlib 社群聯合聲明，〈Lean verification of the Riemann Hypothesis〉，2026-11-21：<a href="https://leanprover-community.github.io/blog/posts/riemann-hypothesis/">leanprover-community.github.io</a></li>
+<li>Andrew Sutherland（MIT），驗證總覽與 checker 結果：<a href="https://math.mit.edu/~drew/grh/">math.mit.edu/~drew/grh</a></li>
+<li>Michael Rubinstein，〈Alpöge/Claude proof of the Generalized Riemann Hypothesis〉驗證頁與 164 頁研讀指南：<a href="https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/">math.uwaterloo.ca/~mrubinst</a></li>
+<li>Terence Tao，〈Unforced Euler singularity, unforced Navier-Stokes singularity, and the Generalized Riemann Hypothesis〉，2026-11-20：<a href="https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/">terrytao.wordpress.com</a></li>
+<li>Anthropic，〈Learning more about Claude's mathematical capabilities〉（41.6% → 67.2%），2026-08-10：<a href="https://www.anthropic.com/research/riemann-zeta">anthropic.com/research/riemann-zeta</a></li>
+<li>MACCUS，Alpöge note 的時間表、引言、Masullo 手稿與 Radziwiłł 的評論：<a href="https://maccus.fr/en/riemann-hypothesis-claude/">maccus.fr</a></li>
+<li>OfficeChai，Lean 社群認證、25 萬頁與各方反應：<a href="https://officechai.com/ai/lean-community-certifies-levent-alpoges-claude-assisted-proof-of-the-riemann-hypothesis-as-correct/">officechai.com</a></li>
+<li>Quanta Magazine，〈AI Proved the Quasi-Riemann Hypothesis. What Happens Now?〉：<a href="https://quantamagazine.org/ai-proved-the-quasi-riemann-hypothesis-what-happens-now-20261019">quantamagazine.org</a></li>
+</ol>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<footer>老熊隨筆．科普故事｜整理日期 2026 年 11 月 22 日。本文為影片內容的改寫與事實查核，不代表任何數學機構的最終認定。</footer>
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+<a href="#toc">回目錄</a>
+<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+<script>
+{
+/* hero SVG zeros */
+const zs=[14.1347,21.0220,25.0109,30.4249,32.9351,37.5862,40.9187,43.3271,48.0052,49.7738];
+const g=document.getElementById('zeros');
+const y=t=>470-(t/52)*440;
+g.innerHTML=zs.map(t=>`<circle cx="340" cy="${y(t).toFixed(1)}" r="11" fill="url(#z)" stroke="var(--paper)" stroke-width="3"/>`).join('');
+}
+{
+/* interactive critical-strip canvas with Hardy Z(t) via Riemann–Siegel */
+const ZEROS=[14.1347,21.0220,25.0109,30.4249,32.9351,37.5862,40.9187,43.3271,48.0052,49.7738,52.9703,56.4462];
+const TMAX=60;
+const cv=document.getElementById('zcan');
+const ctx=cv.getContext('2d');
+let mode='full';
+const probe=document.createElement('span');probe.style.display='none';document.body.appendChild(probe);
+function col(v){probe.style.color=`var(${v})`;return getComputedStyle(probe).color;}
+function theta(t){return t/2*Math.log(t/(2*Math.PI))-t/2-Math.PI/8+1/(48*t)+7/(5760*t**3);}
+function Z(t){const a=Math.sqrt(t/(2*Math.PI)),N=Math.floor(a);let p=a-N,s=0;const th=theta(t);
+for(let n=1;n<=N;n++)s+=Math.cos(th-t*Math.log(n))/Math.sqrt(n);
+let c=Math.cos(2*Math.PI*p);if(Math.abs(c)<1e-6){p+=1e-5;c=Math.cos(2*Math.PI*p);}
+return 2*s+((N-1)%2?-1:1)*Math.pow(t/(2*Math.PI),-.25)*Math.cos(2*Math.PI*(p*p-p-1/16))/c;}
+let W=0,H=0,C={},phase=0;
+const still=matchMedia('(prefers-reduced-motion: reduce)');
+function colors(){C={gold:col('--gold'),gold2:col('--gold2'),soft:col('--soft'),strip:col('--strip'),ink:col('--ink'),warn:col('--warn'),paper:col('--paper'),wave:col('--wave')};}
+function resize(){
+const dpr=window.devicePixelRatio||1;
+W=cv.clientWidth;H=Math.max(320,Math.round(W*.5));
+cv.style.height=H+'px';cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+ctx.setTransform(dpr,0,0,dpr,0,0);colors();}
+function draw(){
+ctx.clearRect(0,0,W,H);
+const fs=Math.max(12,Math.min(18,W/50));
+const L=50,R=20,T=18,B=40;
+const zoom=mode==='zoom';
+const r0=zoom?-0.05:-0.6, r1=zoom?1.05:1.6;
+const X=re=>L+(re-r0)/(r1-r0)*(W-L-R);
+const Y=t=>H-B-(t/TMAX)*(H-B-T);
+/* strip */
+ctx.fillStyle=C.strip;ctx.fillRect(X(0),T,X(1)-X(0),H-B-T);
+/* axes */
+ctx.strokeStyle=C.soft;ctx.lineWidth=1.5;ctx.setLineDash([]);
+ctx.beginPath();ctx.moveTo(L,H-B);ctx.lineTo(W-R,H-B);ctx.stroke();
+ctx.setLineDash([4,5]);[0,1].forEach(re=>{ctx.beginPath();ctx.moveTo(X(re),T);ctx.lineTo(X(re),H-B);ctx.stroke();});
+ctx.setLineDash([]);
+ctx.font=`700 ${fs}px "Noto Sans TC",sans-serif`;ctx.fillStyle=C.soft;ctx.textAlign='center';
+ctx.fillText('0',X(0),H-B+fs+6);ctx.fillText('1',X(1),H-B+fs+6);
+ctx.textAlign='right';
+for(let t=10;t<=TMAX;t+=10){ctx.fillText(String(t),L-8,Y(t)+fs/3);}
+ctx.save();ctx.translate(14,T+60);ctx.rotate(-Math.PI/2);ctx.textAlign='right';ctx.fillText('Im(s) = t',0,0);ctx.restore();
+ctx.textAlign='left';ctx.fillText('Re(s)',W-R-fs*3,H-B-8);
+/* critical line */
+const xh=X(.5);
+ctx.strokeStyle=C.gold;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(xh,T);ctx.lineTo(xh,H-B);ctx.stroke();
+ctx.fillStyle=C.gold;ctx.font=`800 ${fs}px "Noto Sans TC",sans-serif`;ctx.textAlign='center';ctx.fillText('½',xh,H-B+fs+6);
+/* decorative wave (Gemini-style, visual effect only) */
+{const wa=(X(1)-X(0))*(zoom?.22:.13);
+ctx.strokeStyle=C.wave;ctx.globalAlpha=.6;ctx.lineWidth=2;ctx.beginPath();
+for(let py=T+4;py<=H-B-4;py+=2){const t=(H-B-py)/(H-B-T)*TMAX;
+const px=xh+Math.sin(t*.65+phase)*Math.cos(t*.28)*wa;
+if(py===T+4)ctx.moveTo(px,py);else ctx.lineTo(px,py);}
+ctx.stroke();ctx.globalAlpha=1;}
+/* Hardy Z curve */
+if(mode!=='counter'){
+const amp=(X(1)-X(0))*(zoom?.11:.16);
+ctx.strokeStyle=C.ink;ctx.globalAlpha=.55;ctx.lineWidth=1.8;ctx.beginPath();
+let first=true;for(let t=8;t<=TMAX;t+=.05){const px=xh+Z(t)*amp,py=Y(t);if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);}
+ctx.stroke();ctx.globalAlpha=1;
+ctx.fillStyle=C.soft;ctx.font=`700 ${fs*.9}px "Noto Sans TC",sans-serif`;ctx.textAlign='left';
+ctx.fillText('Z(t)',xh+amp*1.4,Y(9.5));
+}
+/* zeros */
+const rad=Math.max(5,Math.min(9,W/110));
+ZEROS.forEach((t,i)=>{
+ctx.beginPath();ctx.arc(xh,Y(t),rad+4+(still.matches?0:Math.sin(phase*2+i)*1.5),0,Math.PI*2);ctx.fillStyle=C.gold2;ctx.globalAlpha=.25;ctx.fill();ctx.globalAlpha=1;
+ctx.beginPath();ctx.arc(xh,Y(t),rad,0,Math.PI*2);ctx.fillStyle=C.gold2;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=C.paper;ctx.stroke();
+if(zoom){ctx.fillStyle=C.ink;ctx.font=`700 ${fs*.85}px ui-monospace,Menlo,monospace`;
+const left=i%2===1;ctx.textAlign=left?'right':'left';
+ctx.fillText(`½ + ${t.toFixed(2)}i`,left?xh-rad-8:xh+rad+8,Y(t)+fs/3);}
+});
+/* counterexample */
+if(mode==='counter'){
+const tc=45.5,res=[.82,.18];
+ctx.setLineDash([5,5]);ctx.strokeStyle=C.warn;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(X(res[1]),Y(tc));ctx.lineTo(X(res[0]),Y(tc));ctx.stroke();ctx.setLineDash([]);
+res.forEach(re=>{ctx.beginPath();ctx.arc(X(re),Y(tc),rad+2,0,Math.PI*2);ctx.fillStyle=C.warn;ctx.fill();});
+ctx.fillStyle=C.warn;ctx.font=`800 ${fs}px "Noto Sans TC",sans-serif`;ctx.textAlign='left';
+const tx=Math.min(X(.86),W-R-fs*9);
+ctx.fillText('假想的反例：',X(1)+10>W-R-fs*9?tx:X(1)+10,Y(tc)-fs*1.6);
+ctx.fillText('只要一顆離線，',X(1)+10>W-R-fs*9?tx:X(1)+10,Y(tc)-fs*.4);
+ctx.fillText('猜想就垮了',X(1)+10>W-R-fs*9?tx:X(1)+10,Y(tc)+fs*.8);
+}
+}
+document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{
+mode=b.dataset.mode;document.querySelectorAll('.btns button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw();}));
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{resize();draw();},120);});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{colors();draw();});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{resize();draw();});
+let visible=true;
+if('IntersectionObserver' in window)new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(cv);
+function loop(){if(!still.matches&&visible){phase+=.03;draw();}requestAnimationFrame(loop);}
+resize();draw();requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
