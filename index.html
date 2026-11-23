@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>老熊隨筆</title>
-<meta name="description" content="老熊隨筆 — 後 AI 時代、Post-AI 退休、游魂、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 163 篇，另收 MATLAB 檔案 103 個、Python 檔案 3 個。">
+<meta name="description" content="老熊隨筆 — 後 AI 時代、Post-AI 退休、游魂、精選外刊、群組觀察、師徒篇、技術檔案、m-files、嘗鮮、復盤體回憶錄、搬家＋新職場、職涯軌跡＋求職面試、名冊、現場誌、行旅篇、本站自評，共 165 篇，另收 MATLAB 檔案 103 個、Python 檔案 3 個。">
 <style>
 :root{
   --paper:#FBFAF7;--ink:#16181C;--ink-soft:#4A4F57;
@@ -167,12 +167,13 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 164 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十六個分區</span><span class="dot">·</span><span>最近更新 2026.11.22</span></p>
+<p class="toolbar"><span>全 165 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十六個分區</span><span class="dot">·</span><span>最近更新 2026.11.22</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
-<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">29</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">30</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#houai">前往本區　↓</a>
+<a href="riemann_claude_lean_story_Gemini_Claude.html">167 年後，一條金線上的零點 — Claude、Lean 與黎曼猜想<span class="lab">新・兩稿合併・互動圖</span></a>
 <a href="ai_nine_types_2036.html">代溝的第二個維度：十年後的九種人生 — 三代人 × 三種 AI 用法<span class="lab">新・九格改寫・附圖表</span></a>
 <a href="ai_trilogy_summary.html">從八萬美元的私教，到讓 AI 找出我的錯 — 老熊 AI 三部曲總整理<span class="lab">新・總整理</span></a>
 <a href="lao_xiong_ai_thinking_evolution_GPT-Go.html">從整理資訊到挑戰自己的想法 — 老熊的 AI 思考進化（GPT 旁觀評論）<span class="lab">新・評論・附表</span></a>
@@ -453,8 +454,19 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </nav>
 </header>
 
-<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">29 篇</span></h2>
+<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">30 篇</span></h2>
 <p class="section-note">答案變便宜之後：教育、數學、政策，以及人還剩下什麼</p>
+
+<article class="entry">
+<h3 class="headline"><a href="riemann_claude_lean_story_Gemini_Claude.html">167 年後，一條金線上的零點：Claude、Lean 與黎曼猜想 — 機器已確認，人類仍在理解 <span class="tag">新・兩稿合併・互動圖</span></a></h3>
+<p class="meta"><time class="date">2026.11.22</time><span class="chip">數學</span><span class="chip">AI</span><span class="chip">黎曼猜想</span><span class="chip">Lean</span><span class="chip">形式驗證</span><span class="chip">查核</span><span class="chip">視頻整理</span><span class="chip">互動圖</span></p>
+<p class="deck">YouTube 頻道「為什麼叫QQ」一支影片，Claude 與 Gemini 各寫一版，合成一篇，再逐條對照一手資料。十一月二十日，Anthropic 數學家 Levent Alpöge 貼出一份四頁的 note：「我相信，我與 Claude 一起找到了黎曼猜想的一個證明。」交出來的不是論文，而是 175,187 個檔案、約一千七百萬行 Lean——人類可讀的版本超過二十五萬頁，根本沒法出版。不到一天半，Lean 官方 kernel、nanoda、lean4lean、con-leche、con-ron 等獨立 checker 全數放行，五個定理只依賴三條標準公理，Lean／Mathlib 社群發表聯合聲明，對正確性有「full confidence」。陶哲軒把三項 AI 參與的突破按消化程度排序，GRH 排最後；他報導，不背書。全篇十章：從 1859 年那篇八頁論文、八月 41.6% 推到 67.2% 的前奏、前一天 Anthropic 剛上市的尷尬時機，一路寫到「驗證先於理解」的新局面——一個被好幾個獨立程式認證過的證明，沒有人講得出它為什麼成立，Clay 網站上它仍列為未解，GRH 也只形式化到 Dirichlet L-functions。第二章的互動圖畫的是真實計算的 Hardy Z(t)，每穿過金線一次就是一個零點，旁邊那條藍色波浪純屬裝飾，另有一顆假想的離線零點示範「只要一顆，猜想就垮」。文末〈查核附記〉老實記下兩份初稿各自的錯：「Stepanov × theta lifts」三步驟出自部落格留言，164 頁草稿既不是 Alpöge 的論文、也不是 Rubinstein 署名的著作，「飛起來、跳起舞來」則確有其語。</p>
+<p class="deck">延伸：兩個月前另一道千禧年難題的 AI 宣稱，見〈<a href="navier_stokes_ai_story_TC.html">AI 解開納維－斯托克斯了嗎？</a>〉；驗證跟不上產能的同一股氣流，見〈<a href="AI%E4%B8%8B%E5%87%A1%E5%BC%95%E8%B5%B7%E6%95%B8%E5%AD%B8%E7%95%8C%E7%9A%84%E5%AE%8C%E7%BE%8E%E9%A2%A8%E6%9A%B4.html">AI 下凡引起數學界的完美風暴</a>〉與〈<a href="AI%E6%99%82%E4%BB%A3%E6%95%B8%E5%AD%B8%E7%9A%84%E5%8D%B1%E6%A9%9F%E8%88%87%E6%96%B0%E7%94%9F.html">AI 時代數學的危機與新生</a>〉（皆在本區）。</p>
+<div class="tools">
+<a class="read" href="riemann_claude_lean_story_Gemini_Claude.html">閱讀</a>
+<button class="copy" data-file="riemann_claude_lean_story_Gemini_Claude.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="ai_nine_types_2036.html">代溝的第二個維度：十年後的九種人生 — 三代人 × 三種 AI 用法：不用、消費、構建 <span class="tag">新・九格改寫・附圖表</span></a></h3>
