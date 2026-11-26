@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一個提示詞，四個模型 · One Prompt, Four LLMs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a lab notebook turned magazine feature — calm, fair, bilingual
+   IDEA: one exam paper handed to four candidates; three answer sheets merged into one master copy
+   PICTURE: hero diagram — prompt → Claude / Gemini / Meta / GPT(✗) → consolidated story
+   COLOUR and TYPE: soft blue / deep navy with gold accents (never black); Noto Serif TC + Source Serif 4, bold
+   LAYOUT: single wide column; Part I = the test, Part II = the merged story; TOC + back links + floating nav */
+:root{color-scheme:light dark;
+--bg:light-dark(#e3ecf8,#0f1d3d);
+--paper:light-dark(#f3f7fd,#16284f);
+--ink:light-dark(#13234a,#eef2fb);
+--soft:light-dark(#3d5286,#b9c7e8);
+--gold:light-dark(#9a6b00,#e6b84c);
+--blue:light-dark(#1f4fa3,#8fb4ff);
+--line:light-dark(#c4d3ec,#2c4278);
+--en:light-dark(#e9f0fb,#1b3060);
+--ok:light-dark(#1d6b45,#7fd6a6);
+--bad:light-dark(#a3332b,#ff9b8f);
+--warn:light-dark(#fff3d6,#3a3418)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:24px;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:600 clamp(19px,2.3vw,27px)/1.75 "Noto Serif TC","Source Serif 4",serif;overflow-x:clip}
+.wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px) 120px}
+header.hero{padding:clamp(36px,5vw,72px) 0 18px}
+.kicker{color:var(--gold);font-weight:800;font-size:.8em;margin:0 0 .4em}
+h1{font-weight:900;font-size:clamp(38px,5.6vw,72px);line-height:1.12;margin:0 0 .2em;text-wrap:balance}
+h1 .en{display:block;font-family:"Source Serif 4",serif;font-weight:800;font-size:.56em;color:var(--blue);margin-top:.25em}
+.deck{color:var(--soft);margin:.6em 0 0}
+.deck.en{font-family:"Source Serif 4",serif}
+.meta{font-size:.72em;color:var(--soft);margin-top:1.2em;border-top:2px solid var(--gold);padding-top:.8em}
+.meta a{color:var(--blue)}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px;margin:26px 0}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:.68em;color:var(--soft);padding:6px 10px 2px;text-align:center}
+.toggle{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+.toggle button{font:700 .72em "Noto Serif TC",serif;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--gold);background:transparent;color:var(--ink);cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--gold);color:var(--paper)}
+.toggle button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px clamp(18px,3vw,36px);margin:22px 0 10px}
+nav.toc h2{font-size:1.05em;margin:0 0 .3em;color:var(--gold)}
+nav.toc h3{font-size:.8em;margin:.9em 0 .2em;color:var(--blue)}
+nav.toc ol{margin:0;padding-left:1.6em}
+nav.toc li{margin:.22em 0;font-size:.82em}
+nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--line)}
+nav.toc a:hover{color:var(--blue)}
+nav.toc .e{font-family:"Source Serif 4",serif;color:var(--soft);font-size:.9em}
+section{padding:40px 0 10px;border-bottom:1px solid var(--line)}
+.part{margin:56px 0 0;padding:26px clamp(18px,3vw,34px);background:var(--blue);color:var(--paper);border-radius:18px}
+.part p{margin:0;font-weight:900;font-size:1.25em;line-height:1.3}
+.part p.en{font-family:"Source Serif 4",serif;font-size:.8em;font-weight:700;opacity:.9;margin-top:.3em}
+h2.sec{font-weight:900;font-size:clamp(28px,3.6vw,46px);line-height:1.2;margin:0 0 .5em;text-wrap:balance}
+h2.sec small{display:block;font-family:"Source Serif 4",serif;font-weight:800;color:var(--blue);font-size:.6em;margin-top:.2em}
+.zh p{margin:0 0 1em}
+.en{font-family:"Source Serif 4",serif}
+div.en{background:var(--en);border-left:5px solid var(--gold);border-radius:0 14px 14px 0;padding:18px clamp(16px,2.6vw,30px);margin:8px 0 18px;line-height:1.65}
+div.en p{margin:0 0 .8em}div.en p:last-child{margin:0}
+div.en ul,div.en ol{margin:.2em 0 .6em;padding-left:1.3em}
+.zh ul,.zh ol{margin:0 0 1em;padding-left:1.4em}
+li{margin:.25em 0}
+strong{font-weight:800;color:var(--blue)}
+blockquote{margin:1.2em 0;padding:.4em 0 .4em 1em;border-left:6px solid var(--gold);font-weight:900;font-size:1.15em;line-height:1.5}
+blockquote .zh{display:block}blockquote .en{display:block;font-size:.72em;font-weight:700;color:var(--soft);margin-top:.3em}
+.cov{font-size:.62em;color:var(--soft);margin:-.4em 0 1em;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tag{display:inline-block;font:800 .62em "Source Serif 4",serif;padding:.05em .55em;border-radius:999px;border:1.5px solid var(--gold);color:var(--gold);vertical-align:.2em;white-space:nowrap}
+.cov .tag{font-size:1em;vertical-align:0}
+.tag.off{border-style:dashed;color:var(--soft);border-color:var(--line)}
+.note{background:var(--warn);border:1px solid var(--gold);border-radius:14px;padding:14px 20px;margin:14px 0 18px;font-size:.82em}
+.note p{margin:0 0 .5em}.note p:last-child{margin:0}
+.summary{background:var(--paper);border:2px solid var(--gold);border-radius:18px;padding:22px clamp(18px,3vw,34px)}
+.summary ul{margin:.2em 0 0;padding-left:1.3em}
+.scroll{overflow-x:auto;margin:14px 0 20px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:.66em;line-height:1.55}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+thead th{background:var(--en);color:var(--blue);font-weight:900;position:sticky;top:0}
+tbody th{color:var(--gold);font-weight:900;white-space:nowrap}
+.y{color:var(--ok);font-weight:900}.n{color:var(--bad);font-weight:900}
+.verdict{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:14px 0}
+.vc{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:0 14px 14px 0;padding:14px 20px}
+.vc h4{margin:0 0 .3em;font-size:.95em;color:var(--blue)}
+.vc p{margin:0 0 .45em;font-size:.82em}.vc p:last-child{margin:0}
+.vc.flag{border-left-color:var(--bad)}.vc.flag h4{color:var(--bad)}
+.vc.open{border-left-color:var(--gold)}.vc.open h4{color:var(--gold)}
+.timeline{border-left:4px solid var(--gold);margin:10px 0 18px 6px;padding-left:18px;font-size:.85em}
+.timeline p{margin:.5em 0}
+.take{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin:16px 0}
+.take>div{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px 24px}
+.take h3{margin:0 0 .4em;color:var(--gold);font-size:1em}
+.take ol{margin:0;padding-left:1.3em;font-size:.84em}
+.back{font-size:.68em;margin:14px 0 0;text-align:right}
+.back a{color:var(--gold);font-weight:800;text-decoration:none}
+.src{font-size:.7em;color:var(--soft);background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 24px;margin-top:20px}
+.src a{color:var(--blue);overflow-wrap:anywhere}
+.src p{margin:0 0 .6em}
+.fnav{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:8px;z-index:9}
+.fnav a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:999px;background:var(--gold);color:var(--paper);font:800 15px "Noto Serif TC",serif;text-decoration:none;box-shadow:0 4px 14px rgba(10,25,60,.25)}
+body[data-lang=zh] .en:not(h1 .en):not(h2 small){display:none}
+body[data-lang=zh] blockquote .en{display:none}
+body[data-lang=en] .zh,body[data-lang=en] .deck:not(.en){display:none}
+@media(max-width:760px){.take{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){div.en{border-left-width:4px}.fnav a{font-size:13px;padding:0 12px}table{font-size:13px}}
+</style>
+</head>
+<body data-lang="both">
+<div class="wrap">
+
+<header class="hero" id="top">
+<p class="kicker">老熊實驗紀錄 · A Lao Xiong lab note</p>
+<h1>一個提示詞，四個模型：同一部影片，四份答卷<span class="en">One Prompt, Four LLMs: Same Video, Four Answer Sheets</span></h1>
+<p class="deck">我把同一句話丟給四個大型語言模型：「把這部 YouTube 影片的內容抽出來，寫成中英雙語 HTML 故事。」三個交了卷，一個交了白卷。這篇先記錄這場小考，再把三份答卷合併成一篇完整的雙語故事：納德拉談「代碼變便宜之後的軟體工程」。</p>
+<p class="deck en">I gave four large language models the same one-line task: “extract the contents of this YouTube video and write them into a Chinese/English HTML story.” Three turned in a paper; one turned in a blank. This page records the test, then merges the three papers into one complete bilingual story: Satya Nadella on software engineering after code gets cheap.</p>
+<p class="meta">2026 年 11 月 26 日 · 受測模型：Claude、Gemini、Meta AI、GPT · 原始影片 / Source video: <a href="https://www.youtube.com/watch?v=aUmH8iMIA-I">youtube.com/watch?v=aUmH8iMIA-I</a></p>
+</header>
+
+<figure class="fig">
+<svg viewBox="0 0 1000 360" role="img" aria-label="一個提示詞發給四個模型，三個成功，合併成一篇故事 / One prompt to four models; three succeed and are merged into one story">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--gold)"/></marker></defs>
+<g font-family="Noto Serif TC, serif" font-weight="800" text-anchor="middle">
+<rect x="20" y="120" width="200" height="120" rx="18" fill="var(--en)" stroke="var(--blue)" stroke-width="3"/>
+<text x="120" y="168" font-size="30" fill="var(--ink)">同一個提示詞</text>
+<text x="120" y="204" font-size="19" fill="var(--soft)" font-family="Source Serif 4, serif">One prompt + 1 URL</text>
+<g stroke="var(--gold)" stroke-width="4" fill="none">
+<path d="M222 180C262 180 262 52 302 52" marker-end="url(#ar)"/>
+<path d="M222 180C262 180 262 136 302 136" marker-end="url(#ar)"/>
+<path d="M222 180C262 180 262 222 302 222" marker-end="url(#ar)"/>
+<path d="M222 180C262 180 262 308 302 308" marker-end="url(#ar)" stroke-dasharray="8 7"/>
+</g>
+<rect x="306" y="22" width="250" height="62" rx="14" fill="var(--blue)"/><text x="431" y="64" font-size="27" fill="var(--paper)">Claude ✓ 12 章</text>
+<rect x="306" y="106" width="250" height="62" rx="14" fill="var(--blue)"/><text x="431" y="148" font-size="27" fill="var(--paper)">Gemini ✓ 6 章</text>
+<rect x="306" y="192" width="250" height="62" rx="14" fill="var(--blue)"/><text x="431" y="234" font-size="27" fill="var(--paper)">Meta ✓ 9 章</text>
+<rect x="306" y="278" width="250" height="62" rx="14" fill="none" stroke="var(--soft)" stroke-width="3" stroke-dasharray="9 7"/><text x="431" y="320" font-size="27" fill="var(--soft)">GPT ✗ 未完成</text>
+<g stroke="var(--gold)" stroke-width="4" fill="none">
+<path d="M558 53C620 53 620 165 690 165" marker-end="url(#ar)"/>
+<path d="M558 137C620 137 620 175 690 175" marker-end="url(#ar)"/>
+<path d="M558 223C620 223 620 185 690 185" marker-end="url(#ar)"/>
+</g>
+<rect x="694" y="100" width="286" height="160" rx="22" fill="var(--gold)"/>
+<text x="837" y="160" font-size="32" fill="var(--paper)">合併版完整故事</text>
+<text x="837" y="196" font-size="20" fill="var(--paper)" font-family="Source Serif 4, serif">Consolidated story</text>
+<text x="837" y="230" font-size="18" fill="var(--paper)">交叉比對 · 去偽存真</text>
+</g>
+</svg>
+<figcaption>三份答卷互相校對，多數一致者採信、獨家細節標註來源、查無旁證者剔除 · Three papers cross-checked: majority agreement kept, unique details tagged, unsupported claims dropped</figcaption>
+</figure>
+
+<div class="toggle" role="group" aria-label="語言 Language">
+<button type="button" data-l="both" aria-pressed="true">中英對照 Bilingual</button>
+<button type="button" data-l="zh" aria-pressed="false">只看中文</button>
+<button type="button" data-l="en" aria-pressed="false">English only</button>
+</div>
+
+<nav class="toc" id="toc">
+<h2>目錄 · Contents</h2>
+<ol>
+<li><a href="#s-sum">執行摘要</a> <span class="e">Executive summary</span></li>
+</ol>
+<h3>第一部　實驗紀錄 · Part I: The Test</h3>
+<ol start="2">
+<li><a href="#s-prompt">考題：一句話、一個網址</a> <span class="e">The prompt</span></li>
+<li><a href="#s-cast">四位考生，三份答卷</a> <span class="e">Four candidates, three papers</span></li>
+<li><a href="#s-score">答卷並排對照</a> <span class="e">Side-by-side scorecard</span></li>
+<li><a href="#s-check">誰說得準？準確性抽查</a> <span class="e">Fidelity check</span></li>
+</ol>
+<h3>第二部　合併版完整故事 · Part II: The Consolidated Story</h3>
+<ol start="6">
+<li><a href="#c1">序幕：難的是驗證</a> <span class="e">Prologue: verification is the hard part</span></li>
+<li><a href="#c2">老同事重逢</a> <span class="e">Two old Microsoft hands</span></li>
+<li><a href="#c3">從閉門造車到公開開發</a> <span class="e">From closed doors to open development</span></li>
+<li><a href="#c4">先發一年，然後被奇襲</a> <span class="e">A head start, then the flank attack</span></li>
+<li><a href="#c5">決策引擎：智能時代的預存程序</a> <span class="e">The decision engine</span></li>
+<li><a href="#c6">驗證與軟體工廠</a> <span class="e">Verification and the software factory</span></li>
+<li><a href="#c7">真實世界都是棕地</a> <span class="e">The real world is brownfield</span></li>
+<li><a href="#c8">這一次，真的不一樣</a> <span class="e">This time really is different</span></li>
+<li><a href="#c9">自願離職方案與初級招聘</a> <span class="e">Voluntary exits and junior hiring</span></li>
+<li><a href="#c10">企業主權與信任架構</a> <span class="e">Sovereignty and trust architecture</span></li>
+<li><a href="#c11">混合智能：邊緣設備就是 Token 工廠</a> <span class="e">Hybrid intelligence</span></li>
+<li><a href="#c12">尾聲：讓我們回到學校</a> <span class="e">Epilogue: back to school</span></li>
+</ol>
+<h3>結語 · Closing</h3>
+<ol start="18">
+<li><a href="#s-take">帶回家的話</a> <span class="e">Take-home</span></li>
+<li><a href="#s-src">資料來源</a> <span class="e">Sources</span></li>
+</ol>
+</nav>
+
+<section id="s-sum">
+<h2 class="sec">執行摘要<small>Executive Summary</small></h2>
+<div class="summary">
+<div class="zh"><ul>
+<li><strong>考法：</strong>同一個提示詞、同一個 YouTube 網址，分別交給 Claude、Gemini、Meta AI 與 GPT。</li>
+<li><strong>結果：</strong>三個交卷，GPT 是唯一做不到的。交卷的三份長度與結構差異很大：Claude 12 章、Meta 9 章、Gemini 6 章；Claude 與 Meta 用繁體，Gemini 用簡體。</li>
+<li><strong>最完整：</strong>Claude 版涵蓋最多細節，也最貼近老熊隨筆的版面習慣。<strong>最乾淨：</strong>Meta 版不依賴外部函式庫，附重點清單，還有幾句其他版本沒有的英文原話。<strong>最華麗：</strong>Gemini 版排版最精緻，但也是唯一把推論寫成「引號內的原話」、並出現與另兩版相牴觸說法的一份。</li>
+<li><strong>最重要的發現：</strong>文筆越流暢，不代表越忠實。三份交叉比對，抓出一處明顯的誇大（「微軟已暫停初級招聘」），以及兩處需要回原片查證的出入。</li>
+<li><strong>合併版：</strong>以 Claude 的 12 章為骨架，補進 Meta 的獨家細節，只保留 Gemini 有旁證的內容；每章標明出處。這剛好呼應納德拉的主張：程式碼便宜了，難的是驗證；而且要用<strong>不同的模型家族</strong>互相審查。</li>
+</ul></div>
+<div class="en"><ul>
+<li><strong>The setup:</strong> one prompt and one YouTube URL, given separately to Claude, Gemini, Meta AI and GPT.</li>
+<li><strong>The outcome:</strong> three delivered; GPT was the only one that couldn’t. The three papers differ sharply: Claude 12 chapters, Meta 9, Gemini 6; Claude and Meta wrote Traditional Chinese, Gemini Simplified.</li>
+<li><strong>Most complete:</strong> Claude, with the most detail and the closest fit to this site’s layout. <strong>Cleanest:</strong> Meta: no external libraries, a takeaway list, and a few English verbatim lines no one else had. <strong>Most polished:</strong> Gemini, with the most refined design, but it was the only one to put its own inferences inside quotation marks, and it contradicted the other two on one point.</li>
+<li><strong>Key finding:</strong> fluent prose is not the same as faithful prose. Cross-checking the three caught one clear overstatement (“Microsoft has paused junior hiring”) and two discrepancies that need the original video to settle.</li>
+<li><strong>The merged story:</strong> Claude’s 12 chapters are the backbone, with Meta’s unique details added and only those Gemini claims that another version supports. Each chapter shows its sources. That is Nadella’s own point in action: code is cheap, verification is hard, and you should review with <strong>a different model family</strong>.</li>
+</ul></div>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<div class="part"><p>第一部　實驗紀錄</p><p class="en">Part I · The Test</p></div>
+
+<section id="s-prompt">
+<h2 class="sec">考題：一句話、一個網址<small>The Prompt: One Sentence, One URL</small></h2>
+<div class="zh"><p>考題刻意寫得極簡，沒有指定字數、章節、版面，也沒有說用繁體還是簡體。模型必須自己決定：怎麼取得影片內容、從哪個角度切入、故事要多長、中英怎麼排。</p></div>
+<div class="en"><p>The prompt was deliberately minimal: no length, no chapter count, no layout, not even Traditional vs Simplified Chinese. Each model had to decide on its own how to get at the video’s content, what angle to take, how long to run, and how to lay out the two languages.</p></div>
+<blockquote><span class="zh">extract contents and write them into Chinese/English html story<br>https://www.youtube.com/watch?v=aUmH8iMIA-I</span><span class="en">The exact prompt, given verbatim to all four models.</span></blockquote>
+<div class="zh"><p>影片本身是 YouTube 頻道「最佳拍檔」對一場英文長訪談的中文解說：微軟執行長薩蒂亞・納德拉上《The Pragmatic Engineer》節目，與主持人格爾蓋利・奧羅茲談了一小時。所以這道題其實暗藏一層難度：模型拿到的是<strong>二手的中文轉述</strong>，卻要寫出中英對照的故事。（三份答卷對影片身分的說法並不一致，見<a href="#s-check">第五節</a>。）</p></div>
+<div class="en"><p>The video itself is the 最佳拍檔 channel’s Chinese-language recap of a long English interview: Microsoft CEO Satya Nadella spent an hour on <i>The Pragmatic Engineer</i> with host Gergely Orosz. That adds a hidden layer of difficulty: the models were handed a <strong>second-hand Chinese retelling</strong> and asked for a bilingual story. (The three papers disagree about what the video is; see <a href="#s-check">section 5</a>.)</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="s-cast">
+<h2 class="sec">四位考生，三份答卷<small>Four Candidates, Three Papers</small></h2>
+<div class="zh">
+<p><strong>Claude</strong>交出最長的一份：12 章、單欄長文，每段先中文後英文，配一張「規格→軟體工廠→程式碼→驗證」的示意圖。它在文末寫明自己是<strong>依影片中文字幕改寫</strong>，引述都是意譯，還附上原始英文訪談的連結。版面直接沿用老熊隨筆的習慣：粗體大字、藍金配色、可點目錄、每節「回目錄」、右下角浮動導覽。</p>
+<p><strong>Gemini</strong>交出排版最精緻的一份：6 章，用 Tailwind 做出黏頂導覽列、閱讀進度條、首字放大、桌機上中英左右並排，還附「下載 HTML」按鈕。文字最有雜誌腔，但篇幅最短，而且每章結尾都有一段長長的「引言」，其實是模型自己整理的話，卻放在引號裡。</p>
+<p><strong>Meta AI</strong>交出最「工程師」的一份：9 章，零外部依賴，有時間軸、四格重點、深色底的帶走五句話，還有列印樣式。它自稱依據的是<strong>原始英文訪談逐字稿</strong>，因此留下幾句其他版本沒有、很像原話的英文短句，例如 “It’s on narratives versus facts all the time.”</p>
+<p><strong>GPT</strong>是唯一沒能完成的。老熊的紀錄只有一句：「GPT is the only one can Not do it.」</p>
+</div>
+<div class="en">
+<p><strong>Claude</strong> delivered the longest paper: 12 chapters in a single long column, each paragraph in Chinese then English, with a “spec → factory → code → verify” diagram. It stated that it was <strong>retold from the video’s Chinese captions</strong>, that quotations were paraphrased, and it linked the original English interview. Its layout follows this site’s conventions: bold large type, blue and gold, a clickable TOC, “back to contents” links, and a floating nav.</p>
+<p><strong>Gemini</strong> delivered the most polished paper: 6 chapters, built with Tailwind, with a sticky header, a reading-progress bar, drop caps, side-by-side Chinese and English on desktop, and a “Download HTML” button. Its prose is the most magazine-like, but it is the shortest, and every chapter ends with a long “quote” that is really the model’s own summary placed inside quotation marks.</p>
+<p><strong>Meta AI</strong> delivered the most engineer-like paper: 9 chapters, zero external dependencies, a timeline, a four-box grid, a five-line takeaway panel, and print styles. It says it worked from the <strong>original English transcript</strong>, and it preserved a few short English lines that read like verbatim speech, such as “It’s on narratives versus facts all the time.”</p>
+<p><strong>GPT</strong> was the only one that could not complete the task. The test log says simply: “GPT is the only one can Not do it.”</p>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="s-score">
+<h2 class="sec">答卷並排對照<small>Side-by-Side Scorecard</small></h2>
+<div class="zh"><p>下表是逐行讀過三份 HTML 原檔後的整理。表格較寬，手機上可左右滑動。</p></div>
+<div class="en"><p>Compiled after reading all three HTML files line by line. The table is wide; swipe sideways on a phone.</p></div>
+<div class="scroll">
+<table>
+<thead><tr><th>項目 · Item</th><th>Claude</th><th>Gemini</th><th>Meta AI</th><th>GPT</th></tr></thead>
+<tbody>
+<tr><th>完成 · Delivered</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td><td class="n" style="white-space:nowrap">✗ 未完成<br>not done</td></tr>
+<tr><th>中文字體 · Script</th><td>繁體 Traditional</td><td>簡體 Simplified</td><td>繁體 Traditional</td><td>—</td></tr>
+<tr><th>章數 · Chapters</th><td>12</td><td>6</td><td>9 + 帶走五句話 takeaways</td><td>—</td></tr>
+<tr><th>自述依據 · Stated basis</th><td>影片中文字幕；附原始英文訪談連結 · the video’s Chinese captions, plus a link to the original English interview</td><td>「最佳拍檔」解說影片 · the 最佳拍檔 recap</td><td>原始英文訪談逐字稿與說明 · the episode’s English transcript and description</td><td>—</td></tr>
+<tr><th>引述方式 · Quotes</th><td>短句，標明為意譯 · short, labelled as paraphrased</td><td>每章一段長「引言」，多為模型自擬 · a long “quote” per chapter, mostly composed by the model</td><td>英文短句，像原話；標明可能有轉錄誤差 · short English lines that read verbatim; warns of caption errors</td><td>—</td></tr>
+<tr><th>版面特色 · Layout</th><td>可點目錄、回目錄、浮動導覽、三段語言切換、示意圖、深淺色模式 · TOC, back links, floating nav, 3-way language toggle, diagram, light/dark</td><td>黏頂列、進度條、首字放大、中英左右並排、下載鈕 · sticky header, progress bar, drop caps, side-by-side columns, download button</td><td>時間軸、四格重點、重點清單、列印樣式、零外部依賴 · timeline, 4-box grid, takeaway list, print CSS, no dependencies</td><td>—</td></tr>
+<tr><th>獨家細節 · Unique details</th><td>Erich Gamma；開源貢獻帳；Cutler/malloc；20 萬員工；B200；Pi harness；神經語言；測試時獎勵作弊 · Erich Gamma, open-source ledger, Cutler/malloc, 200k staff, B200, Pi harness, neuralese, test-time reward hacking</td><td>背景史實：1992 年加入微軟、GitHub 75 億美元 · background facts: joined Microsoft 1992, GitHub for $7.5B</td><td>Ilya「像資料庫一樣無聊」；敘事與事實；兩篇部落格；「不為客戶創造價值的事不做」；Hanselman 示範；“Tough luck” · Ilya’s “boring as databases,” narratives vs facts, two blogs, customer-value test, Hanselman demo, “Tough luck”</td><td>—</td></tr>
+<tr><th>弱點 · Weak spots</th><td>單欄很長，沒有重點清單；本頁作者也是 Claude，評自己需打折 · long single column, no takeaway list; this page is also written by Claude, so discount its self-assessment</td><td>多處查無旁證的誇大；匯出檔夾帶 Gemini Canvas 注入腳本（含短效登入憑證），上架前應刪除 · several unsupported embellishments; the export carries Gemini Canvas injected scripts (incl. a short-lived auth token) that should be stripped before posting</td><td>語言選擇只存不讀，重新整理後回到預設；把影片當成原訪談 · language choice saved but never restored; treats the recap video as the original interview</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="s-check">
+<h2 class="sec">誰說得準？準確性抽查<small>Who Got It Right? A Fidelity Check</small></h2>
+<div class="zh"><p>方法很簡單：同一件事，三份怎麼說？兩份以上一致、且互不依賴的，視為可信；只有一份提到但不牴觸的，保留並標註來源；只有一份提到、而且與另兩份牴觸或過於具體的，剔除。必須說明：本頁由 Claude 撰寫，評分 Claude 自己的答卷難免偏心，下面的判斷都附了理由，讀者可以自行檢驗。</p></div>
+<div class="en"><p>The method: how do the three describe the same point? Where two or more independent versions agree, it stands. Where only one mentions it without contradiction, it stays, tagged with its source. Where only one mentions it and it contradicts the others or is suspiciously specific, it goes. A caveat: this page is written by Claude, so grading Claude’s own paper invites bias; every call below states its reason so you can check it.</p></div>
+<div class="verdict">
+<div class="vc flag"><h4>✗ 初級招聘：「微軟已暫停」？ · Junior hiring: “paused”?</h4>
+<p class="zh">Claude 與 Meta 都說：納德拉認為現在畫長期趨勢線還太早，應先把內部團隊調整好、把新工廠蓋好再談招人。Gemini 卻寫成他「坦承微軟已暫時暫停初級招聘」，還配了一段引號裡的話。多數決：<strong>採 Claude／Meta 的說法</strong>，Gemini 的版本剔除。</p>
+<p class="en">Claude and Meta both say Nadella thinks it is too early to draw a long-term trend line: realign teams and build the new factory first, then decide on hiring. Gemini says he “candidly acknowledges Microsoft temporarily paused junior hiring,” with a quote to match. Majority view: <strong>keep Claude/Meta</strong>; Gemini’s version dropped.</p></div>
+<div class="vc flag"><h4>✗ 查無旁證的具體細節 · Unsupported specifics (Gemini only)</h4>
+<p class="zh">「次毫秒延遲」、「數量級的效率躍升」、MAI-2 用「合成課程與強化學習推理軌跡」、Xbox 系統會「理解玩家情緒並分派工單」、「試算表沒有消滅會計師」的比喻、「不是每個工程師都想要高強度 AI 節奏」：這些只出現在 Gemini 版，另兩份都沒有。<strong>合併版不收。</strong></p>
+<p class="en">“Sub-millisecond latency,” “order-of-magnitude gains,” MAI-2 trained on “synthetic curricula and RL reasoning traces,” an Xbox system that “interprets player sentiment and routes tickets,” the “spreadsheets didn’t kill accountants” analogy, “not every engineer wants a high-velocity AI workflow”: all appear only in Gemini. <strong>Left out of the merged story.</strong></p></div>
+<div class="vc open"><h4>？ Rust 遷移：失敗回退，還是成功案例？ · Rust migration: rollback or success?</h4>
+<p class="zh">Claude 說有一次 Rust 遷移「一度搞得很糟，不得不回退」；Meta 說納德拉推薦一篇部落格，一位開發者獨自把整個 runtime 遷到 Rust，是「漂亮的案例」。兩者可能是不同的兩件事，也可能有一方誤讀。<strong>兩說並存，請以原片為準。</strong></p>
+<p class="en">Claude says one Rust migration “went badly enough that it had to be rolled back”; Meta says Nadella pointed to a blog where a single developer migrated a whole runtime to Rust, a “beautiful case study.” These may be two separate stories, or one side misread. <strong>Both kept; check the original.</strong></p></div>
+<div class="vc open"><h4>？ 這部影片到底是誰的？ · Whose video is it?</h4>
+<p class="zh">Claude 與 Gemini 都說 aUmH8iMIA-I 是「最佳拍檔」的中文解說（Claude 標日期 2026-11-26），原始英文訪談另有連結；Meta 則把它當成《The Pragmatic Engineer》原訪談，標日期 2026-11-16。製作本頁時我嘗試讀取 YouTube 頁面確認，但被網站限流，<strong>未能查證</strong>。兩份一致者暫採，日期請以 YouTube 頁面為準。</p>
+<p class="en">Claude and Gemini say aUmH8iMIA-I is the 最佳拍檔 Chinese recap (Claude dates it 2026-11-26), with the English interview elsewhere; Meta treats it as the original <i>Pragmatic Engineer</i> episode, dated 2026-11-16. I tried to load the YouTube page to confirm while building this, but the site rate-limited the request, so this is <strong>unverified</strong>. The two-version reading is used here; check the YouTube page for dates.</p></div>
+<div class="vc"><h4>△ 小出入 · Minor differences</h4>
+<p class="zh">Cursor 的亮點：Claude、Meta 說是代理模式，Gemini 說是多檔案上下文（採前者）。「IDE 六個月內淡出」：Claude 記為奧羅茲的觀察，Meta 記為納德拉的話（合併版不指名）。「像資料庫一樣無聊」：只有 Meta 註明出自 Ilya Sutskever（保留並標註）。</p>
+<p class="en">Cursor’s standout: agent mode per Claude and Meta, multi-file context per Gemini (former kept). “The IDE faded within six months”: Orosz’s observation per Claude, Nadella’s words per Meta (merged story names neither). “As boring as databases”: only Meta credits Ilya Sutskever (kept, tagged).</p></div>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<div class="part"><p>第二部　合併版完整故事</p><p class="en">Part II · The Consolidated Story</p></div>
+
+<div class="note">
+<p class="zh">閱讀說明：每章開頭標示「收錄於」哪幾份答卷；只出現在單一版本的句子，句尾加上 <span class="tag">Meta</span>、<span class="tag">Claude</span> 或 <span class="tag">背景</span> 標籤（「背景」指公開史實、非出自訪談）。引述皆為意譯，英文短句依 Meta 版所錄。</p>
+<p class="en">How to read: each chapter shows which papers covered it; sentences found in only one version end with a <span class="tag">Meta</span>, <span class="tag">Claude</span> or <span class="tag">背景 background</span> tag (background = public fact, not from the interview). Quotations are paraphrased; short English lines are as recorded by Meta.</p>
+</div>
+
+<section id="c1">
+<h2 class="sec">一、序幕：難的是驗證<small>I. Prologue: Verification Is the Hard Part</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>微軟執行長薩蒂亞・納德拉上了《The Pragmatic Engineer》節目，和主持人格爾蓋利・奧羅茲談了整整一小時。整場對話圍繞一個被擺上桌面的問題：<strong>當程式碼的生成變得便宜，軟體工程還剩下什麼？</strong></p>
+<p>納德拉的答案值得先記下來，因為後面的一切都掛在它上面，像整場對談的脊椎：軟體工廠、決策引擎、招聘、開放模型、本地 AI，全都從這一句長出來。<span class="tag">Meta</span></p>
+</div>
+<div class="en"><p>Microsoft CEO Satya Nadella spent a full hour on <i>The Pragmatic Engineer</i> with host Gergely Orosz. One question sat squarely on the table: <strong>once generating code becomes cheap, what remains of software engineering?</strong></p><p>His answer is worth noting up front, because everything else hangs off it like a spine: software factories, decision engines, hiring, open models, local AI. <span class="tag">Meta</span></p></div>
+<blockquote><span class="zh">在程式碼生成已經便宜的世界裡，難的是驗證。</span><span class="en">In a world where code generation is cheap, the hard part is verification.</span></blockquote>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c2">
+<h2 class="sec">二、老同事重逢<small>II. Two Old Microsoft Hands</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>這場對談特別在兩人的背景。納德拉是極少數從軟體工程師一路做到大型科技公司執行長的人：早年在 Sun 工作，1992 年轉入微軟<span class="tag">背景</span>，2014 年接掌微軟，是第三任 CEO。奧羅茲當年在微軟倫敦辦公室待過，兩人算是老同事重逢，談起來毫無客套。</p>
+<p>問題也問得尖銳：微軟為什麼錯過 Claude Code 那一波？自願離職方案是不是裁員的前奏？這種等級的來賓，加上不留情面的提問，乾貨自然不少。</p>
+</div>
+<div class="en"><p>What makes this interview unusual is who is talking. Nadella is one of the very few engineers to rise all the way to CEO of a tech giant: he worked at Sun, joined Microsoft in 1992 <span class="tag">background</span>, and became its third CEO in 2014. Orosz once worked in Microsoft’s London office, so this was a reunion of former colleagues, with no pleasantries wasted.</p><p>The questions were pointed: why did Microsoft miss the Claude Code wave? Is the voluntary separation program a prelude to layoffs? A guest of that stature plus unsparing questions made for a dense hour.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c3">
+<h2 class="sec">三、從閉門造車到公開開發<small>III. From Closed Doors to Open Development</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>故事從十二年前說起。2014 年納德拉上任時，微軟在外界眼中仍是閉源公司，形象停留在 90 年代的 Windows 時代。接著轉向非常徹底：推出 VS Code、收購 GitHub（2018 年，75 億美元<span class="tag">背景</span>）、內部的 TFS 全面換成 Git、TypeScript 開源、SQL Server 搬上 Linux。</p>
+<p>納德拉輕輕反駁了那種敘事：<strong>敘事一旦形成，要改變就得付出巨大的努力。</strong>他當 CEO 之前，微軟對 Linux 的貢獻就已相當可觀，只是外界不知道。他用一句話形容這種處境：這個世界永遠是敘事與事實在對打。<span class="tag">Meta</span>作為 GitHub 的管理者，微軟要靠「把社群的事情做對」來贏得信任。<span class="tag">Meta</span>他也說，若真要核算各家從開源拿多少、回饋多少，微軟應名列前茅，某些受益最多的公司反而貢獻很少；不過抱怨沒用，世界就是這樣運轉。<span class="tag">Claude</span></p>
+<p>對開發者文化衝擊最大的，兩人都同意不是哪一張授權條款，而是 VS Code：開源、免費，五到十年後無所不在。這是刻意的嗎？完全是。埃里希・伽瑪（Erich Gamma）帶的團隊，就是刻意和社群一起開發。<span class="tag">Claude</span>那是納德拉第一次真正見識<strong>公開開發</strong>：產品經理每天看社群回饋決定做什麼，而不是只聽副總裁指示。他認為這個文化轉變比開源本身意義更大，甚至覺得微軟當時應該學得更深、推得更廣。</p>
+<p>事後回看，VS Code 也意外為十年後的 AI 程式設計革命鋪好了路：當大型語言模型需要一個開放、可擴充的入口直達開發者指尖，VS Code 早已站在那裡。<span class="tag">Gemini</span>（此為 Gemini 版的回顧觀點，非納德拉原話。）</p>
+</div>
+<div class="en"><p>The story begins twelve years ago. When Nadella took over in 2014, Microsoft was still a closed-source shop in the public mind, frozen in its 1990s Windows image. The pivot was thorough: VS Code, the GitHub acquisition (2018, $7.5 billion <span class="tag">background</span>), TFS replaced by Git internally, TypeScript open-sourced, SQL Server on Linux.</p><p>Nadella gently pushed back on the narrative: <strong>once a narrative sets in, changing it takes enormous effort.</strong> Microsoft was already a sizable Linux contributor before he became CEO; outsiders just didn’t know. “It’s on narratives versus facts all the time.” <span class="tag">Meta</span> As GitHub’s steward, Microsoft had to earn trust “by doing right by the community.” <span class="tag">Meta</span> Tally what each company takes from open source versus what it gives back, he added, and Microsoft would rank near the top, while some of the biggest beneficiaries give remarkably little; still, complaining is pointless. <span class="tag">Claude</span></p><p>The biggest shift in developer culture, both agreed, wasn’t a licence; it was VS Code: open, free, and within five to ten years everywhere. Deliberate? Entirely. Erich Gamma’s team built it with the community on purpose. <span class="tag">Claude</span> It was Nadella’s first real look at <strong>development in the open</strong>: product managers steered by daily community feedback rather than a VP’s orders. He considers that cultural shift more significant than open source itself, and wishes Microsoft had pushed it further.</p><p>In hindsight, VS Code also laid the ground for the AI coding revolution a decade later: when LLMs needed an open, extensible surface at the developer’s fingertips, VS Code was already there. <span class="tag">Gemini</span> (Gemini’s retrospective view, not Nadella’s words.)</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c4">
+<h2 class="sec">四、先發一年，然後被奇襲<small>IV. A Head Start, Then the Flank Attack</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>AI 這一段是一部精彩的競爭史。微軟入局極早：Copilot 出現時 ChatGPT 都還沒發布，大概是 GPT-3 的年代。程式碼補全一推出，用奧羅茲的話說「像魔法一樣」，整整一年沒有真正的對手。納德拉說，IntelliSense 做了那麼多年，突然發現新辦法真的有效；他對 Scaling Law 的信念，正是看到這些結果後得到根本性的確認。<span class="tag">Claude</span></p>
+<p>轉折點是 2023 年 Cursor 出現：分叉自 VS Code，介面熟悉，真正出彩的是代理模式。微軟也跟上了。然後是 2025 年，Claude Code 橫空出世，IDE 在大約六個月內淡出，不只新創公司，連大型科技公司的工程師都把 IDE 拋在腦後。奧羅茲當面問：微軟把開發者刻在 DNA 裡，為什麼會錯過這麼突然的變化？「這是我第一次覺得你們沒有立刻回應。」</p>
+<p>納德拉沒有迴避。他承認 Anthropic 做得漂亮，讓命令列真正成為能完整接手任務的產品形態，程式碼從輸入變成了輸出。接著他拋出整場最有分量的判斷：基於模型做產品有一條鐵律，<strong>模型能力非線性躍升時，產品形態必須跟著迅速改變。</strong>你圍繞當前模型打造一切，同時必須準備好在下一代模型湧現新能力時重做整套東西。</p>
+</div>
+<div class="en"><p>The AI chapter is a lively competitive history. Microsoft got in remarkably early: Copilot existed before ChatGPT launched, back in the GPT-3 era. Code completion felt “like magic,” in Orosz’s words, and had no real rival for a full year. After years of IntelliSense, Nadella says, the new approach simply worked, and those results fundamentally confirmed his faith in scaling laws. <span class="tag">Claude</span></p><p>The turning point came in 2023 with Cursor, a VS Code fork with a familiar interface whose real standout was agent mode. Microsoft caught up. Then in 2025 Claude Code arrived out of nowhere, and within about six months the IDE faded, for startups and big-tech engineers alike. Developers are in Microsoft’s DNA, Orosz pressed; how did you miss such an abrupt shift? “This is the first time I felt you didn’t respond right away.”</p><p>Nadella didn’t dodge. Anthropic did it beautifully, he conceded, turning the command line into a real product that takes over whole tasks; code went from input to output. Then came his weightiest claim: building on models has an iron law, <strong>when model capability jumps non-linearly, the product form must change fast.</strong> You build everything around today’s model and must be ready to rework it all when the next one brings emergent abilities.</p></div>
+<blockquote><span class="zh">不要愛上你已經做出來的東西。</span><span class="en">Don’t fall in love with what you’ve already built.</span></blockquote>
+<div class="zh"><p>有趣的是，他說自己又回到 IDE 了：決策引擎出現後，IDE 更像嵌在軟體裡的智能函式。變化不會永遠朝一個方向走，多種形態會並存。下一個 IDE 也許不再是打字寫程式，而是輸入規格、Markdown，以及軟體工廠周圍的一切；IDE 甚至可能重生。<span class="tag">Meta</span></p></div>
+<div class="en"><p>Interestingly, he says he’s back in the IDE himself: with decision engines, the IDE behaves more like intelligent functions embedded in software. Change won’t run one way forever; many forms will coexist. The next IDE may be less about typing code and more about entering specs, markdown and everything around the software factory; the IDE may even be reborn. <span class="tag">Meta</span></p></div>
+<div class="timeline">
+<p><strong>GPT-3 年代 · GPT-3 era：</strong>Copilot 補全像魔法 · Copilot completions feel like magic</p>
+<p><strong>2023：</strong>Cursor 讓 IDE 裡的代理模式成真 · Cursor makes agent mode real in the IDE</p>
+<p><strong>2025：</strong>Claude Code 讓命令列成為勝出形態 · Claude Code makes the CLI the winning form</p>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c5">
+<h2 class="sec">五、決策引擎：智能時代的預存程序<small>V. The Decision Engine: Stored Procedures for the Age of Intelligence</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>如果大型語言模型很聰明卻不可靠，還缺什麼？納德拉反覆提到的「決策引擎」（Decision Engine），是理解整場對談的鑰匙。在他看來，這是一種全新的<strong>原語</strong>（primitive）。打個比方，它像 Excel 的巨集：巨集讓一般人能自動化試算表，決策引擎可能讓「智能」以同樣方式嵌進程式碼。</p>
+<p>他舉了微軟內部的例子：Xbox 團隊有個管理社群回饋的系統，回饋進來後要做一連串判斷。他不想每次都讓模型重新生成程式碼，只想讓它<strong>做決定</strong>。於是把決策引擎嵌進去：它有自己的機率分布，可以直接呼叫，不必反覆生成，可靠又省 Token。</p>
+<p>他很喜歡 Ilya Sutskever 的說法：讓它「像資料庫一樣無聊」。<span class="tag">Meta</span>納德拉是伴隨關係型資料庫長大的那代工程師，資料庫是他最愛的開發工具之一，一種可靠的儲存與查詢方式，讓各式應用成為可能。奧羅茲接得很準：軟體公司的本質是業務邏輯，而大量邏輯沉澱在資料庫的預存程序裡。納德拉順勢收了一句：</p>
+</div>
+<div class="en"><p>If LLMs are brilliant but unreliable, what’s missing? The “decision engine” Nadella keeps mentioning is the key to the whole conversation. He sees it as a brand-new <strong>primitive</strong>, a bit like Excel macros: macros let ordinary people automate spreadsheets, and a decision engine may do the same for intelligence embedded in code.</p><p>His internal example: an Xbox system that triages community feedback through a chain of judgments. He doesn’t want a model regenerating code every time; he only wants it to <strong>decide</strong>. So a decision engine is embedded: it carries its own probability distribution, is called directly, needs no repeated generation, and is reliable and token-efficient.</p><p>He loves Ilya Sutskever’s framing: make it “as boring as databases.” <span class="tag">Meta</span> Nadella grew up with relational databases, still among his favorite tools: a reliable way to store and query information that made all kinds of applications possible. Orosz added that a software company’s essence is business logic, much of it buried in stored procedures. Nadella closed the loop:</p></div>
+<blockquote><span class="zh">決策引擎，就是智能時代的預存程序。</span><span class="en">The decision engine is the stored procedure of the age of intelligence.</span></blockquote>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c6">
+<h2 class="sec">六、驗證與軟體工廠<small>VI. Verification and the Software Factory</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>回到開頭那句話。「軟體工廠」這個詞最近很火、含義卻模糊，奧羅茲坦承，納德拉也承認自己還在摸索。他甚至想去參加馬克・魯西諾維奇（Mark Russinovich）與史考特・漢塞曼（Scott Hanselman）在微軟內部辦的實訓，因為他還沒在「主要把程式碼視為輸出」的團隊裡工作過。<span class="tag">Claude</span>不過把微軟各團隊的做法拼起來，輪廓已經浮現：</p>
+<ol>
+<li><strong>規格先行。</strong>程式碼從輸入變成輸出，意圖、設計文件與團隊對齊變得空前關鍵。</li>
+<li><strong>小任務、強驗證。</strong>把代理的任務切小，確認每個都真的完成；把每一次失敗變成測試案例，也確保測試本身被驗證過；審查要用<strong>不同的模型家族</strong>。他擔心若整條鏈路只用一個模型家族而它有對齊問題，它的侷限就會變成你的侷限。</li>
+<li><strong>一切都有文件。</strong>接手陌生程式碼庫反而更容易了：可以直接向系統提問，像身邊有位耐心的導師，不必去挖只存在別人腦子裡的經驗。</li>
+<li><strong>生產軌跡回流。</strong>別人口中的「遞迴自我改進」，他的務實版本是：拿到生產日誌、驗證修復、部署、確認一路通過所有測試。這個<strong>可驗證的閉環</strong>，就是他眼中的投資報酬。</li>
+</ol>
+<p>他推薦兩篇部落格：一位開發者獨自維護整個 runtime 並把它遷到 Rust，是單人生產力的漂亮案例；另一篇是九到十二人的小團隊經營一座工廠。<span class="tag">Meta</span>但他也坦言，有一次 Rust 遷移一度搞得很糟，不得不回退；新優勢與新坑同時存在。<span class="tag">Claude</span>（兩說出入見<a href="#s-check">第五節</a>。）</p>
+<p>他的類比是從手寫組合語言到編譯器：突然能從意圖直達程式碼，不必懂全部組合語言細節；抽象層次提高了，團隊協作與產品構建方式也跟著改變。還有個細節：過去實習生來微軟，會去研究戴夫・卡特勒（Dave Cutler）的程式碼、看 malloc 的實作；今天的對應物是什麼？納德拉說必須找到它。<span class="tag">Claude</span></p>
+</div>
+<div class="en"><p>Back to the opening line. “Software factory” is fashionable but fuzzy, Orosz admitted, and Nadella said he is still coming to grips with it. He would even like to join the internal bootcamp run by Mark Russinovich and Scott Hanselman, since he has never worked on a team that treats code primarily as output. <span class="tag">Claude</span> Still, pattern-matching across Microsoft teams, a picture emerges:</p><ol><li><strong>Specification first.</strong> With code as output, intent, design docs and team alignment become paramount.</li><li><strong>Small tasks, strong verification.</strong> Slice agent tasks small and confirm each is truly done; turn every failure into a test case and verify the tests themselves; review with <strong>a different model family</strong>. If one family runs the whole chain and has an alignment flaw, its limits become yours.</li><li><strong>Everything documented.</strong> Joining an unfamiliar codebase gets easier: you can ask the system directly, like a patient mentor, instead of excavating knowledge locked in someone’s head.</li><li><strong>Production traces return.</strong> His pragmatic version of “recursive self-improvement”: take production logs, verify the fix, deploy, confirm everything passes. That <strong>verifiable closed loop</strong> is where he sees the ROI.</li></ol><p>He pointed to two blogs: one developer maintaining an entire runtime and migrating it to Rust, a beautiful case of single-developer productivity, and a team of nine to twelve engineers running a factory. <span class="tag">Meta</span> He also admitted one Rust migration went badly enough to be rolled back; new advantages and new pitfalls arrive together. <span class="tag">Claude</span> (See <a href="#s-check">section 5</a> on this discrepancy.)</p><p>His analogy is the move from hand-written assembly to compilers: suddenly you go from intent to code without knowing every assembly detail, and how teams collaborate changes with the abstraction level. A telling detail: interns once came to Microsoft to study Dave Cutler’s code or the implementation of malloc. What is today’s equivalent? Nadella says it must be found. <span class="tag">Claude</span></p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c7">
+<h2 class="sec">七、真實世界都是棕地<small>VII. The Real World Is Brownfield</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>微軟內部最生動的案例是 Azure 網路團隊。微軟的全球網路牽涉約 500 家光纖業者，實體資產總有東西出問題。時髦說法叫 DevOps，實際上靠的是電子郵件和各種臨時流程。這個團隊建了一整套代理系統來跑維運，還和程式碼庫連在一起。於是工作性質變了：<strong>不再親手完成每一件事，而是建造結合維運與軟體的工廠，讓工廠去做事。</strong></p>
+<p>欣賞一個從零開始的展示很容易，要改一個真實客戶依賴的產品就難了。納德拉的檢驗很直白：不為客戶創造價值的事，我們沒有資格去做。<span class="tag">Meta</span>他也承認微軟犯過錯，做過一些只為了看起來酷的 AI 專案。<span class="tag">Claude</span></p>
+<p>以 Windows 為例：AI 模型找出的 CVE 漏洞越來越多，微軟必須全部修，於是長出一條從當機軌跡到修復的新流水線，本質是在既有系統上蓋一座新型軟體工廠。但這是棕地：Windows 的建置系統，仍然是 Windows 的建置系統。<span class="tag">Meta</span>在棕地專案裡，最難的往往是建置與 CI/CD；順序很重要，強化需要時間、投資與思考。GitHub 底層也一樣：各種程式設計代理湧進來工作，規模遠超人類量級，Git 協定與儲存系統都得跟著根本調整。</p>
+<p>他喜歡這次轉型的一點是：不是把新玩具交給一支新團隊、其他人留在舊世界，而是全公司每個人，無論做 Windows、SQL Server 還是雲端原生服務，都能用上新的工具鏈與工作方式。</p>
+</div>
+<div class="en"><p>The most vivid internal case is Azure Networking. Microsoft’s global network involves about 500 fiber operators, and physical assets always break somewhere. The trendy name is DevOps; in reality it ran on email and ad hoc processes. The team built a full agentic system to run operations, wired into the code repository. The job changed: <strong>no longer doing every task by hand, but building factories of ops plus software that do the job.</strong></p><p>A greenfield demo is easy to admire; changing a product real customers depend on is not. Nadella’s test is blunt: “We don’t get permission to do things that are not adding value to customers.” <span class="tag">Meta</span> He admits Microsoft made mistakes, with some AI projects that existed just to look cool. <span class="tag">Claude</span></p><p>Take Windows: AI models keep finding more CVEs, all of which must be fixed, so a pipeline grew from crash traces to fixes: a new kind of software factory on an existing system. But it is brownfield: the build system of Windows is still the build system of Windows. <span class="tag">Meta</span> In brownfield work the hardest parts are build and CI/CD; sequencing matters, and hardening takes time, investment and thought. GitHub is the same story: coding agents now pour in at far beyond human scale, forcing fundamental changes to the Git protocol and storage.</p><p>What he likes is that this isn’t a shiny toy for one new team while everyone else stays behind; everybody, whether on Windows, SQL Server or a cloud-native service, gets the new toolchain and ways of working.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c8">
+<h2 class="sec">八、這一次，真的不一樣<small>VIII. This Time Really Is Different</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag off">Gemini</span></p>
+<div class="zh">
+<p>奧羅茲問：這和當年採用 React 有什麼不同？新技術出現時大家都想用，但都是在新功能裡逐步引入，沒人會停下一切全面遷移。</p>
+<p>納德拉說有時也覺得似曾相識，但這次變的是<strong>做事的物理規律</strong>：操作順序與抽象層次。他回顧職業史：大學時在 VAX 小型機上用 VT 終端機，後來在 Sun 用工作站，進微軟後世界就穩定了，整個職涯基本都在 IDE 裡寫程式。新框架、新執行環境不斷出現，核心概念沒變，連行動裝置都能看成縮小的 PC。這一次，執行環境、框架、IDE、技術堆疊每一部分都在變，而新模型隨時可能發布，把整個範式再重塑一遍。所以他兩條腿走路：回顧自己應對變化最成功時的經驗，同時承認這次可能真的不同。</p>
+<p>談到工程師個人，奧羅茲說：工程師過去花最多時間寫程式，突然這部分不再是瓶頸；以往的技術變化都是增加工具，從沒拿走核心技能。那些花幾十年練成高手的人怎麼辦？納德拉的回答是：<strong>同樣的技能依然需要，變的是操作順序和工具鏈。</strong>這不是讓專業貶值，而是給原有能力加上新槓桿。他看到兩群人在蓬勃發展：對某個領域有深厚理解、又保持好奇、願意學新方法的資深工程師；以及 AI 原生的畢業生。他在 GitHub Universe 遇到的第一批畢業生，入學時 Copilot 已經存在，根本不知道沒有它的 IDE 長什麼樣。微軟要做的，是讓人既能發揮既有技能的價值，也能建立市場將來認可的新技能。</p>
+</div>
+<div class="en"><p>Orosz asked how this differs from adopting React. New tech always tempts people, but it’s phased in through new features; nobody halts everything for a full migration.</p><p>Sometimes it feels familiar, Nadella said, but this time what changed is <strong>the physics of how work gets done</strong>: the order of operations and the level of abstraction. He walked through his career: VT terminals on a VAX in college, workstations at Sun, then a stable world at Microsoft spent largely in an IDE. New frameworks and runtimes kept coming, but the core concepts held; even mobile devices were shrunken PCs. Now the runtime, framework, IDE and stack are all changing at once, and a new model could drop any day and reshape the regime again. So he walks on two legs: draw on what worked when he handled change best, and stay open to the possibility that this time is truly different.</p><p>Then the personal part. Engineers used to spend most of their time writing code, Orosz said, and suddenly that’s no longer the bottleneck; past shifts added tools, never took away the core skill. What about those who spent decades mastering it? Nadella: <strong>the same skills are still needed; what changes is the order of operations and the toolchain.</strong> It isn’t devaluing expertise but adding leverage to it. He sees two groups thriving: experienced engineers with depth and curiosity who learn the new ways, and AI-native graduates. At GitHub Universe he met the first cohort who enrolled after Copilot existed and have never known an IDE without it. Microsoft’s job is to let people capture the value of the skills they have while building the ones the market will reward.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c9">
+<h2 class="sec">九、自願離職方案與初級招聘<small>IX. Voluntary Exits and Junior Hiring</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span>（Gemini 的「已暫停招聘」說法未採用 · Gemini’s “hiring paused” claim not used）</p>
+<div class="zh">
+<p>全場最尖銳的問題來了。微軟以前從沒推過自願離職方案<span class="tag">Meta</span>，有人擔心這是 AI 提效之後裁員的前奏。納德拉分幾層回答。第一，未來仍有大量機會，只是形態不同。第二，在公司內部創造新機會，無論做 Windows 還是 AI 訓練，都能學到內外部市場都認可的技能。第三，二十萬人的公司，人可能還會更多，但配置方式必須不同；如今系統與基礎設施工程師、AI 訓練研究員的薪酬都非常高。<span class="tag">Claude</span>所以方案的核心是給人<strong>更多自主權</strong>，讓每個人把自己放到長期發展合理的位置，包括在微軟內部轉調。</p>
+<p>他說了句很有人情味的話：他是從個人貢獻者一路走上來的，不想讓任何人被困在一個不轉型的團隊裡，哪怕那團隊就在微軟內部。他也承認，這場 AI 討論讓人們產生了巨大的焦慮，覺得自己無法掌握命運；什麼奇點已到、最後只剩一家公司、工作全部消失，這些說法連願意改變的人都會被嚇到。透明，以及創造真實的內部機會，才是困難的工作。</p>
+<p>他還點出崗位訊號：微軟成長最快的職位之一是<strong>前沿部署工程師（FDE）</strong>，幾年前幾乎不存在。客戶經理旁的客戶成功、技術支援與 FDE，都應該像軟體工程師一樣接受同類實訓。LinkedIn 也把一些職位合併為「全端建造者」（full-stack builders）。</p>
+<p>初級招聘方面，很多公司放慢甚至暫停校招，理由是最會用 AI 的是資深的人。納德拉主張<strong>拉長時間看，現在畫長期趨勢線還太早</strong>：先把內部的人和團隊調整到位、把新工廠蓋好，讓新投入（不只是 Token，也包括人）進來後能發揮高槓桿。他描述的 AI 原生公司很有畫面：起點是一個人加一筆 Token 預算；這個人把預算用滿了，才說「再加下一個人」；新人也有 Token 預算，整座工廠也有預算。每個產品團隊都會開始長成那樣。</p>
+</div>
+<div class="en"><p>Then the sharpest question. Microsoft had never run a voluntary exit program before <span class="tag">Meta</span>, and some fear it foreshadows AI-driven layoffs. Nadella answered in layers. First, there will still be plenty of opportunity, shaped differently. Second, Microsoft is creating internal opportunities, on Windows or AI training alike, to learn skills valued inside and out. Third, a 200,000-person company may even grow, but must be configured differently; systems and infrastructure engineers and AI-training researchers now command very high pay. <span class="tag">Claude</span> The heart of the program is <strong>more agency</strong>: letting people slot themselves where their long-term opportunity makes sense, including moving inside Microsoft.</p><p>He added something humane: an individual contributor at heart, he doesn’t want anyone stuck on a team that isn’t transforming, even inside Microsoft. And he acknowledged the cost of the AI conversation: “We have created enormous anxiety in people feeling that they don’t have control of their own destiny.” Talk of the singularity, of one company left standing, of all jobs vanishing, frightens even people willing to change. Transparency and real internal opportunity are the hard work.</p><p>He flagged a job signal: one of Microsoft’s fastest-growing roles is the <strong>forward-deployed engineer (FDE)</strong>, which barely existed a few years ago. Customer success, support and FDEs should all get the same training as software engineers. LinkedIn has merged some roles into “full-stack builders.”</p><p>On junior hiring, many firms have slowed or paused campus hiring on the grounds that seniors use AI best. Nadella urges a longer view: <strong>it is too early to draw a long-term trend line.</strong> First realign people and teams and build the new factory, so new inputs, tokens and people alike, land with high leverage. His picture of an AI-native company: one person plus a token budget; when that person maxes it out, “let’s add the next human,” who also gets a token budget, and the factory has its own. Every product team will start to look like that.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c10">
+<h2 class="sec">十、企業主權與信任架構<small>X. Sovereignty and Trust Architecture</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>這是整場戰略濃度最高的部分。奧羅茲觀察到，許多科技公司轉向開放模型、自建推論，有公司甚至買了 B200 自己部署<span class="tag">Claude</span>；微軟也透過 Foundry 提供開放模型。這股潮流有多大？</p>
+<p>納德拉從經濟學講起：只要你不相信未來會有一個前沿模型掌握世界上所有知識，就得反過來假設，<strong>有多少家企業，就該有多少個前沿模型。</strong>他引用海耶克：知識是分散的、默會的，價格機制正因此重要；每家企業都需要掌握自己的知識。所以每家企業都同時擁有<strong>人力資本與 Token 資本</strong>：可以是嵌入自身知識的開放權重模型，也可以同時用多個閉源模型、收集執行軌跡，再用軌跡訓練自己的小模型。</p>
+<p>他預測，下次再聊，大家不會再爭開源或閉源，而是每個人都有一個<strong>模型系統</strong>：起點是判斷什麼任務用什麼模型的決策引擎，而以下四樣必須彼此分離：</p>
+<ul>
+<li><strong>Harness（執行框架）</strong>：跑工作的系統</li>
+<li><strong>上下文與記憶</strong>：公司的知識，只屬於你</li>
+<li><strong>行動空間</strong>：外掛、技能、連接器</li>
+<li><strong>模型</strong>：可替換、多元</li>
+</ul>
+<p>若三者耦合在一起，你想退也退不了；你以為你會擁有什麼嗎？模型會把它看到的全吸收進去。奧羅茲說他原以為各公司自建 harness 只是工程師愛造東西，聽完才意識到這是戰略大事。納德拉說得很重：如果你是銀行，看看軟體公司怎麼走向前沿，它們沒有交出控制權，你也不該。</p>
+<p>微軟的做法是把 Copilot 底層的 harness 在 Foundry 裡做成託管服務，你也可以帶自己的 Pi 或其他開源 harness<span class="tag">Claude</span>；多個模型端點、獨立的上下文層，記憶與行動空間都歸你。公開基準有價值，但<strong>你自己的私有評估更重要</strong>。常見路徑：先用前沿模型累積軌跡，等工作流程變得確定，再換成用軌跡微調過的 Flash 級小模型（如 MAI Flash）來省成本。</p>
+</div>
+<div class="en"><p>This was the most strategically dense stretch. Orosz noted that many tech companies are moving to open models and self-hosted inference, some even buying B200s <span class="tag">Claude</span>, while Microsoft serves open models via Foundry. How big is this wave?</p><p>Nadella began with economics: unless you believe one frontier model will hold all the world’s knowledge, assume the opposite: <strong>there should be as many frontier models as there are firms.</strong> He invoked Hayek: knowledge is dispersed and tacit, which is why the price mechanism matters, and every firm must own its own knowledge. So every firm holds <strong>human capital and token capital</strong>: an open-weights model infused with its knowledge, or several closed models whose traces train its own small models.</p><p>Next time we talk, he predicted, nobody will argue open versus closed; everyone will have a <strong>model system</strong>, starting with a decision engine that routes tasks to models, with these kept separate:</p><ul><li><strong>Harness</strong>: the system that runs the work</li><li><strong>Context &amp; memory</strong>: your firm’s knowledge, yours alone</li><li><strong>Action space</strong>: plugins, skills, connectors</li><li><strong>Models</strong>: replaceable, plural</li></ul><p>Couple them and you can never leave. Think you’ll own something? The model absorbs whatever it sees. Orosz had assumed firms building their own harnesses just loved building; now he saw it as strategic. Nadella was emphatic: if you’re a bank, look at how software companies approach the frontier; they haven’t ceded control, and neither should you.</p><p>Microsoft offers Copilot’s underlying harness as a managed service in Foundry, and you can bring Pi or another open-source harness <span class="tag">Claude</span>: multiple model endpoints, a separate context layer, memory and action space all yours. Public benchmarks have value, but <strong>your private evals matter more</strong>. A common path: accumulate traces on a frontier model, and once the workflow is deterministic, swap in a Flash-class model such as MAI Flash, fine-tuned on those traces.</p></div>
+<blockquote><span class="zh">你應該能替換任何一個模型，同時仍在你自己的私有評估上持續爬坡。</span><span class="en">“You should be able to replace any model and still hill climb on an eval that’s your private eval.” His acid test for sovereignty.</span></blockquote>
+<div class="zh">
+<p>他的類比是關係型資料庫：過去銀行、保險公司買資料庫、部署好，再買業務軟體自己擴充；資料從不屬於廠商，即使供應商不再更新，你仍能遷出。對照今天：如果你的記憶住在某個模型的嵌入裡，而那家模型公司說「抱歉，沒辦法」，你要怎麼把記憶遷出來？<span class="tag">Meta</span></p>
+<p>因此他要企業認真做兩個架構決策。第一，避免<strong>「反向資訊悖論」</strong>：別洩漏自己的價值，掌握自己的學習閉環。做不到，就要問自己還算不算一家有自主權的企業。第二，<strong>信任架構</strong>：Scaling Law 有效，但規模帶來的是能力，不會自動帶來對齊。能力越來越強、可靠性越來越差，這是最危險的處境。所以要<strong>把權限與智能分開</strong>：不可靠的智能手握權限，等於巨大的內部風險，要把代理當作內部威脅來管理。思維鏈必須是人類語言，不能是模型內部的神經語言，要可稽核、可記錄、防竄改。問題也不只出在預訓練或強化學習，測試時運算階段同樣可能出現獎勵作弊<span class="tag">Claude</span>，所以執行時要有大量防護與可觀測性。</p>
+</div>
+<div class="en"><p>His analogy is the relational database: banks and insurers bought one, deployed it, extended business software themselves; the data never belonged to the vendor, and if the vendor stopped updating, they could migrate out. Now: if your memory lives in a model’s embeddings and that model company says “Tough luck,” how do you get it out? <span class="tag">Meta</span></p><p>So he wants two architecture decisions taken seriously. First, avoid the <strong>“reverse information paradox”</strong>: don’t leak your value; own your learning loop. If you can’t, ask whether you are still a sovereign firm. Second, a <strong>trust architecture</strong>: scaling laws work, but scale brings capability, not alignment. “We are getting more and more capable and less and less reliable, which is the most dangerous place to be.” So <strong>separate permissions from intelligence</strong>: unreliable intelligence holding permissions is a massive insider risk, so manage agents as insider threats. Chains of thought must be in human language, not a model’s internal neuralese: auditable, logged, tamper-evident. And reward hacking can occur at test-time compute, not just in pretraining or RL <span class="tag">Claude</span>, so the runtime needs heavy guardrails and observability.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c11">
+<h2 class="sec">十一、混合智能：邊緣設備就是 Token 工廠<small>XI. Hybrid Intelligence: The Edge as Token Factory</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>奧羅茲吐露了開發者的心願：AI 要嘛跑在別人的雲上，要嘛跑在買不起的 B200 上，如果能直接在我的筆電上跑該多好？本地 AI 一直又難又拼湊。納德拉同意，並提到史考特・漢塞曼示範的新 Surface Ultra 筆電<span class="tag">Meta</span>，上面帶專用晶片，在本地跑著程式設計模型。</p>
+<p>他的原則是：<strong>分散式運算會始終保持分散。</strong>既然邊緣也有 Token，為什麼只用雲端的？去年的前沿模型，現在筆電就能跑；上一季的前沿模型，桌機就能跑。所以 Copilot Fusion 會按任務挑模型，讓代理群裡一部分子代理呼叫本地模型、一部分用雲端，架構上合理，經濟上也合理。他把這個階段命名為<strong>混合智能時代</strong>：雲端持續成長、對 Token 的需求近乎無限，而邊緣的 PC 同樣是一座 Token 工廠，「不按用量計費的智能」。</p>
+<p>還有個細節打破了奧羅茲的成見：他以為能在筆電上跑的一定是開放模型，結果 MAI-Code-1.1-Flash 是閉源，也能下載到 Windows 機器上跑。<span class="tag">Claude</span>模型戰略方面：微軟會繼續用 OpenAI 的模型，同時從頭打造自家 MAI 家族；新的 MAI-2 Base 公開了他所稱最詳盡的預訓練配方之一，而且是完全淨室式預訓練。目標不是押注一個模型家族，而是讓高層意圖分派給多個子代理、各用不同模型家族，以最有效率的方式完成任務。</p>
+</div>
+<div class="en"><p>Orosz confessed a developer’s wish: AI runs on someone else’s cloud or on B200s nobody can afford; wouldn’t it be nice if it just ran on my laptop? Local AI has been hard and hacky. Nadella agreed and pointed to Scott Hanselman’s demo of the new Surface Ultra <span class="tag">Meta</span>, with a dedicated chip running a coding model locally.</p><p>His principle: <strong>distributed computing will always remain distributed.</strong> Why use only cloud tokens when there are tokens at the edge? Last year’s frontier runs on your laptop; last quarter’s runs on your desktop. So Copilot Fusion routes by task, letting some sub-agents in a swarm call local models while others use the cloud: architecturally and economically sensible. He calls this the <strong>era of hybrid intelligence</strong>: the cloud keeps growing with near-infinite token demand, and the PC at the edge is a token factory too, “unmetered intelligence.”</p><p>One detail upended Orosz’s assumption that anything on a laptop must be open: MAI-Code-1.1-Flash is closed, yet downloadable to run on Windows. <span class="tag">Claude</span> On models: Microsoft will keep using OpenAI’s models while building its own MAI family from scratch; MAI-2 Base disclosed what he called one of the most detailed pretraining recipes, with fully clean-room pretraining. The goal isn’t one family but choice: high-level intents fanned out to sub-agents on different model families, getting the task done most efficiently.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="c12">
+<h2 class="sec">十二、尾聲：讓我們回到學校<small>XII. Epilogue: Back to School</small></h2>
+<p class="cov">收錄於 Covered by: <span class="tag">Claude</span><span class="tag">Meta</span><span class="tag">Gemini</span></p>
+<div class="zh">
+<p>奧羅茲最後問了每個工程師都在問的問題：在這個 AI 新時代，我要怎麼在一兩年內成為一位了不起的軟體工程師？納德拉的回答出乎意料地樸素：<strong>扎根於變化本身，真正理解它是什麼</strong>，而不是看新聞標題、陷入炒作週期。多做、多學、親手做，待在真正在做事的團隊裡。他自嘲在播客裡講這話有點諷刺：如果能改變自己「說」與「做」的比例，他會往「做」那邊加碼。無論是職涯中期、CEO 還是應屆畢業生，都一樣。</p>
+<p>他給自己的總結是：什麼時候狀態最好？就是處於學習模式的時候。</p>
+</div>
+<div class="en"><p>Orosz closed with the question every engineer is asking: how do I become an amazing software engineer in this new age, in a year or two? Nadella’s answer was strikingly plain: <strong>get grounded in what the change really is</strong>, not headlines, not hype. Do more, learn more, get hands-on, be in teams that are doing. He joked about the irony of saying it on a podcast: “If I could change the ratio of my talk to do, I would do it.” Mid-career engineer, CEO or new grad alike.</p><p>His own summary: when is he at his best? When he’s in school mode.</p></div>
+<blockquote><span class="zh">所以，讓我們重新回到學校。</span><span class="en">“So let’s get back to school.”</span></blockquote>
+<div class="zh"><p>主持人帶著振奮作結：產業確實在劇變，但在納德拉的描述裡，有海量的軟體工程工作等著被做出來：圍繞決策引擎這類新原語、以及尚未發明的原語去構建新系統；決定什麼放在哪裡、怎麼調整、怎麼部署，以及怎麼從中持續學習。</p></div>
+<div class="en"><p>The host left it energised: the industry is in upheaval, but in Nadella’s telling there is an ocean of software engineering waiting to be done: building new systems around primitives like the decision engine and ones not yet invented, deciding what goes where, how to tune and deploy it, and learning from it.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="s-take">
+<h2 class="sec">帶回家的話<small>Take-Home</small></h2>
+<div class="take">
+<div>
+<h3 class="zh">納德拉的七句話</h3><h3 class="en">Seven lines from Nadella</h3>
+<ol class="zh">
+<li><strong>程式碼便宜，驗證很難。</strong>把每次失敗變成測試案例。</li>
+<li><strong>不要愛上你做出來的東西。</strong>模型一躍進，產品形態就得改。</li>
+<li><strong>決策引擎是智能時代的預存程序。</strong>讓它像資料庫一樣無聊、可靠。</li>
+<li><strong>蓋工廠，不只做展示。</strong>規格、小任務、跨模型家族審查、生產軌跡回流。</li>
+<li><strong>擁有自己的學習閉環。</strong>harness、上下文、記憶、行動空間與模型分開；私有評估最重要。</li>
+<li><strong>權限與智能分開。</strong>把代理當內部威脅管理，思維鏈要人類可讀、可稽核。</li>
+<li><strong>回到學校。</strong>少說多做，永遠保持學習模式。</li>
+</ol>
+<ol class="en">
+<li><strong>Code is cheap; verification is hard.</strong> Turn every failure into a test case.</li>
+<li><strong>Don’t fall in love with what you built.</strong> Model jumps change the product form.</li>
+<li><strong>Decision engines are the stored procedures of the intelligence era.</strong> Make them boring and reliable.</li>
+<li><strong>Build the factory, not just the demo.</strong> Specs, small tasks, cross-family review, production traces.</li>
+<li><strong>Own your learning loop.</strong> Separate harness, context, memory, action space and models; private evals rule.</li>
+<li><strong>Separate permissions from intelligence.</strong> Treat agents as insider threats; keep chains of thought readable and auditable.</li>
+<li><strong>Go back to school.</strong> Talk less, do more, stay in learning mode.</li>
+</ol>
+</div>
+<div>
+<h3 class="zh">這場小考教我的六件事</h3><h3 class="en">Six lessons from the test</h3>
+<ol class="zh">
+<li><strong>同題不同卷。</strong>一句提示詞，得到 12、9、6 章三種答案，連繁簡都不同；要什麼就寫清楚。</li>
+<li><strong>流暢不等於忠實。</strong>排版最精緻、文筆最好的那份，正是唯一出現牴觸說法的一份。</li>
+<li><strong>引號是最該查的地方。</strong>模型最容易把自己的整理寫成「原話」。</li>
+<li><strong>用不同模型家族互審。</strong>三份交叉比對，多數決就抓出了誇大，正是納德拉說的方法。</li>
+<li><strong>先問資料從哪來。</strong>二手中文轉述與英文原稿，會寫出不同細節與日期。</li>
+<li><strong>匯出檔要清理。</strong>Gemini 的檔案夾帶平台注入腳本；上架前檢查原始碼。GPT 則連卷都沒交，工具能力本身就是門檻。</li>
+</ol>
+<ol class="en">
+<li><strong>Same prompt, different papers.</strong> One line yielded 12, 9 and 6 chapters, even different Chinese scripts; specify what you want.</li>
+<li><strong>Fluent isn’t faithful.</strong> The most polished, best-written paper was the only one to contradict the others.</li>
+<li><strong>Check the quotation marks first.</strong> Models readily present their own summaries as verbatim speech.</li>
+<li><strong>Review with different model families.</strong> A simple majority vote across three caught the overstatement: Nadella’s own method.</li>
+<li><strong>Ask where the material came from.</strong> A Chinese recap and an English transcript produce different details and dates.</li>
+<li><strong>Clean the exports.</strong> Gemini’s file carried platform-injected scripts; inspect the source before posting. GPT didn’t deliver at all: tool access is itself a gate.</li>
+</ol>
+</div>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="s-src">
+<h2 class="sec">資料來源<small>Sources</small></h2>
+<div class="src">
+<p><b>原始影片 · Source video（提示詞中的網址 · the URL in the prompt）：</b><a href="https://www.youtube.com/watch?v=aUmH8iMIA-I">youtube.com/watch?v=aUmH8iMIA-I</a></p>
+<p><b>原始英文訪談 · Original English interview（依 Claude 版所附，未經本頁查證 · as linked by the Claude paper, not verified here）：</b><a href="https://www.youtube.com/watch?v=0NE89Nzfk20">youtube.com/watch?v=0NE89Nzfk20</a></p>
+<p><b>三份答卷 · The three papers：</b>nadella_story_Claude.html；satya_nadella_software_engineering_story_Gemini.html；Satya-Nadella-Software-Engineering-After-Coding-Becomes-Cheap-Story_Meta.html。提示詞與 GPT 結果紀錄 · prompt and GPT result log：Prompt_4_LLMs_for_bilingual_extraction…docx。</p>
+<p>本頁故事由三份 AI 答卷交叉比對合併而成，並未直接聽取原片；引述皆為意譯或依答卷所錄，重要內容請以原始影片為準。This story is merged from three AI-written papers by cross-checking, not from listening to the video directly; quotations are paraphrased or as recorded in the papers. Check anything important against the original.</p>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+<a href="#toc">回目錄</a>
+<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+
+<script>
+{
+const btns=document.querySelectorAll('.toggle button');
+const set=l=>{document.body.dataset.lang=l;btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===l)));try{localStorage.setItem('fourllm-lang',l)}catch(e){}};
+btns.forEach(b=>b.addEventListener('click',()=>set(b.dataset.l)));
+try{const s=localStorage.getItem('fourllm-lang');if(s)set(s)}catch(e){}
+}
+</script>
+</body>
+</html>

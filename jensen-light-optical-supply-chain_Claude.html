@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黃仁勳的「光」 Jensen's Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600;700;800;900&family=Noto+Serif+TC:wght@700;900&family=Source+Serif+4:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 老熊隨筆 long-form explainer — calm, factual, bilingual story of one video
+   IDEA: a fiber-optic cross-section: light travelling inward, ring by ring, toward the chip
+   PICTURE: concentric rings (Across / Out / Up) with gold beams converging on a GPU die
+   COLOUR and TYPE: soft blue day / deep navy night, gold light as the accent; Noto Serif TC titles, Noto Sans TC body, Source Serif 4 for English
+   LAYOUT: hero + TOC, then one band per chapter, Chinese first, English beneath */
+:root{color-scheme:light dark;
+ --bg:light-dark(#e4eef9,#11284f);--panel:light-dark(#f4f8fd,#173462);--ink:light-dark(#0d2140,#eaf1fb);
+ --mute:light-dark(#3c5478,#b8c9e4);--gold:light-dark(#9a6c00,#f0c75e);--blue:light-dark(#1f4fa3,#8fb6ff);
+ --line:light-dark(#b9cde6,#2d4f86);--en:light-dark(#22406e,#cfdcf2)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:600 27px/1.75 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;overflow-x:clip}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(4vw,18px)}
+header{padding:clamp(36px,5vw,72px) 0 24px}
+.kicker{color:var(--gold);font-weight:800;font-size:24px;margin:0 0 10px}
+h1{font:900 clamp(44px,6vw,78px)/1.12 "Noto Serif TC",serif;margin:0 0 14px;text-wrap:balance}
+h1 .en{display:block;font:800 clamp(30px,3.6vw,46px)/1.2 "Source Serif 4",serif;color:var(--blue);margin-top:12px}
+.deck{color:var(--mute);font-size:28px;margin:18px 0 0}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);align-items:center;margin-top:26px}
+.fig{position:relative;aspect-ratio:6/5;width:100%}.fig svg{position:absolute;inset:0;width:100%;height:100%}
+.meta{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:24px 28px;font-size:24px}
+.meta dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 18px}.meta dt{color:var(--mute)}.meta dd{margin:0;font-weight:700}
+.yt{display:flex;align-items:center;gap:16px;margin-top:20px;padding:16px 20px;border-radius:14px;background:var(--blue);color:light-dark(#fff,#0f2347);text-decoration:none;font-weight:800;font-size:25px}
+.yt svg{flex:none;width:52px;height:38px}
+.yt:focus-visible,a:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+#embed{margin-top:28px}#embed iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:16px}
+nav#toc{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:26px 30px;margin:36px 0 10px}
+nav#toc h2{margin:0 0 10px;font:900 34px/1.3 "Noto Serif TC",serif}
+nav#toc ol{margin:0;padding-left:1.6em;columns:2;column-gap:40px}
+nav#toc li{break-inside:avoid;margin:4px 0}
+nav#toc a{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--line)}nav#toc a:hover{color:var(--blue)}
+nav#toc small{display:block;color:var(--mute);font:600 20px/1.3 "Source Serif 4",serif}
+section{padding:clamp(34px,4vw,56px) 0;border-top:2px solid var(--line)}
+h2{font:900 clamp(36px,4vw,50px)/1.25 "Noto Serif TC",serif;margin:0 0 6px;text-wrap:balance}
+h2 .en{display:block;font:800 clamp(26px,2.6vw,34px)/1.3 "Source Serif 4",serif;color:var(--blue);margin-top:6px}
+.ts{display:inline-block;color:var(--gold);font-weight:800;font-size:22px;margin-bottom:10px}
+.zh p{margin:0 0 .9em}
+.en-block{margin-top:22px;padding:20px 26px;border-left:6px solid var(--gold);background:var(--panel);border-radius:0 14px 14px 0;color:var(--en);font:600 26px/1.65 "Source Serif 4",Georgia,serif}
+.en-block p{margin:0 0 .8em}.en-block p:last-child{margin:0}
+strong,b{font-weight:800;color:var(--gold)}
+.num{font-weight:800;white-space:nowrap}
+blockquote{margin:22px 0;padding:6px 0 6px 26px;border-left:6px solid var(--blue);font:700 32px/1.55 "Noto Serif TC",serif;color:var(--blue)}
+blockquote span{display:block;font:italic 600 24px/1.5 "Source Serif 4",serif;color:var(--mute);margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:23px;margin:20px 0}
+th,td{padding:12px 14px;border-bottom:2px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:800}td:first-child{font-weight:800;white-space:nowrap}
+.spectrum{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:24px 0 8px}
+.spectrum div{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:14px;font-size:21px;line-height:1.45}
+.spectrum b{display:block;font-size:28px;color:var(--blue)}
+.spectrum div:last-child{border-color:var(--gold)}.spectrum div:last-child b{color:var(--gold)}
+.axis{display:flex;justify-content:space-between;color:var(--mute);font-size:20px;font-weight:700;gap:12px}
+.back{display:inline-block;margin-top:22px;font-size:22px;font-weight:800;color:var(--blue);text-decoration:none}
+footer{padding:40px 0 120px;color:var(--mute);font-size:22px;border-top:2px solid var(--line)}
+footer a{color:var(--blue)}
+.float{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:9}
+.float a{display:block;padding:12px 18px;min-height:44px;border-radius:999px;background:var(--gold);color:light-dark(#fff,#11284f);font-weight:800;font-size:20px;text-decoration:none;box-shadow:0 6px 18px rgba(10,30,70,.28);text-align:center}
+@keyframes beam{to{stroke-dashoffset:-60}}
+.beam{stroke-dasharray:22 16;animation:beam 2.4s linear infinite}
+@media(prefers-reduced-motion:reduce){.beam{animation:none}html{scroll-behavior:auto}}
+@media(max-width:900px){.hero{grid-template-columns:1fr}nav#toc ol{columns:1}.spectrum{grid-template-columns:repeat(2,minmax(0,1fr))}.spectrum div:last-child{grid-column:1/-1}}
+@media(max-width:600px){body{font-size:22px}.en-block{font-size:21px;padding:16px 18px}blockquote{font-size:25px}table{font-size:18px}td:first-child{white-space:normal}.meta{font-size:20px}.float a{font-size:17px;padding:10px 14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <p class="kicker">老熊隨筆 · 影片筆記 Video Notes</p>
+ <h1>黃仁勳的「光」：AI算力背後的光通信產業鏈<span class="en">Jensen's "Light": The Optical-Interconnect Supply Chain Behind AI Compute</span></h1>
+ <p class="deck">GPU 越強，連接 GPU 的網路就越成為瓶頸。這是一條從磷化銦、雷射器、矽光、DSP 到光模組的全球供應鏈，正在被 CPO 重新洗牌。<br><span style="color:var(--en);font-family:'Source Serif 4',serif">As GPUs get stronger, the network between them becomes the bottleneck — and NVIDIA's push for co-packaged optics is reshuffling a whole global supply chain.</span></p>
+ <div class="hero">
+  <div class="fig" aria-label="光由外而內逼近晶片：Scale Across、Scale Out、Scale Up 三層示意圖">
+   <svg viewBox="0 0 600 500" role="img">
+    <defs>
+     <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a5fb8" stop-opacity=".18"/><stop offset="1" stop-color="#2a5fb8" stop-opacity=".05"/></linearGradient>
+     <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6fd0"/><stop offset="1" stop-color="#173a7a"/></linearGradient>
+    </defs>
+    <rect x="10" y="10" width="580" height="480" rx="34" fill="url(#g1)" stroke="var(--line)" stroke-width="3"/>
+    <rect x="80" y="80" width="440" height="340" rx="28" fill="url(#g1)" stroke="var(--line)" stroke-width="3"/>
+    <rect x="160" y="150" width="280" height="200" rx="22" fill="url(#g1)" stroke="var(--blue)" stroke-width="3"/>
+    <text x="34" y="52" fill="var(--mute)" font-size="22" font-weight="800">Scale Across · 資料中心之間</text>
+    <text x="104" y="120" fill="var(--mute)" font-size="22" font-weight="800">Scale Out · 機櫃之間</text>
+    <text x="182" y="186" fill="var(--blue)" font-size="21" font-weight="800">Scale Up · 機櫃內</text>
+    <rect x="248" y="222" width="104" height="104" rx="12" fill="url(#chip)"/>
+    <rect x="262" y="236" width="76" height="76" rx="6" fill="none" stroke="#9cc0ff" stroke-width="2"/>
+    <text x="300" y="282" text-anchor="middle" fill="#fff" font-size="24" font-weight="900">GPU</text>
+    <g stroke="var(--gold)" stroke-width="6" stroke-linecap="round" fill="none">
+     <path class="beam" d="M10 270 H238"/>
+     <path class="beam" d="M590 270 H362"/>
+     <path class="beam" d="M300 490 V336"/>
+    </g>
+    <g fill="var(--gold)"><path d="M238 260 l12 10 -12 10z"/><path d="M362 260 l-12 10 12 10z"/><path d="M290 336 l10 -12 10 12z"/></g>
+    <text x="300" y="455" text-anchor="middle" fill="var(--gold)" font-size="21" font-weight="800">光，一層層逼近晶片 · light moves inward</text>
+   </svg>
+  </div>
+  <div>
+   <div class="meta">
+    <dl>
+     <dt>頻道 Channel</dt><dd>硅谷101（主持：陳茜）</dd>
+     <dt>上線 Posted</dt><dd>2026-11-25</dd>
+     <dt>長度 Length</dt><dd>45 分 11 秒</dd>
+     <dt>受訪 Guests</dt><dd>Cathy（光學工程師）、匿名光通信從業者</dd>
+    </dl>
+   </div>
+   <a class="yt" href="https://www.youtube.com/watch?v=TYo20zW3MCo" target="_blank" rel="noopener">
+    <svg viewBox="0 0 52 38" aria-hidden="true"><rect width="52" height="38" rx="10" fill="#e62117"/><path d="M21 11 L34 19 L21 27z" fill="#fff"/></svg>
+    在 YouTube 觀看原片 · Watch on YouTube
+   </a>
+  </div>
+ </div>
+ <div id="embed"></div>
+
+ <nav id="toc" aria-label="目錄">
+  <h2>目錄 · Contents</h2>
+  <ol>
+   <li><a href="#s1">黃仁勳的十一天<small>Jensen's eleven days</small></a></li>
+   <li><a href="#s2">算力「撞牆」<small>Compute hits the wall</small></a></li>
+   <li><a href="#s3">銅線的三道極限<small>Copper's three limits</small></a></li>
+   <li><a href="#s4">光的三次逼近<small>Up, Out and Across</small></a></li>
+   <li><a href="#s5">一顆光模組的旅行<small>Journey of an optical module</small></a></li>
+   <li><a href="#s6">EML 與矽光：兩條路線<small>EML vs silicon photonics</small></a></li>
+   <li><a href="#s7">產業鏈權力地圖<small>Who holds the power</small></a></li>
+   <li><a href="#s8">可插拔的原罪與 CPO<small>Pluggables' sin, and CPO</small></a></li>
+   <li><a href="#s9">中間路線與標準之爭<small>The middle roads</small></a></li>
+   <li><a href="#s10">雷射雙雄暗戰<small>The laser duel</small></a></li>
+   <li><a href="#s11">資本市場的三重疑慮<small>Three doubts in the market</small></a></li>
+   <li><a href="#s12">泡沫的遺產<small>Legacy of a bubble</small></a></li>
+  </ol>
+ </nav>
+</header>
+
+<section id="s1">
+ <span class="ts">00:00</span>
+ <h2>黃仁勳的十一天<span class="en">Jensen's Eleven Days</span></h2>
+ <div class="zh">
+  <p>據影片所述，黃仁勳 <span class="num">11 月 12 日</span>突然辭職，<span class="num">11 天</span>後又回到英偉達。這 11 天裡，整個 AI 產業鏈像坐了一趟雲霄飛車，其中受衝擊最大的，是他過去一年親手推上風口的<strong>光通信</strong>。</p>
+  <p>光通信不像 GPU 那樣參與計算，卻能卡住 AI 的脖子。過去一年，英伟達向 Marvell、Lumentum、Coherent、康寧等公司投入了數十億美元，因為 GPU 越多、算力越強，連接它們的網路就越成為整個系統的瓶頸。廠商訂單排到 2028、2029 年，完全是賣方市場。</p>
+  <p><span class="num">11 月 2 日</span>，Marvell 宣布擬以 <span class="num">1,150 億美元</span>估值收購雷射器巨頭 Lumentum——若成功，將是科技史上最大併購。兩家公司的共同投資人正是英伟達：今年 3 月它各向兩家投了 <span class="num">20 億美元</span>。然而交易公布當天兩家股價雙雙重挫，隨後黃仁勳風波發酵，光通信前景一度黯淡。</p>
+ </div>
+ <div class="en-block">
+  <p>According to the video, Jensen Huang abruptly resigned on <b>November 12</b> and returned to NVIDIA eleven days later. Those eleven days sent the whole AI supply chain on a roller-coaster — none more than <b>optical communications</b>, the sector he had spent a year and billions of dollars championing.</p>
+  <p>Optics does no computing, yet it can choke AI. NVIDIA invested billions in Marvell, Lumentum, Coherent and Corning because the network linking GPUs is becoming the system's bottleneck; suppliers' order books now stretch to 2028–29. On November 2, Marvell announced a plan to acquire laser maker Lumentum at a <b>$115 billion</b> valuation — both companies having received $2 billion each from NVIDIA in March. Yet both stocks fell sharply on the news.</p>
+ </div>
+ <blockquote>「當一個舊技術還能苟延殘喘的時候，新技術是不會有太多發揮空間的。」<span>"While an old technology can still limp along, a new one has little room to shine." — interviewee</span></blockquote>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s2">
+ <span class="ts">02:45</span>
+ <h2>算力「撞牆」：GPU 越強，為何越需要光？<span class="en">Compute Hits the Wall</span></h2>
+ <div class="zh">
+  <p>影片先講了一個看似無關的故事：2015 年前後，甘肅、新疆戈壁上風電快速崛起，但特高壓輸電線跟不上，電發出來送不出去，甚至每發三度電就扔掉一度。今天的 AI 資料中心正重演這一幕——「發電廠」是 GPU，浪費的是算力，「電網」則是把成千上萬塊 GPU 連起來的<strong>互連</strong>。</p>
+  <p>訓練端：大模型必須攤到上萬塊 GPU 平行計算，不斷交換中間結果、同步參數，公開案例中 MFU（模型算力利用率）能做到 <span class="num">40–50%</span> 已算很高。推理端：推理模型與 AI Agent 的長鏈條推理、多輪工具呼叫讓 token 量暴增，大模型本身也得跨 GPU 部署；幾百張卡至少跨越 10 公尺以上，必然訴諸於光。</p>
+  <p>算一筆帳：從 2020 年的 A100 到 2024 年的 B200，同精度單卡算力漲了約 <span class="num">7 倍</span>，NVLink 頻寬卻只從 600 GB/s 漲到 1.8 TB/s，約 <span class="num">3 倍</span>。叢集規模又從幾百上千張卡擴大到上萬甚至數萬張——業界稱之為<strong>「通信牆」</strong>。</p>
+ </div>
+ <div class="en-block">
+  <p>The video opens with an analogy: around 2015, wind farms in Gansu and Xinjiang generated power the grid couldn't carry — up to a third was simply curtailed. AI data centers are replaying this, with GPUs as the power plants, wasted compute as the curtailed energy, and the <b>interconnect</b> as the grid.</p>
+  <p>Large training runs rarely exceed 40–50% MFU because thousands of GPUs must constantly exchange results; reasoning models and agents multiply token counts at inference too. From A100 (2020) to B200 (2024), per-GPU compute rose ~7× while NVLink bandwidth rose only ~3× (600 GB/s → 1.8 TB/s) — even as clusters grew to tens of thousands of GPUs. The industry calls it the "communication wall."</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s3">
+ <span class="ts">05:35</span>
+ <h2>距離、頻寬與功耗：銅線的三道極限<span class="en">Distance, Bandwidth, Power: Copper's Three Limits</span></h2>
+ <div class="zh">
+  <p>過去伺服器內與機櫃內的短距離互連大多用銅，便宜、成熟、穩定。英伟達 NVL72 機櫃裡 72 塊 GPU 的 NVLink 至今仍是全銅：<span class="num">5,000 多根</span>銅纜、總長超過<span class="num">兩英里</span>，密密麻麻塞在背板裡。但銅有三個繞不過的物理極限：</p>
+  <p><strong>一、距離</strong>：速率越高，銅能跑的距離越短；到每通道 200 Gb/s，有效距離只剩幾公尺，很多場景僅約兩公尺。<strong>二、頻寬</strong>：要讓每根銅線更快，就得不斷壓榨 SerDes 收發電路，每翻一倍都是苦功。<strong>三、功耗</strong>：速率越高、距離越長越耗電，而電恰恰是資料中心最稀缺的資源。再加上銅纜粗——當未來單 GPU 互連頻寬達到四五十 Tb/s，銅線實在插不下了。</p>
+  <p>光纖則完全不同：一根頭髮粗細的玻璃能承載極高頻寬，傳數公里損耗仍低，還能讓多種波長在同一根光纖裡並行不悖。</p>
+ </div>
+ <div class="en-block">
+  <p>Copper still rules short reach: NVIDIA's NVL72 rack uses 5,000+ copper cables, over two miles in total. But copper faces three physical limits — <b>distance</b> (at 200 Gb/s per lane, only ~2 m), <b>bandwidth</b> (each doubling squeezes ever-harder SerDes design), and <b>power</b> (the scarcest resource in a data center). Copper is also bulky; at tens of Tb/s per GPU, there's simply no room. A hair-thin glass fiber carries far more bandwidth over kilometers with low loss, and many wavelengths in parallel.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s4">
+ <span class="ts">07:29</span>
+ <h2>Scale Up、Out 與 Across：光的三次逼近<span class="en">Three Steps Toward the Chip</span></h2>
+ <div class="zh">
+  <p>影片把 AI 資料中心的連接分成三層：<strong>Scale Up</strong> 把一個或相鄰幾個機櫃的 GPU 連成緊密協同的「超級大腦」，對頻寬與延遲要求最高；<strong>Scale Out</strong> 透過叢集網路連接不同伺服器，跨機櫃、跨機房，光早已是主角；<strong>Scale Across</strong> 是資料中心之間的互連，例如 Meta 在路易斯安那規劃的超級園區，到這個尺度只有光能做。</p>
+  <p>趨勢是：光正從最外層一層層向晶片逼近，而 Scale Up 是頻寬最大、成長最快、所有爭論的引爆點。據 LightCounting，全球光模組及相關產品銷售額 2024 年達 <span class="num">154 億美元</span>，2025 年成長 <span class="num">74%</span> 至 <span class="num">268 億美元</span>。一個沉寂多年、在 2000 年泡沫中受重創的老行業，突然成了「天選之子」。光互連不再只是算力的成本項，甚至被視為算力本身——英伟達今年投出的 <span class="num">65 億美元</span>全部押在「光」與「連接」上。</p>
+ </div>
+ <div class="en-block">
+  <p><b>Scale Up</b> binds GPUs within a rack (or a few) into one "super-brain"; <b>Scale Out</b> links servers across racks and halls, where optics already dominates; <b>Scale Across</b> joins whole data centers, like Meta's Louisiana campus. Light is moving inward layer by layer, and Scale Up — the biggest, fastest-growing layer — is where the fight is. Per LightCounting, optical module sales hit $15.4B in 2024 and rose 74% to $26.8B in 2025. NVIDIA's $6.5B of investments this year went entirely to optics and connectivity.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s5">
+ <span class="ts">09:39</span>
+ <h2>一顆光模組的旅行：錢流向哪裡？<span class="en">The Journey of an Optical Module</span></h2>
+ <div class="zh">
+  <p>光模組負責把電訊號轉成光訊號：U 盤大小、金屬外殼、可插拔，像 1.6T OSFP DR8 這種高端型號售價上千美元。LightCounting 2025 年榜單中，全球前十名有<strong>七家是中國廠商</strong>，前兩名都是中國公司。但拆開這個小盒子，價值最高的晶片與光元件仍掌握在海外上游：美國的 DSP、美日的雷射器、英國的磊晶片、以色列的矽光代工。</p>
+  <p>起點是週期表上的<strong>銦和磷</strong>。矽天生不擅長發光——電子釋放能量多半變成熱；磷化銦則能高效地把能量以光子釋放。所以業內說：矽是最好的「計算材料」，磷化銦是天生的「發光材料」。</p>
+  <p>製程第一步是<strong>襯底</strong>（像樂高底板）：把銦和磷提純到近乎完美，在 1000 多度高溫下長出單晶柱再切片，晶體缺陷會延伸到後續各層，影響良率。第二步是<strong>磊晶</strong>：在襯底上「種」幾十層薄膜，關鍵層只有幾奈米厚，像奈米級千層餅；材料、爐溫、摻雜的參數組合就是磊晶廠最值錢的「配方」（IQE、聯亞光電、全新光電等，Lumentum 也自己做）。接著光刻、蝕刻、電極、測試，再切成比米粒還小的雷射晶片。</p>
+  <p>低速時代，雷射像手電筒，開是 1、關是 0。速率提高後，許多方案讓「發光」與「調制」分工：讓手電筒常亮（<strong>CW 光源</strong>），前面加一個極速開合的「快門」（調制器）。影片特別提醒：記住 CW 光源，它後面會從配角變主角。</p>
+ </div>
+ <div class="en-block">
+  <p>Seven of the world's top ten module makers in 2025 were Chinese — but the highest-value chips inside still come from the U.S. (DSPs), the U.S. and Japan (lasers), the U.K. (epiwafers) and Israel (silicon-photonics foundry). It all starts with <b>indium phosphide</b>: silicon is the best material for computing, InP the natural material for emitting light. The chain runs from ultra-pure InP substrates, to epitaxy — dozens of nanometer-thin layers whose "recipe" is each firm's crown jewel — to lithography, etching, testing and dicing into laser chips smaller than a grain of rice. At high speeds, light generation and modulation are split: a steady <b>continuous-wave (CW) laser</b> plus a fast "shutter" modulator. Remember CW — it becomes the star later.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s6">
+ <span class="ts">14:00</span>
+ <h2>EML 與矽光：兩條技術路線<span class="en">EML vs. Silicon Photonics</span></h2>
+ <div class="zh">
+  <p><strong>路線一：EML。</strong>既然手電筒和快門要天衣無縫，乾脆把 DFB 雷射器與 EAM 電吸收調制器長在同一顆磷化銦晶片上。光從產生到調制都不離開晶片，訊號乾淨、傳得遠，是高速中長距離的主流。難在製造：多層奈米薄膜要精確生長，兩套結構要嚴絲合縫，稍有差池就拉低良率甚至整片報廢。全球能穩定量產高端 EML 的公司「一隻手數得過來」，新產線要一兩年才能出貨——AI 需求一來，EML 立刻成為全鏈最緊的環節，訂單排到兩三年後。</p>
+  <p><strong>路線二：矽光。</strong>故事從英特爾開始：2000 年代末它發現伺服器間的銅線一過兩三公尺就功耗飆升，於是賭自己最擅長的——用 CMOS 工藝在矽片上直接「刻」出光路。波導、調制器、分光器都印在矽晶圓上，光源則外接一顆磷化銦 CW 雷射，再光學耦合封裝。好處是借助成熟半導體工藝量產：台積電已做到 300 mm 大晶圓，就像批發價和零售價，量越大成本越低。缺點是光源得外接、調制效率、光損耗、溫度敏感與耦合都不容易。</p>
+  <p>矽光裸片出來後，要與 CW 光源做光學對準、耦合與封裝，形成<strong>矽光引擎</strong>（一級封裝）。蘇州的<strong>天孚通信</strong>是這個環節繞不開的名字：營收只有下游組裝大廠的幾分之一，毛利率卻常年五成上下、巔峰近六成，遠高於旭創、新易盛。最後一站是組裝成完整光模組、裝殼、測試，插進交換機。</p>
+ </div>
+ <div class="en-block">
+  <p><b>EML</b> integrates a DFB laser and an electro-absorption modulator on one InP chip — clean signals, long reach, but brutally hard to make. Only a handful of firms can mass-produce high-end EMLs, and new lines take one to two years, so EML became the tightest link in the chain. <b>Silicon photonics</b>, pioneered by Intel, prints waveguides and modulators on silicon wafers with CMOS processes and attaches an external InP CW laser — scaling down cost like wholesale vs. retail on TSMC's 300 mm wafers. Precision packaging into a "silicon photonic engine" is where Suzhou's TFC Optical earns gross margins near 50–60%, far above the big module assemblers.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s7">
+ <span class="ts">20:04</span>
+ <h2>英特爾轉向之後：產業鏈權力地圖<span class="en">After Intel: The Power Map</span></h2>
+ <div class="zh">
+  <p>英特爾曾親自做光模組並一度擠進全球前十，但 2023 年把可插拔矽光收發模組業務交給代工巨頭捷普（Jabil），轉向矽光元件與新應用。推動矽光的主力變成每年大舉投資資料中心的雲端大廠；設計圖紙越來越多出自博通、Marvell，「印刷」則交給台積電、格芯、Tower。話語權從元件與組裝廠，向上游晶片設計巨頭與晶圓代工轉移。不過矽光與 EML 各有地盤，誰也淘汰不了誰——而且矽光再怎麼省，發光的光源仍得向磷化銦世界買。</p>
+ </div>
+ <table class="stack">
+  <thead><tr><th>環節 Segment</th><th>代表廠商 Representative players</th></tr></thead>
+  <tbody>
+   <tr><td>襯底 Substrate</td><td>AXT、住友 Sumitomo、IQE</td></tr>
+   <tr><td>磊晶 Epitaxy</td><td>IQE 等</td></tr>
+   <tr><td>雷射晶片 Lasers</td><td>Lumentum、Coherent</td></tr>
+   <tr><td>矽光設計 SiPh design</td><td>博通 Broadcom、Marvell、中際旭創</td></tr>
+   <tr><td>晶圓代工 Foundry</td><td>台積電 TSMC、Tower、格芯 GlobalFoundries</td></tr>
+   <tr><td>DSP「大腦」</td><td>博通、Marvell</td></tr>
+   <tr><td>光元件/封裝 Packaging</td><td>天孚通信 TFC</td></tr>
+   <tr><td>光模組 Modules</td><td>中際旭創 Innolight、新易盛 Eoptolink</td></tr>
+  </tbody>
+ </table>
+ <div class="en-block">
+  <p>Intel handed its pluggable silicon-photonics transceiver business to Jabil in 2023. Design power has since shifted to chip giants like Broadcom and Marvell, with TSMC, GlobalFoundries and Tower doing the "printing." The chain is long and no single company covers it end to end — but its biggest buyer, NVIDIA, is eyeing that thumb-drive-sized module with a plan to flip the table.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s8">
+ <span class="ts">23:01</span>
+ <h2>「光離晶片太遠了」：可插拔的原罪與 CPO<span class="en">"Light Is Too Far from the Chip"</span></h2>
+ <div class="zh">
+  <p>可插拔光模組像 U 盤插在交換機面板上，壞了拔下換一隻，簡單靈活好維護，統治行業二十多年，從 400G 一路衝到 800G、1.6T，接下來是 3.2T。但老黃看它不順眼很久了：資料從交換晶片出來，要以高速電訊號穿過電路板和連接器跑到面板，才轉成光。到每通道 200 Gb/s，英伟達給出的電訊號損耗最高約 <span class="num">22 dB</span>——強度衰減到一百多分之一，只能靠耗電大戶 DSP 把訊號「救回來」。</p>
+  <p>到 1.6T 這一代，可插拔模組功耗已達數十瓦量級。幾十萬顆 GPU 的資料中心裡，高速光連接可能達百萬級，吃掉幾十兆瓦的電，足以點亮一座小鎮。</p>
+  <p>解法就是 <strong>CPO（共封裝光學）</strong>：把光引擎從面板拆下，直接與交換晶片封裝在一起，十幾公分的銅走線縮短到毫米級；英伟達方案還能省掉 DSP retimer，光互連功耗降低約 <span class="num">七成</span>。在 Scale Out 戰場，英伟達 Spectrum‑X / Quantum‑X Photonics 與博通已短兵相接；市場更期待的是 Scale Up——SemiAnalysis 認為對 Scale Up 來說 CPO 遲早要上，問題只是何時、怎麼上。英伟達路線圖計劃在 <span class="num">2028 年</span> Feynman 世代引入 NVLink CPO。</p>
+ </div>
+ <div class="en-block">
+  <p>Pluggables have ruled for 20+ years because they're easy to swap. But the electrical path from switch chip to front panel loses up to ~22 dB at 200 Gb/s per lane, forcing power-hungry DSPs to recover the signal. At 1.6T, a module draws tens of watts; with up to a million links in a large AI data center, that's tens of megawatts — enough to light a small town. <b>Co-packaged optics (CPO)</b> moves the optical engine right beside the switch chip, shrinking the copper trace to millimeters, dropping the DSP retimer and cutting interconnect power by about 70%. NVIDIA plans NVLink CPO for Scale Up in its 2028 Feynman generation.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s9">
+ <span class="ts">27:08</span>
+ <h2>CPO 之外：中間路線與「標準之爭」<span class="en">Beyond CPO: The Middle Roads</span></h2>
+ <div class="zh">
+  <p>CPO 解決了一個問題，卻帶來另一個：<strong>維護</strong>。可插拔壞了幾分鐘就能換，CPO 封在基板上，替換一直是工程難題。於是圍繞功耗、密度與可維護性，業界發展出多條路線：</p>
+ </div>
+ <div class="spectrum">
+  <div><b>可插拔</b>最好換、生態最成熟；電路最長、最耗電</div>
+  <div><b>LPO</b>保留可插拔，拿掉 DSP；容錯空間更小</div>
+  <div><b>XPO</b>Arista 推動的高密度可插拔，靠新封裝與液冷</div>
+  <div><b>NPO</b>光引擎搬到晶片旁但不封死，仍可更換</div>
+  <div><b>CPO</b>與交換晶片共封裝；效率最高，維修最難</div>
+ </div>
+ <div class="axis"><span>← 易維護 easy to service</span><span>電訊號路徑更短、更省電 shorter path, less power →</span></div>
+ <div class="zh" style="margin-top:22px">
+  <p>英伟達也在給可插拔「續命」：今年 10 月它與思科公布 <strong>USFP</strong> 新設計，盒子差不多大，通道更多、更快，目標是把面板頻寬密度提高到現在的<span class="num">四倍</span>（仍在開發中）。</p>
+  <p>不同路線代表不同的利益：英伟達希望把交換晶片、網路和光引擎垂直整合，綁進自己的生態——「屁股決定腦袋」；雲端廠商則不願被單一供應商卡脖子：成本敏感、維護優先的地方用可插拔，追求低功耗試 LPO，兼顧兩者走 NPO，最高頻寬、最高密度的 AI 叢集才是 CPO 的主場。這也是今年 OFC（光纖通信大會）上熱鬧的不只是 CPO，而是一場「標準之爭」。最終結果可能不是誰消滅誰，而是長時間共存。</p>
+ </div>
+ <div class="en-block">
+  <p>CPO's weakness is serviceability. Hence a spectrum: <b>LPO</b> keeps the pluggable form but drops the DSP; <b>XPO</b> (pushed by Arista) packs pluggables denser with new packaging and liquid cooling; NVIDIA and Cisco's <b>USFP</b> (announced in October, still in development) targets 4× faceplate bandwidth; <b>NPO</b> puts the optical engine near the chip without sealing it in. NVIDIA wants vertical integration; cloud providers want to avoid lock-in. The likely outcome isn't one winner but long coexistence.</p>
+ </div>
+ <blockquote>「如果只是為了省點功耗，不會上 CPO……可插拔依然會是絕對意義上主流的主流。」<span>"Nobody adopts CPO just to save some power… pluggables will remain the mainstream of the mainstream." — interviewee</span></blockquote>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s10">
+ <span class="ts">32:08</span>
+ <h2>雷射雙雄暗戰：CPO 逼出的新考題<span class="en">The Laser Duel</span></h2>
+ <div class="zh">
+  <p>CPO 把一個原本藏在模組裡的東西推到聚光燈下：<strong>雷射器</strong>。交換 ASIC 是資料中心最大熱源之一，而雷射怕熱——溫度越高效率越低、壽命越短。於是出現有趣的變化：光引擎要儘量靠近晶片，雷射卻要離晶片遠一點。發光功能被單獨拆出，CW 光源從配角變主角，成為獨立外部光源，再經光纖送進各個 CPO 光引擎。</p>
+  <p>問題是：光模組廠原本就在排隊等 EML，訂單排到 2027 甚至 2028 年，現在 CPO 又要一套新的 CW 光源，產線不可能一鍵切換——這成了 CPO 量產的瓶頸。所以英伟達今年給 Lumentum 和 Coherent 各投 <span class="num">20 億美元</span>，提前鎖定供給。兩家路線不同：<strong>Lumentum</strong> 聚焦雷射與高端光元件；<strong>Coherent</strong> 更像全棧廠商，從磷化銦材料、雷射到矽光、光模組都有布局。若 Marvell 收購 Lumentum 成功，Lumentum 的雷射與 Marvell 的 DSP、高速互連晶片將歸於同一屋簷下。</p>
+  <p>勝負取決於<strong>產能</strong>，關鍵是晶圓尺寸：Coherent 已把磷化銦產線從 3 吋升級到 6 吋，每片可切晶片數翻兩番，單顆成本降六成以上，良率甚至反超 3 吋，擴產還提前一季。Lumentum 也在往 6 吋走：2026 年 3 月宣布在北卡羅來納州買下一座現成晶圓廠（英伟達是客戶），但要到 2028 年中才能爬產；目前它五座磷化銦廠滿載，出貨仍比需求少三成以上，缺口還在擴大。因此市場有說法：CPO 的大規模量產可能從 2027 延到 2028 甚至更久——要談的是每年百萬、千萬級的出貨量。</p>
+ </div>
+ <div class="en-block">
+  <p>Switch ASICs run hot and lasers hate heat, so CPO pulls the laser <i>out</i> as an external CW light source fed by fiber — creating demand for a whole new class of lasers when EML orders were already booked into 2027–28. That's why NVIDIA put $2B each into Lumentum (laser-focused) and Coherent (a full-stack player). The battle is capacity: Coherent's 6-inch InP line quadruples chips per wafer and cuts unit cost by over 60%; Lumentum bought a North Carolina fab in March 2026 but won't ramp it until mid-2028, and its five InP fabs still ship over 30% short of demand. Volume CPO may slip to 2028 or later.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s11">
+ <span class="ts">36:25</span>
+ <h2>資本市場的三重疑慮<span class="en">Three Doubts in the Market</span></h2>
+ <div class="zh">
+  <p>就在牌桌最熱的時候，資本市場潑來冷水：從 7 月起光模組板塊連續跳水，龍頭股一天可蒸發上千億。黃仁勳回歸當天整條 AI 產業鏈大漲，但產線、產品和訂單不會在一個交易日裡改變。影片把這輪下跌歸結為三層問題：</p>
+  <p><strong>第一層：資料中心還能否按原速建下去？</strong>11 月美國期中選舉讓資料中心的政策環境出現變數。在德州、喬治亞等投資重地，部分勝選者曾承諾暫停或加強審查新項目，稅收優惠也面臨重估；居民水電費、噪音與環境影響都可能成為重新談判的籌碼。項目延後一年，交換機與光模組的交付節奏就得跟著調，已擴產的供應商要承受更長的等待與資金佔用。</p>
+  <p><strong>第二層：即便照建，CPO 能多快用起來？</strong>SemiAnalysis 在 6 月 9 日發表報告《Powered Down, Lights Off》，認為 CPO 方向沒變，但市場把時間表算得太早，部分場景可能要等到 2028 甚至 2029 年。難點之一是對準：光波導陣列與光纖陣列必須一對一對準，容差只有 <span class="num">1 微米</span>，稍有形變就可能「脫落」。另一派聲音則指出上游已真金白銀備貨：摩根士丹利估算 CPO 對傳統光模組需求的影響，2027 年將從 3% 升到約 11%；中金在 OFC 調研後判斷可插拔、NPO 和 CPO 將長期共存，大規模切換要等到 2027–2028 年。</p>
+  <p><strong>第三層：政策風險——訂單會流向哪裡？</strong>據路透社 11 月 17 日報導，儘管亞馬遜、谷歌、Meta 反對，針對中國新型號光模組的進口限制方案仍在推進。中美早已深嵌於同一條產業鏈：全球約每三只光模組就有兩只來自中國廠商，而中國廠商又要採購博通、Marvell 的 DSP 與美日的雷射和光晶片。中國頭部廠商已在泰國等地布局海外製造。政策未必改變全球需求，更可能改變的是訂單由誰做、在哪做。</p>
+  <p>三層合起來：這輪下跌，一部分跌的是需求預期，一部分是時間，還有一部分是確定性。</p>
+ </div>
+ <div class="en-block">
+  <p>Optical stocks slid from July, at worst losing hundreds of billions of yuan in a day. The video names three causes. <b>Demand:</b> after the November U.S. midterms, some winners in Texas and Georgia pledged to pause or scrutinize new data-center projects, and tax incentives face review. <b>Timing:</b> SemiAnalysis's June 9 report "Powered Down, Lights Off" argued CPO's direction is right but the market's timeline is early — 1-micron alignment tolerances make volume hard — while Morgan Stanley sees CPO's share of module demand rising from 3% to ~11% in 2027, and CICC expects coexistence until a 2027–28 shift. <b>Policy:</b> Reuters reported on November 17 that proposed import curbs on new Chinese module models are advancing despite objections from Amazon, Google and Meta — yet about two of every three modules sold worldwide are Chinese, and Chinese makers are building plants in Thailand.</p>
+ </div>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<section id="s12">
+ <span class="ts">41:48</span>
+ <h2>泡沫的遺產：看對未來，與在對的時間抵達未來<span class="en">The Legacy of a Bubble</span></h2>
+ <div class="zh">
+  <p>2000 年網路泡沫最瘋狂時，光通信也是最炙手可熱的賽道。人人相信流量會爆炸，電信公司瘋狂融資、買設備、鋪光纖；泡沫破裂後無數公司倒下。回頭看，他們對方向的判斷沒錯——今天的流量遠超當年最瘋狂的預測——但很多公司賭對了終局，卻沒活到兌現。<strong>出問題的不是技術，而是時間。</strong></p>
+  <p>故事還有後半段：當年鋪下的海量光纖，很多直到泡沫破裂都沒傳過一次資料，業內稱為<strong>「暗光纖」</strong>。這時一家成立沒幾年的搜尋公司開始低價收購它們——那就是谷歌。它用泡沫留下的基礎設施搭起自己的全球網路，「過剩產能」終究等來了真正需要它的流量。</p>
+  <p>二十多年後，我們站在相似的路口，只是這次推動光通信的是 AI 算力。光從資料中心之間走進機房、機櫃，如今開始逼近晶片本身。CPO 何時普及？可插拔還能走多遠？那些數十億、上千億美元的投資能賺回多少？這些問題不會因黃仁勳離開而消失，也不會因他回歸就自動有答案。</p>
+ </div>
+ <div class="en-block">
+  <p>In 2000, telecoms raised fortunes to lay fiber for a traffic boom that did come — just too late for many of them. The problem wasn't the technology, it was the timing. Much of that fiber stayed "dark" until a young search company, Google, bought it cheaply and built its global network on it. Two decades later, AI is pushing light from between data centers into racks and now toward the chip itself. When CPO arrives, how long pluggables last, and whether today's billions pay back — none of this was settled by Jensen's departure, nor by his return.</p>
+ </div>
+ <blockquote>看對未來，和在正確的時間抵達未來，是兩回事。黃仁勳回來了，但光通信真正的考驗，才剛剛開始。<span>Seeing the future and arriving at it at the right time are two different things. Jensen is back — but optics' real test has only just begun.</span></blockquote>
+ <a class="back" href="#toc">↑ 回目錄</a>
+</section>
+
+<footer>
+ <p>本文整理自 YouTube 影片〈黄仁勋的“光”：详解AI算力背后的光通信产业链、英伟达赌注与技术博弈〉（硅谷101，2026-11-25）：<a href="https://www.youtube.com/watch?v=TYo20zW3MCo" target="_blank" rel="noopener">https://www.youtube.com/watch?v=TYo20zW3MCo</a>。文中數字與事件皆依影片陳述轉述，未經獨立查證。<br>
+ Summarized from the Silicon Valley 101 video above. Figures and events are as stated in the video and were not independently verified.</p>
+ <p><a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">← 老熊隨筆首頁 Lao Xiong home</a></p>
+</footer>
+</div>
+
+<div class="float">
+ <a href="#toc">回目錄</a>
+ <a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</div>
+
+<script>
+{
+ const h = location.hostname;
+ if (location.protocol === 'file:' || h.endsWith('github.io') || h === 'localhost') {
+  const f = document.createElement('iframe');
+  f.src = 'https://www.youtube.com/embed/TYo20zW3MCo';
+  f.title = '黃仁勳的「光」— 硅谷101';
+  f.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+  f.allowFullscreen = true;
+  document.getElementById('embed').appendChild(f);
+ }
+}
+</script>
+</body>
+</html>

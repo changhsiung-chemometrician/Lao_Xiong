@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>給我18分鐘，我給你10,000小時的Claude知識 — 完整重點整理</title>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --text: #1f2328;
+      --muted: #59636e;
+      --border: #d0d7de;
+      --accent: #d97757;
+      --accent-soft: #fdf3ef;
+      --beginner: #0969da;
+      --beginner-bg: #ddf4ff;
+      --inter: #8250df;
+      --inter-bg: #fbefff;
+      --adv: #1a7f37;
+      --adv-bg: #dafbe1;
+      --warn: #cf222e;
+      --warn-bg: #ffebe9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      margin: 0;
+      padding: 24px 16px 64px;
+    }
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .meta a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .meta a:hover { text-decoration: underline; }
+    #download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      transition: opacity 0.15s ease;
+      white-space: nowrap;
+    }
+    #download-btn:hover { opacity: 0.9; }
+    .overview {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.96rem;
+      margin-top: 12px;
+    }
+    .tier-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .tier-badge {
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .tier-beginner { background: var(--beginner-bg); color: var(--beginner); }
+    .tier-inter { background: var(--inter-bg); color: var(--inter); }
+    .tier-adv { background: var(--adv-bg); color: var(--adv); }
+    .tier-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .timestamp {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.82rem;
+      background: #f1f3f5;
+      color: #495057;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .plan-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: #eef2ff;
+      color: #3730a3;
+    }
+    .plan-paid {
+      background: #fff8c5;
+      color: #9a6700;
+    }
+    .grid-details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .detail-row {
+      font-size: 0.95rem;
+    }
+    .detail-label {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .mistake-box {
+      background: var(--warn-bg);
+      border-left: 3px solid var(--warn);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 12px;
+      font-size: 0.93rem;
+    }
+    .mistake-box strong {
+      color: var(--warn);
+    }
+    ul {
+      margin: 6px 0 6px 20px;
+      padding: 0;
+    }
+    li { margin-bottom: 4px; }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+    }
+    footer {
+      margin-top: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 26px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="top-bar">
+        <div>
+          <h1>給我18分鐘，我給你10,000小時的Claude知識</h1>
+          <div class="meta">
+            <span><strong>頻道：</strong>胡安An</span>
+            <span><strong>發布日期：</strong>2026-11-06</span>
+            <span><strong>片長：</strong>18 分 13 秒</span>
+            <span><a href="http://www.youtube.com/watch?v=nDxBGBKTJCI" target="_blank" rel="noopener">觀看原影片 ↗</a></span>
+          </div>
+        </div>
+        <a id="download-btn" download="claude_12_essential_tips_guide.html" href="#">⬇ 下載 HTML 檔案</a>
+      </div>
+      <div class="overview">
+        <strong>核心導讀 [00:00:00]：</strong>Claude 近期的功能更新幅度極大，許多幾個月前的教學都已過時。本指南依據 Anthropic 官方最新說明文件，將 12 個立即可用的實戰技巧分為<strong>初級（基礎設定與額度管理）</strong>、<strong>中級（深度脈絡與外部工具串接）</strong>與<strong>高級（瀏覽器自動化、排程與無程式碼開發）</strong>三個階段，並標註每個功能的設定路徑、應用範例、需避免的錯誤以及適用方案。
+      </div>
+    </header>
+
+    <!-- 初級 -->
+    <div class="tier-header">
+      <span class="tier-badge tier-beginner">初級（技巧 1 – 4）</span>
+      <h2>只需設定一次的基礎架構、提問習慣與額度控管</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">1. 註冊 Email 規劃與資料匯出意識</h3>
+        <div class="tags">
+          <span class="plan-tag">所有方案適用</span>
+          <span class="timestamp">[00:01:14]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">功能說明：</span>Claude 帳號綁定的 Email 無法直接更改。所有對話紀錄、記憶（Memory）、Projects、Skills 與已連結的應用程式都與該帳號深度綁定；若日後更換帳號並刪除舊帳號，所有資產都會一併消失。</div>
+        <div class="detail-row"><span class="detail-label">操作建議：</span>註冊前確認使用個人永久持有的信箱。若確實需要更換帳號，務必先依照官方說明匯出備份資料。</div>
+      </div>
+      <div class="mistake-box"><strong>避免錯誤：</strong>切勿使用未來可能失效的公司信箱或學校信箱註冊主力帳號。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">2. 30 秒全域個人偏好設定與三個高效提問習慣</h3>
+        <div class="tags">
+          <span class="plan-tag">所有方案適用</span>
+          <span class="timestamp">[00:02:00]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">設定路徑：</span>點擊左下角名字縮寫 → <code>Settings</code> → <code>Instructions for Claude</code>。</div>
+        <div class="detail-row"><span class="detail-label">設定內容（三要素）：</span>寫明「你是誰」、「你主要用 Claude 做什麼」以及「偏好的回答風格」（例如：一律使用繁體中文、金額以美金顯示、回答精簡並先列重點）。</div>
+        <div class="detail-row"><span class="detail-label">三個關鍵提問習慣 [00:02:36]：</span>
+          <ul>
+            <li><strong>提供真實具體背景：</strong>與其泛問行銷點子，不如具體說明「經營手工蠟燭網店、每月預算 100 美金、沒時間每天發文」。</li>
+            <li><strong>直接提供原始素材：</strong>不要只用文字描述，直接上傳 PDF、截圖、試算表或手寫筆記照片，讓 Claude 讀取完整細節並節省打字時間。</li>
+            <li><strong>任務前後的雙向確認：</strong>執行大型任務前加上「開始之前有任何需要知道的先問我」，避免 AI 自行猜測；完成後再請它對照原始需求檢查是否有遺漏。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">3. 跨平台記憶遷移（Memory Import）、記憶管理與語音設定</h3>
+        <div class="tags">
+          <span class="plan-tag">免費可用 / 歷史搜尋限付費</span>
+          <span class="timestamp">[00:03:25]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">設定路徑：</span><code>Settings</code> → <code>Memory</code> → 點擊 <code>Start import</code>。</div>
+        <div class="detail-row"><span class="detail-label">運作方式：</span>將 Claude 提供的提示詞貼到原本使用的 AI（如 ChatGPT），再把對方整理出的個人背景複製貼回 Claude。同時開啟 <code>Generate memory from chats</code> 讓 Claude 在日常對話中持續學習。</div>
+        <div class="detail-row"><span class="detail-label">進階應用與備份 [00:04:11]：</span>
+          <ul>
+            <li><strong>回憶搜尋（付費方案）：</strong>可直接要求 Claude 找出過去討論過特定主題（例如定價規劃）的對話，無需手動往上翻找。</li>
+            <li><strong>定期備份記憶：</strong>要求 Claude「把你對我的記憶一字不漏地寫出來」並另存檔案。</li>
+            <li><strong>語音輸入語言：</strong>前往 <code>Settings</code> → <code>General</code> → <code>Voice</code> → <code>Language</code> 確認支援語言（非英語系目前屬測試階段）。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mistake-box"><strong>注意細節：</strong>Claude 的記憶系統刻意設計為以「工作相關主題」為主，部分純私人生活細節在匯入時可能會被過濾，建議匯入後手動檢視並增刪。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">4. 模型分級與 Effort（思考強度）雙重節流策略</h3>
+        <div class="tags">
+          <span class="plan-tag">Haiku/Sonnet 免費 · Opus/Fable 付費</span>
+          <span class="timestamp">[00:04:47]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">四大模型定位：</span>
+          <ul>
+            <li><strong>Haiku：</strong>適合快速問答、重點摘要與清單分類。</li>
+            <li><strong>Sonnet：</strong>日常預設主力，適合一般寫作與分析。</li>
+            <li><strong>Opus（付費）：</strong>適合深度研究與高難度邏輯推理。</li>
+            <li><strong>Fable（付費）：</strong>適合超大型、長週期專案，會自主規劃步驟並自我檢查成果。</li>
+          </ul>
+        </div>
+        <div class="detail-row"><span class="detail-label">省額度黃金法則 [00:05:19]：</span>善用模型選單旁的 <code>Effort</code>（思考強度）控制項。一律先從 <strong>Sonnet + 預設 Effort</strong> 開始；簡單整理改用 Haiku + 低 Effort；僅在答案深度不足時才升級至 Opus 或調高 Effort。</div>
+      </div>
+      <div class="mistake-box"><strong>避免錯誤：</strong>切勿只為了修改錯字或潤飾一句話就開啟 Fable 搭配高 Effort，這會極快耗盡使用額度。</div>
+    </div>
+
+    <!-- 中級 -->
+    <div class="tier-header">
+      <span class="tier-badge tier-inter">中級（技巧 5 – 8）</span>
+      <h2>深度資訊檢索、工作區脈絡累積與外部應用串接</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">5. 精準選擇三種資訊獲取模式（搜尋、延伸思考、Research）</h3>
+        <div class="tags">
+          <span class="plan-tag plan-paid">Research 限付費方案</span>
+          <span class="timestamp">[00:06:10]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">三種模式比較：</span>
+          <ul>
+            <li><strong>網頁搜尋（Web Search）：</strong>適合查詢 1～2 次搜尋即可確認的即時事實。</li>
+            <li><strong>延伸思考（Extended Thinking）：</strong>不需連網但需要嚴密推演的任務（如數學計算、專案規劃、複雜決策），由 <code>Effort</code> 控制思考深度。</li>
+            <li><strong>深度研究（Research，付費）：</strong>點擊對話框 <code>+</code> 號啟用。會執行 5 次以上多輪檢索，耗時約 1～3 分鐘，產出附帶完整引用來源的分析報告。</li>
+          </ul>
+        </div>
+        <div class="detail-row"><span class="detail-label">跨應用研究技巧 [00:07:06]：</span>在網頁版或桌面版啟動 Research 時，可同步抓取已連結的 Gmail 與 Google Calendar 內部資料（手機版僅限搜尋公開網路）。由於 Research 消耗額度較快，建議用於「明確定義需求、手動整理需耗時一整個下午」的複雜調研（例如比較跨國網店三種最低成本收款方案的手續費、設定步驟與風險）。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">6. Projects 專屬工作區與知識庫建置</h3>
+        <div class="tags">
+          <span class="plan-tag">免費方案上限 5 個</span>
+          <span class="timestamp">[00:07:27]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">最新功能更新：</span>打破過去 Projects 無法讀取全域記憶的限制，現在 Projects 會同時結合「帳號全域記憶」與「專案獨立記憶」（若需完全隔離客戶資料，可在專案頁面關閉 <code>Use account memory</code>）。</div>
+        <div class="detail-row"><span class="detail-label">最佳實踐：</span>為每個客戶、課程或副業建立獨立 Project，上傳價目表、品牌指南、優質作品範例，或直接貼上 Google Drive 文件連結。專案專屬指示（Instructions）可直接開新對話請 Claude 透過提問幫你撰寫。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">7. 將重複性工作流程封裝為 Skills（專屬食譜）</h3>
+        <div class="tags">
+          <span class="plan-tag">需開啟程式執行權限</span>
+          <span class="timestamp">[00:08:37]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">核心概念：</span>Project 存放的是「背景資料」，而 Skill 存放的是「標準作業方法（SOP）」。不需要寫程式即可建立。</div>
+        <div class="detail-row"><span class="detail-label">建立與管理路徑：</span>先於設定開啟 <code>Code execution and file creation</code>；接著在對話中描述任務步驟、上傳輸出模板並回答 Claude 的問題，即可自動打包為 Skill，並於 <code>Customize</code> → <code>Skills</code> 進行管理與迭代測試。</div>
+        <div class="detail-row"><span class="detail-label">適用場景：</span>當你第二次複製貼上同一段長指令時就該做成 Skill，例如：固定品牌語氣的商品文案撰寫、特定術語表的繁中翻譯、依據價目表自動回覆客訴與詢價。</div>
+      </div>
+      <div class="mistake-box"><strong>安全提醒：</strong>切勿隨意安裝網路上來源不明的第三方 Skill，安裝前務必檢視其內部檔案，因為 Skill 內可能包含可執行程式碼。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">8. 外部服務連接器（Connectors）與 Excel 專屬外掛</h3>
+        <div class="tags">
+          <span class="plan-tag">基礎連接器免費 · Excel 外掛付費</span>
+          <span class="timestamp">[00:09:53]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">設定路徑：</span>對話框點擊 <code>+</code> → <code>Connectors</code>（或前往 <code>Customize</code> → <code>Connectors</code> 瀏覽 Slack、Notion 等完整目錄，僅需連接每天高頻使用的 2～3 個工具即可）。</div>
+        <div class="detail-row"><span class="detail-label">Google 生態系實戰能力：</span>
+          <ul>
+            <li><strong>Gmail：</strong>已從單純搜尋草擬升級為可直接寄信、回信與轉寄（預設寄出前均會暫停請求確認）。</li>
+            <li><strong>Google Calendar：</strong>可查詢所有與會者的共同空檔、新增移動行程並發送會議邀請。</li>
+            <li><strong>Google Drive：</strong>可搜尋閱讀 Docs、Sheets、Slides 與 PDF，並直接將生成檔案存入雲端硬碟。</li>
+          </ul>
+        </div>
+        <div class="detail-row"><span class="detail-label">Claude for Excel（付費）[00:11:03]：</span>於微軟外掛商店搜尋 <code>Claude for Microsoft 365</code> 安裝。可解釋複雜儲存格公式邏輯、排查 <code>#REF!</code> 錯誤原因，或直接建構帶有關聯公式的財務模型。</div>
+      </div>
+      <div class="mistake-box"><strong>安全雙重守則：</strong>(1) 授權寄信前務必親自審閱內文，因為寄件署名是你本人；(2) 僅在完全信任的試算表上啟用 Excel 外掛，防止陌生檔案隱藏惡意提示詞注入（Prompt Injection）。</div>
+    </div>
+
+    <!-- 高級 -->
+    <div class="tier-header">
+      <span class="tier-badge tier-adv">高級（技巧 9 – 12）</span>
+      <h2>瀏覽器自動化、離線排程、無程式碼開發與專業設計交付</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">9. Claude in Chrome 瀏覽器自動化操作</h3>
+        <div class="tags">
+          <span class="plan-tag plan-paid">限付費方案 · 桌面版 Chrome</span>
+          <span class="timestamp">[00:11:35]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">核心能力：</span>從 Chrome 線上應用程式商店安裝後，Claude 可直接讀取網頁、點擊按鈕、輸入文字、填寫表單，並在你指定的分頁群組間協同作業。</div>
+        <div class="detail-row"><span class="detail-label">應用範例與進階功能：</span>例如將包含 20 項新品規格的文件交給 Claude，自動逐一填入電商後台上架表單；支援將常用指令存為斜線捷徑（<code>/</code>）、透過時鐘圖示設定每日/每週自動執行網頁任務，或在經典版側邊欄錄製操作流程供 AI 重複執行。</div>
+      </div>
+      <div class="mistake-box"><strong>隱私與安全防護：</strong>側邊面板預設為 <code>Automatically approve</code> 模式會連續執行操作。啟動前務必關閉網路銀行與私人敏感分頁；若需登入網站，建議搭配測試中的 1Password 整合功能，避免讓 Claude 直接接觸密碼明文。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">10. Cowork 自主多步驟任務與 Computer Use（電腦操控）</h3>
+        <div class="tags">
+          <span class="plan-tag plan-paid">Pro / Max 方案 · 桌面版 App</span>
+          <span class="timestamp">[00:12:48]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">無縫整合架構：</span>Cowork 已不再需要手動切換獨立模式，系統會自動判斷你的指令是簡單問答還是複雜多步驟任務，並完整繼承你的 Memory、Projects、Skills 與 Connectors。</div>
+        <div class="detail-row"><span class="detail-label">本機檔案與電腦操控：</span>在桌面版 App 授權特定資料夾後，Claude 可直接讀寫與建立本機檔案（永久刪除前會先確認）。此外，可至 <code>Settings</code> → <code>Capabilities</code> 開啟測試版的 <code>Enable computer use</code>（支援 Mac 與 Windows），讓 Claude 操作電腦上的其他應用程式（系統預設封鎖股票交易與加密貨幣平台）。</div>
+      </div>
+      <div class="mistake-box"><strong>安全提醒：</strong>Computer Use 目前無沙盒（Sandbox）隔離保護，使用前請先關閉所有私人敏感視窗。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">11. 雲端排程任務（Scheduled Tasks）—— 關掉電腦也能自動執行</h3>
+        <div class="tags">
+          <span class="plan-tag plan-paid">Pro / Max 方案</span>
+          <span class="timestamp">[00:13:57]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">啟動方式：</span>輸入斜線指令 <code>/schedule</code> 或點擊側邊欄的 <code>Scheduled</code>。任務完全在雲端運行，即使合上筆電、關閉電腦仍會準時執行，並可透過手機 App 隨時查看進度或回覆確認。</div>
+        <div class="detail-row"><span class="detail-label">優質排程的四大要素：</span>設定時必須明確定義：(1) <strong>執行時間</strong>（如每週五下午 5 點）、(2) <strong>資料來源</strong>（去哪裡抓本週發票）、(3) <strong>處理動作</strong>、(4) <strong>產出存放位置</strong>（彙整進哪張試算表）。</div>
+        <div class="detail-row"><span class="detail-label">權限與測試建議 [00:14:30]：</span>先手動執行一次並修正錯誤後再加入排程；權限模式建議維持在 <code>Manual</code> 或 <code>Auto</code>，僅對百分之百信任的成熟任務使用 <code>Skip</code>。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">12. Claude Code 無程式碼工具開發與 Design / 辦公檔案生成</h3>
+        <div class="tags">
+          <span class="plan-tag">Code 限付費 · Design 與檔案生成全方案可用</span>
+          <span class="timestamp">[00:14:54]</span>
+        </div>
+      </div>
+      <div class="grid-details">
+        <div class="detail-row"><span class="detail-label">Claude Code 打造專屬軟體（付費）：</span>打開桌面版 App 切換至 <code>Code</code> 分頁，免開終端機、免安裝環境。選定資料夾後用自然語言描述需求（例如為副業打造客製化報價計算機），即可在內建瀏覽器預覽測試。
+          <ul>
+            <li><strong>Plan Mode：</strong>大型專案務必先切換至 <code>Plan mode</code> 審核架構藍圖，確認後再允許修改檔案；附上參考介面截圖效果遠勝純文字描述。</li>
+            <li><strong>遠端接力：</strong>可將工作階段送往雲端持續運行，或輸入 <code>/remote control</code> 在手機端無縫接續開發。</li>
+          </ul>
+        </div>
+        <div class="detail-row"><span class="detail-label">Claude Design 與一鍵辦公文件輸出（全方案可用）[00:16:15]：</span>
+          <ul>
+            <li><strong>互動式設計：</strong>透過對話要求設計或選擇 <code>Output</code> → <code>Design</code>，可產出可點擊的產品原型（Prototype）或網頁介面，支援匯出為 PDF、PowerPoint、Google Slides、HTML 或傳送至 Canva，亦能設定品牌設計系統（色票、字型、Logo），成熟後更可直接交給 Claude Code 轉化為正式產品。</li>
+            <li><strong>日常辦公檔案：</strong>開啟 <code>Code execution and file creation</code> 後，可直接生成可下載的 Excel、Word、PowerPoint 與 PDF（註：此功能專精於排版與文件，若需生成寫實照片請改用專用圖片生成工具）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <strong>行動建議總結 [00:17:31]：</strong>如果今天只能做一件事，請先花 10 分鐘完成<strong>初級（技巧 1～4）</strong>的基礎設定。這四項基礎會直接放大後續所有中高級自動化功能的效果，幫你省下大量重複溝通與試錯的時間。
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const btn = document.getElementById("download-btn");
+      if (btn) {
+        btn.href = URL.createObjectURL(blob);
+      }
+    })();
+  </script>
+</body>
+</html>
