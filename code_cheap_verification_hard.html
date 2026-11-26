@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>程式碼便宜，驗證很難 · Code Is Cheap, Verification Is Hard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calm, compact bilingual digest, a companion to the four-LLM lab note
+   IDEA: a production line whose bottleneck has moved from the "write" station to the "verify" station
+   PICTURE: hero diagram: wide cheap "write" pipe narrowing into a tight gold "verify" gate
+   COLOUR and TYPE: soft blue / deep navy, gold accents (never black); Noto Serif TC + Source Serif 4, bold, large
+   LAYOUT: one wide column; TOC, 中文 section, English section, back links, floating nav */
+:root{color-scheme:light dark;
+--bg:light-dark(#e3ecf8,#0f1d3d);
+--paper:light-dark(#f3f7fd,#16284f);
+--ink:light-dark(#13234a,#eef2fb);
+--soft:light-dark(#3d5286,#b9c7e8);
+--gold:light-dark(#9a6b00,#e6b84c);
+--blue:light-dark(#1f4fa3,#8fb4ff);
+--line:light-dark(#c4d3ec,#2c4278);
+--en:light-dark(#e9f0fb,#1b3060)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:24px;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:600 clamp(19px,2.3vw,27px)/1.75 "Noto Serif TC","Source Serif 4",serif;overflow-x:clip}
+.wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px) 120px}
+header{padding:clamp(36px,5vw,72px) 0 10px}
+.kicker{color:var(--gold);font-weight:800;font-size:.8em;margin:0 0 .4em}
+h1{font-weight:900;font-size:clamp(38px,5.6vw,72px);line-height:1.12;margin:0;text-wrap:balance}
+h1 .en{display:block;font-family:"Source Serif 4",serif;font-weight:800;font-size:.56em;color:var(--blue);margin-top:.25em}
+.meta{font-size:.68em;color:var(--soft);margin-top:1em;border-top:2px solid var(--gold);padding-top:.7em}
+.meta a{color:var(--blue)}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:12px;margin:24px 0}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:.66em;color:var(--soft);padding:6px 10px 2px;text-align:center}
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px clamp(18px,3vw,36px);margin:18px 0 6px}
+nav.toc h2{font-size:1em;margin:0 0 .3em;color:var(--gold)}
+nav.toc ol{margin:0;padding-left:1.6em}
+nav.toc li{margin:.2em 0;font-size:.85em}
+nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--line)}
+nav.toc a:hover{color:var(--blue)}
+a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+section{padding:36px 0 10px;border-bottom:1px solid var(--line)}
+h2.sec{font-weight:900;font-size:clamp(28px,3.6vw,46px);line-height:1.2;margin:0 0 .5em;text-wrap:balance}
+h2.sec small{display:block;font-family:"Source Serif 4",serif;font-weight:800;color:var(--blue);font-size:.6em;margin-top:.2em}
+.lead{margin:0 0 .8em}
+ol.pts{list-style:none;margin:0 0 1em;padding:0;display:grid;gap:12px}
+ol.pts li{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:0 14px 14px 0;padding:12px 20px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:baseline}
+ol.pts .n{font:800 1.1em "Source Serif 4",serif;color:var(--gold)}
+strong{font-weight:800;color:var(--blue)}
+.close{background:var(--paper);border:2px solid var(--gold);border-radius:18px;padding:16px clamp(18px,3vw,30px);margin:6px 0 0}
+.close p{margin:0}
+#en{font-family:"Source Serif 4","Noto Serif TC",serif}
+#en ol.pts li,#cicd-en ol.pts li{background:var(--en)}
+#cicd-en{font-family:"Source Serif 4","Noto Serif TC",serif;margin-top:28px;padding-top:22px;border-top:2px dashed var(--line)}
+.en-inline{font-family:"Source Serif 4",serif;color:var(--soft);font-size:.85em}
+ol.pts a{color:var(--blue)}
+.back{font-size:.68em;margin:14px 0 0;text-align:right}
+.back a{color:var(--gold);font-weight:800;text-decoration:none}
+.fnav{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:8px;z-index:9}
+.fnav a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:999px;background:var(--gold);color:var(--paper);font:800 15px "Noto Serif TC",serif;text-decoration:none;box-shadow:0 4px 14px rgba(10,25,60,.25)}
+@media(max-width:600px){ol.pts li{padding:10px 14px;gap:10px}.fnav a{font-size:13px;padding:0 12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header id="top">
+<p class="kicker">老熊隨筆 · 讀後摘要 · A Lao Xiong digest</p>
+<h1>程式碼便宜了，難的是驗證<span class="en">Code Is Cheap; Verification Is Hard</span></h1>
+<p class="meta">2026 年 11 月 26 日 · 依〈一個提示詞，四個模型〉合併版納德拉訪談整理 · Based on the consolidated Nadella story in “One Prompt, Four LLMs”</p>
+</header>
+
+<figure class="fig">
+<svg viewBox="0 0 1000 300" role="img" aria-label="瓶頸從「寫」移到「驗證」/ The bottleneck has moved from writing to verifying">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--gold)"/></marker></defs>
+<g font-family="Noto Serif TC, serif" font-weight="800" text-anchor="middle">
+<path d="M30 40H420C500 40 540 115 590 115V185C540 185 500 260 420 260H30Z" fill="var(--en)" stroke="var(--blue)" stroke-width="3"/>
+<text x="225" y="138" font-size="40" fill="var(--ink)">寫程式：便宜、大量</text>
+<text x="225" y="182" font-size="22" fill="var(--soft)" font-family="Source Serif 4, serif">Generation: cheap and plentiful</text>
+<rect x="594" y="95" width="200" height="110" rx="16" fill="var(--gold)"/>
+<text x="694" y="148" font-size="36" fill="var(--paper)">驗證</text>
+<text x="694" y="184" font-size="22" fill="var(--paper)" font-family="Source Serif 4, serif">Verify</text>
+<path d="M798 150H860" stroke="var(--gold)" stroke-width="5" marker-end="url(#ar)"/>
+<rect x="866" y="105" width="114" height="90" rx="14" fill="var(--blue)"/>
+<text x="923" y="148" font-size="30" fill="var(--paper)">信任</text>
+<text x="923" y="178" font-size="19" fill="var(--paper)" font-family="Source Serif 4, serif">Trust</text>
+</g>
+</svg>
+<figcaption>瓶頸已從「寫」移到「證明對」· The bottleneck has moved from writing code to proving it right</figcaption>
+</figure>
+
+<nav class="toc" id="toc">
+<h2>目錄 · Contents</h2>
+<ol>
+<li><a href="#zh">中文摘要</a></li>
+<li><a href="#en">English summary</a></li>
+<li><a href="#cicd">附註：什麼是 CI/CD？ · Note: What is CI/CD?</a></li>
+</ol>
+</nav>
+
+<section id="zh">
+<h2 class="sec">中文摘要<small>Chinese summary</small></h2>
+<p class="lead">AI 把軟體工程的瓶頸，從「寫」移到了「證明對」。</p>
+<ol class="pts">
+<li><span class="n">一</span><span><strong>規格先行：</strong>程式碼成為輸出，意圖與設計文件才是核心；規格模糊，只會更快產出錯誤程式。</span></li>
+<li><span class="n">二</span><span><strong>軟體工廠內建驗證：</strong>任務切小，失敗轉成測試，用不同模型家族互審，生產日誌回流形成可驗證閉環。</span></li>
+<li><span class="n">三</span><span><strong>可靠勝過聰明：</strong>決策引擎要像資料庫一樣無聊、可預測。</span></li>
+<li><span class="n">四</span><span><strong>棕地最難：</strong>改既有系統，卡在建置與 <a href="#cicd">CI/CD</a>。</span></li>
+<li><span class="n">五</span><span><strong>信任架構：</strong>權限與智能分開，思維鏈可稽核，私有評估優先。</span></li>
+</ol>
+<div class="close"><p>本頁本身即是例證：三份答卷交叉比對，抓出 Gemini 的誇大。流暢不等於忠實，信任才是新的成本。</p></div>
+<p class="back"><a href="#toc">↑ 回目錄</a></p>
+</section>
+
+<section id="en">
+<h2 class="sec">English Summary<small>英文摘要</small></h2>
+<p class="lead">AI has moved software engineering’s bottleneck from <em>writing</em> code to <em>proving it’s right</em>.</p>
+<ol class="pts">
+<li><span class="n">1</span><span><strong>Spec first.</strong> Code is now an output, so intent and design docs are the core work. A fuzzy spec just produces wrong code faster.</span></li>
+<li><span class="n">2</span><span><strong>Build verification into the factory.</strong> Keep tasks small, turn failures into tests, and review with a different model family. Feed production logs back in to close a verifiable loop.</span></li>
+<li><span class="n">3</span><span><strong>Reliable beats brilliant.</strong> Decision engines should be as boring and predictable as a database.</span></li>
+<li><span class="n">4</span><span><strong>Brownfield is hardest.</strong> Changing existing systems gets stuck at build and <a href="#cicd">CI/CD</a>.</span></li>
+<li><span class="n">5</span><span><strong>Trust architecture.</strong> Keep permissions separate from intelligence, keep reasoning auditable, and put private evals first.</span></li>
+</ol>
+<div class="close"><p>The source page itself proves the point. Cross-checking the three papers caught Gemini’s overstatement. Fluent isn’t faithful, and trust is the new cost.</p></div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+<section id="cicd">
+<h2 class="sec">附註：什麼是 CI/CD？<small>Note: What Is CI/CD?</small></h2>
+<p class="lead"><strong>CI/CD</strong> ＝ 持續整合／持續交付（或持續部署）<span class="en-inline">· Continuous Integration / Continuous Delivery (or Deployment)</span>：把程式碼變更一路自動送上線的流水線。</p>
+<ol class="pts">
+<li><span class="n">CI</span><span><strong>持續整合：</strong>每次提交程式碼，系統自動建置並執行測試，幾分鐘內就抓出錯誤，不讓問題累積。</span></li>
+<li><span class="n">CD</span><span><strong>持續交付／部署：</strong>通過的程式碼自動打包、送到測試或正式環境。「交付」在上線前停下等人核准；「部署」則全自動上線。</span></li>
+</ol>
+<div class="close"><p><strong>與納德拉論點的關係：</strong>CI/CD 就是驗證真正發生的地方。AI 寫程式便宜了，這條建置、測試、檢查的流水線，就是決定什麼能安全上線的關卡。在 Windows 這類棕地系統，流水線老舊、龐大、緩慢，於是成了瓶頸。</p></div>
+<p class="lead" style="margin-top:.8em">化學計量學的類比：像一條自動品管線，每個新校正模型都要先用標準樣品驗證，才准裝上儀器。</p>
+
+<div id="cicd-en">
+<p class="lead"><strong>CI/CD</strong> stands for <strong>Continuous Integration / Continuous Delivery (or Deployment)</strong>: the automated pipeline that takes a code change all the way to production.</p>
+<ol class="pts">
+<li><span class="n">CI</span><span><strong>Continuous Integration:</strong> each commit is automatically built and tested, so errors are caught within minutes instead of piling up.</span></li>
+<li><span class="n">CD</span><span><strong>Continuous Delivery/Deployment:</strong> code that passes is automatically packaged and released to staging or production. Delivery stops for a human to approve; Deployment ships with no manual step.</span></li>
+</ol>
+<div class="close"><p><strong>Why it matters for Nadella’s point:</strong> CI/CD is where verification actually happens. When AI writes code cheaply, the pipeline of builds, tests and checks is the gate that decides what’s safe to ship. In brownfield systems like Windows, that pipeline is old, huge and slow, so it becomes the bottleneck.</p></div>
+<p class="lead" style="margin-top:.8em">Chemometrics analogy: an automated QC line, where every new calibration model is validated against reference samples before it’s allowed onto the instrument.</p>
+</div>
+<p class="back"><a href="#toc">↑ 回目錄 · Contents</a></p>
+</section>
+
+</div>
+
+<nav class="fnav" aria-label="快速導覽">
+<a href="#toc">回目錄</a>
+<a href="https://changhsiung-chemometrician.github.io/Lao_Xiong/">回首頁</a>
+</nav>
+</body>
+</html>
