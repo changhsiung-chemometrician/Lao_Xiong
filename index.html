@@ -167,12 +167,13 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 <p class="eyebrow">精選外刊 · 隨筆 · 復盤</p>
 <h1 class="title">老熊隨筆<span class="seal">熊</span></h1>
 <p class="standfirst">寫程式的人寫字。化學計量學、矽谷、數學界的八卦，以及一些不值錢卻捨不得丟的往事。</p>
-<p class="toolbar"><span>全 168 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十六個分區</span><span class="dot">·</span><span>最近更新 2026.11.26</span></p>
+<p class="toolbar"><span>全 169 篇</span><span class="dot">·</span><span>另收 MATLAB 檔案 103 個、Python 檔案 3 個</span><span class="dot">·</span><span>十六個分區</span><span class="dot">·</span><span>最近更新 2026.11.26</span></p>
 <nav class="sitenav" id="lx-sections" aria-label="分區目錄">
 <details class="lxsec">
-<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">31</span><span class="caret" aria-hidden="true">▾</span></summary>
+<summary>後 AI 時代<span class="en2">Post-AI Era</span><span class="n">32</span><span class="caret" aria-hidden="true">▾</span></summary>
 <div class="panel">
 <a class="jump" href="#houai">前往本區　↓</a>
+<a href="code_cheap_verification_hard.html">程式碼便宜了，難的是驗證 — 納德拉訪談讀後摘要（附：什麼是 CI/CD？）<span class="lab">新・中英摘要</span></a>
 <a href="four_llms_nadella_story.html">一個提示詞，四個模型 — 同一部影片，四份答卷（納德拉談代碼變便宜之後）<span class="lab">新・中英對照・四模型對考</span></a>
 <a href="riemann_claude_lean_story_Gemini_Claude.html">167 年後，一條金線上的零點 — Claude、Lean 與黎曼猜想<span class="lab">新・兩稿合併・互動圖</span></a>
 <a href="ai_nine_types_2036.html">代溝的第二個維度：十年後的九種人生 — 三代人 × 三種 AI 用法<span class="lab">新・九格改寫・附圖表</span></a>
@@ -457,14 +458,25 @@ nav.sitenav{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 0;padding:0;posit
 </nav>
 </header>
 
-<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">31 篇</span></h2>
+<h2 class="section" id="houai">後 AI 時代<span class="en">（Post-AI Era）</span><span class="count">32 篇</span></h2>
 <p class="section-note">答案變便宜之後：教育、數學、政策，以及人還剩下什麼</p>
+
+<article class="entry">
+<h3 class="headline"><a href="code_cheap_verification_hard.html">程式碼便宜了，難的是驗證 — Code Is Cheap, Verification Is Hard：納德拉訪談讀後摘要 <span class="tag">新・中英摘要</span></a></h3>
+<p class="meta"><time class="date">2026.11.26</time><span class="chip">AI</span><span class="chip">納德拉</span><span class="chip">軟體工程</span><span class="chip">驗證</span><span class="chip">CI/CD</span><span class="chip">中英對照</span><span class="chip">讀後摘要</span></p>
+<p class="deck">〈一個提示詞，四個模型〉合併版的一頁濃縮：AI 把軟體工程的瓶頸，從「寫」移到了「證明對」。五點——規格先行，規格模糊只會更快產出錯誤程式；軟體工廠內建驗證，任務切小、失敗轉成測試、用不同模型家族互審；可靠勝過聰明，決策引擎要像資料庫一樣無聊；棕地最難，改既有系統卡在建置與 CI/CD；信任架構，權限與智能分開、思維鏈可稽核、私有評估優先。附註一節解釋 CI/CD 是什麼，並用化學計量學類比：每個新校正模型都要先用標準樣品驗證，才准裝上儀器。流暢不等於忠實，信任才是新的成本。</p>
+<p class="deck">延伸：完整的四模型對考與合併版雙語故事，見〈<a href="four_llms_nadella_story.html">一個提示詞，四個模型</a>〉（本區）。</p>
+<div class="tools">
+<a class="read" href="code_cheap_verification_hard.html">閱讀</a>
+<button class="copy" data-file="code_cheap_verification_hard.html">複製連結</button>
+</div>
+</article>
 
 <article class="entry">
 <h3 class="headline"><a href="four_llms_nadella_story.html">一個提示詞，四個模型 — 同一部影片，四份答卷：納德拉談「代碼變便宜之後的軟體工程」 <span class="tag">新・中英對照・四模型對考</span></a></h3>
 <p class="meta"><time class="date">2026.11.26</time><span class="chip">AI</span><span class="chip">納德拉</span><span class="chip">軟體工程</span><span class="chip">驗證</span><span class="chip">Claude</span><span class="chip">Gemini</span><span class="chip">Meta AI</span><span class="chip">GPT</span><span class="chip">中英對照</span><span class="chip">視頻整理</span></p>
 <p class="deck">同一句提示詞、同一個 YouTube 網址，分別交給 Claude、Gemini、Meta AI 與 GPT：「抽出影片內容，寫成中英雙語 HTML 故事。」三個交卷，GPT 交了白卷；交卷的三份長短懸殊——Claude 12 章、Meta 9 章、Gemini 6 章。交叉比對抓出一處明顯誇大（「微軟已暫停初級招聘」）與兩處待查的出入：文筆越流暢，不代表越忠實。第二部以 Claude 的 12 章為骨架，補進 Meta 的獨家細節，只留 Gemini 有旁證的內容，每章標出處，合成一篇完整雙語故事：納德拉談決策引擎、軟體工廠、棕地現實與「回到學校」。考法本身正好印證他的主張——程式碼便宜了，難的是驗證，而且要讓不同的模型家族互相審查。</p>
-<p class="deck">延伸：兩位 AI 考生的上一場對考，見〈<a href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">同一道題，兩位 AI 考生</a>〉（本區）。</p>
+<p class="deck">延伸：一頁讀完的中英摘要，見〈<a href="code_cheap_verification_hard.html">程式碼便宜了，難的是驗證</a>〉；兩位 AI 考生的上一場對考，見〈<a href="%E5%90%8C%E4%B8%80%E9%81%93%E9%A1%8C%E5%85%A9%E4%BD%8DAI%E8%80%83%E7%94%9F_Claude_vs_GPT.html">同一道題，兩位 AI 考生</a>〉（本區）。</p>
 <div class="tools">
 <a class="read" href="four_llms_nadella_story.html">閱讀</a>
 <button class="copy" data-file="four_llms_nadella_story.html">複製連結</button>
